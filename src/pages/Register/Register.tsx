@@ -9,6 +9,7 @@ import { schema, Schema } from 'src/utils/rules'
 import { registerAccount } from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ResponeApi } from 'src/types/utils.type'
+import { url } from 'inspector'
 
 type FormData = Schema
 
@@ -47,106 +48,123 @@ export default function Register() {
   })
 
   return (
-    <div className='main-session--dark'>
+    <div
+      className='bg-cover'
+      style={{
+        backgroundImage: `url("https://images.unsplash.com/photo-1526066843114-f1623fde3476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80")`
+      }}
+    >
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
-          <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
+        <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
+          <div className='md:col-start-2 md:col-end-6 lg:col-span-4 lg:col-end-7'>
+            <form className='rounded bg-white p-5 shadow-sm md:p-10' onSubmit={onSubmit} noValidate>
               <div className='text-center text-2xl'>Register</div>
 
-              <Input
-                name='name'
-                register={register}
-                type='text'
-                className='mt-8'
-                errorMessage={errors.name?.message}
-                labelName='Full name'
-                required
-                pathData={
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z'
+              <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x'>
+                <div className='xl:mr-8'>
+                  <div className='text-lg'>Account</div>
+                  <Input
+                    name='email'
+                    register={register}
+                    type='text'
+                    className='mt-4'
+                    errorMessage={errors.email?.message}
+                    labelName='Email address'
+                    required
+                    svgData={
+                      <>
+                        <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />
+                        <path d='M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z' />
+                      </>
+                    }
                   />
-                }
-              />
 
-              <Input
-                name='phone'
-                register={register}
-                type='text'
-                className='mt-2'
-                errorMessage={errors.phone?.message}
-                labelName='Phone number'
-                required
-                pathData={
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z'
+                  <Input
+                    name='password'
+                    register={register}
+                    type='password'
+                    className='mt-3'
+                    errorMessage={errors.password?.message}
+                    autoComplete='on'
+                    labelName='Password'
+                    required
+                    isPasswordInput
+                    svgData={
+                      <path
+                        fillRule='evenodd'
+                        d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
+                        clipRule='evenodd'
+                      />
+                    }
                   />
-                }
-              />
 
-              <Input
-                name='email'
-                register={register}
-                type='email'
-                className='mt-4'
-                errorMessage={errors.email?.message}
-                labelName='Email address'
-                required
-                pathData={
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'
+                  <Input
+                    name='confirm_password'
+                    register={register}
+                    type='password'
+                    className='mt-3'
+                    errorMessage={errors.confirm_password?.message}
+                    autoComplete='on'
+                    labelName='Confirm password'
+                    required
+                    isPasswordInput
+                    svgData={
+                      <path
+                        fillRule='evenodd'
+                        d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
+                        clipRule='evenodd'
+                      />
+                    }
                   />
-                }
-              />
+                </div>
 
-              <Input
-                name='password'
-                register={register}
-                type='password'
-                className='mt-2'
-                errorMessage={errors.password?.message}
-                autoComplete='on'
-                labelName='Password'
-                required
-                pathData={
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'
+                <div className='mt-8 xl:mt-0 xl:pl-8'>
+                  <div className='text-lg'>Personal information</div>
+                  <Input
+                    name='name'
+                    register={register}
+                    type='text'
+                    className='mt-4'
+                    errorMessage={errors.name?.message}
+                    labelName='Name'
+                    required
+                    svgData={
+                      <path
+                        fillRule='evenodd'
+                        d='M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z'
+                        clipRule='evenodd'
+                      />
+                    }
                   />
-                }
-              />
 
-              <Input
-                name='confirm_password'
-                register={register}
-                type='password'
-                className='mt-2'
-                errorMessage={errors.confirm_password?.message}
-                autoComplete='on'
-                labelName='Confirm password'
-                required
-                pathData={
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'
+                  <Input
+                    name='phone'
+                    register={register}
+                    type='text'
+                    className='mt-3'
+                    errorMessage={errors.phone?.message}
+                    labelName='Phone number'
+                    required
+                    svgData={
+                      <path
+                        fillRule='evenodd'
+                        d='M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z'
+                        clipRule='evenodd'
+                      />
+                    }
                   />
-                }
-              />
+                </div>
+              </div>
 
               <div className='mt-2'>
-                <button className='text-l w-full bg-black px-2 py-4 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color'>
+                <button
+                  type='submit'
+                  className='text-l w-full rounded-md bg-black px-2 py-3 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color md:py-4'
+                >
                   Sign up
                 </button>
               </div>
-              <div className='mt-8 flex justify-center text-center'>
+              <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
                 <span className='text-gray-400'>Already have an account?</span>
                 <Link className='ml-2 text-hareta_color' to='/login'>
                   Login

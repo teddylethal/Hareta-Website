@@ -53,11 +53,16 @@ export default function Login() {
   })
 
   return (
-    <div className='bg-white dark:bg-dark_theme'>
+    <div
+      className='bg-cover bg-center'
+      style={{
+        backgroundImage: `url("https://images.unsplash.com/photo-1500534623283-312aade485b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80")`
+      }}
+    >
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
-          <div className='lg:col-span-2 lg:col-start-4'>
-            <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
+        <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
+          <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
+            <form className='rounded bg-white p-5 shadow-sm md:p-10' onSubmit={onSubmit} noValidate>
               <div className='text-center text-2xl'>Login</div>
 
               {/* <div className='mt-8'>
@@ -101,12 +106,11 @@ export default function Login() {
                 errorMessage={errors.email?.message}
                 labelName='Email'
                 required
-                pathData={
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'
-                  />
+                svgData={
+                  <>
+                    <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />
+                    <path d='M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z' />
+                  </>
                 }
               />
 
@@ -118,24 +122,27 @@ export default function Login() {
                 errorMessage={errors.password?.message}
                 labelName='Password'
                 required
-                pathData={
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'
-                  />
+                isPasswordInput
+                svgData={
+                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' className='h-6 w-6'>
+                    <path
+                      fillRule='evenodd'
+                      d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
                 }
               />
 
               <div className='mt-3'>
                 <button
                   type='submit'
-                  className='text-l w-full rounded-md bg-black px-2 py-4 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color'
+                  className='text-l w-full rounded-md bg-black px-2 py-3 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color md:py-4'
                 >
                   Sign in
                 </button>
               </div>
-              <div className='mt-8 flex justify-center text-center'>
+              <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>
                 <Link className='ml-2 text-hareta_color' to='/register'>
                   Sign up
