@@ -21,7 +21,7 @@ interface Props {
   register: UseFormRegister<any>
   rules?: RegisterOptions
   autoComplete?: string
-  iconData: ReactNode
+  pathData?: ReactNode
   labelName: string
   required?: boolean
 }
@@ -60,10 +60,10 @@ export default function Input({
   className,
   errorMessage,
   rules,
-  autoComplete,
   labelName,
-  iconData,
-  required
+  pathData,
+  autoComplete = 'off',
+  required = false
 }: Props) {
   const inputId = useId()
 
@@ -74,7 +74,18 @@ export default function Input({
           'group relative mx-0 mt-6 h-12 w-full border-b-2 ' + (errorMessage ? 'border-red-500' : 'border-black')
         }
       >
-        <span className='absolute right-2 top-1/2 -translate-y-1/2 text-white'>{iconData}</span>
+        <span className='absolute right-2 top-1/2 -translate-y-1/2 fill-red-500 text-white'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            fill='black'
+            viewBox='0 0 24 24'
+            strokeWidth={1.5}
+            stroke='currentColor'
+            className='h-6 w-6'
+          >
+            {pathData}
+          </svg>
+        </span>
         <input
           type={type}
           id={inputId}

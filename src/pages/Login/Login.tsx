@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { loginAccount } from 'src/apis/auth.api'
 import Input from 'src/components/Input'
+import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import { ResponeApi } from 'src/types/utils.type'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
@@ -34,16 +35,14 @@ export default function Login() {
         if (isAxiosBadRequestError<ResponeApi<FormData>>(error)) {
           const formError = error.response?.data
           if (formError) {
-            const errorKey = formError.error_key
-            if (errorKey === 'ErrUsernameOrPasswordInvalid') {
-              setError('password', {
-                message: formError.message,
+            const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
+            if (errorRespone) {
+              setError('email', {
+                message: errorRespone.error_message,
                 type: 'Server'
               })
-            }
-            if (errorKey === 'ErruserNotFound') {
-              setError('email', {
-                message: formError.message,
+              setError('password', {
+                message: ' ',
                 type: 'Server'
               })
             }
@@ -59,7 +58,7 @@ export default function Login() {
         <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
           <div className='lg:col-span-2 lg:col-start-4'>
             <form className='rounded bg-white p-10 shadow-sm' onSubmit={onSubmit} noValidate>
-              <div className='text-2xl'>Login</div>
+              <div className='text-center text-2xl'>Login</div>
 
               {/* <div className='mt-8'>
                 <div className='group relative mx-0 my-8 h-12 w-full border-b-2 border-black'>
@@ -102,21 +101,12 @@ export default function Login() {
                 errorMessage={errors.email?.message}
                 labelName='Email'
                 required
-                iconData={
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='black'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='h-6 w-6'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'
-                    />
-                  </svg>
+                pathData={
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'
+                  />
                 }
               />
 
@@ -124,32 +114,23 @@ export default function Login() {
                 name='password'
                 register={register}
                 type='password'
-                className='mt-2'
+                className='mt-3'
                 errorMessage={errors.password?.message}
                 labelName='Password'
                 required
-                iconData={
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='black'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='h-6 w-6'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'
-                    />
-                  </svg>
+                pathData={
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z'
+                  />
                 }
               />
 
-              <div className='mt-2'>
+              <div className='mt-3'>
                 <button
                   type='submit'
-                  className='text-l w-full bg-black px-2 py-4 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color'
+                  className='text-l w-full rounded-md bg-black px-2 py-4 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color'
                 >
                   Sign in
                 </button>
