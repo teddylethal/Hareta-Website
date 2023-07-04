@@ -1,8 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+import { ThemeContext } from 'src/App'
 import { loginAccount } from 'src/apis/auth.api'
+import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import { ResponeApi } from 'src/types/utils.type'
@@ -52,18 +55,28 @@ export default function Login() {
     })
   })
 
+  const { theme } = useContext(ThemeContext)
+
   return (
     <div
-      className='bg-cover bg-center'
+      className='mt-16 bg-cover bg-center duration-500'
       style={{
-        backgroundImage: `url("https://images.unsplash.com/photo-1500534623283-312aade485b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80")`
+        backgroundImage: `url(${
+          theme === 'dark'
+            ? 'https://images.unsplash.com/photo-1526066843114-f1623fde3476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
+            : 'https://images.unsplash.com/photo-1470803233534-acd0cc85f275?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1148&q=80'
+        })`
       }}
     >
       <div className='container'>
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
-            <form className='rounded bg-white p-5 shadow-sm md:p-10' onSubmit={onSubmit} noValidate>
-              <div className='text-center text-2xl'>Login</div>
+            <form
+              className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 dark:bg-[#222222] md:p-10'
+              onSubmit={onSubmit}
+              noValidate
+            >
+              <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Login</div>
 
               {/* <div className='mt-8'>
                 <div className='group relative mx-0 my-8 h-12 w-full border-b-2 border-black'>
@@ -124,27 +137,26 @@ export default function Login() {
                 required
                 isPasswordInput
                 svgData={
-                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' className='h-6 w-6'>
-                    <path
-                      fillRule='evenodd'
-                      d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
+                  <path
+                    fillRule='evenodd'
+                    d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
+                    clipRule='evenodd'
+                  />
                 }
               />
 
               <div className='mt-3'>
-                <button
+                <Button text='Sign in' />
+                {/* <button
                   type='submit'
-                  className='text-l w-full rounded-md bg-black px-2 py-3 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color md:py-4'
+                  className='text-l text-text_color w-full rounded-md bg-black px-2 py-3 text-center uppercase hover:bg-gray-800 hover:text-haretaColor md:py-4'
                 >
                   Sign in
-                </button>
+                </button> */}
               </div>
               <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>
-                <Link className='ml-2 text-hareta_color' to='/register'>
+                <Link className='ml-2 text-haretaColor' to='/register'>
                   Sign up
                 </Link>
               </div>

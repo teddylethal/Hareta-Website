@@ -73,10 +73,18 @@ export default function Input({
   return (
     <div className={className}>
       <div
-        className={'relative mx-0 mt-6 h-12 w-full border-b-2 ' + (errorMessage ? 'border-red-500' : 'border-black')}
+        className={
+          'relative mx-0 mt-6 h-12 w-full border-b-2 duration-500 dark:border-vintageColor ' +
+          (errorMessage ? 'border-red-500' : 'border-black')
+        }
       >
         <span className='absolute right-2 top-1/2 -translate-y-1/2'>
-          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black' className='h-4 w-4 md:h-6 md:w-6'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 24 24'
+            fill='currentColor'
+            className='h-4 w-4 fill-black duration-300 dark:fill-vintageColor md:h-6 md:w-6'
+          >
             {svgData}
           </svg>
         </span>
@@ -88,7 +96,7 @@ export default function Input({
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-4 w-4 md:h-6 md:w-6'
+                className='h-4 w-4 fill-black duration-300 dark:fill-vintageColor md:h-6 md:w-6'
               >
                 <path d='M12 15a3 3 0 100-6 3 3 0 000 6z' />
                 <path
@@ -103,7 +111,7 @@ export default function Input({
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-4 w-4 md:h-6 md:w-6'
+                className='h-4 w-4 fill-black duration-300 dark:fill-vintageColor md:h-6  md:w-6'
               >
                 <path d='M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z' />
                 <path d='M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0115.75 12zM12.53 15.713l-4.243-4.244a3.75 3.75 0 004.243 4.243z' />
@@ -116,7 +124,7 @@ export default function Input({
           type={visible ? 'text' : `${type}`}
           id={inputId}
           className={
-            'peer h-full w-full border-none bg-transparent pl-1.5 text-lg outline-none ' +
+            'peer h-full w-full  border-none bg-transparent pl-1.5 text-lg text-[#222] outline-none duration-300 dark:text-textVintage dark:caret-white ' +
             (isPasswordInput ? 'pr-14 md:pr-20' : 'pr-9 md:pr-12')
           }
           autoComplete={autoComplete}
@@ -125,7 +133,7 @@ export default function Input({
         />
         <label
           htmlFor={inputId}
-          className='absolute left-1.5 top-1/2 -translate-y-1/2 cursor-text  select-none text-base text-[#666666] duration-300 peer-valid:top-[-5px] peer-valid:text-sm peer-focus:top-[-5px] peer-focus:text-sm'
+          className='absolute left-1.5 top-1/2 -translate-y-1/2 cursor-text  select-none text-base text-[#666666] duration-300 peer-valid:top-[-5px] peer-valid:text-sm peer-focus:top-[-5px] peer-focus:text-sm dark:text-textVintage dark:text-opacity-80'
         >
           {labelName}
         </label>

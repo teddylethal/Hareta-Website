@@ -10,6 +10,9 @@ import { registerAccount } from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ResponeApi } from 'src/types/utils.type'
 import { url } from 'inspector'
+import Button from 'src/components/Button'
+import { useContext } from 'react'
+import { ThemeContext } from 'src/App'
 
 type FormData = Schema
 
@@ -47,22 +50,32 @@ export default function Register() {
     })
   })
 
+  const { theme } = useContext(ThemeContext)
+
   return (
     <div
-      className='bg-cover'
+      className='mt-16 bg-cover bg-center duration-500'
       style={{
-        backgroundImage: `url("https://images.unsplash.com/photo-1526066843114-f1623fde3476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80")`
+        backgroundImage: `url(${
+          theme === 'dark'
+            ? 'https://images.unsplash.com/photo-1526066843114-f1623fde3476?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
+            : 'https://images.unsplash.com/photo-1470803233534-acd0cc85f275?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1148&q=80'
+        })`
       }}
     >
       <div className='container'>
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-4 lg:col-end-7'>
-            <form className='rounded bg-white p-5 shadow-sm md:p-10' onSubmit={onSubmit} noValidate>
-              <div className='text-center text-2xl'>Register</div>
+            <form
+              className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 dark:bg-darkTheme md:p-10'
+              onSubmit={onSubmit}
+              noValidate
+            >
+              <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Register</div>
 
               <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x'>
                 <div className='xl:mr-8'>
-                  <div className='text-lg'>Account</div>
+                  <div className='text-xl text-textDark dark:text-vintageColor'>Account</div>
                   <Input
                     name='email'
                     register={register}
@@ -119,7 +132,7 @@ export default function Register() {
                 </div>
 
                 <div className='mt-8 xl:mt-0 xl:pl-8'>
-                  <div className='text-lg'>Personal information</div>
+                  <div className='text-xl dark:text-vintageColor'>Personal information</div>
                   <Input
                     name='name'
                     register={register}
@@ -157,16 +170,11 @@ export default function Register() {
               </div>
 
               <div className='mt-2'>
-                <button
-                  type='submit'
-                  className='text-l w-full rounded-md bg-black px-2 py-3 text-center uppercase text-text_color hover:bg-gray-800 hover:text-hareta_color md:py-4'
-                >
-                  Sign up
-                </button>
+                <Button text='Sign up' />
               </div>
               <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
                 <span className='text-gray-400'>Already have an account?</span>
-                <Link className='ml-2 text-hareta_color' to='/login'>
+                <Link className='ml-2 text-haretaColor' to='/login'>
                   Login
                 </Link>
               </div>
