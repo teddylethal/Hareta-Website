@@ -3,6 +3,7 @@ import ProductList from './pages/ProductList'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import RegisterLayout from './layouts/RegisterLayout'
+import Test from './pages/Test'
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -24,6 +25,12 @@ export default function useRouteElements() {
         <RegisterLayout>
           <Register />
         </RegisterLayout>
+      )
+    },
+    {
+      path: '/test',
+      element: (
+        <Test/>
       )
     }
   ])
