@@ -13,6 +13,7 @@ module.exports = {
       }
     }
   },
+  darkMode: 'class',
   plugins: [
     plugin(function ({ addComponents, theme }) {
       addComponents({
