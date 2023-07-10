@@ -5,28 +5,37 @@ export default function Header() {
   return (
     <header className='fixed top-0 z-10 flex w-full justify-between bg-[#F9F5F6] py-3 duration-500 dark:bg-black'>
       <div className='container grid grid-cols-3 items-center'>
-        <nav className='col-span-1 flex items-center justify-start space-x-4 text-lg font-medium uppercase text-black'>
+        <nav className='col-span-1 flex items-center justify-start space-x-4 text-lg font-medium uppercase text-black dark:text-white'>
           <Link to='/'>
             <img src='src/assets/sun.png' alt='Hareta' className='h-8 lg:h-11' />
           </Link>
 
-          <Link to='/' className='rounded-md border border-none px-2 py-1 hover:text-[#F79327]'>
+          <Link
+            to='/'
+            className='rounded-md border border-none px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+          >
             <div>Store</div>
           </Link>
 
-          <Link to='/' className='rounded-md border border-none px-2 py-1 hover:text-[#F79327]'>
+          <Link
+            to='/'
+            className='rounded-md border border-none px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+          >
             <div>Event</div>
           </Link>
 
-          <Link to='/' className='rounded-md border border-none px-2 py-1 hover:text-[#F79327]'>
+          <Link
+            to='/'
+            className='rounded-md border border-none px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+          >
             <div>Support</div>
           </Link>
         </nav>
-        <div className='col-span-1 flex justify-center'>
+        <div className='col-span-1 flex justify-center text-haretaColor'>
           <h2>Decor your life with us</h2>
         </div>
-        <nav className='col-span-1 flex items-center justify-end space-x-4 text-lg uppercase text-black'>
-          <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-[#F79327]'>
+        <nav className='col-span-1 flex items-center justify-end space-x-4 text-lg uppercase text-black dark:text-white'>
+          <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
