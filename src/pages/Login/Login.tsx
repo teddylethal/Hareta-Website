@@ -119,6 +119,7 @@ export default function Login() {
                 errorMessage={errors.email?.message}
                 labelName='Email'
                 required
+                autoComplete='on'
                 svgData={
                   <>
                     <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />
@@ -147,12 +148,6 @@ export default function Login() {
 
               <div className='mt-3'>
                 <Button text='Sign in' />
-                {/* <button
-                  type='submit'
-                  className='text-l text-text_color w-full rounded-md bg-black px-2 py-3 text-center uppercase hover:bg-gray-800 hover:text-haretaColor md:py-4'
-                >
-                  Sign in
-                </button> */}
               </div>
               <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>
