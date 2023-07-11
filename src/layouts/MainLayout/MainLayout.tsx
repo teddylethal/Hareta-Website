@@ -9,7 +9,7 @@ export default function RegisterLayout({ children }: Props) {
   return (
     <div>
       <Header />
-      {children}
+      <div className='mt-10 md:mt-12 lg:mt-16'>{children}</div>
       <Footer />
     </div>
   )
