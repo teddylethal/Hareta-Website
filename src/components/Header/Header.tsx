@@ -2,9 +2,22 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Link } from 'react-router-dom'
 import ToggleTheme from '../ToggleTheme'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { FloatingPortal, useFloating, arrow, shift, offset, useInteractions, useHover } from '@floating-ui/react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false)
+  const arrowRef = useRef<HTMLElement>(null)
+  const { x, y, refs, strategy, middlewareData, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    middleware: [offset(20), shift(), arrow({ element: arrowRef })]
+  })
+  const hover = useHover(context)
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([hover])
+
   const [openingNav, changeOpeningNav] = useState<boolean>(false)
 
   const toggleOpenCloseNav = () => {
@@ -59,6 +72,8 @@ export default function Header() {
           <Link
             to='/'
             className='flex items-center space-x-1 rounded-lg border border-none bg-[#a27b5c] px-1 py-0.5 text-textVintage hover:bg-haretaColor lg:px-2 lg:py-1'
+            ref={refs.setReference}
+            {...getReferenceProps()}
           >
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -74,8 +89,39 @@ export default function Header() {
                 d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
               />
             </svg>
-
             <div>Cart</div>
+
+            <FloatingPortal>
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    ref={refs.setFloating}
+                    style={{
+                      position: strategy,
+                      top: y ?? 0,
+                      left: x ?? 0,
+                      width: 'max-content',
+                      transformOrigin: `${middlewareData.arrow?.x}px top`
+                    }}
+                    {...getFloatingProps()}
+                    initial={{ opacity: 0, transform: 'scale(0)' }}
+                    animate={{ opacity: 1, transform: 'scale(1)' }}
+                    exit={{ opacity: 0, transform: 'scale(0)' }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <span
+                      ref={arrowRef}
+                      className='absolute z-20 translate-y-[-100%] border-[11px] border-x-transparent border-b-red-500 border-t-transparent'
+                      style={{
+                        left: middlewareData.arrow?.x,
+                        top: middlewareData.arrow?.y
+                      }}
+                    />
+                    <div className='h-40 w-56 bg-red-500'>Cart</div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </FloatingPortal>
           </Link>
           <div className='flex items-center justify-center px-1'>
             <ToggleTheme className='h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10' />
@@ -104,8 +150,8 @@ export default function Header() {
           </svg>
         )}
       </div>
-      <div className='absolute left-0'>
-        <nav className='flex flex-col justify-center space-y-1 text-sm font-medium uppercase md:space-x-2 md:text-base lg:space-x-4 lg:text-lg'>
+      <div className='absolute left-0 top-0 w-32 bg-amber-800'>
+        <nav className='ml-4 flex w-full flex-col items-start justify-center space-y-1 py-2 text-sm font-medium uppercase md:space-x-2 md:text-base lg:space-x-4 lg:text-lg'>
           <Link to='/'>
             <img src='src/assets/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
           </Link>
