@@ -27,7 +27,6 @@ module.exports = {
           paddingLeft: theme('spacing.4'),
           paddingRight: theme('spacing.4')
         },
-
         '.header--dark': {
           backgroundColor: '#000'
         },

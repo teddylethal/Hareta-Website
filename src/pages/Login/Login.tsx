@@ -146,8 +146,8 @@ export default function Login() {
                 }
               />
 
-              <div className='mt-3'>
-                <Button text='Sign in' />
+              <div className='mt-3 text-base lg:text-lg'>
+                <Button text='Sign in' className='py-3 uppercase lg:py-4' />
               </div>
               <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>

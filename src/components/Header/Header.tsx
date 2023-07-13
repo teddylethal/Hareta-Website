@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom'
 import ToggleTheme from '../ToggleTheme'
 import { useState } from 'react'
 import Popover from '../Popover'
+import CartPopover from './CartPopover'
 
 export default function Header() {
-  const [openingNav, changeOpeningNav] = useState<boolean>(false)
+  const [openingNav, changeOpeningNav] = useState<boolean>(true)
 
   const toggleOpenCloseNav = () => {
     changeOpeningNav(openingNav ? false : true)
   }
 
   return (
-    <header className='fixed top-0 flex h-10 w-full items-center bg-[#F9F5F6] duration-500 dark:bg-black md:h-12 lg:h-16'>
+    <header className='fixed top-0 flex h-10 w-full items-center bg-white duration-500 dark:bg-black md:h-12 lg:h-16'>
       <div className='container invisible grid w-full grid-cols-3 items-center py-3 text-black dark:text-white sm:visible'>
         <nav className='col-span-1 flex items-center justify-start space-x-1 text-sm font-medium uppercase md:space-x-2 md:text-base lg:space-x-4 lg:text-lg'>
           <Link to='/'>
@@ -29,7 +30,8 @@ export default function Header() {
           </Link>
 
           <Popover
-            className='rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'
+            placement='bottom'
+            className=' relative rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'
             renderPopover={<div className='h-30 w-30 bg-red-500'></div>}
           >
             <Link to='/'>
@@ -84,7 +86,7 @@ export default function Header() {
               </div>
             }
           >
-            <Link to='/' className='flex items-center space-x-2'>
+            <Link to='/profile' className='flex items-center space-x-2'>
               <img
                 src='https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80'
                 alt='avatar'
@@ -96,8 +98,9 @@ export default function Header() {
           </Popover>
 
           <Popover
+            initialOpen
             className='flex rounded-md border border-none bg-[#a27b5c] px-1 py-0.5 text-textVintage hover:bg-haretaColor lg:px-2 lg:py-1'
-            renderPopover={<div className='h-40 w-56 rounded-md bg-[#F5F5F5] shadow-md'>Cart</div>}
+            renderPopover={<CartPopover />}
           >
             <Link to='/' className='flex items-center space-x-1'>
               <svg

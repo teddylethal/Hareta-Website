@@ -169,8 +169,8 @@ export default function Register() {
                 </div>
               </div>
 
-              <div className='mt-2'>
-                <Button text='Sign up' />
+              <div className='mt-2 text-base  lg:text-lg'>
+                <Button text='Sign up' className='py-3 lg:py-4' />
               </div>
               <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
                 <span className='text-gray-400'>Already have an account?</span>

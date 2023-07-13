@@ -15,7 +15,7 @@ export default function RegisterHeader() {
         </nav>
       </div>
       <div className='mr-auto flex h-10 w-10 items-center justify-center pr-4'>
-        <ToggleTheme />
+        <ToggleTheme className='h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10' />
       </div>
     </header>
   )
