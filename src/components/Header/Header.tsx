@@ -5,6 +5,9 @@ import ToggleTheme from '../ToggleTheme'
 import { useState } from 'react'
 import Popover from '../Popover'
 import CartPopover from './CartPopover'
+import ProfilePopover from './ProfileNav/ProfilePopover'
+import SupportNav from './SupportNav'
+import ProfileNav from './ProfileNav'
 
 export default function Header() {
   const [openingNav, changeOpeningNav] = useState<boolean>(true)
@@ -29,15 +32,9 @@ export default function Header() {
             <div>Event</div>
           </Link>
 
-          <Popover
-            placement='bottom'
-            className=' relative rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'
-            renderPopover={<div className='h-30 w-30 bg-red-500'></div>}
-          >
-            <Link to='/'>
-              <div>Support</div>
-            </Link>
-          </Popover>
+          <div className='relative rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+            <SupportNav />
+          </div>
         </nav>
 
         <div className='col-span-1 flex grow select-none justify-center text-xs text-haretaColor md:text-sm lg:text-base'>
@@ -45,7 +42,7 @@ export default function Header() {
         </div>
 
         <nav className='col-span-1 flex items-center justify-end space-x-1 text-sm uppercase md:space-x-2 md:text-base lg:space-x-4 lg:text-lg'>
-          <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
+          {/* <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -62,29 +59,17 @@ export default function Header() {
             </svg>
 
             <div>Login</div>
-          </Link>
+          </Link> */}
 
-          <Popover
-            className='flex rounded-lg px-3 py-1 hover:text-haretaColor'
-            renderPopover={
-              <div className='rounded-sm bg-[#F5F5F5] px-4 py-2 shadow-md'>
-                <Link to='/' className='block py-2'>
-                  My Account
-                </Link>
-                <Link to='/' className='block py-2'>
-                  My Profile
-                </Link>
-                <Link to='/' className='block py-2'>
-                  Inventory
-                </Link>
-                <Link to='/' className='block py-2'>
-                  Favourite List
-                </Link>
-                <Link to='/' className='block py-2'>
-                  Log out
-                </Link>
-              </div>
-            }
+          <div className='flex rounded-lg px-3 hover:text-haretaColor'>
+            <ProfileNav />
+          </div>
+
+          {/* <Popover
+            initialOpen
+            className='flex rounded-lg px-3 py-1.5 hover:text-haretaColor'
+            renderPopover={<ProfilePopover />}
+            placement='bottom'
           >
             <Link to='/profile' className='flex items-center space-x-2'>
               <img
@@ -95,12 +80,12 @@ export default function Header() {
 
               <div className='text-xs normal-case md:text-sm lg:text-base'>Thanh</div>
             </Link>
-          </Popover>
+          </Popover> */}
 
           <Popover
-            initialOpen
             className='flex rounded-md border border-none bg-[#a27b5c] px-1 py-0.5 text-textVintage hover:bg-haretaColor lg:px-2 lg:py-1'
             renderPopover={<CartPopover />}
+            placement='bottom-end'
           >
             <Link to='/' className='flex items-center space-x-1'>
               <svg

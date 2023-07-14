@@ -2,12 +2,12 @@ import {
   FloatingPortal,
   arrow,
   offset,
-  safePolygon,
   shift,
   useFloating,
-  useHover,
   useInteractions,
-  type Placement
+  type Placement,
+  useClick,
+  useDismiss
 } from '@floating-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ElementType, useContext, useId, useRef, useState } from 'react'
@@ -21,37 +21,37 @@ interface Props {
   initialOpen?: boolean
   colorCode?: string
   placement?: Placement
+  handleClick?: () => void
+  isOpen?: boolean
 }
 
-export default function Popover({
+export default function FloatingOnClick({
   children,
   className,
   renderPopover,
   as: Element = 'div',
   initialOpen,
-  placement
+  placement,
+  isOpen,
+  handleClick
 }: Props) {
-  const [isOpen, setIsOpen] = useState(initialOpen || false)
   const arrowRef = useRef<HTMLElement>(null)
   const { x, y, refs, strategy, middlewareData, context } = useFloating({
     open: isOpen,
-    onOpenChange: setIsOpen,
-    middleware: [offset(14), shift(), arrow({ element: arrowRef })],
+    onOpenChange: handleClick,
+    middleware: [offset(10), shift(), arrow({ element: arrowRef })],
     placement: placement || 'bottom'
   })
-  const hover = useHover(context, {
-    handleClose: safePolygon({
-      requireIntent: false
-    })
-  })
+  const click = useClick(context)
+  const dismiss = useDismiss(context)
   const { theme } = useContext(ThemeContext)
-  // const color = 'border-b-' + `${colorCode ? `[${colorCode}]` : '[#F5F5F5]'}`
+
   const arrowClassName =
-    'absolute -top-1 lg:top-0 z-20 translate-y-[-90%] border-[12px] border-x-transparent border-t-transparent ' +
+    'absolute z-20 translate-y-[-90%] border-[12px] border-x-transparent border-t-transparent ' +
     `${theme === 'dark' ? 'border-b-[#333]' : 'border-b-[#eee]'}`
 
   const id = useId()
-  const { getReferenceProps, getFloatingProps } = useInteractions([hover])
+  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss])
   return (
     <div>
       <Element className={className} ref={refs.setReference} {...getReferenceProps()}>

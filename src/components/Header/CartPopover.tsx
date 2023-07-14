@@ -153,7 +153,7 @@ export default function CartPopover() {
           </Link>
         </div>
 
-        <div className='mx-3 my-3 border-b-[1px] border-gray-900 border-t-transparent dark:border-gray-400' />
+        <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
         <div className='mx-3 flex items-center justify-between'>
           <div className='flex space-x-2'>
