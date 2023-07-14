@@ -6,12 +6,19 @@ import { useState } from 'react'
 import SupportNav from './SupportNav'
 import ProfileNav from './ProfileNav'
 import CartNav from './CartNav'
+import { motion, AnimatePresence } from 'framer-motion'
+import AnimateChangeInHeight from '../AnimateChangeInHeight'
 
 export default function Header() {
   const [openingNav, changeOpeningNav] = useState<boolean>(true)
 
   const toggleOpenCloseNav = () => {
-    changeOpeningNav(openingNav ? false : true)
+    changeOpeningNav(!openingNav)
+  }
+
+  const [mobileSupportExtending, setMobileSupportExtending] = useState<boolean>(true)
+  const toggleExtendingMobileSupport = () => {
+    setMobileSupportExtending(!mobileSupportExtending)
   }
 
   return (
@@ -63,23 +70,6 @@ export default function Header() {
             <ProfileNav />
           </div>
 
-          {/* <Popover
-            initialOpen
-            className='flex rounded-lg px-3 py-1.5 hover:text-haretaColor'
-            renderPopover={<ProfilePopover />}
-            placement='bottom'
-          >
-            <Link to='/profile' className='flex items-center space-x-2'>
-              <img
-                src='https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80'
-                alt='avatar'
-                className='h-6 w-6 rounded-full object-cover'
-              />
-
-              <div className='text-xs normal-case md:text-sm lg:text-base'>Thanh</div>
-            </Link>
-          </Popover> */}
-
           <div className='rounded-md bg-[#a27b5c] text-textVintage hover:bg-haretaColor'>
             <CartNav />
           </div>
@@ -101,35 +91,92 @@ export default function Header() {
             />
           </svg>
         )}
-        {!openingNav && (
-          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
-            <path
-              fillRule='evenodd'
-              d='M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z'
-              clipRule='evenodd'
-            />
-          </svg>
-        )}
       </div>
-      <div className='absolute left-0 top-0 w-32 bg-amber-800'>
-        <nav className='ml-4 flex w-full flex-col items-start justify-center space-y-1 py-2 text-sm font-medium uppercase md:space-x-2 md:text-base lg:space-x-4 lg:text-lg'>
-          <Link to='/'>
-            <img src='src/assets/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
-          </Link>
 
-          <Link to='/' className='rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-            <div>Store</div>
-          </Link>
+      <AnimatePresence>
+        <div className='absolute left-0 top-0 flex w-48 overflow-hidden bg-[#ddd] py-2 text-textDark dark:bg-[#333] dark:text-textLight'>
+          <nav className='flex w-full flex-col items-start justify-center space-y-4 py-2 text-base font-semibold uppercase md:space-x-2 md:text-base lg:space-x-4 lg:text-lg'>
+            <Link to='/' className='w-full px-3'>
+              <img src='src/assets/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
+            </Link>
 
-          <Link to='/' className='rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-            <div>Event</div>
-          </Link>
+            <Link to='/' className='w-full border border-none px-3 hover:text-haretaColor dark:hover:text-haretaColor'>
+              <div>Store</div>
+            </Link>
 
-          <Link to='/' className='rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-            <div>Support</div>
-          </Link>
-        </nav>
-      </div>
+            <Link to='/' className='w-full border border-none px-3 hover:text-haretaColor dark:hover:text-haretaColor'>
+              <div>Event</div>
+            </Link>
+
+            <div className='mx-3 w-full border border-b-gray-500 border-t-transparent' />
+
+            <div
+              className='flex w-full flex-col items-center border border-none px-3 hover:text-haretaColor dark:hover:text-haretaColor'
+              onClick={toggleExtendingMobileSupport}
+            >
+              <div className='flex w-full'>
+                <div>Support</div>
+                {mobileSupportExtending && (
+                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
+                    <path
+                      fillRule='evenodd'
+                      d='M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                )}
+                {!mobileSupportExtending && (
+                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
+                    <path
+                      fillRule='evenodd'
+                      d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                )}
+              </div>
+              <AnimateChangeInHeight>
+                <motion.div layout>
+                  {mobileSupportExtending && (
+                    <motion.div
+                      className='mt-2 inline-flex w-auto flex-col space-y-1 text-sm font-medium text-textDark dark:bg-[#333] dark:text-textLight md:text-base'
+                      initial={{ opacity: 0, y: '-20%' }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: '-20%', scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Link to='/' className='py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+                        About us
+                      </Link>
+                      <Link to='/' className='py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+                        Privacy & Terms
+                      </Link>
+                      <Link to='/' className='py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+                        FAQ
+                      </Link>
+                      <Link to='/' className='py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+                        Contact us
+                      </Link>
+                      <Link to='/' className='py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+                        Order tracking
+                      </Link>
+                    </motion.div>
+                  )}
+                </motion.div>
+              </AnimateChangeInHeight>
+            </div>
+          </nav>
+          <div className='p-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
+              <path
+                fillRule='evenodd'
+                d='M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z'
+                clipRule='evenodd'
+              />
+            </svg>
+          </div>
+        </div>
+      </AnimatePresence>
     </header>
   )
 }
