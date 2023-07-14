@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import Button from '../Button'
+import Button from '../../Button'
 
 export default function CartPopover() {
   return (
-    <div className='relative w-[300px] rounded-md border-gray-200 bg-[#eee] text-sm text-textDark shadow-md dark:bg-[#333] dark:text-textLight'>
+    <div className='relative -top-1 w-[300px] rounded-md border-gray-200 bg-[#eee] text-sm text-textDark shadow-md dark:bg-[#333] dark:text-textLight lg:top-0'>
       <div className='py-2'>
         <div className='px-3 py-1 capitalize text-gray-500 dark:text-gray-300'>Recently added</div>
         <div className='h-[220px] overflow-y-auto'>

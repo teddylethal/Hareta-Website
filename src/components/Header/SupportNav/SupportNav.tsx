@@ -12,7 +12,7 @@ export default function SupportNav() {
     <FloatingOnClick
       initialOpen
       renderPopover={<SupportPopover />}
-      className='flex cursor-pointer select-none items-center lg:py-1'
+      className='flex select-none items-center lg:py-1'
       isOpen={isOpen}
       handleClick={handleClick}
     >

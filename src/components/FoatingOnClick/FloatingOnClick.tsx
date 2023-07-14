@@ -10,7 +10,7 @@ import {
   useDismiss
 } from '@floating-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ElementType, useContext, useId, useRef, useState } from 'react'
+import { ElementType, useContext, useId, useRef } from 'react'
 import { ThemeContext } from 'src/App'
 
 interface Props {
@@ -30,7 +30,6 @@ export default function FloatingOnClick({
   className,
   renderPopover,
   as: Element = 'div',
-  initialOpen,
   placement,
   isOpen,
   handleClick
@@ -69,12 +68,12 @@ export default function FloatingOnClick({
                   transformOrigin: `${middlewareData.arrow?.x}px top`
                 }}
                 {...getFloatingProps()}
-                initial={{ opacity: 0, transform: 'scale(0)' }}
-                animate={{ opacity: 1, transform: 'scale(1)' }}
-                exit={{ opacity: 0, transform: 'scale(0)' }}
+                initial={{ opacity: 0, y: '-10%' }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: '-10%' }}
                 transition={{ duration: 0.2 }}
               >
-                <div className='absolute -top-6 left-[calc(50%-40px)] z-20 h-10 w-20 self-center bg-transparent'></div>
+                {/* <div className='absolute -top-6 left-[calc(50%-40px)] z-20 h-10 w-20 self-center bg-transparent'></div> */}
                 <span
                   ref={arrowRef}
                   className={arrowClassName}
