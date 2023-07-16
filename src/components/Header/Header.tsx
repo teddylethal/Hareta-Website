@@ -9,6 +9,7 @@ import { useViewport } from 'src/utils/useViewport'
 import SidebarNav from './Mobile/SidebarNav/SidebarNav'
 import SupportNav from './Desktop/SupportNav'
 import CartNav from './Desktop/CartNav'
+import useClickOutside from 'src/hooks/useClickOutside'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -20,20 +21,20 @@ const initialMenuContext: MenuContextInterface = {
 }
 export const MenuContext = createContext<MenuContextInterface>(initialMenuContext)
 
-// interface SupportContextInterface {
-//   extendingSupport: boolean
-//   setExtendingSupport: React.Dispatch<React.SetStateAction<boolean>>
-// }
-// const initialSupportContext: SupportContextInterface = {
-//   extendingSupport: false,
-//   setExtendingSupport: () => null
-// }
-
 export default function Header() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
   const [openingMenu, setOpeningMenu] = useState<boolean>(false)
+
+  const { visible, setVisible, ref } = useClickOutside(false)
+  const openMenu = () => {
+    setOpeningMenu(true)
+    setVisible(true)
+  }
+  const closeMenu = () => {
+    setOpeningMenu(false)
+  }
 
   return (
     <header className='fixed top-0 flex h-10 w-full items-center bg-white duration-500 dark:bg-black md:h-12 lg:h-16'>
@@ -105,7 +106,7 @@ export default function Header() {
       {/*//! Mobile */}
       {isMobile && (
         <div className='flex w-full items-center justify-between px-2'>
-          <div onClick={() => setOpeningMenu(true)} className=''>
+          <div onClick={openMenu} className=''>
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-8 w-8'>
               <path
                 fillRule='evenodd'
@@ -133,9 +134,27 @@ export default function Header() {
         </div>
       )}
       <AnimatePresence>
-        {openingMenu && isMobile && (
+        {isMobile && openingMenu && visible && (
           <MenuContext.Provider value={{ openingMenu, setOpeningMenu }}>
-            <SidebarNav />
+            <motion.div
+              className='absolute left-0 top-0 flex w-52 overflow-hidden rounded-r-sm bg-[#ddd] py-2 text-textDark shadow-md dark:bg-[#333] dark:text-textLight sm:w-60'
+              initial={{ opacity: 0, x: '-20%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '-20%' }}
+              transition={{ duration: 0.3 }}
+              ref={ref}
+            >
+              <SidebarNav />
+              <div className='p-2' onClick={closeMenu}>
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
+                  <path
+                    fillRule='evenodd'
+                    d='M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </div>
+            </motion.div>
           </MenuContext.Provider>
         )}
       </AnimatePresence>
