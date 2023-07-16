@@ -12,7 +12,7 @@ export default function SideBar({ handleClick1, handleClick2 }: Props) {
     <Box>
       <Card />
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-        <SideBarList handleClick1={handleClick1} handleClick2={handleClick2} />
+        <SideBarList handleClick2={handleClick2} />
       </Box>
     </Box>
 

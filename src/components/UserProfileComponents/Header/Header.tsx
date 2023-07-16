@@ -6,7 +6,7 @@ type Props = {
 
 export default function Header({ handleClickMenu }: Props) {
   return (
-    <div className='h-1/5'>
+    <div className='h-36'>
       <Button onClick={handleClickMenu}>Menu</Button>
     </div>
   )

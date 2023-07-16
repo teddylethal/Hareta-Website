@@ -4,8 +4,9 @@ import Header from 'src/components/UserProfileComponents/Header'
 import SideBarList from 'src/components/UserProfileComponents/SideBarList'
 import Card from 'src/components/UserProfileComponents/Card'
 
-import Content from 'src/components/UserProfileComponents/Content'
+import Content from 'src/components/UserProfileComponents/MainContent/Content'
 import ChangePassword from 'src/components/UserProfileComponents/ChangePassword'
+import InfoForm from 'src/components/UserProfileComponents/InfoForm'
 
 import { Drawer, Box } from '@mui/material'
 
@@ -15,12 +16,14 @@ export default function MyProfile() {
   const [button1, setButton1] = useState(true)
   const [button2, setButton2] = useState(false)
   const [button3, setButton3] = useState(false)
+  const [button4, setButton4] = useState(false)
 
   const handleSet = (value: number) => {
     setSelect(value)
     setButton1(1 === value)
     setButton2(2 === value)
-    setButton3(2 === value)
+    setButton3(3 === value)
+    setButton4(4 === value)
   }
 
   const [menu, setMenu] = useState(false)
@@ -43,7 +46,7 @@ export default function MyProfile() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className=' ml-0 h-screen  '>
+      <div className='container m-0 h-[85rem] p-0'>
         <Header handleClickMenu={handleClickMenu} />
 
         <Box>
@@ -59,9 +62,9 @@ export default function MyProfile() {
           handleClickMenu={handleClickMenu}
           menu={menu}
         /> */}
-        <div className='container mx-0 h-4/5 w-screen bg-white p-0 md:flex xl:mx-40'>
+        <div className='container mx-0 h-[60rem] w-full bg-white p-0 md:flex xl:mx-40'>
           <Box>
-            <Card />
+            {/* <Card /> */}
             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
               <SideBarList handleSet={handleSet} select={select} />
             </Box>
@@ -69,8 +72,9 @@ export default function MyProfile() {
 
           <div className='h-full w-full border-2 border-solid md:w-4/5'>
             {button1 && <Content />}
-            {button2 && <ChangePassword />}
-            {button3}
+            {button2 && <InfoForm />}
+            {button3 && <ChangePassword />}
+            {button4}
           </div>
         </div>
       </div>

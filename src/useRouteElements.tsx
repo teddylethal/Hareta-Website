@@ -4,6 +4,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import RegisterLayout from './layouts/RegisterLayout'
 import MyProfile from './pages/MyProfile'
+// import MainLayout from './layouts/MainLayout'
+// import Landing from './pages/Landing'
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -31,6 +33,14 @@ export default function useRouteElements() {
       path: '/myprofile',
       element: <MyProfile />
     }
+    // {
+    //   path: '/landing',
+    //   element: (
+    //     <MainLayout>
+    //       <Landing />
+    //     </MainLayout>
+    //   )
+    // }
   ])
   return routeElements
 }
