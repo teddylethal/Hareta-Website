@@ -13,6 +13,7 @@ import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
 import MobileCart from './Mobile/MobileCart'
 import MobileNav from './Mobile/MobileNav/MobileNav'
+import MobileUser from './Mobile/MobileUser'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -39,20 +40,8 @@ const initialCartContext: CartContextInterface = {
 export const CartContext = createContext<CartContextInterface>(initialCartContext)
 
 export default function Header() {
-  const { theme } = useContext(ThemeContext)
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
-
-  const [openingMenu, setOpeningMenu] = useState<boolean>(false)
-
-  const { visible, setVisible, ref } = useClickOutside(false)
-  const openMenu = () => {
-    setOpeningMenu(true)
-    setVisible(true)
-  }
-  const closeMenu = () => {
-    setOpeningMenu(false)
-  }
 
   return (
     <header className='fixed top-0 flex h-10 w-full items-center bg-white duration-500 dark:bg-black sm:h-12 lg:h-16'>
@@ -126,20 +115,7 @@ export default function Header() {
         <div className='flex w-full items-center justify-between px-2'>
           <MobileNav />
           <MobileCart className='relative flex items-end' />
-          <div>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='currentColor'
-              className='h-6 w-6 fill-black dark:fill-white sm:h-8 sm:w-8'
-            >
-              <path
-                fillRule='evenodd'
-                d='M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z'
-                clipRule='evenodd'
-              />
-            </svg>
-          </div>
+          <MobileUser />
         </div>
       )}
     </header>
