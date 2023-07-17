@@ -39,7 +39,7 @@ export default function Header() {
   }
 
   return (
-    <header className='fixed top-0 flex h-10 w-full items-center bg-white duration-500 dark:bg-black md:h-12 lg:h-16'>
+    <header className='fixed top-0 flex h-10 w-full items-center bg-white duration-500 dark:bg-black sm:h-12 lg:h-16'>
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center py-3 text-black dark:text-white'>
           <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase lg:space-x-4 lg:text-lg'>
@@ -70,7 +70,7 @@ export default function Header() {
             <h2>Decor your life with us</h2>
           </div>
 
-          <nav className='col-span-1 flex items-center justify-end space-x-1 text-sm uppercase md:space-x-2 md:text-base lg:space-x-4 lg:text-lg'>
+          <nav className='col-span-1 flex items-center justify-end space-x-1 uppercase  lg:space-x-4 lg:text-lg'>
             {/* <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -99,7 +99,7 @@ export default function Header() {
             </div>
 
             <div className='flex items-center justify-center px-1'>
-              <ToggleTheme className='h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10' />
+              <ToggleTheme className='h-7 w-7 lg:h-10 lg:w-10' />
             </div>
           </nav>
         </div>
@@ -122,17 +122,17 @@ export default function Header() {
               />
             </svg>
           </div>
-          <div className='flex space-x-4 md:space-x-6'>
+          <div className='flex space-x-4 sm:space-x-6'>
             <div className='relative flex items-end'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-6 w-6 fill-black dark:fill-white md:h-8 md:w-8'
+                className='h-6 w-6 fill-black dark:fill-white sm:h-8 sm:w-8'
               >
                 <path d='M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z' />
               </svg>
-              <span className='absolute left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs text-textDark md:left-6  md:h-5 md:w-5 md:text-sm'>
+              <span className='absolute left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs text-textDark sm:left-6  sm:h-5 sm:w-5 sm:text-sm'>
                 6
               </span>
             </div>
@@ -141,7 +141,7 @@ export default function Header() {
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-6 w-6 fill-black dark:fill-white md:h-8 md:w-8'
+                className='h-6 w-6 fill-black dark:fill-white sm:h-8 sm:w-8'
               >
                 <path
                   fillRule='evenodd'
@@ -157,7 +157,7 @@ export default function Header() {
         {isMobile && openingMenu && visible && (
           <MenuContext.Provider value={{ openingMenu, setOpeningMenu }}>
             <motion.div
-              className='absolute left-0 top-0 flex w-52 overflow-hidden rounded-r-sm   py-2 text-textDark shadow-md dark:text-textLight sm:w-60'
+              className='absolute left-0 top-0 flex w-52 overflow-hidden rounded-r-sm  py-2 text-textDark shadow-md dark:text-textLight sm:w-64'
               initial={{ opacity: 0, x: '-20%' }}
               animate={{
                 opacity: 1,

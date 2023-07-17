@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default function CartNav() {
   return (
     <Popover
-      className='flex border border-none px-1 py-0.5 lg:px-2 lg:py-1'
+      className='flex border border-none px-1.5 py-1 lg:px-2'
       renderPopover={<CartPopover />}
       placement='bottom-end'
     >
