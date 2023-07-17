@@ -6,12 +6,13 @@ import { createContext, useState, useContext } from 'react'
 import ProfileNav from './Desktop/ProfileNav'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useViewport } from 'src/hooks/useViewport'
-import SidebarNav from './Mobile/SidebarNav/SidebarNav'
+import SidebarNav from './Mobile/MobileNav/MobileNav'
 import SupportNav from './Desktop/SupportNav'
 import CartNav from './Desktop/CartNav'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
 import MobileCart from './Mobile/MobileCart'
+import MobileNav from './Mobile/MobileNav/MobileNav'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -123,20 +124,7 @@ export default function Header() {
       {/*//! Mobile */}
       {isMobile && (
         <div className='flex w-full items-center justify-between px-2'>
-          <div onClick={openMenu} className=''>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 24 24'
-              fill='currentColor'
-              className='h-8 w-8 fill-black dark:fill-white'
-            >
-              <path
-                fillRule='evenodd'
-                d='M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75H12a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z'
-                clipRule='evenodd'
-              />
-            </svg>
-          </div>
+          <MobileNav />
           <MobileCart className='relative flex items-end' />
           <div>
             <svg
@@ -154,45 +142,6 @@ export default function Header() {
           </div>
         </div>
       )}
-      <AnimatePresence>
-        {isMobile && openingMenu && visible && (
-          <MenuContext.Provider value={{ openingMenu, setOpeningMenu }}>
-            <motion.div
-              className='absolute left-0 top-0 flex w-52 overflow-hidden rounded-r-sm  py-2 shadow-md sm:w-64'
-              initial={{ opacity: 0, x: '-20%' }}
-              animate={{
-                opacity: 1,
-                x: 0,
-                backgroundColor: theme === 'dark' ? '#333333' : '#dddddd',
-                color: theme === 'dark' ? '#eeeeee' : '#222222'
-              }}
-              exit={{ opacity: 0, x: '-20%' }}
-              transition={{ duration: 0.3 }}
-              ref={ref}
-            >
-              <SidebarNav />
-              <div className='absolute right-0 flex h-10 space-x-2 p-2'>
-                <ToggleTheme className='h-6 w-6 duration-300' />
-                <span onClick={closeMenu}>
-                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
-                    <path
-                      fillRule='evenodd'
-                      d='M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
-                </span>
-              </div>
-            </motion.div>
-          </MenuContext.Provider>
-        )}
-
-        {/* {isMobile && (
-          <CartContext.Provider value={{ openingCart, setOpeningCart, cartIsVisible, setCartIsVisible }}>
-            <SidebarCart />
-          </CartContext.Provider>
-        )} */}
-      </AnimatePresence>
     </header>
   )
 }
