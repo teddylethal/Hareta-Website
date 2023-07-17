@@ -11,7 +11,7 @@ import InfoForm from 'src/components/UserProfileComponents/InfoForm'
 import { Drawer, Box } from '@mui/material'
 
 import { ThemeProvider, createTheme } from '@mui/material/styles'
-export default function MyProfile() {
+export default function Profile() {
   const [select, setSelect] = useState(1)
   const [button1, setButton1] = useState(true)
   const [button2, setButton2] = useState(false)
