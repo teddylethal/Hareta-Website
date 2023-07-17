@@ -39,7 +39,7 @@ export default function MobileCart({ className }: Props) {
       <AnimatePresence>
         {visible && (
           <motion.div
-            className='absolute left-0 top-0 w-full self-center rounded-l-sm py-2 sm:left-[calc(50%-200px)] sm:w-[400px]'
+            className='absolute left-0 top-0 w-full self-center rounded-b-sm py-2 shadow-sm sm:left-[calc(50%-200px)] sm:w-[400px]'
             initial={{ opacity: 0, y: '-20%' }}
             animate={{
               opacity: 1,
@@ -51,7 +51,7 @@ export default function MobileCart({ className }: Props) {
             transition={{ duration: 0.3 }}
             ref={ref}
           >
-            <span className='my-2 flex w-full items-center justify-center' onClick={closeCart}>
+            <span className='flex w-full items-center justify-center' onClick={closeCart}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
@@ -65,6 +65,8 @@ export default function MobileCart({ className }: Props) {
                 />
               </svg>
             </span>
+
+            <div className='mx-3 my-2 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
             <div className='h-[220px] overflow-y-auto'>
               <Link to='/' className='flex items-center p-3 hover:bg-[#ddd] dark:hover:bg-[#222]'>

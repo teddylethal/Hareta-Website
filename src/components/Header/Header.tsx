@@ -11,7 +11,7 @@ import SupportNav from './Desktop/SupportNav'
 import CartNav from './Desktop/CartNav'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
-import MobileCart from './Mobile/SidebarCart/MobileCart'
+import MobileCart from './Mobile/MobileCart'
 
 interface MenuContextInterface {
   openingMenu: boolean
