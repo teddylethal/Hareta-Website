@@ -10,7 +10,7 @@ class Http {
   constructor() {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
-      baseURL: 'https://api-ecom.duthanhduoc.com/',
+      baseURL: 'http://hareta.me:3000/',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'
@@ -31,14 +31,16 @@ class Http {
     // Add a response interceptor
     this.instance.interceptors.response.use(
       (response) => {
+        console.log(response)
         const { url } = response.config
         if (url === '/login' || url === '/register') {
-          this.accessToken = (response.data as AuthRespone).data.access_token
+          this.accessToken = 'Bearer ' + response.data.data.token
           saveAccessTokenToLS(this.accessToken)
-        } else if (url === '/logout') {
-          this.accessToken = ''
-          clearAccessTokenFromLS()
         }
+        // else if (url === '/logout') {
+        //   this.accessToken = ''
+        //   clearAccessTokenFromLS()
+        // }
         return response
       },
       function (error: AxiosError) {
