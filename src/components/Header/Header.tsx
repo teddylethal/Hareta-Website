@@ -27,15 +27,11 @@ export const MenuContext = createContext<MenuContextInterface>(initialMenuContex
 
 interface CartContextInterface {
   openingCart: boolean
-  cartIsVisible: boolean
   setOpeningCart: React.Dispatch<React.SetStateAction<boolean>>
-  setCartIsVisible: React.Dispatch<React.SetStateAction<boolean>>
 }
 const initialCartContext: CartContextInterface = {
   openingCart: false,
-  cartIsVisible: true,
-  setOpeningCart: () => null,
-  setCartIsVisible: () => null
+  setOpeningCart: () => null
 }
 export const CartContext = createContext<CartContextInterface>(initialCartContext)
 
