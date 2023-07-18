@@ -25,6 +25,7 @@ export default function MobileUser({ className }: Props) {
           viewBox='0 0 24 24'
           fill='currentColor'
           className={classNames(
+            className,
             'h-6 w-6 duration-1000 dark:fill-white sm:h-8 sm:w-8 ',
             visible ? 'fill-transparent' : 'fill-dark'
           )}

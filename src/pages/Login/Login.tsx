@@ -150,9 +150,17 @@ export default function Login() {
                 }
               />
 
-              <div className='mt-3 text-base lg:text-lg'>
-                <Button text='Sign in' className='py-3 uppercase lg:py-4' />
+              <div className='mt-2 text-base lg:text-lg'>
+                <Button
+                  className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                  type='submit'
+                  isLoading={loginAccountMutation.isLoading}
+                  disabled={loginAccountMutation.isLoading}
+                >
+                  Login
+                </Button>
               </div>
+
               <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>
                 <Link className='ml-2 text-haretaColor' to='/register'>

@@ -115,9 +115,9 @@ export default function Header() {
       {/*//! Mobile */}
       {isMobile && (
         <div className='flex w-full items-center justify-between px-2'>
-          <MobileNav />
-          <MobileCart className='relative flex items-end' />
-          <MobileUser />
+          <MobileNav className='cursor-pointer' />
+          <MobileCart className='relative flex cursor-pointer items-end' />
+          <MobileUser className='cursor-pointer' />
         </div>
       )}
     </header>

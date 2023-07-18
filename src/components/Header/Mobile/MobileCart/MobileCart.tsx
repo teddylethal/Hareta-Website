@@ -51,7 +51,7 @@ export default function MobileCart({ className }: Props) {
             transition={{ duration: 0.3 }}
             ref={ref}
           >
-            <span className='flex w-full items-center justify-center' onClick={closeCart}>
+            <span className='flex w-full cursor-pointer items-center justify-center' onClick={closeCart}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
@@ -220,15 +220,15 @@ export default function MobileCart({ className }: Props) {
             <div className='mx-3 flex items-center justify-between text-xs sm:text-sm'>
               <div className='flex space-x-2'>
                 <Link to='/'>
-                  <Button text='Store' className='w-12 justify-self-start py-1' />
+                  <Button className='w-14 py-1'>Store</Button>
                 </Link>
                 <Link to='/'>
-                  <Button text='Cart' className='w-12 justify-self-start py-1' />
+                  <Button className='w-14 py-1'>Cart</Button>
                 </Link>
               </div>
               <div>
                 <Link to='/'>
-                  <Button text='Buy all' className='w-16 justify-self-start py-1' />
+                  <Button className='w-20 py-1'>Buy all</Button>
                 </Link>
               </div>
             </div>

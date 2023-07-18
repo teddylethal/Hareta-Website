@@ -74,8 +74,8 @@ export default function Input({
     <div className={className}>
       <div
         className={
-          'relative mx-0 mt-6 h-12 w-full border-b-2 duration-500 dark:border-vintageColor ' +
-          (errorMessage ? 'border-red-500' : 'border-black')
+          'relative mx-0 mt-6 h-12 w-full border-b-2 duration-500 ' +
+          (errorMessage ? 'border-red-500 dark:border-red-600' : 'border-black dark:border-vintageColor')
         }
       >
         <span className='absolute right-2 top-1/2 -translate-y-1/2'>

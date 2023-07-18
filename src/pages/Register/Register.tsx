@@ -73,7 +73,7 @@ export default function Register() {
             >
               <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Register</div>
 
-              <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x'>
+              <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x xl:divide-gray-300 dark:xl:divide-stone-700'>
                 <div className='xl:mr-8'>
                   <div className='text-xl text-textDark dark:text-vintageColor'>Account</div>
                   <Input
@@ -169,8 +169,15 @@ export default function Register() {
                 </div>
               </div>
 
-              <div className='mt-2 text-base  lg:text-lg'>
-                <Button text='Sign up' className='py-3 lg:py-4' />
+              <div className='mt-2 text-base xl:text-lg'>
+                <Button
+                  className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                  type='submit'
+                  isLoading={registerAccountMutation.isLoading}
+                  disabled={registerAccountMutation.isLoading}
+                >
+                  Sign up
+                </Button>
               </div>
               <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
                 <span className='text-gray-400'>Already have an account?</span>

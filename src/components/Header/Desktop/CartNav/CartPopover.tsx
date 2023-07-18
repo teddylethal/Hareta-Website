@@ -158,15 +158,15 @@ export default function CartPopover() {
         <div className='mx-3 flex items-center justify-between'>
           <div className='flex space-x-2'>
             <Link to='/'>
-              <Button text='Store' className='w-16 justify-self-start py-1 text-sm' />
+              <Button className='w-16 justify-self-start py-1 text-sm'>Store</Button>
             </Link>
             <Link to='/'>
-              <Button text='Cart' className='w-16 justify-self-start py-1 text-sm' />
+              <Button className='w-16 justify-self-start py-1 text-sm'>Cart</Button>
             </Link>
           </div>
           <div>
             <Link to='/'>
-              <Button text='Buy all' className='w-20 justify-self-start py-2 text-sm' />
+              <Button className='w-20 justify-self-start py-2 text-sm'>Buy all</Button>
             </Link>
           </div>
         </div>
