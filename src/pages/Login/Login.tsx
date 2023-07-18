@@ -8,6 +8,7 @@ import { loginAccount } from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
+import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
@@ -163,7 +164,7 @@ export default function Login() {
 
               <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>
-                <Link className='ml-2 text-haretaColor' to='/register'>
+                <Link className='ml-2 text-haretaColor' to={path.register}>
                   Sign up
                 </Link>
               </div>

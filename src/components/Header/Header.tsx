@@ -14,6 +14,7 @@ import MobileNav from './Mobile/MobileNav/MobileNav'
 import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import UserNav from './Desktop/ProfileNav/UserNav'
+import path from 'src/constants/path'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -75,7 +76,7 @@ export default function Header() {
 
           <nav className='col-span-1 flex items-center justify-end space-x-1 uppercase  lg:space-x-4 lg:text-lg'>
             {!isAuthenticated && (
-              <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
+              <Link to={path.login} className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'

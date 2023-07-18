@@ -13,6 +13,7 @@ import { url } from 'inspector'
 import Button from 'src/components/Button'
 import { useContext } from 'react'
 import { ThemeContext } from 'src/App'
+import path from 'src/constants/path'
 
 type FormData = Schema
 
@@ -181,7 +182,7 @@ export default function Register() {
               </div>
               <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
                 <span className='text-gray-400'>Already have an account?</span>
-                <Link className='ml-2 text-haretaColor' to='/login'>
+                <Link className='ml-2 text-haretaColor' to={path.login}>
                   Login
                 </Link>
               </div>

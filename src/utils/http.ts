@@ -3,6 +3,7 @@ import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { AuthRespone } from 'src/types/auth.type'
 import { clearAccessTokenFromLS, getAccessTokenFromLS, saveAccessTokenToLS } from './auth'
+import path from 'src/constants/path'
 
 class Http {
   instance: AxiosInstance
@@ -33,7 +34,7 @@ class Http {
       (response) => {
         console.log(response)
         const { url } = response.config
-        if (url === '/login' || url === '/register') {
+        if (url === path.login || url === path.register) {
           this.accessToken = 'Bearer ' + response.data.data.token
           saveAccessTokenToLS(this.accessToken)
         }
