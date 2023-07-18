@@ -3,10 +3,8 @@
 import { Link } from 'react-router-dom'
 import ToggleTheme from '../ToggleTheme'
 import { createContext, useState, useContext } from 'react'
-import ProfileNav from './Desktop/ProfileNav'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useViewport } from 'src/hooks/useViewport'
-import SidebarNav from './Mobile/MobileNav/MobileNav'
 import SupportNav from './Desktop/SupportNav'
 import CartNav from './Desktop/CartNav'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -15,6 +13,7 @@ import MobileCart from './Mobile/MobileCart'
 import MobileNav from './Mobile/MobileNav/MobileNav'
 import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
+import UserNav from './Desktop/ProfileNav/UserNav'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -98,7 +97,7 @@ export default function Header() {
 
             {isAuthenticated && (
               <div className='flex px-3 hover:text-haretaColor'>
-                <ProfileNav />
+                <UserNav />
               </div>
             )}
 

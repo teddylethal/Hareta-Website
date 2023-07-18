@@ -1,3 +1,3 @@
-import ProfileNav from './ProfileNav'
+import UserNav from './UserNav'
 
-export default ProfileNav
+export default UserNav

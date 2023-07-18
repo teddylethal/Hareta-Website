@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { logout } from 'src/apis/auth.api'
 import { AppContext } from 'src/contexts/app.context'
 
-export default function ProfilePopover() {
+export default function UserPopover() {
   const { setIsAuthenticated } = useContext(AppContext)
   const logoutMutation = useMutation({
     mutationFn: logout,
