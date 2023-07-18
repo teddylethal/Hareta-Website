@@ -2,19 +2,22 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'src/App'
 import { loginAccount } from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
-import { ResponeApi } from 'src/types/utils.type'
+import { AppContext } from 'src/contexts/app.context'
+import { ErrorRespone } from 'src/types/utils.type'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 
 type FormData = LoginSchema
 
 export default function Login() {
+  const { setIsAuthenticated } = useContext(AppContext)
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,12 +33,13 @@ export default function Login() {
 
   const onSubmit = handleSubmit((data) => {
     loginAccountMutation.mutate(data, {
-      onSuccess: (data) => {
-        console.log(data)
+      onSuccess: () => {
+        setIsAuthenticated(true)
+        navigate('/')
       },
       onError: (error) => {
         console.log(error)
-        if (isAxiosBadRequestError<ResponeApi<FormData>>(error)) {
+        if (isAxiosBadRequestError<ErrorRespone<FormData>>(error)) {
           const formError = error.response?.data
           if (formError) {
             const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
@@ -59,7 +63,7 @@ export default function Login() {
 
   return (
     <div
-      className='mt-16 bg-cover bg-center duration-500'
+      className='mt-10 bg-cover bg-center duration-500 sm:mt-12 lg:mt-16'
       style={{
         backgroundImage: `url(${
           theme === 'dark'

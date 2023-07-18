@@ -14,6 +14,7 @@ import { ThemeContext } from 'src/App'
 import MobileCart from './Mobile/MobileCart'
 import MobileNav from './Mobile/MobileNav/MobileNav'
 import MobileUser from './Mobile/MobileUser'
+import { AppContext } from 'src/contexts/app.context'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -36,6 +37,8 @@ const initialCartContext: CartContextInterface = {
 export const CartContext = createContext<CartContextInterface>(initialCartContext)
 
 export default function Header() {
+  const { isAuthenticated } = useContext(AppContext)
+
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
@@ -72,28 +75,32 @@ export default function Header() {
           </div>
 
           <nav className='col-span-1 flex items-center justify-end space-x-1 uppercase  lg:space-x-4 lg:text-lg'>
-            {/* <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              fill='none'
-              viewBox='0 0 24 24'
-              strokeWidth={1.5}
-              stroke='currentColor'
-              className='h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
-              />
-            </svg>
+            {!isAuthenticated && (
+              <Link to='/login' className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  strokeWidth={1.5}
+                  stroke='currentColor'
+                  className='h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z'
+                  />
+                </svg>
 
-            <div>Login</div>
-          </Link> */}
+                <div>Login</div>
+              </Link>
+            )}
 
-            <div className='flex px-3 hover:text-haretaColor'>
-              <ProfileNav />
-            </div>
+            {isAuthenticated && (
+              <div className='flex px-3 hover:text-haretaColor'>
+                <ProfileNav />
+              </div>
+            )}
 
             <div className='rounded-md bg-[#a27b5c] text-textVintage hover:bg-haretaColor'>
               <CartNav />

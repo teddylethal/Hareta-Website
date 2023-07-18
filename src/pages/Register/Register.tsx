@@ -8,7 +8,7 @@ import Input from 'src/components/Input'
 import { schema, Schema } from 'src/utils/rules'
 import { registerAccount } from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
-import { ResponeApi } from 'src/types/utils.type'
+import { ErrorRespone } from 'src/types/utils.type'
 import { url } from 'inspector'
 import Button from 'src/components/Button'
 import { useContext } from 'react'
@@ -37,7 +37,7 @@ export default function Register() {
         console.log(data)
       },
       onError: (error) => {
-        if (isAxiosBadRequestError<ResponeApi<Omit<FormData, 'confirm_password'>>>(error)) {
+        if (isAxiosBadRequestError<ErrorRespone<Omit<FormData, 'confirm_password'>>>(error)) {
           const formError = error.response?.data
           if (formError?.message) {
             setError('email', {
@@ -54,7 +54,7 @@ export default function Register() {
 
   return (
     <div
-      className='mt-16 bg-cover bg-center duration-500'
+      className='mt-10 bg-cover bg-center duration-500 sm:mt-12 lg:mt-16'
       style={{
         backgroundImage: `url(${
           theme === 'dark'
