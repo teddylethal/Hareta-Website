@@ -2,19 +2,26 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'src/App'
-import { loginAccount } from 'src/apis/auth.api'
+import { getUserData, loginAccount } from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
-import { ResponeApi } from 'src/types/utils.type'
+import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
+import { ErrorRespone } from 'src/types/utils.type'
+import { getAccessTokenFromLS } from 'src/utils/auth'
+import http from 'src/utils/http'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 
 type FormData = LoginSchema
 
 export default function Login() {
+  const { theme } = useContext(ThemeContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -30,12 +37,13 @@ export default function Login() {
 
   const onSubmit = handleSubmit((data) => {
     loginAccountMutation.mutate(data, {
-      onSuccess: (data) => {
-        console.log(data)
+      onSuccess: () => {
+        setIsAuthenticated(true)
+        navigate('/')
       },
       onError: (error) => {
         console.log(error)
-        if (isAxiosBadRequestError<ResponeApi<FormData>>(error)) {
+        if (isAxiosBadRequestError<ErrorRespone<FormData>>(error)) {
           const formError = error.response?.data
           if (formError) {
             const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
@@ -55,11 +63,9 @@ export default function Login() {
     })
   })
 
-  const { theme } = useContext(ThemeContext)
-
   return (
     <div
-      className='mt-16 bg-cover bg-center duration-500'
+      className='mt-10 bg-cover bg-center duration-500 sm:mt-12 lg:mt-16'
       style={{
         backgroundImage: `url(${
           theme === 'dark'
@@ -146,12 +152,20 @@ export default function Login() {
                 }
               />
 
-              <div className='mt-3'>
-                <Button text='Sign in' />
+              <div className='mt-2 text-base lg:text-lg'>
+                <Button
+                  className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                  type='submit'
+                  isLoading={loginAccountMutation.isLoading}
+                  disabled={loginAccountMutation.isLoading}
+                >
+                  Login
+                </Button>
               </div>
+
               <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>
-                <Link className='ml-2 text-haretaColor' to='/register'>
+                <Link className='ml-2 text-haretaColor' to={path.register}>
                   Sign up
                 </Link>
               </div>

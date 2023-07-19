@@ -8,11 +8,12 @@ import Input from 'src/components/Input'
 import { schema, Schema } from 'src/utils/rules'
 import { registerAccount } from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
-import { ResponeApi } from 'src/types/utils.type'
+import { ErrorRespone } from 'src/types/utils.type'
 import { url } from 'inspector'
 import Button from 'src/components/Button'
 import { useContext } from 'react'
 import { ThemeContext } from 'src/App'
+import path from 'src/constants/path'
 
 type FormData = Schema
 
@@ -37,7 +38,7 @@ export default function Register() {
         console.log(data)
       },
       onError: (error) => {
-        if (isAxiosBadRequestError<ResponeApi<Omit<FormData, 'confirm_password'>>>(error)) {
+        if (isAxiosBadRequestError<ErrorRespone<Omit<FormData, 'confirm_password'>>>(error)) {
           const formError = error.response?.data
           if (formError?.message) {
             setError('email', {
@@ -54,7 +55,7 @@ export default function Register() {
 
   return (
     <div
-      className='mt-16 bg-cover bg-center duration-500'
+      className='mt-10 bg-cover bg-center duration-500 sm:mt-12 lg:mt-16'
       style={{
         backgroundImage: `url(${
           theme === 'dark'
@@ -73,7 +74,7 @@ export default function Register() {
             >
               <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Register</div>
 
-              <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x'>
+              <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x xl:divide-gray-300 dark:xl:divide-stone-700'>
                 <div className='xl:mr-8'>
                   <div className='text-xl text-textDark dark:text-vintageColor'>Account</div>
                   <Input
@@ -169,12 +170,19 @@ export default function Register() {
                 </div>
               </div>
 
-              <div className='mt-2'>
-                <Button text='Sign up' />
+              <div className='mt-2 text-base xl:text-lg'>
+                <Button
+                  className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                  type='submit'
+                  isLoading={registerAccountMutation.isLoading}
+                  disabled={registerAccountMutation.isLoading}
+                >
+                  Sign up
+                </Button>
               </div>
               <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
                 <span className='text-gray-400'>Already have an account?</span>
-                <Link className='ml-2 text-haretaColor' to='/login'>
+                <Link className='ml-2 text-haretaColor' to={path.login}>
                   Login
                 </Link>
               </div>
