@@ -22,6 +22,9 @@ export default function MobileCart({ className }: Props) {
   const handleBuyItem = () => {
     navigate('profile')
   }
+  const handleRemoveItem = () => {
+    return
+  }
 
   return (
     <div className={className}>
@@ -89,16 +92,23 @@ export default function MobileCart({ className }: Props) {
                   <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
 
-                    <button
-                      className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                      onClick={handleBuyItem}
-                    >
-                      Buy
-                    </button>
+                    <div className='flex space-x-3'>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleBuyItem}
+                      >
+                        Buy
+                      </button>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleRemoveItem}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-
               <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
                 <img
                   src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
@@ -117,16 +127,23 @@ export default function MobileCart({ className }: Props) {
                   <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
 
-                    <button
-                      className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                      onClick={handleBuyItem}
-                    >
-                      Buy
-                    </button>
+                    <div className='flex space-x-3'>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleBuyItem}
+                      >
+                        Buy
+                      </button>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleRemoveItem}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-
               <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
                 <img
                   src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
@@ -145,16 +162,23 @@ export default function MobileCart({ className }: Props) {
                   <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
 
-                    <button
-                      className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                      onClick={handleBuyItem}
-                    >
-                      Buy
-                    </button>
+                    <div className='flex space-x-3'>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleBuyItem}
+                      >
+                        Buy
+                      </button>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleRemoveItem}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-
               <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
                 <img
                   src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
@@ -173,68 +197,20 @@ export default function MobileCart({ className }: Props) {
                   <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
 
-                    <button
-                      className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                      onClick={handleBuyItem}
-                    >
-                      Buy
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
-                <img
-                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                  alt='Product'
-                  className='h-12 w-12 object-cover'
-                />
-                <div className='flex grow flex-col justify-between'>
-                  <div className='flex items-center justify-between'>
-                    <Link to='/' className='flex'>
-                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
-                        Battle Falcon
-                      </p>
-                    </Link>
-                    <span className='flex-shrink-0 text-orange-600'>$100</span>
-                  </div>
-                  <div className='ml-2 flex justify-between'>
-                    <span className='text-gray-500 dark:text-gray-400'>x2</span>
-
-                    <button
-                      className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                      onClick={handleBuyItem}
-                    >
-                      Buy
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
-                <img
-                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                  alt='Product'
-                  className='h-12 w-12 object-cover'
-                />
-                <div className='flex grow flex-col justify-between'>
-                  <div className='flex items-center justify-between'>
-                    <Link to='/' className='flex'>
-                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
-                        Battle Falcon
-                      </p>
-                    </Link>
-                    <span className='flex-shrink-0 text-orange-600'>$100</span>
-                  </div>
-                  <div className='ml-2 flex justify-between'>
-                    <span className='text-gray-500 dark:text-gray-400'>x2</span>
-
-                    <button
-                      className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                      onClick={handleBuyItem}
-                    >
-                      Buy
-                    </button>
+                    <div className='flex space-x-3'>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleBuyItem}
+                      >
+                        Buy
+                      </button>
+                      <button
+                        className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                        onClick={handleRemoveItem}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

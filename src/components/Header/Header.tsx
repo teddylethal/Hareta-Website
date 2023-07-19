@@ -110,7 +110,7 @@ export default function Header() {
             </div>
 
             <div className='flex items-center justify-center px-1'>
-              <ToggleTheme className='h-7 w-7 lg:h-10 lg:w-10' />
+              <ToggleTheme className='h-6 w-6 lg:h-8 lg:w-8' />
             </div>
           </nav>
         </div>
