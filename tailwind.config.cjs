@@ -13,7 +13,7 @@ module.exports = {
         vintageColor: '#A27B5C',
         textLight: '#EEEEEE',
         darkBg: '#1E1E1E',
-        lightBg: '#F2EEEE'
+        lightBg: '#f8f8f8'
       }
     }
   },
