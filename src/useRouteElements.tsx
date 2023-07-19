@@ -6,9 +6,9 @@ import Register from './pages/Register'
 import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
 import Landing from './pages/Landing'
-import Profile from './pages/Profile'
 import { AppContext } from './contexts/app.context'
 import path from './constants/path'
+import Profile from './pages/Profile'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
