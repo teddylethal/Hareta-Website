@@ -1,7 +1,5 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Button from 'src/components/Button'
 import { ThemeContext } from 'src/App'
@@ -20,10 +18,14 @@ export default function MobileCart({ className }: Props) {
   const closeCart = () => {
     setVisible(false)
   }
+  const navigate = useNavigate()
+  const handleBuyItem = () => {
+    navigate('profile')
+  }
 
   return (
-    <div>
-      <div className={className} onClick={openCart}>
+    <div className={className}>
+      <button onClick={openCart} className='relative flex items-end'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
@@ -35,11 +37,11 @@ export default function MobileCart({ className }: Props) {
         <span className='absolute left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs text-textDark sm:left-6  sm:h-5 sm:w-5 sm:text-sm'>
           6
         </span>
-      </div>
+      </button>
       <AnimatePresence>
         {visible && (
           <motion.div
-            className='absolute left-0 top-0 w-full self-center rounded-b-sm py-2 shadow-sm sm:left-[calc(50%-200px)] sm:w-[400px]'
+            className='absolute left-0 top-0 z-10 w-full self-center rounded-b-sm py-2 shadow-sm sm:left-[calc(50%-200px)] sm:w-[400px]'
             initial={{ opacity: 0, y: '-20%' }}
             animate={{
               opacity: 1,
@@ -51,7 +53,7 @@ export default function MobileCart({ className }: Props) {
             transition={{ duration: 0.3 }}
             ref={ref}
           >
-            <span className='flex w-full cursor-pointer items-center justify-center' onClick={closeCart}>
+            <button className='flex w-full cursor-pointer items-center justify-center' onClick={closeCart}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
@@ -64,155 +66,178 @@ export default function MobileCart({ className }: Props) {
                   clipRule='evenodd'
                 />
               </svg>
-            </span>
+            </button>
 
             <div className='mx-3 my-2 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
             <div className='h-[220px] overflow-y-auto'>
-              <Link to='/' className='flex items-center p-3 hover:bg-[#ddd] dark:hover:bg-[#222]'>
-                <div className='flex shrink-0'>
-                  <img
-                    src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                    alt='Product'
-                    className='h-12 w-12 object-cover'
-                  />
-                </div>
-                <div className='ml-2 flex flex-grow flex-col space-y-1'>
-                  <div className='flex justify-between'>
-                    <div className='truncate'>Battle Falcon</div>
+              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
+                <img
+                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
+                  alt='Product'
+                  className='h-12 w-12 object-cover'
+                />
+                <div className='flex grow flex-col justify-between'>
+                  <div className='flex items-center justify-between'>
+                    <Link to='/' className='flex'>
+                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                        Battle Falcon
+                      </p>
+                    </Link>
                     <span className='flex-shrink-0 text-orange-600'>$100</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
-                    <Link
-                      to='/'
+
+                    <button
                       className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                      onClick={handleBuyItem}
                     >
                       Buy
-                    </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-              <Link to='/' className='flex items-center p-3 hover:bg-[#ddd] dark:hover:bg-[#222]'>
-                <div className='flex shrink-0'>
-                  <img
-                    src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                    alt='Product'
-                    className='h-12 w-12 object-cover'
-                  />
-                </div>
-                <div className='ml-2 flex flex-grow flex-col space-y-1'>
-                  <div className='flex justify-between'>
-                    <div className='truncate'>Battle Falcon</div>
+              </div>
+
+              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
+                <img
+                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
+                  alt='Product'
+                  className='h-12 w-12 object-cover'
+                />
+                <div className='flex grow flex-col justify-between'>
+                  <div className='flex items-center justify-between'>
+                    <Link to='/' className='flex'>
+                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                        Battle Falcon
+                      </p>
+                    </Link>
                     <span className='flex-shrink-0 text-orange-600'>$100</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
-                    <Link
-                      to='/'
+
+                    <button
                       className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                      onClick={handleBuyItem}
                     >
                       Buy
-                    </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-              <Link to='/' className='flex items-center p-3 hover:bg-[#ddd] dark:hover:bg-[#222]'>
-                <div className='flex shrink-0'>
-                  <img
-                    src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                    alt='Product'
-                    className='h-12 w-12 object-cover'
-                  />
-                </div>
-                <div className='ml-2 flex flex-grow flex-col space-y-1'>
-                  <div className='flex justify-between'>
-                    <div className='truncate'>Battle Falcon</div>
+              </div>
+
+              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
+                <img
+                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
+                  alt='Product'
+                  className='h-12 w-12 object-cover'
+                />
+                <div className='flex grow flex-col justify-between'>
+                  <div className='flex items-center justify-between'>
+                    <Link to='/' className='flex'>
+                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                        Battle Falcon
+                      </p>
+                    </Link>
                     <span className='flex-shrink-0 text-orange-600'>$100</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
-                    <Link
-                      to='/'
+
+                    <button
                       className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                      onClick={handleBuyItem}
                     >
                       Buy
-                    </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-              <Link to='/' className='flex items-center p-3 hover:bg-[#ddd] dark:hover:bg-[#222]'>
-                <div className='flex shrink-0'>
-                  <img
-                    src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                    alt='Product'
-                    className='h-12 w-12 object-cover'
-                  />
-                </div>
-                <div className='ml-2 flex flex-grow flex-col space-y-1'>
-                  <div className='flex justify-between'>
-                    <div className='truncate'>Battle Falcon</div>
+              </div>
+
+              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
+                <img
+                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
+                  alt='Product'
+                  className='h-12 w-12 object-cover'
+                />
+                <div className='flex grow flex-col justify-between'>
+                  <div className='flex items-center justify-between'>
+                    <Link to='/' className='flex'>
+                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                        Battle Falcon
+                      </p>
+                    </Link>
                     <span className='flex-shrink-0 text-orange-600'>$100</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
-                    <Link
-                      to='/'
+
+                    <button
                       className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                      onClick={handleBuyItem}
                     >
                       Buy
-                    </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-              <Link to='/' className='flex items-center p-3 hover:bg-[#ddd] dark:hover:bg-[#222]'>
-                <div className='flex shrink-0'>
-                  <img
-                    src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                    alt='Product'
-                    className='h-12 w-12 object-cover'
-                  />
-                </div>
-                <div className='ml-2 flex flex-grow flex-col space-y-1'>
-                  <div className='flex justify-between'>
-                    <div className='truncate'>Battle Falcon</div>
+              </div>
+
+              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
+                <img
+                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
+                  alt='Product'
+                  className='h-12 w-12 object-cover'
+                />
+                <div className='flex grow flex-col justify-between'>
+                  <div className='flex items-center justify-between'>
+                    <Link to='/' className='flex'>
+                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                        Battle Falcon
+                      </p>
+                    </Link>
                     <span className='flex-shrink-0 text-orange-600'>$100</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
-                    <Link
-                      to='/'
+
+                    <button
                       className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                      onClick={handleBuyItem}
                     >
                       Buy
-                    </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
-              <Link to='/' className='flex items-center p-3 hover:bg-[#ddd] dark:hover:bg-[#222]'>
-                <div className='flex shrink-0'>
-                  <img
-                    src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
-                    alt='Product'
-                    className='h-12 w-12 object-cover'
-                  />
-                </div>
-                <div className='ml-2 flex flex-grow flex-col space-y-1'>
-                  <div className='flex justify-between'>
-                    <div className='truncate'>Battle Falcon</div>
+              </div>
+
+              <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'>
+                <img
+                  src='https://i.pinimg.com/236x/3a/dc/78/3adc7869b0ffcd7f9dd1c7112ea124e3.jpg'
+                  alt='Product'
+                  className='h-12 w-12 object-cover'
+                />
+                <div className='flex grow flex-col justify-between'>
+                  <div className='flex items-center justify-between'>
+                    <Link to='/' className='flex'>
+                      <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                        Battle Falcon
+                      </p>
+                    </Link>
                     <span className='flex-shrink-0 text-orange-600'>$100</span>
                   </div>
-                  <div className='flex justify-between'>
+                  <div className='ml-2 flex justify-between'>
                     <span className='text-gray-500 dark:text-gray-400'>x2</span>
-                    <Link
-                      to='/'
+
+                    <button
                       className='self-end text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                      onClick={handleBuyItem}
                     >
                       Buy
-                    </Link>
+                    </button>
                   </div>
                 </div>
-              </Link>
+              </div>
             </div>
 
             <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />

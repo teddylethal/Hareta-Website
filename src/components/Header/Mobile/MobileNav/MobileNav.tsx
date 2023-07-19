@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext, useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
@@ -30,8 +28,8 @@ export default function MobileNav({ className }: Props) {
   }
 
   return (
-    <div>
-      <div className={className} onClick={openMenu}>
+    <div className={className}>
+      <button onClick={openMenu} type='button'>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           viewBox='0 0 24 24'
@@ -44,11 +42,11 @@ export default function MobileNav({ className }: Props) {
             clipRule='evenodd'
           />
         </svg>
-      </div>
+      </button>
       <AnimatePresence>
         {visible && (
           <motion.div
-            className='absolute left-0 top-0 flex w-52 overflow-hidden rounded-r-sm  py-2 shadow-md sm:w-64'
+            className='absolute left-0 top-0 z-10 flex w-52 overflow-hidden rounded-r-sm py-2 shadow-md sm:w-64'
             initial={{ opacity: 0, x: '-20%' }}
             animate={{
               opacity: 1,
@@ -60,7 +58,7 @@ export default function MobileNav({ className }: Props) {
             transition={{ duration: 0.3 }}
             ref={ref}
           >
-            <div className='flex w-full flex-col items-start justify-center px-3 text-sm font-semibold uppercase sm:text-base'>
+            <div className='flex w-full flex-col items-start justify-center px-3 text-sm font-medium uppercase sm:text-base'>
               <Link to='/' className='w-full py-2 '>
                 <img src='src/assets/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
               </Link>
@@ -75,12 +73,9 @@ export default function MobileNav({ className }: Props) {
 
               <div className='my-2 w-full border border-x-0 border-b-gray-500 border-t-transparent' />
 
-              <div
-                className='flex w-full flex-col items-center py-2 hover:text-haretaColor dark:hover:text-haretaColor'
-                onClick={toggleExtendingMobileSupport}
-              >
-                <div className='flex w-full items-center'>
-                  <div>Support</div>
+              <div className='flex w-full flex-col items-center py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+                <button className='flex w-full items-center uppercase' onClick={toggleExtendingMobileSupport}>
+                  <span>Support</span>
                   {extendingSupport && (
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
                       <path
@@ -99,15 +94,20 @@ export default function MobileNav({ className }: Props) {
                       />
                     </svg>
                   )}
-                </div>
+                </button>
                 <AnimateChangeInHeight className='w-full'>
                   {visible && extendingSupport && (
                     <motion.div
                       className='mx-0 mt-2 flex w-full flex-col space-y-1 text-sm font-medium text-textDark dark:bg-[#333] dark:text-textLight sm:text-base'
                       initial={{ opacity: 0, y: '-20%' }}
-                      animate={{ opacity: 1, y: 0 }}
+                      animate={{
+                        opacity: 1,
+                        y: 0,
+                        backgroundColor: theme === 'dark' ? '#333333' : '#dddddd',
+                        color: theme === 'dark' ? '#eeeeee' : '#222222'
+                      }}
                       exit={{ opacity: 0, y: '-20%' }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: 0.3 }}
                     >
                       <Link to='/' className='py-2 pl-1 hover:text-haretaColor dark:hover:text-haretaColor sm:pl-2'>
                         About us
@@ -131,7 +131,7 @@ export default function MobileNav({ className }: Props) {
             </div>
             <div className='absolute right-0 flex h-10 space-x-2 p-2'>
               <ToggleTheme className='h-6 w-6 duration-300' />
-              <span onClick={closeMenu}>
+              <button onClick={closeMenu}>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
                   <path
                     fillRule='evenodd'
@@ -139,7 +139,7 @@ export default function MobileNav({ className }: Props) {
                     clipRule='evenodd'
                   />
                 </svg>
-              </span>
+              </button>
             </div>
           </motion.div>
         )}
