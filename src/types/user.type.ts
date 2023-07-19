@@ -1,13 +1,24 @@
 type Role = 'User' | 'Admin'
 
 export interface User {
-  _id: string
-  roles: Role[]
-  email: string
+  id: string
+  status: number
+  created_at: string
+  updated_at: string
   name: string
-  date_of_birth: string
-  address: string
+  email: string
   phone: string
-  createAt: string
-  updateAt: string
+  avatar: {
+    id: string
+    status: number
+    created_at: string
+    updated_at: string
+    url: string
+    filename: string
+    width: number
+    height: number
+    cloud_name: string
+    extension: string
+  }
+  role: Role[]
 }

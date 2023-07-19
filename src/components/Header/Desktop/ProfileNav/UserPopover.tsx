@@ -1,9 +1,7 @@
-import { useMutation } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { logout } from 'src/apis/auth.api'
 import { AppContext } from 'src/contexts/app.context'
-import { clearAccessTokenFromLS } from 'src/utils/auth'
+import { clearLS } from 'src/utils/auth'
 
 export default function UserPopover() {
   const { setIsAuthenticated } = useContext(AppContext)
@@ -14,7 +12,7 @@ export default function UserPopover() {
   //   }
   // })
   const handleLogout = () => {
-    clearAccessTokenFromLS()
+    clearLS()
     setIsAuthenticated(false)
   }
   return (

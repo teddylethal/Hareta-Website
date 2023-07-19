@@ -4,20 +4,23 @@ import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'src/App'
-import { loginAccount } from 'src/apis/auth.api'
+import { getUserData, loginAccount } from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
+import { getAccessTokenFromLS } from 'src/utils/auth'
+import http from 'src/utils/http'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 
 type FormData = LoginSchema
 
 export default function Login() {
-  const { setIsAuthenticated } = useContext(AppContext)
+  const { theme } = useContext(ThemeContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     register,
@@ -59,8 +62,6 @@ export default function Login() {
       }
     })
   })
-
-  const { theme } = useContext(ThemeContext)
 
   return (
     <div

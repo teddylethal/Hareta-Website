@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Link } from 'react-router-dom'
 import ToggleTheme from '../ToggleTheme'
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState, useContext, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useViewport } from 'src/hooks/useViewport'
 import SupportNav from './Desktop/SupportNav'
@@ -15,6 +15,9 @@ import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import UserNav from './Desktop/ProfileNav/UserNav'
 import path from 'src/constants/path'
+import { getAccessTokenFromLS } from 'src/utils/auth'
+import http from 'src/utils/http'
+import axios from 'axios'
 
 interface MenuContextInterface {
   openingMenu: boolean
