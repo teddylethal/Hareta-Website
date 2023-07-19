@@ -8,7 +8,7 @@ export default function ProductList() {
     <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
       <div className='container'>
         <div className='grid grid-cols-12 gap-6'>
-          <div className='col-span-3	rounded-sm bg-[#F0ECEC] dark:bg-[#303030]'>
+          <div className='col-span-3	rounded-sm bg-[#F0ECEC] duration-500 dark:bg-[#303030]'>
             <AsideSorter />
             <AsideFilter />
           </div>
