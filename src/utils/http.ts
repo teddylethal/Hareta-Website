@@ -1,8 +1,9 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
-import { clearLS, getAccessTokenFromLS, setAccessTokenToLS } from './auth'
+import { clearLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
 import path from 'src/constants/path'
+import { ProfileRespone } from 'src/types/auth.type'
 
 class Http {
   instance: AxiosInstance
@@ -10,7 +11,7 @@ class Http {
   constructor() {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
-      baseURL: 'http://hareta.me:3000/',
+      baseURL: 'http://api.hareta.me/',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'
@@ -19,7 +20,7 @@ class Http {
     this.instance.interceptors.request.use(
       (config) => {
         if (this.accessToken && config.headers) {
-          config.headers.authorization = 'Bearer ' + this.accessToken
+          config.headers.Authorization = 'Bearer ' + this.accessToken
           return config
         }
         return config
@@ -31,11 +32,15 @@ class Http {
     // Add a response interceptor
     this.instance.interceptors.response.use(
       (response) => {
-        console.log(response)
         const { url } = response.config
         if (url === path.login || url === path.register) {
           this.accessToken = response.data.data.token
           setAccessTokenToLS(this.accessToken)
+          const headers = response.config.headers
+          axios.get<ProfileRespone>('http://api.hareta.me/auth/', { headers }).then((userResponse) => {
+            // console.log(userResponse.data.data)
+            setProfileToLS(userResponse.data.data)
+          })
         }
         // else if (url === '/logout') {
         //   this.accessToken = ''

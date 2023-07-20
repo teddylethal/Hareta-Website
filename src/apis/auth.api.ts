@@ -14,7 +14,3 @@ export const loginAccount = (body: { email: string; password: string }) => {
 export const logout = () => {
   clearLS()
 }
-
-export const getUserData = () => {
-  return http.get('/auth')
-}

@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { useContext } from 'react'
+import axios from 'axios'
+import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'src/App'
-import { getUserData, loginAccount } from 'src/apis/auth.api'
+import { loginAccount } from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
@@ -12,7 +13,6 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
 import { getAccessTokenFromLS } from 'src/utils/auth'
-import http from 'src/utils/http'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 
@@ -39,6 +39,12 @@ export default function Login() {
     loginAccountMutation.mutate(data, {
       onSuccess: () => {
         setIsAuthenticated(true)
+        const token = getAccessTokenFromLS()
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+        axios.get('http://api.hareta.me/auth/', { headers }).then((response) => setProfile(response.data.data))
         navigate('/')
       },
       onError: (error) => {
@@ -62,6 +68,18 @@ export default function Login() {
       }
     })
   })
+  // const token = getAccessTokenFromLS()
+  // console.log(token)
+
+  // useEffect(() => {
+  //   if (token) {
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //       'Content-Type': 'application/json'
+  //     }
+  //     axios.get('http://api.hareta.me/auth/', { headers }).then((response) => console.log(response))
+  //   }
+  // }, [token])
 
   return (
     <div
