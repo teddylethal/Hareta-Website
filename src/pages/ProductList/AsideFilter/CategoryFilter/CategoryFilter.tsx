@@ -4,27 +4,27 @@ import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
 
-export default function CollectionFilter() {
+export default function CategoryFilter() {
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
-  const openCollectionFilter = () => {
+  const openCategoryFilter = () => {
     setVisible(true)
     setIsopening(true)
   }
-  const closeCollectionFilter = () => {
+  const closeCategoryFilter = () => {
     setVisible(false)
     setIsopening(false)
   }
-  const toggleOpenCollectionFilter = () => {
-    if ((isOpening && !visible) || (!isOpening && !visible)) openCollectionFilter()
-    else closeCollectionFilter()
+  const toggleOpenCategoryFilter = () => {
+    if ((isOpening && !visible) || (!isOpening && !visible)) openCategoryFilter()
+    else closeCategoryFilter()
   }
   return (
-    <div className='mx-2 my-2 bg-[#E8E8E8] px-2 py-2 duration-500 dark:bg-[#363636]' ref={ref}>
-      <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenCollectionFilter}>
+    <div className='mx-2 bg-[#E8E8E8] px-2 py-2  duration-500 dark:bg-[#363636]' ref={ref}>
+      <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenCategoryFilter}>
         <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400 dark:hover:text-haretaColor'>
-          Collection
+          Category
           {(!visible || !isOpening) && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -55,13 +55,13 @@ export default function CollectionFilter() {
           )}
         </div>
         <div className='flex w-full select-none  justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-base'>
-          Noel
+          Keycap
         </div>
       </button>
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className='max-h-40 overflow-auto px-2 text-sm text-textDark dark:text-textLight lg:text-base '
+            className='max-h-40 overflow-auto px-2 text-sm text-textDark dark:text-textLight  lg:text-base '
             initial={{ opacity: 0, y: '-40%' }}
             animate={{
               opacity: 1,
@@ -73,19 +73,10 @@ export default function CollectionFilter() {
           >
             <ul>
               <li>
-                <button className='truncate py-1 hover:text-haretaColor '>Rifle Collection</button>
+                <button className='truncate py-1 hover:text-haretaColor '>Keycap</button>
               </li>
               <li>
-                <button className='truncate py-1 hover:text-haretaColor '>Gloves Collection</button>
-              </li>
-              <li>
-                <button className='truncate py-1 hover:text-haretaColor '>Shotgun Collection</button>
-              </li>
-              <li>
-                <button className='truncate py-1 hover:text-haretaColor '>Heavy Collection</button>
-              </li>
-              <li>
-                <button className='truncate py-1 hover:text-haretaColor '>Outfit Collection</button>
+                <button className='truncate py-1 hover:text-haretaColor '>Figure</button>
               </li>
             </ul>
           </motion.div>

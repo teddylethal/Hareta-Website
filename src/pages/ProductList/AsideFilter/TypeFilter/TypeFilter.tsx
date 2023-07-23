@@ -4,27 +4,30 @@ import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
 
-export default function CollectionFilter() {
+export default function TypeFilter() {
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
-  const openCollectionFilter = () => {
+  const openTypeFilter = () => {
     setVisible(true)
     setIsopening(true)
   }
-  const closeCollectionFilter = () => {
+  const closeTypeFilter = () => {
     setVisible(false)
     setIsopening(false)
   }
-  const toggleOpenCollectionFilter = () => {
-    if ((isOpening && !visible) || (!isOpening && !visible)) openCollectionFilter()
-    else closeCollectionFilter()
+  const toggleOpenTypeFilter = () => {
+    if ((isOpening && !visible) || (!isOpening && !visible)) openTypeFilter()
+    else closeTypeFilter()
   }
   return (
-    <div className='mx-2 my-2 bg-[#E8E8E8] px-2 py-2 duration-500 dark:bg-[#363636]' ref={ref}>
-      <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenCollectionFilter}>
+    <div
+      className='mx-2 bg-[#E8E8E8] px-2 py-2 text-textDark duration-500  dark:bg-[#363636] dark:text-textLight'
+      ref={ref}
+    >
+      <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenTypeFilter}>
         <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400 dark:hover:text-haretaColor'>
-          Collection
+          Type
           {(!visible || !isOpening) && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -55,7 +58,7 @@ export default function CollectionFilter() {
           )}
         </div>
         <div className='flex w-full select-none  justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-base'>
-          Noel
+          DOM
         </div>
       </button>
       <AnimateChangeInHeight>
