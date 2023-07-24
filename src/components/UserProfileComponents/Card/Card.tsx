@@ -1,7 +1,7 @@
 import Avatar from '@mui/material/Avatar'
 export default function Card() {
   return (
-    <div className='mt-5 flex h-1/4 w-full flex-col items-center justify-end xl:flex-row'>
+    <div className='mt-5 flex h-28 w-full flex-col items-center justify-end xl:flex-row'>
       <div className='h-1/2 xl:h-full '>
         <Avatar
           alt='avatar'
@@ -11,7 +11,6 @@ export default function Card() {
       </div>
       <div className='mt-2 h-1/2'>
         <h1>Bùi Trọng Văn</h1>
-        <h2 className='hidden xl:block'>@nekan</h2>
       </div>
     </div>
   )

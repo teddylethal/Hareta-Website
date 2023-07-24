@@ -39,11 +39,11 @@ export default function SideBarList({ handleSet, select }: Props) {
             <ListItemText primary='General' sx={{ color: color1 }} />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
+        {/* <ListItem disablePadding>
           <ListItemButton onClick={handleClick2}>
             <ListItemText primary='Change your info' sx={{ color: color2 }} />
           </ListItemButton>
-        </ListItem>
+        </ListItem> */}
         <ListItem disablePadding>
           <ListItemButton onClick={handleClick3}>
             <ListItemText primary='Change Password' sx={{ color: color3 }} />

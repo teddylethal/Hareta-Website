@@ -3,8 +3,8 @@ import ProductList from './pages/ProductList'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import RegisterLayout from './layouts/RegisterLayout'
-import MainLayout from './layouts/MainLayout'
-import Landing from './pages/Landing'
+// import MainLayout from './layouts/MainLayout'
+// import Landing from './pages/Landing'
 import Profile from './pages/Profile'
 
 const isAuthenticated = false
@@ -21,9 +21,17 @@ export default function useRouteElements() {
     {
       path: '/',
       element: (
-        <MainLayout>
-          <ProductList />
-        </MainLayout>
+        // <MainLayout>
+        <ProductList />
+        // </MainLayout>
+      )
+    },
+    {
+      path: '/profile',
+      element: (
+        // <MainLayout>
+        <Profile />
+        // </MainLayout>
       )
     },
     {
@@ -33,9 +41,9 @@ export default function useRouteElements() {
         {
           path: 'profile',
           element: (
-            <MainLayout>
-              <Profile />
-            </MainLayout>
+            // <MainLayout>
+            <Profile />
+            // </MainLayout>
           )
         }
       ]
@@ -61,16 +69,16 @@ export default function useRouteElements() {
           )
         }
       ]
-    },
-
-    {
-      path: '/landing',
-      element: (
-        <MainLayout>
-          <Landing />
-        </MainLayout>
-      )
     }
+
+    // {
+    //   path: '/landing',
+    //   element: (
+    //     <MainLayout>
+    //       <Landing />
+    //     </MainLayout>
+    //   )
+    // }
   ])
   return routeElements
 }

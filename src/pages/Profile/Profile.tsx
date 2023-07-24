@@ -64,7 +64,7 @@ export default function Profile() {
         /> */}
         <div className='container mx-0 h-[60rem] w-full bg-white p-0 md:flex xl:mx-40'>
           <Box>
-            {/* <Card /> */}
+            <Card />
             <Box sx={{ display: { xs: 'none', md: 'block' } }}>
               <SideBarList handleSet={handleSet} select={select} />
             </Box>
