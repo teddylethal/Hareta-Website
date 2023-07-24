@@ -16,7 +16,7 @@ export default function ProductList() {
           </div>
           <div className='col-span-9'>
             <SearchBar />
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
               {Array(18)
                 .fill(0)
                 .map((_, index) => (
