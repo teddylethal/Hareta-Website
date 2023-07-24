@@ -22,7 +22,7 @@ export default function TypeFilter() {
   }
   return (
     <div
-      className='mx-2 bg-[#E8E8E8] px-2 py-2 text-textDark duration-500  dark:bg-[#363636] dark:text-textLight'
+      className='mx-2 overflow-hidden bg-[#E8E8E8] px-2 py-2 text-textDark  duration-500 dark:bg-[#363636] dark:text-textLight'
       ref={ref}
     >
       <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenTypeFilter}>

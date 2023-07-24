@@ -21,9 +21,9 @@ export default function CategoryFilter() {
     else closeCategoryFilter()
   }
   return (
-    <div className='mx-2 bg-[#E8E8E8] px-2 py-2  duration-500 dark:bg-[#363636]' ref={ref}>
+    <div className='mx-2 overflow-hidden bg-[#E8E8E8] px-2  py-2 duration-500  dark:bg-[#363636]' ref={ref}>
       <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenCategoryFilter}>
-        <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400 dark:hover:text-haretaColor'>
+        <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor'>
           Category
           {(!visible || !isOpening) && (
             <svg

@@ -139,7 +139,7 @@ export default function Login() {
                 name='email'
                 register={register}
                 type='text'
-                className='mt-8'
+                className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
                 errorMessage={errors.email?.message}
                 labelName='Email'
                 required

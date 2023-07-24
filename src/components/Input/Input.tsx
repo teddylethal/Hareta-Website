@@ -124,7 +124,7 @@ export default function Input({
           type={visible ? 'text' : `${type}`}
           id={inputId}
           className={
-            'peer h-full w-full  border-none bg-transparent pl-1.5 text-lg text-[#222] outline-none duration-300 dark:text-textVintage dark:caret-white ' +
+            'peer h-full w-full  border-none bg-transparent pl-1.5 text-lg text-[#222] outline-none duration-300 autofill:text-textDark dark:text-textVintage dark:caret-white autofill:dark:text-textVintage ' +
             (isPasswordInput ? 'pr-14 md:pr-20' : 'pr-9 md:pr-12')
           }
           autoComplete={autoComplete}

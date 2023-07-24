@@ -9,12 +9,12 @@ export default function ProductList() {
     <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
       <div className='container'>
         <div className='grid grid-cols-12 gap-6'>
-          <div className='col-span-3	rounded-sm bg-[#E8E8E8] duration-500 dark:bg-[#303030]'>
+          <div className='col-span-3 overflow-hidden rounded-sm bg-[#E8E8E8] duration-500 dark:bg-[#303030]'>
             <AsideSorter />
             <AsideFilter />
             <AsideFavouriteList />
           </div>
-          <div className='col-span-9 bg-red-300'>
+          <div className='col-span-9'>
             <SearchBar />
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
               {Array(18)
