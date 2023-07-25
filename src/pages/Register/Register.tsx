@@ -6,7 +6,7 @@ import { omit } from 'lodash'
 
 import Input from 'src/components/Input'
 import { schema, Schema } from 'src/utils/rules'
-import { registerAccount } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { url } from 'inspector'
@@ -28,7 +28,7 @@ export default function Register() {
   })
 
   const registerAccountMutation = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
   })
 
   const onSubmit = handleSubmit((data) => {
@@ -68,7 +68,7 @@ export default function Register() {
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-4 lg:col-end-7'>
             <form
-              className='dark:bg-darkBg rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 md:p-10'
+              className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 dark:bg-darkBg md:p-10'
               onSubmit={onSubmit}
               noValidate
             >
