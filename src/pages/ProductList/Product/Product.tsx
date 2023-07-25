@@ -11,7 +11,7 @@ export default function Product({ product }: Props) {
     <div className='relative h-full w-full bg-[#dfdfdf] p-2 duration-500 dark:bg-[#303030]'>
       <div className='relative w-full pt-[75%]'>
         <img
-          src='https://images.unsplash.com/photo-1594502184342-2e12f877aa73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8OTExfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60'
+          src={product.avatar ? product.avatar.url : ''}
           alt={product.name}
           className='absolute left-0 top-0 h-full w-full object-cover'
         />
