@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { useContext } from 'react'
+import axios from 'axios'
+import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'src/App'
-import { getUserData, loginAccount } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
@@ -12,7 +13,6 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
 import { getAccessTokenFromLS } from 'src/utils/auth'
-import http from 'src/utils/http'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 
@@ -32,13 +32,19 @@ export default function Login() {
   })
 
   const loginAccountMutation = useMutation({
-    mutationFn: (body: FormData) => loginAccount(body)
+    mutationFn: (body: FormData) => authApi.loginAccount(body)
   })
 
   const onSubmit = handleSubmit((data) => {
     loginAccountMutation.mutate(data, {
       onSuccess: () => {
         setIsAuthenticated(true)
+        const token = getAccessTokenFromLS()
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+        axios.get('http://api.hareta.me/auth/', { headers }).then((response) => setProfile(response.data.data))
         navigate('/')
       },
       onError: (error) => {
@@ -62,6 +68,18 @@ export default function Login() {
       }
     })
   })
+  // const token = getAccessTokenFromLS()
+  // console.log(token)
+
+  // useEffect(() => {
+  //   if (token) {
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //       'Content-Type': 'application/json'
+  //     }
+  //     axios.get('http://api.hareta.me/auth/', { headers }).then((response) => console.log(response))
+  //   }
+  // }, [token])
 
   return (
     <div
@@ -121,7 +139,7 @@ export default function Login() {
                 name='email'
                 register={register}
                 type='text'
-                className='mt-8'
+                className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
                 errorMessage={errors.email?.message}
                 labelName='Email'
                 required

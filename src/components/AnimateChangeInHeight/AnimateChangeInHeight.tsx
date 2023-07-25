@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 
 interface AnimateChangeInHeightProps {
