@@ -8,7 +8,11 @@ import MainLayout from './layouts/MainLayout'
 import Landing from './pages/Landing'
 import { AppContext } from './contexts/app.context'
 import path from './constants/path'
-import Profile from './pages/Profile'
+
+import Profile from './pages/User/pages/Profile'
+import Order from './pages/User/pages/Order'
+import ChangePassword from './pages/User/pages/ChangePassword'
+import UserLayout from './pages/User/layout/UserLayout'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -44,18 +48,31 @@ export default function useRouteElements() {
         }
       ]
     },
-
     {
       path: '',
       element: <ProtectedRoute />,
       children: [
         {
-          path: path.profile,
+          path: path.user,
           element: (
             <MainLayout>
-              <Profile />
+              <UserLayout />
             </MainLayout>
-          )
+          ),
+          children: [
+            {
+              path: path.profile,
+              element: <Profile />
+            },
+            {
+              path: path.changePassword,
+              element: <ChangePassword />
+            },
+            {
+              path: path.order,
+              element: <Order />
+            }
+          ]
         }
       ]
     },

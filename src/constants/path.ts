@@ -1,8 +1,11 @@
 const path = {
   home: '/',
-  profile: '/profile',
   login: '/login',
-  register: '/register'
+  register: '/register',
+  user: '/user',
+  profile: '/user/profile',
+  changePassword: '/user/changepassword',
+  order: '/user/order'
 }
 
 export default path
