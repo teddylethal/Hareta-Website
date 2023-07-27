@@ -7,11 +7,16 @@ interface Props {
 }
 
 export default function Product({ product }: Props) {
+  // console.log(product.avatar.url)
   return (
     <div className='relative h-full w-full bg-[#dfdfdf] p-2 duration-500 dark:bg-[#303030]'>
       <div className='relative w-full pt-[75%]'>
         <img
-          src={product.avatar ? product.avatar.url : ''}
+          src={
+            product.avatar
+              ? `${product.avatar.url}`
+              : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
+          }
           alt={product.name}
           className='absolute left-0 top-0 h-full w-full object-cover'
         />

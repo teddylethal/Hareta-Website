@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function MobileUser({ className }: Props) {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, setIsAuthenticated, profile } = useContext(AppContext)
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
@@ -48,7 +48,11 @@ export default function MobileUser({ className }: Props) {
       {isAuthenticated && (
         <button onClick={() => setVisible(true)} type='submit'>
           <img
-            src='https://media.istockphoto.com/id/942526180/photo/3d-illustration-of-red-generic-sports-coupe-car-on-white.jpg?b=1&s=612x612&w=0&k=20&c=SJLPHZyAyLCzw76Vl4rjRyvcbUOBk9efmus5t2zr8aQ='
+            src={
+              profile && profile.avatar
+                ? profile.avatar.url
+                : 'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
+            }
             alt='avatar'
             className={classNames(
               className,
@@ -77,11 +81,15 @@ export default function MobileUser({ className }: Props) {
             <div className='flex items-center justify-between px-3'>
               <div className='flex items-center space-x-2'>
                 <img
-                  src='https://media.istockphoto.com/id/942526180/photo/3d-illustration-of-red-generic-sports-coupe-car-on-white.jpg?b=1&s=612x612&w=0&k=20&c=SJLPHZyAyLCzw76Vl4rjRyvcbUOBk9efmus5t2zr8aQ='
+                  src={
+                    profile && profile.avatar
+                      ? profile.avatar.url
+                      : 'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
+                  }
                   alt='avatar'
                   className='h-8 w-8 rounded-full'
                 />
-                <span>Teddy Lethal</span>
+                <span>{profile?.name}</span>
               </div>
               <button className='flex items-center' type='button' onClick={() => setVisible(false)}>
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
