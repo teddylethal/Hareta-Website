@@ -4,11 +4,16 @@ import { AnimatePresence, motion } from 'framer-motion'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
 import { StoreContext } from 'src/contexts/store.context'
+import CategoryFilter from '../../AsideFilter/CategoryFilter'
+import CollectionFilter from '../../AsideFilter/CollectionFilter'
+import TypeFilter from '../../AsideFilter/TypeFilter'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
 
 export default function MobileBottomBar() {
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
-  const { category, setCategory, collection, setCollection, type, setType, sorting } = useContext(StoreContext)
+  // const { category, setCategory, collection, setCollection, type, setType, sorting } = useContext(StoreContext)
 
   const open = () => {
     setVisible(true)
@@ -25,13 +30,20 @@ export default function MobileBottomBar() {
 
   return (
     <div className=''>
-      <button onClick={open} className='relative flex items-end text-vintageColor dark:text-haretaColor'>
+      <button
+        onClick={open}
+        className='group relative flex items-center text-textDark hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor '
+      >
+        <FontAwesomeIcon
+          icon={faFilter}
+          className='mr-1 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
+        />
         Filter
       </button>
       <AnimatePresence>
         {visible && (
           <motion.div
-            className='absolute bottom-0 right-0 z-10 self-center rounded-b-sm py-2 shadow-sm'
+            className='absolute bottom-0 right-0 z-10 flex h-96 w-44 flex-col self-center rounded-b-sm py-2 shadow-sm sm:w-80'
             initial={{ opacity: 0, x: '20%' }}
             animate={{
               opacity: 1,
@@ -43,63 +55,9 @@ export default function MobileBottomBar() {
             transition={{ duration: 0.3 }}
             ref={ref}
           >
-            <ul className='w-32'>
-              <li>
-                <button
-                  onClick={handleChange}
-                  className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-                    sorting === 'Newest' ? 'text-haretaColor' : ''
-                  )}
-                >
-                  Newest
-                </button>
-              </li>
-              <li>
-                <button
-                  className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-                    sorting === 'Oldest' ? 'text-haretaColor' : ''
-                  )}
-                  onClick={handleChange}
-                >
-                  Oldest
-                </button>
-              </li>
-              <li>
-                <button
-                  className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-                    sorting === 'Top seller' ? 'text-haretaColor' : ''
-                  )}
-                  onClick={handleChange}
-                >
-                  Top seller
-                </button>
-              </li>
-              <li>
-                <button
-                  className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-                    sorting === 'Signature' ? 'text-haretaColor' : ''
-                  )}
-                  onClick={handleChange}
-                >
-                  Signature
-                </button>
-              </li>
-              <li>
-                <button
-                  className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-                    sorting === 'Favourite' ? 'text-haretaColor' : ''
-                  )}
-                  onClick={handleChange}
-                >
-                  Favourite
-                </button>
-              </li>
-            </ul>
+            <CategoryFilter />
+            <CollectionFilter />
+            <TypeFilter />
           </motion.div>
         )}
       </AnimatePresence>

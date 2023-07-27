@@ -27,7 +27,7 @@ export default function MobileSorter() {
 
   return (
     <div className=''>
-      <button onClick={open} className='relative flex items-end text-vintageColor dark:text-haretaColor'>
+      <button onClick={open} className='relative flex w-20 items-end text-vintageColor dark:text-haretaColor'>
         {sorting}
       </button>
       <AnimatePresence>
@@ -45,12 +45,12 @@ export default function MobileSorter() {
             transition={{ duration: 0.3 }}
             ref={ref}
           >
-            <ul className='w-32'>
+            <ul className='w-32 text-lg'>
               <li>
                 <button
                   onClick={handleChange}
                   className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
+                    'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
                     sorting === 'Newest' ? 'text-haretaColor' : ''
                   )}
                 >
@@ -60,7 +60,7 @@ export default function MobileSorter() {
               <li>
                 <button
                   className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
+                    'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
                     sorting === 'Oldest' ? 'text-haretaColor' : ''
                   )}
                   onClick={handleChange}
@@ -71,7 +71,7 @@ export default function MobileSorter() {
               <li>
                 <button
                   className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
+                    'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
                     sorting === 'Top seller' ? 'text-haretaColor' : ''
                   )}
                   onClick={handleChange}
@@ -82,7 +82,7 @@ export default function MobileSorter() {
               <li>
                 <button
                   className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
+                    'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
                     sorting === 'Signature' ? 'text-haretaColor' : ''
                   )}
                   onClick={handleChange}
@@ -93,7 +93,7 @@ export default function MobileSorter() {
               <li>
                 <button
                   className={classNames(
-                    'flex w-full justify-start px-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
+                    'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
                     sorting === 'Favourite' ? 'text-haretaColor' : ''
                   )}
                   onClick={handleChange}

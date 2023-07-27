@@ -11,6 +11,8 @@ interface StoreContextInterface {
   setCollection: React.Dispatch<React.SetStateAction<string>>
   type: string
   setType: React.Dispatch<React.SetStateAction<string>>
+  isFavouriteList: boolean
+  setIsFavouriteList: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const initialStoreContext: StoreContextInterface = {
@@ -21,7 +23,9 @@ const initialStoreContext: StoreContextInterface = {
   collection: '',
   setCollection: () => null,
   type: '',
-  setType: () => null
+  setType: () => null,
+  isFavouriteList: false,
+  setIsFavouriteList: () => null
 }
 
 export const StoreContext = createContext<StoreContextInterface>(initialStoreContext)
@@ -31,10 +35,22 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   const [category, setCategory] = useState<string>(initialStoreContext.category)
   const [collection, setCollection] = useState<string>(initialStoreContext.collection)
   const [type, setType] = useState<string>(initialStoreContext.type)
+  const [isFavouriteList, setIsFavouriteList] = useState<boolean>(initialStoreContext.isFavouriteList)
 
   return (
     <StoreContext.Provider
-      value={{ sorting, setSorting, category, setCategory, collection, setCollection, type, setType }}
+      value={{
+        sorting,
+        setSorting,
+        category,
+        setCategory,
+        collection,
+        setCollection,
+        type,
+        setType,
+        isFavouriteList,
+        setIsFavouriteList
+      }}
     >
       {children}
     </StoreContext.Provider>
