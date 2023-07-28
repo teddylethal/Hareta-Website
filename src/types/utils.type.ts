@@ -7,6 +7,5 @@ export interface ErrorRespone<Data> {
 }
 
 export interface SuccessRespone<Data> {
-  message: string
   data: Data
 }

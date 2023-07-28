@@ -46,13 +46,12 @@ export default function ProductList() {
 
   const queryParams = useQueryParams()
   const { data } = useQuery({
-    queryKey: ['products', queryParams],
+    queryKey: ['items', queryParams],
     queryFn: () => {
       return productApi.getProductList(queryParams)
     }
   })
 
-  // console.log(data?.data.data)
   return (
     <StoreProvider>
       <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
