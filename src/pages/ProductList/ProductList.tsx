@@ -8,12 +8,14 @@ import { useQuery } from '@tanstack/react-query'
 import Pagination from '@mui/material/Pagination'
 import productApi from 'src/apis/product.api'
 import makeStyles from '@mui/styles/makeStyles'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ThemeContext } from 'src/App'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useViewport } from 'src/hooks/useViewport'
 import MobileBottomBar from './MobileBottomBar'
 import { StoreProvider } from 'src/contexts/store.context'
+import { AppContext } from 'src/contexts/app.context'
+import UsePagination from 'src/components/UsePagination'
 
 const useStyles = makeStyles(() => ({
   light: {
@@ -32,6 +34,9 @@ const useStyles = makeStyles(() => ({
   }
 }))
 export default function ProductList() {
+  const { isAuthenticated } = useContext(AppContext)
+  const [page, setPage] = useState<number>(1)
+
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
   const MUITheme = createTheme({
@@ -52,6 +57,8 @@ export default function ProductList() {
     }
   })
 
+  const favouriteQueryParams = useQueryParams()
+
   return (
     <StoreProvider>
       <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
@@ -61,7 +68,7 @@ export default function ProductList() {
               <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#E8E8E8] duration-500 dark:bg-[#303030]'>
                 <AsideSorter />
                 <AsideFilter />
-                <AsideFavouriteList />
+                {isAuthenticated && <AsideFavouriteList />}
               </div>
               <div className='col-span-9'>
                 <SearchBar />
@@ -73,7 +80,7 @@ export default function ProductList() {
                       </div>
                     ))}
                 </div>
-                <ThemeProvider theme={MUITheme}>
+                {/* <ThemeProvider theme={MUITheme}>
                   <Pagination
                     count={10}
                     variant='outlined'
@@ -81,7 +88,8 @@ export default function ProductList() {
                     color='primary'
                     className='my-4 flex justify-center'
                   />
-                </ThemeProvider>
+                </ThemeProvider> */}
+                <UsePagination currentPage={page} setCurrentPage={setPage} totalPage={20} />
               </div>
             </div>
           )}
@@ -95,7 +103,7 @@ export default function ProductList() {
                     </div>
                   ))}
               </div>
-              <ThemeProvider theme={MUITheme}>
+              {/* <ThemeProvider theme={MUITheme}>
                 <Pagination
                   count={10}
                   variant='outlined'
@@ -103,7 +111,8 @@ export default function ProductList() {
                   color='primary'
                   className='my-4 flex w-full justify-center'
                 />
-              </ThemeProvider>
+              </ThemeProvider> */}
+              <UsePagination currentPage={page} setCurrentPage={setPage} totalPage={20} />
             </div>
           )}
         </div>

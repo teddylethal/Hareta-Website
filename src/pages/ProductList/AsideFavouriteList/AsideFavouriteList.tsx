@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { useContext, useState } from 'react'
 import { AnimatePresence, color, motion } from 'framer-motion'
 import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function AsideFavouriteList() {
   const { theme } = useContext(ThemeContext)
@@ -18,8 +19,8 @@ export default function AsideFavouriteList() {
     >
       <button
         className={classNames(
-          'w-full overflow-hidden text-center  duration-500 ',
-          isActive ? 'text-textVintage' : 'text-textDark dark:text-textLight'
+          'w-full overflow-hidden text-center   duration-500 ',
+          isActive ? 'text-textVintage' : 'text-textDark dark:text-textLight '
         )}
         onClick={handleClick}
       >

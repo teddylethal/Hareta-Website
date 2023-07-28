@@ -1,12 +1,24 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
+import { useContext } from 'react'
+import { StoreContext } from 'src/contexts/store.context'
 
 interface Props {
   product: ProductType
 }
 
 export default function Product({ product }: Props) {
+  const { collection, setCollection } = useContext(StoreContext)
+
+  const handleCollectionClick = (e: any) => {
+    setCollection(e.target.innerText)
+  }
+
+  const handleFavouriteClick = (e: any) => {
+    return
+  }
+
   // console.log(product.avatar.url)
   return (
     <div className='relative h-full w-full bg-[#dfdfdf] p-2 duration-500 dark:bg-[#303030]'>
@@ -24,7 +36,10 @@ export default function Product({ product }: Props) {
       <div className='mx-1 my-3 flex items-center justify-between'>
         <div className='flex flex-col space-y-1'>
           <p className='text-lg text-textDark duration-500 dark:text-textLight'>{product.name}</p>
-          <button className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'>
+          <button
+            className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'
+            onClick={handleCollectionClick}
+          >
             {product.collection}
           </button>
         </div>

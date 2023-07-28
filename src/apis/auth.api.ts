@@ -1,4 +1,5 @@
 import { AuthRespone } from 'src/types/auth.type'
+import { FavouriteListConfig, ProductList } from 'src/types/product.type'
 import { User } from 'src/types/user.type'
 import { clearLS } from 'src/utils/auth'
 import http from 'src/utils/http'
@@ -12,6 +13,9 @@ const authApi = {
   },
   logout() {
     clearLS()
+  },
+  getFavouriteList(params: FavouriteListConfig) {
+    return http.get<ProductList>('/auth/user-like-item/', { params })
   }
 }
 

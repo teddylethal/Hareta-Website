@@ -49,3 +49,8 @@ export interface ProductListConfig {
   lower_price?: string
   upper_price?: string
 }
+
+export interface FavouriteListConfig {
+  page: number
+  limit: number
+}
