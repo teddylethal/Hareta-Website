@@ -62,9 +62,7 @@ export default function Header() {
               <div>Event</div>
             </Link>
 
-            <div className='relative cursor-pointer border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-              <SupportNav />
-            </div>
+            <SupportNav />
           </nav>
 
           <div className='col-span-1 flex grow select-none justify-center text-xs text-haretaColor md:text-sm lg:text-base'>

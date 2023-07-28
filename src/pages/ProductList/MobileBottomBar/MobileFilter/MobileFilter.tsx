@@ -48,7 +48,7 @@ export default function MobileBottomBar() {
             animate={{
               opacity: 1,
               x: 0,
-              backgroundColor: theme === 'dark' ? '#333333' : '#dddddd',
+              backgroundColor: theme === 'dark' ? '#444' : '#f9f9f9',
               color: theme === 'dark' ? '#eeeeee' : '#222222'
             }}
             exit={{ opacity: 0, x: '20%' }}

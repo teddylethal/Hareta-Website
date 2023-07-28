@@ -37,7 +37,7 @@ export default function UsePagination({ currentPage, setCurrentPage, totalPage }
         dotBefore = true
         return (
           <button
-            className='mx-1 cursor-pointer rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
+            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
             key={index}
           >
             ...
@@ -51,7 +51,7 @@ export default function UsePagination({ currentPage, setCurrentPage, totalPage }
         dotAfter = true
         return (
           <button
-            className='mx-1 cursor-pointer rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
+            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
             key={index}
           >
             ...

@@ -9,7 +9,6 @@ import { AppContext } from 'src/contexts/app.context'
 
 export default function UserNav() {
   const { profile } = useContext(AppContext)
-  console.log(profile?.avatar)
 
   return (
     <Popover renderPopover={<UserPopover />} className='py-0.5 lg:py-1.5'>
