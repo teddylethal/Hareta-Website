@@ -4,6 +4,9 @@ import { render } from 'react-dom'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { QueryConfig } from 'src/pages/ProductList/ProductList'
+import { Link, createSearchParams } from 'react-router-dom'
+import path from 'src/constants/path'
 
 const List = styled('ul')({
   listStyle: 'none',
@@ -13,22 +16,14 @@ const List = styled('ul')({
 })
 
 interface Props {
-  currentPage: number
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+  queryConfig: QueryConfig
   totalPage: number
+  isMobile?: boolean
 }
-const RANGE = 2
-export default function UsePagination({ currentPage, setCurrentPage, totalPage }: Props) {
-  const handleNextButton = () => {
-    if (currentPage < totalPage) {
-      setCurrentPage(currentPage + 1)
-    }
-  }
-  const handlePrevButton = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-    }
-  }
+export default function UsePagination({ queryConfig, totalPage, isMobile }: Props) {
+  const currentPage = Number(queryConfig.page)
+  const RANGE = isMobile ? 1 : 2
+
   const renderPagination = () => {
     let dotAfter = false
     let dotBefore = false
@@ -36,12 +31,12 @@ export default function UsePagination({ currentPage, setCurrentPage, totalPage }
       if (!dotBefore) {
         dotBefore = true
         return (
-          <button
+          <span
             className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
             key={index}
           >
             ...
-          </button>
+          </span>
         )
       }
       return null
@@ -50,12 +45,12 @@ export default function UsePagination({ currentPage, setCurrentPage, totalPage }
       if (!dotAfter) {
         dotAfter = true
         return (
-          <button
+          <span
             className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
             key={index}
           >
             ...
-          </button>
+          </span>
         )
       }
       return null
@@ -76,7 +71,14 @@ export default function UsePagination({ currentPage, setCurrentPage, totalPage }
           return renderDotBefore(index)
         }
         return (
-          <button
+          <Link
+            to={{
+              pathname: path.home,
+              search: createSearchParams({
+                ...queryConfig,
+                page: pageNumber.toString()
+              }).toString()
+            }}
             className={classNames(
               'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-textDark px-2 py-2 text-sm text-textDark shadow-sm hover:border-haretaColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor lg:mx-2 lg:h-8 lg:w-8 lg:text-base ',
               {
@@ -86,39 +88,64 @@ export default function UsePagination({ currentPage, setCurrentPage, totalPage }
               }
             )}
             key={index}
-            onClick={() => {
-              setCurrentPage(pageNumber)
-            }}
           >
             {pageNumber}
-          </button>
+          </Link>
         )
       })
   }
 
   return (
     <div className='mt-6 flex flex-wrap items-center justify-center'>
-      <button
-        className='group mx-2 flex cursor-pointer items-center rounded-lg border border-textDark px-3 py-1  text-sm text-textDark shadow-sm hover:border-haretaColor hover:text-haretaColor  dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base '
-        onClick={handlePrevButton}
-      >
-        <FontAwesomeIcon
-          icon={faAngleLeft}
-          className='mr-1 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
-        />
-        Prev
-      </button>
+      {currentPage === 1 ? (
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+          <FontAwesomeIcon icon={faAngleLeft} className='text-textDark dark:text-textLight' />
+          {!isMobile && <p>Prev</p>}
+        </span>
+      ) : (
+        <Link
+          to={{
+            pathname: path.home,
+            search: createSearchParams({
+              ...queryConfig,
+              page: (currentPage - 1).toString()
+            }).toString()
+          }}
+          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-haretaColor  hover:text-haretaColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base '
+        >
+          <FontAwesomeIcon
+            icon={faAngleLeft}
+            className='text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
+          />
+          {!isMobile && <p>Prev</p>}
+        </Link>
+      )}
+
       {renderPagination()}
-      <button
-        className='group mx-2 flex cursor-pointer items-center rounded-lg border border-textDark px-3 py-1 text-sm text-textDark shadow-sm hover:border-haretaColor hover:text-haretaColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base'
-        onClick={handleNextButton}
-      >
-        <FontAwesomeIcon
-          icon={faAngleRight}
-          className='mr-1 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
-        />
-        Next
-      </button>
+
+      {currentPage === totalPage ? (
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+          {!isMobile && <p>Next</p>}
+          <FontAwesomeIcon icon={faAngleRight} className='text-textDark dark:text-textLight' />
+        </span>
+      ) : (
+        <Link
+          to={{
+            pathname: path.home,
+            search: createSearchParams({
+              ...queryConfig,
+              page: (currentPage + 1).toString()
+            }).toString()
+          }}
+          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-haretaColor  hover:text-haretaColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base '
+        >
+          {!isMobile && <p>Next</p>}
+          <FontAwesomeIcon
+            icon={faAngleRight}
+            className='py-1 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
+          />
+        </Link>
+      )}
     </div>
   )
 }

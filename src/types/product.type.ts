@@ -40,14 +40,14 @@ export interface ProductList {
 
 export interface ProductListConfig {
   id?: string
-  page?: number
-  limit?: number
+  page?: number | string
+  limit?: number | string
   category?: string
   collection?: string
   type?: string
   product_line?: string
-  lower_price?: string
-  upper_price?: string
+  lower_price?: number | string
+  upper_price?: number | string
 }
 
 export interface FavouriteListConfig {

@@ -13,7 +13,7 @@ export default function MobileBottomBar() {
     setIsFavouriteList(!isFavouriteList)
   }
   return (
-    <div className='fixed bottom-10 z-10 flex h-10 w-full items-center justify-between bg-white px-2 duration-500 dark:bg-black sm:h-12'>
+    <div className='fixed bottom-0 z-10 flex h-10 w-full items-center justify-between bg-white px-2 duration-500 dark:bg-black sm:h-12'>
       <MobileSorter />
       <div
         className={classNames(

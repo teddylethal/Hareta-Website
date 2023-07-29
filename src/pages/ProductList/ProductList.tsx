@@ -1,63 +1,51 @@
+import { useQuery } from '@tanstack/react-query'
+import { omitBy, isUndefined } from 'lodash'
 import useQueryParams from 'src/hooks/useQueryParams'
 import AsideFavouriteList from './AsideFavouriteList'
 import AsideFilter from './AsideFilter'
 import AsideSorter from './AsideSorter'
 import Product from './Product'
 import SearchBar from './SearchBar'
-import { useQuery } from '@tanstack/react-query'
-import Pagination from '@mui/material/Pagination'
 import productApi from 'src/apis/product.api'
-import makeStyles from '@mui/styles/makeStyles'
 import { useContext, useState } from 'react'
 import { ThemeContext } from 'src/App'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { useViewport } from 'src/hooks/useViewport'
 import MobileBottomBar from './MobileBottomBar'
 import { StoreProvider } from 'src/contexts/store.context'
 import { AppContext } from 'src/contexts/app.context'
 import UsePagination from 'src/components/UsePagination'
+import { ProductListConfig } from 'src/types/product.type'
 
-const useStyles = makeStyles(() => ({
-  light: {
-    '& .MuiPaginationItem-root': {
-      color: '#222',
-      // bgcolor: '#f8f8f8',
-      borderColor: '#aaa'
-    }
-  },
-  dark: {
-    '& .MuiPaginationItem-root': {
-      color: '#eee',
-      // bgcolor: '#1E1E1E',
-      borderColor: '#444'
-    }
-  }
-}))
+export type QueryConfig = {
+  [key in keyof ProductListConfig]: string
+}
+
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
-  const [page, setPage] = useState<number>(1)
-
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
-  const MUITheme = createTheme({
-    palette: {
-      primary: {
-        main: '#FFA500'
-      }
-    }
-  })
-  const paginationClassname = useStyles()
-  const { theme } = useContext(ThemeContext)
 
-  const queryParams = useQueryParams()
+  const queryParams: QueryConfig = useQueryParams()
+  const queryConfig: QueryConfig = omitBy(
+    {
+      page: queryParams.page || '1',
+      limit: queryParams.limit,
+      category: queryParams.category,
+      collection: queryParams.collection,
+      type: queryParams.type,
+      product_line: queryParams.product_line,
+      lower_price: queryParams.lower_price,
+      upper_price: queryParams.upper_price
+    },
+    isUndefined
+  )
   const { data } = useQuery({
     queryKey: ['items', queryParams],
     queryFn: () => {
-      return productApi.getProductList(queryParams)
-    }
+      return productApi.getProductList(queryConfig as ProductListConfig)
+    },
+    keepPreviousData: true
   })
-
-  const favouriteQueryParams = useQueryParams()
 
   return (
     <StoreProvider>
@@ -72,28 +60,23 @@ export default function ProductList() {
               </div>
               <div className='col-span-9'>
                 <SearchBar />
-                <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
-                  {data &&
-                    data.data.data.map((product) => (
-                      <div className='col-span-1' key={product.id}>
-                        <Product product={product} />
-                      </div>
-                    ))}
-                </div>
-                {/* <ThemeProvider theme={MUITheme}>
-                  <Pagination
-                    count={10}
-                    variant='outlined'
-                    classes={{ root: theme === 'dark' ? paginationClassname.dark : paginationClassname.light }}
-                    color='primary'
-                    className='my-4 flex justify-center'
-                  />
-                </ThemeProvider> */}
-                <UsePagination currentPage={page} setCurrentPage={setPage} totalPage={20} />
+                {data && (
+                  <div>
+                    <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
+                      {data.data.data.map((product) => (
+                        <div className='col-span-1' key={product.id}>
+                          <Product product={product} />
+                        </div>
+                      ))}
+                    </div>
+                    <UsePagination queryConfig={queryConfig} totalPage={data.data.paging.total} />
+                  </div>
+                )}
               </div>
             </div>
           )}
-          {isMobile && (
+
+          {isMobile && data && (
             <div>
               <div className='gird-cols-1 grid gap-6 sm:grid-cols-2'>
                 {data &&
@@ -103,16 +86,7 @@ export default function ProductList() {
                     </div>
                   ))}
               </div>
-              {/* <ThemeProvider theme={MUITheme}>
-                <Pagination
-                  count={10}
-                  variant='outlined'
-                  classes={{ root: theme === 'dark' ? paginationClassname.dark : paginationClassname.light }}
-                  color='primary'
-                  className='my-4 flex w-full justify-center'
-                />
-              </ThemeProvider> */}
-              <UsePagination currentPage={page} setCurrentPage={setPage} totalPage={20} />
+              <UsePagination queryConfig={queryConfig} totalPage={data.data.paging.total} isMobile />
             </div>
           )}
         </div>
