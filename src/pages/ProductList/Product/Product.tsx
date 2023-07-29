@@ -1,18 +1,65 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { useContext } from 'react'
 import { StoreContext } from 'src/contexts/store.context'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
+import { QueryConfig } from '../ProductList'
+import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { omit } from 'lodash'
 
 interface Props {
   product: ProductType
+  queryConfig: QueryConfig
 }
 
-export default function Product({ product }: Props) {
-  const { collection, setCollection } = useContext(StoreContext)
+export default function Product({ product, queryConfig }: Props) {
+  const navigate = useNavigate()
+  const { setCollection, setType } = useContext(StoreContext)
 
   const handleCollectionClick = (e: any) => {
-    setCollection(e.target.innerText)
+    const selectedCollection = String(e.target.innerText)
+
+    setCollection(selectedCollection)
+    setCollectionFilteringToLS(selectedCollection)
+    setType('All')
+    setTypeFilteringToLS('All')
+
+    navigate({
+      pathname: path.home,
+      search: createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            type: selectedCollection
+          },
+          ['type']
+        )
+      ).toString()
+    })
+  }
+
+  const handleTypeClick = (e: any) => {
+    const selectedType = String(e.target.innerText)
+
+    setType(selectedType)
+    setTypeFilteringToLS(selectedType)
+    setCollection('All')
+    setCollectionFilteringToLS('All')
+
+    navigate({
+      pathname: path.home,
+      search: createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            type: selectedType
+          },
+          ['collection']
+        )
+      ).toString()
+    })
   }
 
   const handleFavouriteClick = (e: any) => {
@@ -36,12 +83,20 @@ export default function Product({ product }: Props) {
       <div className='mx-1 my-3 flex items-center justify-between'>
         <div className='flex flex-col space-y-1'>
           <p className='text-lg text-textDark duration-500 dark:text-textLight'>{product.name}</p>
-          <button
-            className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'
-            onClick={handleCollectionClick}
-          >
-            {product.collection}
-          </button>
+          <div className='flex items-center space-x-4'>
+            <button
+              className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'
+              onClick={handleCollectionClick}
+            >
+              {product.collection}
+            </button>
+            <button
+              className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'
+              onClick={handleTypeClick}
+            >
+              {product.type}
+            </button>
+          </div>
         </div>
         <button>
           <FontAwesomeIcon icon={faHeart} fontSize={24} />

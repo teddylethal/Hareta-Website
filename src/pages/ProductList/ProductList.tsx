@@ -64,7 +64,7 @@ export default function ProductList() {
                     <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
                       {data.data.data.map((product) => (
                         <div className='col-span-1' key={product.id}>
-                          <Product product={product} />
+                          <Product product={product} queryConfig={queryConfig} />
                         </div>
                       ))}
                     </div>
@@ -81,7 +81,7 @@ export default function ProductList() {
                 {data &&
                   data.data.data.map((product) => (
                     <div className='col-span-1' key={product.id}>
-                      <Product product={product} />
+                      <Product product={product} queryConfig={queryConfig} />
                     </div>
                   ))}
               </div>

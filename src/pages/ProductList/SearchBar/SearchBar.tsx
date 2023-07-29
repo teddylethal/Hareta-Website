@@ -1,6 +1,6 @@
 export default function SearchBar() {
   return (
-    <div className='mb-2 overflow-hidden rounded-lg bg-[#eee] shadow-sm duration-500 dark:bg-[#333]'>
+    <div className='mb-2 overflow-hidden rounded-lg bg-[#e0e0e0] shadow-sm duration-500 dark:bg-[#333]'>
       <form className='flex w-full items-center'>
         <input
           id='search_bar_input'

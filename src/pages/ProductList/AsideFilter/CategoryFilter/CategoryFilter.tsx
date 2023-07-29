@@ -10,7 +10,7 @@ import { StoreContext } from 'src/contexts/store.context'
 import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { capitalize } from 'lodash'
+import { omit } from 'lodash'
 import { setCategoryFilteringToLS } from 'src/utils/store'
 
 interface Props {
@@ -49,14 +49,22 @@ export default function CategoryFilter({ queryConfig }: Props) {
     const selectedCategory = String(e.target.innerText)
     if (selectedCategory === 'All') {
       navigate({
-        pathname: path.home
+        pathname: path.home,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig
+            },
+            ['category']
+          )
+        ).toString()
       })
     } else {
       navigate({
         pathname: path.home,
         search: createSearchParams({
           ...queryConfig,
-          category: selectedCategory === 'All' ? '' : selectedCategory
+          category: selectedCategory
         }).toString()
       })
     }

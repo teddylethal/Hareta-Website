@@ -11,6 +11,7 @@ import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { setTypeFilteringToLS } from 'src/utils/store'
+import { omit } from 'lodash'
 
 interface Props {
   queryConfig: QueryConfig
@@ -49,7 +50,15 @@ export default function TypeFilter({ queryConfig }: Props) {
     const selectedType = String(e.target.innerText)
     if (selectedType === 'All') {
       navigate({
-        pathname: path.home
+        pathname: path.home,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig
+            },
+            ['type']
+          )
+        ).toString()
       })
     } else {
       navigate({
