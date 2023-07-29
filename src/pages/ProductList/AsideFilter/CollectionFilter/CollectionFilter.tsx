@@ -7,14 +7,23 @@ import { StoreContext } from 'src/contexts/store.context'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
+import { QueryConfig } from '../../ProductList'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
 
-export default function CollectionFilter() {
+interface Props {
+  queryConfig: QueryConfig
+}
+
+export default function CollectionFilter({ queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
   const { collection, setCollection } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
 
   const queryParams = useQueryParams()
+  const navigate = useNavigate()
+
   const { data } = useQuery({
     queryKey: ['collections', queryParams],
     queryFn: () => {
@@ -34,8 +43,23 @@ export default function CollectionFilter() {
     if ((isOpening && !visible) || (!isOpening && !visible)) open()
     else close()
   }
+
   const handleChange = (e: any) => {
-    setCollection(e.target.innerText)
+    const collection = String(e.target.innerText)
+    if (collection === 'All') {
+      navigate({
+        pathname: path.home
+      })
+    } else {
+      navigate({
+        pathname: path.home,
+        search: createSearchParams({
+          ...queryConfig,
+          collection: collection === 'All' ? '' : collection
+        }).toString()
+      })
+    }
+    setCollection(collection)
     close()
   }
 
@@ -91,6 +115,9 @@ export default function CollectionFilter() {
             transition={{ duration: 0.2 }}
           >
             <div className='flex flex-col'>
+              <button className='flex items-center justify-start py-1 hover:text-haretaColor' onClick={handleChange}>
+                All
+              </button>
               {data &&
                 data.data.data.map((name, index) => (
                   <button

@@ -54,8 +54,8 @@ export default function ProductList() {
           {!isMobile && (
             <div className='grid grid-cols-12 gap-6'>
               <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#E8E8E8] duration-500 dark:bg-[#303030]'>
-                <AsideSorter />
-                <AsideFilter />
+                <AsideSorter queryConfig={queryConfig} />
+                <AsideFilter queryConfig={queryConfig} />
                 {isAuthenticated && <AsideFavouriteList />}
               </div>
               <div className='col-span-9'>

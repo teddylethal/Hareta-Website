@@ -7,14 +7,24 @@ import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { StoreContext } from 'src/contexts/store.context'
+import { QueryConfig } from '../../ProductList'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
+import { capitalize } from 'lodash'
 
-export default function CategoryFilter() {
+interface Props {
+  queryConfig: QueryConfig
+}
+
+export default function CategoryFilter({ queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
   const { category, setCategory } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
 
   const queryParams = useQueryParams()
+  const navigate = useNavigate()
+
   const { data } = useQuery({
     queryKey: ['categories', queryParams],
     queryFn: () => {
@@ -35,7 +45,21 @@ export default function CategoryFilter() {
     else close()
   }
   const handleChange = (e: any) => {
-    setCategory(e.target.innerText)
+    const selectedCategory = String(e.target.innerText)
+    if (selectedCategory === 'All') {
+      navigate({
+        pathname: path.home
+      })
+    } else {
+      navigate({
+        pathname: path.home,
+        search: createSearchParams({
+          ...queryConfig,
+          category: selectedCategory === 'All' ? '' : selectedCategory
+        }).toString()
+      })
+    }
+    setCategory(selectedCategory)
     close()
   }
   return (
@@ -90,6 +114,9 @@ export default function CategoryFilter() {
             transition={{ duration: 0.2 }}
           >
             <div className='flex flex-col'>
+              <button className='flex items-center justify-start py-1 hover:text-haretaColor' onClick={handleChange}>
+                All
+              </button>
               {data &&
                 data.data.data.map((name, index) => (
                   <button

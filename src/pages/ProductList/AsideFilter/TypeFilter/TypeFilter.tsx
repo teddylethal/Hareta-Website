@@ -7,14 +7,23 @@ import { StoreContext } from 'src/contexts/store.context'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
+import { QueryConfig } from '../../ProductList'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
 
-export default function TypeFilter() {
+interface Props {
+  queryConfig: QueryConfig
+}
+
+export default function TypeFilter({ queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
   const { type, setType } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
 
   const queryParams = useQueryParams()
+  const navigate = useNavigate()
+
   const { data } = useQuery({
     queryKey: ['types', queryParams],
     queryFn: () => {
@@ -34,8 +43,23 @@ export default function TypeFilter() {
     if ((isOpening && !visible) || (!isOpening && !visible)) open()
     else close()
   }
+
   const handleChange = (e: any) => {
-    setType(e.target.innerText)
+    const type = String(e.target.innerText)
+    if (type === 'All') {
+      navigate({
+        pathname: path.home
+      })
+    } else {
+      navigate({
+        pathname: path.home,
+        search: createSearchParams({
+          ...queryConfig,
+          type: type === 'All' ? '' : type
+        }).toString()
+      })
+    }
+    setType(type)
     close()
   }
 
@@ -94,6 +118,9 @@ export default function TypeFilter() {
             transition={{ duration: 0.2 }}
           >
             <div className='flex flex-col'>
+              <button className='flex items-center justify-start py-1 hover:text-haretaColor' onClick={handleChange}>
+                All
+              </button>
               {data &&
                 data.data.data.map((name, index) => (
                   <button

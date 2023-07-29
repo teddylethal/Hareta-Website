@@ -1,8 +1,13 @@
 import classNames from 'classnames'
 import { useContext } from 'react'
 import { StoreContext } from 'src/contexts/store.context'
+import { QueryConfig } from '../ProductList'
 
-export default function AsideSorter() {
+interface Props {
+  queryConfig: QueryConfig
+}
+
+export default function AsideSorter({ queryConfig }: Props) {
   const { sorting, setSorting } = useContext(StoreContext)
 
   const handleChange = (event: any) => {
@@ -18,7 +23,7 @@ export default function AsideSorter() {
           <button
             onClick={handleChange}
             className={classNames(
-              'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Newest' ? 'text-haretaColor' : ''
             )}
           >
@@ -28,7 +33,7 @@ export default function AsideSorter() {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Oldest' ? 'text-haretaColor' : ''
             )}
             onClick={handleChange}
@@ -39,7 +44,7 @@ export default function AsideSorter() {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Top seller' ? 'text-haretaColor' : ''
             )}
             onClick={handleChange}
@@ -50,7 +55,7 @@ export default function AsideSorter() {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Signature' ? 'text-haretaColor' : ''
             )}
             onClick={handleChange}
@@ -61,7 +66,7 @@ export default function AsideSorter() {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Favourite' ? 'text-haretaColor' : ''
             )}
             onClick={handleChange}
