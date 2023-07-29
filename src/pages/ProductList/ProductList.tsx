@@ -111,7 +111,7 @@ export default function ProductList() {
                   </div>
                 ))}
             </div>
-            <UsePagination queryConfig={queryConfig} totalPage={data.data.paging.total} isMobile />
+            <UsePagination queryConfig={queryConfig} totalPage={ceil(data.data.paging.total / 12)} isMobile />
           </div>
         )}
       </div>
