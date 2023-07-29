@@ -17,7 +17,7 @@ export default function AsideSorter({ queryConfig }: Props) {
   }
 
   return (
-    <div className='m-4 overflow-hidden rounded-sm bg-[#f9f9f9] py-2 text-base text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-lg'>
+    <div className='m-4 overflow-hidden rounded-sm bg-[#f0f0f0] py-2 text-base text-textDark duration-500 dark:bg-[#303030] dark:text-textLight lg:text-lg'>
       <ul className=''>
         <li>
           <button

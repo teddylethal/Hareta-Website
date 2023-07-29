@@ -67,7 +67,7 @@ export default function TypeFilter({ queryConfig }: Props) {
 
   return (
     <div
-      className='overflow-hidden bg-[#E8E8E8] p-2 text-textDark  duration-500 dark:bg-[#363636] dark:text-textLight'
+      className='overflow-hidden bg-[#ddd] p-2 text-textDark  duration-500 dark:bg-[#202020] dark:text-textLight'
       ref={ref}
     >
       <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
