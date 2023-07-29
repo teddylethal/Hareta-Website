@@ -7,7 +7,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'src/App'
 import authApi from 'src/apis/auth.api'
 import Button from 'src/components/Button'
-import Input from 'src/components/Input'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
@@ -15,6 +14,7 @@ import { ErrorRespone } from 'src/types/utils.type'
 import { getAccessTokenFromLS } from 'src/utils/auth'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
+import AccountInput from 'src/components/AccountInput'
 
 type FormData = LoginSchema
 
@@ -135,7 +135,7 @@ export default function Login() {
                 </div>
               </div> */}
 
-              <Input
+              <AccountInput
                 name='email'
                 register={register}
                 type='text'
@@ -152,7 +152,7 @@ export default function Login() {
                 }
               />
 
-              <Input
+              <AccountInput
                 name='password'
                 register={register}
                 type='password'

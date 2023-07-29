@@ -23,7 +23,7 @@ export default function AsideSorter({ queryConfig }: Props) {
           <button
             onClick={handleChange}
             className={classNames(
-              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Newest' ? 'text-haretaColor' : ''
             )}
           >
@@ -33,18 +33,7 @@ export default function AsideSorter({ queryConfig }: Props) {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
-              sorting === 'Oldest' ? 'text-haretaColor' : ''
-            )}
-            onClick={handleChange}
-          >
-            Oldest
-          </button>
-        </li>
-        <li>
-          <button
-            className={classNames(
-              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Top seller' ? 'text-haretaColor' : ''
             )}
             onClick={handleChange}
@@ -55,7 +44,7 @@ export default function AsideSorter({ queryConfig }: Props) {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Signature' ? 'text-haretaColor' : ''
             )}
             onClick={handleChange}
@@ -66,7 +55,7 @@ export default function AsideSorter({ queryConfig }: Props) {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-4 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
+              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
               sorting === 'Favourite' ? 'text-haretaColor' : ''
             )}
             onClick={handleChange}

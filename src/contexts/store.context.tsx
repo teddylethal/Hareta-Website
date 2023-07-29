@@ -1,6 +1,7 @@
 import { useState, createContext } from 'react'
 import { User } from 'src/types/user.type'
 import { getAccessTokenFromLS, getProfileFromLS } from 'src/utils/auth'
+import { getCategoryFilteringFromLS, getCollectionFilteringFromLS, getTypeFilteringFromLS } from 'src/utils/store'
 
 interface StoreContextInterface {
   sorting: string
@@ -18,11 +19,11 @@ interface StoreContextInterface {
 const initialStoreContext: StoreContextInterface = {
   sorting: 'Newest',
   setSorting: () => null,
-  category: '',
+  category: getCategoryFilteringFromLS(),
   setCategory: () => null,
-  collection: '',
+  collection: getCollectionFilteringFromLS(),
   setCollection: () => null,
-  type: '',
+  type: getTypeFilteringFromLS(),
   setType: () => null,
   isFavouriteList: false,
   setIsFavouriteList: () => null

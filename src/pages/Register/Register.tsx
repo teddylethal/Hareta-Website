@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { omit } from 'lodash'
 
-import Input from 'src/components/Input'
 import { schema, Schema } from 'src/utils/rules'
 import authApi from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
@@ -14,6 +13,7 @@ import Button from 'src/components/Button'
 import { useContext } from 'react'
 import { ThemeContext } from 'src/App'
 import path from 'src/constants/path'
+import AccountInput from 'src/components/AccountInput'
 
 type FormData = Schema
 
@@ -77,7 +77,7 @@ export default function Register() {
               <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x xl:divide-gray-300 dark:xl:divide-stone-700'>
                 <div className='xl:mr-8'>
                   <div className='text-xl text-textDark dark:text-vintageColor'>Account</div>
-                  <Input
+                  <AccountInput
                     name='email'
                     register={register}
                     type='text'
@@ -93,7 +93,7 @@ export default function Register() {
                     }
                   />
 
-                  <Input
+                  <AccountInput
                     name='password'
                     register={register}
                     type='password'
@@ -112,7 +112,7 @@ export default function Register() {
                     }
                   />
 
-                  <Input
+                  <AccountInput
                     name='confirm_password'
                     register={register}
                     type='password'
@@ -134,7 +134,7 @@ export default function Register() {
 
                 <div className='mt-8 xl:mt-0 xl:pl-8'>
                   <div className='text-xl dark:text-vintageColor'>Personal information</div>
-                  <Input
+                  <AccountInput
                     name='name'
                     register={register}
                     type='text'
@@ -151,7 +151,7 @@ export default function Register() {
                     }
                   />
 
-                  <Input
+                  <AccountInput
                     name='phone'
                     register={register}
                     type='text'

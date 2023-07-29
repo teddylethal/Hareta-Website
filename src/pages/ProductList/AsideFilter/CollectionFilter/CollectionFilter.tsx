@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -10,6 +10,7 @@ import productApi from 'src/apis/product.api'
 import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
+import { setCollectionFilteringToLS } from 'src/utils/store'
 
 interface Props {
   queryConfig: QueryConfig
@@ -45,8 +46,8 @@ export default function CollectionFilter({ queryConfig }: Props) {
   }
 
   const handleChange = (e: any) => {
-    const collection = String(e.target.innerText)
-    if (collection === 'All') {
+    const selectedCollection = String(e.target.innerText)
+    if (selectedCollection === 'All') {
       navigate({
         pathname: path.home
       })
@@ -55,16 +56,21 @@ export default function CollectionFilter({ queryConfig }: Props) {
         pathname: path.home,
         search: createSearchParams({
           ...queryConfig,
-          collection: collection === 'All' ? '' : collection
+          collection: selectedCollection
         }).toString()
       })
     }
-    setCollection(collection)
+    setCollection(selectedCollection)
+    setCollectionFilteringToLS(selectedCollection)
     close()
   }
 
+  // useEffect(() => {
+  //   nv
+  // })
+
   return (
-    <div className='mx-2 my-2 overflow-hidden bg-[#E8E8E8] px-2 py-2 duration-500 dark:bg-[#363636]' ref={ref}>
+    <div className='my-2 overflow-hidden bg-[#E8E8E8] p-2 duration-500 dark:bg-[#363636]' ref={ref}>
       <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
         <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400 dark:hover:text-haretaColor'>
           Collection
@@ -98,13 +104,13 @@ export default function CollectionFilter({ queryConfig }: Props) {
           )}
         </div>
         <div className='flex w-full select-none  justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-base'>
-          {collection !== '' ? collection : 'All'}
+          {collection}
         </div>
       </button>
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className='max-h-40 overflow-auto px-2 text-sm text-textDark dark:text-textLight lg:text-base '
+            className='max-h-32 overflow-auto overscroll-contain px-2 text-sm text-textDark dark:text-textLight lg:text-base '
             initial={{ opacity: 0, y: '-40%' }}
             animate={{
               opacity: 1,

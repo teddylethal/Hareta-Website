@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { omitBy, isUndefined } from 'lodash'
+import { omitBy, isUndefined, ceil } from 'lodash'
 import useQueryParams from 'src/hooks/useQueryParams'
 import AsideFavouriteList from './AsideFavouriteList'
 import AsideFilter from './AsideFilter'
@@ -29,7 +29,7 @@ export default function ProductList() {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || '1',
-      limit: queryParams.limit,
+      limit: queryParams.limit || 12,
       category: queryParams.category,
       collection: queryParams.collection,
       type: queryParams.type,
@@ -56,7 +56,6 @@ export default function ProductList() {
               <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#E8E8E8] duration-500 dark:bg-[#303030]'>
                 <AsideSorter queryConfig={queryConfig} />
                 <AsideFilter queryConfig={queryConfig} />
-                {isAuthenticated && <AsideFavouriteList />}
               </div>
               <div className='col-span-9'>
                 <SearchBar />
@@ -69,7 +68,7 @@ export default function ProductList() {
                         </div>
                       ))}
                     </div>
-                    <UsePagination queryConfig={queryConfig} totalPage={data.data.paging.total} />
+                    <UsePagination queryConfig={queryConfig} totalPage={ceil(data.data.paging.total / 12)} />
                   </div>
                 )}
               </div>

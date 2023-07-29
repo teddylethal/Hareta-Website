@@ -10,6 +10,7 @@ import productApi from 'src/apis/product.api'
 import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
+import { setTypeFilteringToLS } from 'src/utils/store'
 
 interface Props {
   queryConfig: QueryConfig
@@ -45,8 +46,8 @@ export default function TypeFilter({ queryConfig }: Props) {
   }
 
   const handleChange = (e: any) => {
-    const type = String(e.target.innerText)
-    if (type === 'All') {
+    const selectedType = String(e.target.innerText)
+    if (selectedType === 'All') {
       navigate({
         pathname: path.home
       })
@@ -55,17 +56,18 @@ export default function TypeFilter({ queryConfig }: Props) {
         pathname: path.home,
         search: createSearchParams({
           ...queryConfig,
-          type: type === 'All' ? '' : type
+          type: selectedType
         }).toString()
       })
     }
-    setType(type)
+    setType(selectedType)
+    setTypeFilteringToLS(selectedType)
     close()
   }
 
   return (
     <div
-      className='mx-2 overflow-hidden bg-[#E8E8E8] px-2 py-2 text-textDark  duration-500 dark:bg-[#363636] dark:text-textLight'
+      className='overflow-hidden bg-[#E8E8E8] p-2 text-textDark  duration-500 dark:bg-[#363636] dark:text-textLight'
       ref={ref}
     >
       <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
@@ -101,13 +103,13 @@ export default function TypeFilter({ queryConfig }: Props) {
           )}
         </div>
         <div className='flex w-full select-none  justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-base'>
-          {type !== '' ? type : 'All'}
+          {type}
         </div>
       </button>
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className='max-h-40 overflow-auto px-2 text-sm text-textDark dark:text-textLight lg:text-base '
+            className='max-h-32 overflow-auto overscroll-contain px-2 text-sm text-textDark dark:text-textLight lg:text-base '
             initial={{ opacity: 0, y: '-40%' }}
             animate={{
               opacity: 1,

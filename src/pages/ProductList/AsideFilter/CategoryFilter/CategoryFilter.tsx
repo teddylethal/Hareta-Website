@@ -11,6 +11,7 @@ import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { capitalize } from 'lodash'
+import { setCategoryFilteringToLS } from 'src/utils/store'
 
 interface Props {
   queryConfig: QueryConfig
@@ -60,10 +61,11 @@ export default function CategoryFilter({ queryConfig }: Props) {
       })
     }
     setCategory(selectedCategory)
+    setCategoryFilteringToLS(selectedCategory)
     close()
   }
   return (
-    <div className='mx-2 overflow-hidden bg-[#E8E8E8] px-2  py-2 duration-500  dark:bg-[#363636]' ref={ref}>
+    <div className='overflow-hidden bg-[#E8E8E8] p-2 duration-500 dark:bg-[#363636]' ref={ref}>
       <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
         <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor'>
           Category
@@ -97,13 +99,13 @@ export default function CategoryFilter({ queryConfig }: Props) {
           )}
         </div>
         <div className='flex w-full select-none  justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-base'>
-          {category !== '' ? category : 'All'}
+          {category}
         </div>
       </button>
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className='max-h-40 overflow-auto px-2 text-sm text-textDark dark:text-textLight  lg:text-base '
+            className='max-h-32 overflow-auto overscroll-contain px-2 text-sm text-textDark dark:text-textLight lg:text-base '
             initial={{ opacity: 0, y: '-40%' }}
             animate={{
               opacity: 1,
