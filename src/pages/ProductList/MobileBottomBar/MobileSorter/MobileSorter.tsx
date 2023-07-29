@@ -61,17 +61,6 @@ export default function MobileSorter() {
                 <button
                   className={classNames(
                     'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
-                    sorting === 'Oldest' ? 'text-haretaColor' : ''
-                  )}
-                  onClick={handleChange}
-                >
-                  Oldest
-                </button>
-              </li>
-              <li>
-                <button
-                  className={classNames(
-                    'flex w-full justify-start px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor ',
                     sorting === 'Top seller' ? 'text-haretaColor' : ''
                   )}
                   onClick={handleChange}

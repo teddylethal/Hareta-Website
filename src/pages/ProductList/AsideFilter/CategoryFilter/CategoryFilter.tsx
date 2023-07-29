@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -7,17 +7,19 @@ import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { StoreContext } from 'src/contexts/store.context'
-import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { omit } from 'lodash'
-import { setCategoryFilteringToLS } from 'src/utils/store'
+import { setCategoryFilteringToLS, setQueryConfigToLS } from 'src/utils/store'
+import { QueryConfig } from '../../ProductList'
 
 interface Props {
   queryConfig: QueryConfig
+  isMobile?: boolean
+  setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function CategoryFilter({ queryConfig }: Props) {
+export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
   const { category, setCategory } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
@@ -45,8 +47,16 @@ export default function CategoryFilter({ queryConfig }: Props) {
     if ((isOpening && !visible) || (!isOpening && !visible)) open()
     else close()
   }
+
   const handleChange = (e: any) => {
     const selectedCategory = String(e.target.innerText)
+    setCategory(selectedCategory)
+    setCategoryFilteringToLS(selectedCategory)
+    close()
+    if (isMobile && setMobileFilterOpen) {
+      setMobileFilterOpen(false)
+    }
+
     if (selectedCategory === 'All') {
       navigate({
         pathname: path.home,
@@ -68,10 +78,8 @@ export default function CategoryFilter({ queryConfig }: Props) {
         }).toString()
       })
     }
-    setCategory(selectedCategory)
-    setCategoryFilteringToLS(selectedCategory)
-    close()
   }
+
   return (
     <div className='overflow-hidden bg-[#ddd] p-2 duration-500 dark:bg-[#202020]' ref={ref}>
       <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>

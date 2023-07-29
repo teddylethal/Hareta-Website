@@ -7,17 +7,19 @@ import { StoreContext } from 'src/contexts/store.context'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { setCollectionFilteringToLS } from 'src/utils/store'
 import { omit } from 'lodash'
+import { QueryConfig } from '../../ProductList'
 
 interface Props {
   queryConfig: QueryConfig
+  isMobile?: boolean
+  setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function CollectionFilter({ queryConfig }: Props) {
+export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isMobile = false }: Props) {
   const { theme } = useContext(ThemeContext)
   const { collection, setCollection } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
@@ -48,6 +50,13 @@ export default function CollectionFilter({ queryConfig }: Props) {
 
   const handleChange = (e: any) => {
     const selectedCollection = String(e.target.innerText)
+    setCollection(selectedCollection)
+    setCollectionFilteringToLS(selectedCollection)
+    close()
+    if (isMobile && setMobileFilterOpen) {
+      setMobileFilterOpen(false)
+    }
+
     if (selectedCollection === 'All') {
       navigate({
         pathname: path.home,
@@ -69,9 +78,6 @@ export default function CollectionFilter({ queryConfig }: Props) {
         }).toString()
       })
     }
-    setCollection(selectedCollection)
-    setCollectionFilteringToLS(selectedCollection)
-    close()
   }
 
   // useEffect(() => {

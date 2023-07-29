@@ -1,7 +1,6 @@
 import CollectionFilter from './CollectionFilter'
 import CategoryFilter from './CategoryFilter'
 import TypeFilter from './TypeFilter'
-import { QueryConfig } from '../ProductList'
 import { useContext } from 'react'
 import { StoreContext } from 'src/contexts/store.context'
 import classNames from 'classnames'
@@ -10,6 +9,7 @@ import path from 'src/constants/path'
 import { setCategoryFilteringToLS, setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import Button from 'src/components/Button'
 import PriceRange from './PriceRange'
+import { QueryConfig } from '../ProductList'
 
 interface Props {
   queryConfig: QueryConfig
@@ -31,6 +31,7 @@ export default function AsideFilter({ queryConfig }: Props) {
       pathname: path.home
     })
   }
+
   return (
     <div className='m-4 rounded-sm bg-[#f0f0f0] px-2 py-2 duration-500 dark:bg-[#303030]'>
       <CategoryFilter queryConfig={queryConfig} />

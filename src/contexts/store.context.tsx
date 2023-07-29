@@ -1,7 +1,13 @@
+import { isUndefined, omitBy } from 'lodash'
 import { useState, createContext } from 'react'
-import { User } from 'src/types/user.type'
-import { getAccessTokenFromLS, getProfileFromLS } from 'src/utils/auth'
-import { getCategoryFilteringFromLS, getCollectionFilteringFromLS, getTypeFilteringFromLS } from 'src/utils/store'
+import useQueryParams from 'src/hooks/useQueryParams'
+import { ProductListConfig } from 'src/types/product.type'
+import {
+  getCategoryFilteringFromLS,
+  getCollectionFilteringFromLS,
+  getQueryConfigFromLS,
+  getTypeFilteringFromLS
+} from 'src/utils/store'
 
 interface StoreContextInterface {
   sorting: string
@@ -37,6 +43,36 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   const [collection, setCollection] = useState<string>(initialStoreContext.collection)
   const [type, setType] = useState<string>(initialStoreContext.type)
   const [isFavouriteList, setIsFavouriteList] = useState<boolean>(initialStoreContext.isFavouriteList)
+
+  // const queryParams: QueryConfig = useQueryParams()
+  // const initialQueryConfig: QueryConfig = omitBy(
+  //   {
+  //     page: queryParams.page || '1',
+  //     limit: queryParams.limit || 12,
+  //     category: category,
+  //     collection: collection,
+  //     type: type,
+  //     product_line: queryParams.product_line,
+  //     lower_price: queryParams.lower_price,
+  //     upper_price: queryParams.upper_price
+  //   },
+  //   isUndefined
+  // )
+
+  // const [queryConfig, setQueryConfig] = useState<QueryConfig>(initialQueryConfig)
+  // const queryConfig: QueryConfig = omitBy(
+  //   {
+  //     page: queryParams.page || '1',
+  //     limit: queryParams.limit || 12,
+  //     category: queryParams.category,
+  //     collection: queryParams.collection,
+  //     type: queryParams.type,
+  //     product_line: queryParams.product_line,
+  //     lower_price: queryParams.lower_price,
+  //     upper_price: queryParams.upper_price
+  //   },
+  //   isUndefined
+  // )
 
   return (
     <StoreContext.Provider

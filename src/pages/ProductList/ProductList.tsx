@@ -7,14 +7,16 @@ import AsideSorter from './AsideSorter'
 import Product from './Product'
 import SearchBar from './SearchBar'
 import productApi from 'src/apis/product.api'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from 'src/App'
 import { useViewport } from 'src/hooks/useViewport'
 import MobileBottomBar from './MobileBottomBar'
-import { StoreProvider } from 'src/contexts/store.context'
+import { StoreContext, StoreProvider } from 'src/contexts/store.context'
 import { AppContext } from 'src/contexts/app.context'
 import UsePagination from 'src/components/UsePagination'
 import { ProductListConfig } from 'src/types/product.type'
+import { getQueryConfigFromLS } from 'src/utils/store'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 export type QueryConfig = {
   [key in keyof ProductListConfig]: string
@@ -24,6 +26,8 @@ export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
+
+  const navigate = useNavigate()
 
   const queryParams: QueryConfig = useQueryParams()
   const queryConfig: QueryConfig = omitBy(
@@ -39,6 +43,20 @@ export default function ProductList() {
     },
     isUndefined
   )
+
+  // console.log('in LS: ', getQueryConfigFromLS())
+  // console.log(queryConfig)
+
+  // if (queryConfig.category === 'All') {
+  //   delete queryConfig['category']
+  // }
+  // if (queryConfig.collection === 'All') {
+  //   delete queryConfig['collection']
+  // }
+  // if (queryConfig.type === 'All') {
+  //   delete queryConfig['type']
+  // }
+
   const { data } = useQuery({
     queryKey: ['items', queryParams],
     queryFn: () => {
@@ -47,50 +65,57 @@ export default function ProductList() {
     keepPreviousData: true
   })
 
-  return (
-    <StoreProvider>
-      <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
-        <div className='container'>
-          {!isMobile && (
-            <div className='grid grid-cols-12 gap-6'>
-              <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#e0e0e0] duration-500 dark:bg-[#202020]'>
-                <AsideSorter queryConfig={queryConfig} />
-                <AsideFilter queryConfig={queryConfig} />
-              </div>
-              <div className='col-span-9'>
-                <SearchBar />
-                {data && (
-                  <div>
-                    <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
-                      {data.data.data.map((product) => (
-                        <div className='col-span-1' key={product.id}>
-                          <Product product={product} queryConfig={queryConfig} />
-                        </div>
-                      ))}
-                    </div>
-                    <UsePagination queryConfig={queryConfig} totalPage={ceil(data.data.paging.total / 12)} />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+  // useEffect(() => {
+  //   navigate({
+  //     pathname: path.home,
+  //     search: createSearchParams({
+  //       ...queryConfig
+  //     }).toString()
+  //   })
+  // }, [navigate, queryConfig])
 
-          {isMobile && data && (
-            <div>
-              <div className='gird-cols-1 grid gap-6 sm:grid-cols-2'>
-                {data &&
-                  data.data.data.map((product) => (
-                    <div className='col-span-1' key={product.id}>
-                      <Product product={product} queryConfig={queryConfig} />
-                    </div>
-                  ))}
-              </div>
-              <UsePagination queryConfig={queryConfig} totalPage={data.data.paging.total} isMobile />
+  return (
+    <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
+      <div className='container'>
+        {!isMobile && (
+          <div className='grid grid-cols-12 gap-6'>
+            <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#e0e0e0] duration-500 dark:bg-[#202020]'>
+              <AsideSorter queryConfig={queryConfig} />
+              <AsideFilter queryConfig={queryConfig} />
             </div>
-          )}
-        </div>
-        {isMobile && <MobileBottomBar />}
+            <div className='col-span-9'>
+              <SearchBar />
+              {data && (
+                <div>
+                  <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
+                    {data.data.data.map((product) => (
+                      <div className='col-span-1' key={product.id}>
+                        <Product product={product} queryConfig={queryConfig} />
+                      </div>
+                    ))}
+                  </div>
+                  <UsePagination queryConfig={queryConfig} totalPage={ceil(data.data.paging.total / 12)} />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {isMobile && data && (
+          <div>
+            <div className='gird-cols-1 grid gap-6 sm:grid-cols-2'>
+              {data &&
+                data.data.data.map((product) => (
+                  <div className='col-span-1' key={product.id}>
+                    <Product product={product} queryConfig={queryConfig} />
+                  </div>
+                ))}
+            </div>
+            <UsePagination queryConfig={queryConfig} totalPage={data.data.paging.total} isMobile />
+          </div>
+        )}
       </div>
-    </StoreProvider>
+      {isMobile && <MobileBottomBar queryConfig={queryConfig} />}
+    </div>
   )
 }

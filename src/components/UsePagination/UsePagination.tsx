@@ -4,16 +4,9 @@ import { render } from 'react-dom'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
-import { QueryConfig } from 'src/pages/ProductList/ProductList'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from 'src/constants/path'
-
-const List = styled('ul')({
-  listStyle: 'none',
-  padding: 0,
-  margin: 0,
-  display: 'flex'
-})
+import { QueryConfig } from 'src/pages/ProductList/ProductList'
 
 interface Props {
   queryConfig: QueryConfig

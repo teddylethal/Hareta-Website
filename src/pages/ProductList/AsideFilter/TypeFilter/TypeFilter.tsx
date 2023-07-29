@@ -7,17 +7,19 @@ import { StoreContext } from 'src/contexts/store.context'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { QueryConfig } from '../../ProductList'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { setTypeFilteringToLS } from 'src/utils/store'
 import { omit } from 'lodash'
+import { QueryConfig } from '../../ProductList'
 
 interface Props {
   queryConfig: QueryConfig
+  isMobile?: boolean
+  setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function TypeFilter({ queryConfig }: Props) {
+export default function TypeFilter({ setMobileFilterOpen, isMobile = false, queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
   const { type, setType } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
@@ -48,6 +50,12 @@ export default function TypeFilter({ queryConfig }: Props) {
 
   const handleChange = (e: any) => {
     const selectedType = String(e.target.innerText)
+    setType(selectedType)
+    setTypeFilteringToLS(selectedType)
+    close()
+    if (isMobile && setMobileFilterOpen) {
+      setMobileFilterOpen(false)
+    }
     if (selectedType === 'All') {
       navigate({
         pathname: path.home,
@@ -69,9 +77,6 @@ export default function TypeFilter({ queryConfig }: Props) {
         }).toString()
       })
     }
-    setType(selectedType)
-    setTypeFilteringToLS(selectedType)
-    close()
   }
 
   return (

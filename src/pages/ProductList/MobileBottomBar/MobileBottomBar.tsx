@@ -6,8 +6,13 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import AsideFavouriteList from '../AsideFavouriteList'
 import classNames from 'classnames'
 import { StoreContext } from 'src/contexts/store.context'
+import { QueryConfig } from '../ProductList'
 
-export default function MobileBottomBar() {
+interface Props {
+  queryConfig: QueryConfig
+}
+
+export default function MobileBottomBar({ queryConfig }: Props) {
   const { isFavouriteList, setIsFavouriteList } = useContext(StoreContext)
   const handleClick = () => {
     setIsFavouriteList(!isFavouriteList)
@@ -31,7 +36,7 @@ export default function MobileBottomBar() {
           Favourite list
         </button>
       </div>
-      <MobileFilter />
+      <MobileFilter queryConfig={queryConfig} />
     </div>
   )
 }

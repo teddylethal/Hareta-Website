@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -9,23 +9,44 @@ import CollectionFilter from '../../AsideFilter/CollectionFilter'
 import TypeFilter from '../../AsideFilter/TypeFilter'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { QueryConfig } from '../../ProductList'
+import PriceRange from '../../AsideFilter/PriceRange'
+import { useNavigate } from 'react-router-dom'
+import { setCategoryFilteringToLS, setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
+import path from 'src/constants/path'
 
-export default function MobileBottomBar() {
+interface Props {
+  queryConfig: QueryConfig
+}
+
+export default function MobileBottomBar({ queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
-  // const { category, setCategory, collection, setCollection, type, setType, sorting } = useContext(StoreContext)
+  const { setCategory, setCollection, setType } = useContext(StoreContext)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  const navigate = useNavigate()
 
   const open = () => {
     setVisible(true)
+    setIsOpen(true)
   }
   const close = () => {
     setVisible(false)
+    setIsOpen(false)
   }
 
-  const handleChange = (event: any) => {
-    // console.log(event)
-    event.preventDefault()
+  const handleClear = () => {
+    setCategory('All')
+    setCollection('All')
+    setType('All')
+    setCategoryFilteringToLS('All')
+    setCollectionFilteringToLS('All')
+    setTypeFilteringToLS('All')
     close()
+    navigate({
+      pathname: path.home
+    })
   }
 
   return (
@@ -41,9 +62,9 @@ export default function MobileBottomBar() {
         Filter
       </button>
       <AnimatePresence>
-        {visible && (
+        {visible && isOpen && (
           <motion.div
-            className='absolute bottom-0 right-0 z-10 flex h-96 w-44 flex-col self-center rounded-b-sm py-2 shadow-sm sm:w-80'
+            className='fixed bottom-0 right-0 z-10 flex h-full w-44 flex-col self-center rounded-b-sm px-2 py-2 shadow-sm sm:w-80'
             initial={{ opacity: 0, x: '20%' }}
             animate={{
               opacity: 1,
@@ -55,9 +76,16 @@ export default function MobileBottomBar() {
             transition={{ duration: 0.3 }}
             ref={ref}
           >
-            <CategoryFilter />
-            <CollectionFilter />
-            <TypeFilter />
+            <CategoryFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
+            <CollectionFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
+            <TypeFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
+            <PriceRange queryConfig={queryConfig} />
+            <button
+              onClick={handleClear}
+              className='my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#ddd] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 hover:text-vintageColor hover:outline-vintageColor dark:bg-[#202020] dark:text-textLight dark:hover:text-haretaColor'
+            >
+              Clear filtering
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

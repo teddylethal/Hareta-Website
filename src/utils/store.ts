@@ -1,3 +1,4 @@
+import { QueryConfig } from 'src/pages/ProductList/ProductList'
 import { ProductList } from 'src/types/product.type'
 
 export const setFavouriteListToLS = (data: ProductList) => {
@@ -21,6 +22,10 @@ export const setTypeFilteringToLS = (data: string) => {
   localStorage.setItem('type_filtering', data)
 }
 
+export const setQueryConfigToLS = (data: QueryConfig) => {
+  localStorage.setItem('query_config', JSON.stringify(data))
+}
+
 export const getCategoryFilteringFromLS = () => {
   return localStorage.getItem('category_filtering') || 'All'
 }
@@ -31,4 +36,9 @@ export const getCollectionFilteringFromLS = () => {
 
 export const getTypeFilteringFromLS = () => {
   return localStorage.getItem('type_filtering') || 'All'
+}
+
+export const getQueryConfigFromLS = () => {
+  const data = localStorage.getItem('query_config')
+  return data ? JSON.parse(data) : {}
 }

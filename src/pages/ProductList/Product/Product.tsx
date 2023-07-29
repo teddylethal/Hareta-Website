@@ -32,7 +32,7 @@ export default function Product({ product, queryConfig }: Props) {
         omit(
           {
             ...queryConfig,
-            type: selectedCollection
+            collection: selectedCollection
           },
           ['type']
         )
@@ -80,9 +80,9 @@ export default function Product({ product, queryConfig }: Props) {
           className='absolute left-0 top-0 h-full w-full object-cover'
         />
       </div>
-      <div className='mx-1 my-3 flex items-center justify-between'>
-        <div className='flex flex-col space-y-1'>
-          <p className='text-lg text-textDark duration-500 dark:text-textLight'>{product.name}</p>
+      <div className='mx-1 my-3 flex items-center justify-between space-x-1'>
+        <div className='flex flex-col space-y-1 overflow-hidden'>
+          <p className='truncate text-lg text-textDark duration-500 dark:text-textLight'>{product.name}</p>
           <div className='flex items-center space-x-4'>
             <button
               className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'
