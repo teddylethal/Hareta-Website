@@ -5,6 +5,7 @@ import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import ToggleTheme from 'src/components/ToggleTheme'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
+import path from 'src/constants/path'
 
 interface Props {
   className?: string
@@ -59,11 +60,11 @@ export default function MobileNav({ className }: Props) {
             ref={ref}
           >
             <div className='flex w-full flex-col items-start justify-center px-3 text-sm font-medium uppercase sm:text-base'>
-              <Link to='/' className='w-full py-2 '>
+              <Link to={path.home} className='w-full py-2 '>
                 <img src='src/assets/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
               </Link>
 
-              <Link to='/' className='w-full py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+              <Link to={path.store} className='w-full py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
                 <div>Store</div>
               </Link>
 

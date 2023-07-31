@@ -16,6 +16,7 @@ export type QueryConfig = {
 }
 
 export default function ProductList() {
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
@@ -48,7 +49,7 @@ export default function ProductList() {
         {!isMobile && (
           <div className='grid grid-cols-12 gap-6'>
             <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#e0e0e0] duration-500 dark:bg-[#202020]'>
-              <AsideSorter queryConfig={queryConfig} />
+              <AsideSorter />
               <AsideFilter queryConfig={queryConfig} />
             </div>
             <div className='col-span-9'>

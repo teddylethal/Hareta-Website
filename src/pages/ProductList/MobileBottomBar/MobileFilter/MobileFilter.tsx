@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react'
-import classNames from 'classnames'
+import { useContext, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
@@ -14,6 +13,7 @@ import PriceRange from '../../AsideFilter/PriceRange'
 import { useNavigate } from 'react-router-dom'
 import { setCategoryFilteringToLS, setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import path from 'src/constants/path'
+import classNames from 'classnames'
 
 interface Props {
   queryConfig: QueryConfig
@@ -22,10 +22,12 @@ interface Props {
 export default function MobileBottomBar({ queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
-  const { setCategory, setCollection, setType } = useContext(StoreContext)
+  const { setCategory, setCollection, setType, category, collection, type } = useContext(StoreContext)
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const navigate = useNavigate()
+
+  const isFiltering = category !== 'All' || collection !== 'All' || type !== 'All'
 
   const open = () => {
     setVisible(true)
@@ -44,8 +46,9 @@ export default function MobileBottomBar({ queryConfig }: Props) {
     setCollectionFilteringToLS('All')
     setTypeFilteringToLS('All')
     close()
+
     navigate({
-      pathname: path.home
+      pathname: path.store
     })
   }
 
@@ -79,10 +82,17 @@ export default function MobileBottomBar({ queryConfig }: Props) {
             <CategoryFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
             <CollectionFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
             <TypeFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
-            <PriceRange queryConfig={queryConfig} />
+            <PriceRange />
             <button
               onClick={handleClear}
-              className='my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#ddd] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 hover:text-vintageColor hover:outline-vintageColor dark:bg-[#202020] dark:text-textLight dark:hover:text-haretaColor'
+              disabled={isFiltering ? false : true}
+              className={classNames(
+                'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#ddd] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 dark:bg-[#202020] dark:text-textLight',
+                { 'text-opacity-40 dark:text-opacity-40': !isFiltering },
+                {
+                  'hover:text-vintageColor hover:outline-vintageColor dark:hover:text-haretaColor': isFiltering
+                }
+              )}
             >
               Clear filtering
             </button>

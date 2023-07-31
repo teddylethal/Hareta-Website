@@ -63,7 +63,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
         return (
           <Link
             to={{
-              pathname: path.home,
+              pathname: path.store,
               search: createSearchParams({
                 ...queryConfig,
                 page: pageNumber.toString()
@@ -95,7 +95,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       ) : (
         <Link
           to={{
-            pathname: path.home,
+            pathname: path.store,
             search: createSearchParams({
               ...queryConfig,
               page: (currentPage - 1).toString()
@@ -121,7 +121,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       ) : (
         <Link
           to={{
-            pathname: path.home,
+            pathname: path.store,
             search: createSearchParams({
               ...queryConfig,
               page: (currentPage + 1).toString()

@@ -26,8 +26,10 @@ export default function Product({ product, queryConfig }: Props) {
     setType('All')
     setTypeFilteringToLS('All')
 
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+
     navigate({
-      pathname: path.home,
+      pathname: path.store,
       search: createSearchParams(
         omit(
           {
@@ -49,7 +51,7 @@ export default function Product({ product, queryConfig }: Props) {
     setCollectionFilteringToLS('All')
 
     navigate({
-      pathname: path.home,
+      pathname: path.store,
       search: createSearchParams(
         omit(
           {

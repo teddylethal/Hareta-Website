@@ -59,7 +59,7 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
 
     if (selectedCategory === 'All') {
       navigate({
-        pathname: path.home,
+        pathname: path.store,
         search: createSearchParams(
           omit(
             {
@@ -71,7 +71,7 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
       })
     } else {
       navigate({
-        pathname: path.home,
+        pathname: path.store,
         search: createSearchParams(
           omit(
             {
@@ -87,7 +87,7 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
 
   return (
     <div className='overflow-hidden bg-[#ddd] p-2 duration-500 dark:bg-[#202020]' ref={ref}>
-      <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
+      <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>
         <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor'>
           Category
           {(!visible || !isOpening) && (
@@ -119,14 +119,14 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
             </svg>
           )}
         </div>
-        <div className='flex w-full select-none  justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-base'>
+        <div className='flex w-full select-none justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg'>
           {category}
         </div>
       </button>
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className='max-h-32 overflow-auto overscroll-contain px-2 text-sm text-textDark dark:text-textLight lg:text-base '
+            className='max-h-32 overflow-auto overscroll-contain px-2 text-sm  text-textDark dark:text-textLight sm:text-base lg:text-lg '
             initial={{ opacity: 0, y: '-40%' }}
             animate={{
               opacity: 1,

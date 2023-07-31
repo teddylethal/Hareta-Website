@@ -44,12 +44,12 @@ export default function Header() {
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center py-3 text-black duration-500  dark:text-white'>
           <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase lg:space-x-4 lg:text-lg'>
-            <Link to='/'>
+            <Link to={path.home}>
               <img src='src/assets/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
             </Link>
 
             <Link
-              to='/'
+              to={path.store}
               className='rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
               <div>Store</div>

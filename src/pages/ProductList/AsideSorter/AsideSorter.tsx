@@ -1,19 +1,18 @@
 import classNames from 'classnames'
 import { useContext } from 'react'
 import { StoreContext } from 'src/contexts/store.context'
-import { QueryConfig } from '../ProductList'
 
-interface Props {
-  queryConfig: QueryConfig
-}
+// interface Props {
+//   queryConfig: QueryConfig
+// }
 
-export default function AsideSorter({ queryConfig }: Props) {
+export default function AsideSorter() {
   const { sorting, setSorting } = useContext(StoreContext)
 
-  const handleChange = (event: any) => {
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // console.log(event)
-    event.preventDefault()
-    setSorting(event.target.innerText)
+    e.preventDefault()
+    setSorting((e.target as HTMLInputElement).innerText)
   }
 
   return (

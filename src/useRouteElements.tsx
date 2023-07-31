@@ -9,6 +9,7 @@ import Landing from './pages/Landing'
 import { AppContext } from './contexts/app.context'
 import path from './constants/path'
 import Profile from './pages/Profile'
+import Home from './pages/Home/Home'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -61,11 +62,11 @@ export default function useRouteElements() {
     },
 
     {
-      path: '/',
+      path: path.home,
       index: true,
       element: (
         <MainLayout>
-          <ProductList />
+          <Home />
         </MainLayout>
       )
     },
@@ -75,6 +76,14 @@ export default function useRouteElements() {
       element: (
         <MainLayout>
           <Landing />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.store,
+      element: (
+        <MainLayout>
+          <ProductList />
         </MainLayout>
       )
     }

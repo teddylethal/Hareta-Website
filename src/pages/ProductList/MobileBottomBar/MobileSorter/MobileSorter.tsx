@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
 import { ThemeContext } from 'src/App'
 import { StoreContext } from 'src/contexts/store.context'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -18,10 +17,10 @@ export default function MobileSorter() {
     setVisible(false)
   }
 
-  const handleChange = (event: any) => {
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // console.log(event)
-    event.preventDefault()
-    setSorting(event.target.innerText)
+    e.preventDefault()
+    setSorting((e.target as HTMLInputElement).innerText)
     close()
   }
 
