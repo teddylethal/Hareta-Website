@@ -12,11 +12,11 @@ export default function SupportNav() {
     <FloatingOnClick
       initialOpen
       renderPopover={<SupportPopover />}
-      className='flex select-none items-center lg:py-1'
+      className='flex cursor-pointer select-none items-center space-x-0.5 p-1 text-textDark hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor'
       isOpen={isOpen}
       handleClick={handleClick}
     >
-      <div className=''>Support</div>
+      <p className='z-20'>Support</p>
       {isOpen && (
         <svg
           xmlns='http://www.w3.org/2000/svg'

@@ -1,83 +1,112 @@
+import { useQuery } from '@tanstack/react-query'
+import { omitBy, isUndefined, ceil } from 'lodash'
 import useQueryParams from 'src/hooks/useQueryParams'
 import AsideFavouriteList from './AsideFavouriteList'
 import AsideFilter from './AsideFilter'
 import AsideSorter from './AsideSorter'
 import Product from './Product'
 import SearchBar from './SearchBar'
-import { useQuery } from '@tanstack/react-query'
-import Pagination from '@mui/material/Pagination'
 import productApi from 'src/apis/product.api'
-import makeStyles from '@mui/styles/makeStyles'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ThemeContext } from 'src/App'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
+import { useViewport } from 'src/hooks/useViewport'
+import MobileBottomBar from './MobileBottomBar'
+import { StoreContext, StoreProvider } from 'src/contexts/store.context'
+import { AppContext } from 'src/contexts/app.context'
+import UsePagination from 'src/components/UsePagination'
+import { ProductListConfig } from 'src/types/product.type'
+import { getQueryConfigFromLS } from 'src/utils/store'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
-const useStyles = makeStyles(() => ({
-  light: {
-    '& .MuiPaginationItem-root': {
-      color: '#222',
-      // bgcolor: '#f8f8f8',
-      borderColor: '#aaa'
-    }
-  },
-  dark: {
-    '& .MuiPaginationItem-root': {
-      color: '#eee',
-      // bgcolor: '#1E1E1E',
-      borderColor: '#444'
-    }
-  }
-}))
+export type QueryConfig = {
+  [key in keyof ProductListConfig]: string
+}
+
 export default function ProductList() {
-  const MUITheme = createTheme({
-    palette: {
-      primary: {
-        main: '#FFA500'
-      }
-    }
-  })
-  const paginationClassname = useStyles()
-  const { theme } = useContext(ThemeContext)
+  const { isAuthenticated } = useContext(AppContext)
+  const viewPort = useViewport()
+  const isMobile = viewPort.width <= 768
 
-  const queryParams = useQueryParams()
+  const navigate = useNavigate()
+
+  const queryParams: QueryConfig = useQueryParams()
+  const queryConfig: QueryConfig = omitBy(
+    {
+      page: queryParams.page || '1',
+      limit: queryParams.limit || 12,
+      category: queryParams.category,
+      collection: queryParams.collection,
+      type: queryParams.type,
+      product_line: queryParams.product_line,
+      lower_price: queryParams.lower_price,
+      upper_price: queryParams.upper_price
+    },
+    isUndefined
+  )
+
+  // console.log('in LS: ', getQueryConfigFromLS())
+  // console.log(queryConfig)
+
+  // if (queryConfig.category === 'All') {
+  //   delete queryConfig['category']
+  // }
+  // if (queryConfig.collection === 'All') {
+  //   delete queryConfig['collection']
+  // }
+  // if (queryConfig.type === 'All') {
+  //   delete queryConfig['type']
+  // }
+
   const { data } = useQuery({
-    queryKey: ['products', queryParams],
+    queryKey: ['items', queryParams],
     queryFn: () => {
-      return productApi.getProductList(queryParams)
-    }
+      return productApi.getProductList(queryConfig as ProductListConfig)
+    },
+    keepPreviousData: true
   })
-  // console.log(data?.data.data)
+
   return (
     <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
       <div className='container'>
-        <div className='grid grid-cols-12 gap-6'>
-          <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#E8E8E8] duration-500 dark:bg-[#303030]'>
-            <AsideSorter />
-            <AsideFilter />
-            <AsideFavouriteList />
+        {!isMobile && (
+          <div className='grid grid-cols-12 gap-6'>
+            <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#e0e0e0] duration-500 dark:bg-[#202020]'>
+              <AsideSorter queryConfig={queryConfig} />
+              <AsideFilter queryConfig={queryConfig} />
+            </div>
+            <div className='col-span-9'>
+              <SearchBar />
+              {data && (
+                <div>
+                  <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
+                    {data.data.data.map((product) => (
+                      <div className='col-span-1' key={product.id}>
+                        <Product product={product} queryConfig={queryConfig} />
+                      </div>
+                    ))}
+                  </div>
+                  <UsePagination queryConfig={queryConfig} totalPage={ceil(data.data.paging.total / 12)} />
+                </div>
+              )}
+            </div>
           </div>
-          <div className='col-span-9'>
-            <SearchBar />
-            <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
+        )}
+
+        {isMobile && data && (
+          <div>
+            <div className='gird-cols-1 grid gap-6 sm:grid-cols-2'>
               {data &&
                 data.data.data.map((product) => (
                   <div className='col-span-1' key={product.id}>
-                    <Product product={product} />
+                    <Product product={product} queryConfig={queryConfig} />
                   </div>
                 ))}
             </div>
-            <ThemeProvider theme={MUITheme}>
-              <Pagination
-                count={10}
-                variant='outlined'
-                classes={{ root: theme === 'dark' ? paginationClassname.dark : paginationClassname.light }}
-                color='primary'
-                className='my-4 flex justify-center'
-              />
-            </ThemeProvider>
+            <UsePagination queryConfig={queryConfig} totalPage={ceil(data.data.paging.total / 12)} isMobile />
           </div>
-        </div>
+        )}
       </div>
+      {isMobile && <MobileBottomBar queryConfig={queryConfig} />}
     </div>
   )
 }

@@ -40,7 +40,7 @@ export default function Header() {
   const isMobile = viewPort.width <= 768
 
   return (
-    <header className='fixed top-0 flex h-10 w-full items-center bg-white duration-500 dark:bg-black sm:h-12 lg:h-16'>
+    <header className='fixed top-0 z-10 flex h-10 w-full items-center bg-white duration-500 dark:bg-black sm:h-12 lg:h-16'>
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center py-3 text-black duration-500  dark:text-white'>
           <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase lg:space-x-4 lg:text-lg'>
@@ -62,9 +62,7 @@ export default function Header() {
               <div>Event</div>
             </Link>
 
-            <div className='relative cursor-pointer border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-              <SupportNav />
-            </div>
+            <SupportNav />
           </nav>
 
           <div className='col-span-1 flex grow select-none justify-center text-xs text-haretaColor md:text-sm lg:text-base'>

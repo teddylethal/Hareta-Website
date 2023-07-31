@@ -3,26 +3,91 @@ import { motion } from 'framer-motion'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
+import useQueryParams from 'src/hooks/useQueryParams'
+import { useQuery } from '@tanstack/react-query'
+import productApi from 'src/apis/product.api'
+import { StoreContext } from 'src/contexts/store.context'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
+import { omit } from 'lodash'
+import { setCategoryFilteringToLS } from 'src/utils/store'
+import { QueryConfig } from '../../ProductList'
 
-export default function CategoryFilter() {
+interface Props {
+  queryConfig: QueryConfig
+  isMobile?: boolean
+  setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
+  const { category, setCategory } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
-  const openCategoryFilter = () => {
+
+  const queryParams = useQueryParams()
+  const navigate = useNavigate()
+
+  const { data } = useQuery({
+    queryKey: ['categories', queryParams],
+    queryFn: () => {
+      return productApi.getFilteringList('category')
+    }
+  })
+
+  const open = () => {
     setVisible(true)
     setIsopening(true)
   }
-  const closeCategoryFilter = () => {
+  const close = () => {
     setVisible(false)
     setIsopening(false)
   }
-  const toggleOpenCategoryFilter = () => {
-    if ((isOpening && !visible) || (!isOpening && !visible)) openCategoryFilter()
-    else closeCategoryFilter()
+  const toggleOpenClose = () => {
+    if ((isOpening && !visible) || (!isOpening && !visible)) open()
+    else close()
   }
+
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const selectedCategory = String((e.target as HTMLInputElement).innerText)
+    setCategory(selectedCategory)
+    setCategoryFilteringToLS(selectedCategory)
+    close()
+    if (isMobile && setMobileFilterOpen) {
+      setMobileFilterOpen(false)
+    }
+
+    if (selectedCategory === 'All') {
+      navigate({
+        pathname: path.home,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig
+            },
+            ['category', 'page', 'limit']
+          )
+        ).toString()
+      })
+    } else {
+      navigate({
+        pathname: path.home,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig,
+              category: selectedCategory
+            },
+            ['page', 'limit']
+          )
+        ).toString()
+      })
+    }
+  }
+
   return (
-    <div className='mx-2 overflow-hidden bg-[#E8E8E8] px-2  py-2 duration-500  dark:bg-[#363636]' ref={ref}>
-      <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenCategoryFilter}>
+    <div className='overflow-hidden bg-[#ddd] p-2 duration-500 dark:bg-[#202020]' ref={ref}>
+      <button className='flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
         <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor'>
           Category
           {(!visible || !isOpening) && (
@@ -55,13 +120,13 @@ export default function CategoryFilter() {
           )}
         </div>
         <div className='flex w-full select-none  justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-base'>
-          Keycap
+          {category}
         </div>
       </button>
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className='max-h-40 overflow-auto px-2 text-sm text-textDark dark:text-textLight  lg:text-base '
+            className='max-h-32 overflow-auto overscroll-contain px-2 text-sm text-textDark dark:text-textLight lg:text-base '
             initial={{ opacity: 0, y: '-40%' }}
             animate={{
               opacity: 1,
@@ -71,14 +136,21 @@ export default function CategoryFilter() {
             exit={{ opacity: 0, y: '-40%' }}
             transition={{ duration: 0.2 }}
           >
-            <ul>
-              <li>
-                <button className='truncate py-1 hover:text-haretaColor '>Keycap</button>
-              </li>
-              <li>
-                <button className='truncate py-1 hover:text-haretaColor '>Figure</button>
-              </li>
-            </ul>
+            <div className='flex flex-col'>
+              <button className='flex items-center justify-start py-1 hover:text-haretaColor' onClick={handleChange}>
+                All
+              </button>
+              {data &&
+                data.data.data.map((name, index) => (
+                  <button
+                    className='flex items-center justify-start py-1 hover:text-haretaColor'
+                    key={index}
+                    onClick={handleChange}
+                  >
+                    {name}
+                  </button>
+                ))}
+            </div>
           </motion.div>
         )}
       </AnimateChangeInHeight>
