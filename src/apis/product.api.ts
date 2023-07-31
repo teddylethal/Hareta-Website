@@ -1,4 +1,4 @@
-import { Product, ProductList, ProductListConfig } from 'src/types/product.type'
+import { ProductList, ProductListConfig } from 'src/types/product.type'
 import { ProductRespone, StoreRespone } from 'src/types/store.type'
 import http from 'src/utils/http'
 
