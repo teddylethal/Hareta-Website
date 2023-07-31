@@ -4,6 +4,7 @@ export default function useClickOutside(initialValue: boolean) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState<boolean>(initialValue)
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleClickOutside = (event: any) => {
     if (ref.current && !ref.current.contains(event.target)) setVisible(false)
   }

@@ -35,7 +35,7 @@ export default function AsideFilter({ queryConfig }: Props) {
       <CategoryFilter queryConfig={queryConfig} />
       <CollectionFilter queryConfig={queryConfig} />
       <TypeFilter queryConfig={queryConfig} />
-      <PriceRange queryConfig={queryConfig} />
+      <PriceRange />
       <button
         onClick={handleClear}
         className='my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#ddd] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 hover:text-vintageColor hover:outline-vintageColor dark:bg-[#202020] dark:text-textLight dark:hover:text-haretaColor'

@@ -1,10 +1,8 @@
-import { useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Popover from 'src/components/Popover'
 import UserPopover from './UserPopover'
 import path from 'src/constants/path'
-import { getProfileFromLS } from 'src/utils/auth'
-import { User } from 'src/types/user.type'
 import { AppContext } from 'src/contexts/app.context'
 
 export default function UserNav() {

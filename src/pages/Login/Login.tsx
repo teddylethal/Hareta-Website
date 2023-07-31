@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { ThemeContext } from 'src/App'
@@ -68,18 +68,6 @@ export default function Login() {
       }
     })
   })
-  // const token = getAccessTokenFromLS()
-  // console.log(token)
-
-  // useEffect(() => {
-  //   if (token) {
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //       'Content-Type': 'application/json'
-  //     }
-  //     axios.get('http://api.hareta.me/auth/', { headers }).then((response) => console.log(response))
-  //   }
-  // }, [token])
 
   return (
     <div
@@ -101,39 +89,6 @@ export default function Login() {
               noValidate
             >
               <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Login</div>
-
-              {/* <div className='mt-8'>
-                <div className='group relative mx-0 my-8 h-12 w-full border-b-2 border-black'>
-                  <span className='absolute right-2 top-1/2 -translate-y-1/2 text-white'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='black'
-                      viewBox='0 0 24 24'
-                      strokeWidth={1.5}
-                      stroke='currentColor'
-                      className='h-6 w-6 leading-5'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75'
-                      />
-                    </svg>
-                  </span>
-                  <input
-                    id='email-input'
-                    type='email'
-                    className='peer h-full w-full border-none bg-transparent pl-1.5 pr-[35px] text-lg outline-none'
-                    required
-                  />
-                  <label
-                    htmlFor='email-input'
-                    className='absolute left-1.5 top-1/2 -translate-y-1/2 cursor-text  text-lg text-[#505050] duration-300  peer-valid:top-[-5px] peer-focus:top-[-5px]'
-                  >
-                    Email
-                  </label>
-                </div>
-              </div> */}
 
               <AccountInput
                 name='email'

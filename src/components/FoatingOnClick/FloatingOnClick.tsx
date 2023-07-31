@@ -1,5 +1,4 @@
 import {
-  FloatingPortal,
   arrow,
   offset,
   shift,
@@ -7,11 +6,10 @@ import {
   useInteractions,
   type Placement,
   useClick,
-  useDismiss,
-  FloatingOverlay
+  useDismiss
 } from '@floating-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ElementType, useContext, useId, useRef } from 'react'
+import { ElementType, useContext, useRef } from 'react'
 import { ThemeContext } from 'src/App'
 
 interface Props {

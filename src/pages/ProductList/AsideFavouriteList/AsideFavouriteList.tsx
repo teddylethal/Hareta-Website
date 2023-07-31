@@ -1,11 +1,7 @@
 import classNames from 'classnames'
-import { useContext, useState } from 'react'
-import { AnimatePresence, color, motion } from 'framer-motion'
-import { ThemeContext } from 'src/App'
-import { AppContext } from 'src/contexts/app.context'
+import { useState } from 'react'
 
 export default function AsideFavouriteList() {
-  const { theme } = useContext(ThemeContext)
   const [isActive, setIsActive] = useState<boolean>(false)
   const handleClick = () => {
     setIsActive(!isActive)

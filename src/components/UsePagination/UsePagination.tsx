@@ -1,6 +1,3 @@
-import usePagination from '@mui/material/usePagination'
-import { styled } from '@mui/material/styles'
-import { render } from 'react-dom'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'

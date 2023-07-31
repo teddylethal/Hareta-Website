@@ -1,33 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
 import { omitBy, isUndefined, ceil } from 'lodash'
 import useQueryParams from 'src/hooks/useQueryParams'
-import AsideFavouriteList from './AsideFavouriteList'
 import AsideFilter from './AsideFilter'
 import AsideSorter from './AsideSorter'
 import Product from './Product'
 import SearchBar from './SearchBar'
 import productApi from 'src/apis/product.api'
-import { useContext, useEffect, useState } from 'react'
-import { ThemeContext } from 'src/App'
 import { useViewport } from 'src/hooks/useViewport'
 import MobileBottomBar from './MobileBottomBar'
-import { StoreContext, StoreProvider } from 'src/contexts/store.context'
-import { AppContext } from 'src/contexts/app.context'
 import UsePagination from 'src/components/UsePagination'
 import { ProductListConfig } from 'src/types/product.type'
-import { getQueryConfigFromLS } from 'src/utils/store'
-import { createSearchParams, useNavigate } from 'react-router-dom'
 
 export type QueryConfig = {
   [key in keyof ProductListConfig]: string
 }
 
 export default function ProductList() {
-  const { isAuthenticated } = useContext(AppContext)
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
-
-  const navigate = useNavigate()
 
   const queryParams: QueryConfig = useQueryParams()
   const queryConfig: QueryConfig = omitBy(
@@ -43,19 +33,6 @@ export default function ProductList() {
     },
     isUndefined
   )
-
-  // console.log('in LS: ', getQueryConfigFromLS())
-  // console.log(queryConfig)
-
-  // if (queryConfig.category === 'All') {
-  //   delete queryConfig['category']
-  // }
-  // if (queryConfig.collection === 'All') {
-  //   delete queryConfig['collection']
-  // }
-  // if (queryConfig.type === 'All') {
-  //   delete queryConfig['type']
-  // }
 
   const { data } = useQuery({
     queryKey: ['items', queryParams],

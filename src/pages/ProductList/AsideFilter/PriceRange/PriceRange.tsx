@@ -1,15 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMinus } from '@fortawesome/free-solid-svg-icons'
 import Input from 'src/components/Input'
-import { QueryConfig } from '../../ProductList'
 
-interface Props {
-  queryConfig: QueryConfig
-  isMobile?: boolean
-  setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
-}
+// interface Props {
+//   queryConfig: QueryConfig
+//   isMobile?: boolean
+//   setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
+// }
 
-export default function PriceRange({ setMobileFilterOpen, isMobile = false, queryConfig }: Props) {
+export default function PriceRange() {
   return (
     <div className='my-2 overflow-hidden bg-[#ddd] p-2 duration-500 dark:bg-[#202020]'>
       <p className='text-textDark duration-500 dark:text-textLight'>Price range</p>

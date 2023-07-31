@@ -1,5 +1,4 @@
 import {
-  FloatingPortal,
   arrow,
   offset,
   safePolygon,
@@ -11,7 +10,7 @@ import {
   FloatingOverlay
 } from '@floating-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ElementType, useContext, useId, useRef, useState } from 'react'
+import { ElementType, useContext, useRef, useState } from 'react'
 import { ThemeContext } from 'src/App'
 
 interface Props {

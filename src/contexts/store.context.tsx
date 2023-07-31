@@ -1,13 +1,5 @@
-import { isUndefined, omitBy } from 'lodash'
 import { useState, createContext } from 'react'
-import useQueryParams from 'src/hooks/useQueryParams'
-import { ProductListConfig } from 'src/types/product.type'
-import {
-  getCategoryFilteringFromLS,
-  getCollectionFilteringFromLS,
-  getQueryConfigFromLS,
-  getTypeFilteringFromLS
-} from 'src/utils/store'
+import { getCategoryFilteringFromLS, getCollectionFilteringFromLS, getTypeFilteringFromLS } from 'src/utils/store'
 
 interface StoreContextInterface {
   sorting: string

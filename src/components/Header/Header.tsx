@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Link } from 'react-router-dom'
 import ToggleTheme from '../ToggleTheme'
-import { createContext, useState, useContext, useEffect } from 'react'
+import { createContext, useContext } from 'react'
 import { useViewport } from 'src/hooks/useViewport'
 import SupportNav from './Desktop/SupportNav'
 import CartNav from './Desktop/CartNav'
