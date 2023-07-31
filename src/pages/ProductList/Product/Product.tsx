@@ -18,8 +18,8 @@ export default function Product({ product, queryConfig }: Props) {
   const navigate = useNavigate()
   const { setCollection, setType } = useContext(StoreContext)
 
-  const handleCollectionClick = (e: any) => {
-    const selectedCollection = String(e.target.innerText)
+  const handleCollectionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const selectedCollection = String((e.target as HTMLInputElement).innerText)
 
     setCollection(selectedCollection)
     setCollectionFilteringToLS(selectedCollection)
@@ -34,14 +34,14 @@ export default function Product({ product, queryConfig }: Props) {
             ...queryConfig,
             collection: selectedCollection
           },
-          ['type']
+          ['type', 'page', 'limit']
         )
       ).toString()
     })
   }
 
-  const handleTypeClick = (e: any) => {
-    const selectedType = String(e.target.innerText)
+  const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const selectedType = String((e.target as HTMLInputElement).innerText)
 
     setType(selectedType)
     setTypeFilteringToLS(selectedType)
@@ -56,14 +56,10 @@ export default function Product({ product, queryConfig }: Props) {
             ...queryConfig,
             type: selectedType
           },
-          ['collection']
+          ['collection', 'page', 'limit']
         )
       ).toString()
     })
-  }
-
-  const handleFavouriteClick = (e: any) => {
-    return
   }
 
   // console.log(product.avatar.url)

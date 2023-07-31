@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { motion } from 'framer-motion'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -10,7 +10,7 @@ import { StoreContext } from 'src/contexts/store.context'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { omit } from 'lodash'
-import { setCategoryFilteringToLS, setQueryConfigToLS } from 'src/utils/store'
+import { setCategoryFilteringToLS } from 'src/utils/store'
 import { QueryConfig } from '../../ProductList'
 
 interface Props {
@@ -48,8 +48,8 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
     else close()
   }
 
-  const handleChange = (e: any) => {
-    const selectedCategory = String(e.target.innerText)
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const selectedCategory = String((e.target as HTMLInputElement).innerText)
     setCategory(selectedCategory)
     setCategoryFilteringToLS(selectedCategory)
     close()
@@ -65,17 +65,22 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
             {
               ...queryConfig
             },
-            ['category']
+            ['category', 'page', 'limit']
           )
         ).toString()
       })
     } else {
       navigate({
         pathname: path.home,
-        search: createSearchParams({
-          ...queryConfig,
-          category: selectedCategory
-        }).toString()
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig,
+              category: selectedCategory
+            },
+            ['page', 'limit']
+          )
+        ).toString()
       })
     }
   }

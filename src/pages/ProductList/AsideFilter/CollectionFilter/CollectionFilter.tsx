@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { motion } from 'framer-motion'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -48,8 +48,8 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
     else close()
   }
 
-  const handleChange = (e: any) => {
-    const selectedCollection = String(e.target.innerText)
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const selectedCollection = String((e.target as HTMLInputElement).innerText)
     setCollection(selectedCollection)
     setCollectionFilteringToLS(selectedCollection)
     close()
@@ -65,17 +65,22 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
             {
               ...queryConfig
             },
-            ['collection']
+            ['collection', 'page', 'limit']
           )
         ).toString()
       })
     } else {
       navigate({
         pathname: path.home,
-        search: createSearchParams({
-          ...queryConfig,
-          collection: selectedCollection
-        }).toString()
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig,
+              collection: selectedCollection
+            },
+            ['page', 'limit']
+          )
+        ).toString()
       })
     }
   }

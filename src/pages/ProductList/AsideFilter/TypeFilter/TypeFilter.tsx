@@ -48,14 +48,15 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
     else close()
   }
 
-  const handleChange = (e: any) => {
-    const selectedType = String(e.target.innerText)
+  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const selectedType = String((e.target as HTMLInputElement).innerText)
     setType(selectedType)
     setTypeFilteringToLS(selectedType)
     close()
     if (isMobile && setMobileFilterOpen) {
       setMobileFilterOpen(false)
     }
+
     if (selectedType === 'All') {
       navigate({
         pathname: path.home,
@@ -64,17 +65,22 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
             {
               ...queryConfig
             },
-            ['type']
+            ['type', 'page', 'limit']
           )
         ).toString()
       })
     } else {
       navigate({
         pathname: path.home,
-        search: createSearchParams({
-          ...queryConfig,
-          type: selectedType
-        }).toString()
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig,
+              type: selectedType
+            },
+            ['page', 'limit']
+          )
+        ).toString()
       })
     }
   }

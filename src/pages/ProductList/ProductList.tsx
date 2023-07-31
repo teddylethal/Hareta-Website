@@ -65,15 +65,6 @@ export default function ProductList() {
     keepPreviousData: true
   })
 
-  // useEffect(() => {
-  //   navigate({
-  //     pathname: path.home,
-  //     search: createSearchParams({
-  //       ...queryConfig
-  //     }).toString()
-  //   })
-  // }, [navigate, queryConfig])
-
   return (
     <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
       <div className='container'>
