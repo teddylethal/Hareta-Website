@@ -5,6 +5,6 @@ export interface StoreRespone {
   data: string[]
 }
 
-export type ProductRespone = SuccessRespone<{
+export type ProductRespone = {
   data: Product
-}>
+}
