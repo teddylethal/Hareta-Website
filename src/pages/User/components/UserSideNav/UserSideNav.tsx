@@ -3,19 +3,26 @@ import path from 'src/constants/path'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import { useContext } from 'react'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function UserSideNav() {
+  const { profile } = useContext(AppContext)
   return (
     <div className='flex flex-col'>
       <div className='flex items-center'>
         <Link to={path.profile} className='h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border border-black/10'>
           <img
-            src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/258764879_4596602470418676_7242401939304191255_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=mZBJYVBs-OEAX9pIv7E&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBLBm0-L-SFhLlJ09qhSoynvRpJOjNkQ7BHzn9Bq6-png&oe=64C3E83E'
+            src={
+              profile?.avatar?.url ||
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png'
+            }
+            // src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/258764879_4596602470418676_7242401939304191255_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=mZBJYVBs-OEAX9pIv7E&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBLBm0-L-SFhLlJ09qhSoynvRpJOjNkQ7BHzn9Bq6-png&oe=64C3E83E'
             alt='ok'
             className='h-full w-full object-cover'
           ></img>
         </Link>
-        <div className='flex-grow pl-4'>Bui Trong Van</div>
+        <div className='flex-grow pl-4'>{profile?.name}</div>
       </div>
       <div className='mt-7'>
         <Link to={path.profile} className='flex items-center capitalize transition-colors'>

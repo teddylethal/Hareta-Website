@@ -3,50 +3,73 @@ import path from 'src/constants/path'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import { Box } from '@mui/material'
-import { useRef } from 'react'
+import { Box, TextField } from '@mui/material'
+import { useContext, useRef, useState } from 'react'
 import { User } from 'src/types/user.type'
+import Input from 'src/components/Input'
+import { useForm } from 'react-hook-form'
+import { schema, Schema } from 'src/utils/rules'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   profile: User
 }
+type FormData = Schema
 
-export default function ProfileUpdateForm({ profile }: Props) {
+export default function ProfileUpdateForm() {
+  const { profile } = useContext(AppContext)
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: yupResolver(schema)
+  })
+
+  const [file, setFile] = useState<File>()
+
   const fileInputRef = useRef<HTMLInputElement>(null)
   const handleUpload = () => {
     fileInputRef.current?.click()
   }
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFromLocal = event.target.files?.[0]
+    setFile(fileFromLocal)
   }
   return (
-    <div className='flex flex-col-reverse justify-start px-2 md:flex-row md:px-7'>
-      <form className='mt-6 flex-grow md:pr-12'>
-        <div className='flex flex-col flex-wrap sm:flex-row'>
+    <div className='flex flex-col-reverse justify-center px-2 md:flex-row md:px-7'>
+      <form className='mt-6 max-w-[600px] flex-grow'>
+        <div className='flex flex-col flex-wrap items-center sm:flex-row'>
           <div className='capitalize sm:w-[20%] sm:text-right'>Email</div>
           <div className='sm:w-4/5 sm:pl-5'>
-            <div className=' text-gray-700'>{profile.email}</div>
+            {/* <div className=' text-gray-700'>{profile.email}</div> */}
+            <TextField disabled size='small' defaultValue={profile?.email} />
           </div>
         </div>
 
-        <div className='mt-3 flex flex-col flex-wrap sm:flex-row'>
+        <div className='mt-3 flex flex-col flex-wrap items-center sm:flex-row'>
           <div className='capitalize sm:w-[20%] sm:text-right'>Full Name</div>
           <div className='sm:w-4/5 sm:pl-5'>
-            <input placeholder='Full Name' />
+            {/* <input placeholder='Full Name' /> */}
+            <TextField size='small' />
           </div>
         </div>
 
-        <div className='mt-3 flex flex-col flex-wrap sm:flex-row'>
+        <div className='mt-3 flex flex-col flex-wrap items-center sm:flex-row'>
           <div className='capitalize  sm:w-[20%] sm:text-right'>Phone Number</div>
           <div className='sm:w-4/5 sm:pl-5'>
-            <input placeholder='Phone Number' />
+            {/* <input placeholder='Phone Number' /> */}
+            <TextField size='small' />
           </div>
         </div>
 
-        <div className='mt-3 flex flex-col flex-wrap sm:flex-row'>
+        <div className='mt-3 flex flex-col flex-wrap items-center sm:flex-row'>
           <div className='capitalize  sm:w-[20%] sm:text-right'>Address</div>
           <div className='sm:w-4/5 sm:pl-5'>
-            <input placeholder='Address' />
+            {/* <input placeholder='Address' /> */}
+            <TextField size='small' />
           </div>
         </div>
 
@@ -57,7 +80,10 @@ export default function ProfileUpdateForm({ profile }: Props) {
         <div className='flex flex-col items-center'>
           <div className='my-5 h-24 w-24'>
             <img
-              src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/258764879_4596602470418676_7242401939304191255_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=mZBJYVBs-OEAX9pIv7E&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBLBm0-L-SFhLlJ09qhSoynvRpJOjNkQ7BHzn9Bq6-png&oe=64C3E83E'
+              src={
+                profile?.avatar?.url ||
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png'
+              }
               alt='avatar'
               className='h-full w-full rounded-full object-cover'
             ></img>

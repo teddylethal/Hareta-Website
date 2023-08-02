@@ -83,6 +83,12 @@ export const loginSchema = yup.object({
   password: yup.string().required('Password is required')
 })
 
+export const userSchema = yup.object({
+  email: yup.string().required('Email is required'),
+  name: yup.string().required('Name is required'),
+  phone: yup.string().required('Phone number is required')
+})
+
 export const changePasswordSchema = yup.object({
   oldPassword: yup.string().required('Old Password is required'),
 
@@ -100,4 +106,5 @@ export type Schema = yup.InferType<typeof schema>
 
 export type LoginSchema = yup.InferType<typeof loginSchema>
 
+export type UserSchema = yup.InferType<typeof userSchema>
 export type ChangePasswordSchema = yup.InferType<typeof changePasswordSchema>
