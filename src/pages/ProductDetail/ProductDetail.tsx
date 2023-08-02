@@ -105,7 +105,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                     <img
                       src={currentImage ? currentImage.image.url : product.avatar.url}
                       alt={product.name}
-                      className='absolute left-0 top-0 h-full w-full object-cover'
+                      className='absolute left-0 top-0 h-full w-full object-scale-down'
                     />
                   </div>
                   <div className='relative mt-3 flex justify-center space-x-2'>
@@ -119,7 +119,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                           <img
                             src={image.image.url}
                             alt={product.name}
-                            className='absolute left-0 top-0 h-full w-full object-cover'
+                            className='absolute left-0 top-0 h-full w-full object-scale-down'
                           />
                           {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
                         </button>
@@ -130,6 +130,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                     </button>
                   </div>
                 </div>
+
                 <div className='col-span-1 flex flex-col space-y-2 bg-[#dfdfdf] p-2 dark:bg-[#202020]'>
                   {colorArray.map((color, index) => {
                     const isActive = color === currentColor
