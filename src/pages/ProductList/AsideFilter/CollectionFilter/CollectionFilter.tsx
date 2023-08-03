@@ -11,7 +11,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { setCollectionFilteringToLS } from 'src/utils/store'
 import { omit } from 'lodash'
-import { QueryConfig } from '../../ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   queryConfig: QueryConfig

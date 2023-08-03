@@ -56,7 +56,7 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   }
 })
 
-export const schema = yup.object({
+export const registerSchema = yup.object({
   email: yup
     .string()
     .required('Email is required')
@@ -83,8 +83,14 @@ export const loginSchema = yup.object({
   password: yup.string().required('Password is required')
 })
 
-export type Schema = yup.InferType<typeof schema>
+export const productSchema = yup.object({
+  name: yup.string().trim().required()
+})
+
+export type RegisterSchema = yup.InferType<typeof registerSchema>
 
 // export const loginSchema = schema.omit(['name', 'phone', 'confirm_password'])
 
 export type LoginSchema = yup.InferType<typeof loginSchema>
+
+export type ProductSchema = yup.InferType<typeof productSchema>

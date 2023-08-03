@@ -8,12 +8,12 @@ import CollectionFilter from '../../AsideFilter/CollectionFilter'
 import TypeFilter from '../../AsideFilter/TypeFilter'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
-import { QueryConfig } from '../../ProductList'
 import PriceRange from '../../AsideFilter/PriceRange'
 import { useNavigate } from 'react-router-dom'
 import { setCategoryFilteringToLS, setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import path from 'src/constants/path'
 import classNames from 'classnames'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   queryConfig: QueryConfig

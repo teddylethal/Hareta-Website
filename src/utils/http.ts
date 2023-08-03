@@ -49,13 +49,13 @@ class Http {
         return response
       },
       function (error: AxiosError) {
-        if (error.response?.status !== HttpStatusCode.BadRequest) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const data: any | undefined = error.response?.data
-          const message = data.message || error.message
-          toast.error(message)
-        }
-        console.log(error)
+        // if (error.response?.status !== HttpStatusCode.BadRequest) {
+        //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        //   const data: any | undefined = error.response?.data
+        //   const message = data.message || error.message
+        //   toast.error(message)
+        // }
+        // console.log(error)
         return Promise.reject(error)
       }
     )

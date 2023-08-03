@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { omit } from 'lodash'
 
-import { schema, Schema } from 'src/utils/rules'
+import { registerSchema, RegisterSchema } from 'src/utils/rules'
 import authApi from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
@@ -14,7 +14,7 @@ import { ThemeContext } from 'src/App'
 import path from 'src/constants/path'
 import AccountInput from 'src/components/AccountInput'
 
-type FormData = Schema
+type FormData = RegisterSchema
 
 export default function Register() {
   const {
@@ -23,7 +23,7 @@ export default function Register() {
     setError,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(registerSchema)
   })
 
   const registerAccountMutation = useMutation({

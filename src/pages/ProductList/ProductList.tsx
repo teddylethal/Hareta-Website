@@ -1,6 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { omitBy, isUndefined, ceil } from 'lodash'
-import useQueryParams from 'src/hooks/useQueryParams'
 import AsideFilter from './AsideFilter'
 import AsideSorter from './AsideSorter'
 import Product from './Product'
@@ -10,37 +8,23 @@ import { useViewport } from 'src/hooks/useViewport'
 import MobileBottomBar from './MobileBottomBar'
 import UsePagination from 'src/components/UsePagination'
 import { ProductListConfig } from 'src/types/product.type'
-
-export type QueryConfig = {
-  [key in keyof ProductListConfig]: string
-}
+import useQueryConfig from 'src/hooks/useQueryConfig'
+import { ceil } from 'lodash'
 
 export default function ProductList() {
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
-  const queryParams: QueryConfig = useQueryParams()
-  const queryConfig: QueryConfig = omitBy(
-    {
-      page: queryParams.page || '1',
-      limit: queryParams.limit || 12,
-      category: queryParams.category,
-      collection: queryParams.collection,
-      type: queryParams.type,
-      product_line: queryParams.product_line,
-      lower_price: queryParams.lower_price,
-      upper_price: queryParams.upper_price
-    },
-    isUndefined
-  )
+  const queryConfig = useQueryConfig()
 
   const { data } = useQuery({
-    queryKey: ['items', queryParams],
+    queryKey: ['items', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-    keepPreviousData: true
+    keepPreviousData: true,
+    staleTime: 3 * 60 * 1000
   })
 
   return (

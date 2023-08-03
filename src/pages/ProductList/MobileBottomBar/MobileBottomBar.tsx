@@ -3,7 +3,7 @@ import MobileSorter from './MobileSorter'
 import MobileFilter from './MobileFilter'
 import classNames from 'classnames'
 import { StoreContext } from 'src/contexts/store.context'
-import { QueryConfig } from '../ProductList'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   queryConfig: QueryConfig

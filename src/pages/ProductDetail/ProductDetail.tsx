@@ -6,12 +6,12 @@ import { createSearchParams, useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import { StoreContext } from 'src/contexts/store.context'
 import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
-import { QueryConfig } from '../ProductList/ProductList'
 import path from 'src/constants/path'
 import { ProductImage } from 'src/types/productImage.type'
 import producImageApi from 'src/apis/productImage.api'
 import classNames from 'classnames'
 import { getIdFromNameId } from 'src/utils/utils'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   queryConfig: QueryConfig
@@ -39,12 +39,23 @@ export default function ProductDetail({ queryConfig }: Props) {
   })
   const { data: productImages } = useQuery({
     queryKey: ['product_images', id],
-    queryFn: () => producImageApi.getImageList(id as string)
+    queryFn: () => producImageApi.getImageList(id as string),
+    keepPreviousData: true
   })
 
   const product = productDetailData?.data.data
-  const imagesData = productImages?.data.data
+  const inCollectionQueryConfig: QueryConfig = { collection: product?.collection, page: '1', limit: '12' }
+  const { data: productsData } = useQuery({
+    queryKey: ['products_in_collection', inCollectionQueryConfig],
+    queryFn: () => {
+      return productApi.getProductList(inCollectionQueryConfig)
+    },
+    staleTime: 3 * 60 * 1000,
+    enabled: Boolean(product)
+  })
+  const productsInCollection = productsData?.data.data
 
+  const imagesData = productImages?.data.data
   const colorArray: string[] = useMemo(() => {
     const newColorArray: string[] = []
     imagesData &&
@@ -220,19 +231,6 @@ export default function ProductDetail({ queryConfig }: Props) {
                     const handleClick = () => {
                       setCurrentColor(color)
                     }
-                    // if (color == 'default')
-                    //   return (
-                    //     <div className='relative w-full pt-[100%]'>
-                    //       <button
-                    //         onClick={handleClick}
-                    //         className={classNames('absolute left-0 top-0 h-full w-full object-cover')}
-                    //       >
-                    //         Default
-                    //       </button>
-                    //       {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
-                    //     </div>
-                    //   )
-
                     return (
                       <div className='relative w-full pt-[100%]' key={index}>
                         <button

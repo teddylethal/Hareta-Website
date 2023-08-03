@@ -42,6 +42,7 @@ export interface ProductListConfig {
   id?: string
   page?: number | string
   limit?: number | string
+  name?: string
   category?: string
   collection?: string
   type?: string
