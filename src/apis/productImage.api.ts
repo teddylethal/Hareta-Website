@@ -3,9 +3,11 @@ import http from 'src/utils/http'
 
 const URL = 'item-image'
 
+const LIMIT = 100
+
 const producImageApi = {
-  getImageList(params: ImageListConfig) {
-    return http.get<ImageListRespone>(`${URL}/`, { params })
+  getImageList(id: string) {
+    return http.get<ImageListRespone>(`${URL}/?page=1&limit=${LIMIT}&id=${id}`)
   }
 }
 

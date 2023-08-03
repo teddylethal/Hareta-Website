@@ -8,6 +8,7 @@ import { QueryConfig } from '../ProductList'
 import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { omit } from 'lodash'
+import { generateNameId } from 'src/utils/utils'
 
 interface Props {
   product: ProductType
@@ -68,7 +69,7 @@ export default function Product({ product, queryConfig }: Props) {
   return (
     <div className='relative h-full w-full bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
       <div className='relative w-full pt-[75%]'>
-        <Link to={`${path.home}${product.id}`}>
+        <Link to={`${path.home}${generateNameId({ name: product.name, id: product.id })}`}>
           <img
             src={
               product.avatar
@@ -83,7 +84,7 @@ export default function Product({ product, queryConfig }: Props) {
       <div className='mx-1 mt-3 flex justify-between space-x-1'>
         <div className='flex flex-col justify-between space-y-1'>
           <Link
-            to={`${path.home}${product.id}`}
+            to={`${path.home}${generateNameId({ name: product.name, id: product.id })}`}
             className='truncate text-lg text-textDark duration-500 dark:text-textLight'
           >
             {product.name}
