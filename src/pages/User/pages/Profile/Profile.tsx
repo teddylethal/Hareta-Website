@@ -6,7 +6,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { userApi } from 'src/apis/user.api'
 import ProfileUpdateForm from '../../components/ProfileUpdateForm'
 import { useContext, useEffect, useState } from 'react'
@@ -23,6 +23,7 @@ const profileSchema = userSchema
 
 export default function Profile() {
   const { setProfile } = useContext(AppContext)
+  const [file, setFile] = useState<File>()
 
   const {
     register,
@@ -39,10 +40,13 @@ export default function Profile() {
     resolver: yupResolver(profileSchema)
   })
 
-  const { data: profileData } = useQuery({
+  const { data: profileData, refetch } = useQuery({
     queryKey: ['profile'],
     queryFn: userApi.getProfile
   })
+  const profile = profileData?.data.data
+  const uploadAvatarMutation = useMutation(userApi.uploadAvatar)
+
   // console.log(profileData)
   useEffect(() => {
     if (profileData) {
@@ -50,7 +54,6 @@ export default function Profile() {
       setProfileToLS(profileData.data.data)
     }
   }, [profileData, setProfile])
-  const profile = profileData?.data.data
   useEffect(() => {
     if (profile) {
       setValue('name', profile.name)
@@ -65,14 +68,30 @@ export default function Profile() {
     setForm(!form)
   }
 
+  const onSubmit = handleSubmit(async (data) => {
+    console.log(data)
+    try {
+      if (file) {
+        const form = new FormData()
+        form.append('file', file)
+        const uploadRes = await uploadAvatarMutation.mutateAsync(form)
+        // console.log(uploadRes.data.data)
+        // const avatarName = uploadRes.data.data
+      }
+      refetch()
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
   return (
     <div className='round-sm pl-10 shadow'>
       <div className='border-b border-b-gray-200 pb-5'>
         <h1 className='text-2xl'>My Account</h1>
         <h1>General Information</h1>
       </div>
-      <form className='flex flex-col justify-start pt-10 md:flex-row'>
-        <Avatar />
+      <form className='flex flex-col justify-start pt-10 md:flex-row' onSubmit={onSubmit}>
+        <Avatar file={file} setFile={setFile} />
         {/* <div className='flex flex-col items-center'>
           <div className='h-48 w-48 flex-shrink-0 overflow-hidden rounded-full border border-black/10'>
             <img
@@ -89,9 +108,22 @@ export default function Profile() {
 
         <div className='ml-20 grid w-[512px]'>
           <UserInput icon={<EmailIcon />} title='Email' name='email' disabled register={register} />
-          <UserInput icon={<PersonIcon />} title='Full Name' name='name' register={register} />
-          <UserInput icon={<LocalPhoneOutlinedIcon />} title='Phone Number' name='phone' register={register} />
-          <Button>test</Button>
+          <UserInput
+            icon={<PersonIcon />}
+            title='Full Name'
+            name='name'
+            register={register}
+            // className=
+            errorMessage={errors.name?.message}
+          />
+          <UserInput
+            icon={<LocalPhoneOutlinedIcon />}
+            title='Phone Number'
+            name='phone'
+            register={register}
+            // className=
+          />
+          <Button type='submit'>test</Button>
         </div>
       </form>
       {/* <Box className='flex justify-center'>

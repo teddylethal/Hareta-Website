@@ -21,7 +21,7 @@ export const userApi = {
     return http.post<SuccessRespone<User>>('auth/change-password', body)
   },
   uploadAvatar(body: FormData) {
-    return http.post<SuccessRespone<string>>('user/avatar', body, {
+    return http.post<SuccessRespone<string>>('auth/avatar', body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

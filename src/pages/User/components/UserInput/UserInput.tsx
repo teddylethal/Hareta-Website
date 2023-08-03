@@ -27,6 +27,7 @@ export default function UserInput({ errorMessage, className, register, name, rul
         <div className='text-xl'>{title}</div>
       </div>
       <input className={classNameInput} {...registerResult} />
+      <div className='h-6 text-sm text-red-600'>{errorMessage}</div>
     </Box>
   )
 }
