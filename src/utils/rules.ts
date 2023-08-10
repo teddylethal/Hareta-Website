@@ -87,10 +87,31 @@ export const productSchema = yup.object({
   name: yup.string().trim().required()
 })
 
-export type RegisterSchema = yup.InferType<typeof registerSchema>
+function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
+  const { lower_price, upper_price } = this.parent as { lower_price: string; upper_price: string }
+  if (lower_price !== '' && upper_price !== '') {
+    return Number(upper_price) >= Number(lower_price)
+  }
+  return true
+}
 
-// export const loginSchema = schema.omit(['name', 'phone', 'confirm_password'])
+export const priceSchema = yup.object({
+  lower_price: yup.string().default('').test({
+    name: 'price-is-not-allowed',
+    message: 'Price is not allowed',
+    test: testPriceMinMax
+  }),
+  upper_price: yup.string().default('').test({
+    name: 'price-is-not-allowed',
+    message: 'Price is not allowed',
+    test: testPriceMinMax
+  })
+})
+
+export type RegisterSchema = yup.InferType<typeof registerSchema>
 
 export type LoginSchema = yup.InferType<typeof loginSchema>
 
 export type ProductSchema = yup.InferType<typeof productSchema>
+
+export type PriceSchema = yup.InferType<typeof priceSchema>

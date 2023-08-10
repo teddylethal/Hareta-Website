@@ -1,35 +1,134 @@
-import Input from 'src/components/Input'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { omit } from 'lodash'
+import { Controller, useForm } from 'react-hook-form'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import InputNumber from 'src/components/InputNumber'
+import path from 'src/constants/path'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { NoUndefinedField } from 'src/types/utils.type'
+import { PriceSchema, priceSchema } from 'src/utils/rules'
 
-// interface Props {
-//   queryConfig: QueryConfig
-//   isMobile?: boolean
-//   setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
-// }
+interface Props {
+  queryConfig: QueryConfig
 
-export default function PriceRange() {
+  // isMobile?: boolean
+  // setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+type FormData = NoUndefinedField<PriceSchema>
+export default function PriceRange({ queryConfig }: Props) {
+  const {
+    control,
+    handleSubmit,
+    trigger,
+    formState: { errors }
+  } = useForm<FormData>({
+    defaultValues: {
+      lower_price: '',
+      upper_price: ''
+    },
+    resolver: yupResolver(priceSchema),
+    shouldFocusError: false
+  })
+
+  const navigate = useNavigate()
+
+  const onSubmit = handleSubmit((data) => {
+    let searchParams = createSearchParams(
+      omit(
+        {
+          ...queryConfig,
+          lower_price: data.lower_price as string,
+          upper_price: data.upper_price as string
+        },
+        ['page', 'limit']
+      )
+    )
+    if (data.lower_price === '' && data.upper_price === '') {
+      searchParams = createSearchParams(
+        omit(
+          {
+            ...queryConfig
+          },
+          ['lower_price', 'upper_price', 'page']
+        )
+      )
+    } else if (data.lower_price === '') {
+      searchParams = createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            upper_price: data.upper_price as string
+          },
+          ['lower_price', 'page']
+        )
+      )
+    } else if (data.upper_price === '') {
+      searchParams = createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            lower_price: data.lower_price as string
+          },
+          ['upper_price', 'page']
+        )
+      )
+    }
+    navigate({
+      pathname: path.store,
+      search: searchParams.toString()
+    })
+  })
+
   return (
-    <div className='my-2 overflow-hidden bg-[#ddd] p-2 duration-500 dark:bg-[#202020]'>
+    <div className='m-4 my-2 overflow-hidden rounded-sm bg-[#f0f0f0] p-2 duration-500 dark:bg-[#303030]'>
       <p className='text-textDark duration-500 dark:text-textLight'>Price range</p>
-      <form className='mx-2 my-1'>
+      <form className='mx-2 my-1' onSubmit={onSubmit}>
         <div className='flex items-center justify-center'>
-          <Input
-            type='text'
-            className='flex items-center'
-            name='from'
-            placeholder='$ From'
-            classNameInput='p-1 text-xs lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
+          <Controller
+            control={control}
+            name='lower_price'
+            render={({ field }) => {
+              return (
+                <InputNumber
+                  type='text'
+                  className='flex items-center'
+                  placeholder='$ From'
+                  classNameInput='p-1 text-center text-xs lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
+                  {...field}
+                  onChange={(event) => {
+                    field.onChange(event)
+                    trigger('upper_price')
+                  }}
+                />
+              )
+            }}
           />
           <div className='m-2 text-textDark dark:text-textLight'>-</div>
-          <Input
-            type='text'
-            className='flex items-center'
-            name='to'
-            placeholder='$ To'
-            classNameInput='p-1 text-xs lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
+          <Controller
+            control={control}
+            name='upper_price'
+            render={({ field }) => {
+              return (
+                <InputNumber
+                  type='text'
+                  className='flex items-center'
+                  placeholder='$ To'
+                  classNameInput='p-1 text-xs text-center lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
+                  classNameError='hidden'
+                  {...field}
+                  onChange={(event) => {
+                    field.onChange(event)
+                    trigger('upper_price')
+                  }}
+                />
+              )
+            }}
           />
         </div>
-        <button className='mt-2 w-full rounded-md bg-[#eee] px-2 py-0.5 text-xs text-textDark duration-500 hover:text-vintageColor dark:bg-[#444] dark:text-textLight dark:hover:text-haretaColor lg:text-sm xl:text-base'>
-          Apply Price range
+        <div className='mt-1 min-h-[1.25rem] text-center text-sm text-red-600'>{errors.lower_price?.message}</div>
+        <button className='mt-1 w-full rounded-md bg-[#eee] px-2 py-0.5 text-xs text-textDark duration-500 hover:text-vintageColor dark:bg-[#444] dark:text-textLight dark:hover:text-haretaColor lg:text-sm xl:text-base'>
+          Apply
         </button>
       </form>
     </div>

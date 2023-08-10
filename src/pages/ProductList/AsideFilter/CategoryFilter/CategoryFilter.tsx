@@ -57,7 +57,7 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
       setMobileFilterOpen(false)
     }
 
-    if (selectedCategory === 'All') {
+    if (selectedCategory === 'all') {
       navigate({
         pathname: path.store,
         search: createSearchParams(
@@ -119,7 +119,7 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
             </svg>
           )}
         </div>
-        <div className='flex w-full select-none justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg'>
+        <div className='flex w-full select-none justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg'>
           {category}
         </div>
       </button>

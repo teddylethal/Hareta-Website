@@ -12,6 +12,8 @@ import producImageApi from 'src/apis/productImage.api'
 import classNames from 'classnames'
 import { getIdFromNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import QuantityController from 'src/components/QuantityController'
+import OtherItemsInCollection from './OtherItemsInCollection'
 
 interface Props {
   queryConfig: QueryConfig
@@ -22,11 +24,13 @@ interface ProductImageWithIndex extends ProductImage {
 }
 
 export default function ProductDetail({ queryConfig }: Props) {
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   const { setCollection, setType } = useContext(StoreContext)
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
   const [currentColor, setCurrentColor] = useState<string>()
+  const [buyCount, setBuyCount] = useState(1)
 
   const imageRef = useRef<HTMLImageElement>(null)
   const navigate = useNavigate()
@@ -44,16 +48,6 @@ export default function ProductDetail({ queryConfig }: Props) {
   })
 
   const product = productDetailData?.data.data
-  const inCollectionQueryConfig: QueryConfig = { collection: product?.collection, page: '1', limit: '12' }
-  const { data: productsData } = useQuery({
-    queryKey: ['products_in_collection', inCollectionQueryConfig],
-    queryFn: () => {
-      return productApi.getProductList(inCollectionQueryConfig)
-    },
-    staleTime: 3 * 60 * 1000,
-    enabled: Boolean(product)
-  })
-  const productsInCollection = productsData?.data.data
 
   const imagesData = productImages?.data.data
   const colorArray: string[] = useMemo(() => {
@@ -171,6 +165,10 @@ export default function ProductDetail({ queryConfig }: Props) {
     imageRef.current?.removeAttribute('style')
   }
 
+  const handleBuyCount = (value: number) => {
+    setBuyCount(value)
+  }
+
   if (!product) return null
   return (
     <div className='bg-lightBg py-6 dark:bg-darkBg'>
@@ -186,7 +184,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                     onMouseLeave={handleRemoveZoom}
                   >
                     <img
-                      src={activeImage ? activeImage.image.url : product.avatar.url}
+                      src={activeImage?.image ? activeImage.image.url : ''}
                       alt={product.name}
                       className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
                       ref={imageRef}
@@ -206,7 +204,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                       return (
                         <button onClick={handleChosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
                           <img
-                            src={image.image.url}
+                            src={image.image ? image.image.url : ''}
                             alt={product.name}
                             className='absolute left-0 top-0 h-full w-full object-scale-down'
                           />
@@ -284,6 +282,15 @@ export default function ProductDetail({ queryConfig }: Props) {
                 <p className=''>{product.description}</p>
               </div>
 
+              <QuantityController
+                classNameWrapper='mt-4'
+                value={buyCount}
+                max={product.quantity}
+                onDecrease={handleBuyCount}
+                onIncrease={handleBuyCount}
+                onType={handleBuyCount}
+              />
+
               <div className='absolute bottom-6 space-x-4'>
                 <button className='rounded-sm bg-vintageColor px-3 py-1 text-lg hover:bg-haretaColor hover:text-textDark'>
                   Add to cart
@@ -296,6 +303,8 @@ export default function ProductDetail({ queryConfig }: Props) {
             </div>
           </div>
         </div>
+
+        <OtherItemsInCollection collectionName={product.collection} />
       </div>
     </div>
   )

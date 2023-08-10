@@ -10,6 +10,7 @@ import UsePagination from 'src/components/UsePagination'
 import { ProductListConfig } from 'src/types/product.type'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { ceil } from 'lodash'
+import PriceRange from './AsideFilter/PriceRange'
 
 export default function ProductList() {
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -34,6 +35,7 @@ export default function ProductList() {
           <div className='grid grid-cols-12 gap-6'>
             <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#e0e0e0] duration-500 dark:bg-[#202020]'>
               <AsideSorter />
+              <PriceRange queryConfig={queryConfig} />
               <AsideFilter queryConfig={queryConfig} />
             </div>
             <div className='col-span-9'>

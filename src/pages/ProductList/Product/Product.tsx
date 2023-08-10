@@ -4,11 +4,11 @@ import { useContext } from 'react'
 import { StoreContext } from 'src/contexts/store.context'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { QueryConfig } from '../ProductList'
 import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { omit } from 'lodash'
 import { generateNameId } from 'src/utils/utils'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
   product: ProductType
@@ -77,7 +77,7 @@ export default function Product({ product, queryConfig }: Props) {
                 : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
             }
             alt={product.name}
-            className='absolute left-0 top-0 h-full w-full object-cover'
+            className='absolute left-0 top-0 h-full w-full object-scale-down'
           />
         </Link>
       </div>

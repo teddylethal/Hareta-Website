@@ -6,7 +6,6 @@ import { StoreContext } from 'src/contexts/store.context'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { setCategoryFilteringToLS, setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
-import PriceRange from './PriceRange'
 import classNames from 'classnames'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 
@@ -16,17 +15,18 @@ interface Props {
 
 export default function AsideFilter({ queryConfig }: Props) {
   const { setCategory, setCollection, setType, category, collection, type } = useContext(StoreContext)
+
   const navigate = useNavigate()
 
-  const isFiltering = category !== 'All' || collection !== 'All' || type !== 'All'
+  const isFiltering = category !== 'all' || collection !== 'all' || type !== 'all'
 
   const handleClear = () => {
-    setCategory('All')
-    setCollection('All')
-    setType('All')
-    setCategoryFilteringToLS('All')
-    setCollectionFilteringToLS('All')
-    setTypeFilteringToLS('All')
+    setCategory('all')
+    setCollection('all')
+    setType('all')
+    setCategoryFilteringToLS('all')
+    setCollectionFilteringToLS('all')
+    setTypeFilteringToLS('all')
 
     navigate({
       pathname: path.store
@@ -38,7 +38,6 @@ export default function AsideFilter({ queryConfig }: Props) {
       <CategoryFilter queryConfig={queryConfig} />
       <CollectionFilter queryConfig={queryConfig} />
       <TypeFilter queryConfig={queryConfig} />
-      <PriceRange />
       <button
         onClick={handleClear}
         disabled={isFiltering ? false : true}
