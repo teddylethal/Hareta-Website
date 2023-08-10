@@ -12,6 +12,8 @@ import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import UserNav from './Desktop/ProfileNav/UserNav'
 import path from 'src/constants/path'
+import purchaseApi from 'src/apis/cart.api'
+import { useQuery } from '@tanstack/react-query'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -35,6 +37,10 @@ export const CartContext = createContext<CartContextInterface>(initialCartContex
 
 export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
+  const { data: cartData } = useQuery({
+    queryKey: ['items_in_cart'],
+    queryFn: () => purchaseApi.getPurchases()
+  })
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -98,7 +104,7 @@ export default function Header() {
             )}
 
             <div className='rounded-md bg-[#a27b5c] text-textVintage hover:bg-haretaColor'>
-              <CartNav />
+              <CartNav cartData={cartData} />
             </div>
 
             <div className='flex items-center justify-center px-1'>
@@ -112,7 +118,7 @@ export default function Header() {
       {isMobile && (
         <div className='flex h-full w-full items-center justify-between px-2'>
           <MobileNav />
-          <MobileCart />
+          <MobileCart cartData={cartData} />
           <MobileUser />
         </div>
       )}

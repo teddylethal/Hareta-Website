@@ -4,12 +4,15 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Button from 'src/components/Button'
 import { ThemeContext } from 'src/App'
 import useClickOutside from 'src/hooks/useClickOutside'
+import { AxiosResponse } from 'axios'
+import { PurchaseList } from 'src/types/cart.type'
 
 interface Props {
   className?: string
+  cartData: AxiosResponse<PurchaseList, unknown> | undefined
 }
 
-export default function MobileCart({ className }: Props) {
+export default function MobileCart({ className, cartData }: Props) {
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const openCart = () => {

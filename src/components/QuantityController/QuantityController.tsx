@@ -16,7 +16,7 @@ export default function QuantityController({
   onIncrease,
   onDecrease,
   onType,
-  classNameWrapper = 'ml-10',
+  classNameWrapper,
   value,
   ...rest
 }: Props) {
@@ -50,7 +50,7 @@ export default function QuantityController({
   return (
     <div className={'flex items-center ' + classNameWrapper}>
       <button
-        className='round flex items-center justify-center text-textDark dark:text-textLight'
+        className='round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight'
         onClick={decreaseQuantity}
       >
         <FontAwesomeIcon icon={faMinus} />
@@ -58,13 +58,13 @@ export default function QuantityController({
       <InputNumber
         className=''
         classNameError='hidden'
-        classNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none text-haretaColor dark:bg-black bg-white'
+        classNameInput='h-8 mx-2 w-14 rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white'
         onChange={handleChange}
         value={value}
         {...rest}
       />
       <button
-        className='round flex items-center justify-center text-textDark dark:text-textLight'
+        className='round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight'
         onClick={increaseQuantity}
       >
         <FontAwesomeIcon icon={faPlus} />

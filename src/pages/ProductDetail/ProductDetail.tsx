@@ -1,6 +1,6 @@
-import { faChevronLeft, faChevronRight, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faChevronLeft, faChevronRight, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
@@ -9,11 +9,12 @@ import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/stor
 import path from 'src/constants/path'
 import { ProductImage } from 'src/types/productImage.type'
 import producImageApi from 'src/apis/productImage.api'
-import classNames from 'classnames'
 import { getIdFromNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import QuantityController from 'src/components/QuantityController'
 import OtherItemsInCollection from './OtherItemsInCollection'
+import purchaseApi from 'src/apis/cart.api'
+import { toast } from 'react-toastify'
 
 interface Props {
   queryConfig: QueryConfig
@@ -29,11 +30,11 @@ export default function ProductDetail({ queryConfig }: Props) {
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
-  const [currentColor, setCurrentColor] = useState<string>()
   const [buyCount, setBuyCount] = useState(1)
 
   const imageRef = useRef<HTMLImageElement>(null)
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const { nameId } = useParams()
   const id = getIdFromNameId(nameId as string)
@@ -48,51 +49,35 @@ export default function ProductDetail({ queryConfig }: Props) {
   })
 
   const product = productDetailData?.data.data
-
   const imagesData = productImages?.data.data
-  const colorArray: string[] = useMemo(() => {
-    const newColorArray: string[] = []
-    imagesData &&
-      imagesData.forEach((image) => {
-        if (!newColorArray.includes(image.color)) {
-          newColorArray.push(image.color)
-        }
-      })
-    return newColorArray
-  }, [imagesData])
 
-  const imagesForCurrentColor: ProductImageWithIndex[] = useMemo(
+  const imagesWithIndex = useMemo(
     () =>
-      (imagesData
-        ? imagesData.filter((image) => {
-            return image.color === currentColor
+      imagesData
+        ? imagesData.map((image, index) => {
+            return { ...image, index: index }
           })
-        : []
-      ).map((image, index) => {
-        return { ...image, index: index }
-      }),
-    [currentColor, imagesData]
+        : [],
+    [imagesData]
   )
 
   const currentImageList = useMemo(
-    () => (imagesForCurrentColor ? imagesForCurrentColor.slice(...currentIndexImages) : []),
-    [currentIndexImages, imagesForCurrentColor]
+    () => (imagesWithIndex ? imagesWithIndex.slice(...currentIndexImages) : []),
+    [currentIndexImages, imagesWithIndex]
   )
 
-  useEffect(() => {
-    setActiveImage(imagesForCurrentColor[0])
-    setActiveImageIndex(0)
-    setCurrentIndexImages([0, 5])
-  }, [imagesForCurrentColor])
+  const addToCartMutation = useMutation(purchaseApi.addToCart)
 
   useEffect(() => {
-    setCurrentColor(colorArray[0])
-  }, [colorArray])
+    setActiveImage(imagesWithIndex[0])
+    setActiveImageIndex(0)
+    setCurrentIndexImages([0, 5])
+  }, [imagesWithIndex])
 
   const nextImageList = () => {
     setCurrentIndexImages((prev) => [prev[0] + 1, prev[1] + 1])
     if (currentIndexImages[0] === activeImageIndex) {
-      setActiveImage(imagesForCurrentColor[activeImageIndex + 1])
+      setActiveImage(imagesWithIndex[activeImageIndex + 1])
       setActiveImageIndex((prev) => prev + 1)
     }
   }
@@ -100,7 +85,7 @@ export default function ProductDetail({ queryConfig }: Props) {
   const previousImageList = () => {
     setCurrentIndexImages((prev) => [prev[0] - 1, prev[1] - 1])
     if (currentIndexImages[1] - 1 === activeImageIndex) {
-      setActiveImage(imagesForCurrentColor[activeImageIndex - 1])
+      setActiveImage(imagesWithIndex[activeImageIndex - 1])
       setActiveImageIndex((prev) => prev - 1)
     }
   }
@@ -169,17 +154,31 @@ export default function ProductDetail({ queryConfig }: Props) {
     setBuyCount(value)
   }
 
+  const addToCart = () => {
+    addToCartMutation.mutate(
+      { item_id: product?.id as string, quantity: buyCount },
+      {
+        onSuccess: () => {
+          toast.success('Item was added', {
+            autoClose: 3000
+          })
+          queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+        }
+      }
+    )
+  }
+
   if (!product) return null
   return (
     <div className='bg-lightBg py-6 dark:bg-darkBg'>
       <div className='container'>
-        <div className='bg-[#cfcfcf] p-4 shadow dark:bg-[#303030]'>
+        <div className='bg-[#dfdfdf] p-4 shadow dark:bg-[#303030]'>
           <div className='grid grid-cols-12 gap-6'>
             <div className='col-span-6'>
               <div className='grid grid-cols-6 gap-3'>
-                <div className='col-span-5 bg-[#dfdfdf] p-2 dark:bg-[#202020]'>
+                <div className='col-span-6 bg-[#efefef] p-2 dark:bg-[#202020]'>
                   <div
-                    className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow'
+                    className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'
                     onMouseMove={handleZoom}
                     onMouseLeave={handleRemoveZoom}
                   >
@@ -191,7 +190,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                     />
                   </div>
                   <div className='relative mt-3 flex select-none justify-center space-x-2'>
-                    {imagesForCurrentColor.length > 5 && currentIndexImages[0] !== 0 && (
+                    {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
                       <button
                         className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
                         onClick={previousImageList}
@@ -212,7 +211,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                         </button>
                       )
                     })}
-                    {imagesForCurrentColor.length > 5 && currentIndexImages[1] !== imagesForCurrentColor.length && (
+                    {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
                       <button
                         className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
                         onClick={nextImageList}
@@ -223,7 +222,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                   </div>
                 </div>
 
-                <div className='col-span-1 flex h-0 min-h-full flex-col space-y-2 overflow-y-auto bg-[#dfdfdf] p-2 dark:bg-[#202020]'>
+                {/* <div className='col-span-1 flex h-0 min-h-full flex-col space-y-2 overflow-y-auto bg-[#dfdfdf] p-2 dark:bg-[#202020]'>
                   {colorArray.map((color, index) => {
                     const isActive = color === currentColor
                     const handleClick = () => {
@@ -242,11 +241,11 @@ export default function ProductDetail({ queryConfig }: Props) {
                       </div>
                     )
                   })}
-                </div>
+                </div> */}
               </div>
             </div>
 
-            <div className='relative col-span-6 flex flex-col bg-[#dfdfdf] p-6 text-textDark dark:bg-[#202020] dark:text-textLight'>
+            <div className='relative col-span-6 flex min-h-full flex-col bg-[#efefef] p-6 text-textDark dark:bg-[#202020] dark:text-textLight'>
               <div className='flex items-center justify-between'>
                 <div>
                   <p className='text-4xl'>{product.name}</p>
@@ -261,6 +260,7 @@ export default function ProductDetail({ queryConfig }: Props) {
                 </span>
                 <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
               </div>
+
               <div className='mt-4 flex items-center space-x-8 text-lg'>
                 <button
                   className='text-textDark/60 hover:text-haretaColor dark:text-textLight/60 dark:hover:text-haretaColor'
@@ -278,27 +278,37 @@ export default function ProductDetail({ queryConfig }: Props) {
               <div className='mt-4'>
                 <span className='text-xl text-haretaColor'>${product.price}</span>
               </div>
-              <div className='mt-8'>
+              <div className='mt-8 h-full text-base lg:text-lg'>
                 <p className=''>{product.description}</p>
               </div>
 
-              <QuantityController
-                classNameWrapper='mt-4'
-                value={buyCount}
-                max={product.quantity}
-                onDecrease={handleBuyCount}
-                onIncrease={handleBuyCount}
-                onType={handleBuyCount}
-              />
+              <div className='w-80'>
+                <div className='mt-4 flex items-center justify-between'>
+                  <p className='text-textDark dark:text-textLight'>Quantity</p>
+                  <QuantityController
+                    classNameWrapper=''
+                    value={buyCount}
+                    max={product.quantity}
+                    onDecrease={handleBuyCount}
+                    onIncrease={handleBuyCount}
+                    onType={handleBuyCount}
+                  />
+                  {product.quantity <= 10 && <p>Only</p>}
+                  <p className='text-textDark dark:text-textLight'>{product.quantity} available</p>
+                </div>
 
-              <div className='absolute bottom-6 space-x-4'>
-                <button className='rounded-sm bg-vintageColor px-3 py-1 text-lg hover:bg-haretaColor hover:text-textDark'>
-                  Add to cart
-                </button>
-
-                <button className='rounded-sm bg-vintageColor px-3 py-1 text-lg hover:bg-haretaColor hover:text-textDark'>
-                  Buy item
-                </button>
+                <div className='mt-4 flex justify-between'>
+                  <button
+                    className='flex items-center space-x-2 rounded-sm bg-vintageColor px-4 py-1 text-lg hover:bg-haretaColor hover:text-textDark'
+                    onClick={addToCart}
+                  >
+                    <FontAwesomeIcon icon={faCartPlus} />
+                    <p>Add to cart</p>
+                  </button>
+                  <button className='rounded-sm bg-vintageColor px-4 py-1 text-lg hover:bg-haretaColor hover:text-textDark'>
+                    Buy
+                  </button>
+                </div>
               </div>
             </div>
           </div>
