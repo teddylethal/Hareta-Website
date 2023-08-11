@@ -11,7 +11,7 @@ import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
-import { getAccessTokenFromLS } from 'src/utils/auth'
+import { getAccessTokenFromLS, setProfileToLS } from 'src/utils/auth'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
@@ -20,7 +20,7 @@ type FormData = LoginSchema
 
 export default function Login() {
   const { theme } = useContext(ThemeContext)
-  const { setIsAuthenticated, setProfile, profile } = useContext(AppContext)
+  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     register,
@@ -44,7 +44,11 @@ export default function Login() {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
-        axios.get('https://api.hareta.me/auth/', { headers }).then((response) => setProfile(response.data.data))
+        axios.get('https://api.hareta.me/auth/', { headers }).then((response) => {
+          console.log(response.data.data)
+          setProfileToLS(response.data.data)
+          setProfile(response.data.data)
+        })
         navigate(path.home)
       },
       onError: (error) => {

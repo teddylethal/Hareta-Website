@@ -36,11 +36,11 @@ class Http {
         if (url === path.login || url === path.register) {
           this.accessToken = response.data.data.token
           setAccessTokenToLS(this.accessToken)
-          const headers = response.config.headers
-          axios.get<ProfileRespone>('https://api.hareta.me/auth/', { headers }).then((userResponse) => {
-            // console.log(userResponse.data.data)
-            setProfileToLS(userResponse.data.data)
-          })
+          // const headers = response.config.headers
+          // axios.get<ProfileRespone>('https://api.hareta.me/auth/', { headers }).then((userResponse) => {
+          //   console.log(userResponse.data.data)
+          //   setProfileToLS(userResponse.data.data)
+          // })
         }
         // else if (url === '/logout') {
         //   this.accessToken = ''

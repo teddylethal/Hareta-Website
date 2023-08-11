@@ -8,6 +8,8 @@ import { PurchaseList } from 'src/types/cart.type'
 import Button from 'src/components/Button'
 import emptyCart from 'src/assets/images/empty_cart.png'
 import path from 'src/constants/path'
+import purchaseApi from 'src/apis/cart.api'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Props {
   cartData: AxiosResponse<PurchaseList, unknown> | undefined
@@ -22,8 +24,14 @@ export default function CartNav({ cartData }: Props) {
     navigate('profile')
   }
 
-  const handleRemoveItem = () => {
-    return
+  const addToCartMutation = useMutation(purchaseApi.removePurchases)
+  const queryClient = useQueryClient()
+  const handleRemoveItem = (id: string) => () => {
+    addToCartMutation.mutate(id, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+      }
+    })
   }
 
   return (
@@ -83,7 +91,7 @@ export default function CartNav({ cartData }: Props) {
                           </button>
                           <button
                             className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                            onClick={handleRemoveItem}
+                            onClick={handleRemoveItem(item.id)}
                           >
                             Remove
                           </button>
@@ -120,7 +128,7 @@ export default function CartNav({ cartData }: Props) {
       }
       placement='bottom-end'
     >
-      <Link to='/' className='flex items-center space-x-1'>
+      <Link to={path.cart} className='flex items-center space-x-1'>
         <FontAwesomeIcon icon={faCartShopping} />
         <div>Cart</div>
       </Link>
