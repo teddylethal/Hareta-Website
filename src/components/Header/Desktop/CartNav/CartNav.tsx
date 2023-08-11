@@ -31,7 +31,7 @@ export default function CartNav({ cartData }: Props) {
       className='flex border border-none px-1.5 py-1 lg:px-2'
       renderPopover={
         <div className='relative -top-1 w-[360px] rounded-md border-gray-200 bg-[#eee] py-2 text-sm text-textDark shadow-md dark:bg-[#333] dark:text-textLight lg:top-0'>
-          {itemsInCart ? (
+          {itemsInCart && itemsInCart.length !== 0 ? (
             <div className=''>
               <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
                 {cartData.data.paging.total} items in cart

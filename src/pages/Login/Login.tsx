@@ -20,7 +20,7 @@ type FormData = LoginSchema
 
 export default function Login() {
   const { theme } = useContext(ThemeContext)
-  const { setIsAuthenticated, setProfile } = useContext(AppContext)
+  const { setIsAuthenticated, setProfile, profile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     register,
@@ -44,8 +44,8 @@ export default function Login() {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
-        axios.get('http://api.hareta.me/auth/', { headers }).then((response) => setProfile(response.data.data))
-        navigate('/')
+        axios.get('https://api.hareta.me/auth/', { headers }).then((response) => setProfile(response.data.data))
+        navigate(path.home)
       },
       onError: (error) => {
         console.log(error)

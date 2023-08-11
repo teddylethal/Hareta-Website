@@ -37,7 +37,7 @@ class Http {
           this.accessToken = response.data.data.token
           setAccessTokenToLS(this.accessToken)
           const headers = response.config.headers
-          axios.get<ProfileRespone>('http://api.hareta.me/auth/', { headers }).then((userResponse) => {
+          axios.get<ProfileRespone>('https://api.hareta.me/auth/', { headers }).then((userResponse) => {
             // console.log(userResponse.data.data)
             setProfileToLS(userResponse.data.data)
           })

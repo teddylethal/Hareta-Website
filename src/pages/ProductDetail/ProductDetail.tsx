@@ -10,21 +10,17 @@ import path from 'src/constants/path'
 import { ProductImage } from 'src/types/productImage.type'
 import producImageApi from 'src/apis/productImage.api'
 import { getIdFromNameId } from 'src/utils/utils'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
+import useQueryConfig from 'src/hooks/useQueryConfig'
 import QuantityController from 'src/components/QuantityController'
 import OtherItemsInCollection from './OtherItemsInCollection'
 import purchaseApi from 'src/apis/cart.api'
 import { toast } from 'react-toastify'
 
-interface Props {
-  queryConfig: QueryConfig
-}
-
 interface ProductImageWithIndex extends ProductImage {
   index: number
 }
 
-export default function ProductDetail({ queryConfig }: Props) {
+export default function ProductDetail() {
   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   const { setCollection, setType } = useContext(StoreContext)
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
@@ -35,8 +31,9 @@ export default function ProductDetail({ queryConfig }: Props) {
   const imageRef = useRef<HTMLImageElement>(null)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-
+  const queryConfig = useQueryConfig()
   const { nameId } = useParams()
+
   const id = getIdFromNameId(nameId as string)
   const { data: productDetailData } = useQuery({
     queryKey: ['item', id],

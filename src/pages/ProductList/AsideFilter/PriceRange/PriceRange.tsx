@@ -3,6 +3,7 @@ import { omit } from 'lodash'
 import { Controller, useForm } from 'react-hook-form'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import InputNumber from 'src/components/InputNumber'
+import InputV2 from 'src/components/InputV2'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { NoUndefinedField } from 'src/types/utils.type'
@@ -85,7 +86,7 @@ export default function PriceRange({ queryConfig }: Props) {
       <p className='text-textDark duration-500 dark:text-textLight'>Price range</p>
       <form className='mx-2 my-1' onSubmit={onSubmit}>
         <div className='flex items-center justify-center'>
-          <Controller
+          {/* <Controller
             control={control}
             name='lower_price'
             render={({ field }) => {
@@ -95,6 +96,7 @@ export default function PriceRange({ queryConfig }: Props) {
                   className='flex items-center'
                   placeholder='$ From'
                   classNameInput='p-1 text-center text-xs lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
+                  classNameError='hidden'
                   {...field}
                   onChange={(event) => {
                     field.onChange(event)
@@ -102,6 +104,18 @@ export default function PriceRange({ queryConfig }: Props) {
                   }}
                 />
               )
+            }}
+          /> */}
+          <InputV2
+            control={control}
+            name='lower_price'
+            type='number'
+            className='flex items-center'
+            placeholder='$ From'
+            classNameInput='p-1 text-center text-xs lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
+            classNameError='hidden'
+            onChange={() => {
+              trigger('upper_price')
             }}
           />
           <div className='m-2 text-textDark dark:text-textLight'>-</div>

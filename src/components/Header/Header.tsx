@@ -39,7 +39,8 @@ export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
   const { data: cartData } = useQuery({
     queryKey: ['items_in_cart'],
-    queryFn: () => purchaseApi.getPurchases()
+    queryFn: () => purchaseApi.getPurchases(),
+    enabled: isAuthenticated
   })
 
   const viewPort = useViewport()
