@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import InputNumber from '../InputNumber'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { InputNumberProps } from '../InputNumber/InputNumber'
+import { useState } from 'react'
 
 interface Props extends InputNumberProps {
   max?: number
@@ -20,6 +21,7 @@ export default function QuantityController({
   value,
   ...rest
 }: Props) {
+  const [localValue, setLocalValue] = useState<number>(Number(value || 0))
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let _value = Number(e.target.value)
     if (max !== undefined && _value > max) {
@@ -27,24 +29,26 @@ export default function QuantityController({
     } else if (_value < 1) {
       _value = 1
     }
-
     onType && onType(_value)
+    setLocalValue(_value)
   }
 
   const increaseQuantity = () => {
-    let _value = Number(value) + 1
+    let _value = Number(value || localValue) + 1
     if (max !== undefined && _value > max) {
       _value = max
     }
     onIncrease && onIncrease(_value)
+    setLocalValue(_value)
   }
 
   const decreaseQuantity = () => {
-    let _value = Number(value) - 1
+    let _value = Number(value || localValue) - 1
     if (_value < 1) {
       _value = 1
     }
     onDecrease && onDecrease(_value)
+    setLocalValue(_value)
   }
 
   return (
@@ -60,7 +64,7 @@ export default function QuantityController({
         classNameError='hidden'
         classNameInput='h-8 mx-2 w-14 rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white'
         onChange={handleChange}
-        value={value}
+        value={value || localValue}
         {...rest}
       />
       <button
