@@ -10,9 +10,12 @@ const purchaseApi = {
   getPurchases() {
     return http.get<PurchaseList>(URL)
   },
-  removePurchases(item_id: string) {
+  updatePurchases(body: { id: string; quantity: number }) {
+    return http.put(URL, body)
+  },
+  removePurchases(body: { id: string }) {
     return http.delete(URL, {
-      data: item_id
+      data: body
     })
   }
 }

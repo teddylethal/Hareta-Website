@@ -14,6 +14,10 @@ export function isAxiosUnprocessableError(error: unknown) {
   return isAxiosError(error) && error.response?.status === HttpStatusCode.UnprocessableEntity
 }
 
+export function formatCurrency(currency: number) {
+  return new Intl.NumberFormat('de-DE').format(currency)
+}
+
 export const removeSpecialCharacter = (str: string) =>
   // eslint-disable-next-line no-useless-escape
   str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, '')

@@ -7,8 +7,11 @@ import path from 'src/constants/path'
 import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { omit } from 'lodash'
-import { generateNameId } from 'src/utils/utils'
+import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import purchaseApi from 'src/apis/cart.api'
+import { toast } from 'react-toastify'
 
 interface Props {
   product: ProductType
@@ -19,6 +22,23 @@ export default function Product({ product, queryConfig }: Props) {
   const navigate = useNavigate()
   const { setCollection, setType } = useContext(StoreContext)
 
+  const queryClient = useQueryClient()
+
+  const addToCartMutation = useMutation(purchaseApi.addToCart)
+  const addToCart = () => {
+    addToCartMutation.mutate(
+      { item_id: product.id as string, quantity: 1 },
+      {
+        onSuccess: () => {
+          toast.success('Item was added', {
+            autoClose: 1000
+          })
+          queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+        }
+      }
+    )
+  }
+
   const handleCollectionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedCollection = String((e.target as HTMLInputElement).innerText)
 
@@ -26,8 +46,6 @@ export default function Product({ product, queryConfig }: Props) {
     setCollectionFilteringToLS(selectedCollection)
     setType('All')
     setTypeFilteringToLS('All')
-
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 
     navigate({
       pathname: path.store,
@@ -103,14 +121,14 @@ export default function Product({ product, queryConfig }: Props) {
               {product.type}
             </button>
           </div>
-          <span className='text-haretaColor'>${product.price}</span>
+          <span className='text-haretaColor'>${formatCurrency(product.price)}</span>
         </div>
 
         <div className='mx-1 flex flex-col items-center justify-between'>
           <button>
             <FontAwesomeIcon icon={faHeart} fontSize={24} />
           </button>
-          <button className=''>
+          <button className='' onClick={addToCart}>
             <FontAwesomeIcon
               icon={faCartPlus}
               fontSize={24}

@@ -9,7 +9,7 @@ import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/stor
 import path from 'src/constants/path'
 import { ProductImage } from 'src/types/productImage.type'
 import producImageApi from 'src/apis/productImage.api'
-import { getIdFromNameId } from 'src/utils/utils'
+import { formatCurrency, getIdFromNameId } from 'src/utils/utils'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import QuantityController from 'src/components/QuantityController'
 import OtherItemsInCollection from './OtherItemsInCollection'
@@ -21,7 +21,6 @@ interface ProductImageWithIndex extends ProductImage {
 }
 
 export default function ProductDetail() {
-  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   const { setCollection, setType } = useContext(StoreContext)
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
   const [activeImageIndex, setActiveImageIndex] = useState(0)
@@ -62,8 +61,6 @@ export default function ProductDetail() {
     () => (imagesWithIndex ? imagesWithIndex.slice(...currentIndexImages) : []),
     [currentIndexImages, imagesWithIndex]
   )
-
-  const addToCartMutation = useMutation(purchaseApi.addToCart)
 
   useEffect(() => {
     setActiveImage(imagesWithIndex[0])
@@ -151,6 +148,7 @@ export default function ProductDetail() {
     setBuyCount(value)
   }
 
+  const addToCartMutation = useMutation(purchaseApi.addToCart)
   const addToCart = () => {
     addToCartMutation.mutate(
       { item_id: product?.id as string, quantity: buyCount },
@@ -273,7 +271,7 @@ export default function ProductDetail() {
                 </button>
               </div>
               <div className='mt-4'>
-                <span className='text-xl text-haretaColor'>${product.price}</span>
+                <span className='text-xl text-haretaColor'>${formatCurrency(product.price)}</span>
               </div>
               <div className='mt-8 h-full text-base lg:text-lg'>
                 <p className=''>{product.description}</p>

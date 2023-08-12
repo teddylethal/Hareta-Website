@@ -25,23 +25,23 @@ const initialMenuContext: MenuContextInterface = {
 }
 export const MenuContext = createContext<MenuContextInterface>(initialMenuContext)
 
-interface CartContextInterface {
-  openingCart: boolean
-  setOpeningCart: React.Dispatch<React.SetStateAction<boolean>>
-}
-const initialCartContext: CartContextInterface = {
-  openingCart: false,
-  setOpeningCart: () => null
-}
-export const CartContext = createContext<CartContextInterface>(initialCartContext)
+// interface CartContextInterface {
+//   openingCart: boolean
+//   setOpeningCart: React.Dispatch<React.SetStateAction<boolean>>
+// }
+// const initialCartContext: CartContextInterface = {
+//   openingCart: false,
+//   setOpeningCart: () => null
+// }
+// export const CartContext = createContext<CartContextInterface>(initialCartContext)
 
 export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
-  const { data: cartData } = useQuery({
-    queryKey: ['items_in_cart'],
-    queryFn: () => purchaseApi.getPurchases(),
-    enabled: isAuthenticated
-  })
+  // const { data: cartData } = useQuery({
+  //   queryKey: ['items_in_cart'],
+  //   queryFn: () => purchaseApi.getPurchases(),
+  //   enabled: isAuthenticated
+  // })
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -105,7 +105,7 @@ export default function Header() {
             )}
 
             <div className='rounded-md bg-[#a27b5c] text-textVintage hover:bg-haretaColor'>
-              <CartNav cartData={cartData} />
+              <CartNav />
             </div>
 
             <div className='flex items-center justify-center px-1'>
@@ -119,7 +119,7 @@ export default function Header() {
       {isMobile && (
         <div className='flex h-full w-full items-center justify-between px-2'>
           <MobileNav />
-          <MobileCart cartData={cartData} />
+          <MobileCart />
           <MobileUser />
         </div>
       )}
