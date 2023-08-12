@@ -23,7 +23,7 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
   if (!productsInCollection) return null
   return (
     <div className='mt-8 bg-[#f8f8f8] p-4 text-textDark shadow dark:bg-[#202020] dark:text-textLight'>
-      <div className='text-lg lg:text-2xl'>{collectionName}</div>
+      <div className='text-lg capitalize lg:text-2xl'>{collectionName}</div>
       <div className='mt-4 grid grid-cols-4 gap-4'>
         {productsInCollection.map((product) => (
           <div className='col-span-1' key={product.id}>

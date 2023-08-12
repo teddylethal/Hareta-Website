@@ -155,7 +155,7 @@ export default function ProductDetail() {
       {
         onSuccess: () => {
           toast.success('Item was added', {
-            autoClose: 3000
+            autoClose: 1000
           })
           queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
         }
@@ -258,13 +258,13 @@ export default function ProductDetail() {
 
               <div className='mt-4 flex items-center space-x-8 text-lg'>
                 <button
-                  className='text-textDark/60 hover:text-haretaColor dark:text-textLight/60 dark:hover:text-haretaColor'
+                  className='capitalize text-textDark/60 hover:text-haretaColor dark:text-textLight/60 dark:hover:text-haretaColor'
                   onClick={handleCollectionClick}
                 >
                   {product.collection}
                 </button>
                 <button
-                  className='text-textDark/60 hover:text-haretaColor dark:text-textLight/60 dark:hover:text-haretaColor'
+                  className='capitalize text-textDark/60 hover:text-haretaColor dark:text-textLight/60 dark:hover:text-haretaColor'
                   onClick={handleTypeClick}
                 >
                   {product.type}

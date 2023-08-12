@@ -67,6 +67,14 @@ export default function useRouteElements() {
               <Cart />
             </MainLayout>
           )
+        },
+        {
+          path: path.favouriteList,
+          element: (
+            <MainLayout>
+              <ProductList />
+            </MainLayout>
+          )
         }
       ]
     },

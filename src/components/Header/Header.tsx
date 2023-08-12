@@ -12,8 +12,6 @@ import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import UserNav from './Desktop/ProfileNav/UserNav'
 import path from 'src/constants/path'
-import purchaseApi from 'src/apis/cart.api'
-import { useQuery } from '@tanstack/react-query'
 
 interface MenuContextInterface {
   openingMenu: boolean

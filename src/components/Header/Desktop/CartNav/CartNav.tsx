@@ -7,7 +7,7 @@ import emptyCart from 'src/assets/images/empty_cart.png'
 import path from 'src/constants/path'
 import purchaseApi from 'src/apis/cart.api'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { formatCurrency } from 'src/utils/utils'
+import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { useContext, useEffect } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import { keyBy } from 'lodash'
@@ -90,7 +90,10 @@ export default function CartNav() {
                     /> */}
                     <div className='flex grow flex-col justify-between'>
                       <div className='flex items-center justify-between'>
-                        <Link to='/' className='flex'>
+                        <Link
+                          to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                          className='flex'
+                        >
                           <p className='text-md truncate px-2 capitalize hover:text-[#E76161] dark:hover:text-haretaColor lg:text-base'>
                             {purchase.item.name}
                           </p>

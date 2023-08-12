@@ -109,13 +109,13 @@ export default function Product({ product, queryConfig }: Props) {
           </Link>
           <div className='flex items-center space-x-4'>
             <button
-              className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'
+              className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
               onClick={handleCollectionClick}
             >
               {product.collection}
             </button>
             <button
-              className='flex justify-start text-sm text-gray-500 hover:text-haretaColor'
+              className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
               onClick={handleTypeClick}
             >
               {product.type}
