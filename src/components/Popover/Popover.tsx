@@ -49,7 +49,7 @@ export default function Popover({
   // const color = 'border-b-' + `${colorCode ? `[${colorCode}]` : '[#F5F5F5]'}`
   const arrowClassName =
     'absolute -top-1 lg:top-0 z-10 translate-y-[-90%] border-[12px] border-x-transparent border-t-transparent ' +
-    `${theme === 'dark' ? 'border-b-[#333]' : 'border-b-[#eee]'}`
+    `${theme === 'dark' ? 'border-b-[#303030]' : 'border-b-[#efefef]'}`
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover])
   return (

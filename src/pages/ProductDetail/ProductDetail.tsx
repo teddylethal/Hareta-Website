@@ -167,13 +167,13 @@ export default function ProductDetail() {
   return (
     <div className='bg-lightBg py-6 dark:bg-darkBg'>
       <div className='container'>
-        <div className='bg-[#dfdfdf] p-4 shadow dark:bg-[#303030]'>
+        <div className='bg-[#dfdfdf] p-4 shadow dark:bg-[#202020]'>
           <div className='grid grid-cols-12 gap-6'>
             <div className='col-span-6'>
               <div className='grid grid-cols-6 gap-3'>
-                <div className='col-span-6 bg-[#efefef] p-2 dark:bg-[#202020]'>
+                <div className='col-span-6 bg-[#efefef] p-2 dark:bg-[#101010]'>
                   <div
-                    className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'
+                    className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#202020]'
                     onMouseMove={handleZoom}
                     onMouseLeave={handleRemoveZoom}
                   >
@@ -240,7 +240,7 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <div className='relative col-span-6 flex min-h-full flex-col bg-[#efefef] p-6 text-textDark dark:bg-[#202020] dark:text-textLight'>
+            <div className='relative col-span-6 flex min-h-full flex-col bg-[#efefef] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
               <div className='flex items-center justify-between'>
                 <div>
                   <p className='text-4xl'>{product.name}</p>

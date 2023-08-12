@@ -1,11 +1,9 @@
 import CollectionFilter from './CollectionFilter'
 import CategoryFilter from './CategoryFilter'
 import TypeFilter from './TypeFilter'
-import { useContext } from 'react'
-import { StoreContext } from 'src/contexts/store.context'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { setCategoryFilteringToLS, setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
+
 import classNames from 'classnames'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 
@@ -14,20 +12,12 @@ interface Props {
 }
 
 export default function AsideFilter({ queryConfig }: Props) {
-  const { setCategory, setCollection, setType, category, collection, type } = useContext(StoreContext)
-
   const navigate = useNavigate()
+  const { category, collection, type } = queryConfig
 
-  const isFiltering = category !== 'all' || collection !== 'all' || type !== 'all'
+  const isFiltering = category || collection || type
 
   const handleClear = () => {
-    setCategory('all')
-    setCollection('all')
-    setType('all')
-    setCategoryFilteringToLS('all')
-    setCollectionFilteringToLS('all')
-    setTypeFilteringToLS('all')
-
     navigate({
       pathname: path.store
     })

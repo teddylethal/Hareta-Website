@@ -36,36 +36,6 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   const [type, setType] = useState<string>(initialStoreContext.type)
   const [isFavouriteList, setIsFavouriteList] = useState<boolean>(initialStoreContext.isFavouriteList)
 
-  // const queryParams: QueryConfig = useQueryParams()
-  // const initialQueryConfig: QueryConfig = omitBy(
-  //   {
-  //     page: queryParams.page || '1',
-  //     limit: queryParams.limit || 12,
-  //     category: category,
-  //     collection: collection,
-  //     type: type,
-  //     product_line: queryParams.product_line,
-  //     lower_price: queryParams.lower_price,
-  //     upper_price: queryParams.upper_price
-  //   },
-  //   isUndefined
-  // )
-
-  // const [queryConfig, setQueryConfig] = useState<QueryConfig>(initialQueryConfig)
-  // const queryConfig: QueryConfig = omitBy(
-  //   {
-  //     page: queryParams.page || '1',
-  //     limit: queryParams.limit || 12,
-  //     category: queryParams.category,
-  //     collection: queryParams.collection,
-  //     type: queryParams.type,
-  //     product_line: queryParams.product_line,
-  //     lower_price: queryParams.lower_price,
-  //     upper_price: queryParams.upper_price
-  //   },
-  //   isUndefined
-  // )
-
   return (
     <StoreContext.Provider
       value={{

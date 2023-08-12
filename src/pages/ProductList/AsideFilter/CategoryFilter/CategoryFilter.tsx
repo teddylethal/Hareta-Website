@@ -6,11 +6,9 @@ import { ThemeContext } from 'src/App'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { StoreContext } from 'src/contexts/store.context'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { omit } from 'lodash'
-import { setCategoryFilteringToLS } from 'src/utils/store'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
@@ -21,9 +19,9 @@ interface Props {
 
 export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
-  const { category, setCategory } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
+  const { category } = queryConfig
 
   const queryParams = useQueryParams()
   const navigate = useNavigate()
@@ -50,14 +48,12 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
 
   const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedCategory = String((e.target as HTMLInputElement).innerText)
-    setCategory(selectedCategory)
-    setCategoryFilteringToLS(selectedCategory)
     close()
     if (isMobile && setMobileFilterOpen) {
       setMobileFilterOpen(false)
     }
 
-    if (selectedCategory === 'all') {
+    if (selectedCategory === 'All') {
       navigate({
         pathname: path.store,
         search: createSearchParams(
@@ -120,7 +116,7 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
           )}
         </div>
         <div className='flex w-full select-none justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg'>
-          {category}
+          {category ? category : 'All'}
         </div>
       </button>
       <AnimateChangeInHeight>
@@ -137,13 +133,16 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
             transition={{ duration: 0.2 }}
           >
             <div className='flex flex-col'>
-              <button className='flex items-center justify-start py-1 hover:text-haretaColor' onClick={handleChange}>
-                All
+              <button
+                className='flex items-center justify-start py-1 capitalize hover:text-haretaColor'
+                onClick={handleChange}
+              >
+                all
               </button>
               {data &&
                 data.data.data.map((name, index) => (
                   <button
-                    className='flex items-center justify-start py-1 hover:text-haretaColor'
+                    className='flex items-center justify-start py-1 capitalize hover:text-haretaColor'
                     key={index}
                     onClick={handleChange}
                   >

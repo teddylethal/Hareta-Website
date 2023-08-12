@@ -56,21 +56,18 @@ export default function CartNav() {
     <Popover
       className='flex border border-none px-1.5 py-1 lg:px-2'
       renderPopover={
-        <div className='relative -top-1 w-[360px] rounded-md border-gray-200 bg-[#eee] py-2 text-sm text-textDark shadow-md dark:bg-[#333] dark:text-textLight lg:top-0'>
+        <div className='relative -top-1 w-[360px] rounded-md border-gray-200 bg-[#efefef] py-2 text-sm text-textDark shadow-md dark:bg-[#303030] dark:text-textLight lg:top-0'>
           {extendedPurchases.length > 0 ? (
             <div className=''>
               <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
                 {cartData?.data.paging.total} items in cart
               </div>
 
-              <div className='h-[360px] max-h-[440px] overflow-y-auto'>
+              <div className='m-2 h-[360px]  max-h-[440px] overflow-y-auto bg-[#f8f8f8] dark:bg-[#202020]'>
                 {extendedPurchases.map((purchase, index) => (
-                  <div
-                    className='flex items-center space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]'
-                    key={purchase.id}
-                  >
+                  <div className='flex items-center  p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
                     <div className='h-14 w-14'>
-                      <div className='relative w-full bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
+                      <div className='relative w-full  pt-[100%]'>
                         <img
                           src={
                             purchase?.item.avatar
@@ -94,7 +91,7 @@ export default function CartNav() {
                     <div className='flex grow flex-col justify-between'>
                       <div className='flex items-center justify-between'>
                         <Link to='/' className='flex'>
-                          <p className='text-md truncate px-2 capitalize hover:text-vintageColor dark:hover:text-haretaColor lg:text-base'>
+                          <p className='text-md truncate px-2 capitalize hover:text-[#E76161] dark:hover:text-haretaColor lg:text-base'>
                             {purchase.item.name}
                           </p>
                         </Link>
@@ -129,7 +126,7 @@ export default function CartNav() {
               <img src={emptyCart} alt='Empty cart' />{' '}
             </div>
           )}
-          <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
+          {/* <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' /> */}
 
           <div className='mx-3 flex items-center justify-between'>
             <div className='flex space-x-2'>

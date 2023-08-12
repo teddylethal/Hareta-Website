@@ -3,13 +3,11 @@ import { motion } from 'framer-motion'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
-import { StoreContext } from 'src/contexts/store.context'
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { setTypeFilteringToLS } from 'src/utils/store'
 import { omit } from 'lodash'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 
@@ -21,7 +19,6 @@ interface Props {
 
 export default function TypeFilter({ setMobileFilterOpen, isMobile = false, queryConfig }: Props) {
   const { theme } = useContext(ThemeContext)
-  const { type, setType } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
 
@@ -34,6 +31,8 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
       return productApi.getFilteringList('type')
     }
   })
+
+  const { type } = queryConfig
 
   const open = () => {
     setVisible(true)
@@ -50,14 +49,12 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
 
   const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedType = String((e.target as HTMLInputElement).innerText)
-    setType(selectedType)
-    setTypeFilteringToLS(selectedType)
     close()
     if (isMobile && setMobileFilterOpen) {
       setMobileFilterOpen(false)
     }
 
-    if (selectedType === 'all') {
+    if (selectedType === 'All') {
       navigate({
         pathname: path.store,
         search: createSearchParams(
@@ -123,7 +120,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
           )}
         </div>
         <div className='sm:text-bas flex w-full select-none justify-start truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:bg-[#444444] dark:text-textLight lg:text-lg'>
-          {type}
+          {type ? type : 'All'}
         </div>
       </button>
       <AnimateChangeInHeight>
@@ -140,13 +137,16 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
             transition={{ duration: 0.2 }}
           >
             <div className='flex flex-col'>
-              <button className='flex items-center justify-start py-1 hover:text-haretaColor' onClick={handleChange}>
-                All
+              <button
+                className='flex items-center justify-start py-1 capitalize hover:text-haretaColor'
+                onClick={handleChange}
+              >
+                all
               </button>
               {data &&
                 data.data.data.map((name, index) => (
                   <button
-                    className='flex items-center justify-start py-1 hover:text-haretaColor'
+                    className='flex items-center justify-start py-1 capitalize hover:text-haretaColor'
                     key={index}
                     onClick={handleChange}
                   >

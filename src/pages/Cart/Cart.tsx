@@ -204,7 +204,7 @@ export default function Cart() {
             </div>
           </div>
         </div>
-        <div className='sticky bottom-0 z-10 grid grid-cols-12 items-center justify-between rounded-sm bg-white px-8 py-4 shadow dark:bg-black'>
+        <div className='sticky bottom-0 z-[5] grid grid-cols-12 items-center justify-between rounded-sm bg-white px-8 py-4 shadow dark:bg-black'>
           <div className='col-span-6 grid grid-cols-3'>
             <div className=' col-span-1 flex flex-shrink-0 items-center'>
               <input

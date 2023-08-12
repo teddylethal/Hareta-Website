@@ -22,7 +22,7 @@ export default function UserPopover() {
     })
   }
   return (
-    <div className='relative -top-1 flex w-40 flex-col space-y-3 rounded-sm bg-[#eee] p-3 text-base capitalize text-textDark shadow-md dark:bg-[#333] dark:text-textLight lg:top-0 lg:w-52 lg:px-6 lg:text-lg'>
+    <div className='relative -top-1 flex w-40 flex-col space-y-3 rounded-sm bg-[#efefef] p-3 text-base capitalize text-textDark shadow-md dark:bg-[#303030] dark:text-textLight lg:top-0 lg:w-52 lg:px-6 lg:text-lg'>
       <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
         My account
       </Link>

@@ -85,7 +85,7 @@ export default function Product({ product, queryConfig }: Props) {
 
   // console.log(product.avatar.url)
   return (
-    <div className='relative h-full w-full bg-[#efefef] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
+    <div className='relative h-full w-full bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
       <div className='relative w-full pt-[75%]'>
         <Link to={`${path.home}${generateNameId({ name: product.name, id: product.id })}`}>
           <img
