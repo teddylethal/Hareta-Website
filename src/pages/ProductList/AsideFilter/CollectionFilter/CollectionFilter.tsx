@@ -21,15 +21,14 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
-  const { collection } = queryConfig
+  const { category, collection, type } = queryConfig
 
   const queryParams = useQueryParams()
   const navigate = useNavigate()
-
   const { data } = useQuery({
     queryKey: ['collections', queryParams],
     queryFn: () => {
-      return productApi.getFilteringList('collection')
+      return productApi.getFilteringList('collection', category, '', type)
     }
   })
 

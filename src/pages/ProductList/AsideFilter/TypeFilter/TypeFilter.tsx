@@ -21,18 +21,16 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
+  const { category, collection, type } = queryConfig
 
   const queryParams = useQueryParams()
   const navigate = useNavigate()
-
   const { data } = useQuery({
     queryKey: ['types', queryParams],
     queryFn: () => {
-      return productApi.getFilteringList('type')
+      return productApi.getFilteringList('type', category, collection, '')
     }
   })
-
-  const { type } = queryConfig
 
   const open = () => {
     setVisible(true)

@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { useRef } from 'react'
 
 interface Props {
   collectionName: string
@@ -34,7 +33,6 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
       items: 1
     }
   }
-  const sliderRef = useRef(null)
   const queryConfig = useQueryConfig()
   const inCollectionQueryConfig: QueryConfig = { collection: collectionName, page: '1', limit: '12' }
   const { data: productsData } = useQuery({
@@ -57,7 +55,9 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ArrowFix = (arrowProps: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { carouselState, rtl, children, ...restArrowProps } = arrowProps
     return <span {...restArrowProps}>{children}</span>
   }

@@ -21,15 +21,14 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
-  const { category } = queryConfig
+  const { category, collection, type } = queryConfig
 
   const queryParams = useQueryParams()
   const navigate = useNavigate()
-
   const { data } = useQuery({
     queryKey: ['categories', queryParams],
     queryFn: () => {
-      return productApi.getFilteringList('category')
+      return productApi.getFilteringList('category', '', collection, type)
     }
   })
 
