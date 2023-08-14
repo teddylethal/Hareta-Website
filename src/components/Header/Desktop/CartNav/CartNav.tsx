@@ -63,7 +63,7 @@ export default function CartNav() {
                 {cartData?.data.paging.total} items in cart
               </div>
 
-              <div className='m-2 h-[360px]  max-h-[440px] overflow-y-auto bg-[#f8f8f8] dark:bg-[#202020]'>
+              <div className='m-2 h-[360px] overflow-y-auto bg-[#f8f8f8] dark:bg-[#202020]'>
                 {extendedPurchases.map((purchase, index) => (
                   <div className='flex items-center  p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
                     <div className='h-14 w-14'>

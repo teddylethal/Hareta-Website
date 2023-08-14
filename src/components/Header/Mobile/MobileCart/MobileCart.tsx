@@ -112,55 +112,59 @@ export default function MobileCart({ className }: Props) {
 
             <div className='mx-3 my-2 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
-            <div className='h-[220px] overflow-y-auto'>
+            <div className=''>
               {extendedPurchases.length > 0 ? (
-                <>
+                <div>
                   <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
                     {cartData?.data.paging.total} items in cart
                   </div>
-                  {extendedPurchases.map((purchase, index) => (
-                    <div className='flex space-x-3 p-3 hover:bg-[#ccc] dark:hover:bg-[#222]' key={purchase.id}>
-                      <div className='h-12 w-12'>
-                        <div className='relative w-full bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
-                          <img
-                            src={
-                              purchase?.item.avatar
-                                ? purchase?.item.avatar.url
-                                : 'https://cdn-icons-png.flaticon.com/128/5058/5058055.png'
-                            }
-                            alt={purchase.item.name}
-                            className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-                          />
+                  <div className='m-2 h-[220px] overflow-y-auto bg-[#f8f8f8] dark:bg-[#202020]'>
+                    {extendedPurchases.map((purchase, index) => (
+                      <div className='flex space-x-3 p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
+                        <div className='h-12 w-12'>
+                          <div className='relative w-full bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
+                            <img
+                              src={
+                                purchase?.item.avatar
+                                  ? purchase?.item.avatar.url
+                                  : 'https://cdn-icons-png.flaticon.com/128/5058/5058055.png'
+                              }
+                              alt={purchase.item.name}
+                              className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className='flex grow flex-col justify-between'>
-                        <div className='flex items-center justify-between'>
-                          <Link
-                            to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
-                            className='flex'
-                          >
-                            <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
-                              {purchase.item.name}
-                            </p>
-                          </Link>
-                          <span className='flex-shrink-0 text-orange-600'>${formatCurrency(purchase.item.price)}</span>
-                        </div>
-                        <div className='ml-2 flex justify-between'>
-                          <span className='text-gray-500 dark:text-gray-400'>x{purchase.quantity}</span>
-
-                          <div className='flex space-x-3'>
-                            <button
-                              className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
-                              onClick={handleRemove(index)}
+                        <div className='flex grow flex-col justify-between'>
+                          <div className='flex items-center justify-between'>
+                            <Link
+                              to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                              className='flex'
                             >
-                              Remove
-                            </button>
+                              <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                                {purchase.item.name}
+                              </p>
+                            </Link>
+                            <span className='flex-shrink-0 text-orange-600'>
+                              ${formatCurrency(purchase.item.price)}
+                            </span>
+                          </div>
+                          <div className='ml-2 flex justify-between'>
+                            <span className='text-gray-500 dark:text-gray-400'>x{purchase.quantity}</span>
+
+                            <div className='flex space-x-3'>
+                              <button
+                                className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                                onClick={handleRemove(index)}
+                              >
+                                Remove
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </>
+                    ))}
+                  </div>
+                </div>
               ) : (
                 <div className='p-2'>
                   <img src={emptyCart} alt='Empty cart' />{' '}

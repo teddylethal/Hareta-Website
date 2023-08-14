@@ -19,6 +19,7 @@ import { useViewport } from 'src/hooks/useViewport'
 import useClickOutside from 'src/hooks/useClickOutside'
 import AddTocartPopover from './AddTocartPopover'
 import classNames from 'classnames'
+import OtherItemsInType from './OtherItemsInType'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -28,7 +29,6 @@ export default function ProductDetail() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
-  const { setCollection, setType } = useContext(StoreContext)
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
@@ -38,7 +38,6 @@ export default function ProductDetail() {
   const imageRef = useRef<HTMLImageElement>(null)
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const queryConfig = useQueryConfig()
   const { nameId } = useParams()
 
   const id = getIdFromNameId(nameId as string)
@@ -100,17 +99,11 @@ export default function ProductDetail() {
   const handleCollectionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedCollection = String((e.target as HTMLInputElement).innerText)
 
-    setCollection(selectedCollection)
-    setCollectionFilteringToLS(selectedCollection)
-    setType('All')
-    setTypeFilteringToLS('All')
-
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 
     navigate({
       pathname: path.store,
       search: createSearchParams({
-        ...queryConfig,
         collection: selectedCollection
       }).toString()
     })
@@ -119,15 +112,9 @@ export default function ProductDetail() {
   const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedType = String((e.target as HTMLInputElement).innerText)
 
-    setType(selectedType)
-    setTypeFilteringToLS(selectedType)
-    setCollection('All')
-    setCollectionFilteringToLS('All')
-
     navigate({
       pathname: path.store,
       search: createSearchParams({
-        ...queryConfig,
         type: selectedType
       }).toString()
     })
@@ -323,6 +310,7 @@ export default function ProductDetail() {
           </div>
 
           <OtherItemsInCollection collectionName={product.collection} />
+          <OtherItemsInType type={product.type} />
         </div>
       )}
 

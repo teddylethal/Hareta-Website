@@ -8,13 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { useRef } from 'react'
 
 interface Props {
-  collectionName: string
+  type: string
 }
 
-export default function OtherItemsInCollection({ collectionName }: Props) {
+export default function OtherItemsInType({ type }: Props) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -34,39 +33,40 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
       items: 1
     }
   }
-  const sliderRef = useRef(null)
   const queryConfig = useQueryConfig()
-  const inCollectionQueryConfig: QueryConfig = { collection: collectionName, page: '1', limit: '12' }
+  const inTypeQueryConfig: QueryConfig = { type: type, page: '1', limit: '12' }
   const { data: productsData } = useQuery({
-    queryKey: ['products_in_collection', inCollectionQueryConfig],
+    queryKey: ['products_in_type', inTypeQueryConfig],
     queryFn: () => {
-      return productApi.getProductList(inCollectionQueryConfig)
+      return productApi.getProductList(inTypeQueryConfig)
     },
     staleTime: 3 * 60 * 1000,
-    enabled: Boolean(collectionName)
+    enabled: Boolean(type)
   })
-  const productsInCollection = productsData?.data.data
+  const itemsInType = productsData?.data.data
 
   const navigate = useNavigate()
   const handleClick = () => {
     navigate({
       pathname: path.store,
       search: createSearchParams({
-        collection: collectionName
+        type: type
       }).toString()
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ArrowFix = (arrowProps: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { carouselState, rtl, children, ...restArrowProps } = arrowProps
     return <span {...restArrowProps}>{children}</span>
   }
 
-  if (!productsInCollection) return null
+  if (!itemsInType) return null
   return (
     <div className='mt-8 bg-[#f8f8f8] p-4 text-textDark shadow dark:bg-[#202020] dark:text-textLight'>
       <button onClick={handleClick} className='text-lg capitalize hover:text-haretaColor lg:text-2xl'>
-        {collectionName}
+        {type}
       </button>
       <div className='mt-4'>
         <Carousel
@@ -93,7 +93,7 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
             </ArrowFix>
           }
         >
-          {productsInCollection.map((product) => (
+          {itemsInType.map((product) => (
             <div className='mx-2' key={product.id}>
               <Product product={product} queryConfig={queryConfig} />
             </div>
