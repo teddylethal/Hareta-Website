@@ -11,6 +11,9 @@ export interface Product {
   collection: string
   type: string
   price: number
+  sold: number
+  tag: number
+  cron_status: number
   like_count: number
   product_line: string
   avatar: {

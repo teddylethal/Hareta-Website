@@ -12,6 +12,7 @@ import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import { toast } from 'react-toastify'
+import itemTag from 'src/constants/itemTag'
 
 interface Props {
   product: ProductType
@@ -137,12 +138,14 @@ export default function Product({ product, queryConfig }: Props) {
           </button>
         </div>
       </div>
-      <div className='absolute left-0 top-4'>
-        <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-          Favourite
-        </span>
-        <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
-      </div>
+      {product.tag !== itemTag.none && (
+        <div className='absolute left-0 top-4'>
+          <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+            {itemTag[product.tag]}
+          </span>
+          <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+        </div>
+      )}
     </div>
   )
 }

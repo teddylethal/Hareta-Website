@@ -20,6 +20,7 @@ import useClickOutside from 'src/hooks/useClickOutside'
 import AddTocartPopover from './AddTocartPopover'
 import classNames from 'classnames'
 import OtherItemsInType from './OtherItemsInType'
+import itemTag from 'src/constants/itemTag'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -249,12 +250,14 @@ export default function ProductDetail() {
                     <FontAwesomeIcon className='h-8' icon={faHeart} />
                   </button>
                 </div>
-                <div className='relative mt-2'>
-                  <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-                    Favourite
-                  </span>
-                  <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
-                </div>
+                {product.tag !== itemTag.none && (
+                  <div className='relative mt-2'>
+                    <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+                      Favourite
+                    </span>
+                    <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+                  </div>
+                )}
 
                 <div className='mt-4 flex items-center space-x-8 text-lg'>
                   <button
