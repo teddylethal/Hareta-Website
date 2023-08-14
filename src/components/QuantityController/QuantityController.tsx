@@ -11,6 +11,9 @@ interface Props extends InputNumberProps {
   onType?: (value: number) => void
   onFocusOut?: (value: number) => void
   classNameWrapper?: string
+  classNameInput?: string
+  classNameButton?: string
+  classNameIcon?: string
 }
 
 export default function QuantityController({
@@ -20,6 +23,9 @@ export default function QuantityController({
   onType,
   onFocusOut,
   classNameWrapper,
+  classNameInput = 'h-8 mx-2 w-14 rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white',
+  classNameButton = 'round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight',
+  classNameIcon,
   value,
   ...rest
 }: Props) {
@@ -59,26 +65,20 @@ export default function QuantityController({
 
   return (
     <div className={'flex items-center ' + classNameWrapper}>
-      <button
-        className='round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight'
-        onClick={decreaseQuantity}
-      >
-        <FontAwesomeIcon icon={faMinus} />
+      <button className={classNameButton} onClick={decreaseQuantity}>
+        <FontAwesomeIcon icon={faMinus} className={classNameIcon} />
       </button>
       <InputNumber
         className=''
         classNameError='hidden'
-        classNameInput='h-8 mx-2 w-14 rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white'
+        classNameInput={classNameInput}
         onChange={handleChange}
         onBlur={handleBlur}
         value={value || localValue}
         {...rest}
       />
-      <button
-        className='round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight'
-        onClick={increaseQuantity}
-      >
-        <FontAwesomeIcon icon={faPlus} />
+      <button className={classNameButton} onClick={increaseQuantity}>
+        <FontAwesomeIcon icon={faPlus} className={classNameIcon} />
       </button>
     </div>
   )
