@@ -1,16 +1,13 @@
 import { faCartPlus, faChevronLeft, faChevronRight, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
-import { StoreContext } from 'src/contexts/store.context'
-import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import path from 'src/constants/path'
 import { ProductImage } from 'src/types/productImage.type'
 import producImageApi from 'src/apis/productImage.api'
 import { formatCurrency, getIdFromNameId } from 'src/utils/utils'
-import useQueryConfig from 'src/hooks/useQueryConfig'
 import QuantityController from 'src/components/QuantityController'
 import OtherItemsInCollection from './OtherItemsInCollection'
 import purchaseApi from 'src/apis/cart.api'
@@ -21,6 +18,7 @@ import AddTocartPopover from './AddTocartPopover'
 import classNames from 'classnames'
 import OtherItemsInType from './OtherItemsInType'
 import itemTag from 'src/constants/itemTag'
+import likeItemAPi from 'src/apis/userLikeItem.api'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -46,14 +44,25 @@ export default function ProductDetail() {
     queryKey: ['item', id],
     queryFn: () => productApi.getProductDetail(id as string)
   })
+  const product = productDetailData?.data.data
+
   const { data: productImages } = useQuery({
     queryKey: ['product_images', id],
     queryFn: () => producImageApi.getImageList(id as string),
     keepPreviousData: true
   })
-
-  const product = productDetailData?.data.data
   const imagesData = productImages?.data.data
+
+  const { data: favouriteListData } = useQuery({
+    queryKey: ['favourite_list'],
+    queryFn: () => {
+      return likeItemAPi.getFavouriteList()
+    },
+    staleTime: 3 * 60 * 1000
+  })
+  const favouriteList = favouriteListData?.data.data
+  const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []
+  const isLikedByUser = favouriteListId.includes(id)
 
   const imagesWithIndex = useMemo(
     () =>
@@ -160,6 +169,35 @@ export default function ProductDetail() {
     )
   }
 
+  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  const likeItem = () => {
+    likeItemMutation.mutate(
+      { item_id: product?.id as string },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+        }
+      }
+    )
+  }
+
+  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
+  const unlikeItem = () => {
+    unlikeItemMutation.mutate(
+      { item_id: product?.id as string },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+        }
+      }
+    )
+  }
+
+  const toggleLikeItem = () => {
+    isLikedByUser && unlikeItem()
+    !isLikedByUser && likeItem()
+  }
+
   // ? MOBILE
   const openAddToCart = () => {
     setVisible(true)
@@ -246,14 +284,19 @@ export default function ProductDetail() {
                   <div>
                     <p className='text-4xl'>{product.name}</p>
                   </div>
-                  <button>
-                    <FontAwesomeIcon className='h-8' icon={faHeart} />
+                  <button onClick={toggleLikeItem} className='text-white/50'>
+                    <FontAwesomeIcon
+                      className={classNames('h-8', {
+                        'text-red-500': isLikedByUser
+                      })}
+                      icon={faHeart}
+                    />
                   </button>
                 </div>
-                {product.tag !== itemTag.none && (
+                {product.tag !== 0 && (
                   <div className='relative mt-2'>
                     <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-                      Favourite
+                      {itemTag[product.tag]}
                     </span>
                     <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
                   </div>
@@ -365,8 +408,14 @@ export default function ProductDetail() {
               <span className='text-2xl text-haretaColor'>${formatCurrency(product.price)}</span>
               <div className='mt-4 flex items-center justify-between'>
                 <p className='text-2xl'>{product.name}</p>
-                <button>
-                  <FontAwesomeIcon className='h-6' icon={faHeart} />
+                <button className='text-white/50'>
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    onClick={toggleLikeItem}
+                    className={classNames('h-6', {
+                      'text-red-500': isLikedByUser
+                    })}
+                  />
                 </button>
               </div>
               <div className='relative mt-2'>

@@ -48,7 +48,7 @@ export default function AddTocartPopover({
                   className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
                 />
               </div>
-              <div className='col-span-2 ml-4 flex min-h-full flex-col justify-between'>
+              <div className='col-span-2 ml-4 flex min-h-full flex-col justify-between truncate'>
                 <p className=''>{item.name}</p>
                 <span className=' text-haretaColor'>${item.price}</span>
 

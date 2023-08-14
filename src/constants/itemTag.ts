@@ -1,8 +1,3 @@
-enum itemTag {
-  none,
-  TopSeller,
-  Signature,
-  Favourite
-}
+const itemTag = ['none', 'Top Seller', 'Signature', 'Favourite']
 
 export default itemTag

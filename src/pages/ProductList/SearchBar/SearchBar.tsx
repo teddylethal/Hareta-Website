@@ -41,7 +41,7 @@ export default function SearchBar() {
 
   return (
     <form
-      className='relative mb-2 flex w-full items-center rounded-lg bg-[#e0e0e0] shadow-sm duration-500 dark:bg-[#333]'
+      className='relative flex w-full items-center rounded-lg bg-[#e0e0e0] shadow-sm duration-500 dark:bg-[#333]'
       onSubmit={handleSearch}
     >
       <input

@@ -6,7 +6,7 @@ const path = {
   store: '/store',
   productDetail: ':nameId',
   cart: '/cart',
-  favouriteList: '/user-like-item'
+  favouriteList: '/favourite-list'
 } as const
 
 export default path

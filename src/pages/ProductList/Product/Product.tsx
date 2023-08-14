@@ -13,13 +13,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import { toast } from 'react-toastify'
 import itemTag from 'src/constants/itemTag'
+import likeItemAPi from 'src/apis/userLikeItem.api'
 
 interface Props {
   product: ProductType
   queryConfig: QueryConfig
+  likedByUser?: boolean
 }
 
-export default function Product({ product, queryConfig }: Props) {
+export default function Product({ product, queryConfig, likedByUser = false }: Props) {
   const navigate = useNavigate()
   const { setCollection, setType } = useContext(StoreContext)
 
@@ -84,6 +86,35 @@ export default function Product({ product, queryConfig }: Props) {
     })
   }
 
+  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  const likeItem = () => {
+    likeItemMutation.mutate(
+      { item_id: product?.id as string },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+        }
+      }
+    )
+  }
+
+  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
+  const unlikeItem = () => {
+    unlikeItemMutation.mutate(
+      { item_id: product?.id as string },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+        }
+      }
+    )
+  }
+
+  const toggleLikeItem = () => {
+    likedByUser && unlikeItem()
+    !likedByUser && likeItem()
+  }
+
   // console.log(product.avatar.url)
   return (
     <div className='relative h-full w-full bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
@@ -126,8 +157,8 @@ export default function Product({ product, queryConfig }: Props) {
         </div>
 
         <div className='mx-1 flex flex-col items-center justify-between'>
-          <button>
-            <FontAwesomeIcon icon={faHeart} fontSize={24} />
+          <button onClick={toggleLikeItem} className='text-black'>
+            <FontAwesomeIcon icon={faHeart} fontSize={24} className={likedByUser ? 'text-red-500' : ''} />
           </button>
           <button className='' onClick={addToCart}>
             <FontAwesomeIcon
@@ -138,7 +169,7 @@ export default function Product({ product, queryConfig }: Props) {
           </button>
         </div>
       </div>
-      {product.tag !== itemTag.none && (
+      {product.tag !== 0 && (
         <div className='absolute left-0 top-4'>
           <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
             {itemTag[product.tag]}

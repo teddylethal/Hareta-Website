@@ -87,12 +87,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
 
   return (
     <div className='mt-6 flex flex-wrap items-center justify-center'>
-      {currentPage === 1 ? (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
-          <FontAwesomeIcon icon={faAngleLeft} className='text-textDark dark:text-textLight' />
-          {!isMobile && <p>Prev</p>}
-        </span>
-      ) : (
+      {currentPage > 1 ? (
         <Link
           to={{
             pathname: path.store,
@@ -109,16 +104,16 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
           />
           {!isMobile && <p>Prev</p>}
         </Link>
+      ) : (
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+          <FontAwesomeIcon icon={faAngleLeft} className='text-textDark dark:text-textLight' />
+          {!isMobile && <p>Prev</p>}
+        </span>
       )}
 
       {renderPagination()}
 
-      {currentPage === totalPage ? (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
-          {!isMobile && <p>Next</p>}
-          <FontAwesomeIcon icon={faAngleRight} className='text-textDark dark:text-textLight' />
-        </span>
-      ) : (
+      {currentPage < totalPage ? (
         <Link
           to={{
             pathname: path.store,
@@ -135,6 +130,11 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
             className='py-1 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
           />
         </Link>
+      ) : (
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+          {!isMobile && <p>Next</p>}
+          <FontAwesomeIcon icon={faAngleRight} className='text-textDark dark:text-textLight' />
+        </span>
       )}
     </div>
   )
