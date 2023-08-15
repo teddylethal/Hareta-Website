@@ -1,4 +1,4 @@
-import { faCartPlus, faChevronLeft, faChevronRight, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faChevronLeft, faChevronRight, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -11,7 +11,6 @@ import { formatCurrency, getIdFromNameId } from 'src/utils/utils'
 import QuantityController from 'src/components/QuantityController'
 import OtherItemsInCollection from './OtherItemsInCollection'
 import purchaseApi from 'src/apis/cart.api'
-import { toast } from 'react-toastify'
 import { useViewport } from 'src/hooks/useViewport'
 import useClickOutside from 'src/hooks/useClickOutside'
 import AddTocartPopover from './AddTocartPopover'
@@ -19,6 +18,7 @@ import classNames from 'classnames'
 import OtherItemsInType from './OtherItemsInType'
 import itemTag from 'src/constants/itemTag'
 import likeItemAPi from 'src/apis/userLikeItem.api'
+import DialogPopup from 'src/components/DialogPopup'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -32,6 +32,8 @@ export default function ProductDetail() {
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
   const [buyCount, setBuyCount] = useState(1)
+  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+
   const { ref, visible, setVisible } = useClickOutside(false)
 
   const imageRef = useRef<HTMLImageElement>(null)
@@ -108,9 +110,7 @@ export default function ProductDetail() {
 
   const handleCollectionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedCollection = String((e.target as HTMLInputElement).innerText)
-
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-
     navigate({
       pathname: path.store,
       search: createSearchParams({
@@ -121,7 +121,7 @@ export default function ProductDetail() {
 
   const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedType = String((e.target as HTMLInputElement).innerText)
-
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     navigate({
       pathname: path.store,
       search: createSearchParams({
@@ -160,9 +160,7 @@ export default function ProductDetail() {
       {
         onSuccess: () => {
           setBuyCount(1)
-          toast.success('Item was added', {
-            autoClose: 1000
-          })
+          showDialog()
           queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
         }
       }
@@ -196,6 +194,17 @@ export default function ProductDetail() {
   const toggleLikeItem = () => {
     isLikedByUser && unlikeItem()
     !isLikedByUser && likeItem()
+  }
+
+  const showDialog = () => {
+    setDialogIsOpen(true)
+    setTimeout(() => {
+      closeDialog()
+    }, 1500)
+  }
+
+  const closeDialog = () => {
+    setDialogIsOpen(false)
   }
 
   // ? MOBILE
@@ -255,27 +264,6 @@ export default function ProductDetail() {
                       </button>
                     )}
                   </div>
-
-                  {/* <div className='col-span-1 flex h-0 min-h-full flex-col space-y-2 overflow-y-auto bg-[#dfdfdf] p-2 dark:bg-[#202020]'>
-                  {colorArray.map((color, index) => {
-                    const isActive = color === currentColor
-                    const handleClick = () => {
-                      setCurrentColor(color)
-                    }
-                    return (
-                      <div className='relative w-full pt-[100%]' key={index}>
-                        <button
-                          onClick={handleClick}
-                          className={classNames('absolute left-0 top-0 h-full w-full object-cover')}
-                          style={{
-                            backgroundColor: color === 'default' ? undefined : color
-                          }}
-                        />
-                        {isActive && <div className='absolute -inset-1 border-2 border-haretaColor' />}
-                      </div>
-                    )
-                  })}
-                </div> */}
                 </div>
               </div>
 
@@ -451,6 +439,16 @@ export default function ProductDetail() {
           )}
         </>
       )}
+      <DialogPopup isOpen={dialogIsOpen} handleClose={closeDialog}>
+        <p className='text-center text-xl font-medium leading-6 text-textLight'>Added successful</p>
+        <div className='mt-4 text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className='text- rounded-full bg-white/20 p-4 text-center text-success'
+          />
+        </div>
+      </DialogPopup>
     </div>
   )
 }

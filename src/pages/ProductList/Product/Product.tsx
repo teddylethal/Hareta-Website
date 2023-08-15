@@ -1,6 +1,6 @@
-import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
-import { useContext } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { StoreContext } from 'src/contexts/store.context'
 import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
@@ -11,9 +11,17 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
-import { toast } from 'react-toastify'
+import { Bounce, Flip, Zoom, cssTransition, toast } from 'react-toastify'
 import itemTag from 'src/constants/itemTag'
 import likeItemAPi from 'src/apis/userLikeItem.api'
+import DialogPopup from 'src/components/DialogPopup'
+
+export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
+  setIsOpen(true)
+  setTimeout(() => {
+    setIsOpen(false)
+  }, 1500)
+}
 
 interface Props {
   product: ProductType
@@ -22,9 +30,9 @@ interface Props {
 }
 
 export default function Product({ product, queryConfig, likedByUser = false }: Props) {
-  const navigate = useNavigate()
-  const { setCollection, setType } = useContext(StoreContext)
+  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
 
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
 
   const addToCartMutation = useMutation(purchaseApi.addToCart)
@@ -33,23 +41,21 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
       { item_id: product.id as string, quantity: 1 },
       {
         onSuccess: () => {
-          toast.success('Item was added', {
-            autoClose: 1000
-          })
+          showSuccessDialog(setDialogIsOpen)
+
           queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
         }
       }
     )
   }
 
+  const handleClickItem = () => {
+    navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
+
   const handleCollectionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedCollection = String((e.target as HTMLInputElement).innerText)
-
-    setCollection(selectedCollection)
-    setCollectionFilteringToLS(selectedCollection)
-    setType('All')
-    setTypeFilteringToLS('All')
-
     navigate({
       pathname: path.store,
       search: createSearchParams(
@@ -62,16 +68,11 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
         )
       ).toString()
     })
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const selectedType = String((e.target as HTMLInputElement).innerText)
-
-    setType(selectedType)
-    setTypeFilteringToLS(selectedType)
-    setCollection('All')
-    setCollectionFilteringToLS('All')
-
     navigate({
       pathname: path.store,
       search: createSearchParams(
@@ -84,6 +85,7 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
         )
       ).toString()
     })
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   const likeItemMutation = useMutation(likeItemAPi.likeItem)
@@ -115,11 +117,15 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
     !likedByUser && likeItem()
   }
 
+  const closeDialog = () => {
+    setDialogIsOpen(false)
+  }
+
   // console.log(product.avatar.url)
   return (
     <div className='relative h-full w-full bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
       <div className='relative w-full pt-[75%]'>
-        <Link to={`${path.home}${generateNameId({ name: product.name, id: product.id })}`}>
+        <button onClick={handleClickItem}>
           <img
             src={
               product.avatar
@@ -129,16 +135,13 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
             alt={product.name}
             className='absolute left-0 top-0 h-full w-full object-scale-down'
           />
-        </Link>
+        </button>
       </div>
       <div className='mx-1 mt-3 flex justify-between space-x-1'>
         <div className='flex flex-col justify-between space-y-1'>
-          <Link
-            to={`${path.home}${generateNameId({ name: product.name, id: product.id })}`}
-            className='truncate text-lg text-textDark duration-500 dark:text-textLight'
-          >
+          <button className='truncate text-lg text-textDark duration-500 dark:text-textLight' onClick={handleClickItem}>
             {product.name}
-          </Link>
+          </button>
           <div className='flex items-center space-x-4'>
             <button
               className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
@@ -177,6 +180,16 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
           <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
         </div>
       )}
+      <DialogPopup isOpen={dialogIsOpen} handleClose={closeDialog}>
+        <p className='text-center text-xl font-medium leading-6 text-textLight'>Added successful</p>
+        <div className='mt-4 text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className='text- rounded-full bg-white/20 p-4 text-center text-success'
+          />
+        </div>
+      </DialogPopup>
     </div>
   )
 }
