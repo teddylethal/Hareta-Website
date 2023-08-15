@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { changePasswordSchema, ChangePasswordSchema } from 'src/utils/rules'
 import { Box } from '@mui/material'
+import UserChangePassword from '../../components/UserChangePassword'
 
 type FormData = ChangePasswordSchema
 export default function ChangePassword() {
@@ -23,28 +24,32 @@ export default function ChangePassword() {
       </div>
 
       <div className='pt-10'>
-        <div>Thay đổi mật khẩu nếu nghi ngờ có người lạ truy cập</div>
-        <form className='' onSubmit={onSubmit} noValidate>
-          <Box className='flex'>
-            <div>Old password:</div>
-            <input type='oldPassword' className='' {...register('oldPassword')} />
-            <div className='text-red-600'>{errors.oldPassword?.message}</div>
-            {/* <Input name='oldPassword' register={register} type='text' labelName='oldPassword' visible={false} /> */}
-          </Box>
-          <Box className='flex'>
-            <div>New Password:</div>
-            <input type='newPassword' className='' {...register('newPassword')} />
-            <div className='text-red-600'>{errors.newPassword?.message}</div>
-            {/* <Input name='oldPassword' register={register} type='text' labelName='oldPassword' visible={false} /> */}
-          </Box>
-          <Box className='flex'>
-            <div>Confirm New Password:</div>
-            <input type='confirmNewPassword' className='' {...register('confirmNewPassword')} />
-            <div className='text-red-600'>{errors.confirmNewPassword?.message}</div>
-            {/* <Input name='oldPassword' register={register} type='text' labelName='oldPassword' visible={false} /> */}
-          </Box>
+        <div>Change your password</div>
+        <form className='flex flex-col items-center' onSubmit={onSubmit} noValidate>
+          <Box className='w-1/2'>
+            <UserChangePassword
+              name='old_password'
+              title='Old Password'
+              register={register}
+              errorMessage={errors.old_password?.message}
+            />
+            <UserChangePassword
+              className='mt-3'
+              name='new_password'
+              title='New Password'
+              register={register}
+              errorMessage={errors.new_password?.message}
+            />
 
-          <button type='submit'>test</button>
+            <UserChangePassword
+              className='mt-3'
+              name='confirm_new_password'
+              title='Confirm New Password'
+              register={register}
+              errorMessage={errors.new_password?.message}
+            />
+            <button type='submit'>test</button>
+          </Box>
         </form>
       </div>
     </div>

@@ -16,15 +16,15 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 export default function UserInput({ errorMessage, className, register, name, rules, icon, title, disabled }: Props) {
   const classNameInput = disabled
-    ? 'w-4/5 rounded-sm border-2 border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm pointer-events-none'
-    : 'w-4/5 rounded-sm border-2 border-gray-300 p-3 outline-none focus:border-gray-500 focus:shadow-sm'
+    ? 'w-full text-lg rounded border-0 border-black px-4 py-3 text-gray-700 shadow-sm outline outline-2 focus:outline-[3px] focus:outline-blue-600 pointer-events-none'
+    : 'w-full text-lg rounded border-0 border-black px-4 py-3 text-gray-700 shadow-sm outline outline-2 focus:outline-[3px] focus:outline-blue-600'
 
   const registerResult = register(name, rules)
   return (
     <Box className={className}>
-      <div className='flex items-end justify-start'>
+      <div className='flex items-center justify-start'>
         {icon}
-        <div className='text-xl'>{title}</div>
+        <div className='ml-3 text-2xl'>{title}</div>
       </div>
       <input className={classNameInput} {...registerResult} />
       <div className='h-6 text-sm text-red-600'>{errorMessage}</div>

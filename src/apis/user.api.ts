@@ -14,9 +14,9 @@ export const userApi = {
   getProfile() {
     return http.get<SuccessRespone<User>>('auth/')
   },
-  // updateProfile(body: Omit<User, 'id' | 'status' | 'create_at' | 'update_at'>) {
-  //   return http.put<SuccessRespone<User>>('user', body)
-  // },
+  updateProfile(body: Omit<User, 'id' | 'status' | 'create_at' | 'update_at'>) {
+    return http.put<SuccessRespone<User>>('user', body)
+  },
   changePassword(body: BodyChangePassword) {
     return http.post<SuccessRespone<User>>('auth/change-password', body)
   },
