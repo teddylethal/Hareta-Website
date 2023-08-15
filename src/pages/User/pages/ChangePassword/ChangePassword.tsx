@@ -14,7 +14,9 @@ export default function ChangePassword() {
     formState: { errors }
   } = useForm<FormData>({ resolver: yupResolver(changePasswordSchema) })
 
-  const onSubmit = handleSubmit((data) => {})
+  const onSubmit = handleSubmit((data) => {
+    console.log(data)
+  })
 
   return (
     <div className='round-sm pl-10 shadow'>
@@ -46,7 +48,7 @@ export default function ChangePassword() {
               name='confirm_new_password'
               title='Confirm New Password'
               register={register}
-              errorMessage={errors.new_password?.message}
+              errorMessage={errors.confirm_new_password?.message}
             />
             <button type='submit'>test</button>
           </Box>

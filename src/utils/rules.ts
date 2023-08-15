@@ -97,7 +97,7 @@ export const changePasswordSchema = yup.object({
   confirm_new_password: yup
     .string()
     .required('Confirm New Password is required')
-    .oneOf([yup.ref('newPassword')], 'New Passwords do not match')
+    .oneOf([yup.ref('new_password')], 'New Passwords do not match')
 })
 
 export type Schema = yup.InferType<typeof schema>
