@@ -17,6 +17,8 @@ import { Fragment, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
 import likeItemAPi from 'src/apis/userLikeItem.api'
+import path from 'src/constants/path'
+import { Link } from 'react-router-dom'
 
 export default function ProductList() {
   const viewPort = useViewport()
@@ -66,23 +68,14 @@ export default function ProductList() {
                   <SearchBar />
                 </div>
                 {isAuthenticated && (
-                  <button
-                    className={classNames('flex shrink-0 items-center space-x-2 rounded-md border  px-4 py-2', {
-                      'border-vintageColor/60 text-textDark dark:border-haretaColor/60 dark:text-textLight':
-                        !isFavouriteList,
-                      'border-vintageColor bg-white/80 text-vintageColor dark:border-haretaColor dark:bg-black/80 dark:text-haretaColor':
-                        isFavouriteList
-                    })}
+                  <Link
+                    to={path.favouriteList}
+                    className='group flex shrink-0 items-center space-x-2 rounded-md border  border-vintageColor/60 px-4 py-2 text-textDark hover:border-vintageColor hover:bg-white/80 hover:text-vintageColor dark:border-haretaColor/60 dark:text-textLight dark:hover:border-haretaColor dark:hover:bg-black/80 dark:hover:text-haretaColor'
                     onClick={toggleFavouriteList}
                   >
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      className={classNames({
-                        'text-red-600': isFavouriteList
-                      })}
-                    />
+                    <FontAwesomeIcon icon={faHeart} className='group-hover:text-red-600' />
                     <span className='text-sm '>Favourite list</span>
-                  </button>
+                  </Link>
                 )}
               </div>
               {storeData && (

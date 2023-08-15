@@ -98,56 +98,57 @@ export default function Cart() {
     <div className='bg-lightBg py-4 dark:bg-darkBg xl:py-6'>
       {!isMobile && (
         <div className='container'>
-          <div className='bg-white dark:bg-black'>
-            <div className='relative mx-2 flex items-center space-x-96 xl:mx-4'>
-              <p className='pl-4 text-xl uppercase text-textDark  dark:text-haretaColor xl:text-2xl'>CART</p>
-              <form name='search_in_cart' className='my-2 flex w-full items-center' onSubmit={handleSearch}>
-                <input
-                  id='search_in_cart'
-                  type='text'
-                  className='peer ml-4 w-full rounded-md  bg-transparent px-4 py-2 text-base text-textDark outline-none ring-1   ring-haretaColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-haretaColor dark:text-textLight dark:caret-white dark:autofill:text-textLight lg:text-lg'
-                  placeholder='Search'
-                />
-                <label
-                  htmlFor='search_in_cart'
-                  className='absolute right-4 flex h-8 w-12 items-center justify-center rounded-lg bg-haretaColor/60 duration-500 peer-focus:bg-haretaColor'
-                >
-                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
-                    <path
-                      fillRule='evenodd'
-                      d='M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z'
-                      clipRule='evenodd'
-                    />
-                  </svg>
-                </label>
-              </form>
-            </div>
-            <div className='mx-2 overflow-auto xl:mx-4'>
-              <div className='min-w-[1000px]'>
-                <div className='grid grid-cols-12 rounded-sm bg-[#f8f8f8] px-8 py-4 text-base text-textDark dark:bg-[#202020] dark:text-textLight lg:text-lg'>
-                  <div className='col-span-6'>
-                    {/* <div className='flex flex-shrink-0 items-center justify-start pr-3'>
+          <div className='relative mx-2 flex items-center space-x-96 rounded-md bg-white dark:bg-black xl:mx-4'>
+            <p className='pl-4 text-2xl uppercase text-textDark  dark:text-haretaColor xl:text-2xl'>CART</p>
+            <form name='search_in_cart' className='my-2 flex w-full items-center' onSubmit={handleSearch}>
+              <input
+                id='search_in_cart'
+                type='text'
+                className='peer ml-4 w-full rounded-md  bg-transparent px-4 py-2 text-base text-textDark outline-none ring-1   ring-haretaColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-haretaColor dark:text-textLight dark:caret-white dark:autofill:text-textLight lg:text-lg'
+                placeholder='Search'
+              />
+              <label
+                htmlFor='search_in_cart'
+                className='absolute right-4 flex h-8 w-12 items-center justify-center rounded-lg bg-haretaColor/60 duration-500 peer-focus:bg-haretaColor'
+              >
+                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
+                  <path
+                    fillRule='evenodd'
+                    d='M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </label>
+            </form>
+          </div>
+
+          <div className='mx-2 mt-2 rounded-md bg-white dark:bg-black xl:mx-4'>
+            <div className='min-w-[1000px]'>
+              <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-textDark  dark:text-textLight lg:text-lg'>
+                <div className='col-span-6'>
+                  {/* <div className='flex flex-shrink-0 items-center justify-start pr-3'>
                     <input type='checkbox' className='h-4 w-4 accent-haretaColor' />
                   </div> */}
-                    <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>
-                      Product
-                    </p>
-                  </div>
-                  <div className='col-span-6'>
-                    <div className='grid grid-cols-4 text-center'>
-                      <div className='col-span-1'>Unit Price</div>
-                      <div className='col-span-1'>Quantity</div>
-                      <div className='col-span-1'>Subtotal</div>
-                      <div className='col-span-1'>Action</div>
-                    </div>
+                  <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>
+                    Product
+                  </p>
+                </div>
+                <div className='col-span-6'>
+                  <div className='grid grid-cols-4 text-center'>
+                    <div className='col-span-1'>Unit Price</div>
+                    <div className='col-span-1'>Quantity</div>
+                    <div className='col-span-1'>Subtotal</div>
+                    <div className='col-span-1'>Action</div>
                   </div>
                 </div>
-                <div className='my-2 rounded-sm bg-[#f8f8f8] p-4 shadow dark:bg-[#202020]'>
-                  {extendedPurchases?.map((purchase, index) => (
-                    <div
-                      key={purchase.id}
-                      className='mt-2 grid grid-cols-12 items-center rounded-sm bg-[#efefef] p-4 text-center text-textDark first:mt-0 dark:bg-[#101010] dark:text-textLight'
-                    >
+              </div>
+              <div className='mx-4 my-2 h-[440px] overflow-auto rounded-md bg-[#f8f8f8] shadow dark:bg-[#202020] '>
+                {extendedPurchases?.map((purchase, index) => (
+                  <div
+                    key={purchase.id}
+                    className='border-b last:border-none hover:bg-[#efefef]  dark:hover:bg-[#101010]'
+                  >
+                    <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
                       <div className='col-span-6'>
                         <div className='flex'>
                           <div className='flex flex-shrink-0 items-center justify-center pr-3'>
@@ -218,11 +219,11 @@ export default function Cart() {
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
-            <div className='sticky bottom-0 z-[5] mx-2 grid grid-cols-12 items-center justify-between rounded-sm bg-white px-8 py-4 shadow dark:bg-black xl:mx-4'>
+            <div className='sticky bottom-0 z-[5] mx-8 grid grid-cols-12 items-center justify-between rounded-sm py-4 shadow '>
               <div className='col-span-6 grid grid-cols-3'>
                 <div className=' col-span-1 flex flex-shrink-0 items-center'>
                   <input

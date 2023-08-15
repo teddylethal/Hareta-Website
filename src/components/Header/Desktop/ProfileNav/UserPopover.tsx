@@ -1,6 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { clearLS } from 'src/utils/auth'
 
@@ -32,7 +33,7 @@ export default function UserPopover() {
       <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
         Inventory
       </Link>
-      <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+      <Link to={path.favouriteList} className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
         Favourite List
       </Link>
 

@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dialog, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { Fragment, useContext } from 'react'
-import { ThemeContext } from 'src/App'
 
 interface Props {
   isOpen: boolean
@@ -31,7 +30,6 @@ export default function DialogPopup({
     </>
   )
 }: Props) {
-  const { theme } = useContext(ThemeContext)
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as='div' className='relative z-10' onClose={handleClose}>
