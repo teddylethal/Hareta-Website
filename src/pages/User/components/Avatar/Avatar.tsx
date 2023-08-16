@@ -22,6 +22,7 @@ export default function Avatar({ file, setFile }: Props) {
     const fileFromLocal = event.target.files?.[0]
     setFile(fileFromLocal)
   }
+  console.log(file?.size, 123)
 
   return (
     <div className='flex flex-col items-center'>
@@ -34,26 +35,23 @@ export default function Avatar({ file, setFile }: Props) {
           }
           // src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/258764879_4596602470418676_7242401939304191255_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=mZBJYVBs-OEAX9pIv7E&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBLBm0-L-SFhLlJ09qhSoynvRpJOjNkQ7BHzn9Bq6-png&oe=64C3E83E'
           alt='avatar'
-          className='absolute h-full w-full rounded-full object-cover hover:opacity-20'
+          className={`absolute h-full w-full rounded-full object-cover hover:opacity-20 ${file ? '' : 'opacity-20'}`}
         />
         <button className='h-full w-full rounded-full object-cover' onClick={handleUpload}>
           <img
             src={upload}
             // src='https://scontent.fsgn15-1.fna.fbcdn.net/v/t39.30808-6/258764879_4596602470418676_7242401939304191255_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=mZBJYVBs-OEAX9pIv7E&_nc_ht=scontent.fsgn15-1.fna&oh=00_AfBLBm0-L-SFhLlJ09qhSoynvRpJOjNkQ7BHzn9Bq6-png&oe=64C3E83E'
             alt='avatar'
-            className='h-full w-full rounded-full object-cover opacity-0 hover:opacity-60'
+            className={`+ h-full w-full rounded-full object-cover opacity-0 hover:opacity-60 ${
+              file ? '' : 'opacity-60'
+            }`}
           />
         </button>
         {/* <CloudUploadIcon className='ml-50 mt-50 absolute' /> */}
       </div>
       <input className='hidden' type='file' accept='.jpg,.jpeg,.png' ref={fileInputRef} onChange={onFileChange} />
-      {/* <button
-        className='flex h-10 items-center rounded-sm border bg-gray-300 px-6 text-sm shadow-sm'
-        onClick={handleUpload}
-        type='button'
-      >
-        Choose Image
-      </button> */}
+
+      <div className='mt-5 border-t-2 border-gray-200 pt-5'>Use image less than 5MB</div>
     </div>
   )
 }

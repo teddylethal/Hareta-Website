@@ -7,7 +7,6 @@ import http from 'src/utils/http'
 interface BodyChangePassword {
   old_password: string
   new_password: string
-  confirm_password: string
 }
 
 export const userApi = {

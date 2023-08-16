@@ -19,9 +19,7 @@ import Favorite from './pages/User/pages/Favorite'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
-  // return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
-  return <Outlet />
-  // return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
+  return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
 }
 
 function RejectedRoute() {

@@ -19,11 +19,17 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import UserInfo from '../../components/UserInfo'
 import path from 'src/constants/path'
+import ContentLayout from '../../layout/ContentLayout'
+import { toast } from 'react-toastify'
 
 type FormData = UserSchema
 const profileSchema = userSchema
 
-export default function ProileEdit() {
+interface Props {
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function ProileEdit({ setEditMode }: Props) {
   const navigate = useNavigate()
   const { setProfile } = useContext(AppContext)
   const [file, setFile] = useState<File>()
@@ -74,10 +80,15 @@ export default function ProileEdit() {
     console.log(data)
     try {
       if (file) {
-        const form = new FormData()
-        form.append('file', file)
-        const uploadRes = await uploadAvatarMutation.mutateAsync(form)
-        // const avatarName = uploadRes.data.data
+        console.log(file.size)
+        if (file.size > 5 * 1024 * 1024) {
+          toast.error('Image too big')
+        } else {
+          const form = new FormData()
+          form.append('file', file)
+          const uploadRes = await uploadAvatarMutation.mutateAsync(form)
+          toast.success('Avatar updated')
+        }
       }
       refetch()
     } catch (error) {
@@ -86,55 +97,49 @@ export default function ProileEdit() {
   })
 
   return (
-    <div className='round-sm pl-10 shadow'>
-      <div className='border-b border-b-gray-200 pb-5'>
-        <h1 className='text-2xl font-bold'>My Account</h1>
-        <h1>General Information</h1>
+    <form className='flex flex-col justify-start pt-10 md:flex-row' onSubmit={onSubmit}>
+      <Avatar file={file} setFile={setFile} />
+
+      <div className='ml-20 w-[420px]'>
+        <>
+          <UserInput
+            icon={<EmailIcon sx={{ fontSize: 30 }} />}
+            title='Email'
+            name='email'
+            disabled
+            register={register}
+          />
+          <UserInput
+            icon={<PersonIcon sx={{ fontSize: 30 }} />}
+            title='Full Name'
+            name='name'
+            register={register}
+            // className=
+            errorMessage={errors.name?.message}
+          />
+          <UserInput
+            icon={<LocalPhoneOutlinedIcon sx={{ fontSize: 30 }} />}
+            title='Phone Number'
+            name='phone'
+            register={register}
+            // className=
+          />
+        </>
+
+        <Box className='flex w-full justify-end'>
+          <button type='submit' className='h-10 w-20 rounded-md bg-blue-500 text-white'>
+            Save
+          </button>
+          <button
+            onClick={() => setEditMode(false)}
+            // to={path.profile}
+            type='button'
+            className='ml-1 flex h-10 w-20 items-center justify-center rounded-md bg-blue-500 text-white'
+          >
+            Cancel
+          </button>
+        </Box>
       </div>
-      <form className='flex flex-col justify-start pt-10 md:flex-row' onSubmit={onSubmit}>
-        <Avatar file={file} setFile={setFile} />
-
-        <div className='ml-20 w-[420px]'>
-          <>
-            <UserInput icon={<EmailIcon />} title='Email' name='email' disabled register={register} />
-            <UserInput
-              icon={<PersonIcon />}
-              title='Full Name'
-              name='name'
-              register={register}
-              // className=
-              errorMessage={errors.name?.message}
-            />
-            <UserInput
-              icon={<LocalPhoneOutlinedIcon />}
-              title='Phone Number'
-              name='phone'
-              register={register}
-              // className=
-            />
-          </>
-
-          <Box className='flex w-full justify-end'>
-            <button type='submit' className='h-10 w-20 rounded-md bg-blue-500 text-white'>
-              Save
-            </button>
-            <button
-              onClick={() => setTimeout(() => navigate(path.profile), 1000)}
-              // to={path.profile}
-              type='button'
-              className='ml-1 flex h-10 w-20 items-center justify-center rounded-md bg-blue-500 text-white'
-            >
-              Cancel
-            </button>
-          </Box>
-        </div>
-      </form>
-      {/* <Box className='flex justify-center'>
-        <Button onClick={handleClickForm}>
-          <KeyboardArrowDownIcon />
-        </Button>
-      </Box>
-      {form && <div className='rounded-sm border-2 pt-10 shadow-sm'>{profile && <ProfileUpdateForm />}</div>} */}
-    </div>
+    </form>
   )
 }

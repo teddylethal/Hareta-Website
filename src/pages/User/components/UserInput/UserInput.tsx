@@ -22,9 +22,9 @@ export default function UserInput({ errorMessage, className, register, name, rul
   const registerResult = register(name, rules)
   return (
     <Box className={className}>
-      <div className='flex items-center justify-start'>
+      <div className='flex items-start justify-start'>
         {icon}
-        <div className='ml-3 text-2xl'>{title}</div>
+        <div className='ml-5 text-2xl'>{title}</div>
       </div>
       <input className={classNameInput} {...registerResult} />
       <div className='h-6 text-sm text-red-600'>{errorMessage}</div>
