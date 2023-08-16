@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import Button from 'src/components/Button'
-import emptyCart from 'public/images/empty_cart.png'
 import path from 'src/constants/path'
 import purchaseApi from 'src/apis/cart.api'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -126,7 +125,7 @@ export default function CartNav() {
             </div>
           ) : (
             <div className='p-2'>
-              <img src={emptyCart} alt='Empty cart' />
+              <img src='images/empty_cart.png' alt='Empty cart' />
             </div>
           )}
           {/* <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' /> */}
