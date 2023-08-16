@@ -40,12 +40,12 @@ export default function Login() {
       onSuccess: () => {
         setIsAuthenticated(true)
         const token = getAccessTokenFromLS()
+        console.log(token)
         const headers = {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
         axios.get('https://api.hareta.me/auth/', { headers }).then((response) => {
-          console.log(response.data.data)
           setProfileToLS(response.data.data)
           setProfile(response.data.data)
         })

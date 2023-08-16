@@ -1,9 +1,6 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
-import HttpStatusCode from 'src/constants/httpStatusCode.enum'
-import { toast } from 'react-toastify'
-import { getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
+import { getAccessTokenFromLS, setAccessTokenToLS } from './auth'
 import path from 'src/constants/path'
-import { ProfileRespone } from 'src/types/auth.type'
 
 class Http {
   instance: AxiosInstance
@@ -44,7 +41,7 @@ class Http {
         }
         // else if (url === '/logout') {
         //   this.accessToken = ''
-        //   clearLSLS()
+        //   clearLS()
         // }
         return response
       },
