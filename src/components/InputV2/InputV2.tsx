@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, forwardRef, useState } from 'react'
-import { useForm, useController, UseControllerProps, FieldValues, FieldPath } from 'react-hook-form'
+import { InputHTMLAttributes, useState } from 'react'
+import { useController, UseControllerProps, FieldValues, FieldPath } from 'react-hook-form'
 
 export interface InputV2Props extends InputHTMLAttributes<HTMLInputElement> {
   classNameInput?: string

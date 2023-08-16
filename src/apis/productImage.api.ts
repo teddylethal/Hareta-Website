@@ -1,4 +1,4 @@
-import { ImageListRespone, ImageListConfig } from 'src/types/productImage.type'
+import { ImageListRespone } from 'src/types/productImage.type'
 import http from 'src/utils/http'
 
 const URL = 'item-image'

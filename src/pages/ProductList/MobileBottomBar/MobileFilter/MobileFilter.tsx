@@ -82,7 +82,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
             <CategoryFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
             <CollectionFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
             <TypeFilter queryConfig={queryConfig} isMobile setMobileFilterOpen={setIsOpen} />
-            <PriceRange />
+            <PriceRange queryConfig={queryConfig} />
             <button
               onClick={handleClear}
               disabled={isFiltering ? false : true}

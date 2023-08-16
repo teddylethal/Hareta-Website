@@ -1,13 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { AxiosResponse } from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import purchaseApi from 'src/apis/cart.api'
 import Button from 'src/components/Button'
-import { PurchaseList } from 'src/types/cart.type'
-
-interface Props {
-  cartData: AxiosResponse<PurchaseList, unknown> | undefined
-}
 
 export default function CartPopover() {
   const navigate = useNavigate()

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Button from 'src/components/Button'
 import { ThemeContext } from 'src/App'
@@ -25,7 +25,6 @@ export default function MobileCart({ className }: Props) {
     queryFn: () => purchaseApi.getPurchases()
   })
 
-  const navigate = useNavigate()
   const purchasesInCart = cartData?.data.data
 
   const removePurchasesMutation = useMutation({
@@ -60,9 +59,6 @@ export default function MobileCart({ className }: Props) {
   }
   const closeCart = () => {
     setVisible(false)
-  }
-  const handleBuyItem = () => {
-    navigate('profile')
   }
 
   return (
