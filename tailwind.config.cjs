@@ -12,8 +12,8 @@ module.exports = {
         textDark: '#222222',
         vintageColor: '#A27B5C',
         textLight: '#EEEEEE',
-        darkBg: '#101010',
-        lightBg: '#f0f0f0',
+        darkBg: '#202020',
+        lightBg: '#f8f8f8',
         success: '#4bb543',
         orangeColor: '#E76161'
       }
