@@ -1,8 +1,8 @@
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dialog, Transition } from '@headlessui/react'
 import classNames from 'classnames'
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment } from 'react'
 
 interface Props {
   isOpen: boolean
@@ -16,10 +16,18 @@ export default function DialogPopup({
   handleClose,
   classNameWrapper = 'w-60 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all bg-black/90',
   children = (
-    <>
-      <Dialog.Title as='h3' className='text-center text-xl font-medium leading-6 text-gray-900'>
-        Added successful
-      </Dialog.Title>
+    <div className=''>
+      <div className='flex'>
+        <Dialog.Title as='h3' className='text-center text-xl font-medium leading-6 text-gray-900'>
+          Added successful
+        </Dialog.Title>
+        <button
+          type='button'
+          className='inline-flex justify-center rounded-md border border-transparent  p-2 text-sm font-medium text-textLight/50 hover:text-red-600  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+        >
+          <FontAwesomeIcon icon={faXmark} fontSize={20} />
+        </button>
+      </div>
       <div className='mt-2  text-center'>
         <FontAwesomeIcon
           icon={faCheck}
@@ -27,7 +35,7 @@ export default function DialogPopup({
           className='text- rounded-full bg-black/10 p-4 text-center text-success'
         />
       </div>
-    </>
+    </div>
   )
 }: Props) {
   return (

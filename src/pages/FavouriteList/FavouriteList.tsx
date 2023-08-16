@@ -1,8 +1,8 @@
-import { faCartPlus, faCheck, faHeartCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeartCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
 import { Product } from 'src/types/product.type'
@@ -10,10 +10,12 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { showSuccessDialog } from '../ProductList/Product/Product'
 import DialogPopup from 'src/components/DialogPopup'
 import purchaseApi from 'src/apis/cart.api'
+import UnlikeItemDialog from './UnlikeItemDialog'
 
 export default function FavouriteList() {
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
-  const [removeDialogIsOpen, setRemoveDialogIsOpen] = useState<boolean>(false)
+  const [unlikeDialog, setUnlikeDialog] = useState<boolean>(false)
+  const [unlikedItemId, setUnlikeItemId] = useState<string>('')
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -25,7 +27,7 @@ export default function FavouriteList() {
     },
     staleTime: 3 * 60 * 1000
   })
-  const favouriteList = favouriteListData?.data.data
+  const favouriteList = favouriteListData?.data.data as Product[]
 
   const handleClickItem = (item: Product) => () => {
     navigate({ pathname: `${path.home}${generateNameId({ name: item.name, id: item.id })}` })
@@ -43,6 +45,11 @@ export default function FavouriteList() {
         }
       }
     )
+  }
+
+  const openUnlikeItemDialog = (id: string) => () => {
+    setUnlikeItemId(id)
+    setUnlikeDialog(true)
   }
 
   return (
@@ -70,10 +77,8 @@ export default function FavouriteList() {
               <div className='w-full border-b border-textDark/80 dark:border-textLight/80'></div>
             </div>
             <div className='h-[512px] overflow-scroll overscroll-none rounded-sm  px-4 shadow'>
-              {favouriteList?.map((item, index) => (
-                <div key={item.id}>
-                  <div className='col-span-12 w-full border-t border-textDark/80 dark:border-textLight/80'></div>
-
+              {favouriteList?.map((item) => (
+                <div key={item.id} className='border-t border-textDark/80 first:border-none dark:border-textLight/80'>
                   <div className='grid grid-cols-12 items-center p-4 text-center text-textDark first:mt-0 hover:bg-[#efefef] dark:text-textLight dark:hover:bg-[#171717]'>
                     <div className='col-span-4'>
                       <div className='flex'>
@@ -116,7 +121,10 @@ export default function FavouriteList() {
                             >
                               <FontAwesomeIcon icon={faCartPlus} fontSize={24} onClick={addToCart(item.id)} />
                             </button>
-                            <button className='bg-none hover:text-textDark dark:hover:text-textLight'>
+                            <button
+                              className='bg-none hover:text-textDark dark:hover:text-textLight'
+                              onClick={openUnlikeItemDialog(item.id)}
+                            >
                               <FontAwesomeIcon icon={faHeartCircleXmark} fontSize={24} />
                             </button>
                           </div>
@@ -124,13 +132,23 @@ export default function FavouriteList() {
                       </div>
                     </div>
                   </div>
+                  <UnlikeItemDialog
+                    isOpen={unlikeDialog}
+                    handleClose={() => setUnlikeDialog(false)}
+                    unlikeItemId={unlikedItemId}
+                    setUnlikeItemId={setUnlikeItemId}
+                  />
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-      <DialogPopup isOpen={dialogIsOpen} handleClose={() => setDialogIsOpen(false)}>
+      <DialogPopup
+        isOpen={dialogIsOpen}
+        handleClose={() => setDialogIsOpen(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all bg-black/90'
+      >
         <p className='text-center text-xl font-medium leading-6 text-textLight'>Added successful</p>
         <div className='mt-4 text-center'>
           <FontAwesomeIcon
@@ -139,6 +157,12 @@ export default function FavouriteList() {
             className='text- rounded-full bg-white/20 p-4 text-center text-success'
           />
         </div>
+        <button
+          type='button'
+          className='absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium text-textLight/50 hover:text-red-600  '
+        >
+          <FontAwesomeIcon icon={faXmark} fontSize={20} />
+        </button>
       </DialogPopup>
     </div>
   )

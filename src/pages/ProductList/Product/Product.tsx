@@ -1,17 +1,14 @@
-import { faCartPlus, faCheck, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
-import { useContext, useRef, useState } from 'react'
-import { StoreContext } from 'src/contexts/store.context'
-import { Link, createSearchParams, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { omit } from 'lodash'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
-import { Bounce, Flip, Zoom, cssTransition, toast } from 'react-toastify'
 import itemTag from 'src/constants/itemTag'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
@@ -117,10 +114,6 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
     !likedByUser && likeItem()
   }
 
-  const closeDialog = () => {
-    setDialogIsOpen(false)
-  }
-
   // console.log(product.avatar.url)
   return (
     <div className='relative h-full w-full bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
@@ -180,7 +173,11 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
           <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
         </div>
       )}
-      <DialogPopup isOpen={dialogIsOpen} handleClose={closeDialog}>
+      <DialogPopup
+        isOpen={dialogIsOpen}
+        handleClose={() => setDialogIsOpen(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all bg-black/90'
+      >
         <p className='text-center text-xl font-medium leading-6 text-textLight'>Added successful</p>
         <div className='mt-4 text-center'>
           <FontAwesomeIcon
@@ -189,6 +186,12 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
             className='text- rounded-full bg-white/20 p-4 text-center text-success'
           />
         </div>
+        <button
+          type='button'
+          className='absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium text-textLight/50 hover:text-red-600  '
+        >
+          <FontAwesomeIcon icon={faXmark} fontSize={20} />
+        </button>
       </DialogPopup>
     </div>
   )

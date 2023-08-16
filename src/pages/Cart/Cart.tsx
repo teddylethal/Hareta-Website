@@ -1,27 +1,20 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useContext, useEffect, useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import purchaseApi from 'src/apis/cart.api'
 import QuantityController from 'src/components/QuantityController'
 import path from 'src/constants/path'
-import { Purchase } from 'src/types/cart.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
 import { CartContext } from 'src/contexts/cart.context'
 import classNames from 'classnames'
 import { useViewport } from 'src/hooks/useViewport'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
-
-export interface ExtendsPurchase extends Purchase {
-  disabled: boolean
-  checked: boolean
-}
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Cart() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
-  // const [extendedPurchases, setExtendedPurchases] = useState<ExtendsPurchase[]>([])
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
   const queryClient = useQueryClient()
 
