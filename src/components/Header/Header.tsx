@@ -12,7 +12,7 @@ import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import UserNav from './Desktop/ProfileNav/UserNav'
 import path from 'src/constants/path'
-import haretalogo from 'public/assets/images/sun.png'
+import haretalogo from 'public/images/sun.png'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -23,16 +23,6 @@ const initialMenuContext: MenuContextInterface = {
   setOpeningMenu: () => null
 }
 export const MenuContext = createContext<MenuContextInterface>(initialMenuContext)
-
-// interface CartContextInterface {
-//   openingCart: boolean
-//   setOpeningCart: React.Dispatch<React.SetStateAction<boolean>>
-// }
-// const initialCartContext: CartContextInterface = {
-//   openingCart: false,
-//   setOpeningCart: () => null
-// }
-// export const CartContext = createContext<CartContextInterface>(initialCartContext)
 
 export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
