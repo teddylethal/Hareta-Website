@@ -13,7 +13,6 @@ import Home from './pages/Home/Home'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import FavouriteList from './pages/FavouriteList'
-import StickyHeadTable from './pages/FavouriteList/Favourite'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
