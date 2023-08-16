@@ -8,7 +8,6 @@ import { CartContext } from 'src/contexts/cart.context'
 import purchaseApi from 'src/apis/cart.api'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { keyBy } from 'lodash'
-import emptyCart from 'src/assets/images/empty_cart.png'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import path from 'src/constants/path'
 
@@ -163,7 +162,7 @@ export default function MobileCart({ className }: Props) {
                 </div>
               ) : (
                 <div className='p-2'>
-                  <img src={emptyCart} alt='Empty cart' />{' '}
+                  <img src='images/empty_cart.png' alt='Empty cart' />{' '}
                 </div>
               )}
             </div>
