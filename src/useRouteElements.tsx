@@ -13,7 +13,6 @@ import Profile from './pages/User/pages/Profile'
 import Order from './pages/User/pages/Order'
 import ChangePassword from './pages/User/pages/ChangePassword'
 import UserLayout from './pages/User/layout/UserLayout'
-import ProfileEdit from './pages/User/pages/ProfileEdit'
 import History from './pages/User/pages/History'
 import Favorite from './pages/User/pages/Favorite'
 
@@ -66,10 +65,6 @@ export default function useRouteElements() {
             {
               path: path.profile,
               element: <Profile />
-            },
-            {
-              path: path.profileEdit,
-              element: <ProfileEdit />
             },
             {
               path: path.changePassword,
