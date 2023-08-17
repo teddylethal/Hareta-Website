@@ -21,14 +21,14 @@ export default function Cart() {
   const updatePurchasesMutation = useMutation({
     mutationFn: purchaseApi.updatePurchases,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+      queryClient.invalidateQueries({ queryKey: ['purchases'] })
     }
   })
 
   const removePurchasesMutation = useMutation({
     mutationFn: purchaseApi.removePurchases,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+      queryClient.invalidateQueries({ queryKey: ['purchases'] })
     }
   })
 

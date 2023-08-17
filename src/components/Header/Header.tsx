@@ -25,11 +25,6 @@ export const MenuContext = createContext<MenuContextInterface>(initialMenuContex
 
 export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
-  // const { data: cartData } = useQuery({
-  //   queryKey: ['items_in_cart'],
-  //   queryFn: () => purchaseApi.getPurchases(),
-  //   enabled: isAuthenticated
-  // })
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -40,7 +35,7 @@ export default function Header() {
         <div className='container grid w-full grid-cols-3 items-center py-3 text-black duration-500  dark:text-white'>
           <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase lg:space-x-4 lg:text-lg'>
             <Link to={path.home}>
-              <img src='images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
+              <img src='/images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
             </Link>
 
             <Link

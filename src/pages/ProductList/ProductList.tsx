@@ -68,7 +68,7 @@ export default function ProductList() {
                 </div>
                 {isAuthenticated && (
                   <Link
-                    to={path.favouriteList}
+                    to={path.wishList}
                     className='group flex shrink-0 items-center space-x-2 rounded-md border  border-vintageColor/60 px-4 py-2 text-textDark hover:border-vintageColor hover:bg-white/80 hover:text-vintageColor dark:border-haretaColor/60 dark:text-textLight dark:hover:border-haretaColor dark:hover:bg-black/80 dark:hover:text-haretaColor'
                     onClick={toggleFavouriteList}
                   >

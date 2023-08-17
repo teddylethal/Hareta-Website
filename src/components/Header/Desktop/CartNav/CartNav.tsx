@@ -10,12 +10,15 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { useContext, useEffect } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import { keyBy } from 'lodash'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function CartNav() {
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
+  const { isAuthenticated } = useContext(AppContext)
   const { data: cartData, refetch } = useQuery({
-    queryKey: ['items_in_cart'],
-    queryFn: () => purchaseApi.getPurchases()
+    queryKey: ['purchases'],
+    queryFn: () => purchaseApi.getPurchases(),
+    enabled: isAuthenticated
   })
 
   const navigate = useNavigate()
@@ -125,7 +128,7 @@ export default function CartNav() {
             </div>
           ) : (
             <div className='p-2'>
-              <img src='images/empty_cart.png' alt='Empty cart' />
+              <img src='/images/empty_cart.png' alt='Empty cart' />
             </div>
           )}
           {/* <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' /> */}

@@ -8,11 +8,13 @@ import MainLayout from './layouts/MainLayout'
 import Landing from './pages/Landing'
 import { AppContext } from './contexts/app.context'
 import path from './constants/path'
-import Profile from './pages/Profile'
+import Profile from './pages/User/pages/Profile'
 import Home from './pages/Home/Home'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
-import FavouriteList from './pages/FavouriteList'
+import WishList from './pages/User/pages/WishList'
+import UserLayout from './pages/User/layouts/UserLayout'
+import Inventory from './pages/User/pages/Inventory'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -54,14 +56,6 @@ export default function useRouteElements() {
       element: <ProtectedRoute />,
       children: [
         {
-          path: path.profile,
-          element: (
-            <MainLayout>
-              <Profile />
-            </MainLayout>
-          )
-        },
-        {
           path: path.cart,
           element: (
             <MainLayout>
@@ -70,12 +64,26 @@ export default function useRouteElements() {
           )
         },
         {
-          path: path.favouriteList,
+          path: path.user,
           element: (
             <MainLayout>
-              <FavouriteList />
+              <UserLayout />
             </MainLayout>
-          )
+          ),
+          children: [
+            {
+              path: path.profile,
+              element: <Profile />
+            },
+            {
+              path: path.inventory,
+              element: <Inventory />
+            },
+            {
+              path: path.wishList,
+              element: <WishList />
+            }
+          ]
         }
       ]
     },

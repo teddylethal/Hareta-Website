@@ -161,7 +161,7 @@ export default function ProductDetail() {
         onSuccess: () => {
           setBuyCount(1)
           showDialog()
-          queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+          queryClient.invalidateQueries({ queryKey: ['purchases'] })
         }
       }
     )

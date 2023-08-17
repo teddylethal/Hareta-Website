@@ -61,7 +61,7 @@ export default function MobileNav({ className }: Props) {
           >
             <div className='flex w-full flex-col items-start justify-center px-3 text-sm font-medium uppercase sm:text-base'>
               <Link to={path.home} className='w-full py-2 '>
-                <img src='src/assets/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
+                <img src='/images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
               </Link>
 
               <Link to={path.store} className='w-full py-2 hover:text-haretaColor dark:hover:text-haretaColor'>

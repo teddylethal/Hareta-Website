@@ -7,12 +7,12 @@ import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
 import { Product } from 'src/types/product.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import { showSuccessDialog } from '../ProductList/Product/Product'
 import DialogPopup from 'src/components/DialogPopup'
 import purchaseApi from 'src/apis/cart.api'
 import UnlikeItemDialog from './UnlikeItemDialog'
+import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 
-export default function FavouriteList() {
+export default function WishList() {
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [unlikeDialog, setUnlikeDialog] = useState<boolean>(false)
   const [unlikedItemId, setUnlikeItemId] = useState<string>('')
@@ -41,7 +41,7 @@ export default function FavouriteList() {
       {
         onSuccess: () => {
           showSuccessDialog(setDialogIsOpen)
-          queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+          queryClient.invalidateQueries({ queryKey: ['purchases'] })
         }
       }
     )

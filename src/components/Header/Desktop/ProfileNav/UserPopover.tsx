@@ -19,7 +19,7 @@ export default function UserPopover() {
     setIsAuthenticated(false)
     setProfile(null)
     queryClient.removeQueries({
-      queryKey: ['items_in_cart']
+      queryKey: ['purchases']
     })
   }
   return (
@@ -33,7 +33,7 @@ export default function UserPopover() {
       <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
         Inventory
       </Link>
-      <Link to={path.favouriteList} className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+      <Link to={path.wishList} className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
         Favourite List
       </Link>
 

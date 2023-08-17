@@ -20,7 +20,7 @@ export default function MobileCart({ className }: Props) {
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
 
   const { data: cartData, refetch } = useQuery({
-    queryKey: ['items_in_cart'],
+    queryKey: ['purchases'],
     queryFn: () => purchaseApi.getPurchases()
   })
 
@@ -162,7 +162,7 @@ export default function MobileCart({ className }: Props) {
                 </div>
               ) : (
                 <div className='p-2'>
-                  <img src='images/empty_cart.png' alt='Empty cart' />{' '}
+                  <img src='/images/empty_cart.png' alt='Empty cart' />{' '}
                 </div>
               )}
             </div>

@@ -40,7 +40,7 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
         onSuccess: () => {
           showSuccessDialog(setDialogIsOpen)
 
-          queryClient.invalidateQueries({ queryKey: ['items_in_cart'] })
+          queryClient.invalidateQueries({ queryKey: ['purchases'] })
         }
       }
     )
