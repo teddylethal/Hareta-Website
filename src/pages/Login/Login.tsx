@@ -40,7 +40,6 @@ export default function Login() {
       onSuccess: () => {
         setIsAuthenticated(true)
         const token = getAccessTokenFromLS()
-        console.log(token)
         const headers = {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -53,7 +52,7 @@ export default function Login() {
       },
       onError: (error) => {
         console.log(error)
-        if (isAxiosBadRequestError<ErrorRespone<FormData>>(error)) {
+        if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           if (formError) {
             const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)

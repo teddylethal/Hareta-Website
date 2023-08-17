@@ -1,7 +1,10 @@
 import useRouteElements from './useRouteElements'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { createContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { LocalStorageEventTarget } from './utils/auth'
+import { AppContext } from './contexts/app.context'
+import { CartContext } from './contexts/cart.context'
 
 export type ThemeContextType = 'light' | 'dark'
 export const ThemeContext = createContext({
@@ -11,12 +14,26 @@ export const ThemeContext = createContext({
 })
 
 function App() {
+  const { reset } = useContext(AppContext)
+  const { setExtendedPurchases } = useContext(CartContext)
+
   const [theme, setTheme] = useState('dark')
   const toggleTheme = () => {
     setTheme((theme) => (theme === 'light' ? 'dark' : 'light'))
   }
-
   const routeElements = useRouteElements()
+
+  useEffect(() => {
+    const resetFunction = () => {
+      reset()
+      setExtendedPurchases([])
+    }
+    LocalStorageEventTarget.addEventListener('clearLS', resetFunction)
+    return () => {
+      LocalStorageEventTarget.removeEventListener('clearLS', resetFunction)
+    }
+  }, [reset, setExtendedPurchases])
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className={theme === 'dark' ? 'dark' : 'light'}>

@@ -1,6 +1,9 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
-import { getAccessTokenFromLS, setAccessTokenToLS } from './auth'
+import { clearLS, getAccessTokenFromLS, setAccessTokenToLS } from './auth'
 import path from 'src/constants/path'
+import HttpStatusCode from 'src/constants/httpStatusCode.enum'
+import { toast } from 'react-toastify'
+import { ErrorRespone } from 'src/types/utils.type'
 
 class Http {
   instance: AxiosInstance
@@ -46,13 +49,16 @@ class Http {
         return response
       },
       function (error: AxiosError) {
-        // if (error.response?.status !== HttpStatusCode.BadRequest) {
-        //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        //   const data: any | undefined = error.response?.data
-        //   const message = data.message || error.message
-        //   toast.error(message)
-        // }
-        // console.log(error)
+        if (error.response?.status !== HttpStatusCode.BadRequest) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const data: any | undefined = error.response?.data
+          const message = data.message || error.message
+          toast.error(message)
+        }
+        console.log(error)
+        if ((error.response?.data as ErrorRespone).status_code === 500) {
+          clearLS()
+        }
         return Promise.reject(error)
       }
     )

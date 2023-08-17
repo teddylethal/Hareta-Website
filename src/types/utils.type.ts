@@ -1,6 +1,5 @@
-export interface ErrorRespone<Data> {
+export interface ErrorRespone {
   message: string
-  data?: Data
   error_key: string
   status_code: number
   log: string
