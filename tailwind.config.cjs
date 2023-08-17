@@ -7,12 +7,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        haretaColor: '#ffa500',
+        haretaColor: '#FFA500',
         textVintage: '#FFFBF5',
         textDark: '#222222',
         vintageColor: '#A27B5C',
-        textLight: '#eee',
-        darkTheme: '#1e1e1e'
+        textLight: '#EEEEEE',
+        darkBg: '#101010',
+        lightBg: '#f0f0f0',
+        success: '#4bb543',
+        orangeColor: '#E76161'
       }
     }
   },

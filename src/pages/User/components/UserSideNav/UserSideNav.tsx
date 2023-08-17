@@ -10,7 +10,7 @@ import { AppContext } from 'src/contexts/app.context'
 export default function UserSideNav() {
   const { profile } = useContext(AppContext)
   return (
-    <div className='flex h-full flex-col '>
+    <div className='flex h-full flex-col rounded-md bg-white '>
       <div className='flex items-center'>
         <Link to={path.profile} className='h-12 w-12 flex-shrink-0 overflow-hidden rounded-full border border-black/10'>
           <img
