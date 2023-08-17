@@ -15,6 +15,7 @@ import Cart from './pages/Cart'
 import WishList from './pages/User/pages/WishList'
 import UserLayout from './pages/User/layouts/UserLayout'
 import Inventory from './pages/User/pages/Inventory'
+import ChangePassword from './pages/User/pages/ChangePassword'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -74,6 +75,10 @@ export default function useRouteElements() {
             {
               path: path.profile,
               element: <Profile />
+            },
+            {
+              path: path.password,
+              element: <ChangePassword />
             },
             {
               path: path.inventory,

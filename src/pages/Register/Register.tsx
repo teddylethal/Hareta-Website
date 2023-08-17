@@ -37,7 +37,7 @@ export default function Register() {
         console.log(data)
       },
       onError: (error) => {
-        if (isAxiosBadRequestError<ErrorRespone<Omit<FormData, 'confirm_password'>>>(error)) {
+        if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           if (formError?.message) {
             setError('email', {

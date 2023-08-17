@@ -108,6 +108,20 @@ export const priceSchema = yup.object({
   })
 })
 
+export const userSchema = yup.object({
+  name: yup.string().default('').max(160, 'Maximum name lenght is 160 character'),
+  phone: yup.string().default('').max(20, 'Maximum phone number length is 20 characters'),
+  password: registerSchema.fields['password'],
+  new_password: registerSchema.fields['password'],
+  confirm_new_password: yup
+    .string()
+    .required('Confirm Password is required')
+    .min(8, 'Password must be 8-16 characters')
+    .max(16, 'Password must be 8-16 characters')
+    .oneOf([yup.ref('new_password')], 'Passwords do not match'),
+  avatar: yup.string().default('').max(1000, 'Maximum lenght is 1000 characters')
+})
+
 export type RegisterSchema = yup.InferType<typeof registerSchema>
 
 export type LoginSchema = yup.InferType<typeof loginSchema>
@@ -115,3 +129,5 @@ export type LoginSchema = yup.InferType<typeof loginSchema>
 export type ProductSchema = yup.InferType<typeof productSchema>
 
 export type PriceSchema = yup.InferType<typeof priceSchema>
+
+export type UserSchema = yup.InferType<typeof userSchema>

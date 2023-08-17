@@ -87,9 +87,7 @@ export default function Header() {
               </div>
             )}
 
-            <div className='rounded-md bg-[#a27b5c] text-textVintage hover:bg-haretaColor'>
-              <CartNav />
-            </div>
+            <CartNav />
 
             <div className='flex items-center justify-center px-1'>
               <ToggleTheme className='h-6 w-6 lg:h-8 lg:w-8' />

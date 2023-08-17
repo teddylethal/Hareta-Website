@@ -8,7 +8,8 @@ const path = {
   user: '/user',
   profile: '/user/profile',
   wishList: '/user/wishlist',
-  inventory: '/user/inventory'
+  inventory: '/user/inventory',
+  password: '/user/password'
 } as const
 
 export default path

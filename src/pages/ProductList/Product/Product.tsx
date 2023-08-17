@@ -116,7 +116,7 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
 
   // console.log(product.avatar.url)
   return (
-    <div className='relative h-full w-full bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
+    <div className='relative h-full w-full rounded-md bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
       <div className='relative w-full pt-[75%]'>
         <button onClick={handleClickItem}>
           <img

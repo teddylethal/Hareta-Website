@@ -7,6 +7,8 @@ import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
 import path from 'src/constants/path'
 import { clearLS } from 'src/utils/auth'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   className?: string
@@ -102,17 +104,24 @@ export default function MobileUser({ className }: Props) {
               </button>
             </div>
             <div className='flex flex-col px-3 py-2 text-base sm:text-lg'>
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                My Account
+              <Link
+                to={path.profile}
+                className='flex items-center space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+              >
+                <p>Account</p>
               </Link>
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                My Profile
+
+              <Link
+                to={path.inventory}
+                className='flex items-center space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+              >
+                <p>Inventory</p>
               </Link>
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                Inventory
-              </Link>
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                Favourite List
+              <Link
+                to={path.wishList}
+                className='flex items-center space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+              >
+                <p>Wishist</p>
               </Link>
 
               <div className='my-1 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
@@ -120,21 +129,10 @@ export default function MobileUser({ className }: Props) {
               <button
                 onClick={handleLogout}
                 type='button'
-                className='flex items-center justify-start py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+                className='flex items-center justify-start space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
               >
-                Log out
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                  fill='currentColor'
-                  className='ml-1 h-4 w-4 sm:h-5 sm:w-5'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z'
-                    clipRule='evenodd'
-                  />
-                </svg>
+                <FontAwesomeIcon icon={faRightFromBracket} />
+                <p>Log out</p>
               </button>
             </div>
           </motion.div>

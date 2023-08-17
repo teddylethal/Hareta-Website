@@ -12,7 +12,7 @@ module.exports = {
         textDark: '#222222',
         vintageColor: '#A27B5C',
         textLight: '#EEEEEE',
-        darkBg: '#202020',
+        darkBg: '#101010',
         lightBg: '#f8f8f8',
         success: '#4bb543',
         orangeColor: '#E76161'

@@ -79,7 +79,7 @@ export default function ProductList() {
               </div>
               {storeData && (
                 <div>
-                  <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4 lg:grid-cols-3 lg:gap-2'>
+                  <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
                     {storeData.data.data.map((product) => (
                       <div className='col-span-1' key={product.id}>
                         <Product

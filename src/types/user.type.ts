@@ -2,13 +2,13 @@ type Role = 'user' | 'admin'
 
 export interface User {
   id: string
-  status: number
+  status?: number
   created_at: string
   updated_at: string
   name: string
-  email: string
-  phone: string
-  avatar: {
+  email?: string
+  phone?: string
+  avatar?: {
     id: string
     status: number
     created_at: string

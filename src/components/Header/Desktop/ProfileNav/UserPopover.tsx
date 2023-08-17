@@ -1,3 +1,5 @@
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQueryClient } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
@@ -23,27 +25,35 @@ export default function UserPopover() {
     })
   }
   return (
-    <div className='relative -top-1 flex w-40 flex-col space-y-3 rounded-sm bg-[#efefef] p-3 text-base capitalize text-textDark shadow-md dark:bg-[#303030] dark:text-textLight lg:top-0 lg:w-52 lg:px-6 lg:text-lg'>
-      <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-        My account
+    <div className='relative -top-1 flex w-40 flex-col space-y-3 rounded-md bg-[#efefef] p-3 text-base capitalize text-textDark shadow-md dark:bg-[#202020] dark:text-textLight lg:top-0 lg:w-52 lg:px-6 lg:text-lg'>
+      <Link
+        to={path.profile}
+        className='flex items-center space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+      >
+        <p>Account</p>
       </Link>
-      <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-        My Profile
+
+      <Link
+        to={path.inventory}
+        className='flex items-center space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+      >
+        <p>Inventory</p>
       </Link>
-      <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-        Inventory
-      </Link>
-      <Link to={path.wishList} className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-        Favourite List
+      <Link
+        to={path.wishList}
+        className='flex items-center space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+      >
+        <p>Wishist</p>
       </Link>
 
       <div className='my-1 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
       <button
         onClick={handleLogout}
-        className='flex items-center justify-start text-base hover:text-haretaColor dark:hover:text-haretaColor lg:text-lg'
+        className='flex items-center justify-start space-x-2 text-base hover:text-haretaColor dark:hover:text-haretaColor lg:text-lg'
       >
-        Log out
+        <FontAwesomeIcon icon={faRightFromBracket} />
+        <p>Log out</p>
       </button>
     </div>
   )
