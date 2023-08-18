@@ -9,6 +9,7 @@ import './index.css'
 import { AppProvider } from './contexts/app.context'
 import { StoreProvider } from './contexts/store.context'
 import { CartProvider } from './contexts/cart.context'
+import ScrollToTop from './ScrollToTop'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,16 +23,18 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <StoreProvider>
-          <AppProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </AppProvider>
-        </StoreProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <ScrollToTop>
+        <QueryClientProvider client={queryClient}>
+          <StoreProvider>
+            <AppProvider>
+              <CartProvider>
+                <App />
+              </CartProvider>
+            </AppProvider>
+          </StoreProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ScrollToTop>
     </BrowserRouter>
   </React.StrictMode>
 )

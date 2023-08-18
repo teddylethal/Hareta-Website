@@ -14,6 +14,8 @@ import PriceRange from './AsideFilter/PriceRange'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 
 export default function ProductList() {
+  // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 

@@ -11,6 +11,41 @@ interface Props {
   isMobile?: boolean
 }
 export default function UsePagination({ queryConfig, totalPage, isMobile }: Props) {
+  // const navigate = useNavigate()
+
+  // const handleClickPage = (pageNumber: number) => () => {
+  //   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  //   navigate({
+  //     pathname: path.store,
+  //     search: createSearchParams({
+  //       ...queryConfig,
+  //       page: pageNumber.toString()
+  //     }).toString()
+  //   })
+  // }
+
+  // const handlePrevious = () => {
+  //   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  //   navigate({
+  //     pathname: path.store,
+  //     search: createSearchParams({
+  //       ...queryConfig,
+  //       page: (currentPage - 1).toString()
+  //     }).toString()
+  //   })
+  // }
+
+  // const handleNext = () => {
+  //   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  //   navigate({
+  //     pathname: path.store,
+  //     search: createSearchParams({
+  //       ...queryConfig,
+  //       page: (currentPage + 1).toString()
+  //     }).toString()
+  //   })
+  // }
+
   const currentPage = Number(queryConfig.page)
   const RANGE = isMobile ? 1 : 2
 

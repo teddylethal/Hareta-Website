@@ -66,11 +66,13 @@ export default function Profile() {
 
   const updateProfileMutation = useMutation(userApi.updateProfile)
   const onSubmit = handleSubmit(async (data) => {
-    await updateProfileMutation.mutateAsync({ ...data })
-    // setProfile(res.data.data)
-    refetch()
+    if (data.name !== profile?.name || data.phone !== profile?.phone) {
+      await updateProfileMutation.mutateAsync({ ...data })
+      // setProfile(res.data.data)
+      refetch()
+      showSuccessDialog(setSuccessDialogOpen)
+    }
     setEditingMode(false)
-    showSuccessDialog(setSuccessDialogOpen)
   })
 
   if (!profile) return null

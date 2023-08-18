@@ -47,6 +47,7 @@ export default function OtherItemsInType({ type }: Props) {
 
   const navigate = useNavigate()
   const handleClick = () => {
+    // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     navigate({
       pathname: path.store,
       search: createSearchParams({

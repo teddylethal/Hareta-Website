@@ -1,6 +1,6 @@
 import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
-import { useContext, useState } from 'react'
+import { memo, useContext, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,7 +28,7 @@ interface Props {
   likedByUser?: boolean
 }
 
-export default function Product({ product, queryConfig, likedByUser = false }: Props) {
+function Product({ product, queryConfig, likedByUser = false }: Props) {
   const { theme } = useContext(ThemeContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
@@ -42,9 +42,12 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
       { item_id: product.id as string, quantity: 1 },
       {
         onSuccess: () => {
+          const scrollX = window.scrollX
+          const scrollY = window.scrollY
           showSuccessDialog(setDialogIsOpen)
 
           queryClient.invalidateQueries({ queryKey: ['purchases'] })
+          window.scrollTo(scrollX, scrollY)
         }
       }
     )
@@ -69,7 +72,7 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
         )
       ).toString()
     })
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -86,7 +89,7 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
         )
       ).toString()
     })
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   const likeItemMutation = useMutation(likeItemAPi.likeItem)
@@ -214,3 +217,5 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
     </div>
   )
 }
+
+export default memo(Product)

@@ -35,7 +35,7 @@ export default function AsideFilter({ queryConfig }: Props) {
           'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#fff] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 disabled:cursor-not-allowed dark:bg-[#202020] dark:text-textLight ',
           { 'text-opacity-40 dark:text-opacity-40': !isFiltering },
           {
-            'hover:text-brownColor hover:outline-brownColor dark:hover:bg-haretaColor dark:hover:text-haretaColor':
+            'hover:text-brownColor hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
               isFiltering
           }
         )}
