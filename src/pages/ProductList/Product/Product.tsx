@@ -1,6 +1,6 @@
 import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,12 +12,14 @@ import purchaseApi from 'src/apis/cart.api'
 import itemTag from 'src/constants/itemTag'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
+import classNames from 'classnames'
+import { ThemeContext } from 'src/App'
 
-export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
   setIsOpen(true)
   setTimeout(() => {
     setIsOpen(false)
-  }, 1500)
+  }, time || 1500)
 }
 
 interface Props {
@@ -27,6 +29,8 @@ interface Props {
 }
 
 export default function Product({ product, queryConfig, likedByUser = false }: Props) {
+  const { theme } = useContext(ThemeContext)
+
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
 
   const navigate = useNavigate()
@@ -116,83 +120,97 @@ export default function Product({ product, queryConfig, likedByUser = false }: P
 
   // console.log(product.avatar.url)
   return (
-    <div className='relative h-full w-full rounded-md bg-[#dfdfdf] px-2 pb-4 pt-2 duration-500 dark:bg-[#303030]'>
-      <div className='relative w-full pt-[75%]'>
-        <button onClick={handleClickItem}>
-          <img
-            src={
-              product.avatar
-                ? `${product.avatar.url}`
-                : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-            }
-            alt={product.name}
-            className='absolute left-0 top-0 h-full w-full object-scale-down'
-          />
-        </button>
-      </div>
-      <div className='mx-1 mt-3 flex justify-between space-x-1'>
-        <div className='flex flex-col justify-between space-y-1'>
-          <button className='truncate text-lg text-textDark duration-500 dark:text-textLight' onClick={handleClickItem}>
-            {product.name}
-          </button>
-          <div className='flex items-center space-x-4'>
-            <button
-              className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
-              onClick={handleCollectionClick}
-            >
-              {product.collection}
-            </button>
-            <button
-              className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
-              onClick={handleTypeClick}
-            >
-              {product.type}
-            </button>
-          </div>
-          <span className='text-haretaColor'>${formatCurrency(product.price)}</span>
-        </div>
-
-        <div className='mx-1 flex flex-col items-center justify-between'>
-          <button onClick={toggleLikeItem} className='text-black'>
-            <FontAwesomeIcon icon={faHeart} fontSize={24} className={likedByUser ? 'text-red-500' : ''} />
-          </button>
-          <button className='' onClick={addToCart}>
-            <FontAwesomeIcon
-              icon={faCartPlus}
-              fontSize={24}
-              className='text-textDark duration-500 hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor'
+    <div className='flex w-full items-center justify-center'>
+      <div className='relative m-2 w-full rounded-md bg-[#ddd] px-2 pb-4 pt-2 duration-500 hover:m-0 hover:bg-[#cfcfcf] dark:bg-[#303030] dark:hover:bg-[#383838]'>
+        <div className='relative w-full pt-[60%]'>
+          <button onClick={handleClickItem}>
+            <img
+              src={
+                product.avatar
+                  ? `${product.avatar.url}`
+                  : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
+              }
+              alt={product.name}
+              className='absolute left-0 top-0 h-full w-full object-scale-down'
             />
           </button>
         </div>
-      </div>
-      {product.tag !== 0 && (
-        <div className='absolute left-0 top-4'>
-          <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-            {itemTag[product.tag]}
-          </span>
-          <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+        <div className='mx-1 mt-4 flex justify-between space-x-1'>
+          <div className='flex flex-col justify-between space-y-1'>
+            <button
+              className='truncate text-left text-lg text-textDark duration-500 dark:text-textLight'
+              onClick={handleClickItem}
+            >
+              {product.name}
+            </button>
+            <div className='flex items-center space-x-4 py-1'>
+              <button
+                className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
+                onClick={handleCollectionClick}
+              >
+                {product.collection}
+              </button>
+              <button
+                className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
+                onClick={handleTypeClick}
+              >
+                {product.type}
+              </button>
+            </div>
+            <span className='text-haretaColor'>${formatCurrency(product.price)}</span>
+          </div>
+
+          <div className='mx-1 flex flex-col items-center justify-between'>
+            <button onClick={toggleLikeItem} className='text-black'>
+              <FontAwesomeIcon icon={faHeart} fontSize={24} className={likedByUser ? 'text-red-500' : ''} />
+            </button>
+            <button className='' onClick={addToCart}>
+              <FontAwesomeIcon
+                icon={faCartPlus}
+                fontSize={24}
+                className='text-textDark duration-500 hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor'
+              />
+            </button>
+          </div>
         </div>
-      )}
-      <DialogPopup
-        isOpen={dialogIsOpen}
-        handleClose={() => setDialogIsOpen(false)}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all bg-black/90'
-      >
-        <p className='text-center text-xl font-medium leading-6 text-textLight'>Added successful</p>
-        <div className='mt-4 text-center'>
-          <FontAwesomeIcon
-            icon={faCheck}
-            fontSize={36}
-            className='text- rounded-full bg-white/20 p-4 text-center text-success'
-          />
-        </div>
-        <button
-          type='button'
-          className='absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium text-textLight/50 hover:text-red-600  '
+        {product.tag !== 0 && (
+          <div className='absolute left-0 top-4'>
+            <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+              {itemTag[product.tag]}
+            </span>
+            <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+          </div>
+        )}
+        <DialogPopup
+          isOpen={dialogIsOpen}
+          handleClose={() => setDialogIsOpen(false)}
+          classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
         >
-          <FontAwesomeIcon icon={faXmark} fontSize={20} />
-        </button>
-      </DialogPopup>
+          <div className=' text-center'>
+            <FontAwesomeIcon
+              icon={faCheck}
+              fontSize={36}
+              className={classNames('text- rounded-full  p-4 text-center text-success ', {
+                'bg-black/20': theme === 'light',
+                'bg-white/20': theme === 'dark'
+              })}
+            />
+          </div>
+          <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
+          <button
+            type='button'
+            className={classNames(
+              'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+              {
+                'text-textDark/50': theme === 'light',
+                'text-textLight/50': theme === 'dark'
+              }
+            )}
+          >
+            <FontAwesomeIcon icon={faXmark} fontSize={20} />
+          </button>
+        </DialogPopup>
+      </div>
     </div>
   )
 }

@@ -1,7 +1,7 @@
-import { faCartPlus, faCheck, faChevronLeft, faChevronRight, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faChevronLeft, faChevronRight, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import path from 'src/constants/path'
@@ -19,12 +19,15 @@ import OtherItemsInType from './OtherItemsInType'
 import itemTag from 'src/constants/itemTag'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
+import { ThemeContext } from 'src/App'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
 }
 
 export default function ProductDetail() {
+  const { theme } = useContext(ThemeContext)
+
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
@@ -217,10 +220,10 @@ export default function ProductDetail() {
     <div className='bg-lightBg py-2 dark:bg-darkBg xl:py-6'>
       {!isMobile && (
         <div className='container'>
-          <div className='bg-[#dfdfdf] p-4 shadow dark:bg-[#202020]'>
+          <div className='rounded-lg bg-[#dfdfdf] p-4 shadow dark:bg-[#202020]'>
             <div className='grid grid-cols-12 gap-6'>
               <div className='col-span-5'>
-                <div className='bg-[#efefef] p-2 dark:bg-[#101010]'>
+                <div className='rounded-md bg-[#f8f8f8] p-4 dark:bg-[#101010]'>
                   <div
                     className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#202020]'
                     onMouseMove={handleZoom}
@@ -267,7 +270,7 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              <div className='relative col-span-7 flex min-h-full flex-col bg-[#efefef] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
+              <div className='relative col-span-7 flex min-h-full flex-col rounded-md bg-[#f8f8f8] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
                 <div className='flex items-center justify-between'>
                   <div>
                     <p className='text-4xl'>{product.name}</p>
@@ -328,13 +331,13 @@ export default function ProductDetail() {
 
                   <div className='mt-4 flex justify-between'>
                     <button
-                      className='flex items-center space-x-2 rounded-sm bg-vintageColor px-4 py-1 text-lg hover:bg-haretaColor hover:text-textDark'
+                      className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                       onClick={addToCart}
                     >
                       <FontAwesomeIcon icon={faCartPlus} />
                       <p>Add to cart</p>
                     </button>
-                    <button className='rounded-sm bg-vintageColor px-4 py-1 text-lg hover:bg-haretaColor hover:text-textDark'>
+                    <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
                       Buy
                     </button>
                   </div>
@@ -439,15 +442,34 @@ export default function ProductDetail() {
           )}
         </>
       )}
-      <DialogPopup isOpen={dialogIsOpen} handleClose={closeDialog}>
-        <p className='text-center text-xl font-medium leading-6 text-textLight'>Added successful</p>
-        <div className='mt-4 text-center'>
+      <DialogPopup
+        isOpen={dialogIsOpen}
+        handleClose={closeDialog}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className=' text-center'>
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
-            className='text- rounded-full bg-white/20 p-4 text-center text-success'
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
           />
         </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
+        <button
+          type='button'
+          className={classNames(
+            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+            {
+              'text-textDark/50': theme === 'light',
+              'text-textLight/50': theme === 'dark'
+            }
+          )}
+        >
+          <FontAwesomeIcon icon={faXmark} fontSize={20} />
+        </button>
       </DialogPopup>
     </div>
   )

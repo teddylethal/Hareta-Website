@@ -15,7 +15,7 @@ module.exports = {
         darkBg: '#101010',
         lightBg: '#f8f8f8',
         success: '#4bb543',
-        orangeColor: '#E76161'
+        brownColor: '#B77729'
       }
     }
   },

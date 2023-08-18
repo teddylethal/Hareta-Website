@@ -54,7 +54,7 @@ export default function WishList() {
 
   return (
     <div className=''>
-      <div className='grid w-full grid-cols-12  p-4 text-base uppercase text-textDark dark:text-textLight lg:text-lg'>
+      <div className='grid w-full grid-cols-12  p-4 text-base uppercase text-textDark dark:text-textLight'>
         <div className='col-span-4'>
           <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>Product</p>
         </div>
@@ -73,7 +73,7 @@ export default function WishList() {
       </div>
       <div className='h-[530px] overflow-scroll overscroll-none rounded-sm shadow'>
         {favouriteList?.map((item) => (
-          <div key={item.id} className='px-4 hover:bg-[#efefef] dark:hover:bg-[#171717]'>
+          <div key={item.id} className='px-4 hover:bg-[#efefef] dark:hover:bg-[#101010]'>
             <div className='grid grid-cols-12 items-center py-4 text-center text-textDark first:mt-0  dark:text-textLight '>
               <div className='col-span-4'>
                 <div className='flex'>
@@ -88,7 +88,7 @@ export default function WishList() {
                         }
                       />
                     </div>
-                    <div className='ml-4 flex-grow px-2 text-left'>
+                    <div className='flex-grow px-4 text-left'>
                       <div className='truncate text-base lg:text-lg'>{item.name}</div>
                     </div>
                   </button>

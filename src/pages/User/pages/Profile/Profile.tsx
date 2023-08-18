@@ -1,14 +1,17 @@
-import { faPen, faUserPen } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faPen, faUserPen, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import classNames from 'classnames'
 import { useContext, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
+import { ThemeContext } from 'src/App'
 import userApi from 'src/apis/user.api'
+import DialogPopup from 'src/components/DialogPopup'
 import Input from 'src/components/Input'
 import InputNumber from 'src/components/InputNumber'
 import { AppContext } from 'src/contexts/app.context'
+import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { setProfileToLS } from 'src/utils/auth'
 import { UserSchema, userSchema } from 'src/utils/rules'
 
@@ -18,9 +21,11 @@ const profileSchema = userSchema.pick(['name', 'phone'])
 
 export default function Profile() {
   const { setProfile } = useContext(AppContext)
+  const { theme } = useContext(ThemeContext)
 
   const [editingMode, setEditingMode] = useState<boolean>(false)
   const [hoveringAvatar, setHoveringAvatar] = useState<boolean>(false)
+  const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
 
   const {
     register,
@@ -61,11 +66,11 @@ export default function Profile() {
 
   const updateProfileMutation = useMutation(userApi.updateProfile)
   const onSubmit = handleSubmit(async (data) => {
-    const res = await updateProfileMutation.mutateAsync({ ...data })
+    await updateProfileMutation.mutateAsync({ ...data })
     // setProfile(res.data.data)
     refetch()
-    toast.success(res.data.data)
     setEditingMode(false)
+    showSuccessDialog(setSuccessDialogOpen)
   })
 
   if (!profile) return null
@@ -96,7 +101,7 @@ export default function Profile() {
             </div>
           )}
           {!editingMode && (
-            <div className='h-32 w-32 rounded-full border-[5px] border-[#efefef] dark:border-[#101010]'>
+            <div className='h-32 w-32 rounded-full border-[5px] border-lightBg dark:border-darkBg'>
               <img
                 src={
                   profile.avatar
@@ -128,7 +133,7 @@ export default function Profile() {
       </div>
 
       {!editingMode && (
-        <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#303030] '>
+        <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#202020] '>
           <div className=''>
             <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
             <div>
@@ -159,7 +164,7 @@ export default function Profile() {
 
       {editingMode && (
         <form
-          className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4  text-textDark dark:bg-[#303030] dark:text-textLight'
+          className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4  text-textDark dark:bg-[#202020] dark:text-textLight'
           onSubmit={onSubmit}
         >
           <div className=''>
@@ -223,6 +228,38 @@ export default function Profile() {
           </div>
         </form>
       )}
+
+      <DialogPopup
+        isOpen={successDialogOpen}
+        handleClose={() => {
+          setSuccessDialogOpen(false)
+        }}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className=' text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
+          />
+        </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Your profile was updated</p>
+        <button
+          type='button'
+          className={classNames(
+            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+            {
+              'text-textDark/50': theme === 'light',
+              'text-textLight/50': theme === 'dark'
+            }
+          )}
+        >
+          <FontAwesomeIcon icon={faXmark} fontSize={20} />
+        </button>
+      </DialogPopup>
     </div>
   )
 }

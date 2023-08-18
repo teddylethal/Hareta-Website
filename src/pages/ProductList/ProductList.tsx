@@ -11,20 +11,11 @@ import { ProductListConfig } from 'src/types/product.type'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { ceil } from 'lodash'
 import PriceRange from './AsideFilter/PriceRange'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import { useContext, useState } from 'react'
-import { AppContext } from 'src/contexts/app.context'
 import likeItemAPi from 'src/apis/userLikeItem.api'
-import path from 'src/constants/path'
-import { Link } from 'react-router-dom'
 
 export default function ProductList() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
-
-  const { isAuthenticated } = useContext(AppContext)
-  const [isFavouriteList, setIsFavouriteList] = useState<boolean>(false)
 
   const queryConfig = useQueryConfig()
 
@@ -47,38 +38,24 @@ export default function ProductList() {
   const favouriteList = favouriteListData?.data.data
   const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []
 
-  const toggleFavouriteList = () => {
-    setIsFavouriteList(!isFavouriteList)
-  }
-
   return (
     <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
       <div className='container'>
         {!isMobile && (
           <div className='grid grid-cols-12 gap-6'>
-            <div className=' col-span-3 mb-auto overflow-hidden rounded-sm bg-[#e0e0e0] duration-500 dark:bg-[#202020]'>
+            <div className='relative col-span-3 mb-auto flex flex-col space-y-4 overflow-hidden duration-500'>
               <AsideSorter />
               <PriceRange queryConfig={queryConfig} />
               <AsideFilter queryConfig={queryConfig} />
             </div>
             <div className='col-span-9'>
-              <div className='mb-2 flex items-center space-x-4'>
+              <div className='items-center'>
                 <div className='flex grow items-center'>
                   <SearchBar />
                 </div>
-                {isAuthenticated && (
-                  <Link
-                    to={path.wishList}
-                    className='group flex shrink-0 items-center space-x-2 rounded-md border  border-vintageColor/60 px-4 py-2 text-textDark hover:border-vintageColor hover:bg-white/80 hover:text-vintageColor dark:border-haretaColor/60 dark:text-textLight dark:hover:border-haretaColor dark:hover:bg-black/80 dark:hover:text-haretaColor'
-                    onClick={toggleFavouriteList}
-                  >
-                    <FontAwesomeIcon icon={faHeart} className='group-hover:text-red-600' />
-                    <span className='text-sm '>Favourite list</span>
-                  </Link>
-                )}
               </div>
               {storeData && (
-                <div>
+                <div className='mt-4'>
                   <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
                     {storeData.data.data.map((product) => (
                       <div className='col-span-1' key={product.id}>
