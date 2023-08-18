@@ -16,14 +16,14 @@ export default function AsideSorter() {
   }
 
   return (
-    <div className='m-4 overflow-hidden rounded-sm bg-[#f0f0f0] py-2 text-base text-textDark duration-500 dark:bg-[#303030] dark:text-textLight lg:text-lg'>
+    <div className='ml-4 overflow-hidden rounded-md bg-[#ddd] py-2 text-base text-textDark duration-500 dark:bg-[#303030] dark:text-textLight lg:text-lg'>
       <ul className=''>
         <li>
           <button
             onClick={handleChange}
             className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-              sorting === 'Newest' ? 'text-haretaColor' : ''
+              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
+              { 'text-brownColor dark:text-haretaColor': sorting === 'Newest' }
             )}
           >
             Newest
@@ -32,8 +32,8 @@ export default function AsideSorter() {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-              sorting === 'Top seller' ? 'text-haretaColor' : ''
+              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
+              { 'text-brownColor dark:text-haretaColor': sorting === 'Top seller' }
             )}
             onClick={handleChange}
           >
@@ -43,8 +43,8 @@ export default function AsideSorter() {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-              sorting === 'Signature' ? 'text-haretaColor' : ''
+              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
+              { 'text-brownColor dark:text-haretaColor': sorting === 'Signature' }
             )}
             onClick={handleChange}
           >
@@ -54,8 +54,8 @@ export default function AsideSorter() {
         <li>
           <button
             className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-haretaColor dark:hover:text-haretaColor ',
-              sorting === 'Favourite' ? 'text-haretaColor' : ''
+              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
+              { 'text-brownColor dark:text-haretaColor': sorting === 'Favourite' }
             )}
             onClick={handleChange}
           >

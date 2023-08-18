@@ -64,7 +64,7 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
 
   if (!productsInCollection) return null
   return (
-    <div className='mt-8 bg-[#f8f8f8] p-4 text-textDark shadow dark:bg-[#202020] dark:text-textLight'>
+    <div className='mt-8 rounded-lg border border-black/20 bg-[#efefef] p-4 text-textDark dark:border-white/20 dark:bg-[#222] dark:text-textLight'>
       <button onClick={handleClick} className='text-lg capitalize hover:text-haretaColor lg:text-2xl'>
         {collectionName}
       </button>

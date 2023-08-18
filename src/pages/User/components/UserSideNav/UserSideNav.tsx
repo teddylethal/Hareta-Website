@@ -5,7 +5,7 @@ import path from 'src/constants/path'
 
 export default function UserSideNav() {
   return (
-    <div className='rounded-md border border-black/10 bg-[#efefef] text-textDark/70 dark:border-white/20 dark:bg-[#101010] dark:text-textLight/70'>
+    <div className='rounded-md border border-black/10 bg-[#efefef] text-textDark/70 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
       <div className=''>
         <Link
           to={path.profile}

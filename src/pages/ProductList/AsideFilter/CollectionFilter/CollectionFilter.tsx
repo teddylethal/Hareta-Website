@@ -10,6 +10,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { omit } from 'lodash'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import classNames from 'classnames'
 
 interface Props {
   queryConfig: QueryConfig
@@ -85,9 +86,16 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
   // })
 
   return (
-    <div className='my-2 overflow-hidden bg-[#ddd] p-2 duration-500 dark:bg-[#202020]' ref={ref}>
+    <div className='overflow-hidden rounded-md bg-[#f8f8f8] p-2 duration-500 dark:bg-[#202020]' ref={ref}>
       <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>
-        <div className='flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400 dark:hover:text-haretaColor'>
+        <div
+          className={classNames(
+            'flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor',
+            {
+              'mb-2': isOpening || collection
+            }
+          )}
+        >
           Collection
           {(!visible || !isOpening) && (
             <svg
@@ -118,26 +126,40 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
             </svg>
           )}
         </div>
-        <div className='flex w-full select-none justify-start  truncate rounded-sm bg-[#f6f6f6] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg'>
-          {collection ? collection : 'All'}
-        </div>
+        {collection && (
+          <div
+            className={classNames(
+              'flex min-h-[36px] w-full select-none justify-start truncate rounded-t-md bg-[#ccc] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg',
+              {
+                'rounded-b-md': !isOpening || !visible
+              }
+            )}
+          >
+            {collection}
+          </div>
+        )}
       </button>
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className='max-h-32 overflow-auto overscroll-contain px-2 text-sm text-textDark dark:text-textLight sm:text-base lg:text-lg '
+            className={classNames(
+              'max-h-32 overflow-auto overscroll-contain rounded-b-md text-sm text-textDark dark:text-textLight sm:text-base lg:text-lg',
+              {
+                'rounded-t-md': !collection
+              }
+            )}
             initial={{ opacity: 0, y: '-40%' }}
             animate={{
               opacity: 1,
               y: 0,
-              backgroundColor: theme === 'dark' ? '#363636' : '#E8E8E8'
+              backgroundColor: theme === 'dark' ? '#363636' : '#ddd'
             }}
             exit={{ opacity: 0, y: '-40%' }}
             transition={{ duration: 0.2 }}
           >
             <div className='flex flex-col'>
               <button
-                className='flex items-center justify-start py-1 capitalize hover:text-haretaColor'
+                className='flex items-center justify-start px-2 py-1 capitalize hover:text-haretaColor'
                 onClick={handleChange}
               >
                 all
@@ -145,7 +167,9 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
               {data &&
                 data.data.data.map((name, index) => (
                   <button
-                    className='flex items-center justify-start py-1 capitalize hover:text-haretaColor'
+                    className={classNames(
+                      'flex items-center justify-start px-2 py-1 capitalize hover:text-brownColor dark:hover:text-haretaColor'
+                    )}
                     key={index}
                     onClick={handleChange}
                   >

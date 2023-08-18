@@ -24,7 +24,7 @@ export default function AsideFilter({ queryConfig }: Props) {
   }
 
   return (
-    <div className='m-4 rounded-sm bg-[#f0f0f0] px-2 py-2 duration-500 dark:bg-[#303030]'>
+    <div className='ml-4 flex flex-col space-y-2 rounded-md bg-[#ddd] px-2 py-2 duration-500 dark:bg-[#303030]'>
       <CategoryFilter queryConfig={queryConfig} />
       <CollectionFilter queryConfig={queryConfig} />
       <TypeFilter queryConfig={queryConfig} />
@@ -32,10 +32,11 @@ export default function AsideFilter({ queryConfig }: Props) {
         onClick={handleClear}
         disabled={isFiltering ? false : true}
         className={classNames(
-          'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#ddd] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 disabled:cursor-not-allowed dark:bg-[#202020] dark:text-textLight ',
+          'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#fff] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 disabled:cursor-not-allowed dark:bg-[#202020] dark:text-textLight ',
           { 'text-opacity-40 dark:text-opacity-40': !isFiltering },
           {
-            'hover:text-vintageColor hover:outline-vintageColor dark:hover:text-haretaColor': isFiltering
+            'hover:text-brownColor hover:outline-brownColor dark:hover:bg-haretaColor dark:hover:text-haretaColor':
+              isFiltering
           }
         )}
       >

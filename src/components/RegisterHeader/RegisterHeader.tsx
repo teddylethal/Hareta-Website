@@ -8,7 +8,7 @@ export default function RegisterHeader() {
       <div className='container'>
         <nav className='flex items-center'>
           <Link to='/'>
-            <img src='src/assets/sun.png' alt='Hareta' className='h-6 sm:h-8 lg:h-12' />
+            <img src='/images/sun.png' alt='Hareta' className='h-6 sm:h-8 lg:h-12' />
           </Link>
           <p className='ml-4 items-center text-base uppercase text-gray-600 dark:text-white sm:ml-6 sm:text-lg md:visible lg:ml-8 lg:text-2xl'>
             {isRegister ? 'register' : 'login'}
