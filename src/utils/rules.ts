@@ -111,15 +111,26 @@ export const priceSchema = yup.object({
 export const userSchema = yup.object({
   name: yup.string().default('').max(160, 'Maximum name lenght is 160 character'),
   phone: yup.string().default('').max(20, 'Maximum phone number length is 20 characters'),
-  password: registerSchema.fields['password'],
-  new_password: registerSchema.fields['password'],
+  avatar: yup.string().default('').max(1000, 'Maximum lenght is 1000 characters')
+})
+
+export const changePasswordSchema = yup.object({
+  old_password: yup
+    .string()
+    .default('')
+    .min(8, 'Password must be 8-16 characters')
+    .max(16, 'Password must be 8-16 characters'),
+  new_password: yup
+    .string()
+    .default('')
+    .min(8, 'Password must be 8-16 characters')
+    .max(16, 'Password must be 8-16 characters'),
   confirm_new_password: yup
     .string()
-    .required('Confirm Password is required')
+    .default('')
     .min(8, 'Password must be 8-16 characters')
     .max(16, 'Password must be 8-16 characters')
-    .oneOf([yup.ref('new_password')], 'Passwords do not match'),
-  avatar: yup.string().default('').max(1000, 'Maximum lenght is 1000 characters')
+    .oneOf([yup.ref('new_password')], 'Passwords do not match')
 })
 
 export type RegisterSchema = yup.InferType<typeof registerSchema>
@@ -131,3 +142,5 @@ export type ProductSchema = yup.InferType<typeof productSchema>
 export type PriceSchema = yup.InferType<typeof priceSchema>
 
 export type UserSchema = yup.InferType<typeof userSchema>
+
+export type ChangePasswordSchema = yup.InferType<typeof changePasswordSchema>

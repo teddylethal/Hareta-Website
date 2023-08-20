@@ -110,11 +110,11 @@ export default function CartPopoverWithoutLogin() {
             </div>
             {/* <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' /> */}
 
-            <div className='mx-3 mt-2 flex items-center justify-between'>
+            <div className='mx-3 mb-2 mt-4 flex items-center justify-between'>
               <Link to={path.store}>
                 <Button className='justify-self-start px-4 py-1 text-sm'>Store</Button>
               </Link>
-              <Link to={path.cart}>
+              <Link to={path.temporaryCart}>
                 <Button className='justify-self-start px-4 py-1 text-sm'>Enter Cart</Button>
               </Link>
             </div>

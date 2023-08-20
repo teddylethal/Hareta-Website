@@ -116,7 +116,7 @@ export default function Cart() {
           </div>
 
           <div className='mx-2 mt-2 rounded-md bg-white dark:bg-black xl:mx-4'>
-            <div className='min-w-[1000px]'>
+            <div className=''>
               <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-textDark  dark:text-textLight lg:text-lg'>
                 <div className='col-span-6'>
                   {/* <div className='flex flex-shrink-0 items-center justify-start pr-3'>
@@ -216,7 +216,7 @@ export default function Cart() {
                 ))}
               </div>
             </div>
-            <div className='sticky bottom-0 z-[5] mx-8 grid grid-cols-12 items-center justify-between rounded-sm py-4 shadow '>
+            <div className='mx-8 grid grid-cols-12 items-center justify-between rounded-sm py-4 shadow '>
               <div className='col-span-6 grid grid-cols-3'>
                 <div className=' col-span-1 flex flex-shrink-0 items-center'>
                   <input
