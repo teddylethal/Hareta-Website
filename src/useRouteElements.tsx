@@ -17,9 +17,8 @@ import UserLayout from './pages/User/layouts/UserLayout'
 import Inventory from './pages/User/pages/Inventory'
 import ChangePassword from './pages/User/pages/ChangePassword'
 import VerifyEmail from './pages/VerifyEmail'
-import { AnimatePresence } from 'framer-motion'
-import AnimateTransition from './layouts/RegisterLayout/components/AnimateTransition'
 import RequestVerifyEmail from './pages/RequestVerifyEmail'
+import CartWithoutLogin from './pages/CartWithoutLogin'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -139,6 +138,14 @@ export default function useRouteElements() {
         // <MainLayout>
         <VerifyEmail />
         // </MainLayout>
+      )
+    },
+    {
+      path: path.temporaryCart,
+      element: (
+        <MainLayout>
+          <CartWithoutLogin />
+        </MainLayout>
       )
     }
   ])

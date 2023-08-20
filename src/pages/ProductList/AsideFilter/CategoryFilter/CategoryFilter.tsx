@@ -125,7 +125,7 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
         {category && (
           <div
             className={classNames(
-              'flex min-h-[36px] w-full select-none justify-start truncate rounded-t-md bg-[#ccc] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg',
+              'flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md bg-[#ccc] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:bg-[#444444] dark:text-textLight sm:text-base lg:text-lg',
               {
                 'rounded-b-md': !isOpening || !visible
               }

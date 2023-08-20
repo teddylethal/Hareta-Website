@@ -51,7 +51,7 @@ export default function Login() {
           setProfileToLS(response.data.data)
           setProfile(response.data.data)
         })
-        navigate(path.home)
+        navigate(-1)
       },
       onError: (error) => {
         console.log(error)

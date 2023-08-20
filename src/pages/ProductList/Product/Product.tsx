@@ -1,7 +1,7 @@
-import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { memo, useContext, useState } from 'react'
-import { createSearchParams, useNavigate } from 'react-router-dom'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { omit } from 'lodash'
@@ -14,6 +14,9 @@ import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
 import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
+import { CartContext } from 'src/contexts/cart.context'
+import { TemporaryPurchase } from 'src/types/cart.type'
 
 export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
   setIsOpen(true)
@@ -30,8 +33,11 @@ interface Props {
 
 function Product({ product, queryConfig, likedByUser = false }: Props) {
   const { theme } = useContext(ThemeContext)
+  const { isAuthenticated } = useContext(AppContext)
+  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [createTempCart, setCreateTempCart] = useState<boolean>(false)
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -55,7 +61,6 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
 
   const handleClickItem = () => {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   const handleCollectionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -121,10 +126,41 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
     !likedByUser && likeItem()
   }
 
-  // console.log(product.avatar.url)
+  const createTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: 1,
+      item: product
+    }
+    setPurchasesInLS([...purchasesInLS, newPurchase])
+    setCreateTempCart(false)
+    showSuccessDialog(setDialogIsOpen)
+  }
+
+  const addToTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: 1,
+      item: product
+    }
+    const purchaseIndex = purchasesInLS.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    if (purchaseIndex !== -1) {
+      const newQuantity = purchasesInLS[purchaseIndex].quantity + 1
+      const newPurchasesList = purchasesInLS.map((purchase, index) => {
+        if (index === purchaseIndex) {
+          return { ...purchase, quantity: newQuantity }
+        } else return purchase
+      })
+      setPurchasesInLS(newPurchasesList)
+    } else {
+      setPurchasesInLS([...purchasesInLS, newPurchase])
+    }
+    showSuccessDialog(setDialogIsOpen)
+  }
+
   return (
-    <div className='flex w-full items-center justify-center'>
-      <div className='relative m-2 w-full rounded-md bg-[#ddd] px-2 pb-4 pt-2 duration-500 hover:m-0 hover:bg-[#cfcfcf] dark:bg-[#303030] dark:hover:bg-[#383838]'>
+    <div className='flex w-full items-center justify-center p-2 duration-500 hover:p-0'>
+      <div className='relative w-full rounded-md bg-[#ddd] pb-4 duration-500 hover:bg-[#cfcfcf] dark:bg-[#303030] dark:hover:bg-[#383838]'>
         <div className='relative w-full pt-[60%]'>
           <button onClick={handleClickItem}>
             <img
@@ -138,10 +174,10 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
             />
           </button>
         </div>
-        <div className='mx-1 mt-4 flex justify-between space-x-1'>
-          <div className='flex flex-col justify-between space-y-1'>
+        <div className='mx-3 mt-4 flex justify-between space-x-1 overflow-hidden'>
+          <div className='flex flex-col justify-between space-y-1 overflow-hidden'>
             <button
-              className='truncate text-left text-lg text-textDark duration-500 dark:text-textLight'
+              className='h-full  overflow-hidden truncate text-left text-lg text-textDark duration-500 dark:text-textLight'
               onClick={handleClickItem}
             >
               {product.name}
@@ -163,11 +199,33 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
             <span className='text-haretaColor'>${formatCurrency(product.price)}</span>
           </div>
 
-          <div className='mx-1 flex flex-col items-center justify-between'>
-            <button onClick={toggleLikeItem} className='text-black'>
-              <FontAwesomeIcon icon={faHeart} fontSize={24} className={likedByUser ? 'text-red-500' : ''} />
-            </button>
-            <button className='' onClick={addToCart}>
+          <div
+            className={classNames('mx-1 flex flex-col items-center ', {
+              'justify-between': isAuthenticated,
+              'justify-end': !isAuthenticated
+            })}
+          >
+            {isAuthenticated && (
+              <button onClick={toggleLikeItem} className='text-black'>
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  fontSize={24}
+                  className={classNames('mt-1', { 'text-red-500': likedByUser })}
+                />
+              </button>
+            )}
+            <button
+              className=''
+              onClick={
+                isAuthenticated
+                  ? addToCart
+                  : purchasesInLS.length === 0
+                  ? () => {
+                      setCreateTempCart(true)
+                    }
+                  : addToTemporaryCart
+              }
+            >
               <FontAwesomeIcon
                 icon={faCartPlus}
                 fontSize={24}
@@ -184,36 +242,66 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
             <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
           </div>
         )}
-        <DialogPopup
-          isOpen={dialogIsOpen}
-          handleClose={() => setDialogIsOpen(false)}
-          classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      </div>
+      <DialogPopup
+        isOpen={dialogIsOpen}
+        handleClose={() => setDialogIsOpen(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className=' text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
+          />
+        </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
+      </DialogPopup>
+
+      <DialogPopup
+        isOpen={createTempCart}
+        handleClose={() => setCreateTempCart(false)}
+        classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        {/* <button
+          type='button'
+          className={classNames(
+            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+            {
+              'text-textDark/50': theme === 'light',
+              'text-textLight/50': theme === 'dark'
+            }
+          )}
+          onClick={() => setCreateTempCart(false)}
         >
-          <div className=' text-center'>
-            <FontAwesomeIcon
-              icon={faCheck}
-              fontSize={36}
-              className={classNames('text- rounded-full  p-4 text-center text-success ', {
-                'bg-black/20': theme === 'light',
-                'bg-white/20': theme === 'dark'
-              })}
-            />
-          </div>
-          <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
+          <FontAwesomeIcon icon={faXmark} fontSize={20} />
+        </button> */}
+        <p className='mt-6 text-center text-xl font-medium uppercase leading-6 text-red-500'>You are not logged in!</p>
+        <div className='mt-4 text-left'>
+          <p className='text-left'>You are trying to add an item into cart without logged in.</p>
+          <p>A temporary cart will be created but the data can be lost.</p>
+        </div>
+        <p className='mt-2'>Are you sure to continue?</p>
+        <div className='mt-8 flex justify-between'>
           <button
             type='button'
-            className={classNames(
-              'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
-              {
-                'text-textDark/50': theme === 'light',
-                'text-textLight/50': theme === 'dark'
-              }
-            )}
+            className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+            onClick={createTemporaryCart}
           >
-            <FontAwesomeIcon icon={faXmark} fontSize={20} />
+            Add item to cart
           </button>
-        </DialogPopup>
-      </div>
+          <Link
+            to={path.login}
+            type='button'
+            className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+          >
+            Login
+          </Link>
+        </div>
+      </DialogPopup>
     </div>
   )
 }

@@ -12,8 +12,11 @@ import useQueryConfig from 'src/hooks/useQueryConfig'
 import { ceil } from 'lodash'
 import PriceRange from './AsideFilter/PriceRange'
 import likeItemAPi from 'src/apis/userLikeItem.api'
+import { useContext } from 'react'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function ProductList() {
+  const { isAuthenticated } = useContext(AppContext)
   // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
 
   const viewPort = useViewport()
@@ -35,7 +38,8 @@ export default function ProductList() {
     queryFn: () => {
       return likeItemAPi.getFavouriteList()
     },
-    staleTime: 3 * 60 * 1000
+    staleTime: 3 * 60 * 1000,
+    enabled: isAuthenticated
   })
   const favouriteList = favouriteListData?.data.data
   const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []

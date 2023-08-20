@@ -12,6 +12,12 @@ export interface Purchase {
   item: Product
 }
 
+export interface TemporaryPurchase {
+  id: string
+  quantity: number
+  item: Product
+}
+
 export interface PurchaseList {
   data: Purchase[]
   paging: {

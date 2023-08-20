@@ -10,9 +10,17 @@ interface Props {
   handleClose: () => void
   unlikeItemId: string
   setUnlikeItemId: React.Dispatch<React.SetStateAction<string>>
+  children?: React.ReactNode
+  classNameWrapper?: string
 }
 
-export default function UnlikeItemDialog({ isOpen, handleClose, unlikeItemId, setUnlikeItemId }: Props) {
+export default function UnlikeItemDialog({
+  isOpen,
+  handleClose,
+  unlikeItemId,
+  setUnlikeItemId,
+  classNameWrapper
+}: Props) {
   const { theme } = useContext(ThemeContext)
   const queryClient = useQueryClient()
   const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
@@ -40,7 +48,7 @@ export default function UnlikeItemDialog({ isOpen, handleClose, unlikeItemId, se
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-black bg-opacity-25' />
+          <div className='fixed inset-0 bg-black bg-opacity-[0.025]' />
         </Transition.Child>
 
         <div className='fixed inset-0 overflow-y-auto'>
@@ -55,23 +63,12 @@ export default function UnlikeItemDialog({ isOpen, handleClose, unlikeItemId, se
               leaveTo='opacity-0 scale-95'
             >
               <Dialog.Panel
-                className={classNames(
-                  'w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all dark:bg-black',
-                  {
-                    'bg-black': theme === 'dark',
-                    'bg-white': theme === 'light'
-                  }
-                )}
+                className={classNames(classNameWrapper, {
+                  'bg-white/70 text-textDark': theme === 'light',
+                  'bg-black/80 text-textLight': theme === 'dark'
+                })}
               >
-                <Dialog.Title
-                  as='h3'
-                  className={classNames('text-xl font-medium leading-6 text-gray-900', {
-                    'text-textLight': theme === 'dark',
-                    'text-textDark': theme === 'light'
-                  })}
-                >
-                  Remove this item from your favourite list?
-                </Dialog.Title>
+                <p className='text-lg font-semibold'>Remove this item from your wishlist?</p>
 
                 <div className='mt-8 flex justify-between'>
                   <button
