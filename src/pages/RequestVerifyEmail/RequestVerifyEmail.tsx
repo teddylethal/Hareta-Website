@@ -12,18 +12,21 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
 import { getAccessTokenFromLS, setProfileToLS } from 'src/utils/auth'
-import { LoginSchema, loginSchema } from 'src/utils/rules'
+import { RequestVerifySchema, requestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
 import { checkEmailVerified, setEmailVerified, unSetEmailVerified } from 'src/utils/store'
 import SuccessEmailVerify from 'src/components/VerifyEmailDialog/SuccessEmailVerify'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import FailEmailVerify from 'src/components/VerifyEmailDialog/FailEmailVerify'
+import verifyEmail from 'src/apis/verifyEmail.api'
 
-type FormData = LoginSchema
+type FormData = RequestVerifySchema
 
-export default function Login() {
+export default function RequestVerifyEmail() {
   const { theme } = useContext(ThemeContext)
-  const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {
     register,
@@ -31,44 +34,26 @@ export default function Login() {
     setError,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(loginSchema)
+    resolver: yupResolver(requestVerifySchema)
   })
 
-  const loginAccountMutation = useMutation({
-    mutationFn: (body: FormData) => authApi.loginAccount(body)
+  const requestVerifyMutation = useMutation({
+    mutationFn: (body: FormData) => verifyEmail.requestVerify(body)
   })
 
   const onSubmit = handleSubmit((data) => {
-    loginAccountMutation.mutate(data, {
-      onSuccess: () => {
-        setIsAuthenticated(true)
-        const token = getAccessTokenFromLS()
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-        axios.get('https://api.hareta.me/auth/', { headers }).then((response) => {
-          setProfileToLS(response.data.data)
-          setProfile(response.data.data)
-        })
-        navigate(-1)
-      },
+    requestVerifyMutation.mutate(data, {
+      onSuccess: () => {},
       onError: (error) => {
         console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
-          if (formError) {
-            const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
-            if (errorRespone) {
-              setError('email', {
-                message: errorRespone.error_message,
-                type: 'Server'
-              })
-              setError('password', {
-                message: ' ',
-                type: 'Server'
-              })
-            }
+          const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
+          if (errorRespone) {
+            setError('email', {
+              message: errorRespone.error_message,
+              type: 'Server'
+            })
           }
         }
       }
@@ -83,7 +68,6 @@ export default function Login() {
     }
   }, [])
 
-  console.log(dialog)
   return (
     <AnimateTransition>
       <div className='container'>
@@ -94,7 +78,18 @@ export default function Login() {
               onSubmit={onSubmit}
               noValidate
             >
-              <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Login</div>
+              <div>
+                <Link to={path.login} className='absolute'>
+                  <FontAwesomeIcon
+                    icon={faArrowLeft}
+                    fontSize={40}
+                    className='pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor'
+                  />
+                </Link>
+                <div className='py-1 text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
+                  Email Verification
+                </div>
+              </div>
 
               <AccountInput
                 name='email'
@@ -113,54 +108,29 @@ export default function Login() {
                 }
               />
 
-              <AccountInput
-                name='password'
-                register={register}
-                type='password'
-                className='mt-3'
-                errorMessage={errors.password?.message}
-                labelName='Password'
-                required
-                isPasswordInput
-                svgData={
-                  <path
-                    fillRule='evenodd'
-                    d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
-                    clipRule='evenodd'
-                  />
-                }
-              />
-
               <div className='mt-2 text-base lg:text-lg'>
                 <Button
                   className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
                   type='submit'
-                  isLoading={loginAccountMutation.isLoading}
-                  disabled={loginAccountMutation.isLoading}
+                  // isLoading={loginAccountMutation.isLoading}
+                  // disabled={loginAccountMutation.isLoading}
                 >
-                  Login
+                  Verify Email Address
                 </Button>
               </div>
 
-              <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
+              {/* <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
                 <span className='text-gray-400'>Don&apos;t have an account?</span>
                 <Link className='ml-2 text-haretaColor' to={path.register}>
                   Sign up
                 </Link>
-              </div>
-              <div className='mt-2 flex justify-center text-center md:text-base'>
-                <Link to={path.requestVerify}>
-                  <p className='text-sm text-blue-700 underline underline-offset-1 dark:text-blue-400'>
-                    Verify your email
-                  </p>
-                </Link>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>
       </div>
 
-      <SuccessEmailVerify
+      <FailEmailVerify
         dialog={dialog}
         closeDialog={() => {
           setDialog(false)

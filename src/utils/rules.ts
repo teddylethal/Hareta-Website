@@ -83,6 +83,15 @@ export const loginSchema = yup.object({
   password: yup.string().required('Password is required')
 })
 
+export const requestVerifySchema = yup.object({
+  email: yup
+    .string()
+    .required('Email is required')
+    .email('Incorrect email format')
+    .min(5, 'Email address must have at least 5 characters')
+    .max(160, 'Email address can only have a total length of 160 characters')
+})
+
 export const productSchema = yup.object({
   name: yup.string().trim().required()
 })
@@ -136,6 +145,8 @@ export const changePasswordSchema = yup.object({
 export type RegisterSchema = yup.InferType<typeof registerSchema>
 
 export type LoginSchema = yup.InferType<typeof loginSchema>
+
+export type RequestVerifySchema = yup.InferType<typeof requestVerifySchema>
 
 export type ProductSchema = yup.InferType<typeof productSchema>
 
