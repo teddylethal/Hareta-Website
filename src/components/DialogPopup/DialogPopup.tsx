@@ -2,7 +2,7 @@ import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dialog, Transition } from '@headlessui/react'
 import classNames from 'classnames'
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useRef } from 'react'
 import { ThemeContext } from 'src/App'
 
 interface Props {
@@ -41,9 +41,11 @@ export default function DialogPopup({
 }: Props) {
   const { theme } = useContext(ThemeContext)
 
+  const completeButtonRef = useRef(null)
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as='div' className='relative z-10' onClose={handleClose}>
+      <Dialog as='div' className='relative z-10' onClose={handleClose} initialFocus={completeButtonRef}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -74,6 +76,20 @@ export default function DialogPopup({
                 })}
               >
                 {children}
+                <button
+                  type='button'
+                  className={classNames(
+                    'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+                    {
+                      'text-textDark/50': theme === 'light',
+                      'text-textLight/50': theme === 'dark'
+                    }
+                  )}
+                  onClick={handleClose}
+                  ref={completeButtonRef}
+                >
+                  <FontAwesomeIcon icon={faXmark} fontSize={20} />
+                </button>
               </Dialog.Panel>
             </Transition.Child>
           </div>

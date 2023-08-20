@@ -4,54 +4,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
-import purchaseApi from 'src/apis/cart.api'
-import { useMutation, useQuery } from '@tanstack/react-query'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
-import { keyBy } from 'lodash'
-import { AppContext } from 'src/contexts/app.context'
 
-export default function CartNav() {
-  const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
-  const { isAuthenticated } = useContext(AppContext)
-  const { data: cartData, refetch } = useQuery({
-    queryKey: ['purchases'],
-    queryFn: () => purchaseApi.getPurchases(),
-    enabled: isAuthenticated
-  })
+export default function CartPopoverWithoutLogin() {
+  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
 
   const navigate = useNavigate()
-  const purchasesInCart = cartData?.data.data
-
-  const removePurchasesMutation = useMutation({
-    mutationFn: purchaseApi.removePurchases,
-    onSuccess: () => {
-      refetch()
-    }
-  })
-
-  useEffect(() => {
-    setExtendedPurchases((prev) => {
-      const extendedPurchasesObject = keyBy(prev, 'id')
-      return (
-        purchasesInCart?.map((purchase) => ({
-          ...purchase,
-          disabled: false,
-          checked: Boolean(extendedPurchasesObject[purchase.id]?.checked),
-          previousQuantity: purchase.quantity
-        })) || []
-      )
-    })
-  }, [purchasesInCart, setExtendedPurchases])
 
   const handleBuyItem = () => {
     navigate('profile')
   }
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = extendedPurchases[purchaseIndex].id
-    removePurchasesMutation.mutate({ id: purchaseId })
+    const purchaseId = purchasesInLS[purchaseIndex].id
+    const newPurchaseList = purchasesInLS.filter((purchase) => purchase.id !== purchaseId)
+    setPurchasesInLS(newPurchaseList)
   }
 
   return (
@@ -62,13 +31,13 @@ export default function CartNav() {
           <div className='relative -top-1 w-[360px] rounded-md border-gray-200 bg-[#efefef] py-2 text-sm text-textDark shadow-md dark:bg-[#202020] dark:text-textLight lg:top-0'>
             <div className=''>
               <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
-                {cartData?.data.paging.total} items in cart
+                {purchasesInLS.length} items in cart
               </div>
               <div className='m-2 overflow-auto rounded-md bg-[#f8f8f8] dark:bg-[#101010]'>
-                {extendedPurchases.length > 0 ? (
+                {purchasesInLS.length > 0 ? (
                   <div>
                     <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
-                      {extendedPurchases.map((purchase, index) => (
+                      {purchasesInLS.map((purchase, index) => (
                         <div
                           className='flex items-center  p-3 hover:bg-[#e8e8e8] dark:hover:bg-black'
                           key={purchase.id}

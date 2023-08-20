@@ -5,13 +5,14 @@ import ToggleTheme from '../ToggleTheme'
 import { createContext, useContext } from 'react'
 import { useViewport } from 'src/hooks/useViewport'
 import SupportNav from './Desktop/SupportNav'
-import CartNav from './Desktop/CartNav'
 import MobileCart from './Mobile/MobileCart'
 import MobileNav from './Mobile/MobileNav/MobileNav'
 import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import UserNav from './Desktop/ProfileNav/UserNav'
 import path from 'src/constants/path'
+import CartPopoverWithLogin from './Desktop/CartPopover/CartPopoverWithLogin'
+import CartPopoverWithoutLogin from './Desktop/CartPopover/CartPopoverWithoutLogin/CartPopoverWithoutLogin'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -87,7 +88,7 @@ export default function Header() {
               </div>
             )}
 
-            <CartNav />
+            {isAuthenticated ? <CartPopoverWithLogin /> : <CartPopoverWithoutLogin />}
 
             <div className='flex items-center justify-center px-1'>
               <ToggleTheme className='h-6 w-6 lg:h-8 lg:w-8' />

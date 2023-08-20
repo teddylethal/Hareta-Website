@@ -1,4 +1,4 @@
-import { faCartPlus, faCheck, faChevronLeft, faChevronRight, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faChevronLeft, faChevronRight, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
@@ -20,6 +20,7 @@ import itemTag from 'src/constants/itemTag'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -27,6 +28,7 @@ interface ProductImageWithIndex extends ProductImage {
 
 export default function ProductDetail() {
   const { theme } = useContext(ThemeContext)
+  const { isAuthenticated } = useContext(AppContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -63,7 +65,8 @@ export default function ProductDetail() {
     queryFn: () => {
       return likeItemAPi.getFavouriteList()
     },
-    staleTime: 3 * 60 * 1000
+    staleTime: 3 * 60 * 1000,
+    enabled: isAuthenticated
   })
   const favouriteList = favouriteListData?.data.data
   const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []
@@ -458,18 +461,6 @@ export default function ProductDetail() {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
-        <button
-          type='button'
-          className={classNames(
-            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
-            {
-              'text-textDark/50': theme === 'light',
-              'text-textLight/50': theme === 'dark'
-            }
-          )}
-        >
-          <FontAwesomeIcon icon={faXmark} fontSize={20} />
-        </button>
       </DialogPopup>
     </div>
   )

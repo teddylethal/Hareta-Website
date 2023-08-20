@@ -1,7 +1,7 @@
 import { faCartPlus, faCheck, faHeartCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
@@ -11,8 +11,12 @@ import DialogPopup from 'src/components/DialogPopup'
 import purchaseApi from 'src/apis/cart.api'
 import UnlikeItemDialog from './UnlikeItemDialog'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import { ThemeContext } from 'src/App'
+import classNames from 'classnames'
 
 export default function WishList() {
+  const { theme } = useContext(ThemeContext)
+
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [unlikeDialog, setUnlikeDialog] = useState<boolean>(false)
   const [unlikedItemId, setUnlikeItemId] = useState<string>('')
@@ -111,7 +115,7 @@ export default function WishList() {
                   <div className='col-span-1 flex items-center justify-center'>
                     <div className='items-cennter hover: flex h-full w-min flex-col  space-y-4 text-textDark/70  dark:text-textLight/70 '>
                       <button
-                        className='bg-none hover:text-orangeColor dark:hover:text-haretaColor'
+                        className='bg-none hover:text-brownColor dark:hover:text-haretaColor'
                         onClick={addToCart(item.id)}
                       >
                         <FontAwesomeIcon icon={faCartPlus} fontSize={24} onClick={addToCart(item.id)} />
@@ -130,9 +134,10 @@ export default function WishList() {
             <UnlikeItemDialog
               isOpen={unlikeDialog}
               handleClose={() => setUnlikeDialog(false)}
+              classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-sm transition-all'
               unlikeItemId={unlikedItemId}
               setUnlikeItemId={setUnlikeItemId}
-            />
+            ></UnlikeItemDialog>
           </div>
         ))}
       </div>
@@ -141,17 +146,26 @@ export default function WishList() {
         handleClose={() => setDialogIsOpen(false)}
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all bg-black/90'
       >
-        <p className='text-center text-xl font-medium leading-6 text-textLight'>Added successful</p>
-        <div className='mt-4 text-center'>
+        <div className=' text-center'>
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
-            className='text- rounded-full bg-white/20 p-4 text-center text-success'
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
           />
         </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
         <button
           type='button'
-          className='absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium text-textLight/50 hover:text-red-600  '
+          className={classNames(
+            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+            {
+              'text-textDark/50': theme === 'light',
+              'text-textLight/50': theme === 'dark'
+            }
+          )}
         >
           <FontAwesomeIcon icon={faXmark} fontSize={20} />
         </button>
