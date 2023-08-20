@@ -1,9 +1,11 @@
-export const getCartFromLS = (): ExtendedProduct[] => {
+import { ExtendedTemporaryPurchase } from 'src/pages/CartWithoutLogin/CartWithoutLogin'
+
+export const getCartFromLS = (): ExtendedTemporaryPurchase[] => {
   const res = localStorage.getItem('temporary_cart')
   return res ? JSON.parse(res) : []
 }
 
-export const setTemporaryCartToLs = (cart: ExtendedProduct[]) => {
+export const setTemporaryCartToLs = (cart: ExtendedTemporaryPurchase[]) => {
   // const index = cart.findIndex((itemInCart) => itemInCart.id === item.id)
   // console.log(index)
   // if (index) {
