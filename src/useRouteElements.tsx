@@ -16,6 +16,10 @@ import WishList from './pages/User/pages/WishList'
 import UserLayout from './pages/User/layouts/UserLayout'
 import Inventory from './pages/User/pages/Inventory'
 import ChangePassword from './pages/User/pages/ChangePassword'
+import VerifyEmail from './pages/VerifyEmail'
+import { AnimatePresence } from 'framer-motion'
+import AnimateTransition from './layouts/RegisterLayout/components/AnimateTransition'
+import RequestVerifyEmail from './pages/RequestVerifyEmail'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -24,7 +28,13 @@ function ProtectedRoute() {
 
 function RejectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
-  return !isAuthenticated ? <Outlet /> : <Navigate to='/' />
+  return !isAuthenticated ? (
+    <RegisterLayout>
+      <Outlet />
+    </RegisterLayout>
+  ) : (
+    <Navigate to='/' />
+  )
 }
 
 export default function useRouteElements() {
@@ -35,19 +45,15 @@ export default function useRouteElements() {
       children: [
         {
           path: path.login,
-          element: (
-            <RegisterLayout>
-              <Login />
-            </RegisterLayout>
-          )
+          element: <Login />
         },
         {
           path: path.register,
-          element: (
-            <RegisterLayout>
-              <Register />
-            </RegisterLayout>
-          )
+          element: <Register />
+        },
+        {
+          path: path.requestVerify,
+          element: <RequestVerifyEmail />
         }
       ]
     },
@@ -125,6 +131,14 @@ export default function useRouteElements() {
         <MainLayout>
           <ProductDetail />
         </MainLayout>
+      )
+    },
+    {
+      path: path.verifyEmail,
+      element: (
+        // <MainLayout>
+        <VerifyEmail />
+        // </MainLayout>
       )
     }
   ])

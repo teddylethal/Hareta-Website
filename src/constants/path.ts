@@ -2,6 +2,7 @@ const path = {
   home: '/',
   login: '/login',
   register: '/register',
+  requestVerify: '/requestVerify',
   store: '/store',
   productDetail: ':nameId',
   cart: '/cart',
@@ -9,7 +10,8 @@ const path = {
   profile: '/user/profile',
   wishList: '/user/wishlist',
   inventory: '/user/inventory',
-  password: '/user/password'
+  password: '/user/password',
+  verifyEmail: '/check-verification-code/:code'
 } as const
 
 export default path
