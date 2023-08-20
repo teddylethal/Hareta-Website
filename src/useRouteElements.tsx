@@ -16,6 +16,7 @@ import WishList from './pages/User/pages/WishList'
 import UserLayout from './pages/User/layouts/UserLayout'
 import Inventory from './pages/User/pages/Inventory'
 import ChangePassword from './pages/User/pages/ChangePassword'
+import CartWithoutLogin from './pages/CartWithoutLogin'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -124,6 +125,14 @@ export default function useRouteElements() {
       element: (
         <MainLayout>
           <ProductDetail />
+        </MainLayout>
+      )
+    },
+    {
+      path: path.temporaryCart,
+      element: (
+        <MainLayout>
+          <CartWithoutLogin />
         </MainLayout>
       )
     }

@@ -123,7 +123,7 @@ export default function CartPopoverWithoutLogin() {
         }
         placement='bottom-end'
       >
-        <Link to={path.cart} className='flex items-center space-x-1'>
+        <Link to={path.temporaryCart} className='flex items-center space-x-1'>
           <FontAwesomeIcon icon={faCartShopping} />
           <div>Cart</div>
         </Link>

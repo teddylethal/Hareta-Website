@@ -5,6 +5,7 @@ const path = {
   store: '/store',
   productDetail: ':nameId',
   cart: '/cart',
+  temporaryCart: '/temporary+cart',
   user: '/user',
   profile: '/user/profile',
   wishList: '/user/wishlist',

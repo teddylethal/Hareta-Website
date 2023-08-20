@@ -1,47 +1,53 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { produce } from 'immer'
-import React, { useContext } from 'react'
+import { keyBy } from 'lodash'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import purchaseApi from 'src/apis/cart.api'
 import QuantityController from 'src/components/QuantityController'
 import path from 'src/constants/path'
 import { CartContext } from 'src/contexts/cart.context'
 import { useViewport } from 'src/hooks/useViewport'
+import { TemporaryPurchase } from 'src/types/cart.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
+
+export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
+  disabled: boolean
+  checked: boolean
+  previousQuantity: number
+}
 
 export default function CartWithoutLogin() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
-  const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
-  const queryClient = useQueryClient()
+  const { setPurchasesInLS, purchasesInLS } = useContext(CartContext)
+  const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedTemporaryPurchase[]>([])
 
-  const updatePurchasesMutation = useMutation({
-    mutationFn: purchaseApi.updatePurchases,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['purchases'] })
-    }
-  })
-
-  const removePurchasesMutation = useMutation({
-    mutationFn: purchaseApi.removePurchases,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['purchases'] })
-    }
-  })
+  useEffect(() => {
+    setExtendedTempPurchases((prev) => {
+      const extendedTempPurchasesObject = keyBy(prev, 'id')
+      return (
+        purchasesInLS?.map((purchase) => ({
+          ...purchase,
+          disabled: false,
+          checked: Boolean(extendedTempPurchasesObject[purchase.id]?.checked),
+          previousQuantity: purchase.quantity
+        })) || []
+      )
+    })
+  }, [purchasesInLS])
 
   // const purchasesInCart = cartData?.data.data
-  const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
-  const checkedPurchases = extendedPurchases.filter((purchase) => purchase.checked)
+  const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
+  const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
   const checkedPurchasesCount = checkedPurchases.length
   const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, current) => {
     return result + current.item.price * current.quantity
   }, 0)
 
   const handleChecking = (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setExtendedPurchases(
+    setExtendedTempPurchases(
       produce((draft) => {
         draft[purchaseIndex].checked = event.target.checked
       })
@@ -49,7 +55,7 @@ export default function CartWithoutLogin() {
   }
 
   const handleSelectAll = () => {
-    setExtendedPurchases((prev) =>
+    setExtendedTempPurchases((prev) =>
       prev.map((purchase) => ({
         ...purchase,
         checked: !isAllChecked
@@ -59,18 +65,18 @@ export default function CartWithoutLogin() {
 
   const handleQuantity = (purchaseIndex: number, value: number, enable: boolean) => {
     if (enable) {
-      const purchase = extendedPurchases[purchaseIndex]
-      setExtendedPurchases(
+      // const purchase = extendedTempPurchases[purchaseIndex]
+      setExtendedTempPurchases(
         produce((draft) => {
-          draft[purchaseIndex].disabled = true
+          // draft[purchaseIndex].disabled = true
+          draft[purchaseIndex].quantity = value
         })
       )
-      updatePurchasesMutation.mutate({ id: purchase.id, quantity: value })
     }
   }
 
   const handleTypeQuantity = (purchaseIndex: number) => (value: number) => {
-    setExtendedPurchases(
+    setExtendedTempPurchases(
       produce((draft) => {
         draft[purchaseIndex].quantity = value
       })
@@ -78,8 +84,9 @@ export default function CartWithoutLogin() {
   }
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = extendedPurchases[purchaseIndex].id
-    removePurchasesMutation.mutate({ id: purchaseId })
+    const purchaseId = extendedTempPurchases[purchaseIndex].id
+    const newPurchaseList = purchasesInLS.filter((purchase) => purchase.id !== purchaseId)
+    setPurchasesInLS(newPurchaseList)
   }
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -91,9 +98,11 @@ export default function CartWithoutLogin() {
     <div className='bg-lightBg py-4 dark:bg-darkBg xl:py-6'>
       {!isMobile && (
         <div className='container'>
-          <div className='relative mx-2 flex items-center space-x-96 rounded-md bg-white dark:bg-black xl:mx-4'>
-            <p className='pl-4 text-2xl uppercase text-textDark  dark:text-haretaColor xl:text-2xl'>CART</p>
-            <form name='search_in_cart' className='my-2 flex w-full items-center' onSubmit={handleSearch}>
+          <div className='relative mx-2 flex items-center rounded-md bg-white dark:bg-black xl:mx-4'>
+            <p className='grow truncate pl-4 text-2xl uppercase  text-textDark dark:text-haretaColor xl:text-2xl'>
+              Temporary Cart
+            </p>
+            <form name='search_in_cart' className='my-2 flex grow items-center' onSubmit={handleSearch}>
               <input
                 id='search_in_cart'
                 type='text'
@@ -136,7 +145,7 @@ export default function CartWithoutLogin() {
                 </div>
               </div>
               <div className='mx-4 my-2 h-[440px] overflow-auto rounded-md bg-[#f8f8f8] shadow dark:bg-[#202020] '>
-                {extendedPurchases?.map((purchase, index) => (
+                {extendedTempPurchases?.map((purchase, index) => (
                   <div
                     key={purchase.id}
                     className='border-b last:border-none hover:bg-[#efefef]  dark:hover:bg-[#101010]'
@@ -276,7 +285,7 @@ export default function CartWithoutLogin() {
               <div className='col-span-1'></div>
             </div>
             <div className='my-2 rounded-sm bg-[#f8f8f8] p-2 shadow dark:bg-[#202020]'>
-              {extendedPurchases?.map((purchase, index) => (
+              {extendedTempPurchases?.map((purchase, index) => (
                 <div
                   key={purchase.id}
                   className='mt-2 flex items-center rounded-sm bg-[#efefef] p-2 text-center text-textDark first:mt-0 dark:bg-[#101010] dark:text-textLight'
