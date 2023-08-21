@@ -3,15 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 import { ThemeContext } from 'src/App'
 import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
 import Input from 'src/components/Input'
+import InputFile from 'src/components/InputFile'
 import InputNumber from 'src/components/InputNumber'
-import config from 'src/constants/config'
 import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { ErrorRespone } from 'src/types/utils.type'
@@ -32,7 +31,6 @@ export default function Profile() {
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
   const [avatarFile, setAvatarFile] = useState<File>()
 
-  const fileInputRef = useRef<HTMLInputElement>(null)
   const previewImage = useMemo(() => {
     return avatarFile ? URL.createObjectURL(avatarFile) : ''
   }, [avatarFile])
@@ -126,19 +124,8 @@ export default function Profile() {
     setEditingMode(false)
   }
 
-  const handleUploadAvatar = () => {
-    fileInputRef.current?.click()
-  }
-
-  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileFromLocal = event.target.files?.[0]
-    if (fileFromLocal) {
-      if (fileFromLocal.size > config.maxSizeUploadAvatar || !fileFromLocal.type.includes('image')) {
-        toast.error('error file')
-      } else {
-        setAvatarFile(fileFromLocal)
-      }
-    }
+  const handleChangeAvatarFile = (file?: File) => {
+    setAvatarFile(file)
   }
 
   if (!profile) return null
@@ -157,26 +144,7 @@ export default function Profile() {
                 alt={profile.name}
                 className='h-full w-full rounded-full  object-cover '
               />
-              {hoveringAvatar && (
-                <button
-                  className='absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60'
-                  onClick={handleUploadAvatar}
-                >
-                  <p className='font-semibold'>Upload avatar</p>
-                </button>
-              )}
-              <form>
-                <input
-                  type='file'
-                  accept='.jpg,.jpeg,.png'
-                  className='hidden'
-                  ref={fileInputRef}
-                  onChange={onFileChange}
-                  onClick={(event) => {
-                    ;(event.target as HTMLInputElement).value = ''
-                  }}
-                />
-              </form>
+              {hoveringAvatar && <InputFile onChangeImageFile={handleChangeAvatarFile} />}
             </div>
           )}
           {!editingMode && (
