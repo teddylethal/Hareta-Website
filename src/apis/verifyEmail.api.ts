@@ -1,4 +1,3 @@
-import { ErrorRespone, SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
 interface VerifyEmail {

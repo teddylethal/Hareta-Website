@@ -4,7 +4,6 @@ import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { ThemeContext } from 'src/App'
 import authApi from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
@@ -15,14 +14,13 @@ import { getAccessTokenFromLS, setProfileToLS } from 'src/utils/auth'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import { checkEmailVerified, setEmailVerified, unSetEmailVerified } from 'src/utils/store'
+import { checkEmailVerified, unSetEmailVerified } from 'src/utils/store'
 import SuccessEmailVerify from 'src/components/VerifyEmailDialog/SuccessEmailVerify'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 
 type FormData = LoginSchema
 
 export default function Login() {
-  const { theme } = useContext(ThemeContext)
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
   const {

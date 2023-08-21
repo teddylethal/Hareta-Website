@@ -9,8 +9,6 @@ import authApi from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import Button from 'src/components/Button'
-import { useContext } from 'react'
-import { ThemeContext } from 'src/App'
 import path from 'src/constants/path'
 import AccountInput from 'src/components/AccountInput'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
@@ -50,8 +48,6 @@ export default function Register() {
       }
     })
   })
-
-  const { theme } = useContext(ThemeContext)
 
   return (
     <AnimateTransition>

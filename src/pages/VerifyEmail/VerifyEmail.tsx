@@ -1,37 +1,33 @@
-import { faCircleArrowRight, faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { Link, redirect, useNavigate, useParams } from 'react-router-dom'
-import verifyEmail from 'src/apis/verifyEmail.api'
-import DialogPopup from 'src/components/DialogPopup'
-import VerifyEmailPopup from 'src/components/VerifyEmailPopup'
-import path from 'src/constants/path'
-import { setEmailVerified } from 'src/utils/store'
+// import { useQuery } from '@tanstack/react-query'
+// import { useEffect, useState } from 'react'
+// import { useNavigate, useParams } from 'react-router-dom'
+// import verifyEmail from 'src/apis/verifyEmail.api'
+// import path from 'src/constants/path'
+// import { setEmailVerified } from 'src/utils/store'
 
 export default function VerifyEmail() {
-  const { code } = useParams()
-  const navigate = useNavigate()
-  const [dialog, setDialog] = useState(true)
-  const closeDialog = () => {
-    setDialog(false)
-  }
-  const { data, status, error } = useQuery({
-    queryKey: ['check-verification-code'],
-    queryFn: () => verifyEmail.verifyCode(code as string)
-  })
+  // const { code } = useParams()
+  // const navigate = useNavigate()
+  // const [dialog, setDialog] = useState(true)
+  // const closeDialog = () => {
+  //   setDialog(false)
+  // }
+  // const { data, status, error } = useQuery({
+  //   queryKey: ['check-verification-code'],
+  //   queryFn: () => verifyEmail.verifyCode(code as string)
+  // })
 
-  useEffect(() => {
-    if (data) {
-      setEmailVerified()
-      navigate(path.login)
-    }
-    if (error) {
-      // console.log(error)
-      setEmailVerified()
-      navigate(path.requestVerify)
-    }
-  }, [data, status, error, navigate])
+  // useEffect(() => {
+  //   if (data) {
+  //     setEmailVerified()
+  //     navigate(path.login)
+  //   }
+  //   if (error) {
+  //     // console.log(error)
+  //     setEmailVerified()
+  //     navigate(path.requestVerify)
+  //   }
+  // }, [data, status, error, navigate])
 
   return (
     <>
