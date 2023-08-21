@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { ThemeContext } from 'src/App'
 import userApi from 'src/apis/user.api'
@@ -12,10 +12,13 @@ import Input from 'src/components/Input'
 import InputNumber from 'src/components/InputNumber'
 import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import { ErrorRespone } from 'src/types/utils.type'
 import { setProfileToLS } from 'src/utils/auth'
 import { UserSchema, userSchema } from 'src/utils/rules'
+import { isAxiosBadRequestError } from 'src/utils/utils'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
+type FormDataError = FormData
 
 const profileSchema = userSchema.pick(['name', 'phone'])
 
@@ -26,13 +29,20 @@ export default function Profile() {
   const [editingMode, setEditingMode] = useState<boolean>(false)
   const [hoveringAvatar, setHoveringAvatar] = useState<boolean>(false)
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
+  const [avatarFile, setAvatarFile] = useState<File>()
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const previewImage = useMemo(() => {
+    return avatarFile ? URL.createObjectURL(avatarFile) : ''
+  }, [avatarFile])
 
   const {
     register,
     control,
     formState: { errors },
     handleSubmit,
-    setValue
+    setValue,
+    setError
   } = useForm<FormData>({
     defaultValues: {
       name: '',
@@ -56,6 +66,10 @@ export default function Profile() {
     }
   }, [profile, setValue, setProfile])
 
+  const avatar: string =
+    profile?.avatar?.url ||
+    'https://media.autoexpress.co.uk/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1685458010/autoexpress/2023/05/Porsche%20911%20GTS%20UK%20001_otx6j7.jpg'
+
   const toggleEditingProfile = () => {
     setEditingMode(!editingMode)
   }
@@ -64,16 +78,53 @@ export default function Profile() {
     setHoveringAvatar(true)
   }
 
+  const uploadAvatarMutation = useMutation(userApi.uploadAvatar)
   const updateProfileMutation = useMutation(userApi.updateProfile)
   const onSubmit = handleSubmit(async (data) => {
-    if (data.name !== profile?.name || data.phone !== profile?.phone) {
-      await updateProfileMutation.mutateAsync({ ...data })
-      // setProfile(res.data.data)
-      refetch()
-      showSuccessDialog(setSuccessDialogOpen)
+    try {
+      if (avatarFile) {
+        const form = new FormData()
+        form.append('file', avatarFile)
+        await uploadAvatarMutation.mutateAsync(form)
+        refetch()
+        showSuccessDialog(setSuccessDialogOpen)
+      }
+      if (data.name !== profile?.name || data.phone !== profile?.phone) {
+        await updateProfileMutation.mutateAsync({ ...data })
+        refetch()
+        showSuccessDialog(setSuccessDialogOpen)
+      }
+      setEditingMode(false)
+    } catch (error) {
+      if (isAxiosBadRequestError<ErrorRespone>(error)) {
+        const formError = error.response?.data
+        if (formError) {
+          const responeLog = formError?.log as string
+          if (responeLog.search(`'name'`) !== -1) {
+            setError('name', {
+              message: 'User name is too long',
+              type: 'Server'
+            })
+          }
+          if (responeLog.search(`'phone'`) !== -1) {
+            setError('phone', {
+              message: 'Phone number is too long',
+              type: 'Server'
+            })
+          }
+        }
+      }
     }
-    setEditingMode(false)
   })
+
+  const handleUploadAvatar = () => {
+    fileInputRef.current?.click()
+  }
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const fileFromLocal = event.target.files?.[0]
+    setAvatarFile(fileFromLocal)
+  }
 
   if (!profile) return null
   return (
@@ -87,32 +138,32 @@ export default function Profile() {
               onMouseLeave={() => setHoveringAvatar(false)}
             >
               <img
-                src={
-                  profile.avatar
-                    ? profile.avatar.url
-                    : 'https://media.autoexpress.co.uk/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1685458010/autoexpress/2023/05/Porsche%20911%20GTS%20UK%20001_otx6j7.jpg'
-                }
+                src={previewImage || avatar}
                 alt={profile.name}
                 className='h-full w-full rounded-full  object-cover '
               />
               {hoveringAvatar && (
-                <div className='absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60'>
+                <button
+                  className='absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60'
+                  onClick={handleUploadAvatar}
+                >
                   <p className='font-semibold'>Upload avatar</p>
-                </div>
+                </button>
               )}
+              <form>
+                <input
+                  type='file'
+                  accept='.jpg,.jpeg,.png'
+                  className='hidden'
+                  ref={fileInputRef}
+                  onChange={onFileChange}
+                />
+              </form>
             </div>
           )}
           {!editingMode && (
             <div className='h-32 w-32 rounded-full border-[5px] border-lightBg dark:border-darkBg'>
-              <img
-                src={
-                  profile.avatar
-                    ? profile.avatar.url
-                    : 'https://media.autoexpress.co.uk/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1685458010/autoexpress/2023/05/Porsche%20911%20GTS%20UK%20001_otx6j7.jpg'
-                }
-                alt={profile.name}
-                className='h-full w-full rounded-full  object-cover '
-              />
+              <img src={avatar} alt={profile.name} className='h-full w-full rounded-full  object-cover ' />
             </div>
           )}
           <div className='ml-8 flex flex-col space-y-1'>

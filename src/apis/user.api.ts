@@ -15,7 +15,7 @@ const userApi = {
     return http.put<SuccessRespone<string>>('/auth/', body)
   },
   uploadAvatar(body: FormData) {
-    return http.post<SuccessRespone<User>>('/auth/avatar/', body, {
+    return http.post<SuccessRespone<User>>('/auth/avatar', body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
