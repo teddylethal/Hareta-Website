@@ -1,22 +1,21 @@
-import { faCheck, faPen, faUserPen } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faUserPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useContext, useEffect, useMemo, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { ThemeContext } from 'src/App'
 import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
-import Input from 'src/components/Input'
 import InputFile from 'src/components/InputFile'
-import InputNumber from 'src/components/InputNumber'
 import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { ErrorRespone } from 'src/types/utils.type'
 import { setProfileToLS } from 'src/utils/auth'
 import { UserSchema, userSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
+import EditProfile from './EditProfile'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
 
@@ -35,21 +34,15 @@ export default function Profile() {
     return avatarFile ? URL.createObjectURL(avatarFile) : ''
   }, [avatarFile])
 
-  const {
-    register,
-    control,
-    formState: { errors },
-    handleSubmit,
-    setValue,
-    setError,
-    clearErrors
-  } = useForm<FormData>({
+  const methods = useForm<FormData>({
     defaultValues: {
       name: '',
       phone: ''
     },
     resolver: yupResolver(profileSchema)
   })
+
+  const { handleSubmit, setValue, setError, clearErrors } = methods
 
   const { data: userData, refetch } = useQuery({
     queryKey: ['profile'],
@@ -191,79 +184,38 @@ export default function Profile() {
             <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>email</p>
             <p className=' py-1 text-base '>{profile.email}</p>
           </div>
-          {/* <div className=''>
-              <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>Password</p>
-              <div>
-                <p className='px-2 py-1 text-base '>{profile.email}</p>
-                <div className='mt-1 min-h-[1.25rem]'></div>
-              </div>
-            </div> */}
         </div>
       )}
 
       {editingMode && (
-        <form
-          className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4  text-textDark dark:bg-[#202020] dark:text-textLight'
-          onSubmit={onSubmit}
-        >
-          <div className=''>
-            <div className='flex items-center space-x-2'>
-              <p className=' text-lg uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
-              <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
+        <FormProvider {...methods}>
+          <form
+            className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4  text-textDark dark:bg-[#202020] dark:text-textLight'
+            onSubmit={onSubmit}
+          >
+            <EditProfile />
+            <div className=''>
+              <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>email</p>
+              <p className=' py-1 text-base '>{profile.email}</p>
             </div>
-            <div className='relative'>
-              <Input
-                classNameInput=' w-full py-1 bg-transparent  text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
-                register={register}
-                name='name'
-                errorMessage={errors.name?.message}
-              />
-              <div className='absolute bottom-5 w-full border-b-2 border-black/60 dark:border-white/60'></div>
-            </div>
-          </div>
-          <div className=''>
-            <div className='flex items-center space-x-2'>
-              <p className=' text-lg uppercase text-textDark/60 dark:text-textLight/60'>Phone number</p>
-              <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
-            </div>
-            <div className='relative'>
-              <Controller
-                control={control}
-                name='phone'
-                render={({ field }) => (
-                  <InputNumber
-                    classNameInput=' w-full py-1 bg-transparent  text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage'
-                    errorMessage={errors.phone?.message}
-                    {...field}
-                    onChange={field.onChange}
-                  />
-                )}
-              />
 
-              <div className='absolute bottom-5 w-full border-b-2 border-black/60 dark:border-white/60'></div>
+            <div className='flex items-center space-x-2'>
+              <button
+                className='flex items-center space-x-1 rounded-md bg-vintageColor/80 px-4 py-2 text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60'
+                type='submit'
+              >
+                <p>Save</p>
+              </button>
+              <button
+                className='flex items-center space-x-1 rounded-md px-4 py-2 text-textDark hover:underline dark:text-textLight'
+                onClick={handleCancel}
+                type='button'
+              >
+                <p>Cancel</p>
+              </button>
             </div>
-          </div>
-          <div className=''>
-            <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>email</p>
-            <p className=' py-1 text-base '>{profile.email}</p>
-          </div>
-
-          <div className='flex items-center space-x-2'>
-            <button
-              className='flex items-center space-x-1 rounded-md bg-vintageColor/80 px-4 py-2 text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60'
-              type='submit'
-            >
-              <p>Save</p>
-            </button>
-            <button
-              className='flex items-center space-x-1 rounded-md px-4 py-2 text-textDark hover:underline dark:text-textLight'
-              onClick={handleCancel}
-              type='button'
-            >
-              <p>Cancel</p>
-            </button>
-          </div>
-        </form>
+          </form>
+        </FormProvider>
       )}
 
       <DialogPopup
