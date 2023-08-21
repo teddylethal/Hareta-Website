@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion'
 import { useContext } from 'react'
 import { ThemeContext } from 'src/App'
 import Footer from 'src/components/Footer'

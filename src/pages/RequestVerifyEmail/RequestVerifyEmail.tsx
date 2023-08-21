@@ -1,22 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
-import { ThemeContext } from 'src/App'
-import authApi from 'src/apis/auth.api'
+import { Link } from 'react-router-dom'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
-import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
-import { getAccessTokenFromLS, setProfileToLS } from 'src/utils/auth'
 import { RequestVerifySchema, requestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import { checkEmailVerified, setEmailVerified, unSetEmailVerified } from 'src/utils/store'
-import SuccessEmailVerify from 'src/components/VerifyEmailDialog/SuccessEmailVerify'
+import { checkEmailVerified, unSetEmailVerified } from 'src/utils/store'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -26,8 +20,6 @@ import verifyEmail from 'src/apis/verifyEmail.api'
 type FormData = RequestVerifySchema
 
 export default function RequestVerifyEmail() {
-  const { theme } = useContext(ThemeContext)
-  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -43,12 +35,14 @@ export default function RequestVerifyEmail() {
 
   const onSubmit = handleSubmit((data) => {
     requestVerifyMutation.mutate(data, {
-      onSuccess: () => {},
+      onSuccess: () => {
+        return
+      },
       onError: (error) => {
         console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
-          const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
+          const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
           if (errorRespone) {
             setError('email', {
               message: errorRespone.error_message,
