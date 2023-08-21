@@ -38,7 +38,7 @@ function App() {
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className={theme === 'dark' ? 'dark' : 'light'}>
         {routeElements}
-        <ToastContainer limit={1} />
+        <ToastContainer limit={5} />
       </div>
     </ThemeContext.Provider>
   )

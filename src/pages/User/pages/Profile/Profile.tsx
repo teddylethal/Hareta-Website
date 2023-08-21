@@ -1,15 +1,17 @@
-import { faCheck, faPen, faUserPen, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faPen, faUserPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { ThemeContext } from 'src/App'
 import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
 import Input from 'src/components/Input'
 import InputNumber from 'src/components/InputNumber'
+import config from 'src/constants/config'
 import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { ErrorRespone } from 'src/types/utils.type'
@@ -18,7 +20,6 @@ import { UserSchema, userSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
-type FormDataError = FormData
 
 const profileSchema = userSchema.pick(['name', 'phone'])
 
@@ -42,7 +43,8 @@ export default function Profile() {
     formState: { errors },
     handleSubmit,
     setValue,
-    setError
+    setError,
+    clearErrors
   } = useForm<FormData>({
     defaultValues: {
       name: '',
@@ -61,18 +63,16 @@ export default function Profile() {
     if (profile) {
       setValue('name', profile.name || '')
       setValue('phone', profile.phone || '')
+      clearErrors('name')
+      clearErrors('phone')
       setProfile(profile)
       setProfileToLS(profile)
     }
-  }, [profile, setValue, setProfile])
+  }, [profile, setValue, setProfile, clearErrors])
 
   const avatar: string =
     profile?.avatar?.url ||
     'https://media.autoexpress.co.uk/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1685458010/autoexpress/2023/05/Porsche%20911%20GTS%20UK%20001_otx6j7.jpg'
-
-  const toggleEditingProfile = () => {
-    setEditingMode(!editingMode)
-  }
 
   const showUploadAvatar = () => {
     setHoveringAvatar(true)
@@ -117,13 +117,28 @@ export default function Profile() {
     }
   })
 
+  const handleCancel = () => {
+    setValue('name', profile?.name || '')
+    setValue('phone', profile?.phone || '')
+    clearErrors('name')
+    clearErrors('phone')
+    setAvatarFile(undefined)
+    setEditingMode(false)
+  }
+
   const handleUploadAvatar = () => {
     fileInputRef.current?.click()
   }
 
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFromLocal = event.target.files?.[0]
-    setAvatarFile(fileFromLocal)
+    if (fileFromLocal) {
+      if (fileFromLocal.size > config.maxSizeUploadAvatar || !fileFromLocal.type.includes('image')) {
+        toast.error('error file')
+      } else {
+        setAvatarFile(fileFromLocal)
+      }
+    }
   }
 
   if (!profile) return null
@@ -157,6 +172,9 @@ export default function Profile() {
                   className='hidden'
                   ref={fileInputRef}
                   onChange={onFileChange}
+                  onClick={(event) => {
+                    ;(event.target as HTMLInputElement).value = ''
+                  }}
                 />
               </form>
             </div>
@@ -176,7 +194,7 @@ export default function Profile() {
             <button
               className='flex h-full space-x-2 rounded-md bg-vintageColor/80 px-4 py-2 text-textDark hover:bg-vintageColor 
               dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60'
-              onClick={toggleEditingProfile}
+              onClick={() => setEditingMode(true)}
             >
               <FontAwesomeIcon icon={faUserPen} />
               <p>Edit Account</p>
@@ -271,9 +289,7 @@ export default function Profile() {
             </button>
             <button
               className='flex items-center space-x-1 rounded-md px-4 py-2 text-textDark hover:underline dark:text-textLight'
-              onClick={() => {
-                setEditingMode(false)
-              }}
+              onClick={handleCancel}
               type='button'
             >
               <p>Cancel</p>
@@ -300,18 +316,6 @@ export default function Profile() {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Your profile was updated</p>
-        <button
-          type='button'
-          className={classNames(
-            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
-            {
-              'text-textDark/50': theme === 'light',
-              'text-textLight/50': theme === 'dark'
-            }
-          )}
-        >
-          <FontAwesomeIcon icon={faXmark} fontSize={20} />
-        </button>
       </DialogPopup>
     </div>
   )
