@@ -56,6 +56,15 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   }
 })
 
+const handleConfirmPasswordYup = (refString: string) => {
+  return yup
+    .string()
+    .required('Confirm Password is required')
+    .min(8, 'Password must be 8-16 characters')
+    .max(16, 'Password must be 8-16 characters')
+    .oneOf([yup.ref(refString)], 'Passwords do not match')
+}
+
 export const registerSchema = yup.object({
   email: yup
     .string()
@@ -68,12 +77,7 @@ export const registerSchema = yup.object({
     .required('Password is required')
     .min(8, 'Password must be 8-16 characters')
     .max(16, 'Password must be 8-16 characters'),
-  confirm_password: yup
-    .string()
-    .required('Confirm Password is required')
-    .min(8, 'Password must be 8-16 characters')
-    .max(16, 'Password must be 8-16 characters')
-    .oneOf([yup.ref('password')], 'Passwords do not match'),
+  confirm_password: handleConfirmPasswordYup('password'),
   name: yup.string().required('Name is required'),
   phone: yup.string().required('Phone number is required')
 })
@@ -124,22 +128,13 @@ export const userSchema = yup.object({
 })
 
 export const changePasswordSchema = yup.object({
-  old_password: yup
-    .string()
-    .default('')
-    .min(8, 'Password must be 8-16 characters')
-    .max(16, 'Password must be 8-16 characters'),
+  old_password: yup.string().default(''),
   new_password: yup
     .string()
     .default('')
     .min(8, 'Password must be 8-16 characters')
     .max(16, 'Password must be 8-16 characters'),
-  confirm_new_password: yup
-    .string()
-    .default('')
-    .min(8, 'Password must be 8-16 characters')
-    .max(16, 'Password must be 8-16 characters')
-    .oneOf([yup.ref('new_password')], 'Passwords do not match')
+  confirm_new_password: handleConfirmPasswordYup('new_password')
 })
 
 export type RegisterSchema = yup.InferType<typeof registerSchema>

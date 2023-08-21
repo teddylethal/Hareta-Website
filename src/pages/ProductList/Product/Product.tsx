@@ -266,19 +266,6 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
         handleClose={() => setCreateTempCart(false)}
         classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
-        {/* <button
-          type='button'
-          className={classNames(
-            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
-            {
-              'text-textDark/50': theme === 'light',
-              'text-textLight/50': theme === 'dark'
-            }
-          )}
-          onClick={() => setCreateTempCart(false)}
-        >
-          <FontAwesomeIcon icon={faXmark} fontSize={20} />
-        </button> */}
         <p className='mt-6 text-center text-xl font-medium uppercase leading-6 text-red-500'>You are not logged in!</p>
         <div className='mt-4 text-left'>
           <p className='text-left'>You are trying to add an item into cart without logged in.</p>

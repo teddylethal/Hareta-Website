@@ -7,6 +7,12 @@ interface BodyUpdateProfile extends Omit<User, 'id' | 'role' | 'status' | 'creat
   newPasswird?: string
 }
 
+interface ChangePasswordForm {
+  old_password: string
+  new_password: string
+  confirm_new_password: string
+}
+
 const userApi = {
   getProfile() {
     return http.get<SuccessRespone<User>>('/auth/')
@@ -15,11 +21,14 @@ const userApi = {
     return http.put<SuccessRespone<string>>('/auth/', body)
   },
   uploadAvatar(body: FormData) {
-    return http.post<SuccessRespone<User>>('/auth/avatar', body, {
+    return http.post<SuccessRespone<string>>('/auth/avatar', body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
+  },
+  changePassword(body: ChangePasswordForm) {
+    return http.post<SuccessRespone<string>>('/auth/change-password', body)
   }
 }
 
