@@ -9,7 +9,7 @@ export default function UserNav() {
   const { profile } = useContext(AppContext)
 
   return (
-    <Popover renderPopover={<UserPopover />} className='py-0.5 lg:py-1.5'>
+    <Popover renderPopover={<UserPopover />} className='py-0.5 lg:py-1.5' offsetValue={8}>
       <Link to={path.profile} className='flex items-center space-x-2'>
         <img
           src={
@@ -21,7 +21,9 @@ export default function UserNav() {
           className='h-6 w-6 rounded-full object-cover'
         />
 
-        <div className='text-xs normal-case md:text-sm lg:text-base'>{profile ? profile.name : ''}</div>
+        <div className='text-sm font-medium normal-case hover:text-brownColor dark:hover:text-haretaColor  md:text-base lg:text-lg'>
+          {profile ? profile.name : ''}
+        </div>
       </Link>
     </Popover>
   )

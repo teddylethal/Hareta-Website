@@ -25,23 +25,23 @@ export default function UserPopover() {
     })
   }
   return (
-    <div className='relative -top-1 flex w-40 flex-col rounded-md bg-[#efefef] p-2 text-base font-medium capitalize text-textDark text-textDark/70 shadow-md dark:bg-[#202020] dark:text-textLight dark:text-textLight/70 lg:top-0 lg:w-52 lg:text-lg'>
+    <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-[#efefef] px-2 py-3 text-base font-medium capitalize text-textDark/90 shadow-lg dark:bg-[#202020] dark:text-textLight/90 lg:top-0 lg:w-52 lg:text-xl'>
       <Link
         to={path.profile}
-        className='flex items-center rounded-md px-4 py-2 hover:bg-[#e8e8e8]  hover:text-textDark dark:hover:bg-[#181818] dark:hover:text-textLight'
+        className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
         <p>Account</p>
       </Link>
 
       <Link
         to={path.inventory}
-        className='flex items-center rounded-md px-4 py-2 hover:bg-[#e8e8e8]  hover:text-textDark dark:hover:bg-[#181818] dark:hover:text-textLight'
+        className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
         <p>Inventory</p>
       </Link>
       <Link
         to={path.wishList}
-        className='flex items-center rounded-md px-4 py-2 hover:bg-[#e8e8e8]  hover:text-textDark dark:hover:bg-[#181818] dark:hover:text-textLight'
+        className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
         <p>Wishist</p>
       </Link>
@@ -50,7 +50,7 @@ export default function UserPopover() {
 
       <button
         onClick={handleLogout}
-        className='flex items-center space-x-2 rounded-md px-4 py-2  hover:bg-[#e8e8e8] hover:text-textDark dark:hover:bg-[#181818] dark:hover:text-textLight'
+        className='flex items-center space-x-2 rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
         <FontAwesomeIcon icon={faRightFromBracket} />
         <p>Log out</p>
