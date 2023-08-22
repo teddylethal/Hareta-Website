@@ -37,7 +37,7 @@ export default function PriceSample({ handleChoosePrice }: Props) {
   return (
     <div className='duration-500' ref={ref}>
       <button
-        className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-500 dark:text-textLight lg:text-lg'
+        className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor lg:text-lg'
         onClick={toggleOpenClose}
       >
         <p className=' uppercase '>Price</p>

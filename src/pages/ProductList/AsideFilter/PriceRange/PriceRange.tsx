@@ -139,7 +139,7 @@ export default function PriceRange({ queryConfig }: Props) {
         <div className='flex items-center justify-center'>
           <div className='flex items-center'>
             <input
-              className='w-12 rounded-md bg-white p-1 text-center text-xs outline outline-1 outline-black/40 focus:shadow-sm dark:bg-black dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
+              className='w-12 rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
               placeholder='$ From'
               value={lowerPrice}
               {...register('lower_price')}
@@ -151,7 +151,7 @@ export default function PriceRange({ queryConfig }: Props) {
 
           <div className='flex items-center'>
             <input
-              className='w-12 rounded-md bg-white p-1 text-center text-xs outline outline-1 outline-black/40 focus:shadow-sm dark:bg-black dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
+              className='w-12 rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
               placeholder='$ To'
               value={upperPrice}
               {...register('upper_price')}
