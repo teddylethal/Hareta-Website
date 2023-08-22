@@ -32,11 +32,10 @@ export default function AsideFilter({ queryConfig }: Props) {
         onClick={handleClear}
         disabled={isFiltering ? false : true}
         className={classNames(
-          'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#fff] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 disabled:cursor-not-allowed dark:bg-[#202020] dark:text-textLight ',
-          { 'text-opacity-40 dark:text-opacity-40': !isFiltering },
+          'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#fff] px-4 py-2 font-medium text-red-500/80 outline outline-1 outline-transparent duration-500 disabled:cursor-not-allowed dark:bg-[#202020]',
+          { 'text-red-500/40': !isFiltering },
           {
-            'hover:text-brownColor hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
-              isFiltering
+            ' hover:text-red-500 hover:outline-red-500 ': isFiltering
           }
         )}
       >

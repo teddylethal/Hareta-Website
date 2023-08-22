@@ -88,7 +88,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
           className={classNames(
             'flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor',
             {
-              'mb-2': isOpening || type
+              'mb-2': visible || type
             }
           )}
         >

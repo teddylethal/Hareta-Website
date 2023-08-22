@@ -92,7 +92,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
           className={classNames(
             'flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor',
             {
-              'mb-2': isOpening || collection
+              'mb-2': visible || collection
             }
           )}
         >
