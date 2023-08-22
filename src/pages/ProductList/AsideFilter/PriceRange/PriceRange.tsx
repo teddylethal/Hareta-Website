@@ -133,8 +133,19 @@ export default function PriceRange({ queryConfig }: Props) {
   }
 
   return (
-    <div className='ml-4 rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
+    <div className='relative ml-4 rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
       <PriceSample handleChoosePrice={handleChoosePrice} />
+      {active && (
+        <button
+          className={classNames(
+            'absolute right-0 top-0  mt-1 rounded-md px-4 py-1 text-xs text-red-500/80 duration-500 hover:text-red-500 hover:underline dark:hover:outline-red-400 lg:text-sm xl:text-base'
+          )}
+          onClick={handleReset}
+          type='button'
+        >
+          Reset
+        </button>
+      )}
       <form className='mx-2 my-1' onSubmit={onSubmit}>
         <div className='flex items-center justify-center'>
           <div className='flex items-center'>
@@ -162,21 +173,6 @@ export default function PriceRange({ queryConfig }: Props) {
         <div className='mt-1  text-center text-sm text-red-600'>{errors.lower_price?.message}</div>
 
         <div className='mt-2 flex items-center justify-center space-x-4'>
-          <button
-            disabled={!active}
-            className={classNames(
-              'dark:hover:outline-red-400r mt-1 rounded-md px-4  py-1 text-xs  lg:text-sm xl:text-base',
-              {
-                'text-red-500/80 hover:text-red-500  hover:underline': active,
-                'cursor-not-allowed text-red-500/40': !active
-              }
-            )}
-            onClick={handleReset}
-            type='button'
-          >
-            Reset
-          </button>
-
           <button
             disabled={notAllowApply}
             className={classNames(

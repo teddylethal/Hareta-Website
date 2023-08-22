@@ -38,14 +38,14 @@ export default function AsideSorter() {
   }
 
   return (
-    <div className='ml-4 grid grid-cols-3 space-x-2 overflow-hidden rounded-md bg-[#f8f8f8] px-3 py-2 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
-      <p className='col-span-1 flex h-10 items-center space-x-2 text-left text-base font-medium uppercase text-textDark duration-500 dark:text-textLight lg:text-lg'>
+    <div className='ml-4 grid grid-cols-3 space-x-2 overflow-hidden rounded-md bg-[#f8f8f8] px-3 py-4 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
+      <p className='col-span-1 flex h-8 items-center space-x-2 text-left text-base font-medium uppercase text-textDark duration-500 dark:text-textLight lg:text-lg'>
         Sort by:
       </p>
       <div className='col-span-2' ref={ref}>
         <button
           className={classNames(
-            'flex h-10 w-full items-center justify-center rounded-xl bg-[#ddd] px-3 py-2 text-sm font-medium text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:text-base',
+            'flex h-8 w-full items-center justify-center rounded-xl bg-[#ddd] px-3 py-2 text-sm font-medium text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:text-base',
             {
               'rounded-b-none': visible,
               'bg-brownColor/80 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
