@@ -9,6 +9,7 @@ import { NoUndefinedField } from 'src/types/utils.type'
 import { PriceSchema, priceSchema } from 'src/utils/rules'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
 
 interface Props {
   queryConfig: QueryConfig
@@ -82,6 +83,7 @@ export default function PriceRange({ queryConfig }: Props) {
   })
 
   const active = lower_price || upper_price
+  const notAllowApply = lowerPrice === '' && upperPrice === ''
   const handleReset = () => {
     setLowerPrice('')
     setUpperPrice('')
@@ -185,22 +187,32 @@ export default function PriceRange({ queryConfig }: Props) {
         <div className='mt-1  text-center text-sm text-red-600'>{errors.lower_price?.message}</div>
 
         <div className='mt-2 flex items-center justify-center space-x-4'>
-          {active && (
-            <button
-              className='dark:hover:outline-red-400r mt-1 rounded-md px-4  py-1 text-xs text-red-500/80 hover:text-red-500  hover:underline lg:text-sm xl:text-base'
-              onClick={handleReset}
-              type='button'
-            >
-              Reset
-            </button>
-          )}
-          {!active && (
-            <button className='dark:hover:outline-red-400r mt-1 cursor-not-allowed rounded-md px-4  py-1 text-xs text-red-500/40  lg:text-sm xl:text-base'>
-              Reset
-            </button>
-          )}
           <button
-            className='mt-1 rounded-md bg-[#fff] px-8  py-1 text-xs font-medium text-textDark hover:text-brownColor hover:outline hover:outline-1 hover:outline-brownColor dark:bg-[#101010] dark:text-textLight dark:hover:text-haretaColor dark:hover:outline-haretaColor lg:text-sm xl:text-base'
+            disabled={!active}
+            className={classNames(
+              'dark:hover:outline-red-400r mt-1 rounded-md px-4  py-1 text-xs  lg:text-sm xl:text-base',
+              {
+                'text-red-500/80 hover:text-red-500  hover:underline': active,
+                'cursor-not-allowed text-red-500/40': !active
+              }
+            )}
+            onClick={handleReset}
+            type='button'
+          >
+            Reset
+          </button>
+
+          <button
+            disabled={notAllowApply}
+            className={classNames(
+              'mt-1 rounded-md bg-[#fff] px-8  py-1 text-xs font-medium text-textDark dark:bg-[#101010] dark:text-textLight  lg:text-sm xl:text-base',
+              {
+                'hover:text-brownColor hover:outline hover:outline-1 hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
+                  !notAllowApply,
+                'cursor-not-allowed bg-opacity-30 text-opacity-30 dark:bg-opacity-30 dark:text-opacity-30':
+                  notAllowApply
+              }
+            )}
             type='submit'
           >
             Apply
