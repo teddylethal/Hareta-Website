@@ -223,7 +223,7 @@ export default function ProductDetail() {
     <div className='bg-lightBg py-2 dark:bg-darkBg xl:py-6'>
       {!isMobile && (
         <div className='container'>
-          <div className='rounded-lg bg-[#dfdfdf] p-4 shadow dark:bg-[#202020]'>
+          <div className='rounded-lg border border-black/20 bg-[#dfdfdf] p-4 shadow dark:border-white/20 dark:bg-[#202020]'>
             <div className='grid grid-cols-12 gap-6'>
               <div className='col-span-5'>
                 <div className='rounded-md bg-[#f8f8f8] p-4 dark:bg-[#101010]'>
@@ -275,10 +275,8 @@ export default function ProductDetail() {
 
               <div className='relative col-span-7 flex min-h-full flex-col rounded-md bg-[#f8f8f8] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
                 <div className='flex items-center justify-between'>
-                  <div>
-                    <p className='text-4xl'>{product.name}</p>
-                  </div>
-                  <button onClick={toggleLikeItem} className='text-white/50'>
+                  <p className='text-4xl font-medium'>{product.name}</p>
+                  <button onClick={toggleLikeItem} className='text-black/50 dark:text-white/50'>
                     <FontAwesomeIcon
                       className={classNames('h-8', {
                         'text-red-500': isLikedByUser
@@ -298,20 +296,22 @@ export default function ProductDetail() {
 
                 <div className='mt-4 flex items-center space-x-8 text-lg'>
                   <button
-                    className='capitalize text-textDark/60 hover:text-haretaColor dark:text-textLight/60 dark:hover:text-haretaColor'
+                    className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
                     onClick={handleCollectionClick}
                   >
                     {product.collection}
                   </button>
                   <button
-                    className='capitalize text-textDark/60 hover:text-haretaColor dark:text-textLight/60 dark:hover:text-haretaColor'
+                    className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
                     onClick={handleTypeClick}
                   >
                     {product.type}
                   </button>
                 </div>
                 <div className='mt-4'>
-                  <span className='text-xl text-haretaColor'>${formatCurrency(product.price)}</span>
+                  <span className='text-xl font-medium text-brownColor dark:text-haretaColor'>
+                    ${formatCurrency(product.price)}
+                  </span>
                 </div>
                 <div className='mt-8 h-full text-base lg:text-lg'>
                   <p className=''>{product.description}</p>
