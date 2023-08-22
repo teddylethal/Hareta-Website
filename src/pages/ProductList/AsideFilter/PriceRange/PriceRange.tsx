@@ -7,9 +7,9 @@ import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { PriceSchema, priceSchema } from 'src/utils/rules'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
+import PriceSample from './PriceSample'
+import { priceRanges } from './priceRangeSample'
 
 interface Props {
   queryConfig: QueryConfig
@@ -30,7 +30,8 @@ export default function PriceRange({ queryConfig }: Props) {
     formState: { errors },
     reset,
     register,
-    trigger
+    trigger,
+    setValue
   } = useForm<FormData>({
     defaultValues: {
       lower_price: '',
@@ -109,14 +110,31 @@ export default function PriceRange({ queryConfig }: Props) {
     trigger('lower_price')
   }
 
+  const handleChoosePrice = (index: number) => {
+    const priceRange = priceRanges[index]
+    setLowerPrice(priceRange.lowerPrice.toString())
+    setUpperPrice(priceRange.upperPrice.toString())
+    setValue('lower_price', priceRange.lowerPrice.toString())
+    setValue('upper_price', priceRange.upperPrice.toString())
+    const searchParams = createSearchParams(
+      omit(
+        {
+          ...queryConfig,
+          lower_price: priceRange.lowerPrice.toString(),
+          upper_price: priceRange.upperPrice.toString()
+        },
+        ['page', 'limit', 'limit']
+      )
+    )
+    navigate({
+      pathname: path.store,
+      search: searchParams.toString()
+    })
+  }
+
   return (
-    <div className='ml-4 overflow-hidden rounded-lg bg-[#ddd] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
-      <div className='flex items-center justify-between'>
-        <div className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-500 dark:text-textLight lg:text-lg'>
-          <p className=' uppercase '>Price</p>
-          <FontAwesomeIcon icon={faCaretDown} />
-        </div>
-      </div>
+    <div className='ml-4 rounded-lg bg-[#ddd] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
+      <PriceSample handleChoosePrice={handleChoosePrice} />
       <form className='mx-2 my-1' onSubmit={onSubmit}>
         <div className='flex items-center justify-center'>
           {/* <Controller
