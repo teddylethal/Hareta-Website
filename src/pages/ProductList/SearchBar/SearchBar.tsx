@@ -40,7 +40,7 @@ export default function SearchBar() {
   })
 
   return (
-    <div className='w-full px-2'>
+    <div className='w-full px-4'>
       <form
         className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-500 dark:bg-[#303030]'
         onSubmit={handleSearch}
