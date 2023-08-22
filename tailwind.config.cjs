@@ -32,7 +32,7 @@ module.exports = {
         vintageColor: '#A27B5C',
         textLight: '#EEEEEE',
         darkBg: '#101010',
-        lightBg: '#f8f8f8',
+        lightBg: '#e8e8e8',
         success: '#4bb543',
         brownColor: '#B77729'
       }

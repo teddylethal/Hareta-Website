@@ -133,34 +133,13 @@ export default function PriceRange({ queryConfig }: Props) {
   }
 
   return (
-    <div className='ml-4 rounded-lg bg-[#ddd] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
+    <div className='ml-4 rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
       <PriceSample handleChoosePrice={handleChoosePrice} />
       <form className='mx-2 my-1' onSubmit={onSubmit}>
         <div className='flex items-center justify-center'>
-          {/* <Controller
-            control={control}
-            name='lower_price'
-            render={({ field }) => {
-              return (
-                <InputNumber
-                  type='text'
-                  className='flex items-center'
-                  placeholder='$ From'
-                  classNameInput='p-1 text-center text-xs lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
-                  classNameError='hidden'
-                  {...field}
-                  onChange={(event) => {
-                    field.onChange(event)
-                    trigger('upper_price')
-                  }}
-                />
-              )
-            }}
-          /> */}
-
           <div className='flex items-center'>
             <input
-              className='w-12 rounded-md p-1 text-center text-xs outline-none focus:shadow-sm lg:w-14 lg:text-sm xl:w-20'
+              className='w-12 rounded-md bg-white p-1 text-center text-xs outline outline-1 outline-black/40 focus:shadow-sm dark:bg-black dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
               placeholder='$ From'
               value={lowerPrice}
               {...register('lower_price')}
@@ -172,35 +151,13 @@ export default function PriceRange({ queryConfig }: Props) {
 
           <div className='flex items-center'>
             <input
-              className='w-12 rounded-md p-1 text-center text-xs outline-none focus:shadow-sm lg:w-14 lg:text-sm xl:w-20'
+              className='w-12 rounded-md bg-white p-1 text-center text-xs outline outline-1 outline-black/40 focus:shadow-sm dark:bg-black dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
               placeholder='$ To'
               value={upperPrice}
               {...register('upper_price')}
               onChange={handleChangeUpperPrice}
             />
           </div>
-          {/* {rerender && (
-            <Controller
-              control={control}
-              name='upper_price'
-              render={({ field }) => {
-                return (
-                  <InputNumber
-                    type='text'
-                    className='flex items-center'
-                    placeholder='$ To'
-                    classNameInput='p-1 text-xs text-center lg:text-sm outline-none rounded-md focus:shadow-sm w-12 xl:w-20 lg:w-14'
-                    classNameError='hidden'
-                    {...field}
-                    onChange={(event) => {
-                      field.onChange(event)
-                      trigger('lower_price')
-                    }}
-                  />
-                )
-              }}
-            />
-          )} */}
         </div>
         <div className='mt-1  text-center text-sm text-red-600'>{errors.lower_price?.message}</div>
 
@@ -223,11 +180,11 @@ export default function PriceRange({ queryConfig }: Props) {
           <button
             disabled={notAllowApply}
             className={classNames(
-              'mt-1 rounded-md bg-[#fff] px-8  py-1 text-xs font-medium text-textDark dark:bg-[#101010] dark:text-textLight  lg:text-sm xl:text-base',
+              'mt-1 rounded-md bg-white px-8 py-1 text-xs font-medium text-textDark outline outline-1 dark:bg-[#101010] dark:text-textLight  lg:text-sm xl:text-base',
               {
-                'hover:text-brownColor hover:outline hover:outline-1 hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
+                'hover:text-brownColor hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
                   !notAllowApply,
-                'cursor-not-allowed bg-opacity-30 text-opacity-30 dark:bg-opacity-30 dark:text-opacity-30':
+                'cursor-not-allowed bg-opacity-30 text-opacity-30 dark:bg-opacity-50 dark:text-opacity-30':
                   notAllowApply
               }
             )}

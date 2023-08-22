@@ -16,10 +16,10 @@ export default function AsideSorter() {
   }
 
   return (
-    <div className='ml-4 overflow-hidden rounded-md bg-[#ddd] px-3 py-2 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
+    <div className='ml-4 overflow-hidden rounded-md bg-[#f8f8f8] px-3 py-2 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
       <p className='uppercase text-textDark dark:text-textLight'>Sort by:</p>
       <ul className='mt-2 flex flex-col space-y-2 text-sm text-textDark/80 dark:text-textLight/80 lg:text-base'>
-        <li className='w-full px-8'>
+        <li className='w-full px-10'>
           <button
             onClick={handleChange}
             className={classNames(
@@ -34,7 +34,7 @@ export default function AsideSorter() {
             <p>Newest</p>
           </button>
         </li>
-        <li className='w-full px-8'>
+        <li className='w-full px-10'>
           <button
             onClick={handleChange}
             className={classNames(
@@ -49,7 +49,7 @@ export default function AsideSorter() {
             Top seller
           </button>
         </li>
-        <li className='w-full px-8'>
+        <li className='w-full px-10'>
           <button
             onClick={handleChange}
             className={classNames(
@@ -64,7 +64,7 @@ export default function AsideSorter() {
             Signature
           </button>
         </li>
-        <li className='w-full px-8'>
+        <li className='w-full px-10'>
           <button
             onClick={handleChange}
             className={classNames(

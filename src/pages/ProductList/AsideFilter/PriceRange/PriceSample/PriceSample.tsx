@@ -47,21 +47,21 @@ export default function PriceSample({ handleChoosePrice }: Props) {
       <AnimateChangeInHeight>
         {visible && isOpening && (
           <motion.div
-            className=' flex max-h-32 flex-wrap gap-2 overflow-auto overscroll-contain rounded-md border border-black/40 p-2 dark:border-white/40'
-            initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#e8e8e8' }}
+            className=' flex max-h-32 flex-wrap gap-2 overflow-auto overscroll-contain rounded-md border border-black/40 px-3 py-4 dark:border-white/40'
+            initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
             animate={{
               opacity: 1,
               y: 0,
-              backgroundColor: theme === 'dark' ? '#272727' : '#e8e8e8'
+              backgroundColor: theme === 'dark' ? '#272727' : '#fff'
             }}
-            exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#e8e8e8' }}
+            exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
             transition={{ duration: 0.2 }}
           >
             {priceRanges.map((range, index) => (
               <button
                 key={index}
                 onClick={handleSelect(index)}
-                className='shrink rounded-xl bg-lightBg/80 px-3 py-2 text-textDark/80 outline outline-1 outline-black/20 hover:bg-lightBg hover:text-textDark dark:bg-darkBg/80 dark:text-textLight/80 dark:outline-white/20 dark:hover:bg-darkBg dark:hover:text-textLight'
+                className='shrink rounded-xl bg-lightBg/60 px-3 py-2 text-textDark/70 outline outline-1 outline-black/20 hover:bg-lightBg hover:text-textDark dark:bg-darkBg/60 dark:text-textLight/70 dark:outline-white/20 dark:hover:bg-darkBg dark:hover:text-textLight'
               >
                 ${range.lowerPrice} - ${range.upperPrice}
               </button>
