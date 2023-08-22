@@ -24,7 +24,8 @@ export default function AsideFilter({ queryConfig }: Props) {
   }
 
   return (
-    <div className='ml-4 flex flex-col space-y-2 rounded-md bg-[#ddd] px-2 py-2 duration-500 dark:bg-[#303030]'>
+    <div className='ml-4 flex flex-col space-y-2 rounded-md bg-[#ddd] px-3 py-2 duration-500 dark:bg-[#303030]'>
+      <p className='text-base font-medium uppercase text-textDark dark:text-textLight lg:text-lg'>Filtering</p>
       <CategoryFilter queryConfig={queryConfig} />
       <CollectionFilter queryConfig={queryConfig} />
       <TypeFilter queryConfig={queryConfig} />

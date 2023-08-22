@@ -16,48 +16,65 @@ export default function AsideSorter() {
   }
 
   return (
-    <div className='ml-4 overflow-hidden rounded-md bg-[#ddd] py-2 text-base text-textDark duration-500 dark:bg-[#303030] dark:text-textLight lg:text-lg'>
-      <ul className=''>
-        <li>
+    <div className='ml-4 overflow-hidden rounded-md bg-[#ddd] px-3 py-2 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
+      <p className='uppercase text-textDark dark:text-textLight'>Sort by:</p>
+      <ul className='mt-2 flex flex-col space-y-2 text-sm text-textDark/80 dark:text-textLight/80 lg:text-base'>
+        <li className='w-full px-8'>
           <button
             onClick={handleChange}
             className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
-              { 'text-brownColor dark:text-haretaColor': sorting === 'Newest' }
+              ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+              {
+                'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
+                  sorting !== 'Newest',
+                'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight': sorting === 'Newest'
+              }
             )}
           >
-            Newest
+            <p>Newest</p>
           </button>
         </li>
-        <li>
+        <li className='w-full px-8'>
           <button
-            className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
-              { 'text-brownColor dark:text-haretaColor': sorting === 'Top seller' }
-            )}
             onClick={handleChange}
+            className={classNames(
+              ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+              {
+                'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
+                  sorting !== 'Top seller',
+                'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight': sorting === 'Top seller'
+              }
+            )}
           >
             Top seller
           </button>
         </li>
-        <li>
+        <li className='w-full px-8'>
           <button
-            className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
-              { 'text-brownColor dark:text-haretaColor': sorting === 'Signature' }
-            )}
             onClick={handleChange}
+            className={classNames(
+              ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+              {
+                'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
+                  sorting !== 'Signature',
+                'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight': sorting === 'Signature'
+              }
+            )}
           >
             Signature
           </button>
         </li>
-        <li>
+        <li className='w-full px-8'>
           <button
-            className={classNames(
-              'flex w-full justify-start px-4 py-1 hover:text-brownColor dark:hover:text-haretaColor ',
-              { 'text-brownColor dark:text-haretaColor': sorting === 'Favourite' }
-            )}
             onClick={handleChange}
+            className={classNames(
+              ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+              {
+                'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
+                  sorting !== 'Favourite',
+                'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight': sorting === 'Favourite'
+              }
+            )}
           >
             Favourite
           </button>
