@@ -30,7 +30,8 @@ export default function ChangePassword() {
       new_password: '',
       confirm_new_password: ''
     },
-    resolver: yupResolver(changePasswordSchema)
+    resolver: yupResolver(changePasswordSchema),
+    shouldFocusError: false
   })
 
   const changePasswordMutation = useMutation(userApi.changePassword)
@@ -82,33 +83,33 @@ export default function ChangePassword() {
 
   return (
     <Fragment>
-      <form className='my-8 px-6 font-medium  uppercase' onSubmit={onSubmit}>
+      <form className='my-8 px-6' onSubmit={onSubmit}>
         <div className='flex flex-col space-y-2 rounded-lg border border-black/20 bg-[#e8e8e8] p-4 dark:border-white/20 dark:bg-[#202020]'>
           <div className='relative mt-2'>
-            <p>Current password</p>
+            <p className='font-medium uppercase'>Current password</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black  text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage '
               register={register}
               name='old_password'
               errorMessage={errors.old_password?.message}
             />
           </div>
           <div className='relative '>
-            <p>New password</p>
+            <p className='font-medium uppercase'>New password</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black  text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='new_password'
               errorMessage={errors.new_password?.message}
             />
           </div>
           <div className='relative '>
-            <p>Confirm new password</p>
+            <p className='font-medium uppercase'>Confirm new password</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black  text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black text-base outline-none duration-300 autofill:text-textDark peer dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='confirm_new_password'
               errorMessage={errors.confirm_new_password?.message}

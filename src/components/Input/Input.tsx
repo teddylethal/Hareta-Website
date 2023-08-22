@@ -16,7 +16,7 @@ export default function Input({
   className,
   errorMessage,
   rules,
-  classNameInput = 'w-full rounded-sm border border-gray-300 p-3 outline-none outline focus:border-gray-500 focus:shadow-sm',
+  classNameInput = 'peer w-full rounded-sm border border-gray-300 p-3 outline-none outline',
   classNameError = 'mt-1 min-h-[1.25rem] text-sm text-red-600',
   ...rest
 }: Props) {
