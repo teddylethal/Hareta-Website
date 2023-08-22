@@ -83,7 +83,7 @@ export default function Header() {
             )}
 
             {isAuthenticated && (
-              <div className='flex px-3 hover:text-haretaColor'>
+              <div className='flex px-3'>
                 <UserNav />
               </div>
             )}
