@@ -216,7 +216,7 @@ export default function CartWithoutLogin() {
                             </div>
                             <div className='col-span-1'>
                               <button
-                                className='bg-none text-textDark dark:text-textLight'
+                                className='bg-none text-textDark/80 hover:text-textDark hover:underline  dark:text-textLight/80 dark:hover:text-textLight'
                                 onClick={handleRemove(index)}
                               >
                                 Remove
@@ -259,17 +259,17 @@ export default function CartWithoutLogin() {
               <div className='col-span-6 grid grid-cols-4 items-center'>
                 <div className='col-span-1'></div>
 
-                <div className='col-span-1 items-center text-right uppercase text-textDark dark:text-textLight'>
+                <div className='col-span-1 items-center text-right font-medium uppercase text-textDark dark:text-textLight'>
                   Total:
                 </div>
-                <span className='col-span-1 text-center text-haretaColor'>
+                <span className='col-span-1 text-center text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
                 <button
                   className={classNames(
-                    'col-span-1 h-10 rounded-sm border-none  bg-[#eee]  text-textDark dark:bg-vintageColor  dark:text-textDark',
+                    'col-span-1 h-10 rounded-md border-none  bg-brownColor/80  text-textDark dark:bg-haretaColor  dark:text-textDark',
                     {
-                      ' hover:bg-haretaColor dark:hover:bg-haretaColor': checkedPurchasesCount !== 0,
+                      ' hover:bg-brownColor dark:hover:bg-haretaColor/80': checkedPurchasesCount !== 0,
                       'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':
                         checkedPurchasesCount === 0
                     }
