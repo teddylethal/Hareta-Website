@@ -45,7 +45,6 @@ export default function PriceRange({ queryConfig }: Props) {
     setValue('lower_price', lowerPrice)
     setValue('upper_price', upperPrice)
   }, [lowerPrice, setValue, upperPrice])
-  console.log('rerender')
 
   const navigate = useNavigate()
 

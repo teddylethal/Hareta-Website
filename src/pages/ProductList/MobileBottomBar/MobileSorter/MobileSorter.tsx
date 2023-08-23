@@ -38,11 +38,10 @@ export default function MobileSorter() {
         {visible && (
           <Fragment>
             <motion.div
-              className='fixed inset-0 '
-              initial={{ opacity: 0 }}
+              className='fixed inset-0 bg-black'
+              initial={{ opacity: 0, backgroundColor: 'black' }}
               animate={{
-                opacity: 0.3,
-                backgroundColor: 'black'
+                opacity: 0.3
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
@@ -53,7 +52,7 @@ export default function MobileSorter() {
               animate={{
                 opacity: 1,
                 x: 0,
-                backgroundColor: theme === 'dark' ? '#333333' : '#dddddd',
+                backgroundColor: theme === 'dark' ? '#303030' : '#f8f8f8',
                 color: theme === 'dark' ? '#eeeeee' : '#222222'
               }}
               exit={{ opacity: 0, x: '-20%' }}
