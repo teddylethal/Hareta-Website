@@ -95,7 +95,7 @@ export default function CartWithoutLogin() {
   }
 
   return (
-    <div className='bg-lightBg py-4 dark:bg-darkBg xl:py-6'>
+    <div className='bg-lightBg py-4 dark:bg-darkBg'>
       {!isMobile && (
         <div className='container'>
           <div className='relative flex items-center rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>

@@ -88,7 +88,7 @@ export default function Cart() {
   }
 
   return (
-    <div className='bg-lightBg py-4 dark:bg-darkBg xl:py-6'>
+    <div className='bg-lightBg py-4 dark:bg-darkBg'>
       {!isMobile && (
         <div className='container'>
           <div className='relative flex items-center space-x-96 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black '>
@@ -153,7 +153,10 @@ export default function Cart() {
                             />
                           </div>
                           <Link
-                            to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                            to={`${path.home}${generateNameId({
+                              name: purchase.item.name,
+                              id: purchase.item.id
+                            })}`}
                             className='flex flex-grow items-center'
                           >
                             <div className='flex h-24 w-24 flex-shrink-0 items-center'>
@@ -306,7 +309,10 @@ export default function Cart() {
                       <div className='col-span-1'></div>
                       <div className='col-span-6'>
                         <Link
-                          to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                          to={`${path.home}${generateNameId({
+                            name: purchase.item.name,
+                            id: purchase.item.id
+                          })}`}
                           className='flex flex-grow items-center'
                         >
                           <div className='relative flex w-full flex-shrink-0 items-center pt-[100%]'>
