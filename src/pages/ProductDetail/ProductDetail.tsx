@@ -21,6 +21,7 @@ import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { ThemeContext } from 'src/App'
 import { AppContext } from 'src/contexts/app.context'
+import ProductDetailLoading from './components/ProductDetailLoading'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -47,7 +48,7 @@ export default function ProductDetail() {
   const { nameId } = useParams()
 
   const id = getIdFromNameId(nameId as string)
-  const { data: productDetailData } = useQuery({
+  const { data: productDetailData, isFetching } = useQuery({
     queryKey: ['item', id],
     queryFn: () => productApi.getProductDetail(id as string)
   })
@@ -218,136 +219,139 @@ export default function ProductDetail() {
     setVisible(true)
   }
 
-  if (!product) return null
+  if (!product) return <ProductDetailLoading />
   return (
     <div className='bg-lightBg py-2 dark:bg-darkBg xl:py-6'>
       {!isMobile && (
         <div className='container'>
-          <div className='rounded-lg border border-black/20 bg-[#dfdfdf] p-4 shadow dark:border-white/20 dark:bg-[#202020]'>
-            <div className='grid grid-cols-12 gap-6'>
-              <div className='col-span-5'>
-                <div className='rounded-md bg-[#f8f8f8] p-4 dark:bg-[#101010]'>
-                  <div
-                    className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#202020]'
-                    onMouseMove={handleZoom}
-                    onMouseLeave={handleRemoveZoom}
-                  >
-                    <img
-                      src={activeImage?.image ? activeImage.image.url : ''}
-                      alt={product.name}
-                      className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-                      ref={imageRef}
-                    />
-                  </div>
-                  <div className='relative mt-3 flex select-none justify-center space-x-2'>
-                    {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
-                      <button
-                        className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
-                        onClick={previousImageList}
-                      >
-                        <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
-                      </button>
-                    )}
-                    {currentImageList.map((image, index) => {
-                      const isActive = image === activeImage
-                      return (
-                        <button onClick={handleChosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
-                          <img
-                            src={image.image ? image.image.url : ''}
-                            alt={product.name}
-                            className='absolute left-0 top-0 h-full w-full object-scale-down'
-                          />
-                          {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
-                        </button>
-                      )
-                    })}
-                    {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
-                      <button
-                        className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
-                        onClick={nextImageList}
-                      >
-                        <FontAwesomeIcon icon={faChevronRight} className='h-8' />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className='relative col-span-7 flex min-h-full flex-col rounded-md bg-[#f8f8f8] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
-                <div className='flex items-center justify-between'>
-                  <p className='text-4xl font-medium'>{product.name}</p>
-                  <button onClick={toggleLikeItem} className='text-black/50 dark:text-white/50'>
-                    <FontAwesomeIcon
-                      className={classNames('h-8', {
-                        'text-red-500': isLikedByUser
-                      })}
-                      icon={faHeart}
-                    />
-                  </button>
-                </div>
-                {product.tag !== 0 && (
-                  <div className='relative mt-2'>
-                    <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-                      {itemTag[product.tag]}
-                    </span>
-                    <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
-                  </div>
-                )}
-
-                <div className='mt-4 flex items-center space-x-8 text-lg'>
-                  <button
-                    className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
-                    onClick={handleCollectionClick}
-                  >
-                    {product.collection}
-                  </button>
-                  <button
-                    className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
-                    onClick={handleTypeClick}
-                  >
-                    {product.type}
-                  </button>
-                </div>
-                <div className='mt-4'>
-                  <span className='text-xl font-medium text-brownColor dark:text-haretaColor'>
-                    ${formatCurrency(product.price)}
-                  </span>
-                </div>
-                <div className='mt-8 h-full text-base lg:text-lg'>
-                  <p className=''>{product.description}</p>
-                </div>
-
-                <div className='w-80'>
-                  <div className='mt-4 flex items-center justify-between'>
-                    <p className='text-textDark dark:text-textLight'>Quantity</p>
-                    <QuantityController
-                      classNameWrapper=''
-                      value={buyCount}
-                      max={product.quantity}
-                      onDecrease={handleBuyCount}
-                      onIncrease={handleBuyCount}
-                      onType={handleBuyCount}
-                    />
-                    {product.quantity <= 10 && <p>Only</p>}
-                    <p className='text-textDark dark:text-textLight'>{product.quantity} available</p>
-                  </div>
-
-                  <div className='mt-4 flex justify-between'>
-                    <button
-                      className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
-                      onClick={addToCart}
+          {isFetching && <ProductDetailLoading />}
+          {!isFetching && (
+            <div className='rounded-lg border border-black/20 bg-[#dfdfdf] p-4 shadow dark:border-white/20 dark:bg-[#202020]'>
+              <div className='grid grid-cols-12 gap-6'>
+                <div className='col-span-5'>
+                  <div className='rounded-md bg-[#f8f8f8] p-4 dark:bg-[#101010]'>
+                    <div
+                      className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#202020]'
+                      onMouseMove={handleZoom}
+                      onMouseLeave={handleRemoveZoom}
                     >
-                      <FontAwesomeIcon icon={faCartPlus} />
-                      <p>Add to cart</p>
+                      <img
+                        src={activeImage?.image ? activeImage.image.url : ''}
+                        alt={product.name}
+                        className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
+                        ref={imageRef}
+                      />
+                    </div>
+                    <div className='relative mt-3 flex select-none justify-center space-x-2'>
+                      {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
+                        <button
+                          className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
+                          onClick={previousImageList}
+                        >
+                          <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
+                        </button>
+                      )}
+                      {currentImageList.map((image, index) => {
+                        const isActive = image === activeImage
+                        return (
+                          <button onClick={handleChosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
+                            <img
+                              src={image.image ? image.image.url : ''}
+                              alt={product.name}
+                              className='absolute left-0 top-0 h-full w-full object-scale-down'
+                            />
+                            {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
+                          </button>
+                        )
+                      })}
+                      {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
+                        <button
+                          className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
+                          onClick={nextImageList}
+                        >
+                          <FontAwesomeIcon icon={faChevronRight} className='h-8' />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className='relative col-span-7 flex min-h-full flex-col rounded-md bg-[#f8f8f8] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
+                  <div className='flex items-center justify-between'>
+                    <p className='text-4xl font-medium'>{product.name}</p>
+                    <button onClick={toggleLikeItem} className='text-black/50 dark:text-white/50'>
+                      <FontAwesomeIcon
+                        className={classNames('h-8', {
+                          'text-red-500': isLikedByUser
+                        })}
+                        icon={faHeart}
+                      />
                     </button>
-                    <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
-                      Buy
+                  </div>
+                  {product.tag !== 0 && (
+                    <div className='relative mt-2'>
+                      <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+                        {itemTag[product.tag]}
+                      </span>
+                      <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+                    </div>
+                  )}
+
+                  <div className='mt-4 flex items-center space-x-8 text-lg'>
+                    <button
+                      className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
+                      onClick={handleCollectionClick}
+                    >
+                      {product.collection}
                     </button>
+                    <button
+                      className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
+                      onClick={handleTypeClick}
+                    >
+                      {product.type}
+                    </button>
+                  </div>
+                  <div className='mt-4'>
+                    <span className='text-xl font-medium text-brownColor dark:text-haretaColor'>
+                      ${formatCurrency(product.price)}
+                    </span>
+                  </div>
+                  <div className='mt-8 h-full text-base lg:text-lg'>
+                    <p className=''>{product.description}</p>
+                  </div>
+
+                  <div className='w-80'>
+                    <div className='mt-4 flex items-center justify-between'>
+                      <p className='text-textDark dark:text-textLight'>Quantity</p>
+                      <QuantityController
+                        classNameWrapper=''
+                        value={buyCount}
+                        max={product.quantity}
+                        onDecrease={handleBuyCount}
+                        onIncrease={handleBuyCount}
+                        onType={handleBuyCount}
+                      />
+                      {product.quantity <= 10 && <p>Only</p>}
+                      <p className='text-textDark dark:text-textLight'>{product.quantity} available</p>
+                    </div>
+
+                    <div className='mt-4 flex justify-between'>
+                      <button
+                        className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                        onClick={addToCart}
+                      >
+                        <FontAwesomeIcon icon={faCartPlus} />
+                        <p>Add to cart</p>
+                      </button>
+                      <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
+                        Buy
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
           <OtherItemsInCollection collectionName={product.collection} />
           <OtherItemsInType type={product.type} />

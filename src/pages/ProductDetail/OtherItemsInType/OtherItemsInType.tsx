@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
+import ProductSekeleton from 'src/pages/ProductList/ProductSkeleton'
 
 interface Props {
   type: string
@@ -35,7 +36,7 @@ export default function OtherItemsInType({ type }: Props) {
   }
   const queryConfig = useQueryConfig()
   const inTypeQueryConfig: QueryConfig = { type: type, page: '1', limit: '12' }
-  const { data: productsData } = useQuery({
+  const { data: productsData, isLoading } = useQuery({
     queryKey: ['products_in_type', inTypeQueryConfig],
     queryFn: () => {
       return productApi.getProductList(inTypeQueryConfig)
@@ -47,7 +48,6 @@ export default function OtherItemsInType({ type }: Props) {
 
   const navigate = useNavigate()
   const handleClick = () => {
-    // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     navigate({
       pathname: path.store,
       search: createSearchParams({
@@ -72,38 +72,51 @@ export default function OtherItemsInType({ type }: Props) {
       >
         {type}
       </button>
-      <div className='mt-4'>
-        <Carousel
-          responsive={responsive}
-          autoPlaySpeed={3000}
-          rewind={true}
-          rewindWithAnimation
-          autoPlay={true}
-          transitionDuration={500}
-          customLeftArrow={
-            <ArrowFix>
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-                className='text-primary-400 absolute left-0 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-4 text-textDark/40 hover:bg-white hover:text-textDark/60 dark:bg-black/40 dark:text-textLight/40 dark:hover:bg-black dark:hover:text-textLight/80'
-              />
-            </ArrowFix>
-          }
-          customRightArrow={
-            <ArrowFix>
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className='text-primary-400 absolute right-0 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-4 text-textDark/40 hover:bg-white hover:text-textDark/60 dark:bg-black/40 dark:text-textLight/40 dark:hover:bg-black dark:hover:text-textLight/80'
-              />
-            </ArrowFix>
-          }
-        >
-          {itemsInType.map((product) => (
-            <div className='mx-2' key={product.id}>
-              <Product product={product} queryConfig={queryConfig} />
-            </div>
-          ))}
-        </Carousel>
-      </div>
+      {isLoading && (
+        <div className='mt-4 grid grid-cols-4'>
+          {Array(4)
+            .fill(0)
+            .map((_, index) => (
+              <div key={index} className='col-span-1'>
+                <ProductSekeleton />
+              </div>
+            ))}
+        </div>
+      )}
+      {!isLoading && (
+        <div className='mt-4'>
+          <Carousel
+            responsive={responsive}
+            autoPlaySpeed={3000}
+            rewind={true}
+            rewindWithAnimation
+            autoPlay={true}
+            transitionDuration={500}
+            customLeftArrow={
+              <ArrowFix>
+                <FontAwesomeIcon
+                  icon={faChevronLeft}
+                  className='text-primary-400 absolute left-0 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-4 text-textDark/40 hover:bg-white hover:text-textDark/60 dark:bg-black/40 dark:text-textLight/40 dark:hover:bg-black dark:hover:text-textLight/80'
+                />
+              </ArrowFix>
+            }
+            customRightArrow={
+              <ArrowFix>
+                <FontAwesomeIcon
+                  icon={faChevronRight}
+                  className='text-primary-400 absolute right-0 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-4 text-textDark/40 hover:bg-white hover:text-textDark/60 dark:bg-black/40 dark:text-textLight/40 dark:hover:bg-black dark:hover:text-textLight/80'
+                />
+              </ArrowFix>
+            }
+          >
+            {itemsInType.map((product) => (
+              <div className='mx-2' key={product.id}>
+                <Product product={product} queryConfig={queryConfig} />
+              </div>
+            ))}
+          </Carousel>
+        </div>
+      )}
     </div>
   )
 }

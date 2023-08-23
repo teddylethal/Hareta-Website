@@ -15,17 +15,21 @@ import likeItemAPi from 'src/apis/userLikeItem.api'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import ProductSekeleton from './ProductSkeleton'
+import ProductListSkeleton from './ProductListSkeleton'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
-  // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
   const queryConfig = useQueryConfig()
 
-  const { data: storeData, isFetching } = useQuery({
+  const {
+    data: storeData,
+    isFetching,
+    isLoading
+  } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
@@ -61,6 +65,7 @@ export default function ProductList() {
                   <SearchBar />
                 </div>
               </div>
+              {isLoading && <ProductListSkeleton />}
               {storeData && (
                 <div className='mt-4'>
                   <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
