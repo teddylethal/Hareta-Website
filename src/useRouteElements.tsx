@@ -53,6 +53,14 @@ export default function useRouteElements() {
         {
           path: path.requestVerify,
           element: <RequestVerifyEmail />
+        },
+        {
+          path: path.temporaryCart,
+          element: (
+            <MainLayout>
+              <CartWithoutLogin />
+            </MainLayout>
+          )
         }
       ]
     },
@@ -138,14 +146,6 @@ export default function useRouteElements() {
         // <MainLayout>
         <VerifyEmail />
         // </MainLayout>
-      )
-    },
-    {
-      path: path.temporaryCart,
-      element: (
-        <MainLayout>
-          <CartWithoutLogin />
-        </MainLayout>
       )
     }
   ])

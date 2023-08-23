@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { produce } from 'immer'
 import { keyBy } from 'lodash'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import QuantityController from 'src/components/QuantityController'
 import path from 'src/constants/path'
@@ -237,18 +237,23 @@ export default function CartWithoutLogin() {
             <div className='sticky bottom-0 z-[5] mx-8 grid grid-cols-12 items-center justify-between rounded-sm py-4 shadow '>
               <div className='col-span-6 grid grid-cols-3'>
                 <div className=' col-span-1 flex flex-shrink-0 items-center'>
-                  <input
-                    type='checkbox'
-                    className='h-5 w-5 accent-haretaColor'
-                    checked={isAllChecked}
-                    onChange={handleSelectAll}
-                  />
-                  <button
-                    className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
-                    onClick={handleSelectAll}
-                  >
-                    Select all
-                  </button>
+                  {extendedTempPurchases.length > 0 && (
+                    <Fragment>
+                      <input
+                        type='checkbox'
+                        className='h-5 w-5 accent-haretaColor'
+                        checked={isAllChecked}
+                        onChange={handleSelectAll}
+                      />
+
+                      <button
+                        className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
+                        onClick={handleSelectAll}
+                      >
+                        Select all
+                      </button>
+                    </Fragment>
+                  )}
                 </div>
                 <div className='col-span-1 flex items-center text-center text-textDark dark:text-textLight'>
                   {checkedPurchasesCount < 2

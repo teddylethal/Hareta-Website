@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import purchaseApi from 'src/apis/cart.api'
 import QuantityController from 'src/components/QuantityController'
@@ -136,107 +136,118 @@ export default function Cart() {
                 </div>
               </div>
               <div className='mx-4 my-2 h-[440px] overflow-auto rounded-md bg-[#f8f8f8] shadow outline outline-1 outline-black/20 dark:bg-[#202020] dark:outline-white/20 '>
-                {extendedPurchases?.map((purchase, index) => (
-                  <div
-                    key={purchase.id}
-                    className='border-b last:border-none hover:bg-[#efefef]  dark:hover:bg-[#101010]'
-                  >
-                    <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
-                      <div className='col-span-6'>
-                        <div className='flex'>
-                          <div className='flex flex-shrink-0 items-center justify-center pr-3'>
-                            <input
-                              type='checkbox'
-                              className='h-5 w-5 accent-haretaColor'
-                              checked={purchase.checked}
-                              onChange={handleChecking(index)}
-                            />
-                          </div>
-                          <Link
-                            to={`${path.home}${generateNameId({
-                              name: purchase.item.name,
-                              id: purchase.item.id
-                            })}`}
-                            className='flex flex-grow items-center'
-                          >
-                            <div className='flex h-24 w-24 flex-shrink-0 items-center'>
-                              <img
-                                alt={purchase.item.name}
-                                src={
-                                  purchase.item.avatar
-                                    ? purchase.item.avatar.url
-                                    : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-                                }
+                {extendedPurchases.length > 0 ? (
+                  extendedPurchases?.map((purchase, index) => (
+                    <div
+                      key={purchase.id}
+                      className='border-b last:border-none hover:bg-[#efefef]  dark:hover:bg-[#101010]'
+                    >
+                      <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
+                        <div className='col-span-6'>
+                          <div className='flex'>
+                            <div className='flex flex-shrink-0 items-center justify-center pr-3'>
+                              <input
+                                type='checkbox'
+                                className='h-5 w-5 accent-haretaColor'
+                                checked={purchase.checked}
+                                onChange={handleChecking(index)}
                               />
                             </div>
-                            <div className='ml-4 flex-grow px-2 text-left'>
-                              <div className='truncate text-base lg:text-lg'>{purchase.item.name}</div>
-                            </div>
-                          </Link>
+                            <Link
+                              to={`${path.home}${generateNameId({
+                                name: purchase.item.name,
+                                id: purchase.item.id
+                              })}`}
+                              className='flex flex-grow items-center'
+                            >
+                              <div className='flex h-24 w-24 flex-shrink-0 items-center'>
+                                <img
+                                  alt={purchase.item.name}
+                                  src={
+                                    purchase.item.avatar
+                                      ? purchase.item.avatar.url
+                                      : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
+                                  }
+                                />
+                              </div>
+                              <div className='ml-4 flex-grow px-2 text-left'>
+                                <div className='truncate text-base lg:text-lg'>{purchase.item.name}</div>
+                              </div>
+                            </Link>
+                          </div>
                         </div>
-                      </div>
-                      <div className='col-span-6'>
-                        <div className='grid grid-cols-4 items-center'>
-                          <div className='col-span-1'>
-                            <div className='flex items-center justify-center'>
-                              <span className='text-textDark dark:text-textLight'>
-                                ${formatCurrency(purchase.item.price)}
+                        <div className='col-span-6'>
+                          <div className='grid grid-cols-4 items-center'>
+                            <div className='col-span-1'>
+                              <div className='flex items-center justify-center'>
+                                <span className='text-textDark dark:text-textLight'>
+                                  ${formatCurrency(purchase.item.price)}
+                                </span>
+                              </div>
+                            </div>
+                            <div className='col-span-1'>
+                              <QuantityController
+                                max={purchase.item.quantity}
+                                value={purchase.quantity}
+                                classNameWrapper='flex items-center justify-center'
+                                onIncrease={(value) => handleQuantity(index, value, value <= purchase.item.quantity)}
+                                onDecrease={(value) => handleQuantity(index, value, value >= 1)}
+                                onType={handleTypeQuantity(index)}
+                                onFocusOut={(value) =>
+                                  handleQuantity(
+                                    index,
+                                    value,
+                                    value >= 1 && value <= purchase.item.quantity && value !== purchase.previousQuantity
+                                  )
+                                }
+                                disabled={purchase.disabled}
+                              />
+                            </div>
+                            <div className='col-span-1'>
+                              <span className='text-haretaColor'>
+                                ${formatCurrency(purchase.item.price * purchase.quantity)}
                               </span>
                             </div>
-                          </div>
-                          <div className='col-span-1'>
-                            <QuantityController
-                              max={purchase.item.quantity}
-                              value={purchase.quantity}
-                              classNameWrapper='flex items-center justify-center'
-                              onIncrease={(value) => handleQuantity(index, value, value <= purchase.item.quantity)}
-                              onDecrease={(value) => handleQuantity(index, value, value >= 1)}
-                              onType={handleTypeQuantity(index)}
-                              onFocusOut={(value) =>
-                                handleQuantity(
-                                  index,
-                                  value,
-                                  value >= 1 && value <= purchase.item.quantity && value !== purchase.previousQuantity
-                                )
-                              }
-                              disabled={purchase.disabled}
-                            />
-                          </div>
-                          <div className='col-span-1'>
-                            <span className='text-haretaColor'>
-                              ${formatCurrency(purchase.item.price * purchase.quantity)}
-                            </span>
-                          </div>
-                          <div className='col-span-1'>
-                            <button
-                              className='bg-none text-textDark/80 hover:text-textDark hover:underline  dark:text-textLight/80 dark:hover:text-textLight'
-                              onClick={handleRemove(index)}
-                            >
-                              Remove
-                            </button>
+                            <div className='col-span-1'>
+                              <button
+                                className='bg-none text-textDark/80 hover:text-textDark hover:underline  dark:text-textLight/80 dark:hover:text-textLight'
+                                onClick={handleRemove(index)}
+                              >
+                                Remove
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  ))
+                ) : (
+                  <div className='flex h-full w-full items-center justify-center'>
+                    <img src='/images/emptyCart.png' alt='Empty cart' className='' />
                   </div>
-                ))}
+                )}
               </div>
             </div>
             <div className='mx-8 grid grid-cols-12 items-center justify-between rounded-sm py-4 shadow '>
               <div className='col-span-6 grid grid-cols-3'>
                 <div className=' col-span-1 flex flex-shrink-0 items-center'>
-                  <input
-                    type='checkbox'
-                    className='h-5 w-5 accent-haretaColor'
-                    checked={isAllChecked}
-                    onChange={handleSelectAll}
-                  />
-                  <button
-                    className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
-                    onClick={handleSelectAll}
-                  >
-                    Select all
-                  </button>
+                  {extendedPurchases.length > 0 && (
+                    <Fragment>
+                      <input
+                        type='checkbox'
+                        className='h-5 w-5 accent-haretaColor'
+                        checked={isAllChecked}
+                        onChange={handleSelectAll}
+                      />
+
+                      <button
+                        className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
+                        onClick={handleSelectAll}
+                      >
+                        Select all
+                      </button>
+                    </Fragment>
+                  )}
                 </div>
                 <div className='col-span-1 flex items-center text-center text-textDark dark:text-textLight'>
                   {checkedPurchasesCount < 2
