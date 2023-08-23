@@ -1,13 +1,13 @@
 import { useState, createContext } from 'react'
-import { getCategoryFilteringFromLS, getCollectionFilteringFromLS, getTypeFilteringFromLS } from 'src/utils/store'
+import { getTypeFilteringFromLS } from 'src/utils/store'
 
 interface StoreContextInterface {
   sorting: string
   setSorting: React.Dispatch<React.SetStateAction<string>>
-  category: string
-  setCategory: React.Dispatch<React.SetStateAction<string>>
-  collection: string
-  setCollection: React.Dispatch<React.SetStateAction<string>>
+  lowerPrice: string
+  setLowerPrice: React.Dispatch<React.SetStateAction<string>>
+  upperPrice: string
+  setUpperPrice: React.Dispatch<React.SetStateAction<string>>
   type: string
   setType: React.Dispatch<React.SetStateAction<string>>
   isFavouriteList: boolean
@@ -17,10 +17,10 @@ interface StoreContextInterface {
 const initialStoreContext: StoreContextInterface = {
   sorting: 'Newest',
   setSorting: () => null,
-  category: getCategoryFilteringFromLS(),
-  setCategory: () => null,
-  collection: getCollectionFilteringFromLS(),
-  setCollection: () => null,
+  lowerPrice: '',
+  setLowerPrice: () => null,
+  upperPrice: '',
+  setUpperPrice: () => null,
   type: getTypeFilteringFromLS(),
   setType: () => null,
   isFavouriteList: false,
@@ -31,8 +31,8 @@ export const StoreContext = createContext<StoreContextInterface>(initialStoreCon
 
 export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   const [sorting, setSorting] = useState<string>(initialStoreContext.sorting)
-  const [category, setCategory] = useState<string>(initialStoreContext.category)
-  const [collection, setCollection] = useState<string>(initialStoreContext.collection)
+  const [lowerPrice, setLowerPrice] = useState<string>(initialStoreContext.lowerPrice)
+  const [upperPrice, setUpperPrice] = useState<string>(initialStoreContext.upperPrice)
   const [type, setType] = useState<string>(initialStoreContext.type)
   const [isFavouriteList, setIsFavouriteList] = useState<boolean>(initialStoreContext.isFavouriteList)
 
@@ -41,10 +41,10 @@ export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         sorting,
         setSorting,
-        category,
-        setCategory,
-        collection,
-        setCollection,
+        lowerPrice,
+        setLowerPrice,
+        upperPrice,
+        setUpperPrice,
         type,
         setType,
         isFavouriteList,

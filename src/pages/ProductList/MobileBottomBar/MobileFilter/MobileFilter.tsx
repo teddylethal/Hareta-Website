@@ -2,7 +2,6 @@ import { Fragment, useContext, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { ThemeContext } from 'src/App'
-import { StoreContext } from 'src/contexts/store.context'
 import CategoryFilter from '../../AsideFilter/CategoryFilter'
 import CollectionFilter from '../../AsideFilter/CollectionFilter'
 import TypeFilter from '../../AsideFilter/TypeFilter'
@@ -10,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faXmark } from '@fortawesome/free-solid-svg-icons'
 import PriceRange from '../../AsideFilter/PriceRange'
 import { useNavigate } from 'react-router-dom'
-import { setCategoryFilteringToLS, setCollectionFilteringToLS, setTypeFilteringToLS } from 'src/utils/store'
 import path from 'src/constants/path'
 import classNames from 'classnames'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
@@ -61,10 +59,9 @@ export default function MobileBottomBar({ queryConfig }: Props) {
           <Fragment>
             <motion.div
               className='fixed inset-0 '
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 0, backgroundColor: 'black' }}
               animate={{
-                opacity: 0.3,
-                backgroundColor: 'black'
+                opacity: 0.3
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}

@@ -54,7 +54,7 @@ export default function ProductList() {
       <div className='container'>
         {!isMobile && (
           <div className='grid grid-cols-12 gap-6'>
-            <div className='relative col-span-3 mb-auto flex flex-col space-y-4 overflow-hidden duration-500'>
+            <div className='relative col-span-3 mb-auto flex flex-col space-y-4 overflow-hidden px-2 duration-500'>
               <AsideSorter />
               <PriceRange queryConfig={queryConfig} />
               <AsideFilter queryConfig={queryConfig} />

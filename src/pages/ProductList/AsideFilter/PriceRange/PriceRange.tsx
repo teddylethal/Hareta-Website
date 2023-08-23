@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { omit } from 'lodash'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
@@ -22,8 +22,8 @@ type FormData = NoUndefinedField<PriceSchema>
 export default function PriceRange({ queryConfig }: Props) {
   const { lower_price, upper_price } = queryConfig
 
-  const [lowerPrice, setLowerPrice] = useState<string>(lower_price || '')
-  const [upperPrice, setUpperPrice] = useState<string>(upper_price || '')
+  const [lowerPrice, setLowerPrice] = useState(lower_price || '')
+  const [upperPrice, setUpperPrice] = useState(upper_price || '')
 
   const {
     handleSubmit,
@@ -34,12 +34,18 @@ export default function PriceRange({ queryConfig }: Props) {
     setValue
   } = useForm<FormData>({
     defaultValues: {
-      lower_price: lower_price || '',
-      upper_price: lower_price || ''
+      lower_price: '',
+      upper_price: ''
     },
     resolver: yupResolver(priceSchema),
     shouldFocusError: false
   })
+
+  useEffect(() => {
+    setValue('lower_price', lowerPrice)
+    setValue('upper_price', upperPrice)
+  }, [lowerPrice, setValue, upperPrice])
+  console.log('rerender')
 
   const navigate = useNavigate()
 
@@ -98,16 +104,16 @@ export default function PriceRange({ queryConfig }: Props) {
     const { value } = event.target
     if (/^\d+$/.test(value) || value === '') {
       setLowerPrice(value)
+      trigger('upper_price')
     }
-    trigger('upper_price')
   }
 
   const handleChangeUpperPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
     if (/^\d+$/.test(value) || value === '') {
       setUpperPrice(value)
+      trigger('lower_price')
     }
-    trigger('lower_price')
   }
 
   const handleChoosePrice = (index: number) => {
@@ -131,6 +137,12 @@ export default function PriceRange({ queryConfig }: Props) {
       search: searchParams.toString()
     })
   }
+
+  // window.onbeforeunload = () => {
+  //   navigate({
+  //     pathname: path.store
+  //   })
+  // }
 
   return (
     <div className='relative w-full rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>

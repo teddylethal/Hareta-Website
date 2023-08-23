@@ -26,7 +26,7 @@ export default function AsideFilter({ queryConfig }: Props) {
   }
 
   return (
-    <div className='ml-4 flex flex-col space-y-2 rounded-md bg-[#f8f8f8] px-3 py-2 duration-500 dark:bg-[#303030]'>
+    <div className='flex flex-col space-y-2 rounded-md bg-[#f8f8f8] px-3 py-2 duration-500 dark:bg-[#303030]'>
       <div className='flex items-center space-x-2 text-base font-medium uppercase text-textDark duration-500 dark:text-textLight lg:text-lg'>
         <FontAwesomeIcon icon={faFilter} />
         <p className=''>Filter</p>
