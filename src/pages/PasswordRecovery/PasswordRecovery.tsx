@@ -18,27 +18,12 @@ import { useSearchParams } from 'react-router-dom'
 // import verifyEmail from 'src/apis/verifyEmail.api'
 import RequestPasswordRecovery from './components/RequestPasswordRecovery'
 import ChangePasswordRecovery from './components/ChangePasswordRecovery'
-import passwordRecovery from 'src/apis/passwordRecovery.api'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import FailSlugVerify from './components/FailSlugVerify'
 
 // type FormData = RequestVerifySchema
 
 export default function PasswordRecovery() {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   setError,
-  //   setValue,
-  //   // clearErrors,
-  //   // reset,
-  //   // watch,
-  //   formState: { errors }
-  // } = useForm<FormData>({
-  //   resolver: yupResolver(requestVerifySchema)
-  // })
-
   // const { state } = useLocation()
   // console.log(state)
 

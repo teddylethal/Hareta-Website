@@ -36,7 +36,7 @@ export default function ChangePasswordRecovery({ setDialog }: Props) {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const slug = searchParams.get('slug')
-  const { data, isLoading, isSuccess, isError } = useQuery({
+  const { data, error, isLoading, isSuccess, isError } = useQuery({
     queryKey: ['password_recovery'],
     queryFn: () => passwordRecovery.verifySlug(slug as string)
   })
@@ -47,7 +47,18 @@ export default function ChangePasswordRecovery({ setDialog }: Props) {
       setValue('email', data.data.data.email as string)
     }
   }, [isSuccess])
-  console.log(isLoading)
+  useEffect(() => {
+    // console.log(error)
+    if (isAxiosBadRequestError<ErrorRespone>(error)) {
+      const formError = error.response?.data
+
+      const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
+      if (errorRespone && errorRespone.error_key === 'ErrPasswordRecoveryNotFound') {
+        setDialog(true)
+        setSearchParams('')
+      }
+    }
+  }, [isError])
 
   const changePasswordRecoveryMutation = useMutation({
     mutationFn: (body: { slug: string; password: string }) => passwordRecovery.changePassword(body)
@@ -58,13 +69,13 @@ export default function ChangePasswordRecovery({ setDialog }: Props) {
       slug: searchParams.get('slug') as string,
       password: data.new_password
     }
-    console.log(submitData)
+    // console.log(submitData)
     changePasswordRecoveryMutation.mutate(submitData, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         navigate(path.login, { state: { title: 'Password Recovery', context: 'Your password has been changed.' } })
       },
       onError: (error) => {
-        console.log(error)
+        // console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
@@ -78,11 +89,6 @@ export default function ChangePasswordRecovery({ setDialog }: Props) {
       }
     })
   })
-  // const email = watch('email')
-  // useEffect(() => {
-  //   console.log(123)
-  //   reset('email':'test')
-  // }, [email, clearErrors])
 
   return (
     <>

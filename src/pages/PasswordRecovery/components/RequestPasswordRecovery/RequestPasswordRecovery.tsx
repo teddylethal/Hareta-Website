@@ -48,13 +48,14 @@ export default function RequestPasswordRecovery() {
     mutationFn: (body: FormData) => passwordRecovery.requestRecovery(body)
   })
 
+  const [notifySuccess, setNotifySuccess] = useState('')
   const onSubmit = handleSubmit((data) => {
     passwordRecoveryMutation.mutate(data, {
       onSuccess: () => {
-        return
+        setNotifySuccess('An email has been sent to your address.')
       },
       onError: (error) => {
-        console.log(error)
+        // console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
@@ -73,10 +74,10 @@ export default function RequestPasswordRecovery() {
       }
     })
 
+    // setNotifySuccess('An email has been sent to your address.')
     setCounter(60)
   })
 
-  useEffect(() => setValue('email', 'Bui Trong Van'), [])
   return (
     <>
       {requestRecovery ? (
@@ -93,11 +94,11 @@ export default function RequestPasswordRecovery() {
                     <Link to={path.login} className='absolute'>
                       <FontAwesomeIcon
                         icon={faArrowLeft}
-                        fontSize={40}
+                        fontSize={32}
                         className='pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor'
                       />
                     </Link>
-                    <div className='py-1 text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
+                    <div className=' text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
                       Recover your password
                     </div>
                   </div>
@@ -110,8 +111,8 @@ export default function RequestPasswordRecovery() {
                     errorMessage={errors.email?.message}
                     labelName='Email'
                     required
+                    notifyMessage={notifySuccess}
                     autoComplete='on'
-                    // disabled
                     svgData={
                       <>
                         <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />
@@ -127,7 +128,7 @@ export default function RequestPasswordRecovery() {
                       isLoading={passwordRecoveryMutation.isLoading || counter > 0}
                       disabled={passwordRecoveryMutation.isLoading || counter > 0}
                     >
-                      {counter != 0 ? counter + 's' : 'Send'}
+                      {counter != 0 ? 'Wait for ' + counter + 's' : 'Send'}
                     </Button>
                   </div>
 

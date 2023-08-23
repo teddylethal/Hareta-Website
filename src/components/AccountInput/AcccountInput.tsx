@@ -4,6 +4,7 @@ import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
 interface Props {
   type: React.HTMLInputTypeAttribute
   errorMessage?: string
+  notifyMessage?: string
   placeholder?: string
   className?: string
   name: string
@@ -24,6 +25,7 @@ export default function AccountInput({
   type,
   className,
   errorMessage,
+  notifyMessage,
   rules,
   labelName,
   svgData,
@@ -104,7 +106,12 @@ export default function AccountInput({
           {labelName}
         </label>
       </div>
-      <div className='mt-1 min-h-[1.25rem] text-sm text-red-600'>{errorMessage}</div>
+      <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 ' + (notifyMessage ? 'hidden' : '')}>
+        {errorMessage}
+      </div>
+      <div className={'mt-1 min-h-[1.25rem] text-sm text-blue-600 ' + (!notifyMessage ? 'hidden' : '')}>
+        {notifyMessage}
+      </div>
     </div>
   )
 }

@@ -59,7 +59,7 @@ export default function Login() {
           if (formError) {
             if (formError.error_key == 'ErrEmailNotVerified') {
               navigate(path.requestVerify, {
-                state: { ...omit(data, ['password']), error: 'Please verify your email.', from: path.register }
+                state: { ...omit(data, ['password']), error: 'Please verify your email.', from: path.login }
               })
             }
 

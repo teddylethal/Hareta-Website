@@ -33,7 +33,6 @@ export default function RequestVerifyEmail() {
   })
 
   const { state } = useLocation()
-  console.log(state)
 
   const [dialog, setDialog] = useState(false)
   useEffect(() => {
@@ -62,7 +61,7 @@ export default function RequestVerifyEmail() {
         return
       },
       onError: (error) => {
-        console.log(error)
+        // console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
@@ -96,11 +95,11 @@ export default function RequestVerifyEmail() {
                 <Link to={state?.from || path.login} className='absolute'>
                   <FontAwesomeIcon
                     icon={faArrowLeft}
-                    fontSize={40}
+                    fontSize={32}
                     className='pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor'
                   />
                 </Link>
-                <div className='py-1 text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
+                <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
                   Email Verification
                 </div>
               </div>
