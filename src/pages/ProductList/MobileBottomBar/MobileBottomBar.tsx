@@ -1,8 +1,5 @@
-import { useContext } from 'react'
 import MobileSorter from './MobileSorter'
 import MobileFilter from './MobileFilter'
-import classNames from 'classnames'
-import { StoreContext } from 'src/contexts/store.context'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 
 interface Props {
@@ -10,30 +7,14 @@ interface Props {
 }
 
 export default function MobileBottomBar({ queryConfig }: Props) {
-  const { isFavouriteList, setIsFavouriteList } = useContext(StoreContext)
-  const handleClick = () => {
-    setIsFavouriteList(!isFavouriteList)
-  }
   return (
-    <div className='fixed bottom-0 z-10 flex h-10 w-full items-center justify-between bg-white px-2 duration-500 dark:bg-black sm:h-12'>
-      <MobileSorter />
-      <div
-        className={classNames(
-          'm-4 rounded-lg px-2 py-2 text-sm outline-none outline duration-500 hover:outline-haretaColor sm:text-base lg:text-lg ',
-          isFavouriteList ? 'bg-vintageColor' : ' bg-[#ddd]  dark:bg-[#444] '
-        )}
-      >
-        <button
-          className={classNames(
-            'w-full overflow-hidden text-center  duration-500 ',
-            isFavouriteList ? 'text-textVintage' : 'text-textDark dark:text-textLight'
-          )}
-          onClick={handleClick}
-        >
-          Favourite list
-        </button>
+    <div className='fixed bottom-0 z-10 grid h-10 w-full grid-cols-2 items-center justify-between border-t border-black/20 bg-white px-2 duration-500 dark:border-white/20 dark:bg-black sm:h-12'>
+      <div className='col-span-1 flex items-center justify-start'>
+        <MobileSorter />
       </div>
-      <MobileFilter queryConfig={queryConfig} />
+      <div className='col-span-1 flex items-center justify-end'>
+        <MobileFilter queryConfig={queryConfig} />
+      </div>
     </div>
   )
 }

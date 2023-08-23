@@ -56,7 +56,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
     <div className=''>
       <button
         onClick={open}
-        className='group relative flex items-center text-textDark hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor '
+        className='group relative col-span-1 flex items-center text-textDark hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor '
       >
         <FontAwesomeIcon
           icon={faFilter}
