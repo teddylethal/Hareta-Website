@@ -104,24 +104,7 @@ export default function WishList() {
 
   return (
     <Fragment>
-      {/* <div className='grid w-full grid-cols-12  p-4 text-base uppercase text-textDark dark:text-textLight'>
-        <div className='col-span-4'>
-          <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>Product</p>
-        </div>
-        <div className='col-span-8 '>
-          <div className='grid grid-cols-5 text-center'>
-            <div className='col-span-1'>Category</div>
-            <div className='col-span-1'>Collection</div>
-            <div className='col-span-1'>Type</div>
-            <div className='col-span-1'>Price</div>
-            <div className='col-span-1'>Action</div>
-          </div>
-        </div>
-      </div>
-      <div className=''>
-        <div className='w-full border-b border-textDark/80 dark:border-textLight/80'></div>
-      </div> */}
-      <div className='h-[620px] overflow-scroll overscroll-none rounded-sm p-4 shadow'>
+      <div className='mx-4 my-4 h-[620px] overflow-scroll overscroll-none rounded-sm shadow'>
         {favouriteList?.map((item) => (
           <div
             key={item.id}
