@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { omit } from 'lodash'
+import { omit, pick } from 'lodash'
 
 import { registerSchema, RegisterSchema } from 'src/utils/rules'
 import authApi from 'src/apis/auth.api'
@@ -28,12 +28,15 @@ export default function Register() {
   const registerAccountMutation = useMutation({
     mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
   })
+  const navigate = useNavigate()
 
   const onSubmit = handleSubmit((data) => {
     const body = omit(data, ['confirm_password'])
+    navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: 'None', from: path.register } })
     registerAccountMutation.mutate(body, {
-      onSuccess: (data) => {
-        console.log(data)
+      onSuccess: (apiData) => {
+        navigate(path.requestVerify, { state: pick(data, ['email']) })
+        console.log(apiData)
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
