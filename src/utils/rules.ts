@@ -97,11 +97,6 @@ export const requestVerifySchema = yup.object({
   email: handleEmailYup()
 })
 
-export const changePasswordRecoverySchema = yup.object({
-  new_password: handlePasswordYup(),
-  confirm_new_password: handleConfirmPasswordYup('new_password')
-})
-
 export const productSchema = yup.object({
   name: yup.string().trim().required()
 })
@@ -139,6 +134,12 @@ export const changePasswordSchema = yup.object({
   confirm_new_password: handleConfirmPasswordYup('new_password')
 })
 
+export const changePasswordRecoverySchema = yup.object({
+  email: handleEmailYup(),
+  new_password: handlePasswordYup(),
+  confirm_new_password: handleConfirmPasswordYup('new_password')
+})
+
 export type RegisterSchema = yup.InferType<typeof registerSchema>
 
 export type LoginSchema = yup.InferType<typeof loginSchema>
@@ -152,3 +153,5 @@ export type PriceSchema = yup.InferType<typeof priceSchema>
 export type UserSchema = yup.InferType<typeof userSchema>
 
 export type ChangePasswordSchema = yup.InferType<typeof changePasswordSchema>
+
+export type ChangePasswordRecoverySchema = yup.InferType<typeof changePasswordRecoverySchema>

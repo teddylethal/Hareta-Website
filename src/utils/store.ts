@@ -49,16 +49,16 @@ export const clearFileringFromLS = () => {
   localStorage.removeItem('type_filtering')
 }
 
-export const setEmailVerified = () => {
-  localStorage.setItem('check_email_verified', 'true')
-}
-export const checkEmailVerified = () => {
-  const data = localStorage.getItem('check_email_verified')
-  return data ? true : false
-}
-export const unSetEmailVerified = () => {
-  localStorage.removeItem('check_email_verified')
-}
+// export const setEmailVerified = () => {
+//   localStorage.setItem('check_email_verified', 'true')
+// }
+// export const checkEmailVerified = () => {
+//   const data = localStorage.getItem('check_email_verified')
+//   return data ? true : false
+// }
+// export const unSetEmailVerified = () => {
+//   localStorage.removeItem('check_email_verified')
+// }
 
 // export const checkCategory = (query: string) => {
 //   return query.search('&category=')
