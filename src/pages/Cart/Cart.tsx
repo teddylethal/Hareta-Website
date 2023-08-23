@@ -91,18 +91,18 @@ export default function Cart() {
     <div className='bg-lightBg py-4 dark:bg-darkBg xl:py-6'>
       {!isMobile && (
         <div className='container'>
-          <div className='relative mx-2 flex items-center space-x-96 rounded-md bg-white dark:bg-black xl:mx-4'>
+          <div className='relative flex items-center space-x-96 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black '>
             <p className='pl-4 text-2xl uppercase text-textDark  dark:text-haretaColor xl:text-2xl'>CART</p>
             <form name='search_in_cart' className='my-2 flex w-full items-center' onSubmit={handleSearch}>
               <input
                 id='search_in_cart'
                 type='text'
-                className='peer ml-4 w-full rounded-md  bg-transparent px-4 py-2 text-base text-textDark outline-none ring-1   ring-haretaColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-haretaColor dark:text-textLight dark:caret-white dark:autofill:text-textLight lg:text-lg'
+                className='peer mr-4 w-full rounded-md bg-transparent px-4 py-2 text-base text-textDark outline-none ring-1 ring-haretaColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-haretaColor dark:text-textLight dark:caret-white dark:autofill:text-textLight lg:text-lg'
                 placeholder='Search'
               />
               <label
                 htmlFor='search_in_cart'
-                className='absolute right-4 flex h-8 w-12 items-center justify-center rounded-lg bg-haretaColor/60 duration-500 peer-focus:bg-haretaColor'
+                className='absolute right-8 flex h-8 w-12 items-center justify-center rounded-lg bg-haretaColor/60 duration-500 peer-focus:bg-haretaColor'
               >
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
                   <path
@@ -115,7 +115,7 @@ export default function Cart() {
             </form>
           </div>
 
-          <div className='mx-2 mt-2 rounded-md bg-white dark:bg-black xl:mx-4'>
+          <div className='mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
             <div className=''>
               <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-textDark  dark:text-textLight lg:text-lg'>
                 <div className='col-span-6'>
@@ -135,7 +135,7 @@ export default function Cart() {
                   </div>
                 </div>
               </div>
-              <div className='mx-4 my-2 h-[440px] overflow-auto rounded-md bg-[#f8f8f8] shadow dark:bg-[#202020] '>
+              <div className='mx-4 my-2 h-[440px] overflow-auto rounded-md bg-[#f8f8f8] shadow outline outline-1 outline-black/20 dark:bg-[#202020] dark:outline-white/20 '>
                 {extendedPurchases?.map((purchase, index) => (
                   <div
                     key={purchase.id}
