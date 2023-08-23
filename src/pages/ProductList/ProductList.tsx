@@ -14,6 +14,7 @@ import PriceRange from './AsideFilter/PriceRange'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
+import ProductSekeleton from './ProductSkeleton'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
@@ -24,7 +25,7 @@ export default function ProductList() {
 
   const queryConfig = useQueryConfig()
 
-  const { data: storeData } = useQuery({
+  const { data: storeData, isFetching } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
@@ -63,15 +64,24 @@ export default function ProductList() {
               {storeData && (
                 <div className='mt-4'>
                   <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-                    {storeData.data.data.map((product) => (
-                      <div className='col-span-1' key={product.id}>
-                        <Product
-                          product={product}
-                          queryConfig={queryConfig}
-                          likedByUser={favouriteListId.includes(product.id)}
-                        />
-                      </div>
-                    ))}
+                    {isFetching &&
+                      Array(12)
+                        .fill(0)
+                        .map((_, index) => (
+                          <div key={index} className='col-span-1'>
+                            <ProductSekeleton />
+                          </div>
+                        ))}
+                    {!isFetching &&
+                      storeData.data.data.map((product) => (
+                        <div className='col-span-1' key={product.id}>
+                          <Product
+                            product={product}
+                            queryConfig={queryConfig}
+                            likedByUser={favouriteListId.includes(product.id)}
+                          />
+                        </div>
+                      ))}
                   </div>
                   <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} />
                 </div>

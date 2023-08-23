@@ -1,0 +1,24 @@
+import Skeleton from '@mui/material/Skeleton'
+
+export default function ProductSekeleton() {
+  return (
+    <div className='flex w-full items-center justify-center p-2 duration-500 hover:p-0'>
+      <div className='relative m-2 w-full rounded-md bg-[#f8f8f8] pb-4 duration-500 hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
+        <div className='relative w-full pt-[60%]'>
+          <Skeleton className='absolute left-0 top-0' width='100%' height='100%' variant='rectangular' />
+        </div>
+        <div className='mx-3 mt-4 flex w-full justify-between space-x-1 overflow-hidden'>
+          <div className='flex w-full flex-col justify-between space-y-1 overflow-hidden'>
+            <Skeleton variant='rounded' width='50%' />
+            <div className='flex w-full items-center space-x-4 py-1'>
+              <Skeleton variant='rounded' width='20%' />
+
+              <Skeleton variant='rounded' width='20%' />
+            </div>
+            <Skeleton width='20%' />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
