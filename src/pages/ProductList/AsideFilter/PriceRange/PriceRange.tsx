@@ -34,8 +34,8 @@ export default function PriceRange({ queryConfig }: Props) {
     setValue
   } = useForm<FormData>({
     defaultValues: {
-      lower_price: '',
-      upper_price: ''
+      lower_price: lower_price || '',
+      upper_price: lower_price || ''
     },
     resolver: yupResolver(priceSchema),
     shouldFocusError: false
@@ -133,7 +133,7 @@ export default function PriceRange({ queryConfig }: Props) {
   }
 
   return (
-    <div className='relative ml-4 rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
+    <div className='relative w-full rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
       <PriceSample handleChoosePrice={handleChoosePrice} />
       {active && (
         <button

@@ -61,7 +61,7 @@ export default function PriceSample({ handleChoosePrice }: Props) {
               <button
                 key={index}
                 onClick={handleSelect(index)}
-                className='shrink rounded-xl bg-lightBg/60 px-3 py-2 text-textDark/70 outline outline-1 outline-black/20 hover:bg-lightBg hover:text-textDark dark:bg-darkBg/60 dark:text-textLight/70 dark:outline-white/20 dark:hover:bg-darkBg dark:hover:text-textLight'
+                className='md:texe-base rounded-xl bg-lightBg/60 px-2 py-1 text-xs text-textDark/70 outline outline-1 outline-black/20 hover:bg-lightBg hover:text-textDark dark:bg-darkBg/60 dark:text-textLight/70 dark:outline-white/20 dark:hover:bg-darkBg dark:hover:text-textLight md:px-3 md:py-2'
               >
                 ${range.lowerPrice} - ${range.upperPrice}
               </button>
