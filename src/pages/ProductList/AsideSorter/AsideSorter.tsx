@@ -47,8 +47,8 @@ export default function AsideSorter() {
           className={classNames(
             'flex h-8 w-full items-center justify-center rounded-xl bg-[#ddd] px-3 py-2 text-sm font-medium text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:text-base',
             {
-              'rounded-b-none': visible,
-              'bg-brownColor/80 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
+              'rounded-b-none border-x border-t border-black/20 duration-500 dark:border-white/10': visible,
+              ' bg-brownColor/80 hover:bg-brownColor  dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
             }
           )}
           onClick={toggleOpenClose}
@@ -58,7 +58,7 @@ export default function AsideSorter() {
         <AnimateChangeInHeight>
           {visible && isOpening && (
             <motion.div
-              className='gap-2 rounded-xl rounded-t-none px-3 py-4'
+              className='gap-2 rounded-xl rounded-t-none border-x border-b border-black/20 px-3 py-4 dark:border-white/10'
               initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
               animate={{
                 opacity: 1,

@@ -81,6 +81,10 @@ export default function ChangePassword() {
     handleLogout()
   }
 
+  const handleCancle = () => {
+    reset()
+  }
+
   return (
     <Fragment>
       <form className='my-8 px-6' onSubmit={onSubmit}>
@@ -116,7 +120,7 @@ export default function ChangePassword() {
             />
           </div>
           <div className='flex w-80 justify-center space-x-8'>
-            <button type='button' className='hover:underline'>
+            <button type='button' className='hover:underline' onClick={handleCancle}>
               Cancel
             </button>
             <button
