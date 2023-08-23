@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
@@ -10,7 +10,6 @@ import { ErrorRespone } from 'src/types/utils.type'
 import { RequestVerifySchema, requestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import { checkEmailVerified, unSetEmailVerified } from 'src/utils/store'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -24,10 +23,34 @@ export default function RequestVerifyEmail() {
     register,
     handleSubmit,
     setError,
+    setValue,
+    // clearErrors,
+    // reset,
+    // watch,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(requestVerifySchema)
   })
+
+  const { state } = useLocation()
+  console.log(state)
+
+  const [dialog, setDialog] = useState(false)
+  useEffect(() => {
+    if (state) {
+      if (state.title) {
+        setDialog(true)
+      } else {
+        setValue('email', state.email)
+        if (state.error != 'None') {
+          setError('email', {
+            message: 'Please verify your email.',
+            type: 'Server'
+          })
+        }
+      }
+    }
+  }, [setError, setValue, state])
 
   const requestVerifyMutation = useMutation({
     mutationFn: (body: FormData) => verifyEmail.requestVerify(body)
@@ -53,14 +76,11 @@ export default function RequestVerifyEmail() {
       }
     })
   })
-
-  const [dialog, setDialog] = useState(false)
-  useEffect(() => {
-    if (checkEmailVerified()) {
-      setDialog(checkEmailVerified())
-      unSetEmailVerified()
-    }
-  }, [])
+  // const email = watch('email')
+  // useEffect(() => {
+  //   console.log(123)
+  //   reset('email':'test')
+  // }, [email, clearErrors])
 
   return (
     <AnimateTransition>
@@ -73,7 +93,7 @@ export default function RequestVerifyEmail() {
               noValidate
             >
               <div>
-                <Link to={path.login} className='absolute'>
+                <Link to={state?.from || path.login} className='absolute'>
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     fontSize={40}
@@ -106,8 +126,8 @@ export default function RequestVerifyEmail() {
                 <Button
                   className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
                   type='submit'
-                  // isLoading={loginAccountMutation.isLoading}
-                  // disabled={loginAccountMutation.isLoading}
+                  isLoading={requestVerifyMutation.isLoading}
+                  disabled={requestVerifyMutation.isLoading}
                 >
                   Verify Email Address
                 </Button>

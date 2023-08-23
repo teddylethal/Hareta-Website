@@ -19,7 +19,7 @@ export default function FailEmailVerify({ dialog, closeDialog }: Props) {
         <FontAwesomeIcon icon={faCircleXmark} fontSize={90} className='text-red-600' />
         <div className='h-full pl-5 text-left text-gray-400 '>
           <p className='text-xl'>Invalid Verification</p>
-          <p className='mb-3 text-xl'>Please re-sent the verification request</p>
+          <p className='mb-3 text-xl'>Please resend the verification</p>
           <button
             className='h-9 w-24 rounded-3xl bg-[#039ef0] text-xl font-semibold text-white outline-none hover:bg-[#039ef0]/70 hover:text-white/90'
             onClick={closeDialog}

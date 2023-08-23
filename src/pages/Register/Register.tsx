@@ -32,10 +32,10 @@ export default function Register() {
 
   const onSubmit = handleSubmit((data) => {
     const body = omit(data, ['confirm_password'])
-    navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: 'None', from: path.register } })
+    // navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: 'None', from: path.register } })
     registerAccountMutation.mutate(body, {
       onSuccess: (apiData) => {
-        navigate(path.requestVerify, { state: pick(data, ['email']) })
+        navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: 'None', from: path.register } })
         console.log(apiData)
       },
       onError: (error) => {
