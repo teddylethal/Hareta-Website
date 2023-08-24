@@ -5,7 +5,7 @@ import Product from './Product'
 import SearchBar from './SearchBar'
 import productApi from 'src/apis/product.api'
 import { useViewport } from 'src/hooks/useViewport'
-import MobileBottomBar from './MobileBottomBar'
+import MobileBottomBar from './Mobile/MobileBottomBar'
 import UsePagination from 'src/components/UsePagination'
 import { ProductListConfig } from 'src/types/product.type'
 import useQueryConfig from 'src/hooks/useQueryConfig'
@@ -16,6 +16,7 @@ import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import ProductSekeleton from './ProductSkeleton'
 import ProductListSkeleton from './ProductListSkeleton'
+import ActiveFiltering from './Mobile/ActiveFiltering'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
@@ -98,6 +99,7 @@ export default function ProductList() {
         {isMobile && storeData && (
           <div>
             <SearchBar />
+            <ActiveFiltering />
             <div className='gird-cols-1 grid gap-2 sm:grid-cols-2'>
               {storeData &&
                 storeData.data.data.map((product) => (

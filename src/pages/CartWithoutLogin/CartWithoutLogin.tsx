@@ -290,19 +290,19 @@ export default function CartWithoutLogin() {
       )}
 
       {isMobile && (
-        <>
+        <Fragment>
           <div className='relative mx-2'>
-            <div className='grid grid-cols-12 rounded-sm bg-[#f8f8f8] px-4 py-2 text-base text-textDark dark:bg-[#202020] dark:text-textLight lg:text-lg'>
+            <div className='grid grid-cols-12 rounded-md border border-black/20 bg-[#f8f8f8] px-4 py-2 text-base font-medium uppercase text-textDark dark:border-white/20 dark:bg-[#202020] dark:text-textLight lg:text-lg'>
               <div className='col-span-1'></div>
-              <div className='col-span-6'>Product</div>
-              <div className='col-span-4 text-center'>Subtotal</div>
+              <div className='col-span-6 text-center'>Product</div>
+              <div className='col-span-4 text-center'>Price</div>
               <div className='col-span-1'></div>
             </div>
-            <div className='my-2 rounded-sm bg-[#f8f8f8] p-2 shadow dark:bg-[#202020]'>
+            <div className='my-2 h-[480px] overflow-auto rounded-md border border-black/20 bg-[#f8f8f8] p-2 dark:border-white/20 dark:bg-[#202020]'>
               {extendedTempPurchases?.map((purchase, index) => (
                 <div
                   key={purchase.id}
-                  className='mt-2 flex items-center rounded-sm bg-[#efefef] p-2 text-center text-textDark first:mt-0 dark:bg-[#101010] dark:text-textLight'
+                  className='mt-2 flex items-center rounded-lg border border-black/10 bg-[#efefef] p-2 text-center text-textDark first:mt-0 dark:border-white/10 dark:bg-[#101010] dark:text-textLight'
                 >
                   <div className='w-full'>
                     <div className='grid grid-cols-12 items-center justify-between'>
@@ -329,7 +329,10 @@ export default function CartWithoutLogin() {
                       <div className='col-span-1'></div>
                       <div className='col-span-6'>
                         <Link
-                          to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                          to={`${path.home}${generateNameId({
+                            name: purchase.item.name,
+                            id: purchase.item.id
+                          })}`}
                           className='flex flex-grow items-center'
                         >
                           <div className='relative flex w-full flex-shrink-0 items-center pt-[100%]'>
@@ -414,7 +417,7 @@ export default function CartWithoutLogin() {
               Check out
             </button>
           </div>
-        </>
+        </Fragment>
       )}
     </div>
   )
