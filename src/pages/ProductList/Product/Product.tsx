@@ -266,27 +266,41 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
         handleClose={() => setCreateTempCart(false)}
         classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
-        <p className='mt-6 text-center text-xl font-medium uppercase leading-6 text-red-500'>You are not logged in!</p>
-        <div className='mt-4 text-left'>
-          <p className='text-left'>You are trying to add an item into cart without logged in.</p>
-          <p>A temporary cart will be created but the data can be lost.</p>
+        <p className='mt-6 text-center text-xl font-medium uppercase leading-6 text-red-400'>Cart expires soon</p>
+        <div className='mt-4 space-y-2 text-center'>
+          <div className='flex justify-center space-x-1 '>
+            <p>Items added without</p>
+            <span className='text-haretaColor'>login</span>
+            <p>are temporary</p>
+          </div>
+          <div className='flex justify-center space-x-1'>
+            <span className='text-haretaColor'>Login</span>
+            <p>to</p>
+            <span className='text-haretaColor'>save</span>
+            <p>your items</p>
+          </div>
         </div>
-        <p className='mt-2'>Are you sure to continue?</p>
-        <div className='mt-8 flex justify-between'>
-          <button
-            type='button'
-            className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
-            onClick={createTemporaryCart}
-          >
-            Add item to cart
-          </button>
+        <div className='mt-8 flex justify-around'>
           <Link
             to={path.login}
             type='button'
-            className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+            className={classNames('justify-center rounded-md border border-transparent px-6 py-2 text-sm font-medium', {
+              'bg-brownColor/80 hover:bg-brownColor': theme === 'light',
+              'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+            })}
           >
             Login
           </Link>
+          <button
+            type='button'
+            className={classNames('justify-center rounded-md border border-transparent px-6 py-2 text-sm font-medium', {
+              'bg-brownColor/80 hover:bg-brownColor': theme === 'light',
+              'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+            })}
+            onClick={createTemporaryCart}
+          >
+            Continue
+          </button>
         </div>
       </DialogPopup>
     </div>
