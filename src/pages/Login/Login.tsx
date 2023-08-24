@@ -83,7 +83,6 @@ export default function Login() {
 
   const [dialog, setDialog] = useState(false)
   const { state } = useLocation()
-  console.log(state)
   useEffect(() => {
     if (state) {
       setDialog(true)

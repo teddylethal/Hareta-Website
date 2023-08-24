@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { useLocation } from 'react-router'
 
 interface Props {
@@ -11,7 +11,7 @@ const ScrollToTop = ({ children }: Props) => {
     window.scrollTo(0, 0)
   }, [location])
 
-  return <>{children}</>
+  return <Fragment>{children}</Fragment>
 }
 
 export default ScrollToTop

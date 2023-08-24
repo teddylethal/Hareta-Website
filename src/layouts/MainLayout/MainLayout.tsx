@@ -10,12 +10,8 @@ export default function RegisterLayout({ children }: Props) {
   return (
     <Fragment>
       <Header />
-      <div className='relative h-full w-full pt-10 md:pt-12 lg:pt-16'>
-        <div className='fixed h-full w-full overflow-auto'>
-          {children}
-          <Footer />
-        </div>
-      </div>
+      <div className='pt-10 md:pt-12 lg:pt-16'>{children}</div>
+      <Footer />
     </Fragment>
   )
 }
