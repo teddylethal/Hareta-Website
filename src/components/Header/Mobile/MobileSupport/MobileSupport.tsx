@@ -10,8 +10,9 @@ export default function MobileSupport() {
   return (
     <div ref={ref} className='w-full'>
       <button
-        className={classNames('flex w-full items-center border-x border-t border-transparent px-2 py-2 uppercase', {
-          'rounded-t-md  border-black/20 dark:border-white/20': visible
+        className={classNames('flex w-full items-center border-x border-t px-2 py-2 uppercase', {
+          'border-transparent ': !visible,
+          'rounded-t-md border-black/20 dark:border-white/20': visible
         })}
         onClick={() => setVisible(!visible)}
       >
