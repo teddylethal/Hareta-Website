@@ -62,7 +62,7 @@ export default function AddTocartPopover({
               <FontAwesomeIcon icon={faXmark} className='h-5 opacity-70' />
             </button>
           </div>
-          <div className=' mt-4 flex items-center justify-between rounded-sm bg-lightBg px-3 py-2 shadow-sm dark:bg-darkBg'>
+          <div className=' mt-4 flex items-center justify-between rounded-lg bg-lightBg px-3 py-2 shadow-sm dark:bg-darkBg'>
             <p className=''>Quantity</p>
             <QuantityController
               classNameWrapper=''

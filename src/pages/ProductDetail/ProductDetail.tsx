@@ -429,19 +429,21 @@ export default function ProductDetail() {
                   />
                 </button>
               </div>
-              <div className='relative mt-2'>
-                <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-                  Favourite
-                </span>
-                <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
-              </div>
+              {product.tag !== 0 && (
+                <div className='relative mt-2'>
+                  <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+                    {itemTag[product.tag]}
+                  </span>
+                  <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+                </div>
+              )}
 
               <div className='mt-4 h-full text-sm lg:text-lg'>
                 <p className=''>{product.description}</p>
               </div>
             </div>
-            <div className='fixed bottom-0 z-10 grid w-full grid-cols-2 bg-white text-base text-textDark dark:bg-black dark:text-textLight'>
-              <button className='col-span-1 flex items-center justify-center py-3 text-center' onClick={openAddToCart}>
+            <div className='fixed bottom-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base text-textDark dark:bg-black dark:text-textLight sm:h-12'>
+              <button className='col-span-1 flex items-center justify-center text-center' onClick={openAddToCart}>
                 <FontAwesomeIcon icon={faCartPlus} className='h-5' />
               </button>
               <button className='col-span-1 rounded-sm bg-vintageColor  hover:bg-haretaColor hover:text-textDark'>
