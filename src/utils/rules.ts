@@ -97,7 +97,7 @@ export const requestVerifySchema = yup.object({
 })
 
 export const productSchema = yup.object({
-  name: yup.string().trim().required()
+  name: yup.string().trim().default('')
 })
 
 function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {

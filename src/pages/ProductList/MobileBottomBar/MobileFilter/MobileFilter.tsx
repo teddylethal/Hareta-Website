@@ -67,7 +67,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
               transition={{ duration: 0.3 }}
             />
             <motion.div
-              className='fixed bottom-0 right-0 z-10  h-full w-[60%]  rounded-l-md px-2 py-12 shadow-sm sm:w-80'
+              className='fixed bottom-0 right-0 z-10  h-full w-[60%] rounded-l-md px-2 py-12 shadow-sm'
               initial={{ opacity: 0, x: '20%' }}
               animate={{
                 opacity: 1,
@@ -93,7 +93,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
                     onClick={handleClear}
                     disabled={isFiltering ? false : true}
                     className={classNames(
-                      'mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-500 ',
+                      'mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-500 sm:text-base ',
                       { 'border-opacity-40 text-opacity-40 ': !isFiltering },
                       {
                         'hover:border-red-500 hover:text-vintageColor dark:hover:border-red-500': isFiltering

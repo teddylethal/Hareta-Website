@@ -18,20 +18,21 @@ export default function SearchBar() {
     resolver: yupResolver(productSchema)
   })
   const handleSearch = handleSubmit((data) => {
+    console.log(data.name)
     const config =
       data.name === ''
         ? omit(
             {
               ...queryConfig
             },
-            ['category', 'collection', 'type', 'page', 'name']
+            ['category', 'collection', 'type', 'page', 'limit', 'name']
           )
         : omit(
             {
               ...queryConfig,
               name: data.name
             },
-            ['category', 'collection', 'type', 'page']
+            ['category', 'collection', 'type', 'page', 'limit']
           )
     navigate({
       pathname: path.store,
@@ -47,7 +48,6 @@ export default function SearchBar() {
       >
         <input
           id='search_bar_input'
-          type='text'
           className='peer w-full rounded-md  bg-transparent px-4 py-2 text-base text-textDark outline-none ring-1 ring-vintageColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:text-textLight dark:caret-white dark:ring-haretaColor/60 dark:autofill:text-textLight dark:focus:ring-haretaColor lg:text-lg'
           placeholder='Search'
           {...register('name')}

@@ -161,7 +161,7 @@ export default function PriceRange({ queryConfig }: Props) {
         <div className='flex items-center justify-center'>
           <div className='flex items-center'>
             <input
-              className='w-12 rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
+              className='w-full rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
               placeholder='$ From'
               value={lowerPrice}
               {...register('lower_price')}
@@ -173,7 +173,7 @@ export default function PriceRange({ queryConfig }: Props) {
 
           <div className='flex items-center'>
             <input
-              className='w-12 rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 lg:w-14 lg:text-sm xl:w-20'
+              className='w-full rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
               placeholder='$ To'
               value={upperPrice}
               {...register('upper_price')}
@@ -187,7 +187,7 @@ export default function PriceRange({ queryConfig }: Props) {
           <button
             disabled={notAllowApply}
             className={classNames(
-              'mt-1 rounded-md bg-white px-8 py-1 text-xs font-medium text-textDark outline outline-1 duration-500 dark:bg-[#101010] dark:text-textLight  lg:text-sm xl:text-base',
+              'mt-1 flex items-center justify-center rounded-md bg-white px-8 py-1 text-xs font-medium text-textDark outline outline-1 duration-500 dark:bg-[#101010] dark:text-textLight sm:text-sm lg:text-sm xl:text-base',
               {
                 'hover:text-brownColor hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
                   !notAllowApply,
