@@ -267,7 +267,7 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
         handleClose={() => setCreateTempCart(false)}
         classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
       >
-        <p className=' text-center text-xl font-medium uppercase leading-6 text-red-400'>Cart expires soon</p>
+        <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
         <div className='mt-4 space-y-2 text-center'>
           <div className='flex justify-center space-x-1 '>
             <p>Items added without</p>

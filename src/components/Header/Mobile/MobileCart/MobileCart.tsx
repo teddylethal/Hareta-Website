@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { Fragment, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Button from 'src/components/Button'
@@ -74,45 +74,54 @@ export default function MobileCart({ className }: Props) {
       </button>
       <AnimatePresence>
         {visible && (
-          <motion.div
-            className='absolute left-0 top-0 z-10 w-full self-center rounded-b-sm py-2 shadow-sm sm:left-[calc(50%-200px)] sm:w-[400px]'
-            initial={{ opacity: 0, y: '-20%' }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              backgroundColor: theme === 'dark' ? '#333333' : '#dddddd',
-              color: theme === 'dark' ? '#eeeeee' : '#222222'
-            }}
-            exit={{ opacity: 0, y: '-20%' }}
-            transition={{ duration: 0.3 }}
-            ref={ref}
-          >
-            <button className='flex w-full cursor-pointer items-center justify-center' onClick={closeCart}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 24 24'
-                fill='currentColor'
-                className='h-6 w-6 sm:h-8 sm:w-8'
-              >
-                <path
-                  fillRule='evenodd'
-                  d='M11.47 7.72a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 9.31l-6.97 6.97a.75.75 0 01-1.06-1.06l7.5-7.5z'
-                  clipRule='evenodd'
-                />
-              </svg>
-            </button>
+          <Fragment>
+            <motion.div
+              className='fixed inset-0'
+              initial={{ opacity: 0, backgroundColor: 'black' }}
+              animate={{
+                opacity: 0.4
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className='absolute left-0 top-0 z-10 w-full self-center rounded-b-lg py-2 shadow-sm sm:left-[calc(50%-200px)] sm:w-[400px]'
+              initial={{ opacity: 0, y: '-20%' }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                backgroundColor: theme === 'dark' ? '#333333' : '#dddddd',
+                color: theme === 'dark' ? '#eeeeee' : '#222222'
+              }}
+              exit={{ opacity: 0, y: '-20%' }}
+              transition={{ duration: 0.3 }}
+              ref={ref}
+            >
+              <button className='flex w-full cursor-pointer items-center justify-center' onClick={closeCart}>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  viewBox='0 0 24 24'
+                  fill='currentColor'
+                  className='h-6 w-6 sm:h-8 sm:w-8'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M11.47 7.72a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 9.31l-6.97 6.97a.75.75 0 01-1.06-1.06l7.5-7.5z'
+                    clipRule='evenodd'
+                  />
+                </svg>
+              </button>
 
-            <div className='mx-3 my-2 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
+              <div className='mx-3 my-2 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
-            <div className=''>
-              {extendedPurchases.length > 0 ? (
-                <div>
-                  <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
-                    {cartData?.data.paging.total} items in cart
-                  </div>
-                  <div className='mx-3 h-[220px] overflow-y-auto rounded-md bg-[#f8f8f8] dark:bg-[#202020]'>
+              <div className=''>
+                <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
+                  {cartData?.data.paging.total} items in cart
+                </div>
+                {extendedPurchases.length > 0 ? (
+                  <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#202020]'>
                     {extendedPurchases.map((purchase, index) => (
-                      <div className='flex space-x-3 p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
+                      <div className=' flex space-x-3 p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
                         <div className='h-12 w-12'>
                           <div className='relative w-full bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
                             <img
@@ -156,27 +165,27 @@ export default function MobileCart({ className }: Props) {
                       </div>
                     ))}
                   </div>
-                </div>
-              ) : (
-                <div className='p-2'>
-                  <img src='/images/empty_cart.png' alt='Empty cart' />{' '}
-                </div>
-              )}
-            </div>
+                ) : (
+                  <div className='p-2'>
+                    <img src='/images/empty_cart.png' alt='Empty cart' />{' '}
+                  </div>
+                )}
+              </div>
 
-            <div className='mx-3 mt-2 flex items-center justify-between text-xs sm:text-sm'>
-              <div className='flex space-x-2'>
-                <Link to={path.store}>
-                  <Button className='w-14 py-1'>Store</Button>
-                </Link>
+              <div className='mx-3 mt-2 flex items-center justify-between text-xs sm:text-sm'>
+                <div className='flex space-x-2'>
+                  <Link to={path.store}>
+                    <Button className='w-14 py-1'>Store</Button>
+                  </Link>
+                </div>
+                <div>
+                  <Link to={path.cart}>
+                    <Button className='w-14 py-1'>Cart</Button>
+                  </Link>
+                </div>
               </div>
-              <div>
-                <Link to={path.cart}>
-                  <Button className='w-14 py-1'>Cart</Button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </Fragment>
         )}
       </AnimatePresence>
     </div>

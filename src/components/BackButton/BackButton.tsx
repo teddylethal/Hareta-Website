@@ -1,10 +1,17 @@
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useNavigate } from 'react-router-dom'
 
 export default function BackButton() {
+  const navigate = useNavigate()
   return (
-    <div className='text-textDark dark:text-textLight '>
+    <button
+      className='flex items-center justify-center text-textDark dark:text-textLight '
+      onClick={() => {
+        navigate(-1)
+      }}
+    >
       <FontAwesomeIcon icon={faCaretLeft} className='h-6 w-6' />
-    </div>
+    </button>
   )
 }

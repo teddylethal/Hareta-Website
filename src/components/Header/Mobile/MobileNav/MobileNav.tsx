@@ -41,7 +41,7 @@ export default function MobileNav({ className }: Props) {
               className='fixed inset-0'
               initial={{ opacity: 0, backgroundColor: 'black' }}
               animate={{
-                opacity: 0.3
+                opacity: 0.4
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}

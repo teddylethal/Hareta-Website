@@ -131,17 +131,17 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               page: (currentPage - 1).toString()
             }).toString()
           }}
-          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-brownColor  hover:text-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base '
+          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-brownColor  hover:text-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base'
         >
           <FontAwesomeIcon
             icon={faAngleLeft}
-            className='text-textDark group-hover:text-brownColor dark:text-textLight dark:group-hover:text-haretaColor'
+            className='py-1 text-textDark group-hover:text-brownColor dark:text-textLight dark:group-hover:text-haretaColor'
           />
           {!isMobile && <p>Prev</p>}
         </Link>
       ) : (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
-          <FontAwesomeIcon icon={faAngleLeft} className='text-textDark dark:text-textLight' />
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+          <FontAwesomeIcon icon={faAngleLeft} className='py-1 text-textDark dark:text-textLight' />
           {!isMobile && <p>Prev</p>}
         </span>
       )}
@@ -157,7 +157,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               page: (currentPage + 1).toString()
             }).toString()
           }}
-          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-brownColor  hover:text-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base '
+          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-brownColor  hover:text-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base'
         >
           {!isMobile && <p>Next</p>}
           <FontAwesomeIcon
@@ -166,9 +166,9 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
           />
         </Link>
       ) : (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-lg border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
           {!isMobile && <p>Next</p>}
-          <FontAwesomeIcon icon={faAngleRight} className='text-textDark dark:text-textLight' />
+          <FontAwesomeIcon icon={faAngleRight} className='py-1 text-textDark dark:text-textLight' />
         </span>
       )}
     </div>

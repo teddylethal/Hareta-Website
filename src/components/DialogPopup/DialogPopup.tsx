@@ -54,7 +54,7 @@ export default function DialogPopup({
                 className={classNames(
                   {
                     'bg-white/90 text-textDark': theme === 'light',
-                    'bg-black/80 text-textLight': theme === 'dark'
+                    'bg-black/90 text-textLight': theme === 'dark'
                   },
                   classNameWrapper
                 )}

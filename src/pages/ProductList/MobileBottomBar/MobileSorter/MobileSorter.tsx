@@ -30,7 +30,7 @@ export default function MobileSorter() {
     <Fragment>
       <button
         onClick={open}
-        className='flex w-[80%] items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 text-textDark dark:bg-haretaColor/80 dark:text-textLight'
+        className='flex w-[60%] items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 text-sm text-textDark dark:bg-haretaColor/80 dark:text-textLight sm:text-base'
       >
         {sorting}
       </button>
@@ -38,10 +38,10 @@ export default function MobileSorter() {
         {visible && (
           <Fragment>
             <motion.div
-              className='fixed inset-0 bg-black'
+              className='fixed inset-0'
               initial={{ opacity: 0, backgroundColor: 'black' }}
               animate={{
-                opacity: 0.3
+                opacity: 0.4
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}

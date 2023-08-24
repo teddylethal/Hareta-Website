@@ -51,7 +51,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
       >
         <FontAwesomeIcon
           icon={faFilter}
-          className='mr-1 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
+          className='mr-1 h-6 w-6 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
         />
       </button>
       <AnimatePresence>
@@ -61,7 +61,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
               className='fixed inset-0 '
               initial={{ opacity: 0, backgroundColor: 'black' }}
               animate={{
-                opacity: 0.3
+                opacity: 0.4
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}

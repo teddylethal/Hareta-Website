@@ -28,8 +28,8 @@ export default function MobileUser({ className }: Props) {
   return (
     <div ref={ref}>
       {!isAuthenticated && (
-        <Link to={path.login}>
-          <FontAwesomeIcon icon={faUser} />
+        <Link to={path.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
+          <FontAwesomeIcon icon={faUser} className='h-6 w-6 rounded-full dark:fill-white sm:h-8 sm:w-8 ' />
         </Link>
       )}
       {isAuthenticated && (
