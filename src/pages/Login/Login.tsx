@@ -149,7 +149,7 @@ export default function Login() {
 
               <div className='flex justify-between'>
                 <div className='mt-8 flex justify-center text-center md:text-base'>
-                  <Link to={path.passwordRecovery} state={{ email: getValues('email') }}>
+                  <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
                     <p className='text-sm text-blue-700 underline underline-offset-1 dark:text-blue-400'>
                       Forgot Password?
                     </p>

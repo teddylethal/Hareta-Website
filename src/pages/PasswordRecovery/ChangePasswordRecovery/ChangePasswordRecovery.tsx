@@ -18,11 +18,7 @@ import passwordRecovery from 'src/apis/passwordRecovery.api'
 
 type FormData = ChangePasswordRecoverySchema
 
-interface Props {
-  setDialog: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export default function ChangePasswordRecovery({ setDialog }: Props) {
+export default function ChangePasswordRecovery() {
   const {
     register,
     handleSubmit,
@@ -34,28 +30,28 @@ export default function ChangePasswordRecovery({ setDialog }: Props) {
   })
 
   const navigate = useNavigate()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const slug = searchParams.get('slug')
+  const { slug } = useParams()
   const { data, error, isLoading, isSuccess, isError } = useQuery({
     queryKey: ['password_recovery'],
     queryFn: () => passwordRecovery.verifySlug(slug as string)
   })
-
   useEffect(() => {
-    if (data) {
-      // console.log(data.data.data.email)
+    if (isSuccess) {
+      // console.log(123)
       setValue('email', data.data.data.email as string)
     }
-  }, [isSuccess])
+  }, [isSuccess, setValue])
+
   useEffect(() => {
     // console.log(error)
     if (isAxiosBadRequestError<ErrorRespone>(error)) {
       const formError = error.response?.data
+      console.log(formError)
 
       const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
       if (errorRespone && errorRespone.error_key === 'ErrPasswordRecoveryNotFound') {
-        setDialog(true)
-        setSearchParams('')
+        // setDialog(true)
+        navigate(path.requestPasswordRecovery, { state: { failSlugVerify: 'true' } })
       }
     }
   }, [isError])
@@ -66,7 +62,7 @@ export default function ChangePasswordRecovery({ setDialog }: Props) {
 
   const onSubmit = handleSubmit((data) => {
     const submitData = {
-      slug: searchParams.get('slug') as string,
+      slug: slug as string,
       password: data.new_password
     }
     // console.log(submitData)

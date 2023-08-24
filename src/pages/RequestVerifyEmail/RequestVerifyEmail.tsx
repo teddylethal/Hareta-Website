@@ -33,6 +33,7 @@ export default function RequestVerifyEmail() {
   })
 
   const { state } = useLocation()
+  const [notifyMessage, setNotifyMessage] = useState('')
 
   const [dialog, setDialog] = useState(false)
   useEffect(() => {
@@ -46,6 +47,8 @@ export default function RequestVerifyEmail() {
             message: 'Please verify your email.',
             type: 'Server'
           })
+        } else {
+          setNotifyMessage('Please verify your email.')
         }
       }
     }
@@ -110,8 +113,10 @@ export default function RequestVerifyEmail() {
                 type='text'
                 className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
                 errorMessage={errors.email?.message}
+                notifyMessage={notifyMessage}
                 labelName='Email'
                 required
+                disabled
                 autoComplete='on'
                 svgData={
                   <>
