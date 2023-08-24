@@ -7,9 +7,10 @@ interface Props {
   closeDialog: () => void
   title: string
   context: string
+  guide: string
 }
 
-export default function SuccessEmailVerify({ dialog, closeDialog, title, context }: Props) {
+export default function SuccessPopup({ dialog, closeDialog, title, context, guide }: Props) {
   return (
     <VerifyEmailPopup
       isOpen={dialog}
@@ -21,7 +22,7 @@ export default function SuccessEmailVerify({ dialog, closeDialog, title, context
         <FontAwesomeIcon icon={faCircleCheck} fontSize={90} style={{ color: '#88b300' }} />
         <div className='h-full pl-5 text-left text-gray-400 '>
           <p className='text-xl'>{context}</p>
-          <p className='mb-3 text-xl'>Please login to continue</p>
+          <p className='mb-3 text-xl'>{guide}</p>
           <button
             className='h-9 w-24 rounded-3xl bg-[#039ef0] text-xl font-semibold text-white outline-none hover:bg-[#039ef0]/70 hover:text-white/90'
             onClick={closeDialog}

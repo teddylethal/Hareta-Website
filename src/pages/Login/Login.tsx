@@ -14,9 +14,10 @@ import { getAccessTokenFromLS, setProfileToLS } from 'src/utils/auth'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import SuccessEmailVerify from 'src/components/VerifyEmailDialog/SuccessEmailVerify'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { omit } from 'lodash'
+import SuccessPopup from 'src/components/VerifyEmailDialog/SuccessPopup'
+import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
 
 type FormData = LoginSchema
 
@@ -59,7 +60,7 @@ export default function Login() {
           if (formError) {
             if (formError.error_key == 'ErrEmailNotVerified') {
               navigate(path.requestVerify, {
-                state: { ...omit(data, ['password']), error: 'Please verify your email.', from: path.login }
+                state: { ...omit(data, ['password']), error: 'Please verify your email', from: path.login }
               })
             }
 
@@ -81,9 +82,10 @@ export default function Login() {
   })
 
   const [dialog, setDialog] = useState(false)
-  const location = useLocation()
+  const { state } = useLocation()
+  console.log(state)
   useEffect(() => {
-    if (location.state) {
+    if (state) {
       setDialog(true)
     }
   }, [])
@@ -166,15 +168,28 @@ export default function Login() {
           </div>
         </div>
       </div>
-
-      <SuccessEmailVerify
-        dialog={dialog}
-        closeDialog={() => {
-          setDialog(false)
-        }}
-        title={location.state?.title}
-        context={location.state?.context}
-      />
+      {state &&
+        (state?.type == 'Success' ? (
+          <SuccessPopup
+            dialog={dialog}
+            closeDialog={() => {
+              setDialog(false)
+            }}
+            title={state?.title}
+            context={state?.context}
+            guide='Please login to continue'
+          />
+        ) : (
+          <FailPopup
+            dialog={dialog}
+            closeDialog={() => {
+              setDialog(false)
+            }}
+            title={state?.title}
+            context={state?.context}
+            guide='Please login to continue'
+          />
+        ))}
     </AnimateTransition>
   )
 }

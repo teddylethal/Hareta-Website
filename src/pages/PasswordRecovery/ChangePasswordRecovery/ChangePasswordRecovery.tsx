@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
@@ -13,7 +13,6 @@ import AccountInput from 'src/components/AccountInput'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import verifyEmail from 'src/apis/verifyEmail.api'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
 
 type FormData = ChangePasswordRecoverySchema
@@ -68,7 +67,9 @@ export default function ChangePasswordRecovery() {
     // console.log(submitData)
     changePasswordRecoveryMutation.mutate(submitData, {
       onSuccess: () => {
-        navigate(path.login, { state: { title: 'Password Recovery', context: 'Your password has been changed.' } })
+        navigate(path.login, {
+          state: { type: 'Success', title: 'Password Recovery', context: 'Your password has been changed.' }
+        })
       },
       onError: (error) => {
         // console.log(error)
@@ -132,7 +133,7 @@ export default function ChangePasswordRecovery() {
                   <AccountInput
                     name='new_password'
                     register={register}
-                    type='text'
+                    type='password'
                     className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
                     errorMessage={errors.new_password?.message}
                     labelName='New Password'
@@ -150,7 +151,7 @@ export default function ChangePasswordRecovery() {
                   <AccountInput
                     name='confirm_new_password'
                     register={register}
-                    type='text'
+                    type='password'
                     className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
                     errorMessage={errors.confirm_new_password?.message}
                     labelName='Confirm New Password'

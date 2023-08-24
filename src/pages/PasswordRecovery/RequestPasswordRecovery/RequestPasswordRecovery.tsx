@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect, useRef, useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
@@ -13,11 +13,8 @@ import AccountInput from 'src/components/AccountInput'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import FailEmailVerify from 'src/components/VerifyEmailDialog/FailEmailVerify'
-import verifyEmail from 'src/apis/verifyEmail.api'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
-import { clearInterval } from 'timers'
-import FailSlugVerify from '../components/FailSlugVerify'
+import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
 
 type FormData = RequestVerifySchema
 
@@ -26,16 +23,11 @@ export default function RequestPasswordRecovery() {
     register,
     handleSubmit,
     setError,
-    setValue,
-    // clearErrors,
-    // reset,
-    // watch,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(requestVerifySchema)
   })
 
-  const navigate = useNavigate()
   const { state } = useLocation()
   const [dialog, setDialog] = useState(false)
 
@@ -148,15 +140,14 @@ export default function RequestPasswordRecovery() {
             </div>
           </div>
         </div>
-
-        {/* <FailEmailVerify
-            dialog={dialog}
-            closeDialog={() => {
-              setDialog(false)
-            }}
-          /> */}
       </AnimateTransition>
-      <FailSlugVerify dialog={dialog} closeDialog={() => setDialog(false)} />
+      <FailPopup
+        dialog={dialog}
+        closeDialog={() => setDialog(false)}
+        title='Password Recovery'
+        context='Invalid Recovery'
+        guide='Please send another request.'
+      />
     </>
   )
 }

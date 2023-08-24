@@ -1,3 +1,4 @@
+import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
 interface VerifyEmail {
@@ -14,10 +15,10 @@ const URL_REQUEST = '/send-verification-code'
 const verifyEmail = {
   verifyCode(code: string) {
     // console.log(123, `${URL}/${code}`)
-    return http.get<VerifyEmail>(`${URL_CODE}/${code}`)
+    return http.get<SuccessRespone<VerifyEmail>>(`${URL_CODE}/${code}`)
   },
   requestVerify(body: { email: string }) {
-    return http.post<VerifyEmail>(URL_REQUEST, body)
+    return http.post<SuccessRespone<VerifyEmail>>(URL_REQUEST, body)
   }
 }
 

@@ -14,12 +14,14 @@ export default function VerifyEmail() {
 
   useEffect(() => {
     if (data) {
-      navigate(path.login, { state: { title: 'Email Verification', context: 'Email is now verified!' } })
+      navigate(path.login, {
+        state: { type: 'Success', title: 'Email Verification', context: 'Email is now verified!' }
+      })
     }
     if (error) {
       // console.log(error)
       // setEmailVerified()
-      navigate(path.requestVerify, { state: { title: 'Email Verification', context: 'Invalid Verification' } })
+      navigate(path.login, { state: { type: 'Fail', title: 'Email Verification', context: 'Invalid Verification' } })
     }
   }, [data, status, error, navigate])
 
