@@ -1,8 +1,7 @@
-import { Fragment, useContext } from 'react'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ThemeContext } from 'src/App'
+import useClickOutside from 'src/hooks/useClickOutside'
 
 interface Props {
   isOPen: boolean
@@ -10,17 +9,28 @@ interface Props {
 }
 
 export default function MobileSupport({ isOPen, setIsOpen }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { visible, setVisible, ref } = useClickOutside(false)
 
-  const toggleExtendingMobileSupport = () => {
-    setIsOpen(!isOPen)
+  const open = () => {
+    setVisible(true)
+    setIsOpen(true)
+  }
+
+  const close = () => {
+    setVisible(false)
+    setIsOpen(false)
+  }
+
+  const toggleOpenClose = () => {
+    if ((isOPen && !visible) || (!isOPen && !visible)) open()
+    else close()
   }
 
   return (
-    <Fragment>
-      <button className='flex w-full items-center uppercase' onClick={toggleExtendingMobileSupport}>
+    <div ref={ref} className='w-full'>
+      <button className='flex w-full items-center uppercase' onClick={toggleOpenClose}>
         <span>Support</span>
-        {isOPen && (
+        {isOPen && visible && (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
             <path
               fillRule='evenodd'
@@ -29,7 +39,7 @@ export default function MobileSupport({ isOPen, setIsOpen }: Props) {
             />
           </svg>
         )}
-        {!isOPen && (
+        {(!isOPen || !visible) && (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
             <path
               fillRule='evenodd'
@@ -41,37 +51,37 @@ export default function MobileSupport({ isOPen, setIsOpen }: Props) {
       </button>
       <AnimateChangeInHeight className='w-full'>
         <AnimatePresence>
-          {isOPen && (
+          {isOPen && visible && (
             <motion.div
-              className='mx-0 mt-2 flex w-full flex-col space-y-1 text-sm font-medium sm:text-base'
-              initial={{ opacity: 0, y: '-20%' }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                color: theme === 'dark' ? '#eeeeee' : '#222222'
-              }}
-              exit={{ opacity: 0, y: '-20%' }}
-              transition={{ duration: 0.3 }}
+              className='mx-0 ml-3 mt-2 flex w-full flex-col space-y-1 text-xs font-normal text-textDark dark:text-textLight sm:text-sm'
+              // initial={{ opacity: 0, y: '-20%' }}
+              // animate={{
+              //   opacity: 1,
+              //   y: 0,
+              //   color: theme === 'dark' ? '#eeeeee' : '#222222'
+              // }}
+              // exit={{ opacity: 0, y: '-20%' }}
+              // transition={{ duration: 0.3 }}
             >
-              <Link to='/' className='py-2 pl-1 hover:text-haretaColor dark:hover:text-haretaColor sm:pl-2'>
+              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 About us
               </Link>
-              <Link to='/' className='py-2 pl-1 hover:text-haretaColor dark:hover:text-haretaColor sm:pl-2'>
+              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 Privacy & Terms
               </Link>
-              <Link to='/' className='py-2 pl-1 hover:text-haretaColor dark:hover:text-haretaColor sm:pl-2'>
+              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 FAQ
               </Link>
-              <Link to='/' className='py-2 pl-1 hover:text-haretaColor dark:hover:text-haretaColor sm:pl-2'>
+              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 Contact us
               </Link>
-              <Link to='/' className='py-2 pl-1 hover:text-haretaColor dark:hover:text-haretaColor sm:pl-2'>
+              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 Order tracking
               </Link>
             </motion.div>
           )}
         </AnimatePresence>
       </AnimateChangeInHeight>
-    </Fragment>
+    </div>
   )
 }

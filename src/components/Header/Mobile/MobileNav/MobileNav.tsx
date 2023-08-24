@@ -50,7 +50,7 @@ export default function MobileNav({ className }: Props) {
               transition={{ duration: 0.3 }}
             />
             <motion.div
-              className='fixed right-0 top-0 z-10 flex h-full w-[75%] overflow-hidden rounded-r-sm py-2 shadow-md sm:w-64'
+              className='fixed right-0 top-0 z-10 flex h-full w-[75%] overflow-hidden rounded-l-md py-2 shadow-md'
               initial={{ opacity: 0, x: '20%' }}
               animate={{
                 opacity: 1,
@@ -75,11 +75,12 @@ export default function MobileNav({ className }: Props) {
                   <div>Event</div>
                 </Link>
 
-                <div className='my-2 w-full border border-x-0 border-b-gray-500 border-t-transparent' />
-
                 <div className='flex w-full flex-col items-center py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
                   {visible && <MobileSupport isOPen={extendingSupport} setIsOpen={setExtendingSupport} />}
                 </div>
+
+                <div className='my-2 w-full border border-x-0 border-b-gray-500 border-t-transparent' />
+
                 <div className='w-full py-2'>
                   <MobileUser />
                 </div>

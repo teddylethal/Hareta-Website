@@ -65,9 +65,9 @@ export default function MobileCart({ className }: Props) {
   return (
     <div className={className}>
       <button onClick={openCart} className='relative flex items-end text-textDark dark:text-textLight'>
-        <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6' />
+        <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-textDark dark:text-textLight' />
         {extendedPurchases.length > 0 && (
-          <span className='absolute left-4 flex h-4 w-4 items-center justify-center rounded-full bg-brownColor/80 text-xs text-textDark dark:bg-haretaColor/80 sm:left-6  sm:h-5 sm:w-5 sm:text-sm'>
+          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-brownColor text-xs text-textDark dark:bg-haretaColor sm:left-6  sm:h-5 sm:w-5 sm:text-sm'>
             {cartData?.data.paging.total}
           </span>
         )}
@@ -110,7 +110,7 @@ export default function MobileCart({ className }: Props) {
                   <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
                     {cartData?.data.paging.total} items in cart
                   </div>
-                  <div className='m-2 h-[220px] overflow-y-auto bg-[#f8f8f8] dark:bg-[#202020]'>
+                  <div className='mx-3 h-[220px] overflow-y-auto rounded-md bg-[#f8f8f8] dark:bg-[#202020]'>
                     {extendedPurchases.map((purchase, index) => (
                       <div className='flex space-x-3 p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
                         <div className='h-12 w-12'>
@@ -164,9 +164,7 @@ export default function MobileCart({ className }: Props) {
               )}
             </div>
 
-            <div className='mx-3 my-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
-
-            <div className='mx-3 flex items-center justify-between text-xs sm:text-sm'>
+            <div className='mx-3 mt-2 flex items-center justify-between text-xs sm:text-sm'>
               <div className='flex space-x-2'>
                 <Link to={path.store}>
                   <Button className='w-14 py-1'>Store</Button>
