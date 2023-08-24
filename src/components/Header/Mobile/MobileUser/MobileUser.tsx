@@ -36,12 +36,10 @@ export default function MobileUser({ className }: Props) {
         <button
           onClick={() => setVisible(!visible)}
           type='submit'
-          className={classNames(
-            'flex w-full items-center space-x-2 border-x border-t border-transparent px-2 py-2 uppercase',
-            {
-              'rounded-t-md  border-black/20 dark:border-white/20': visible
-            }
-          )}
+          className={classNames('flex w-full items-center space-x-2 border-x border-t px-2 py-2 uppercase', {
+            'border-transparent ': !visible,
+            'rounded-t-md  border-black/20 dark:border-white/20': visible
+          })}
         >
           <img
             src={
