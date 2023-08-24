@@ -2,38 +2,21 @@ import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { useState } from 'react'
 import classNames from 'classnames'
 
 export default function MobileSupport() {
   const { visible, setVisible, ref } = useClickOutside(false)
-  const [isOPen, setIsOpen] = useState<boolean>(false)
-
-  const open = () => {
-    setVisible(true)
-    setIsOpen(true)
-  }
-
-  const close = () => {
-    setVisible(false)
-    setIsOpen(false)
-  }
-
-  const toggleOpenClose = () => {
-    if ((isOPen && !visible) || (!isOPen && !visible)) open()
-    else close()
-  }
 
   return (
     <div ref={ref} className='w-full'>
       <button
         className={classNames('flex w-full items-center border-x border-t border-transparent px-2 py-2 uppercase', {
-          'rounded-t-md  border-black/20 dark:border-white/20': isOPen && visible
+          'rounded-t-md  border-black/20 dark:border-white/20': visible
         })}
-        onClick={toggleOpenClose}
+        onClick={() => setVisible(!visible)}
       >
         <span>Support</span>
-        {isOPen && visible && (
+        {visible && (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
             <path
               fillRule='evenodd'
@@ -42,7 +25,7 @@ export default function MobileSupport() {
             />
           </svg>
         )}
-        {(!isOPen || !visible) && (
+        {!visible && (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
             <path
               fillRule='evenodd'
@@ -54,9 +37,9 @@ export default function MobileSupport() {
       </button>
       <AnimateChangeInHeight className='w-full'>
         <AnimatePresence>
-          {isOPen && visible && (
+          {visible && (
             <motion.div
-              className='mx-0 flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-textDark dark:border-white/20 dark:text-textLight sm:text-sm'
+              className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-textDark dark:border-white/20 dark:text-textLight sm:text-sm'
               // initial={{ opacity: 0, y: '-20%' }}
               // animate={{
               //   opacity: 1,

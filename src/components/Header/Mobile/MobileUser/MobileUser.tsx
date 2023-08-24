@@ -36,7 +36,12 @@ export default function MobileUser({ className }: Props) {
         <button
           onClick={() => setVisible(!visible)}
           type='submit'
-          className={classNames('flex w-full items-center space-x-2')}
+          className={classNames(
+            'flex w-full items-center space-x-2 border-x border-t border-transparent px-2 py-2 uppercase',
+            {
+              'rounded-t-md  border-black/20 dark:border-white/20': visible
+            }
+          )}
         >
           <img
             src={
@@ -54,7 +59,7 @@ export default function MobileUser({ className }: Props) {
       <AnimatePresence>
         {visible && (
           <motion.div
-            className='ml-3 mt-2 flex w-full flex-col space-y-2 text-sm font-normal sm:text-base'
+            className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-textDark dark:border-white/20 dark:text-textLight sm:text-sm'
             initial={{ opacity: 0, y: '-10%' }}
             animate={{
               opacity: 1,

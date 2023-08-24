@@ -88,7 +88,7 @@ export default function MobileNav({ className }: Props) {
                   <div className='my-2 w-full border border-x-0 border-b-gray-500 border-t-transparent' />
                 </div>
 
-                <div className='w-full py-2'>
+                <div className='w-full'>
                   <MobileUser />
                 </div>
               </div>
