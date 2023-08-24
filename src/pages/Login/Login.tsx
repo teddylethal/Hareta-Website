@@ -87,7 +87,7 @@ export default function Login() {
     if (state) {
       setDialog(true)
     }
-  }, [])
+  }, [state])
 
   return (
     <AnimateTransition>
