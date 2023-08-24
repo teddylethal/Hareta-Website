@@ -63,6 +63,14 @@ export default function useRouteElements() {
         {
           path: path.changePasswordRecovery,
           element: <ChangePasswordRecovery />
+        },
+        {
+          path: path.temporaryCart,
+          element: (
+            <MainLayout>
+              <CartWithoutLogin />
+            </MainLayout>
+          )
         }
       ]
     },
@@ -148,14 +156,6 @@ export default function useRouteElements() {
         // <MainLayout>
         <VerifyEmail />
         // </MainLayout>
-      )
-    },
-    {
-      path: path.temporaryCart,
-      element: (
-        <MainLayout>
-          <CartWithoutLogin />
-        </MainLayout>
       )
     }
   ])

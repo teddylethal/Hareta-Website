@@ -1,13 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { omit } from 'lodash'
-import { Controller, useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import InputNumber from 'src/components/InputNumber'
-import InputV2 from 'src/components/InputV2'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { PriceSchema, priceSchema } from 'src/utils/rules'
+import classNames from 'classnames'
+import PriceSample from './PriceSample'
+import { priceRanges } from './priceRangeSample'
 
 interface Props {
   queryConfig: QueryConfig
@@ -18,11 +20,18 @@ interface Props {
 
 type FormData = NoUndefinedField<PriceSchema>
 export default function PriceRange({ queryConfig }: Props) {
+  const { lower_price, upper_price } = queryConfig
+
+  const [lowerPrice, setLowerPrice] = useState(lower_price || '')
+  const [upperPrice, setUpperPrice] = useState(upper_price || '')
+
   const {
-    control,
     handleSubmit,
+    formState: { errors },
+    reset,
+    register,
     trigger,
-    formState: { errors }
+    setValue
   } = useForm<FormData>({
     defaultValues: {
       lower_price: '',
@@ -31,6 +40,11 @@ export default function PriceRange({ queryConfig }: Props) {
     resolver: yupResolver(priceSchema),
     shouldFocusError: false
   })
+
+  useEffect(() => {
+    setValue('lower_price', lowerPrice)
+    setValue('upper_price', upperPrice)
+  }, [lowerPrice, setValue, upperPrice])
 
   const navigate = useNavigate()
 
@@ -42,18 +56,11 @@ export default function PriceRange({ queryConfig }: Props) {
           lower_price: data.lower_price as string,
           upper_price: data.upper_price as string
         },
-        ['page', 'limit']
+        ['page', 'limit', 'limit']
       )
     )
     if (data.lower_price === '' && data.upper_price === '') {
-      searchParams = createSearchParams(
-        omit(
-          {
-            ...queryConfig
-          },
-          ['lower_price', 'upper_price', 'page']
-        )
-      )
+      return
     } else if (data.lower_price === '') {
       searchParams = createSearchParams(
         omit(
@@ -61,7 +68,7 @@ export default function PriceRange({ queryConfig }: Props) {
             ...queryConfig,
             upper_price: data.upper_price as string
           },
-          ['lower_price', 'page']
+          ['lower_price', 'page', 'limit']
         )
       )
     } else if (data.upper_price === '') {
@@ -71,7 +78,7 @@ export default function PriceRange({ queryConfig }: Props) {
             ...queryConfig,
             lower_price: data.lower_price as string
           },
-          ['upper_price', 'page']
+          ['upper_price', 'page', 'limit']
         )
       )
     }
@@ -81,69 +88,118 @@ export default function PriceRange({ queryConfig }: Props) {
     })
   })
 
+  const active = lower_price || upper_price
+  const notAllowApply = lowerPrice === '' && upperPrice === ''
+  const handleReset = () => {
+    setLowerPrice('')
+    setUpperPrice('')
+    reset()
+    navigate({
+      pathname: path.store
+    })
+  }
+
+  const handleChangeLowerPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    if (/^\d+$/.test(value) || value === '') {
+      setLowerPrice(value)
+      trigger('upper_price')
+    }
+  }
+
+  const handleChangeUpperPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    if (/^\d+$/.test(value) || value === '') {
+      setUpperPrice(value)
+      trigger('lower_price')
+    }
+  }
+
+  const handleChoosePrice = (index: number) => {
+    const priceRange = priceRanges[index]
+    setLowerPrice(priceRange.lowerPrice.toString())
+    setUpperPrice(priceRange.upperPrice.toString())
+    setValue('lower_price', priceRange.lowerPrice.toString())
+    setValue('upper_price', priceRange.upperPrice.toString())
+    const searchParams = createSearchParams(
+      omit(
+        {
+          ...queryConfig,
+          lower_price: priceRange.lowerPrice.toString(),
+          upper_price: priceRange.upperPrice.toString()
+        },
+        ['page', 'limit', 'limit']
+      )
+    )
+    navigate({
+      pathname: path.store,
+      search: searchParams.toString()
+    })
+  }
+
+  // window.onbeforeunload = () => {
+  //   navigate({
+  //     pathname: path.store
+  //   })
+  // }
+
   return (
-    <div className='ml-4 overflow-hidden rounded-lg bg-[#ddd] p-2 text-center duration-500 dark:bg-[#303030]'>
-      <p className='text-lg text-textDark duration-500 dark:text-textLight'>Price range</p>
+    <div className='relative w-full rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
+      <PriceSample handleChoosePrice={handleChoosePrice} />
+      {active && (
+        <button
+          className={classNames(
+            'absolute right-0 top-0  mt-1 rounded-md px-4 py-1 text-xs text-red-500/80 duration-500 hover:text-red-500 hover:underline dark:hover:outline-red-400 lg:text-sm xl:text-base'
+          )}
+          onClick={handleReset}
+          type='button'
+        >
+          Reset
+        </button>
+      )}
       <form className='mx-2 my-1' onSubmit={onSubmit}>
         <div className='flex items-center justify-center'>
-          {/* <Controller
-            control={control}
-            name='lower_price'
-            render={({ field }) => {
-              return (
-                <InputNumber
-                  type='text'
-                  className='flex items-center'
-                  placeholder='$ From'
-                  classNameInput='p-1 text-center text-xs lg:text-sm outline-none rounded-sm focus:shadow-sm w-12 xl:w-20 lg:w-14'
-                  classNameError='hidden'
-                  {...field}
-                  onChange={(event) => {
-                    field.onChange(event)
-                    trigger('upper_price')
-                  }}
-                />
-              )
-            }}
-          /> */}
-          <InputV2
-            control={control}
-            name='lower_price'
-            type='number'
-            className='flex items-center'
-            placeholder='$ From'
-            classNameInput='p-1 text-center text-xs lg:text-sm outline-none rounded-md focus:shadow-sm w-12 xl:w-20 lg:w-14'
-            classNameError='hidden'
-            onChange={() => {
-              trigger('upper_price')
-            }}
-          />
-          <div className='m-2 text-textDark dark:text-textLight'>-</div>
-          <Controller
-            control={control}
-            name='upper_price'
-            render={({ field }) => {
-              return (
-                <InputNumber
-                  type='text'
-                  className='flex items-center'
-                  placeholder='$ To'
-                  classNameInput='p-1 text-xs text-center lg:text-sm outline-none rounded-md focus:shadow-sm w-12 xl:w-20 lg:w-14'
-                  classNameError='hidden'
-                  {...field}
-                  onChange={(event) => {
-                    field.onChange(event)
-                    trigger('upper_price')
-                  }}
-                />
-              )
-            }}
-          />
+          <div className='flex items-center'>
+            <input
+              className='w-full rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
+              placeholder='$ From'
+              value={lowerPrice}
+              {...register('lower_price')}
+              onChange={handleChangeLowerPrice}
+            />
+          </div>
+
+          <div className='m-2 text-textDark duration-500 dark:text-textLight'>-</div>
+
+          <div className='flex items-center'>
+            <input
+              className='w-full rounded-md bg-white p-1 text-center text-xs text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
+              placeholder='$ To'
+              value={upperPrice}
+              {...register('upper_price')}
+              onChange={handleChangeUpperPrice}
+            />
+          </div>
         </div>
-        <div className='mt-1 min-h-[1.25rem] text-center text-sm text-red-600'>{errors.lower_price?.message}</div>
-        <button className='mt-1 w-[80%] rounded-md bg-[#fff] px-2 py-1 text-xs font-medium text-textDark hover:text-brownColor hover:outline hover:outline-1 hover:outline-brownColor dark:bg-[#101010] dark:text-textLight dark:hover:text-haretaColor dark:hover:outline-haretaColor lg:text-sm xl:text-base'>
-          Apply
-        </button>
+        <div className='mt-1  text-center text-sm text-red-600'>{errors.lower_price?.message}</div>
+
+        <div className='mt-2 flex items-center justify-center space-x-4'>
+          <button
+            disabled={notAllowApply}
+            className={classNames(
+              'mt-1 flex items-center justify-center rounded-md bg-white px-8 py-1 text-xs font-medium text-textDark outline outline-1 duration-500 dark:bg-[#101010] dark:text-textLight sm:text-sm lg:text-sm xl:text-base',
+              {
+                'hover:text-brownColor hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
+                  !notAllowApply,
+                'cursor-not-allowed bg-opacity-30 text-opacity-30 dark:bg-opacity-50 dark:text-opacity-30':
+                  notAllowApply
+              }
+            )}
+            type='submit'
+          >
+            Apply
+          </button>
+        </div>
       </form>
     </div>
   )

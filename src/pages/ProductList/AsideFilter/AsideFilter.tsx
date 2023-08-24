@@ -6,6 +6,8 @@ import path from 'src/constants/path'
 
 import classNames from 'classnames'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   queryConfig: QueryConfig
@@ -24,7 +26,11 @@ export default function AsideFilter({ queryConfig }: Props) {
   }
 
   return (
-    <div className='ml-4 flex flex-col space-y-2 rounded-md bg-[#ddd] px-2 py-2 duration-500 dark:bg-[#303030]'>
+    <div className='flex flex-col space-y-2 rounded-md bg-[#f8f8f8] px-3 py-2 duration-500 dark:bg-[#303030]'>
+      <div className='flex items-center space-x-2 text-base font-medium uppercase text-textDark duration-500 dark:text-textLight lg:text-lg'>
+        <FontAwesomeIcon icon={faFilter} />
+        <p className=''>Filter</p>
+      </div>
       <CategoryFilter queryConfig={queryConfig} />
       <CollectionFilter queryConfig={queryConfig} />
       <TypeFilter queryConfig={queryConfig} />
@@ -32,15 +38,14 @@ export default function AsideFilter({ queryConfig }: Props) {
         onClick={handleClear}
         disabled={isFiltering ? false : true}
         className={classNames(
-          'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#fff] px-4 py-2 text-textDark outline outline-1 outline-transparent duration-500 disabled:cursor-not-allowed dark:bg-[#202020] dark:text-textLight ',
-          { 'text-opacity-40 dark:text-opacity-40': !isFiltering },
+          'my-2 flex w-full shrink-0 items-center justify-start rounded-md bg-[#e8e8e8] px-4 py-2 font-normal  outline outline-1 outline-transparent duration-500 disabled:cursor-not-allowed dark:bg-[#202020]',
+          { 'text-red-500/20': !isFiltering },
           {
-            'hover:text-brownColor hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
-              isFiltering
+            'text-red-600 hover:outline-red-500 ': isFiltering
           }
         )}
       >
-        Clear filtering
+        Clear filter
       </button>
     </div>
   )

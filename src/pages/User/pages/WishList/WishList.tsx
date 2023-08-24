@@ -1,8 +1,8 @@
-import { faCartPlus, faCheck, faHeartCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Fragment, useContext, useState } from 'react'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
 import { Product } from 'src/types/product.type'
@@ -13,6 +13,9 @@ import UnlikeItemDialog from './UnlikeItemDialog'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { ThemeContext } from 'src/App'
 import classNames from 'classnames'
+import itemTag from 'src/constants/itemTag'
+import { omit } from 'lodash'
+import useQueryConfig from 'src/hooks/useQueryConfig'
 
 export default function WishList() {
   const { theme } = useContext(ThemeContext)
@@ -56,79 +59,132 @@ export default function WishList() {
     setUnlikeDialog(true)
   }
 
+  const queryConfig = useQueryConfig()
+  const handleChoostFilter = (field: string, value: string) => () => {
+    let searchParams = createSearchParams({
+      ...queryConfig
+    })
+    if (field === 'category') {
+      searchParams = createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            category: value
+          },
+          ['collection', 'type', 'page', 'limit']
+        )
+      )
+    } else if (field === 'collection') {
+      searchParams = createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            collection: value
+          },
+          ['category', 'type', 'page', 'limit']
+        )
+      )
+    } else if (field === 'type') {
+      searchParams = createSearchParams(
+        omit(
+          {
+            ...queryConfig,
+            type: value
+          },
+          ['category', 'collection', 'page', 'limit']
+        )
+      )
+    }
+
+    navigate({
+      pathname: path.store,
+      search: searchParams.toString()
+    })
+  }
+
   return (
-    <div className=''>
-      <div className='grid w-full grid-cols-12  p-4 text-base uppercase text-textDark dark:text-textLight'>
-        <div className='col-span-4'>
-          <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>Product</p>
-        </div>
-        <div className='col-span-8 '>
-          <div className='grid grid-cols-5 text-center'>
-            <div className='col-span-1'>Category</div>
-            <div className='col-span-1'>Collection</div>
-            <div className='col-span-1'>Type</div>
-            <div className='col-span-1'>Price</div>
-            <div className='col-span-1'>Action</div>
-          </div>
-        </div>
-      </div>
-      <div className=''>
-        <div className='w-full border-b border-textDark/80 dark:border-textLight/80'></div>
-      </div>
-      <div className='h-[530px] overflow-scroll overscroll-none rounded-sm shadow'>
+    <Fragment>
+      <div className='mx-4 my-4 h-[620px] overflow-scroll overscroll-none rounded-sm shadow'>
         {favouriteList?.map((item) => (
-          <div key={item.id} className='px-4 hover:bg-[#efefef] dark:hover:bg-[#101010]'>
-            <div className='grid grid-cols-12 items-center py-4 text-center text-textDark first:mt-0  dark:text-textLight '>
+          <div
+            key={item.id}
+            className='mt-4 rounded-lg border border-black/20 bg-[#f8f8f8] px-4 first:mt-0 hover:bg-[#efefef] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] '
+          >
+            <div className='grid grid-cols-12 items-center py-6 text-center text-textDark first:mt-0 dark:text-textLight '>
               <div className='col-span-4'>
-                <div className='flex'>
-                  <button className='flex flex-grow items-center' onClick={handleClickItem(item)}>
-                    <div className='flex h-24 w-24 flex-shrink-0 items-center'>
-                      <img
-                        alt={item.name}
-                        src={
-                          item.avatar
-                            ? item.avatar.url
-                            : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-                        }
-                      />
+                <button className='relative w-full pt-[75%]' onClick={handleClickItem(item)}>
+                  <img
+                    alt={item.name}
+                    src={
+                      item.avatar
+                        ? item.avatar.url
+                        : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
+                    }
+                    className='absolute left-0 top-0 h-full w-full object-scale-down'
+                  />
+                </button>
+              </div>
+              <div className='col-span-5 flex h-[75%] flex-col justify-between'>
+                <div className='ml-8 space-y-2'>
+                  <button
+                    className=' flex items-center justify-start truncate py-2 text-lg font-medium lg:text-xl xl:text-2xl'
+                    onClick={handleClickItem(item)}
+                  >
+                    {item.name}
+                  </button>
+                  {item.tag !== 0 && (
+                    <div className='relative '>
+                      <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+                        {itemTag[item.tag]}
+                      </span>
+                      <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
                     </div>
-                    <div className='flex-grow px-4 text-left'>
-                      <div className='truncate text-base lg:text-lg'>{item.name}</div>
-                    </div>
+                  )}
+                </div>
+                <div className='ml-8 flex items-center space-x-4'>
+                  <button
+                    className='flex items-center justify-center truncate rounded-lg border border-black/40 px-4 py-1 capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+                    onClick={handleChoostFilter('category', item.category)}
+                  >
+                    {item.category}
+                  </button>
+
+                  <button
+                    className='flex items-center justify-center truncate rounded-lg border border-black/40 px-4 py-1 capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+                    onClick={handleChoostFilter('collection', item.collection)}
+                  >
+                    {item.collection}
+                  </button>
+
+                  <button
+                    className='flex items-center justify-center truncate rounded-lg border border-black/40 px-4 py-1 capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+                    onClick={handleChoostFilter('type', item.type)}
+                  >
+                    {item.type}
                   </button>
                 </div>
               </div>
-              <div className='col-span-8'>
-                <div className='grid grid-cols-5 items-center capitalize text-textDark dark:text-textLight'>
-                  <div className='col-span-1'>
-                    <button className='capitalize'>{item.category}</button>
-                  </div>
-                  <div className='col-span-1'>
-                    <button className='capitalize'>{item.collection}</button>
-                  </div>
-                  <div className='col-span-1'>
-                    <button className='capitalize'>{item.type}</button>
-                  </div>
-                  <div className='col-span-1'>
-                    <span className='text-haretaColor'>${formatCurrency(item.price)}</span>
-                  </div>
-                  <div className='col-span-1 flex items-center justify-center'>
-                    <div className='items-cennter hover: flex h-full w-min flex-col  space-y-4 text-textDark/70  dark:text-textLight/70 '>
-                      <button
-                        className='bg-none hover:text-brownColor dark:hover:text-haretaColor'
-                        onClick={addToCart(item.id)}
-                      >
-                        <FontAwesomeIcon icon={faCartPlus} fontSize={24} onClick={addToCart(item.id)} />
-                      </button>
-                      <button
-                        className='bg-none hover:text-textDark dark:hover:text-textLight'
-                        onClick={openUnlikeItemDialog(item.id)}
-                      >
-                        <FontAwesomeIcon icon={faHeartCircleXmark} fontSize={24} />
-                      </button>
-                    </div>
-                  </div>
+              <div className='relative col-span-3  h-[75%] '>
+                <div className='relative grid w-full grid-cols-2 items-center rounded-md bg-white py-2 dark:bg-black '>
+                  <span className='col-span-1 flex items-center justify-center text-sm font-medium text-textDark dark:text-textLight lg:text-base'>
+                    ${formatCurrency(item.price)}
+                  </span>
+                  <div className='absolute left-1/2 h-full border-l border-black/30 dark:border-white/30'></div>
+                  <button
+                    className='col-span-1 flex items-center justify-center bg-none text-brownColor/80 hover:text-brownColor dark:text-haretaColor dark:hover:text-haretaColor/80'
+                    onClick={addToCart(item.id)}
+                  >
+                    <FontAwesomeIcon icon={faCartPlus} fontSize={24} onClick={addToCart(item.id)} />
+                  </button>
                 </div>
+                <button
+                  className='absolute bottom-0 right-0 bg-none hover:text-textDark dark:hover:text-textLight'
+                  onClick={openUnlikeItemDialog(item.id)}
+                >
+                  <p className='text-sm text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'>
+                    Remove
+                  </p>
+                </button>
               </div>
             </div>
             <UnlikeItemDialog
@@ -170,6 +226,6 @@ export default function WishList() {
           <FontAwesomeIcon icon={faXmark} fontSize={20} />
         </button>
       </DialogPopup>
-    </div>
+    </Fragment>
   )
 }

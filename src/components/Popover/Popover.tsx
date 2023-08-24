@@ -21,6 +21,7 @@ interface Props {
   initialOpen?: boolean
   colorCode?: string
   placement?: Placement
+  offsetValue?: number
 }
 
 export default function Popover({
@@ -29,14 +30,15 @@ export default function Popover({
   renderPopover,
   as: Element = 'div',
   initialOpen,
-  placement
+  placement,
+  offsetValue = 14
 }: Props) {
   const [isOpen, setIsOpen] = useState(initialOpen || false)
   const arrowRef = useRef<HTMLElement>(null)
   const { x, y, refs, strategy, middlewareData, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
-    middleware: [offset(14), shift(), arrow({ element: arrowRef })],
+    middleware: [offset(offsetValue), shift(), arrow({ element: arrowRef })],
     placement: placement || 'bottom'
   })
   const hover = useHover(context, {

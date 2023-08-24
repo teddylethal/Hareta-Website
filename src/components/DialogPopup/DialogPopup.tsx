@@ -10,13 +10,15 @@ interface Props {
   handleClose: () => void
   classNameWrapper?: string
   children: React.ReactNode
+  closeButton?: boolean
 }
 
 export default function DialogPopup({
   isOpen,
   handleClose,
   classNameWrapper = 'relative w-80 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all',
-  children
+  children,
+  closeButton = true
 }: Props) {
   const { theme } = useContext(ThemeContext)
 
@@ -49,26 +51,31 @@ export default function DialogPopup({
               leaveTo='opacity-0 scale-95'
             >
               <Dialog.Panel
-                className={classNames(classNameWrapper, {
-                  'bg-white/70 text-textDark': theme === 'light',
-                  'bg-black/80 text-textLight': theme === 'dark'
-                })}
+                className={classNames(
+                  {
+                    'bg-white/90 text-textDark': theme === 'light',
+                    'bg-black/90 text-textLight': theme === 'dark'
+                  },
+                  classNameWrapper
+                )}
               >
                 {children}
-                <button
-                  type='button'
-                  className={classNames(
-                    'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
-                    {
-                      'text-textDark/50': theme === 'light',
-                      'text-textLight/50': theme === 'dark'
-                    }
-                  )}
-                  onClick={handleClose}
-                  ref={completeButtonRef}
-                >
-                  <FontAwesomeIcon icon={faXmark} fontSize={20} />
-                </button>
+                {closeButton && (
+                  <button
+                    type='button'
+                    className={classNames(
+                      'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+                      {
+                        'text-textDark/50': theme === 'light',
+                        'text-textLight/50': theme === 'dark'
+                      }
+                    )}
+                    onClick={handleClose}
+                    ref={completeButtonRef}
+                  >
+                    <FontAwesomeIcon icon={faXmark} fontSize={20} />
+                  </button>
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>

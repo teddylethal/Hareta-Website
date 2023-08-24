@@ -82,13 +82,16 @@ export default function CategoryFilter({ setMobileFilterOpen, isMobile = false, 
   }
 
   return (
-    <div className='overflow-hidden rounded-md bg-[#f8f8f8] p-2 duration-500 dark:bg-[#202020]' ref={ref}>
+    <div
+      className='overflow-hidden rounded-md bg-[#e8e8e8] p-2 outline outline-1 outline-black/20 duration-500 dark:bg-[#202020] dark:outline-white/20'
+      ref={ref}
+    >
       <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>
         <div
           className={classNames(
             'flex items-center text-gray-500 hover:text-haretaColor dark:text-gray-400  dark:hover:text-haretaColor',
             {
-              'mb-2': isOpening || category
+              'mb-2': visible || category
             }
           )}
         >

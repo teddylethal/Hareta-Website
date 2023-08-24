@@ -90,7 +90,6 @@ export default function Login() {
     }
   }, [])
 
-  // console.log(watch)
   return (
     <AnimateTransition>
       <div className='container'>

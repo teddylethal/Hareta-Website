@@ -23,8 +23,8 @@ export default function QuantityController({
   onType,
   onFocusOut,
   classNameWrapper,
-  classNameInput = 'h-8 mx-2 w-14 rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white',
-  classNameButton = 'round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight',
+  classNameInput = 'h-8 mx-2 w-14 rounded-lg p-1 text-center outline-none text-haretaColor dark:bg-black bg-white border border-black/20 dark:border-white/20',
+  classNameButton = 'round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight border border-black/20 dark:border-white/20',
   classNameIcon,
   value,
   ...rest

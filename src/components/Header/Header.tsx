@@ -5,14 +5,12 @@ import ToggleTheme from '../ToggleTheme'
 import { createContext, useContext } from 'react'
 import { useViewport } from 'src/hooks/useViewport'
 import SupportNav from './Desktop/SupportNav'
-import MobileCart from './Mobile/MobileCart'
-import MobileNav from './Mobile/MobileNav/MobileNav'
-import MobileUser from './Mobile/MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import UserNav from './Desktop/ProfileNav/UserNav'
 import path from 'src/constants/path'
 import CartPopoverWithLogin from './Desktop/CartPopover/CartPopoverWithLogin'
 import CartPopoverWithoutLogin from './Desktop/CartPopover/CartPopoverWithoutLogin/CartPopoverWithoutLogin'
+import MobileHeader from './Mobile/MobileHeader'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -83,7 +81,7 @@ export default function Header() {
             )}
 
             {isAuthenticated && (
-              <div className='flex px-3 hover:text-haretaColor'>
+              <div className='flex px-3'>
                 <UserNav />
               </div>
             )}
@@ -98,13 +96,7 @@ export default function Header() {
       )}
 
       {/*//! Mobile */}
-      {isMobile && (
-        <div className='flex h-full w-full items-center justify-between px-2'>
-          <MobileNav />
-          <MobileCart />
-          <MobileUser />
-        </div>
-      )}
+      {isMobile && <MobileHeader />}
     </header>
   )
 }

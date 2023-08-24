@@ -5,7 +5,7 @@ import Product from './Product'
 import SearchBar from './SearchBar'
 import productApi from 'src/apis/product.api'
 import { useViewport } from 'src/hooks/useViewport'
-import MobileBottomBar from './MobileBottomBar'
+import MobileBottomBar from './Mobile/MobileBottomBar'
 import UsePagination from 'src/components/UsePagination'
 import { ProductListConfig } from 'src/types/product.type'
 import useQueryConfig from 'src/hooks/useQueryConfig'
@@ -14,17 +14,23 @@ import PriceRange from './AsideFilter/PriceRange'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
+import ProductSekeleton from './ProductSkeleton'
+import ProductListSkeleton from './ProductListSkeleton'
+import ActiveFiltering from './Mobile/ActiveFiltering'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
-  // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
   const queryConfig = useQueryConfig()
 
-  const { data: storeData } = useQuery({
+  const {
+    data: storeData,
+    isFetching,
+    isLoading
+  } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
@@ -49,7 +55,7 @@ export default function ProductList() {
       <div className='container'>
         {!isMobile && (
           <div className='grid grid-cols-12 gap-6'>
-            <div className='relative col-span-3 mb-auto flex flex-col space-y-4 overflow-hidden duration-500'>
+            <div className='relative col-span-3 mb-auto flex flex-col space-y-4 overflow-hidden px-2 duration-500'>
               <AsideSorter />
               <PriceRange queryConfig={queryConfig} />
               <AsideFilter queryConfig={queryConfig} />
@@ -60,18 +66,28 @@ export default function ProductList() {
                   <SearchBar />
                 </div>
               </div>
+              {isLoading && <ProductListSkeleton />}
               {storeData && (
                 <div className='mt-4'>
                   <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
-                    {storeData.data.data.map((product) => (
-                      <div className='col-span-1' key={product.id}>
-                        <Product
-                          product={product}
-                          queryConfig={queryConfig}
-                          likedByUser={favouriteListId.includes(product.id)}
-                        />
-                      </div>
-                    ))}
+                    {isFetching &&
+                      Array(12)
+                        .fill(0)
+                        .map((_, index) => (
+                          <div key={index} className='col-span-1'>
+                            <ProductSekeleton />
+                          </div>
+                        ))}
+                    {!isFetching &&
+                      storeData.data.data.map((product) => (
+                        <div className='col-span-1' key={product.id}>
+                          <Product
+                            product={product}
+                            queryConfig={queryConfig}
+                            likedByUser={favouriteListId.includes(product.id)}
+                          />
+                        </div>
+                      ))}
                   </div>
                   <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} />
                 </div>
@@ -82,7 +98,9 @@ export default function ProductList() {
 
         {isMobile && storeData && (
           <div>
-            <div className='gird-cols-1 grid gap-6 sm:grid-cols-2'>
+            <SearchBar />
+            <ActiveFiltering />
+            <div className='gird-cols-1 grid gap-2 sm:grid-cols-2'>
               {storeData &&
                 storeData.data.data.map((product) => (
                   <div className='col-span-1' key={product.id}>
