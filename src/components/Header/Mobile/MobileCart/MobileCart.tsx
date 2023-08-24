@@ -1,7 +1,6 @@
 import { Fragment, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import Button from 'src/components/Button'
 import { ThemeContext } from 'src/App'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { CartContext } from 'src/contexts/cart.context'
@@ -68,7 +67,7 @@ export default function MobileCart({ className }: Props) {
         <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-textDark dark:text-textLight' />
         {extendedPurchases.length > 0 && (
           <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-brownColor text-xs text-textDark dark:bg-haretaColor sm:left-6  sm:h-5 sm:w-5 sm:text-sm'>
-            {cartData?.data.paging.total}
+            {extendedPurchases.length}
           </span>
         )}
       </button>
@@ -116,11 +115,11 @@ export default function MobileCart({ className }: Props) {
 
               <div className=''>
                 <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
-                  {cartData?.data.paging.total} items in cart
+                  {extendedPurchases.length} items in cart
                 </div>
-                {extendedPurchases.length > 0 ? (
-                  <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#202020]'>
-                    {extendedPurchases.map((purchase, index) => (
+                <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#202020]'>
+                  {extendedPurchases.length > 0 ? (
+                    extendedPurchases.map((purchase, index) => (
                       <div className=' flex space-x-3 p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
                         <div className='h-12 w-12'>
                           <div className='relative w-full bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
@@ -163,24 +162,31 @@ export default function MobileCart({ className }: Props) {
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className='p-2'>
-                    <img src='/images/empty_cart.png' alt='Empty cart' />{' '}
-                  </div>
-                )}
+                    ))
+                  ) : (
+                    <div className='p-2'>
+                      <img src='/images/empty_cart.png' alt='Empty cart' />{' '}
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className='mx-3 mt-2 flex items-center justify-between text-xs sm:text-sm'>
                 <div className='flex space-x-2'>
-                  <Link to={path.store}>
-                    <Button className='w-14 py-1'>Store</Button>
+                  <Link
+                    to={path.store}
+                    className='flex items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    onClick={closeCart}
+                  >
+                    Store
                   </Link>
                 </div>
                 <div>
-                  <Link to={path.cart}>
-                    <Button className='w-14 py-1'>Cart</Button>
+                  <Link
+                    to={path.temporaryCart}
+                    className='flex items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                  >
+                    Cart
                   </Link>
                 </div>
               </div>
