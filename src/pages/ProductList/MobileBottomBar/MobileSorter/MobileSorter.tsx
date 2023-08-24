@@ -30,7 +30,7 @@ export default function MobileSorter() {
     <Fragment>
       <button
         onClick={open}
-        className='flex w-[80%] items-center justify-center rounded-md bg-brownColor px-4 py-1 text-textDark dark:bg-haretaColor dark:text-textLight'
+        className='flex w-[80%] items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 text-textDark dark:bg-haretaColor/80 dark:text-textLight'
       >
         {sorting}
       </button>

@@ -81,7 +81,6 @@ export default function Login() {
     }
   }, [])
 
-  console.log(dialog)
   return (
     <AnimateTransition>
       <div className='container'>
