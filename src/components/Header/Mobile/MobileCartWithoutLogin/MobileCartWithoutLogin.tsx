@@ -104,6 +104,7 @@ export default function MobileCartWithoutLogin() {
                             <Link
                               to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
                               className='flex'
+                              onClick={closeCart}
                             >
                               <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
                                 {purchase.item.name}
