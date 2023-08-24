@@ -1,7 +1,11 @@
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import classNames from 'classnames'
 import { Fragment, useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { ThemeContext } from 'src/App'
 import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
 import Input from 'src/components/Input'
@@ -15,6 +19,7 @@ type FormData = ChangePasswordSchema
 
 export default function ChangePassword() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
+  const { theme } = useContext(ThemeContext)
 
   const [successDialog, setSuccessDialog] = useState<boolean>(false)
 
@@ -136,21 +141,32 @@ export default function ChangePassword() {
         classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
         isOpen={successDialog}
         handleClose={handelConfirm}
+        closeButton={false}
       >
-        <p className='mt-6 text-center text-xl font-medium uppercase leading-6 text-green-500'>
-          Changed password successfully
-        </p>
-        <div className='mt-4 text-left'>
-          <p className='text-left'>Your password was changed</p>
-          <p className='text-left'>You will be logged out. Plesase loggin again to continue using our service</p>
+        <div className=' text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
+          />
         </div>
-        <div className='mt-8 flex justify-between'>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Password changed successfully!</p>
+        <div className='mt-8 flex items-center justify-center'>
           <button
             onClick={handelConfirm}
             type='button'
-            className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+            className={classNames(
+              'inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium   ',
+              {
+                'bg-brownColor/80 text-textDark hover:bg-brownColor': theme === 'light',
+                'bg-haretaColor/80 text-textLight hover:bg-haretaColor/60 ': theme === 'dark'
+              }
+            )}
           >
-            Confirm
+            Go to login
           </button>
         </div>
       </DialogPopup>

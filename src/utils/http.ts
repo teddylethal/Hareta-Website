@@ -56,10 +56,7 @@ class Http {
           toast.error(message)
         }
         console.log(error)
-        if (
-          (error.response?.data as ErrorRespone).status_code === 500 ||
-          (error.response?.data as ErrorRespone).status_code === 400
-        ) {
+        if ((error.response?.data as ErrorRespone).status_code === 500) {
           clearLS()
         }
         return Promise.reject(error)
