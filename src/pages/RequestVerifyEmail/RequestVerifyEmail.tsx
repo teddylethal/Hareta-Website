@@ -1,20 +1,17 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
-import { RequestVerifySchema, requestVerifySchema } from 'src/utils/rules'
+import { RequestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import verifyEmail from 'src/apis/verifyEmail.api'
 import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
-import { toast } from 'react-toastify'
 import useTimer from 'src/hooks/useTimer'
 
 type FormData = RequestVerifySchema
@@ -22,7 +19,6 @@ type FormData = RequestVerifySchema
 export default function RequestVerifyEmail() {
   const { state } = useLocation()
   const navigate = useNavigate()
-  const [notifyMessage, setNotifyMessage] = useState('')
 
   const [dialog, setDialog] = useState(false)
   const [error, setError] = useState('')
@@ -35,7 +31,7 @@ export default function RequestVerifyEmail() {
     } else {
       navigate(path.login, { state: { type: 'Fail', title: 'Email Verification', context: 'Invalid Verification' } })
     }
-  }, [])
+  }, [navigate, state])
 
   const requestVerifyMutation = useMutation({
     mutationFn: (body: FormData) => verifyEmail.requestVerify(body)
