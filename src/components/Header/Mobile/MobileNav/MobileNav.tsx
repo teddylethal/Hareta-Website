@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import ToggleTheme from 'src/components/ToggleTheme'
@@ -17,15 +17,12 @@ interface Props {
 export default function MobileNav({ className }: Props) {
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
-  const [extendingSupport, setExtendingSupport] = useState<boolean>(false)
 
   const openMenu = () => {
     setVisible(true)
-    setExtendingSupport(false)
   }
   const closeMenu = () => {
     setVisible(false)
-    setExtendingSupport(false)
   }
 
   return (
@@ -63,23 +60,33 @@ export default function MobileNav({ className }: Props) {
               ref={ref}
             >
               <div className='flex w-full flex-col items-start justify-start px-3 text-sm font-medium uppercase sm:text-base'>
-                <Link to={path.home} className='w-full py-2 '>
+                <Link to={path.home} className='w-full px-2 py-2' onClick={closeMenu}>
                   <img src='/images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
                 </Link>
 
-                <Link to={path.store} className='w-full py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
+                <Link
+                  to={path.store}
+                  className='w-full px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor'
+                  onClick={closeMenu}
+                >
                   <div>Store</div>
                 </Link>
 
-                <Link to='/' className='w-full py-2 hover:text-brownColor dark:hover:text-haretaColor'>
+                <Link
+                  to='/'
+                  className='w-full px-2 py-2 hover:text-brownColor dark:hover:text-haretaColor'
+                  onClick={closeMenu}
+                >
                   <div>Event</div>
                 </Link>
 
-                <div className='flex w-full flex-col items-center py-2 hover:text-haretaColor dark:hover:text-haretaColor'>
-                  {visible && <MobileSupport isOPen={extendingSupport} setIsOpen={setExtendingSupport} />}
+                <div className='flex w-full flex-col items-center hover:text-haretaColor dark:hover:text-haretaColor'>
+                  <MobileSupport />
                 </div>
 
-                <div className='my-2 w-full border border-x-0 border-b-gray-500 border-t-transparent' />
+                <div className='w-full px-2'>
+                  <div className='my-2 w-full border border-x-0 border-b-gray-500 border-t-transparent' />
+                </div>
 
                 <div className='w-full py-2'>
                   <MobileUser />

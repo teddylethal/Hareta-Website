@@ -2,14 +2,12 @@ import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
+import { useState } from 'react'
+import classNames from 'classnames'
 
-interface Props {
-  isOPen: boolean
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export default function MobileSupport({ isOPen, setIsOpen }: Props) {
+export default function MobileSupport() {
   const { visible, setVisible, ref } = useClickOutside(false)
+  const [isOPen, setIsOpen] = useState<boolean>(false)
 
   const open = () => {
     setVisible(true)
@@ -28,7 +26,12 @@ export default function MobileSupport({ isOPen, setIsOpen }: Props) {
 
   return (
     <div ref={ref} className='w-full'>
-      <button className='flex w-full items-center uppercase' onClick={toggleOpenClose}>
+      <button
+        className={classNames('flex w-full items-center border-x border-t border-transparent px-2 py-2 uppercase', {
+          'rounded-t-md  border-black/20 dark:border-white/20': isOPen && visible
+        })}
+        onClick={toggleOpenClose}
+      >
         <span>Support</span>
         {isOPen && visible && (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
@@ -53,7 +56,7 @@ export default function MobileSupport({ isOPen, setIsOpen }: Props) {
         <AnimatePresence>
           {isOPen && visible && (
             <motion.div
-              className='mx-0 ml-3 mt-2 flex w-full flex-col space-y-1 text-xs font-normal text-textDark dark:text-textLight sm:text-sm'
+              className='mx-0 flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-textDark dark:border-white/20 dark:text-textLight sm:text-sm'
               // initial={{ opacity: 0, y: '-20%' }}
               // animate={{
               //   opacity: 1,
