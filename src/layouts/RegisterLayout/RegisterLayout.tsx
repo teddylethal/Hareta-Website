@@ -13,7 +13,7 @@ export default function RegisterLayout({ children }: Props) {
       <RegisterHeader />
 
       <div
-        className='mt-10 bg-cover bg-center duration-500 sm:mt-12 lg:mt-16'
+        className='mt-10 min-h-screen bg-cover bg-center duration-500 sm:mt-12 lg:mt-16'
         style={{
           backgroundImage: `url(${
             theme === 'dark'

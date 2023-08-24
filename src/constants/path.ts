@@ -12,7 +12,9 @@ const path = {
   wishList: '/user/wishlist',
   inventory: '/user/inventory',
   password: '/user/password',
-  verifyEmail: '/check-verification-code/:code'
+  verifyEmail: '/check-verification-code/:code',
+  requestPasswordRecovery: '/passwordRecovery',
+  changePasswordRecovery: '/passwordRecovery/:slug'
 } as const
 
 export default path

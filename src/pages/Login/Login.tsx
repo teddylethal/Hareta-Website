@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import authApi from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
@@ -14,9 +14,10 @@ import { getAccessTokenFromLS, setProfileToLS } from 'src/utils/auth'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import { checkEmailVerified, unSetEmailVerified } from 'src/utils/store'
-import SuccessEmailVerify from 'src/components/VerifyEmailDialog/SuccessEmailVerify'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
+import { omit } from 'lodash'
+import SuccessPopup from 'src/components/VerifyEmailDialog/SuccessPopup'
+import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
 
 type FormData = LoginSchema
 
@@ -27,6 +28,7 @@ export default function Login() {
     register,
     handleSubmit,
     setError,
+    getValues,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(loginSchema)
@@ -52,10 +54,16 @@ export default function Login() {
         navigate(-1)
       },
       onError: (error) => {
-        console.log(error)
+        // console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           if (formError) {
+            if (formError.error_key == 'ErrEmailNotVerified') {
+              navigate(path.requestVerify, {
+                state: { ...omit(data, ['password']), error: 'Please verify your email', from: path.login }
+              })
+            }
+
             const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
             if (errorRespone) {
               setError('email', {
@@ -74,10 +82,11 @@ export default function Login() {
   })
 
   const [dialog, setDialog] = useState(false)
+  const { state } = useLocation()
+  console.log(state)
   useEffect(() => {
-    if (checkEmailVerified()) {
-      setDialog(checkEmailVerified())
-      unSetEmailVerified()
+    if (state) {
+      setDialog(true)
     }
   }, [])
 
@@ -139,30 +148,47 @@ export default function Login() {
                 </Button>
               </div>
 
-              <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
-                <span className='text-gray-400'>Don&apos;t have an account?</span>
-                <Link className='ml-2 text-haretaColor' to={path.register}>
-                  Sign up
-                </Link>
-              </div>
-              <div className='mt-2 flex justify-center text-center md:text-base'>
-                <Link to={path.requestVerify}>
-                  <p className='text-sm text-blue-700 underline underline-offset-1 dark:text-blue-400'>
-                    Verify your email
-                  </p>
-                </Link>
+              <div className='flex justify-between'>
+                <div className='mt-8 flex justify-center text-center md:text-base'>
+                  <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
+                    <p className='text-sm text-blue-700 underline underline-offset-1 dark:text-blue-400'>
+                      Forgot Password?
+                    </p>
+                  </Link>
+                </div>
+                <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
+                  <span className='text-gray-400'>Don&apos;t have an account?</span>
+                  <Link className='ml-2 text-haretaColor' to={path.register}>
+                    Sign up
+                  </Link>
+                </div>
               </div>
             </form>
           </div>
         </div>
       </div>
-
-      <SuccessEmailVerify
-        dialog={dialog}
-        closeDialog={() => {
-          setDialog(false)
-        }}
-      />
+      {state &&
+        (state?.type == 'Success' ? (
+          <SuccessPopup
+            dialog={dialog}
+            closeDialog={() => {
+              setDialog(false)
+            }}
+            title={state?.title}
+            context={state?.context}
+            guide='Please login to continue'
+          />
+        ) : (
+          <FailPopup
+            dialog={dialog}
+            closeDialog={() => {
+              setDialog(false)
+            }}
+            title={state?.title}
+            context={state?.context}
+            guide='Please login to continue'
+          />
+        ))}
     </AnimateTransition>
   )
 }

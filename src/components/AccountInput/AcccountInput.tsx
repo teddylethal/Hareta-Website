@@ -4,6 +4,7 @@ import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
 interface Props {
   type: React.HTMLInputTypeAttribute
   errorMessage?: string
+  notifyMessage?: string
   placeholder?: string
   className?: string
   name: string
@@ -15,6 +16,7 @@ interface Props {
   labelName: string
   required?: boolean
   isPasswordInput?: boolean
+  disabled?: boolean
 }
 
 export default function AccountInput({
@@ -23,12 +25,14 @@ export default function AccountInput({
   type,
   className,
   errorMessage,
+  notifyMessage,
   rules,
   labelName,
   svgData,
   autoComplete = 'off',
   required = false,
-  isPasswordInput = false
+  isPasswordInput = false,
+  disabled = false
 }: Props) {
   const inputId = useId()
   const [visible, setVisible] = useState<boolean>(false)
@@ -87,21 +91,27 @@ export default function AccountInput({
           type={visible ? 'text' : `${type}`}
           id={inputId}
           className={
-            'peer h-full w-full  border-none bg-transparent pl-1.5 text-lg text-[#222] outline-none duration-300 autofill:text-textDark dark:text-textVintage dark:caret-white autofill:dark:text-textVintage ' +
+            'peer h-full w-full border-none  bg-transparent pl-1.5 text-lg text-[#222] outline-none duration-300 autofill:text-textDark disabled:text-blue-700 dark:text-textVintage dark:caret-white autofill:dark:text-textVintage dark:disabled:text-blue-400 ' +
             (isPasswordInput ? 'pr-14 md:pr-20' : 'pr-9 md:pr-12')
           }
+          disabled={disabled}
           autoComplete={autoComplete}
           required={required}
           {...register(name, rules)}
         />
         <label
           htmlFor={inputId}
-          className='absolute left-1.5 top-1/2 -translate-y-1/2 cursor-text  select-none text-base text-[#666666] duration-300 peer-valid:top-[-5px] peer-valid:text-sm peer-focus:top-[-5px] peer-focus:text-sm dark:text-textVintage dark:text-opacity-80'
+          className='absolute left-1.5 top-1/2 -translate-y-1/2 cursor-text  select-none text-base text-[#666666] duration-300 peer-valid:top-[-5px] peer-valid:text-sm peer-focus:top-[-5px] peer-focus:text-sm peer-disabled:top-[-5px] peer-disabled:text-sm dark:text-textVintage dark:text-opacity-80'
         >
           {labelName}
         </label>
       </div>
-      <div className='mt-1 min-h-[1.25rem] text-sm text-red-600'>{errorMessage}</div>
+      <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 ' + (notifyMessage ? 'hidden' : '')}>
+        {errorMessage}
+      </div>
+      <div className={'mt-1 min-h-[1.25rem] text-sm text-blue-600 ' + (!notifyMessage ? 'hidden' : '')}>
+        {notifyMessage}
+      </div>
     </div>
   )
 }

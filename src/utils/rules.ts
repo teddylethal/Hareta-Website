@@ -55,7 +55,22 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
         : undefined
   }
 })
+const handleEmailYup = () => {
+  return yup
+    .string()
+    .required('Email is required')
+    .email('Incorrect email format')
+    .min(5, 'Email address must have at least 5 characters')
+    .max(160, 'Email address can only have a total length of 160 characters')
+}
 
+const handlePasswordYup = () => {
+  return yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be 8-16 characters')
+    .max(16, 'Password must be 8-16 characters')
+}
 const handleConfirmPasswordYup = (refString: string) => {
   return yup
     .string()
@@ -66,17 +81,8 @@ const handleConfirmPasswordYup = (refString: string) => {
 }
 
 export const registerSchema = yup.object({
-  email: yup
-    .string()
-    .required('Email is required')
-    .email('Incorrect email format')
-    .min(5, 'Email address must have at least 5 characters')
-    .max(160, 'Email address can only have a total length of 160 characters'),
-  password: yup
-    .string()
-    .required('Password is required')
-    .min(8, 'Password must be 8-16 characters')
-    .max(16, 'Password must be 8-16 characters'),
+  email: handleEmailYup(),
+  password: handlePasswordYup(),
   confirm_password: handleConfirmPasswordYup('password'),
   name: yup.string().required('Name is required'),
   phone: yup.string().required('Phone number is required')
@@ -88,12 +94,7 @@ export const loginSchema = yup.object({
 })
 
 export const requestVerifySchema = yup.object({
-  email: yup
-    .string()
-    .required('Email is required')
-    .email('Incorrect email format')
-    .min(5, 'Email address must have at least 5 characters')
-    .max(160, 'Email address can only have a total length of 160 characters')
+  email: handleEmailYup()
 })
 
 export const productSchema = yup.object({
@@ -129,11 +130,13 @@ export const userSchema = yup.object({
 
 export const changePasswordSchema = yup.object({
   old_password: yup.string().default(''),
-  new_password: yup
-    .string()
-    .default('')
-    .min(8, 'Password must be 8-16 characters')
-    .max(16, 'Password must be 8-16 characters'),
+  new_password: handlePasswordYup(),
+  confirm_new_password: handleConfirmPasswordYup('new_password')
+})
+
+export const changePasswordRecoverySchema = yup.object({
+  email: handleEmailYup(),
+  new_password: handlePasswordYup(),
   confirm_new_password: handleConfirmPasswordYup('new_password')
 })
 
@@ -150,3 +153,5 @@ export type PriceSchema = yup.InferType<typeof priceSchema>
 export type UserSchema = yup.InferType<typeof userSchema>
 
 export type ChangePasswordSchema = yup.InferType<typeof changePasswordSchema>
+
+export type ChangePasswordRecoverySchema = yup.InferType<typeof changePasswordRecoverySchema>

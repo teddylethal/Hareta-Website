@@ -19,6 +19,8 @@ import ChangePassword from './pages/User/pages/ChangePassword'
 import VerifyEmail from './pages/VerifyEmail'
 import RequestVerifyEmail from './pages/RequestVerifyEmail'
 import CartWithoutLogin from './pages/CartWithoutLogin'
+import RequestPasswordRecovery from './pages/PasswordRecovery/RequestPasswordRecovery'
+import ChangePasswordRecovery from './pages/PasswordRecovery/ChangePasswordRecovery'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -53,6 +55,14 @@ export default function useRouteElements() {
         {
           path: path.requestVerify,
           element: <RequestVerifyEmail />
+        },
+        {
+          path: path.requestPasswordRecovery,
+          element: <RequestPasswordRecovery />
+        },
+        {
+          path: path.changePasswordRecovery,
+          element: <ChangePasswordRecovery />
         },
         {
           path: path.temporaryCart,
