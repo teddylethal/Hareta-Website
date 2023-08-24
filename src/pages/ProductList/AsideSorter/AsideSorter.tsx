@@ -58,7 +58,7 @@ export default function AsideSorter() {
         <AnimateChangeInHeight>
           {visible && isOpening && (
             <motion.div
-              className='gap-2 rounded-xl rounded-t-none border-x border-b border-black/20 px-3 py-4 dark:border-white/10'
+              className='gap-2 rounded-xl rounded-t-none border-x border-b border-black/20 px-1 py-4 dark:border-white/10 lg:px-2 xl:px-3'
               initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
               animate={{
                 opacity: 1,
@@ -68,12 +68,12 @@ export default function AsideSorter() {
               exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
               transition={{ duration: 0.2 }}
             >
-              <ul className='flex grow flex-col space-y-2 text-sm text-textDark/80 dark:text-textLight/80 lg:text-base'>
-                <li className='h-10 w-full'>
+              <ul className='flex grow flex-col space-y-2 text-xs text-textDark/80 dark:text-textLight/80 lg:text-base'>
+                <li className='w-full'>
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Newest',
@@ -85,11 +85,11 @@ export default function AsideSorter() {
                     <p>Newest</p>
                   </button>
                 </li>
-                <li className='w-full '>
+                <li className='w-full'>
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Top seller',
@@ -101,11 +101,11 @@ export default function AsideSorter() {
                     Top seller
                   </button>
                 </li>
-                <li className='w-full '>
+                <li className='w-full'>
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Signature',
@@ -117,11 +117,11 @@ export default function AsideSorter() {
                     Signature
                   </button>
                 </li>
-                <li className='w-full '>
+                <li className='w-full'>
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full items-center justify-center space-x-2 rounded-lg border border-black/40 py-1 dark:border-white/40 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Favourite',
