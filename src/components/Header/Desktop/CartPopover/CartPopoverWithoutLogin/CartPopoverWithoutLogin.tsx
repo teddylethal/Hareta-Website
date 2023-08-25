@@ -100,7 +100,7 @@ export default function CartPopoverWithoutLogin() {
               <Link to={path.store}>
                 <Button className='justify-self-start px-4 py-1 text-sm'>Store</Button>
               </Link>
-              <Link to={path.temporaryCart}>
+              <Link to={path.cart}>
                 <Button className='justify-self-start px-4 py-1 text-sm'>Enter Cart</Button>
               </Link>
             </div>
@@ -109,7 +109,7 @@ export default function CartPopoverWithoutLogin() {
         }
         placement='bottom-end'
       >
-        <Link to={path.temporaryCart} className='flex items-center space-x-1'>
+        <Link to={path.cart} className='flex items-center space-x-1'>
           <FontAwesomeIcon icon={faCartShopping} />
           <div>Cart</div>
         </Link>

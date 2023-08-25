@@ -1,4 +1,4 @@
-import { ExtendedTemporaryPurchase } from 'src/pages/CartWithoutLogin/CartWithoutLogin'
+import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
 
 export const getCartFromLS = (): ExtendedTemporaryPurchase[] => {
   const res = localStorage.getItem('temporary_cart')
