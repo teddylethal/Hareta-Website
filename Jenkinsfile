@@ -8,12 +8,7 @@ pipeline {
             yamlFile 'deploy/agent.yaml' 
         }
     }
-    when {
-        expression {
-            // Run the pipeline only if the branch is 'main'
-            return env.BRANCH_NAME == 'main'
-        }
-    }
+    
     stages {
         stage('Build') {
             steps {
@@ -46,6 +41,12 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    when {
+        expression {
+            // Run the pipeline only if the branch is 'main'
+            return env.BRANCH_NAME == 'main'
         }
     }
 }
