@@ -14,7 +14,7 @@ export default function UserLayout() {
               </div>
 
               <div className='col-span-9'>
-                <div className='min-h-full rounded-md border border-black/10 bg-[#efefef] text-textDark dark:border-white/20 dark:bg-[#181818] dark:text-textLight'>
+                <div className='min-h-full rounded-md border border-black/10 bg-[#f8f8f8] text-textDark dark:border-white/20 dark:bg-[#181818] dark:text-textLight'>
                   <Outlet />
                 </div>
               </div>

@@ -104,11 +104,11 @@ export default function WishList() {
 
   return (
     <Fragment>
-      <div className='mx-4 my-4 h-[620px] overflow-scroll overscroll-none rounded-sm shadow'>
+      <div className='mx-4 my-4 h-[620px] overflow-scroll overscroll-none rounded-sm'>
         {favouriteList?.map((item) => (
           <div
             key={item.id}
-            className='mt-4 rounded-lg border border-black/20 bg-[#f8f8f8] px-4 first:mt-0 hover:bg-[#efefef] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] '
+            className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-4 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] '
           >
             <div className='grid grid-cols-12 items-center py-6 text-center text-textDark first:mt-0 dark:text-textLight '>
               <div className='col-span-4'>
