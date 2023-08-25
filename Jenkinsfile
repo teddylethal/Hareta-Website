@@ -10,10 +10,11 @@ pipeline {
     }
     
     stages {
-        when {
-            branch "main"
-        }
+        
         stage('Build') {
+            when {
+                branch 'main'
+            }
             steps {
                 container("docker") {
                     script {
@@ -23,6 +24,9 @@ pipeline {
             }
         }
         stage('Pushing image') {
+            when {
+                branch 'main'
+            }
             steps {
                 container("docker") {
                     withCredentials([usernamePassword(credentialsId: 'docker hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
@@ -34,6 +38,9 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                branch 'main'
+            }
             steps {
                 echo 'Deploying....'
                 container("kubectl") {
