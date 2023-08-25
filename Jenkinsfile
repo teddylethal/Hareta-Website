@@ -10,6 +10,9 @@ pipeline {
     }
     
     stages {
+        when {
+            branch "main"
+        }
         stage('Build') {
             steps {
                 container("docker") {
@@ -41,12 +44,6 @@ pipeline {
                     }
                 }
             }
-        }
-    }
-    when {
-        expression {
-            // Run the pipeline only if the branch is 'main'
-            return env.BRANCH_NAME == 'main'
         }
     }
 }
