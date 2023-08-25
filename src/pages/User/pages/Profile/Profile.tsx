@@ -158,7 +158,7 @@ export default function Profile() {
               onClick={() => setEditingMode(true)}
             >
               <FontAwesomeIcon icon={faUserPen} />
-              <p>Edit Account</p>
+              <p>Edit</p>
             </button>
           )}
         </div>

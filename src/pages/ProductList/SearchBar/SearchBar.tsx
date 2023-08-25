@@ -41,7 +41,7 @@ export default function SearchBar() {
   })
 
   return (
-    <div className='w-full px-4'>
+    <div className='w-full'>
       <form
         className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-500 dark:bg-[#303030]'
         onSubmit={handleSearch}
@@ -54,7 +54,7 @@ export default function SearchBar() {
         />
         <label
           htmlFor='search_bar_input'
-          className='absolute right-2 flex items-center justify-center rounded-lg bg-vintageColor/60 px-3 py-1.5 duration-500 peer-focus:bg-vintageColor dark:bg-haretaColor/60 dark:peer-focus:bg-haretaColor lg:right-4 lg:px-4 '
+          className='absolute right-2 flex items-center justify-center rounded-lg bg-vintageColor/80 px-3 py-1.5 duration-500 peer-focus:bg-vintageColor dark:bg-haretaColor/80 dark:peer-focus:bg-haretaColor lg:right-4 lg:px-4 '
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'

@@ -38,7 +38,7 @@ export default function AsideSorter() {
   }
 
   return (
-    <div className='grid grid-cols-3 space-x-2 overflow-hidden rounded-md bg-[#f8f8f8] px-3 py-4 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
+    <div className='grid grid-cols-3 space-x-2 overflow-hidden rounded-lg bg-[#f8f8f8] px-3 py-4 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
       <p className='col-span-1 flex h-8 items-center space-x-2 text-left text-base font-medium uppercase text-textDark duration-500 dark:text-textLight lg:text-lg'>
         Sort by:
       </p>

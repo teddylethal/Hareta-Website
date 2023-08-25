@@ -1,16 +1,14 @@
-import { faCartPlus, faCheck, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { memo, useContext, useState } from 'react'
-import { Link, createSearchParams, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { omit } from 'lodash'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import itemTag from 'src/constants/itemTag'
-import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
 import { ThemeContext } from 'src/App'
@@ -31,7 +29,7 @@ interface Props {
   likedByUser?: boolean
 }
 
-function Product({ product, queryConfig, likedByUser = false }: Props) {
+function Product({ product }: Props) {
   const { theme } = useContext(ThemeContext)
   const { isAuthenticated } = useContext(AppContext)
   const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
@@ -63,68 +61,34 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
   }
 
-  const handleCollectionClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const selectedCollection = String((e.target as HTMLInputElement).innerText)
-    navigate({
-      pathname: path.store,
-      search: createSearchParams(
-        omit(
-          {
-            ...queryConfig,
-            collection: selectedCollection
-          },
-          ['type', 'page', 'limit']
-        )
-      ).toString()
-    })
-    // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }
+  // const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  // const likeItem = () => {
+  //   likeItemMutation.mutate(
+  //     { item_id: product?.id as string },
+  //     {
+  //       onSuccess: () => {
+  //         queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+  //       }
+  //     }
+  //   )
+  // }
 
-  const handleTypeClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const selectedType = String((e.target as HTMLInputElement).innerText)
-    navigate({
-      pathname: path.store,
-      search: createSearchParams(
-        omit(
-          {
-            ...queryConfig,
-            type: selectedType
-          },
-          ['collection', 'page', 'limit']
-        )
-      ).toString()
-    })
-    // window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }
+  // const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
+  // const unlikeItem = () => {
+  //   unlikeItemMutation.mutate(
+  //     { item_id: product?.id as string },
+  //     {
+  //       onSuccess: () => {
+  //         queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+  //       }
+  //     }
+  //   )
+  // }
 
-  const likeItemMutation = useMutation(likeItemAPi.likeItem)
-  const likeItem = () => {
-    likeItemMutation.mutate(
-      { item_id: product?.id as string },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
-        }
-      }
-    )
-  }
-
-  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
-  const unlikeItem = () => {
-    unlikeItemMutation.mutate(
-      { item_id: product?.id as string },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
-        }
-      }
-    )
-  }
-
-  const toggleLikeItem = () => {
-    likedByUser && unlikeItem()
-    !likedByUser && likeItem()
-  }
+  // const toggleLikeItem = () => {
+  //   likedByUser && unlikeItem()
+  //   !likedByUser && likeItem()
+  // }
 
   const createTemporaryCart = () => {
     const newPurchase: TemporaryPurchase = {
@@ -159,8 +123,8 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
   }
 
   return (
-    <div className='flex w-full items-center justify-center p-2 duration-500 hover:p-0'>
-      <div className='relative m-2 w-full rounded-xl bg-[#f8f8f8] pb-4 duration-500 hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
+    <div className='flex w-full items-center justify-center pb-0 pt-2 duration-500 hover:pb-2 hover:pt-0'>
+      <div className='relative  w-full rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
         <div className='relative w-full pt-[60%]'>
           <button onClick={handleClickItem}>
             <img
@@ -174,46 +138,21 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
             />
           </button>
         </div>
-        <div className='mx-3 mt-4 flex justify-between space-x-1 overflow-hidden'>
+        <div className='mx-1 mt-2 flex justify-between space-x-1 overflow-hidden sm:mx-2 lg:mx-3 lg:mt-4'>
           <div className='flex flex-col justify-between space-y-1 overflow-hidden'>
             <button
-              className='h-full  overflow-hidden truncate text-left text-lg text-textDark duration-500 dark:text-textLight'
+              className='h-full overflow-hidden truncate text-left text-sm text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
               onClick={handleClickItem}
             >
               {product.name}
             </button>
-            <div className='flex items-center space-x-4 py-1'>
-              <button
-                className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
-                onClick={handleCollectionClick}
-              >
-                {product.collection}
-              </button>
-              <button
-                className='flex justify-start text-sm capitalize text-gray-500 hover:text-haretaColor'
-                onClick={handleTypeClick}
-              >
-                {product.type}
-              </button>
-            </div>
-            <span className='text-haretaColor'>${formatCurrency(product.price)}</span>
+
+            <span className='text-xs font-medium text-brownColor dark:text-haretaColor sm:text-sm lg:text-base'>
+              ${formatCurrency(product.price)}
+            </span>
           </div>
 
-          <div
-            className={classNames('mx-1 flex flex-col items-center ', {
-              'justify-between': isAuthenticated,
-              'justify-end': !isAuthenticated
-            })}
-          >
-            {isAuthenticated && (
-              <button onClick={toggleLikeItem} className='text-black'>
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  fontSize={24}
-                  className={classNames('mt-1', { 'text-red-500': likedByUser })}
-                />
-              </button>
-            )}
+          <div className={classNames('mx-1 flex items-end justify-center', {})}>
             <button
               className=''
               onClick={
@@ -228,18 +167,17 @@ function Product({ product, queryConfig, likedByUser = false }: Props) {
             >
               <FontAwesomeIcon
                 icon={faCartPlus}
-                fontSize={24}
-                className='text-textDark duration-500 hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor'
+                className='text-base text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-lg lg:text-xl'
               />
             </button>
           </div>
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textDark lg:h-6 lg:w-20  lg:text-sm'>
               {itemTag[product.tag]}
             </span>
-            <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
           </div>
         )}
       </div>
