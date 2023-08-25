@@ -89,7 +89,7 @@ export default function MobileNav({ className }: Props) {
                 </div>
 
                 <div className='w-full'>
-                  <MobileUser />
+                  <MobileUser closeMenu={closeMenu} />
                 </div>
               </div>
               <div className='absolute right-0 flex h-10 space-x-2 p-2'>

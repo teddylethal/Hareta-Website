@@ -12,9 +12,10 @@ import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   className?: string
+  closeMenu: () => void
 }
 
-export default function MobileUser({ className }: Props) {
+export default function MobileUser({ className, closeMenu }: Props) {
   const { isAuthenticated, setIsAuthenticated, profile } = useContext(AppContext)
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
@@ -69,6 +70,7 @@ export default function MobileUser({ className }: Props) {
           >
             <Link
               to={path.profile}
+              onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
               <p>Account</p>
@@ -76,12 +78,14 @@ export default function MobileUser({ className }: Props) {
 
             <Link
               to={path.inventory}
+              onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
               <p>Inventory</p>
             </Link>
             <Link
               to={path.wishList}
+              onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
               <p>Wishist</p>
