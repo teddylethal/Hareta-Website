@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
 import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
+import SuccessPopup from 'src/components/VerifyEmailDialog/SuccessPopup'
 
 type FormData = RequestVerifySchema
 
@@ -29,12 +30,13 @@ export default function RequestPasswordRecovery() {
   })
 
   const { state } = useLocation()
-  const [dialog, setDialog] = useState(false)
+  const [dialogFail, setDialogFail] = useState(false)
+  const [dialogSuccess, setDialogSuccess] = useState(false)
 
   useEffect(() => {
     if (state) {
       if (state.failSlugVerify) {
-        setDialog(true)
+        setDialogFail(true)
       }
     }
   }, [])
@@ -49,11 +51,10 @@ export default function RequestPasswordRecovery() {
     mutationFn: (body: FormData) => passwordRecovery.requestRecovery(body)
   })
 
-  const [notifySuccess, setNotifySuccess] = useState('')
   const onSubmit = handleSubmit((data) => {
     passwordRecoveryMutation.mutate(data, {
       onSuccess: () => {
-        setNotifySuccess('An email has been sent to your address.')
+        setDialogSuccess(true)
         setCounter(60)
       },
       onError: (error) => {
@@ -109,7 +110,7 @@ export default function RequestPasswordRecovery() {
                   errorMessage={errors.email?.message}
                   labelName='Email'
                   required
-                  notifyMessage={notifySuccess}
+                  // notifyMessage={notifySuccess}
                   autoComplete='on'
                   svgData={
                     <>
@@ -142,11 +143,18 @@ export default function RequestPasswordRecovery() {
         </div>
       </AnimateTransition>
       <FailPopup
-        dialog={dialog}
-        closeDialog={() => setDialog(false)}
+        dialog={dialogFail}
+        closeDialog={() => setDialogFail(false)}
         title='Password Recovery'
         context='Invalid Recovery'
         guide='Please send another request.'
+      />
+      <SuccessPopup
+        dialog={dialogSuccess}
+        closeDialog={() => setDialogSuccess(false)}
+        title='Password Recovery'
+        context='Request Success'
+        guide='An email has been sent to your address'
       />
     </>
   )
