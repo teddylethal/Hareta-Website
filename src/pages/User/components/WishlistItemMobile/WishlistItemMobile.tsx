@@ -1,6 +1,7 @@
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import itemTag from 'src/constants/itemTag'
+import { useViewport } from 'src/hooks/useViewport'
 import { Product } from 'src/types/product.type'
 import { formatCurrency } from 'src/utils/utils'
 
@@ -19,9 +20,12 @@ export default function WishlistItemMobile({
   addToCart,
   openUnlikeItemDialog
 }: Props) {
+  const viewPort = useViewport()
+  const isWide = viewPort.width >= 640
+
   return (
-    <div className='py-2'>
-      <div className='grid grid-cols-12 items-center text-center text-textDark dark:text-textLight '>
+    <div className='py-2 sm:px-4 sm:py-4'>
+      <div className='grid grid-cols-12 text-center text-textDark dark:text-textLight '>
         <div className='col-span-4'>
           <button className='relative w-full pt-[75%]' onClick={handleClickItem(item)}>
             <img
@@ -36,7 +40,7 @@ export default function WishlistItemMobile({
           </button>
         </div>
         <div className='col-span-8 '>
-          <div className='ml-2 flex min-h-full flex-col justify-start'>
+          <div className='ml-2 flex min-h-full flex-col justify-start sm:ml-6'>
             <button
               className='flex items-center justify-start truncate px-2 py-1 text-base font-medium sm:text-lg'
               onClick={handleClickItem(item)}
@@ -53,32 +57,60 @@ export default function WishlistItemMobile({
                 </div>
               )}
             </div>
+            {isWide && (
+              <div className='mt-4 flex items-center justify-between space-x-2'>
+                <button
+                  className='flex w-full items-center  justify-center truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+                  onClick={handleChooseFilter('category', item.category)}
+                >
+                  {item.category}
+                </button>
+
+                <button
+                  className='flex w-full items-center  justify-center truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+                  onClick={handleChooseFilter('collection', item.collection)}
+                >
+                  {item.collection}
+                </button>
+
+                <button
+                  className='flex w-full items-center  justify-center truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+                  onClick={handleChooseFilter('type', item.type)}
+                >
+                  {item.type}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <div className='mt-2 flex items-center justify-between  sm:space-x-3'>
-        <button
-          className='flex items-center justify-start  truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
-          onClick={handleChooseFilter('category', item.category)}
-        >
-          {item.category}
-        </button>
 
-        <button
-          className='flex items-center justify-start  truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
-          onClick={handleChooseFilter('collection', item.collection)}
-        >
-          {item.collection}
-        </button>
+      {!isWide && (
+        <div className='mt-2 flex items-center justify-between space-x-2'>
+          <button
+            className='flex w-full items-center  justify-center truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+            onClick={handleChooseFilter('category', item.category)}
+          >
+            {item.category}
+          </button>
 
-        <button
-          className='flex items-center justify-start  truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
-          onClick={handleChooseFilter('type', item.type)}
-        >
-          {item.type}
-        </button>
-      </div>
-      <div className='relative mt-3 flex items-center space-x-8 '>
+          <button
+            className='flex w-full items-center  justify-center truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+            onClick={handleChooseFilter('collection', item.collection)}
+          >
+            {item.collection}
+          </button>
+
+          <button
+            className='flex w-full items-center  justify-center truncate rounded-lg border border-black/40 px-2 py-1 text-xs capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
+            onClick={handleChooseFilter('type', item.type)}
+          >
+            {item.type}
+          </button>
+        </div>
+      )}
+
+      <div className='relative mt-3 flex items-center space-x-8 sm:space-x-12 '>
         <div className='relative grid w-full grid-cols-2 items-center rounded-md bg-white py-1.5 dark:bg-black sm:py-2 '>
           <span className='col-span-1 flex items-center justify-center text-xs font-medium text-textDark dark:text-textLight sm:text-sm'>
             ${formatCurrency(item.price)}
