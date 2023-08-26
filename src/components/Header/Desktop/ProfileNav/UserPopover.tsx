@@ -43,7 +43,7 @@ export default function UserPopover() {
         to={path.wishList}
         className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
-        <p>Wishist</p>
+        <p>Wishlist</p>
       </Link>
 
       <div className=' border-b border-black/40 dark:border-white/40' />

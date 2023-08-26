@@ -88,7 +88,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
               onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
-              <p>Wishist</p>
+              <p>Wishlist</p>
             </Link>
 
             {/* <div className='my-1 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' /> */}
