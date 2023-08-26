@@ -34,6 +34,10 @@ function App() {
     }
   }, [reset, setExtendedPurchases])
 
+  useEffect(() => {
+    document.title = ' Hareta Workshop'
+  }, [])
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div className={theme === 'dark' ? 'dark' : 'light'}>

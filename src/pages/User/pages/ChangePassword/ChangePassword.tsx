@@ -92,45 +92,45 @@ export default function ChangePassword() {
 
   return (
     <Fragment>
-      <form className='my-8 px-6' onSubmit={onSubmit}>
+      <form className='my-4 px-2 md:my-6 md:px-4 lg:my-8 lg:px-6' onSubmit={onSubmit}>
         <div className='flex flex-col space-y-2 rounded-lg border border-black/20 bg-[#e8e8e8] p-4 dark:border-white/20 dark:bg-[#202020]'>
-          <div className='relative mt-2'>
-            <p className='font-medium uppercase'>Current password</p>
+          <div className='relative mt-2 w-full'>
+            <p className='text-sm font-medium uppercase lg:text-lg'>Current password</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage '
+              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage '
               register={register}
               name='old_password'
               errorMessage={errors.old_password?.message}
             />
           </div>
-          <div className='relative '>
-            <p className='font-medium uppercase'>New password</p>
+          <div className='relative w-full '>
+            <p className='text-sm font-medium uppercase lg:text-lg'>New password</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='new_password'
               errorMessage={errors.new_password?.message}
             />
           </div>
-          <div className='relative '>
-            <p className='font-medium uppercase'>Confirm new password</p>
+          <div className='relative w-full '>
+            <p className='text-sm font-medium uppercase lg:text-lg'>Confirm new password</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-80 px-4 py-2 bg-white rounded-md dark:bg-black text-base outline-none duration-300 autofill:text-textDark peer dark:caret-white autofill:dark:text-textVintage'
+              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark peer dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='confirm_new_password'
               errorMessage={errors.confirm_new_password?.message}
             />
           </div>
-          <div className='flex w-80 justify-center space-x-8'>
+          <div className='flex w-full justify-start space-x-8 pt-2 text-sm sm:w-[50%] lg:text-base'>
             <button type='button' className='hover:underline' onClick={handleCancle}>
               Cancel
             </button>
             <button
               type='submit'
-              className='rounded-md bg-vintageColor/80 px-4 py-2 hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/70'
+              className='rounded-md bg-vintageColor/80 px-2 py-1  hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/70 lg:px-4 lg:py-2 '
             >
               Change password
             </button>

@@ -100,7 +100,7 @@ export default function ProductList() {
           <div>
             <SearchBar />
             <ActiveFiltering />
-            <div className='gird-cols-1 grid gap-2 sm:grid-cols-2'>
+            <div className='grid grid-cols-2 gap-4'>
               {storeData &&
                 storeData.data.data.map((product) => (
                   <div className='col-span-1' key={product.id}>

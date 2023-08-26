@@ -91,7 +91,7 @@ export default function AccountInput({
           type={visible ? 'text' : `${type}`}
           id={inputId}
           className={
-            'peer h-full w-full border-none  bg-transparent pl-1.5 text-lg text-[#222] outline-none duration-300 autofill:text-textDark disabled:text-blue-700 dark:text-textVintage dark:caret-white autofill:dark:text-textVintage dark:disabled:text-blue-400 ' +
+            'peer h-full w-full border-none  bg-transparent pl-1.5 text-lg text-[#222] outline-none duration-300 autofill:text-textDark disabled:text-brownColor dark:text-textVintage dark:caret-white autofill:dark:text-textVintage dark:disabled:text-haretaColor ' +
             (isPasswordInput ? 'pr-14 md:pr-20' : 'pr-9 md:pr-12')
           }
           disabled={disabled}

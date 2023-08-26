@@ -18,7 +18,6 @@ import Inventory from './pages/User/pages/Inventory'
 import ChangePassword from './pages/User/pages/ChangePassword'
 import VerifyEmail from './pages/VerifyEmail'
 import RequestVerifyEmail from './pages/RequestVerifyEmail'
-import CartWithoutLogin from './pages/CartWithoutLogin'
 import RequestPasswordRecovery from './pages/PasswordRecovery/RequestPasswordRecovery'
 import ChangePasswordRecovery from './pages/PasswordRecovery/ChangePasswordRecovery'
 
@@ -63,14 +62,6 @@ export default function useRouteElements() {
         {
           path: path.changePasswordRecovery,
           element: <ChangePasswordRecovery />
-        },
-        {
-          path: path.temporaryCart,
-          element: (
-            <MainLayout>
-              <CartWithoutLogin />
-            </MainLayout>
-          )
         }
       ]
     },
@@ -79,14 +70,6 @@ export default function useRouteElements() {
       path: '',
       element: <ProtectedRoute />,
       children: [
-        {
-          path: path.cart,
-          element: (
-            <MainLayout>
-              <Cart />
-            </MainLayout>
-          )
-        },
         {
           path: path.user,
           element: (
@@ -156,6 +139,14 @@ export default function useRouteElements() {
         // <MainLayout>
         <VerifyEmail />
         // </MainLayout>
+      )
+    },
+    {
+      path: path.cart,
+      element: (
+        <MainLayout>
+          <Cart />
+        </MainLayout>
       )
     }
   ])

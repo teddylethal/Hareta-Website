@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { createSearchParams, useNavigate, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import path from 'src/constants/path'
@@ -372,9 +372,9 @@ export default function ProductDetail() {
       )}
 
       {isMobile && (
-        <>
+        <Fragment>
           <div className={classNames('bg-lightBg dark:bg-darkBg', { 'opacity-50': visible })}>
-            <div className=' bg-[#efefef] p-2 dark:bg-[#202020]'>
+            <div className=' bg-[#f8f8f8] p-2 dark:bg-[#202020]'>
               <div className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
                 <img
                   src={activeImage?.image ? activeImage.image.url : ''}
@@ -415,7 +415,7 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <div className='relative flex flex-col bg-[#efefef] px-4 py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
+            <div className='relative flex flex-col bg-[#f8f8f8] px-4 py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
               <span className='text-2xl text-haretaColor'>${formatCurrency(product.price)}</span>
               <div className='mt-4 flex items-center justify-between'>
                 <p className='text-2xl'>{product.name}</p>
@@ -424,6 +424,7 @@ export default function ProductDetail() {
                     icon={faHeart}
                     onClick={toggleLikeItem}
                     className={classNames('h-6', {
+                      'text-textDark/60 dark:text-textLight/60': !isLikedByUser,
                       'text-red-500': isLikedByUser
                     })}
                   />
@@ -462,7 +463,7 @@ export default function ProductDetail() {
               handleAddToCart={addToCart}
             />
           )}
-        </>
+        </Fragment>
       )}
       <DialogPopup
         isOpen={dialogIsOpen}
