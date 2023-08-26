@@ -14,6 +14,7 @@ import verifyEmail from 'src/apis/verifyEmail.api'
 import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
 import useTimer from 'src/hooks/useTimer'
 import VerificationEmailSentPopup from 'src/components/VerifyEmailDialog/VerificationEmailSentPopup'
+import EmailNotVerifiedPopup from 'src/components/VerifyEmailDialog/EmailNotVerifiedPopup'
 
 type FormData = RequestVerifySchema
 
@@ -126,14 +127,11 @@ export default function RequestVerifyEmail() {
         </div>
       </div>
 
-      <FailPopup
+      <EmailNotVerifiedPopup
         dialog={dialog}
         closeDialog={() => {
           setDialog(false)
         }}
-        title='Email Verification'
-        context='Email Not Verified!'
-        guide='Please send a verification email.'
       />
 
       <VerificationEmailSentPopup
