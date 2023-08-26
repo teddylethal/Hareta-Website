@@ -1,6 +1,6 @@
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import VerifyEmailPopup from 'src/components/VerifyEmailPopup'
+import TransitionPopup from '../LowerComponent/TransitionPopup'
 
 interface Props {
   dialog: boolean
@@ -12,7 +12,7 @@ interface Props {
 
 export default function SuccessPopup({ dialog, closeDialog, title, context, guide }: Props) {
   return (
-    <VerifyEmailPopup
+    <TransitionPopup
       isOpen={dialog}
       handleClose={closeDialog}
       classNameWrapper='rounded-2xl flex flex-col p-5 dark:bg-black dark:text-textDark font-newfont'
@@ -31,6 +31,6 @@ export default function SuccessPopup({ dialog, closeDialog, title, context, guid
           </button>
         </div>
       </div>
-    </VerifyEmailPopup>
+    </TransitionPopup>
   )
 }

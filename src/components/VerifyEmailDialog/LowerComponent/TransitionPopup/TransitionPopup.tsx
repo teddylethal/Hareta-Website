@@ -12,7 +12,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-export default function VerifyEmailPopup({
+export default function TransitionPopup({
   isOpen,
   handleClose,
   classNameWrapper = 'w-60 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all bg-black/90',
@@ -70,8 +70,8 @@ export default function VerifyEmailPopup({
             >
               <Dialog.Panel
                 className={classNames(classNameWrapper, {
-                  'bg-white text-textDark': theme === 'light',
-                  'bg-black text-textLight': theme === 'dark'
+                  'bg-slate-700 text-textDark': theme === 'light',
+                  'bg-[#404040] text-textLight': theme === 'dark'
                 })}
               >
                 {children}

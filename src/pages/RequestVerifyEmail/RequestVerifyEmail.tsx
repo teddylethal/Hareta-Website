@@ -13,6 +13,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import verifyEmail from 'src/apis/verifyEmail.api'
 import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
 import useTimer from 'src/hooks/useTimer'
+import VerificationEmailSentPopup from 'src/components/VerifyEmailDialog/VerificationEmailSentPopup'
 
 type FormData = RequestVerifySchema
 
@@ -21,6 +22,7 @@ export default function RequestVerifyEmail() {
   const navigate = useNavigate()
 
   const [dialog, setDialog] = useState(false)
+  const [emailSentDialog, setEmailSentDialog] = useState(false)
   const [error, setError] = useState('')
 
   const { counter, setCounter } = useTimer()
@@ -42,6 +44,7 @@ export default function RequestVerifyEmail() {
       { email: state.email },
       {
         onSuccess: () => {
+          setEmailSentDialog(true)
           setCounter(60)
         },
         onError: (error) => {
@@ -69,13 +72,13 @@ export default function RequestVerifyEmail() {
       <div className='container'>
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
-            <div className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 dark:bg-[#222222] md:p-8'>
+            <div className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 dark:bg-[#222222] md:p-10'>
               <div>
                 <Link to={state?.from || path.login} className='absolute'>
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     fontSize={32}
-                    className='pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor'
+                    className='hidden pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor md:block'
                   />
                 </Link>
                 <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
@@ -107,8 +110,14 @@ export default function RequestVerifyEmail() {
                     disabled={requestVerifyMutation.isLoading || counter != 0}
                     onClick={onSubmit}
                   >
-                    {counter > 0 ? 'Send in ' + counter + 's' : 'VERIFY EMAIL ADDRESS'}
+                    {counter > 0 ? 'Send in ' + counter + 's' : 'VERIFY EMAIL'}
                   </Button>
+                </div>
+                <div className='mt-3 flex justify-center text-sm md:hidden'>
+                  <p className='text-gray-400'>Go back to</p>
+                  <Link to={path.login} className='ml-1 text-brownColor dark:text-haretaColor'>
+                    Login
+                  </Link>
                 </div>
                 <div className={'mt-2 text-red-600 ' + (error ? '' : 'invisible')}>{error}</div>
               </div>
@@ -125,6 +134,13 @@ export default function RequestVerifyEmail() {
         title='Email Verification'
         context='Email Not Verified!'
         guide='Please send a verification email.'
+      />
+
+      <VerificationEmailSentPopup
+        dialog={emailSentDialog}
+        closeDialog={() => {
+          setEmailSentDialog(false)
+        }}
       />
     </AnimateTransition>
   )

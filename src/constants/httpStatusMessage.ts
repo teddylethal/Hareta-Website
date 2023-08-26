@@ -6,5 +6,6 @@ export const HttpStatusMessage = [
   { error_key: 'ErrEmailVerified', error_message: 'Email has been verified' },
   { error_key: 'ErrOldPasswordIsInvalid', error_message: 'Your password is incorrect' },
   { error_key: 'ErrWaitingForANewLink', error_message: 'You need to wait one minute to send another one' },
-  { error_key: 'ErrPasswordRecoveryNotFound', error_message: 'Invalid Recovery' }
+  { error_key: 'ErrPasswordRecoveryNotFound', error_message: 'Invalid Link' },
+  { error_key: 'ErrLinkHasBeenExpired', error_message: 'Link has been expired' }
 ]

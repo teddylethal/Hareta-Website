@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
 import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
-import SuccessPopup from 'src/components/VerifyEmailDialog/SuccessPopup'
+import RecoveryEmailSentPopup from 'src/components/VerifyEmailDialog/RecoveryEmailSentPopup'
 
 type FormData = RequestVerifySchema
 
@@ -154,13 +154,7 @@ export default function RequestPasswordRecovery() {
         context='Invalid Recovery'
         guide='Please send another request.'
       />
-      <SuccessPopup
-        dialog={dialogSuccess}
-        closeDialog={() => setDialogSuccess(false)}
-        title='Password Recovery'
-        context='Request Success'
-        guide='An email has been sent to your address'
-      />
+      <RecoveryEmailSentPopup dialog={dialogSuccess} closeDialog={() => setDialogSuccess(false)} />
     </>
   )
 }
