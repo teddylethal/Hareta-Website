@@ -39,7 +39,8 @@ export default function ChangePasswordRecovery() {
       // console.log(123)
       setValue('email', data.data.data.email as string)
     }
-  }, [isSuccess, setValue])
+    // setValue('email', 'testing@gmail.com')
+  }, [isSuccess, setValue, data])
 
   useEffect(() => {
     // console.log(error)
@@ -53,7 +54,7 @@ export default function ChangePasswordRecovery() {
         navigate(path.requestPasswordRecovery, { state: { failSlugVerify: 'true' } })
       }
     }
-  }, [isError])
+  }, [isError, error, navigate])
 
   const changePasswordRecoveryMutation = useMutation({
     mutationFn: (body: { slug: string; password: string }) => passwordRecovery.changePassword(body)
@@ -105,7 +106,7 @@ export default function ChangePasswordRecovery() {
                       <FontAwesomeIcon
                         icon={faArrowLeft}
                         fontSize={40}
-                        className='pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor'
+                        className='hidden pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor md:block'
                       />
                     </Link>
                     <div className='py-1 text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
@@ -175,6 +176,13 @@ export default function ChangePasswordRecovery() {
                     >
                       Change
                     </Button>
+                  </div>
+
+                  <div className='mt-3 flex justify-center text-sm md:hidden'>
+                    <p className='text-gray-400'>Go back to</p>
+                    <Link to={path.login} className='ml-1 text-brownColor dark:text-haretaColor'>
+                      Login
+                    </Link>
                   </div>
                 </form>
               </div>
