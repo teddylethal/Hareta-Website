@@ -13,7 +13,7 @@ export default function UserLayout() {
       <Fragment>
         <div className='bg-lightBg dark:bg-darkBg'>
           <div className='container'>
-            <div className='xl-py-4 py-2'>
+            <div className='py-2 xl:py-4'>
               <UserMobileNavBar />
 
               <div className='mt-2 rounded-md border border-black/10 bg-[#f8f8f8] text-textDark dark:border-white/20 dark:bg-[#181818] dark:text-textLight'>

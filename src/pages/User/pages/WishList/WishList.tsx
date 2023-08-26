@@ -1,4 +1,4 @@
-import { faCartPlus, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Fragment, useContext, useState } from 'react'
@@ -6,16 +6,18 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
 import { Product } from 'src/types/product.type'
-import { formatCurrency, generateNameId } from 'src/utils/utils'
+import { generateNameId } from 'src/utils/utils'
 import DialogPopup from 'src/components/DialogPopup'
 import purchaseApi from 'src/apis/cart.api'
 import UnlikeItemDialog from './UnlikeItemDialog'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { ThemeContext } from 'src/App'
 import classNames from 'classnames'
-import itemTag from 'src/constants/itemTag'
 import { omit } from 'lodash'
 import useQueryConfig from 'src/hooks/useQueryConfig'
+import WishlistItem from '../../components/WishlistItem'
+import { useViewport } from 'src/hooks/useViewport'
+import WishlistItemMobile from '../../components/WishlistItemMobile'
 
 export default function WishList() {
   const { theme } = useContext(ThemeContext)
@@ -23,6 +25,9 @@ export default function WishList() {
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [unlikeDialog, setUnlikeDialog] = useState<boolean>(false)
   const [unlikedItemId, setUnlikeItemId] = useState<string>('')
+
+  const viewPort = useViewport()
+  const isMobile = viewPort.width <= 768
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -60,7 +65,7 @@ export default function WishList() {
   }
 
   const queryConfig = useQueryConfig()
-  const handleChoostFilter = (field: string, value: string) => () => {
+  const handleChooseFilter = (field: string, value: string) => () => {
     let searchParams = createSearchParams({
       ...queryConfig
     })
@@ -104,13 +109,13 @@ export default function WishList() {
 
   return (
     <Fragment>
-      <div className='mx-4 my-4 h-[620px] overflow-scroll overscroll-none rounded-sm'>
+      <div className='m-2 h-[calc(100vh-128px)] overflow-scroll rounded-sm lg:mx-4 lg:my-4 lg:h-[620px] lg:overscroll-none'>
         {favouriteList?.map((item) => (
           <div
             key={item.id}
-            className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-4 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] '
+            className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-2 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] lg:px-4 '
           >
-            <div className='grid grid-cols-12 items-center py-6 text-center text-textDark first:mt-0 dark:text-textLight '>
+            {/* <div className='grid grid-cols-12 items-center py-6 text-center text-textDark dark:text-textLight '>
               <div className='col-span-4'>
                 <button className='relative w-full pt-[75%]' onClick={handleClickItem(item)}>
                   <img
@@ -132,7 +137,8 @@ export default function WishList() {
                   >
                     {item.name}
                   </button>
-                  {item.tag !== 0 && (
+                  {item.tag !== 0  && (
+                    
                     <div className='relative '>
                       <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
                         {itemTag[item.tag]}
@@ -144,21 +150,21 @@ export default function WishList() {
                 <div className='ml-8 flex items-center space-x-4'>
                   <button
                     className='flex items-center justify-center truncate rounded-lg border border-black/40 px-4 py-1 capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
-                    onClick={handleChoostFilter('category', item.category)}
+                    onClick={handleChooseFilter('category', item.category)}
                   >
                     {item.category}
                   </button>
 
                   <button
                     className='flex items-center justify-center truncate rounded-lg border border-black/40 px-4 py-1 capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
-                    onClick={handleChoostFilter('collection', item.collection)}
+                    onClick={handleChooseFilter('collection', item.collection)}
                   >
                     {item.collection}
                   </button>
 
                   <button
                     className='flex items-center justify-center truncate rounded-lg border border-black/40 px-4 py-1 capitalize hover:bg-[#dfdfdf] dark:border-white/40 dark:hover:bg-black'
-                    onClick={handleChoostFilter('type', item.type)}
+                    onClick={handleChooseFilter('type', item.type)}
                   >
                     {item.type}
                   </button>
@@ -186,7 +192,25 @@ export default function WishList() {
                   </p>
                 </button>
               </div>
-            </div>
+            </div> */}
+            {!isMobile && (
+              <WishlistItem
+                item={item}
+                handleClickItem={handleClickItem}
+                handleChooseFilter={handleChooseFilter}
+                addToCart={addToCart}
+                openUnlikeItemDialog={openUnlikeItemDialog}
+              />
+            )}
+            {isMobile && (
+              <WishlistItemMobile
+                item={item}
+                handleClickItem={handleClickItem}
+                handleChooseFilter={handleChooseFilter}
+                addToCart={addToCart}
+                openUnlikeItemDialog={openUnlikeItemDialog}
+              />
+            )}
             <UnlikeItemDialog
               isOpen={unlikeDialog}
               handleClose={() => setUnlikeDialog(false)}
