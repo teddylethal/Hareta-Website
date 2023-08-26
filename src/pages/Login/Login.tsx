@@ -18,6 +18,7 @@ import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTran
 import { omit } from 'lodash'
 import SuccessPopup from 'src/components/VerifyEmailDialog/SuccessPopup'
 import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
+import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 
 type FormData = LoginSchema
 
@@ -178,14 +179,11 @@ export default function Login() {
             guide='Please login to continue'
           />
         ) : (
-          <FailPopup
+          <InvalidLinkPopup
             dialog={dialog}
             closeDialog={() => {
               setDialog(false)
             }}
-            title={state?.title}
-            context={state?.context}
-            guide='Please login to continue'
           />
         ))}
     </AnimateTransition>
