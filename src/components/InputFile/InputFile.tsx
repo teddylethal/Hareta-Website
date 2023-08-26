@@ -39,7 +39,7 @@ export default function InputFile({ onChangeImageFile }: Props) {
         onClick={handleUploadAvatar}
         type='button'
       >
-        <p className='font-semibold'>Upload avatar</p>
+        <p className='text-xs font-semibold md:text-sm lg:text-base'>Upload avatar</p>
       </button>
     </Fragment>
   )

@@ -19,12 +19,12 @@ export default function EditProfile() {
     <Fragment>
       <div className=''>
         <div className='flex items-center space-x-2'>
-          <p className=' text-lg uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
+          <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Name</p>
           <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
         </div>
         <div className='relative'>
           <Input
-            classNameInput=' w-full py-1 bg-transparent  text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+            classNameInput='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
             register={register}
             name='name'
             errorMessage={errors?.name?.message}
@@ -34,7 +34,7 @@ export default function EditProfile() {
       </div>
       <div className=''>
         <div className='flex items-center space-x-2'>
-          <p className=' text-lg uppercase text-textDark/60 dark:text-textLight/60'>Phone number</p>
+          <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Phone number</p>
           <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
         </div>
         <div className='relative'>
@@ -43,7 +43,7 @@ export default function EditProfile() {
             name='phone'
             render={({ field }) => (
               <InputNumber
-                classNameInput=' w-full py-1 bg-transparent  text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage'
+                classNameInput='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage'
                 errorMessage={errors.phone?.message}
                 {...field}
                 onChange={field.onChange}

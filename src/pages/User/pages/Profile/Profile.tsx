@@ -16,10 +16,16 @@ import { setProfileToLS } from 'src/utils/auth'
 import { UserSchema, userSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import EditProfile from './EditProfile'
+import { useViewport } from 'src/hooks/useViewport'
+import moment from 'moment'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
 
 const profileSchema = userSchema.pick(['name', 'phone'])
+
+const formatDate = (timeStamp: string) => {
+  return moment(timeStamp).utc().format('YYYY-MM-DD')
+}
 
 export default function Profile() {
   const { setProfile } = useContext(AppContext)
@@ -29,6 +35,9 @@ export default function Profile() {
   const [hoveringAvatar, setHoveringAvatar] = useState<boolean>(false)
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
   const [avatarFile, setAvatarFile] = useState<File>()
+
+  const viewPort = useViewport()
+  const isMobile = viewPort.width <= 768
 
   const previewImage = useMemo(() => {
     return avatarFile ? URL.createObjectURL(avatarFile) : ''
@@ -123,12 +132,12 @@ export default function Profile() {
 
   if (!profile) return null
   return (
-    <div className=' relative mx-8 my-16 rounded-lg bg-lightBg p-4 dark:bg-darkBg'>
-      <div className='relative -top-10 flex items-center justify-between'>
+    <div className='relative mx-2 my-12 rounded-lg bg-lightBg p-2 dark:bg-darkBg lg:mx-8 lg:my-16 lg:p-4'>
+      <div className='relative -top-4 flex items-center justify-between lg:-top-10'>
         <div className='flex items-center'>
           {editingMode && (
             <div
-              className='relative h-32 w-32 overflow-hidden rounded-full border-[5px] border-vintageColor dark:border-haretaColor'
+              className='relative h-20 w-auto overflow-hidden rounded-full border-[5px] border-vintageColor dark:border-haretaColor lg:h-32'
               onMouseEnter={showUploadAvatar}
               onMouseLeave={() => setHoveringAvatar(false)}
             >
@@ -137,28 +146,29 @@ export default function Profile() {
                 alt={profile.name}
                 className='h-full w-full rounded-full  object-cover '
               />
-              {hoveringAvatar && <InputFile onChangeImageFile={handleChangeAvatarFile} />}
+              {(hoveringAvatar || isMobile) && <InputFile onChangeImageFile={handleChangeAvatarFile} />}
             </div>
           )}
           {!editingMode && (
-            <div className='h-32 w-32 rounded-full border-[5px] border-lightBg dark:border-darkBg'>
+            <div className='h-20 w-auto rounded-full border-[5px] border-[#f8f8f8] dark:border-[#181818] lg:h-32'>
               <img src={avatar} alt={profile.name} className='h-full w-full rounded-full  object-cover ' />
             </div>
           )}
-          <div className='ml-8 flex flex-col space-y-1'>
-            <p className='text-2xl'>{profile.name}</p>
-            <p className='text-textDark/60 dark:text-textLight/60'>Joined in {profile.created_at}</p>
+          <div className='ml-2 flex flex-col space-y-1 sm:ml-4 lg:ml-8'>
+            <p className='text-base sm:text-lg lg:text-2xl'>{profile.name}</p>
+            <p className='truncate text-xs text-textDark/60 dark:text-textLight/60 sm:text-sm lg:text-base'>
+              Joined in {formatDate(profile.created_at)}
+            </p>
           </div>
         </div>
         <div className=''>
           {!editingMode && (
             <button
-              className='flex h-full space-x-2 rounded-md bg-vintageColor/80 px-4 py-2 text-textDark hover:bg-vintageColor 
-              dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60'
+              className='flex h-full space-x-2 rounded-md bg-vintageColor/80 px-2 py-1 text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60 lg:px-4 lg:py-2'
               onClick={() => setEditingMode(true)}
             >
-              <FontAwesomeIcon icon={faUserPen} />
-              <p>Edit</p>
+              <FontAwesomeIcon icon={faUserPen} className='h-auto w-4 sm:w-5 lg:w-6' />
+              {!isMobile && <p>Edit</p>}
             </button>
           )}
         </div>
@@ -167,22 +177,22 @@ export default function Profile() {
       {!editingMode && (
         <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#202020] '>
           <div className=''>
-            <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
+            <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Name</p>
             <div>
-              <p className=' py-1 text-base '>{profile.name}</p>
+              <p className='py-1 text-sm  lg:text-base '>{profile.name}</p>
               <div className='mt-1 min-h-[1.25rem]'></div>
             </div>
           </div>
           <div className=''>
-            <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>Phone number</p>
+            <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Phone number</p>
             <div>
-              <p className=' py-1 text-base '>{profile.phone}</p>
+              <p className='py-1 text-sm  lg:text-base '>{profile.phone}</p>
               <div className='mt-1 min-h-[1.25rem]'></div>
             </div>
           </div>
           <div className=''>
-            <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>email</p>
-            <p className=' py-1 text-base '>{profile.email}</p>
+            <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>email</p>
+            <p className='py-1 text-sm  lg:text-base '>{profile.email}</p>
           </div>
         </div>
       )}
@@ -195,19 +205,19 @@ export default function Profile() {
           >
             <EditProfile />
             <div className=''>
-              <p className='text-lg uppercase text-textDark/60 dark:text-textLight/60'>email</p>
-              <p className=' py-1 text-base '>{profile.email}</p>
+              <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>email</p>
+              <p className='py-1 text-sm lg:text-base '>{profile.email}</p>
             </div>
 
-            <div className='flex items-center space-x-2'>
+            <div className='flex items-center space-x-2 pt-4'>
               <button
-                className='flex items-center space-x-1 rounded-md bg-vintageColor/80 px-4 py-2 text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60'
+                className='flex items-center space-x-1 rounded-md bg-vintageColor/80 px-2 py-1 text-sm text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60 lg:px-4 lg:py-2 lg:text-base'
                 type='submit'
               >
                 <p>Save</p>
               </button>
               <button
-                className='flex items-center space-x-1 rounded-md px-4 py-2 text-textDark hover:underline dark:text-textLight'
+                className='flex items-center space-x-1 rounded-md px-2 py-1 text-sm text-textDark hover:underline dark:text-textLight lg:px-4 lg:py-2 lg:text-base'
                 onClick={handleCancel}
                 type='button'
               >
