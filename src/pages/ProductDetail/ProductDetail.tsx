@@ -292,14 +292,16 @@ export default function ProductDetail() {
                 <div className='relative col-span-7 flex min-h-full flex-col rounded-md bg-[#f8f8f8] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
                   <div className='flex items-center justify-between'>
                     <p className='text-4xl font-medium'>{product.name}</p>
-                    <button onClick={toggleLikeItem} className='text-black/50 dark:text-white/50'>
-                      <FontAwesomeIcon
-                        className={classNames('h-8', {
-                          'text-red-500': isLikedByUser
-                        })}
-                        icon={faHeart}
-                      />
-                    </button>
+                    {isAuthenticated && (
+                      <button onClick={toggleLikeItem} className='text-black/50 dark:text-white/50'>
+                        <FontAwesomeIcon
+                          className={classNames('h-8', {
+                            'text-red-500': isLikedByUser
+                          })}
+                          icon={faHeart}
+                        />
+                      </button>
+                    )}
                   </div>
                   {product.tag !== 0 && (
                     <div className='relative mt-2'>

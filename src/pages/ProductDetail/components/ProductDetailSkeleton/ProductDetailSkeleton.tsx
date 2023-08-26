@@ -34,8 +34,6 @@ export default function ProductDetailSkeleton() {
         <div className='relative col-span-7 flex min-h-full flex-col rounded-md bg-[#f8f8f8] p-6 text-textDark dark:bg-[#101010] dark:text-textLight'>
           <div className='flex w-full items-center justify-between text-2xl'>
             <Skeleton width={'50%'} height={40} className=' dark:bg-white/10' />
-
-            <Skeleton variant='circular' className=' dark:bg-white/10' width={40} height={40} />
           </div>
 
           <div className='mt-4 flex items-center space-x-8 text-lg'>

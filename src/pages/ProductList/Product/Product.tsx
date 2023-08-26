@@ -138,7 +138,7 @@ function Product({ product }: Props) {
             />
           </button>
         </div>
-        <div className='mx-1 mt-2 flex justify-between space-x-1 overflow-hidden sm:mx-2 lg:mx-3 lg:mt-4'>
+        <div className='mx-2 mt-2 flex justify-between space-x-1 overflow-hidden sm:mx-3 lg:mx-4 lg:mt-4'>
           <div className='flex flex-col justify-between space-y-1 overflow-hidden'>
             <button
               className='h-full overflow-hidden truncate text-left text-sm text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
