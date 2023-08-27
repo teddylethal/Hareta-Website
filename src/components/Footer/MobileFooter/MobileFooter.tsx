@@ -5,7 +5,7 @@ import path from 'src/constants/path'
 
 export default function MobileFooter() {
   return (
-    <div className='w-full bg-[#efefef] pb-12 duration-500 dark:bg-[#303030] sm:pb-14'>
+    <div className='w-full bg-[#efefef] pb-14 duration-500 dark:bg-[#303030] sm:pb-16'>
       <div className='flex flex-col text-textDark/80 duration-500 dark:text-textLight/80'>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-2 py-2'>

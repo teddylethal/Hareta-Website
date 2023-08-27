@@ -130,8 +130,12 @@ export default function MobileCartWithoutLogin() {
                       </div>
                     ))
                   ) : (
-                    <div className='p-2'>
-                      <img src='/images/empty_cart.png' alt='Empty cart' />{' '}
+                    <div className='relative h-full w-full'>
+                      <img
+                        src='/images/emptyCart.png'
+                        alt='Empty cart'
+                        className='absolute left-0 top-0 h-full w-full object-scale-down'
+                      />
                     </div>
                   )}
                 </div>
@@ -149,7 +153,7 @@ export default function MobileCartWithoutLogin() {
                 </div>
                 <div>
                   <Link
-                    to={path.temporaryCart}
+                    to={path.cart}
                     className='flex items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                   >
                     Cart
