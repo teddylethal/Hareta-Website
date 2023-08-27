@@ -13,7 +13,7 @@ export default function InvalidLinkPopup({ dialog, closeDialog }: Props) {
     <MessagePopup dialog={dialog} closeDialog={closeDialog} title='Invalid Link'>
       <FontAwesomeIcon icon={faCircleXmark} fontSize={70} className=' text-red-600' />
       <p>
-        The <span className={orangeTextColor}>link</span> you've tried appears to be invalid. Please{' '}
+        The <span className={orangeTextColor}>link</span> {`you've tried appears to be invalid. Please `}
         <span className={orangeTextColor}>check and try again</span>
       </p>
     </MessagePopup>

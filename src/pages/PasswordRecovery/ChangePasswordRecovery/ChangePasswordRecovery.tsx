@@ -36,10 +36,8 @@ export default function ChangePasswordRecovery() {
   })
   useEffect(() => {
     if (isSuccess) {
-      // console.log(123)
       setValue('email', data.data.data.email as string)
     }
-    // setValue('email', 'testing@gmail.com')
   }, [isSuccess, setValue, data])
 
   useEffect(() => {
@@ -69,7 +67,7 @@ export default function ChangePasswordRecovery() {
     changePasswordRecoveryMutation.mutate(submitData, {
       onSuccess: () => {
         navigate(path.login, {
-          state: { type: 'Success', title: 'Password Recovery', context: 'Your password has been changed.' }
+          state: { type: 'Success', title: 'PasswordRecovery', context: 'Your password has been changed.' }
         })
       },
       onError: (error) => {

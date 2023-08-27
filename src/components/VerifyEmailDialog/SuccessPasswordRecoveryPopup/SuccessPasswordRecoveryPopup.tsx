@@ -1,13 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MessagePopup from '../LowerComponent/MessagePopup'
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   dialog: boolean
   closeDialog: () => void
 }
 
-export default function EmailNotVerifiedPopup({ dialog, closeDialog }: Props) {
+export default function SuccessPasswordRecoveryPopup({ dialog, closeDialog }: Props) {
   const orangeTextColor = ' text-[#ff6a00]'
   return (
     <MessagePopup
@@ -15,13 +15,13 @@ export default function EmailNotVerifiedPopup({ dialog, closeDialog }: Props) {
       closeDialog={closeDialog}
       customTitle={
         <p>
-          Email <span className='text-red-600'> not verified</span>
+          Your password <span className='text-[#88b300]'>changed</span>
         </p>
       }
     >
-      <FontAwesomeIcon icon={faCircleXmark} className='mt-4 h-1/4 w-1/4 text-red-600' />
+      <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#88b300' }} className='mt-2 h-1/4 w-1/4' />
       <p>
-        Please send an <span className={orangeTextColor}>email verification</span>
+        Please <span className={orangeTextColor}>login</span> to continue
       </p>
     </MessagePopup>
   )

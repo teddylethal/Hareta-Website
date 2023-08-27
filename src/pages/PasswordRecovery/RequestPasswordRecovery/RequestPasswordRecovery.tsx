@@ -14,8 +14,8 @@ import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTran
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
-import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
 import RecoveryEmailSentPopup from 'src/components/VerifyEmailDialog/RecoveryEmailSentPopup'
+import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 
 type FormData = RequestVerifySchema
 
@@ -136,24 +136,12 @@ export default function RequestPasswordRecovery() {
                     Login
                   </Link>
                 </div>
-                {/* <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
-                <span className='text-gray-400'>Don&apos;t have an account?</span>
-                <Link className='ml-2 text-haretaColor' to={path.register}>
-                  Sign up
-                </Link>
-              </div> */}
               </form>
             </div>
           </div>
         </div>
       </AnimateTransition>
-      <FailPopup
-        dialog={dialogFail}
-        closeDialog={() => setDialogFail(false)}
-        title='Password Recovery'
-        context='Invalid Recovery'
-        guide='Please send another request.'
-      />
+      <InvalidLinkPopup dialog={dialogFail} closeDialog={() => setDialogFail(false)} />
       <RecoveryEmailSentPopup dialog={dialogSuccess} closeDialog={() => setDialogSuccess(false)} />
     </>
   )

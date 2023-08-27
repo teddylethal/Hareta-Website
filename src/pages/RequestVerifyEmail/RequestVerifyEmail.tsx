@@ -11,7 +11,6 @@ import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTran
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import verifyEmail from 'src/apis/verifyEmail.api'
-import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
 import useTimer from 'src/hooks/useTimer'
 import VerificationEmailSentPopup from 'src/components/VerifyEmailDialog/VerificationEmailSentPopup'
 import EmailNotVerifiedPopup from 'src/components/VerifyEmailDialog/EmailNotVerifiedPopup'
@@ -32,7 +31,7 @@ export default function RequestVerifyEmail() {
     if (state && state.error == 'Please verify your email') {
       setDialog(true)
     } else {
-      navigate(path.login, { state: { type: 'Fail', title: 'Email Verification', context: 'Invalid Verification' } })
+      navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
     }
   }, [navigate, state])
 
