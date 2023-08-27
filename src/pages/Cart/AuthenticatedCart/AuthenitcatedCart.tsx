@@ -135,7 +135,7 @@ export default function AuthenitcatedCart() {
                   </div>
                 </div>
               </div>
-              <div className='mx-4 my-2 h-[440px] overflow-auto rounded-md bg-[#f8f8f8] shadow outline outline-1 outline-black/20 dark:bg-[#202020] dark:outline-white/20 '>
+              <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-[#f8f8f8] shadow outline outline-1 outline-black/20 dark:bg-[#202020] dark:outline-white/20 '>
                 {extendedPurchases.length > 0 ? (
                   extendedPurchases?.map((purchase, index) => (
                     <div
@@ -210,7 +210,7 @@ export default function AuthenitcatedCart() {
                             </div>
                             <div className='col-span-1'>
                               <button
-                                className='bg-none text-textDark/80 hover:text-textDark hover:underline  dark:text-textLight/80 dark:hover:text-textLight'
+                                className='bg-none text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'
                                 onClick={handleRemove(index)}
                               >
                                 Remove
@@ -222,13 +222,17 @@ export default function AuthenitcatedCart() {
                     </div>
                   ))
                 ) : (
-                  <div className='flex h-full w-full items-center justify-center'>
-                    <img src='/images/emptyCart.png' alt='Empty cart' className='' />
+                  <div className='relative h-full w-full'>
+                    <img
+                      src='/images/emptyCart.png'
+                      alt='Empty cart'
+                      className='absolute left-0 top-0 h-full w-full object-scale-down'
+                    />
                   </div>
                 )}
               </div>
             </div>
-            <div className='mx-8 grid grid-cols-12 items-center justify-between rounded-sm py-4 shadow '>
+            <div className='grid grid-cols-12 items-center justify-between rounded-sm px-8 py-4'>
               <div className='col-span-6 grid grid-cols-3'>
                 <div className=' col-span-1 flex flex-shrink-0 items-center'>
                   {extendedPurchases.length > 0 && (

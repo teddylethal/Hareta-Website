@@ -125,8 +125,8 @@ export default function UnauthenticatedCart() {
           </div>
 
           <div className=' mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
-            <div className='min-w-[1000px]'>
-              <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-textDark  dark:text-textLight lg:text-lg'>
+            <div className=''>
+              <div className='grid grid-cols-12 rounded-sm px-8 py-4 text-sm uppercase text-textDark  dark:text-textLight lg:text-lg'>
                 <div className='col-span-6'>
                   {/* <div className='flex flex-shrink-0 items-center justify-start pr-3'>
                     <input type='checkbox' className='h-4 w-4 accent-haretaColor' />
@@ -144,14 +144,14 @@ export default function UnauthenticatedCart() {
                   </div>
                 </div>
               </div>
-              <div className='mx-4 my-2 h-[440px] overflow-auto rounded-md bg-[#f8f8f8] shadow outline outline-1 outline-black/20 dark:bg-[#202020] dark:outline-white/20 '>
+              <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-[#f8f8f8] shadow outline outline-1 outline-black/20 dark:bg-[#202020] dark:outline-white/20 '>
                 {extendedTempPurchases.length > 0 ? (
                   extendedTempPurchases?.map((purchase, index) => (
                     <div
                       key={purchase.id}
                       className='border-b last:border-none hover:bg-[#efefef]  dark:hover:bg-[#101010]'
                     >
-                      <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
+                      <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none  dark:text-textLight'>
                         <div className='col-span-6'>
                           <div className='flex'>
                             <div className='flex flex-shrink-0 items-center justify-center pr-3'>
@@ -177,7 +177,7 @@ export default function UnauthenticatedCart() {
                                 />
                               </div>
                               <div className='ml-4 flex-grow px-2 text-left'>
-                                <div className='truncate text-base lg:text-lg'>{purchase.item.name}</div>
+                                <div className='truncate text-base font-medium lg:text-lg'>{purchase.item.name}</div>
                               </div>
                             </Link>
                           </div>
@@ -186,7 +186,7 @@ export default function UnauthenticatedCart() {
                           <div className='grid grid-cols-4 items-center'>
                             <div className='col-span-1'>
                               <div className='flex items-center justify-center'>
-                                <span className='text-textDark dark:text-textLight'>
+                                <span className='text-sm font-semibold text-textDark dark:text-textLight lg:text-base'>
                                   ${formatCurrency(purchase.item.price)}
                                 </span>
                               </div>
@@ -216,7 +216,7 @@ export default function UnauthenticatedCart() {
                             </div>
                             <div className='col-span-1'>
                               <button
-                                className='bg-none text-textDark/80 hover:text-textDark hover:underline  dark:text-textLight/80 dark:hover:text-textLight'
+                                className='bg-none text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'
                                 onClick={handleRemove(index)}
                               >
                                 Remove
@@ -228,13 +228,17 @@ export default function UnauthenticatedCart() {
                     </div>
                   ))
                 ) : (
-                  <div className='flex h-full w-full items-center justify-center'>
-                    <img src='/images/emptyCart.png' alt='Empty cart' className='' />
+                  <div className='relative h-full w-full'>
+                    <img
+                      src='/images/emptyCart.png'
+                      alt='Empty cart'
+                      className='absolute left-0 top-0 h-full w-full object-scale-down'
+                    />
                   </div>
                 )}
               </div>
             </div>
-            <div className='sticky bottom-0 z-[5] mx-8 grid grid-cols-12 items-center justify-between rounded-sm py-4 shadow '>
+            <div className='sticky bottom-0 z-[5] grid grid-cols-12 items-center justify-between rounded-sm px-8 py-4 '>
               <div className='col-span-6 grid grid-cols-3'>
                 <div className=' col-span-1 flex flex-shrink-0 items-center'>
                   {extendedTempPurchases.length > 0 && (

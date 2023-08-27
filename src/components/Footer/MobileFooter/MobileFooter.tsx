@@ -5,8 +5,8 @@ import path from 'src/constants/path'
 
 export default function MobileFooter() {
   return (
-    <div className='w-full bg-[#efefef] pb-12 dark:bg-[#303030] sm:pb-14'>
-      <div className='flex flex-col text-textDark/80 dark:text-textLight/80'>
+    <div className='w-full bg-[#efefef] pb-12 duration-500 dark:bg-[#303030] sm:pb-14'>
+      <div className='flex flex-col text-textDark/80 duration-500 dark:text-textLight/80'>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-2 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
@@ -14,22 +14,30 @@ export default function MobileFooter() {
             </div>
             <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40'></div>
             <div className='col-span-1 flex items-center justify-center space-x-1 text-lg sm:text-xl'>
-              <FontAwesomeIcon
-                icon={faFacebook}
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-              />
-              <FontAwesomeIcon
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-                icon={faInstagram}
-              />
-              <FontAwesomeIcon
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-                icon={faDiscord}
-              />
-              <FontAwesomeIcon
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-                icon={faYoutube}
-              />
+              <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
+                <FontAwesomeIcon
+                  icon={faFacebook}
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                />
+              </Link>
+              <Link to='https://www.instagram.com/hareta.workshop/' target='_blank'>
+                <FontAwesomeIcon
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  icon={faInstagram}
+                />
+              </Link>
+              <Link to='' target='_blank'>
+                <FontAwesomeIcon
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  icon={faDiscord}
+                />
+              </Link>
+              <Link to='' target='_blank'>
+                <FontAwesomeIcon
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  icon={faYoutube}
+                />
+              </Link>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ export default function SupportNav() {
     <FloatingOnClick
       initialOpen
       renderPopover={<SupportPopover />}
-      className='flex cursor-pointer select-none items-center space-x-0.5 p-1 text-textDark hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor'
+      className='flex cursor-pointer select-none items-center space-x-0.5 p-1 text-textDark duration-500 hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor'
       isOpen={isOpen}
       handleClick={handleClick}
     >

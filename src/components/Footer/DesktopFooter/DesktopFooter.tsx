@@ -5,9 +5,9 @@ import path from 'src/constants/path'
 
 export default function DesktopFooter() {
   return (
-    <div className='w-full bg-[#efefef] pb-24 pt-12 dark:bg-[#303030]'>
+    <div className='w-full bg-[#efefef] pb-12 pt-12 duration-500 dark:bg-[#303030]'>
       <div className='container'>
-        <div className=' grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black dark:text-white lg:gap-2 lg:text-xl xl:gap-4 xl:text-2xl'>
+        <div className=' grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black duration-500 dark:text-white lg:gap-2 lg:text-xl xl:gap-4 xl:text-2xl'>
           <div className='col-span-1 flex items-center justify-center'>Follow us on</div>
           <div className='col-span-1 flex items-center px-2 lg:px-4 xl:px-8'>Hareta</div>
           <div className='col-span-1 flex items-center px-0 text-sm lg:px-2 lg:text-xl xl:text-2xl'>
@@ -16,25 +16,33 @@ export default function DesktopFooter() {
           <div className='col-span-1 flex items-center px-6 xl:px-10'>Support</div>
           <div className='col-span-1 flex items-center px-2 lg:px-4 xl:px-8'>Contact</div>
         </div>
-        <div className='mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-textDark/80 dark:text-textLight/80 lg:gap-2 lg:text-base xl:gap-4'>
+        <div className='mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-textDark/80 duration-500 dark:text-textLight/80 lg:gap-2 lg:text-base xl:gap-4'>
           <div className='col-span-1'>
             <div className='flex items-center justify-center space-x-1 text-lg lg:space-x-2 lg:text-xl xl:text-2xl'>
-              <FontAwesomeIcon
-                icon={faFacebook}
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-              />
-              <FontAwesomeIcon
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-                icon={faInstagram}
-              />
-              <FontAwesomeIcon
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-                icon={faDiscord}
-              />
-              <FontAwesomeIcon
-                className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
-                icon={faYoutube}
-              />
+              <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
+                <FontAwesomeIcon
+                  icon={faFacebook}
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                />
+              </Link>
+              <Link to='https://www.instagram.com/hareta.workshop/' target='_blank'>
+                <FontAwesomeIcon
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  icon={faInstagram}
+                />
+              </Link>
+              <Link to='' target='_blank'>
+                <FontAwesomeIcon
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  icon={faDiscord}
+                />
+              </Link>
+              <Link to='' target='_blank'>
+                <FontAwesomeIcon
+                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  icon={faYoutube}
+                />
+              </Link>
             </div>
           </div>
           <div className='col-span-1 flex flex-col space-y-2 px-2 lg:px-4 xl:px-8'>
@@ -62,12 +70,12 @@ export default function DesktopFooter() {
                 className='absolute left-0 top-0 h-full w-full object-scale-down'
               />
             </div>
-            <div className='uppercase text-textDark/80 dark:text-textLight/80'>
+            <div className='uppercase text-textDark/80 duration-500 dark:text-textLight/80'>
               <p className='text-lg lg:text-xl xl:text-2xl'>hareta</p>
               <p className='pl-4  text-sm lg:text-base xl:text-lg'>workshop</p>
             </div>
           </div>
-          <div className='absolute bottom-0 flex w-full items-center justify-center text-xs text-textDark/60 dark:text-textLight/60 lg:text-sm'>
+          <div className='absolute bottom-0 flex w-full items-center justify-center text-xs text-textDark/60 duration-500 dark:text-textLight/60 lg:text-sm'>
             Copyright © 2023 Hareta Workshop. All rights reserved
           </div>
         </div>
