@@ -24,7 +24,7 @@ export default function MessagePopup({ dialog, closeDialog, title, children = <d
 
         <button
           className={
-            'mt-7 rounded-xl px-6 py-3 text-xl font-semibold text-white outline-none hover:bg-opacity-70 hover:text-white/90 md:rounded-2xl md:px-10 md:py-4 ' +
+            'mt-7 rounded-xl px-6 py-3 text-xl font-bold outline-none hover:bg-opacity-70 hover:text-white/90 dark:text-white md:rounded-2xl md:px-10 md:py-4 ' +
             orangeBgColor
           }
           onClick={closeDialog}

@@ -32,11 +32,10 @@ export default function Register() {
 
   const onSubmit = handleSubmit((data) => {
     const body = omit(data, ['confirm_password'])
-    // navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: '', from: path.register } })
     registerAccountMutation.mutate(body, {
       onSuccess: () => {
+        console.log(body)
         navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: '', from: path.register } })
-        // console.log(apiData)
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {

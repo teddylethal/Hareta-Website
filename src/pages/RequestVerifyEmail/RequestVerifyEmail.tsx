@@ -14,6 +14,7 @@ import verifyEmail from 'src/apis/verifyEmail.api'
 import useTimer from 'src/hooks/useTimer'
 import VerificationEmailSentPopup from 'src/components/VerifyEmailDialog/VerificationEmailSentPopup'
 import EmailNotVerifiedPopup from 'src/components/VerifyEmailDialog/EmailNotVerifiedPopup'
+import SuccessAccountCreatePopup from 'src/components/VerifyEmailDialog/SuccessAccountCreatePopup'
 
 type FormData = RequestVerifySchema
 
@@ -21,15 +22,20 @@ export default function RequestVerifyEmail() {
   const { state } = useLocation()
   const navigate = useNavigate()
 
-  const [dialog, setDialog] = useState(false)
+  const [dialogFail, setDialogFail] = useState(false)
+  const [dialogSuccess, setDialogSuccess] = useState(false)
   const [emailSentDialog, setEmailSentDialog] = useState(false)
   const [error, setError] = useState('')
 
   const { counter, setCounter } = useTimer()
 
   useEffect(() => {
-    if (state && state.error == 'Please verify your email') {
-      setDialog(true)
+    if (state) {
+      if (state.error == 'Please verify your email') {
+        setDialogFail(true)
+      } else {
+        setDialogSuccess(true)
+      }
     } else {
       navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
     }
@@ -127,9 +133,15 @@ export default function RequestVerifyEmail() {
       </div>
 
       <EmailNotVerifiedPopup
-        dialog={dialog}
+        dialog={dialogFail}
         closeDialog={() => {
-          setDialog(false)
+          setDialogFail(false)
+        }}
+      />
+      <SuccessAccountCreatePopup
+        dialog={dialogSuccess}
+        closeDialog={() => {
+          setDialogSuccess(false)
         }}
       />
 
