@@ -15,19 +15,11 @@ interface Props {
   handleQuantity: (purchaseIndex: number, value: number, enable: boolean) => void
   handleTypeQuantity: (purchaseIndex: number) => (value: number) => void
   handleRemove: (purchaseIndex: number) => () => void
-  handleSearch: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
 export default function UnauthenticatedCartMobile(props: Props) {
-  const {
-    extendedTempPurchases,
-    handleChecking,
-    handleQuantity,
-    handleRemove,
-    handleSearch,
-    handleSelectAll,
-    handleTypeQuantity
-  } = props
+  const { extendedTempPurchases, handleChecking, handleQuantity, handleRemove, handleSelectAll, handleTypeQuantity } =
+    props
 
   const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)

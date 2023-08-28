@@ -85,11 +85,6 @@ export default function UnauthenticatedCart() {
     setPurchasesInLS(newPurchaseList)
   }
 
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    console.log(event)
-  }
-
   return (
     <div className='bg-lightBg py-4 dark:bg-darkBg'>
       {!isMobile && (
@@ -98,7 +93,7 @@ export default function UnauthenticatedCart() {
             <p className='grow truncate pl-4 text-2xl uppercase  text-textDark dark:text-haretaColor xl:text-2xl'>
               Cart
             </p>
-            <form name='search_in_cart' className='my-2 flex grow items-center' onSubmit={handleSearch}>
+            {/* <form name='search_in_cart' className='my-2 flex grow items-center' onSubmit={handleSearch}>
               <input
                 id='search_in_cart'
                 type='text'
@@ -117,7 +112,7 @@ export default function UnauthenticatedCart() {
                   />
                 </svg>
               </label>
-            </form>
+            </form> */}
           </div>
 
           <div className=' mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
@@ -295,7 +290,6 @@ export default function UnauthenticatedCart() {
           handleChecking={handleChecking}
           handleQuantity={handleQuantity}
           handleRemove={handleRemove}
-          handleSearch={handleSearch}
           handleSelectAll={handleSelectAll}
           handleTypeQuantity={handleTypeQuantity}
         />
