@@ -87,7 +87,7 @@ export default function UnauthenticatedCart() {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(event)
+    // console.log(event)
   }
 
   return (

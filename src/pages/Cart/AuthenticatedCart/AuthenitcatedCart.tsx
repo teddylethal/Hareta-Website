@@ -83,7 +83,7 @@ export default function AuthenitcatedCart() {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log(event)
+    // console.log(event)
   }
 
   return (
