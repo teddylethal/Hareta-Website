@@ -23,9 +23,9 @@ export default function QuantityController({
   onType,
   onFocusOut,
   classNameWrapper,
-  classNameInput = 'h-8 mx-2 w-14 rounded-lg p-1 text-center outline-none text-haretaColor dark:bg-black bg-white border border-black/20 dark:border-white/20',
+  classNameInput = 'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none text-haretaColor dark:bg-black bg-white border border-black/20 dark:border-white/20',
   classNameButton = 'round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight border border-black/20 dark:border-white/20',
-  classNameIcon,
+  classNameIcon = 'text-xs lg:text-base',
   value,
   ...rest
 }: Props) {
@@ -64,7 +64,7 @@ export default function QuantityController({
   }
 
   return (
-    <div className={'flex items-center ' + classNameWrapper}>
+    <div className={'flex items-center' + classNameWrapper}>
       <button className={classNameButton} onClick={decreaseQuantity}>
         <FontAwesomeIcon icon={faMinus} className={classNameIcon} />
       </button>

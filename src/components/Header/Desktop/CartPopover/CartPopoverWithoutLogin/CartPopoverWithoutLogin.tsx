@@ -24,7 +24,7 @@ export default function CartPopoverWithoutLogin() {
   }
 
   return (
-    <div className='rounded-md bg-vintageColor/80 text-textVintage hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/70'>
+    <div className='rounded-lg border border-brownColor/80  dark:border-haretaColor/80 '>
       <Popover
         className='flex border border-none px-1.5 py-1 lg:px-2'
         renderPopover={
@@ -109,9 +109,16 @@ export default function CartPopoverWithoutLogin() {
         }
         placement='bottom-end'
       >
-        <Link to={path.cart} className='flex items-center space-x-1'>
-          <FontAwesomeIcon icon={faCartShopping} />
-          <div>Cart</div>
+        <Link
+          to={path.cart}
+          className='flex items-center space-x-2 px-2 py-0.5  text-textDark hover:text-brownColor/80 dark:text-textLight dark:hover:text-haretaColor/80'
+        >
+          <FontAwesomeIcon icon={faCartShopping} className='' />
+          {purchasesInLS.length > 0 && (
+            <div className='flex h-6 w-6 items-center justify-center rounded-full bg-brownColor/80 text-xs text-textLight dark:bg-haretaColor/80 dark:text-textDark lg:text-sm xl:text-base'>
+              {purchasesInLS.length}
+            </div>
+          )}
         </Link>
       </Popover>
     </div>
