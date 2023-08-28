@@ -17,6 +17,11 @@ import { AppContext } from 'src/contexts/app.context'
 import ProductSekeleton from './ProductSkeleton'
 import ProductListSkeleton from './ProductListSkeleton'
 import ActiveFiltering from './Mobile/ActiveFiltering'
+import { NavLink } from 'react-router-dom'
+import path from 'src/constants/path'
+import classNames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
@@ -51,25 +56,49 @@ export default function ProductList() {
   const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []
 
   return (
-    <div className='bg-lightBg py-6 duration-500 dark:bg-darkBg'>
+    <div className='bg-lightBg py-2 duration-500 dark:bg-darkBg lg:py-3 xl:py-4'>
       <div className='container'>
+        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark dark:bg-[#202020] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
+          <NavLink
+            to={path.home}
+            className={({ isActive }) =>
+              classNames({
+                'text-brownColor dark:text-haretaColor': isActive,
+                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+              })
+            }
+          >
+            home
+          </NavLink>
+          <FontAwesomeIcon icon={faAngleRight} />
+          <NavLink
+            to={path.store}
+            className={({ isActive }) =>
+              classNames({
+                'text-brownColor dark:text-haretaColor': isActive,
+                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+              })
+            }
+          >
+            store
+          </NavLink>
+        </div>
+
         {!isMobile && (
-          <div className='grid grid-cols-12 gap-6'>
-            <div className='relative col-span-3 mb-auto flex flex-col space-y-4 overflow-hidden px-2 duration-500'>
-              <AsideSorter />
-              <PriceRange queryConfig={queryConfig} />
-              <AsideFilter queryConfig={queryConfig} />
-            </div>
-            <div className='col-span-9'>
-              <div className='items-center'>
-                <div className='flex grow items-center'>
-                  <SearchBar />
-                </div>
+          <div className='relative grid grid-cols-12 gap-2 lg:gap-4 xl:gap-6'>
+            <div className='col-span-3'>
+              <div className='sticky left-0 top-12 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-[#efefef] px-2 py-4 dark:bg-[#202020] md:top-14 lg:top-20'>
+                <SearchBar />
+                <AsideSorter />
+                <PriceRange queryConfig={queryConfig} />
+                <AsideFilter queryConfig={queryConfig} />
               </div>
+            </div>
+            <div className='col-start-4 col-end-13'>
               {isLoading && <ProductListSkeleton />}
               {storeData && (
-                <div className='mt-4'>
-                  <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
+                <div className=''>
+                  <div className='grid grid-cols-2 gap-4 lg:grid-cols-3'>
                     {isFetching &&
                       Array(12)
                         .fill(0)
