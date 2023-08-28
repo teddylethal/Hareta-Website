@@ -47,20 +47,16 @@ export default function SearchBar() {
         onSubmit={handleSearch}
       >
         <input
-          id='search_bar_input'
-          className='peer w-full rounded-md  bg-transparent px-4 py-1 text-base text-textDark outline-none ring-1 ring-vintageColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:text-textLight dark:caret-white dark:ring-haretaColor/60 dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg'
+          className='w-full rounded-md  bg-transparent px-4 py-1 text-base text-textDark outline-none ring-1 ring-vintageColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:text-textLight dark:caret-white dark:ring-haretaColor/60 dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg'
           placeholder='Search'
           {...register('name')}
         />
-        <label
-          htmlFor='search_bar_input'
-          className='absolute right-2 flex items-center justify-center rounded-lg bg-vintageColor/80 px-3 py-1.5 duration-500 peer-focus:bg-vintageColor dark:bg-haretaColor/80 dark:peer-focus:bg-haretaColor lg:right-4 lg:px-4 '
-        >
+        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/80 px-3 py-1 duration-500 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
             fill='currentColor'
-            className='h-4 w-4 lg:h-6 lg:w-6'
+            className='h-4 w-4 lg:h-5 lg:w-5'
           >
             <path
               fillRule='evenodd'
@@ -68,7 +64,7 @@ export default function SearchBar() {
               clipRule='evenodd'
             />
           </svg>
-        </label>
+        </button>
       </form>
     </div>
   )

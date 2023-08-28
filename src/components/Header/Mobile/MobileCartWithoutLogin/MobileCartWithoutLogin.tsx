@@ -155,6 +155,7 @@ export default function MobileCartWithoutLogin() {
                   <Link
                     to={path.cart}
                     className='flex items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    onClick={closeCart}
                   >
                     Cart
                   </Link>

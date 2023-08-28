@@ -38,14 +38,18 @@ export default function AsideSorter() {
   }
 
   return (
-    <div className='grid grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-[#f8f8f8] px-3 py-4 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'>
-      <p className='col-span-5 flex h-6 items-center text-left text-sm font-medium uppercase text-textDark duration-500 dark:text-textLight lg:h-8 lg:text-lg'>
+    <div
+      className={classNames(
+        'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-[#f8f8f8] px-3 py-2 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'
+      )}
+    >
+      <p className='col-span-5 flex h-6 items-center text-left text-sm font-medium uppercase text-textDark duration-500 dark:text-textLight lg:h-7  lg:text-lg'>
         Sort by:
       </p>
-      <div className='col-span-7' ref={ref}>
+      <div className='col-span-7 items-center' ref={ref}>
         <button
           className={classNames(
-            'flex h-6 w-full items-center justify-center rounded-xl bg-[#ddd] text-sm font-medium text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:h-8 lg:px-3  lg:text-base',
+            'flex  w-full items-center justify-center rounded-xl bg-[#ddd] py-0.5 text-sm font-medium text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:px-3  lg:text-base',
             {
               'rounded-b-none border-x border-t border-black/20 duration-500 dark:border-white/10': visible,
               ' bg-brownColor/80 hover:bg-brownColor  dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
@@ -73,7 +77,7 @@ export default function AsideSorter() {
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Newest',
@@ -89,7 +93,7 @@ export default function AsideSorter() {
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Top seller',
@@ -105,7 +109,7 @@ export default function AsideSorter() {
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Signature',
@@ -121,7 +125,7 @@ export default function AsideSorter() {
                   <button
                     onClick={handleChange}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-1 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Favourite',
