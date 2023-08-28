@@ -55,7 +55,7 @@ class Http {
           const message = data?.message || error.message
           toast.error(message)
         }
-        console.log(error)
+        // console.log(error)
         if ((error.response?.data as ErrorRespone).status_code === 500) {
           clearLS()
         }
