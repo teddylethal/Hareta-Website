@@ -70,7 +70,7 @@ export default function TransitionPopup({
             >
               <Dialog.Panel
                 className={classNames(classNameWrapper, {
-                  'bg-slate-700 text-textDark': theme === 'light',
+                  'bg-white text-textDark': theme === 'light',
                   'bg-[#404040] text-textLight': theme === 'dark'
                 })}
               >
