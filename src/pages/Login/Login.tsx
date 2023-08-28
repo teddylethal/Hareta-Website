@@ -16,8 +16,9 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { omit } from 'lodash'
-import SuccessPopup from 'src/components/VerifyEmailDialog/SuccessPopup'
-import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
+import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
+import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/SuccessPasswordRecoveryPopup'
+import SuccessEmailVerifyPopup from 'src/components/VerifyEmailDialog/SuccessEmailVerifyPopup'
 
 type FormData = LoginSchema
 
@@ -81,7 +82,8 @@ export default function Login() {
     })
   })
 
-  const [dialog, setDialog] = useState(false)
+  const [dialog, setDialog] = useState(true)
+  const closeDialog = () => setDialog(false)
   const { state } = useLocation()
   useEffect(() => {
     if (state) {
@@ -147,15 +149,13 @@ export default function Login() {
                 </Button>
               </div>
 
-              <div className='flex justify-between'>
-                <div className='mt-8 flex justify-center text-center md:text-base'>
+              <div className='md:text-md flex justify-between text-sm'>
+                <div className=' mt-8 text-left'>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
-                    <p className='text-sm text-blue-700 underline underline-offset-1 dark:text-blue-400'>
-                      Forgot Password?
-                    </p>
+                    <p className=' text-blue-700 underline underline-offset-1 dark:text-blue-400'>Forgot Password?</p>
                   </Link>
                 </div>
-                <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
+                <div className='mt-8 text-right'>
                   <span className='text-gray-400'>Don&apos;t have an account?</span>
                   <Link className='ml-2 text-haretaColor' to={path.register}>
                     Sign up
@@ -166,28 +166,35 @@ export default function Login() {
           </div>
         </div>
       </div>
-      {state &&
-        (state?.type == 'Success' ? (
-          <SuccessPopup
-            dialog={dialog}
-            closeDialog={() => {
-              setDialog(false)
-            }}
-            title={state?.title}
-            context={state?.context}
-            guide='Please login to continue'
-          />
-        ) : (
-          <FailPopup
-            dialog={dialog}
-            closeDialog={() => {
-              setDialog(false)
-            }}
-            title={state?.title}
-            context={state?.context}
-            guide='Please login to continue'
-          />
-        ))}
+      {
+        /* /* state &&
+        // (state?.type == 'Success' ? (
+        //   {state?.title == 'PasswordRecovery' : <div></div> ? <div></div>} */
+        //   // <SuccessPopup
+        //   //   dialog={dialog}
+        //   //   closeDialog={() => {
+        //   //     setDialog(false)
+        //   //   }}
+        //   //   title={state?.title}
+        //   //   context={state?.context}
+        //   //   guide='Please login to continue'
+        //   // />
+        // ) : (
+        //   <InvalidLinkPopup
+        //     dialog={dialog}
+        //     closeDialog={() => {
+        //       setDialog(false)
+        //     }}
+        //   />
+        // ))}
+      }
+      {state && state?.type == 'Success' && state?.title == 'PasswordRecovery' && (
+        <SuccessPasswordRecoveryPopup dialog={dialog} closeDialog={closeDialog} />
+      )}
+      {state && state?.type == 'Success' && state?.title == 'EmailVerification' && (
+        <SuccessEmailVerifyPopup dialog={dialog} closeDialog={closeDialog} />
+      )}
+      {state && state?.type == 'Fail' && <InvalidLinkPopup dialog={dialog} closeDialog={closeDialog} />}
     </AnimateTransition>
   )
 }

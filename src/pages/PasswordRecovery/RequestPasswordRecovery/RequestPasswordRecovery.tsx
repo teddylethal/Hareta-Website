@@ -14,8 +14,8 @@ import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTran
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
-import FailPopup from 'src/components/VerifyEmailDialog/FailPopup'
-import SuccessPopup from 'src/components/VerifyEmailDialog/SuccessPopup'
+import RecoveryEmailSentPopup from 'src/components/VerifyEmailDialog/RecoveryEmailSentPopup'
+import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 
 type FormData = RequestVerifySchema
 
@@ -39,7 +39,7 @@ export default function RequestPasswordRecovery() {
         setDialogFail(true)
       }
     }
-  }, [])
+  }, [state, setDialogFail])
 
   //Counter
   const [counter, setCounter] = useState(0)
@@ -94,10 +94,10 @@ export default function RequestPasswordRecovery() {
                     <FontAwesomeIcon
                       icon={faArrowLeft}
                       fontSize={32}
-                      className='pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor'
+                      className='hidden pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor md:block'
                     />
                   </Link>
-                  <div className=' text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
+                  <div className=' text-center text-base uppercase text-vintageColor dark:text-haretaColor sm:text-xl xl:text-2xl'>
                     Recover your password
                   </div>
                 </div>
@@ -106,7 +106,7 @@ export default function RequestPasswordRecovery() {
                   name='email'
                   register={register}
                   type='text'
-                  className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
+                  className='autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight md:mt-8'
                   errorMessage={errors.email?.message}
                   labelName='Email'
                   required
@@ -120,7 +120,7 @@ export default function RequestPasswordRecovery() {
                   }
                 />
 
-                <div className='mt-2 text-base lg:text-lg'>
+                <div className='text-base md:mt-2 lg:text-lg'>
                   <Button
                     className='flex w-full items-center justify-center py-2 lg:py-3'
                     type='submit'
@@ -130,32 +130,19 @@ export default function RequestPasswordRecovery() {
                     {counter != 0 ? 'Wait for ' + counter + 's' : 'Send'}
                   </Button>
                 </div>
-
-                {/* <div className='mt-8 flex justify-center text-center text-sm md:text-base'>
-                <span className='text-gray-400'>Don&apos;t have an account?</span>
-                <Link className='ml-2 text-haretaColor' to={path.register}>
-                  Sign up
-                </Link>
-              </div> */}
+                <div className='mt-3 flex justify-center text-sm md:hidden'>
+                  <p className='text-gray-400'>Go back to</p>
+                  <Link to={path.login} className='ml-1 text-brownColor dark:text-haretaColor'>
+                    Login
+                  </Link>
+                </div>
               </form>
             </div>
           </div>
         </div>
       </AnimateTransition>
-      <FailPopup
-        dialog={dialogFail}
-        closeDialog={() => setDialogFail(false)}
-        title='Password Recovery'
-        context='Invalid Recovery'
-        guide='Please send another request.'
-      />
-      <SuccessPopup
-        dialog={dialogSuccess}
-        closeDialog={() => setDialogSuccess(false)}
-        title='Password Recovery'
-        context='Request Success'
-        guide='An email has been sent to your address'
-      />
+      <InvalidLinkPopup dialog={dialogFail} closeDialog={() => setDialogFail(false)} />
+      <RecoveryEmailSentPopup dialog={dialogSuccess} closeDialog={() => setDialogSuccess(false)} />
     </>
   )
 }
