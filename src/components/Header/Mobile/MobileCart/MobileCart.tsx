@@ -67,7 +67,7 @@ export default function MobileCart({ className }: Props) {
       <button onClick={openCart} className='relative flex items-end text-textDark dark:text-textLight'>
         <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-textDark dark:text-textLight' />
         {extendedPurchases.length > 0 && (
-          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-brownColor text-xs text-textDark dark:bg-haretaColor sm:left-6  sm:h-5 sm:w-5 sm:text-sm'>
+          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-brownColor text-xs text-textDark dark:bg-haretaColor'>
             {extendedPurchases.length}
           </span>
         )}

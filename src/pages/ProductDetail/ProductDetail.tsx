@@ -30,6 +30,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import { ThemeContext } from 'src/App'
 import { AppContext } from 'src/contexts/app.context'
 import ProductDetailLoading from './components/ProductDetailLoading'
+import ProductDetailSkeleton from './components/ProductDetailSkeleton/ProductDetailSkeleton'
 
 interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -260,7 +261,7 @@ export default function ProductDetail() {
         </div>
         {!isMobile && (
           <Fragment>
-            {isFetching && <ProductDetailLoading />}
+            {isFetching && <ProductDetailSkeleton />}
             {!isFetching && (
               <div className='rounded-lg border border-black/20 bg-[#dfdfdf] p-4 shadow dark:border-white/20 dark:bg-[#202020]'>
                 <div className='grid grid-cols-12 gap-6'>
@@ -406,85 +407,89 @@ export default function ProductDetail() {
         )}
         {isMobile && (
           <Fragment>
-            <div className={classNames('bg-lightBg dark:bg-darkBg', { 'opacity-50': visible })}>
-              <div className=' bg-[#f8f8f8] p-2 dark:bg-[#202020]'>
-                <div className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
-                  <img
-                    src={activeImage?.image ? activeImage.image.url : ''}
-                    alt={product.name}
-                    className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-                  />
-                </div>
-                <div className='relative mt-3 flex select-none justify-center space-x-2'>
-                  {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
-                    <button
-                      className='absolute left-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
-                      onClick={previousImageList}
-                    >
-                      <FontAwesomeIcon icon={faChevronLeft} className='h-6' />
-                    </button>
-                  )}
-                  {currentImageList.map((image, index) => {
-                    const isActive = image === activeImage
-                    return (
-                      <button onClick={handleChosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
-                        <img
-                          src={image.image ? image.image.url : ''}
-                          alt={product.name}
-                          className='absolute left-0 top-0 h-full w-full object-scale-down'
-                        />
-                        {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
-                      </button>
-                    )
-                  })}
-                  {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
-                    <button
-                      className='absolute right-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
-                      onClick={nextImageList}
-                    >
-                      <FontAwesomeIcon icon={faChevronRight} className='h-6' />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              <div className='relative flex flex-col bg-[#f8f8f8] px-4 py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
-                <span className='text-2xl text-haretaColor'>${formatCurrency(product.price)}</span>
-                <div className='mt-4 flex items-center justify-between'>
-                  <p className='text-2xl'>{product.name}</p>
-                  <button className='text-white/50'>
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      onClick={toggleLikeItem}
-                      className={classNames('h-6', {
-                        'text-textDark/60 dark:text-textLight/60': !isLikedByUser,
-                        'text-red-500': isLikedByUser
-                      })}
+            {isFetching && <ProductDetailSkeleton />}
+            {!isFetching && (
+              <div className={classNames('bg-lightBg dark:bg-darkBg', { 'opacity-50': visible })}>
+                <div className=' bg-[#f8f8f8] p-2 dark:bg-[#202020]'>
+                  <div className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
+                    <img
+                      src={activeImage?.image ? activeImage.image.url : ''}
+                      alt={product.name}
+                      className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
                     />
+                  </div>
+                  <div className='relative mt-3 flex select-none justify-center space-x-2'>
+                    {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
+                      <button
+                        className='absolute left-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
+                        onClick={previousImageList}
+                      >
+                        <FontAwesomeIcon icon={faChevronLeft} className='h-6' />
+                      </button>
+                    )}
+                    {currentImageList.map((image, index) => {
+                      const isActive = image === activeImage
+                      return (
+                        <button onClick={handleChosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
+                          <img
+                            src={image.image ? image.image.url : ''}
+                            alt={product.name}
+                            className='absolute left-0 top-0 h-full w-full object-scale-down'
+                          />
+                          {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
+                        </button>
+                      )
+                    })}
+                    {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
+                      <button
+                        className='absolute right-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
+                        onClick={nextImageList}
+                      >
+                        <FontAwesomeIcon icon={faChevronRight} className='h-6' />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className='relative flex flex-col bg-[#f8f8f8] px-4 py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
+                  <span className='text-2xl text-haretaColor'>${formatCurrency(product.price)}</span>
+                  <div className='mt-4 flex items-center justify-between'>
+                    <p className='text-2xl'>{product.name}</p>
+                    <button className='text-white/50'>
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        onClick={toggleLikeItem}
+                        className={classNames('h-6', {
+                          'text-textDark/60 dark:text-textLight/60': !isLikedByUser,
+                          'text-red-500': isLikedByUser
+                        })}
+                      />
+                    </button>
+                  </div>
+                  {product.tag !== 0 && (
+                    <div className='relative mt-2'>
+                      <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+                        {itemTag[product.tag]}
+                      </span>
+                      <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+                    </div>
+                  )}
+
+                  <div className='mt-4 h-full text-sm lg:text-lg'>
+                    <p className=''>{product.description}</p>
+                  </div>
+                </div>
+                <div className='fixed bottom-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base text-textDark dark:bg-black dark:text-textLight sm:h-12'>
+                  <button className='col-span-1 flex items-center justify-center text-center' onClick={openAddToCart}>
+                    <FontAwesomeIcon icon={faCartPlus} className='h-5' />
+                  </button>
+                  <button className='col-span-1 rounded-sm bg-vintageColor  hover:bg-haretaColor hover:text-textDark'>
+                    Buy
                   </button>
                 </div>
-                {product.tag !== 0 && (
-                  <div className='relative mt-2'>
-                    <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-                      {itemTag[product.tag]}
-                    </span>
-                    <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
-                  </div>
-                )}
+              </div>
+            )}
 
-                <div className='mt-4 h-full text-sm lg:text-lg'>
-                  <p className=''>{product.description}</p>
-                </div>
-              </div>
-              <div className='fixed bottom-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base text-textDark dark:bg-black dark:text-textLight sm:h-12'>
-                <button className='col-span-1 flex items-center justify-center text-center' onClick={openAddToCart}>
-                  <FontAwesomeIcon icon={faCartPlus} className='h-5' />
-                </button>
-                <button className='col-span-1 rounded-sm bg-vintageColor  hover:bg-haretaColor hover:text-textDark'>
-                  Buy
-                </button>
-              </div>
-            </div>
             {visible && (
               <AddTocartPopover
                 item={product}
