@@ -125,7 +125,7 @@ function Product({ product }: Props) {
   return (
     <div className='flex w-full items-center justify-center pb-0 pt-2 duration-500 hover:pb-2 hover:pt-0'>
       <div className='relative  w-full rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
-        <div className='relative w-full pt-[60%]'>
+        <div className='relative w-full pt-[80%]'>
           <button onClick={handleClickItem}>
             <img
               src={

@@ -10,7 +10,7 @@ export default function UserNav() {
 
   return (
     <Popover renderPopover={<UserPopover />} className='py-0.5 lg:py-1.5' offsetValue={8}>
-      <Link to={path.profile} className='flex items-center space-x-2'>
+      <Link to={path.account} className='flex items-center space-x-2'>
         <img
           src={
             profile?.avatar

@@ -27,7 +27,7 @@ export default function UserPopover() {
   return (
     <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-[#efefef] px-2 py-3 text-base font-medium capitalize text-textDark/90 shadow-lg dark:bg-[#202020] dark:text-textLight/90 lg:top-0 lg:w-52 lg:text-xl'>
       <Link
-        to={path.profile}
+        to={path.account}
         className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
         <p>Account</p>

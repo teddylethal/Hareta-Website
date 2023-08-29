@@ -30,14 +30,14 @@ export default function UnauthenticatedCartMobile(props: Props) {
 
   return (
     <Fragment>
-      <div className='relative mx-2'>
+      <div className='relative'>
         <div className='grid grid-cols-12 rounded-md border border-black/20 bg-[#f8f8f8] px-4 py-2 text-base font-medium uppercase text-textDark dark:border-white/20 dark:bg-[#202020] dark:text-textLight lg:text-lg'>
           <div className='col-span-1'></div>
           <div className='col-span-6 text-center'>Product</div>
           <div className='col-span-4 text-center'>Price</div>
           <div className='col-span-1'></div>
         </div>
-        <div className='my-2 h-[480px] overflow-auto rounded-md border border-black/20 bg-[#f8f8f8] p-2 dark:border-white/20 dark:bg-[#202020]'>
+        <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-[#f8f8f8] p-2 dark:border-white/20 dark:bg-[#202020]'>
           {extendedTempPurchases.length > 0 ? (
             extendedTempPurchases?.map((purchase, index) => (
               <div
@@ -130,39 +130,40 @@ export default function UnauthenticatedCartMobile(props: Props) {
             </div>
           )}
         </div>
-      </div>
-
-      <div className='fixed bottom-0 z-[5] grid w-full grid-cols-12 items-center justify-between rounded-sm bg-white px-2 py-2 shadow dark:bg-black xl:mx-4'>
-        <div className=' col-span-1 flex flex-shrink-0 items-center'>
-          {extendedTempPurchases.length > 0 && (
-            <input
-              type='checkbox'
-              className='h-5 w-5 accent-haretaColor'
-              checked={isAllChecked}
-              onChange={handleSelectAll}
-            />
-          )}
+        <div className='grid w-full grid-cols-12 items-center justify-between rounded-sm px-2 py-2 shadow  xl:mx-4'>
+          <div className=' col-span-1 flex flex-shrink-0 items-center'>
+            {extendedTempPurchases.length > 0 && (
+              <input
+                type='checkbox'
+                className='h-5 w-5 accent-haretaColor'
+                checked={isAllChecked}
+                onChange={handleSelectAll}
+              />
+            )}
+          </div>
+          <div className='col-span-1 flex items-center justify-center text-textDark dark:text-textLight'>
+            ({checkedPurchasesCount})
+          </div>
+          <div className='col-span-7 flex items-center justify-center space-x-2'>
+            <div className='col-span-1 items-center text-right uppercase text-textDark dark:text-textLight'>Total:</div>
+            <span className='col-span-1 text-center text-haretaColor'>
+              ${formatCurrency(totalCheckedPurchasesPrice)}
+            </span>
+          </div>
+          <button
+            className={classNames(
+              'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm  text-textDark dark:bg-vintageColor  dark:text-textDark',
+              {
+                ' hover:bg-haretaColor dark:hover:bg-haretaColor': checkedPurchasesCount !== 0,
+                'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':
+                  checkedPurchasesCount === 0
+              }
+            )}
+            disabled={checkedPurchasesCount === 0}
+          >
+            Check out
+          </button>
         </div>
-        <div className='col-span-1 flex items-center justify-center text-textDark dark:text-textLight'>
-          ({checkedPurchasesCount})
-        </div>
-        <div className='col-span-7 flex items-center justify-center space-x-2'>
-          <div className='col-span-1 items-center text-right uppercase text-textDark dark:text-textLight'>Total:</div>
-          <span className='col-span-1 text-center text-haretaColor'>${formatCurrency(totalCheckedPurchasesPrice)}</span>
-        </div>
-        <button
-          className={classNames(
-            'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm  text-textDark dark:bg-vintageColor  dark:text-textDark',
-            {
-              ' hover:bg-haretaColor dark:hover:bg-haretaColor': checkedPurchasesCount !== 0,
-              'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':
-                checkedPurchasesCount === 0
-            }
-          )}
-          disabled={checkedPurchasesCount === 0}
-        >
-          Check out
-        </button>
       </div>
     </Fragment>
   )

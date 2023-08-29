@@ -86,14 +86,14 @@ export default function UnauthenticatedCart() {
   }
 
   return (
-    <div className='bg-lightBg py-4 dark:bg-darkBg'>
+    <Fragment>
       {!isMobile && (
-        <div className='container'>
-          <div className='relative flex items-center rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
+        <Fragment>
+          {/* <div className='relative flex items-center rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
             <p className='grow truncate pl-4 text-2xl uppercase  text-textDark dark:text-haretaColor xl:text-2xl'>
               Cart
             </p>
-            {/* <form name='search_in_cart' className='my-2 flex grow items-center' onSubmit={handleSearch}>
+            <form name='search_in_cart' className='my-2 flex grow items-center' onSubmit={handleSearch}>
               <input
                 id='search_in_cart'
                 type='text'
@@ -112,8 +112,8 @@ export default function UnauthenticatedCart() {
                   />
                 </svg>
               </label>
-            </form> */}
-          </div>
+            </form>
+          </div> */}
 
           <div className=' mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
             <div className=''>
@@ -281,7 +281,7 @@ export default function UnauthenticatedCart() {
               </div>
             </div>
           </div>
-        </div>
+        </Fragment>
       )}
 
       {isMobile && (
@@ -294,6 +294,6 @@ export default function UnauthenticatedCart() {
           handleTypeQuantity={handleTypeQuantity}
         />
       )}
-    </div>
+    </Fragment>
   )
 }

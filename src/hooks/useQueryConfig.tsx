@@ -11,7 +11,7 @@ export default function useQueryConfig() {
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParams.page || 1,
-      limit: queryParams.limit || 12,
+      limit: queryParams.limit || 24,
       name: queryParams.name,
       category: queryParams.category,
       collection: queryParams.collection,

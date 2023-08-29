@@ -229,9 +229,9 @@ export default function ProductDetail() {
 
   if (!product) return <ProductDetailLoading />
   return (
-    <div className='bg-lightBg py-1 dark:bg-darkBg lg:py-2 xl:py-4'>
+    <div className='bg-lightBg py-2 dark:bg-darkBg lg:py-3 xl:py-4'>
       <div className='container'>
-        <div className='relative mb-1 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark dark:bg-[#202020] dark:text-textLight lg:mb-2 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
+        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark dark:bg-[#202020] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>
