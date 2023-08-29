@@ -9,9 +9,8 @@ interface Props {
 export default function RegisterLayout({ children }: Props) {
   const { theme } = useContext(ThemeContext)
   return (
-    <div>
+    <>
       <RegisterHeader />
-
       <div
         className='mt-10 min-h-screen bg-cover bg-center duration-500 sm:mt-12 lg:mt-16'
         style={{
@@ -24,9 +23,7 @@ export default function RegisterLayout({ children }: Props) {
       >
         {children}
       </div>
-      {/* <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -100 }}>
-        </motion.div> */}
       <Footer />
-    </div>
+    </>
   )
 }

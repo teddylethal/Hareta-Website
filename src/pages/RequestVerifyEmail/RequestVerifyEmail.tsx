@@ -74,7 +74,7 @@ export default function RequestVerifyEmail() {
   // }, [email, clearErrors])
 
   return (
-    <AnimateTransition>
+    <AnimateTransition isDialog={state}>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>

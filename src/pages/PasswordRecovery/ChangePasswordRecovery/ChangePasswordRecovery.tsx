@@ -41,14 +41,12 @@ export default function ChangePasswordRecovery() {
   }, [isSuccess, setValue, data])
 
   useEffect(() => {
-    // console.log(error)
     if (isAxiosBadRequestError<ErrorRespone>(error)) {
       const formError = error.response?.data
-      console.log(formError)
+      //console.log(formError)
 
       const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
       if (errorRespone && errorRespone.error_key === 'ErrPasswordRecoveryNotFound') {
-        // setDialog(true)
         navigate(path.requestPasswordRecovery, { state: { failSlugVerify: 'true' } })
       }
     }
