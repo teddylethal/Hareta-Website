@@ -11,6 +11,7 @@ import { Fragment, useContext, useEffect } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import { keyBy } from 'lodash'
 import { AppContext } from 'src/contexts/app.context'
+import classNames from 'classnames'
 
 export default function CartPopoverWithLogin() {
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
@@ -51,6 +52,7 @@ export default function CartPopoverWithLogin() {
 
   const handleRemove = (purchaseIndex: number) => () => {
     const purchaseId = extendedPurchases[purchaseIndex].id
+
     removePurchasesMutation.mutate({ id: purchaseId })
   }
 
@@ -102,13 +104,17 @@ export default function CartPopoverWithLogin() {
 
                             <div className='flex space-x-3'>
                               <button
-                                className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                                className='text-sm text-textDark/60  hover:text-[#E76161] dark:text-textLight/60 dark:hover:text-haretaColor'
                                 onClick={handleBuyItem}
                               >
                                 Buy
                               </button>
                               <button
-                                className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                                disabled={removePurchasesMutation.isLoading}
+                                className={classNames('text-sm text-textDark/60  dark:text-textLight/60 ', {
+                                  'hover:text-red-600 dark:hover:text-red-600': !removePurchasesMutation.isLoading,
+                                  'cursor-not-allowed': removePurchasesMutation.isLoading
+                                })}
                                 onClick={handleRemove(index)}
                               >
                                 Remove

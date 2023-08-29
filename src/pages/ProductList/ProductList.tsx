@@ -22,20 +22,19 @@ import path from 'src/constants/path'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FloatingOverlay } from '@floating-ui/react'
+import { motion } from 'framer-motion'
+import { ColorRing } from 'react-loader-spinner'
 
 export default function ProductList() {
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, pageIsLoading } = useContext(AppContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
   const queryConfig = useQueryConfig()
 
-  const {
-    data: storeData,
-    isFetching,
-    isLoading
-  } = useQuery({
+  const { data: storeData, isFetching } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
@@ -95,7 +94,7 @@ export default function ProductList() {
               </div>
             </div>
             <div className='col-start-4 col-end-13'>
-              {isLoading && <ProductListSkeleton />}
+              {(isFetching || !storeData) && <ProductListSkeleton />}
               {storeData && (
                 <div className=''>
                   <div className='grid grid-cols-2 gap-4 lg:grid-cols-3'>
@@ -129,7 +128,7 @@ export default function ProductList() {
           <Fragment>
             <SearchBar />
             <ActiveFiltering />
-            {isLoading && <ProductListSkeleton />}
+            {(isFetching || !storeData) && <ProductListSkeleton />}
             {storeData && (
               <Fragment>
                 <div className='grid grid-cols-2 gap-4'>
@@ -151,6 +150,41 @@ export default function ProductList() {
         )}
       </div>
       {isMobile && <MobileBottomBar queryConfig={queryConfig} />}
+
+      {pageIsLoading && (
+        <FloatingOverlay lockScroll>
+          <Fragment>
+            <motion.div
+              className='fixed inset-0 z-10 bg-black'
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 0.2
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className='fixed left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl shadow-sm'
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ColorRing
+                visible={true}
+                height='80'
+                width='80'
+                ariaLabel='blocks-loading'
+                wrapperStyle={{}}
+                wrapperClass='blocks-wrapper'
+                colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
+              />
+            </motion.div>
+          </Fragment>
+        </FloatingOverlay>
+      )}
     </div>
   )
 }

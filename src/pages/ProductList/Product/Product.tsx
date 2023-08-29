@@ -31,7 +31,7 @@ interface Props {
 
 function Product({ product }: Props) {
   const { theme } = useContext(ThemeContext)
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, setPageIsLoading } = useContext(AppContext)
   const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
@@ -42,12 +42,12 @@ function Product({ product }: Props) {
 
   const addToCartMutation = useMutation(purchaseApi.addToCart)
   const addToCart = () => {
+    setPageIsLoading(true)
     addToCartMutation.mutate(
       { item_id: product.id as string, quantity: 1 },
       {
         onSuccess: () => {
-          const scrollX = window.scrollX
-          const scrollY = window.scrollY
+          setPageIsLoading(false)
           showSuccessDialog(setDialogIsOpen)
 
           queryClient.invalidateQueries({ queryKey: ['purchases'] })
@@ -242,6 +242,32 @@ function Product({ product }: Props) {
           </button>
         </div>
       </DialogPopup>
+
+      {/* <AnimatePresence>
+        {isLoading && (
+          <Fragment>
+            <motion.div
+              className='fixed inset-0 '
+              initial={{ opacity: 0, backgroundColor: 'black' }}
+              animate={{
+                opacity: 0.4
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className='fixed inset-0 flex h-4 w-16 items-center justify-center rounded-lg px-2 py-12 shadow-sm'
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                backgroundColor: theme === 'dark' ? '#101010' : '#f8f8f8',
+                color: theme === 'dark' ? '#eeeeee' : '#222222'
+              }}
+              exit={{ opacity: 0 }}
+            ></motion.div>
+          </Fragment>
+        )}
+      </AnimatePresence> */}
     </div>
   )
 }
