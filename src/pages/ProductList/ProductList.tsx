@@ -12,7 +12,7 @@ import useQueryConfig from 'src/hooks/useQueryConfig'
 import { ceil } from 'lodash'
 import PriceRange from './AsideFilter/PriceRange'
 import likeItemAPi from 'src/apis/userLikeItem.api'
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import ProductSekeleton from './ProductSkeleton'
 import ProductListSkeleton from './ProductListSkeleton'
@@ -125,24 +125,29 @@ export default function ProductList() {
           </div>
         )}
 
-        {isMobile && storeData && (
-          <div>
+        {isMobile && (
+          <Fragment>
             <SearchBar />
             <ActiveFiltering />
-            <div className='grid grid-cols-2 gap-4'>
-              {storeData &&
-                storeData.data.data.map((product) => (
-                  <div className='col-span-1' key={product.id}>
-                    <Product
-                      product={product}
-                      queryConfig={queryConfig}
-                      likedByUser={favouriteListId.includes(product.id)}
-                    />
-                  </div>
-                ))}
-            </div>
-            <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} isMobile />
-          </div>
+            {isLoading && <ProductListSkeleton />}
+            {storeData && (
+              <Fragment>
+                <div className='grid grid-cols-2 gap-4'>
+                  {storeData &&
+                    storeData.data.data.map((product) => (
+                      <div className='col-span-1' key={product.id}>
+                        <Product
+                          product={product}
+                          queryConfig={queryConfig}
+                          likedByUser={favouriteListId.includes(product.id)}
+                        />
+                      </div>
+                    ))}
+                </div>
+                <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} isMobile />
+              </Fragment>
+            )}
+          </Fragment>
         )}
       </div>
       {isMobile && <MobileBottomBar queryConfig={queryConfig} />}
