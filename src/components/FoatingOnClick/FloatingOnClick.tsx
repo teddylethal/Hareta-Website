@@ -59,7 +59,7 @@ export default function FloatingOnClick({
   const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss])
   return (
     <div>
-      <Element className={className} ref={refs.setReference} {...getReferenceProps()}>
+      <Element ref={refs.setReference} {...getReferenceProps()} className={className}>
         {children}
       </Element>
       <AnimatePresence>

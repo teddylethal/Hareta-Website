@@ -8,7 +8,7 @@ export default function UserNav() {
 
   return (
     <div className='group'>
-      <Popover renderPopover={<UserPopover />} className='py-0.5 lg:py-1.5'>
+      <Popover renderPopover={<UserPopover />} className='py-0.5 lg:py-1.5' offsetValue={12}>
         <div className='flex cursor-default items-center space-x-2'>
           <img
             src={

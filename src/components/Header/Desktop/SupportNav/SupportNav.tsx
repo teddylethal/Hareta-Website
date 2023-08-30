@@ -9,15 +9,15 @@ export default function SupportNav() {
   }
 
   return (
-    <div className='group'>
+    <div className='group '>
       <FloatingOnClick
         renderPopover={<SupportPopover />}
-        className='flex cursor-pointer select-none items-center space-x-0.5 p-1 text-textDark duration-500  dark:text-textLight'
+        className='flex cursor-default select-none items-center space-x-0.5 p-1 text-textDark duration-500  dark:text-textLight'
         isOpen={isOpen}
         handleClick={handleClick}
         openChange={setIsOpen}
       >
-        <div className='z-10 flex items-center group-hover:text-brownColor dark:group-hover:text-haretaColor'>
+        <div className='z-10 flex items-center  group-hover:text-brownColor dark:group-hover:text-haretaColor '>
           <p>Support</p>
           {isOpen && (
             <svg
