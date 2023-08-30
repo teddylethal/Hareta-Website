@@ -63,7 +63,7 @@ export default function ProductDetailMobile(props: Props) {
 
   return (
     <Fragment>
-      <div className={classNames('bg-lightBg dark:bg-darkBg', { 'opacity-50': visible })}>
+      <div className={classNames('bg-lightBg dark:bg-darkBg')}>
         <div className=' rounded-lg bg-[#f8f8f8] px-3 py-2 dark:bg-[#202020]'>
           <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
             {activeImage?.image ? (

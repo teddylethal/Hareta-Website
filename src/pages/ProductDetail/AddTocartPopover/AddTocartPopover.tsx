@@ -1,7 +1,9 @@
-import { FloatingOverlay } from '@floating-ui/react'
+import { FloatingOverlay, FloatingPortal } from '@floating-ui/react'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import classNames from 'classnames'
+import React, { useContext } from 'react'
+import { ThemeContext } from 'src/App'
 import Button from 'src/components/Button'
 import QuantityController from 'src/components/QuantityController'
 import { Product } from 'src/types/product.type'
@@ -24,6 +26,8 @@ export default function AddTocartPopover({
   elementRef,
   handleAddToCart
 }: Props) {
+  const { theme } = useContext(ThemeContext)
+
   const closeAddToCart = () => {
     setVisble(false)
   }
@@ -33,11 +37,16 @@ export default function AddTocartPopover({
     setVisble(false)
   }
   return (
-    <FloatingOverlay lockScroll>
-      {
+    <FloatingPortal>
+      <FloatingOverlay lockScroll className={theme === 'dark' ? 'dark' : 'light'}>
+        <div className='fixed inset-0 bg-black bg-opacity-50' />
+
         <div
           ref={elementRef}
-          className='absolute left-1/2 top-1/2 z-10 flex h-1/2 w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col rounded-md bg-white px-2 py-4 text-textDark shadow-sm dark:bg-black dark:text-textLight'
+          className={classNames(
+            'fixed left-1/2 top-1/2 flex h-1/2 w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col rounded-md px-2 py-4 shadow-sm ',
+            { 'bg-white text-textDark ': theme === 'light', 'bg-black text-textLight': theme === 'dark' }
+          )}
         >
           <div className='flex items-start'>
             <div className=' grid grow grid-cols-3'>
@@ -79,7 +88,7 @@ export default function AddTocartPopover({
             </Button>
           </div>
         </div>
-      }
-    </FloatingOverlay>
+      </FloatingOverlay>
+    </FloatingPortal>
   )
 }

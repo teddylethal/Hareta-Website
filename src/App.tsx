@@ -36,7 +36,7 @@ function App() {
   }, [reset, setExtendedPurchases])
 
   useEffect(() => {
-    document.title = ' Hareta Workshop'
+    document.title = 'Hareta Workshop'
   }, [])
 
   return (
