@@ -10,16 +10,18 @@ import { Product } from 'src/types/product.type'
 
 interface Props {
   item: Product
+  itemID: string
   buyCount: number
   handleBuyCount: (value: number) => void
   elementRef: React.RefObject<HTMLDivElement>
   visible: boolean
   setVisble: React.Dispatch<React.SetStateAction<boolean>>
-  handleAddToCart: () => void
+  handleAddToCart: (itemID: string, quantity: number) => void
 }
 
 export default function AddTocartPopover({
   item,
+  itemID,
   buyCount,
   handleBuyCount,
   setVisble,
@@ -33,7 +35,7 @@ export default function AddTocartPopover({
   }
 
   const addToCart = () => {
-    handleAddToCart()
+    handleAddToCart(itemID, buyCount)
     setVisble(false)
   }
   return (

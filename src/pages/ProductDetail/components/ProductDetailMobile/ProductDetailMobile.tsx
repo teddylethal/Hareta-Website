@@ -1,61 +1,42 @@
-import {
-  faCartPlus,
-  faChevronLeft,
-  faChevronRight,
-  faHeart,
-  faTriangleExclamation
-} from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Fragment, useContext } from 'react'
-import { ProductImageWithIndex } from '../../ProductDetail'
+import { Fragment, useContext, useState } from 'react'
 import { Product } from 'src/types/product.type'
-import itemTag from 'src/constants/itemTag'
 import { formatCurrency } from 'src/utils/utils'
 import classNames from 'classnames'
 import useClickOutside from 'src/hooks/useClickOutside'
 import AddTocartPopover from '../../AddTocartPopover'
 import { AppContext } from 'src/contexts/app.context'
+import MobileProductImageList from './MobileProductImageList'
+import ItemTag from 'src/constants/itemTag'
 
 interface Props {
-  product: Product
-  activeImage: ProductImageWithIndex | undefined
-  imagesWithIndex: ProductImageWithIndex[]
-  currentIndexImages: number[]
-  currentImageList: ProductImageWithIndex[]
+  defaultItem: Product
+  itemsInGroup: Product[]
   isLikedByUser: boolean
-  nextImageList: () => void
-  previousImageList: () => void
-  handleChoosingImage: (image: ProductImageWithIndex) => () => void
-  handleCollectionClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-  handleTypeClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-  buyCount: number
-  handleBuyCount: (value: number) => void
-  addToCart: () => void
+  addToCart: (itemID: string, quantity: number) => void
   toggleLikeItem: () => void
 }
 
 export default function ProductDetailMobile(props: Props) {
-  const {
-    activeImage,
-    product,
-    imagesWithIndex,
-    currentIndexImages,
-    currentImageList,
-    isLikedByUser,
-    nextImageList,
-    previousImageList,
-    handleChoosingImage,
-    handleCollectionClick,
-    handleTypeClick,
-    buyCount,
-    handleBuyCount,
-    addToCart,
-    toggleLikeItem
-  } = props
+  const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
   const { isAuthenticated } = useContext(AppContext)
 
+  //? CHOOSE VARIANT
+  const [activeItemID, setActiveItemID] = useState<string>(defaultItem.id)
+  const handleChooseVariant = (id: string) => () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    setQuantity(1)
+    setActiveItemID(id)
+  }
+
   //? ADD TO CART
+  const [quantity, setQuantity] = useState<number>(1)
+  const handleQuantity = (value: number) => {
+    setQuantity(value)
+  }
+
   const { ref, visible, setVisible } = useClickOutside(false)
   const openAddToCart = () => {
     setVisible(true)
@@ -65,54 +46,11 @@ export default function ProductDetailMobile(props: Props) {
     <Fragment>
       <div className={classNames('bg-lightBg dark:bg-darkBg')}>
         <div className=' rounded-lg bg-[#f8f8f8] px-3 py-2 dark:bg-[#202020]'>
-          <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
-            {activeImage?.image ? (
-              <img
-                src={activeImage.image.url}
-                alt={product.name}
-                className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-              />
-            ) : (
-              <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
-                <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
-              </div>
-            )}
-          </div>
-          <div className='relative mt-3 flex select-none justify-center space-x-2'>
-            {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
-              <button
-                className='absolute left-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
-                onClick={previousImageList}
-              >
-                <FontAwesomeIcon icon={faChevronLeft} className='h-6' />
-              </button>
-            )}
-            {currentImageList.map((image, index) => {
-              const isActive = image === activeImage
-              return (
-                <button onClick={handleChoosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
-                  <img
-                    src={image.image ? image.image.url : ''}
-                    alt={product.name}
-                    className='absolute left-0 top-0 h-full w-full object-scale-down'
-                  />
-                  {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
-                </button>
-              )
-            })}
-            {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
-              <button
-                className='absolute right-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
-                onClick={nextImageList}
-              >
-                <FontAwesomeIcon icon={faChevronRight} className='h-6' />
-              </button>
-            )}
-          </div>
+          <MobileProductImageList item={defaultItem} itemID={activeItemID} />
           <div className='relative flex flex-col bg-[#f8f8f8] py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
-            <span className='text-2xl text-haretaColor'>${formatCurrency(product.price)}</span>
+            <span className='text-2xl text-haretaColor'>${formatCurrency(defaultItem.price)}</span>
             <div className='mt-4 flex items-center justify-between'>
-              <p className='text-2xl'>{product.name}</p>
+              <p className='text-2xl'>{defaultItem.name}</p>
               {isAuthenticated && (
                 <button className='text-white/50'>
                   <FontAwesomeIcon
@@ -127,32 +65,51 @@ export default function ProductDetailMobile(props: Props) {
               )}
             </div>
 
-            {product.tag !== 0 && (
+            {defaultItem.tag !== 0 && (
               <div className='relative mt-2'>
                 <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
-                  {itemTag[product.tag]}
+                  {ItemTag[defaultItem.tag]}
                 </span>
                 <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
               </div>
             )}
 
-            <div className='mt-4 flex items-center space-x-8 text-base sm:text-lg'>
-              <button
-                className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
-                onClick={handleCollectionClick}
-              >
-                {product.collection}
-              </button>
-              <button
-                className='capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
-                onClick={handleTypeClick}
-              >
-                {product.type}
-              </button>
+            <div className='mt-8 w-full rounded-lg border border-black/20 p-4 dark:border-white/20'>
+              <div className='flex items-center justify-between'>
+                <p className='text-base font-medium lg:text-lg xl:text-xl'>Variant</p>
+                <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
+                  {itemsInGroup.length} variants
+                </p>
+              </div>
+              <div className='max-h-64 w-full overflow-auto py-4'>
+                <div className='grid w-full grid-cols-3 gap-4'>
+                  {itemsInGroup.map((item, index) => {
+                    const isActive = item.id === activeItemID
+                    const avatarURL = item.avatar ? item.avatar.url : null
+                    return (
+                      <div
+                        key={index}
+                        className={classNames('col-span-1 rounded-xl', {
+                          'border border-brownColor dark:border-haretaColor': isActive
+                        })}
+                      >
+                        <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item.id)}>
+                          <img
+                            src={avatarURL || ''}
+                            alt={`${defaultItem.name} ${item.color}`}
+                            className='absolute left-0 top-0 h-full w-full object-scale-down'
+                          />
+                          {/* {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />} */}
+                        </button>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
 
             <div className='mt-4 h-full text-sm lg:text-lg'>
-              <p className=''>{product.description}</p>
+              <p className=''>{defaultItem.description}</p>
             </div>
           </div>
         </div>
@@ -168,12 +125,13 @@ export default function ProductDetailMobile(props: Props) {
       </div>
       {visible && (
         <AddTocartPopover
-          item={product}
+          item={defaultItem}
+          itemID={activeItemID}
           elementRef={ref}
-          buyCount={buyCount}
-          handleBuyCount={handleBuyCount}
           visible={visible}
           setVisble={setVisible}
+          buyCount={quantity}
+          handleBuyCount={handleQuantity}
           handleAddToCart={addToCart}
         />
       )}
