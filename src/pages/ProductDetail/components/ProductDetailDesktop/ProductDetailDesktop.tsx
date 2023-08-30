@@ -80,24 +80,27 @@ export default function ProductDetailDesktop(props: Props) {
       <div className='grid grid-cols-12 gap-6'>
         <div className='col-span-5'>
           <div className='rounded-md bg-[#f8f8f8] p-4 dark:bg-[#101010]'>
-            <div
-              className='relative w-full cursor-zoom-in  overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#202020]'
-              onMouseMove={handleZoom}
-              onMouseLeave={handleRemoveZoom}
-            >
-              {activeImage?.image ? (
+            {activeImage?.image ? (
+              <div
+                className='relative w-full cursor-zoom-in  overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#202020]'
+                onMouseMove={handleZoom}
+                onMouseLeave={handleRemoveZoom}
+              >
                 <img
                   src={activeImage.image.url}
                   alt={product.name}
                   className='pointer-events-none  absolute left-0 top-0 h-full w-full object-scale-down'
                   ref={imageRef}
                 />
-              ) : (
+              </div>
+            ) : (
+              <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#202020]'>
                 <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
                   <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
                 </div>
-              )}
-            </div>
+              </div>
+            )}
+
             <div className='relative mt-3 flex select-none justify-center space-x-2'>
               {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
                 <button

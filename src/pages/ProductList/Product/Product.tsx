@@ -1,4 +1,4 @@
-import { faCartPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { memo, useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -127,15 +127,17 @@ function Product({ product }: Props) {
       <div className='relative  w-full rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
         <div className='relative w-full pt-[80%]'>
           <button onClick={handleClickItem}>
-            <img
-              src={
-                product.avatar
-                  ? `${product.avatar.url}`
-                  : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-              }
-              alt={product.name}
-              className='absolute left-0 top-0 h-full w-full object-scale-down'
-            />
+            {product.avatar ? (
+              <img
+                src={product.avatar.url}
+                alt={product.name}
+                className='absolute left-0 top-0 h-full w-full object-scale-down'
+              />
+            ) : (
+              <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
+                <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
+              </div>
+            )}
           </button>
         </div>
         <div className='mx-2 mt-2 flex justify-between space-x-1 overflow-hidden sm:mx-3 lg:mx-4 lg:mt-4'>
