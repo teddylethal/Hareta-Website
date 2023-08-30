@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
@@ -69,7 +69,7 @@ export default function RequestVerifyEmail() {
     } else {
       navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
     }
-  }, [])
+  }, [state, navigate])
 
   return (
     <AnimateTransition isDialog={state}>
