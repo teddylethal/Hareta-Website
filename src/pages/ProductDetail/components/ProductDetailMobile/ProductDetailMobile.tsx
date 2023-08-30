@@ -27,15 +27,10 @@ export default function ProductDetailMobile(props: Props) {
   const [activeItemID, setActiveItemID] = useState<string>(defaultItem.id)
   const handleChooseVariant = (id: string) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    setQuantity(1)
     setActiveItemID(id)
   }
 
   //? ADD TO CART
-  const [quantity, setQuantity] = useState<number>(1)
-  const handleQuantity = (value: number) => {
-    setQuantity(value)
-  }
 
   const { ref, visible, setVisible } = useClickOutside(false)
   const openAddToCart = () => {
@@ -127,11 +122,10 @@ export default function ProductDetailMobile(props: Props) {
         <AddTocartPopover
           item={defaultItem}
           itemID={activeItemID}
+          itemsInGroup={itemsInGroup}
           elementRef={ref}
           visible={visible}
           setVisble={setVisible}
-          buyCount={quantity}
-          handleBuyCount={handleQuantity}
           handleAddToCart={addToCart}
         />
       )}

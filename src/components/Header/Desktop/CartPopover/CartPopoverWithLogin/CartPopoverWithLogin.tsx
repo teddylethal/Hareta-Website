@@ -90,7 +90,7 @@ export default function CartPopoverWithLogin() {
                               to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
                               className='flex'
                             >
-                              <p className='text-md truncate px-2 capitalize hover:text-[#E76161] dark:hover:text-haretaColor lg:text-base'>
+                              <p className='truncate px-2 capitalize hover:text-[#E76161] dark:hover:text-haretaColor lg:text-base'>
                                 {purchase.item.name}
                               </p>
                             </Link>
@@ -99,7 +99,7 @@ export default function CartPopoverWithLogin() {
                             </span>
                           </div>
                           <div className='ml-2 flex justify-between'>
-                            <span className='text-gray-500 dark:text-gray-400'>x{purchase.quantity}</span>
+                            <span className='text-xs capitalize text-textDark/60 dark:text-textLight/60 lg:text-sm'>{`(${purchase.item.color})`}</span>
 
                             <div className='flex space-x-3'>
                               <button
