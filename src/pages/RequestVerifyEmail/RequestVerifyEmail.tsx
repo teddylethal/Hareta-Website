@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
@@ -29,18 +29,6 @@ export default function RequestVerifyEmail() {
 
   const { counter, setCounter } = useTimer()
 
-  useEffect(() => {
-    if (state) {
-      if (state.error == 'Please verify your email') {
-        setDialogFail(true)
-      } else {
-        setDialogSuccess(true)
-      }
-    } else {
-      navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
-    }
-  }, [navigate, state])
-
   const requestVerifyMutation = useMutation({
     mutationFn: (body: FormData) => verifyEmail.requestVerify(body)
   })
@@ -67,11 +55,21 @@ export default function RequestVerifyEmail() {
       }
     )
   }
-  // const email = watch('email')
-  // useEffect(() => {
-  //   console.log(123)
-  //   reset('email':'test')
-  // }, [email, clearErrors])
+
+  useEffect(() => {
+    if (state) {
+      if (state.error == 'Please verify your email') {
+        setDialogFail(true)
+      } else {
+        setDialogSuccess(true)
+      }
+      requestVerifyMutation.mutate({ email: state.email })
+      // onSubmit()
+      setCounter(60)
+    } else {
+      navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
+    }
+  }, [])
 
   return (
     <AnimateTransition isDialog={state}>
@@ -107,8 +105,10 @@ export default function RequestVerifyEmail() {
                   </svg>
                   <div className='ml-2 text-center text-lg text-[#666666] dark:text-textVintage/80'>Your email: </div>
                 </div>
-                <div className='ml-3 text-xl text-blue-700 dark:text-blue-400'>{state?.email}</div>
-                <div className='mt-4 w-4/5 sm:w-3/5'>
+                <div className='ml-3 w-full truncate text-center text-xl text-blue-700 dark:text-blue-400'>
+                  {state?.email}
+                </div>
+                <div className='mt-4 w-full sm:w-3/5'>
                   <Button
                     className='flex w-full items-center justify-center py-2 lg:py-3'
                     type='submit'
