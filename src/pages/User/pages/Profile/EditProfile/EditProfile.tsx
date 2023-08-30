@@ -28,6 +28,7 @@ export default function EditProfile() {
             register={register}
             name='name'
             errorMessage={errors?.name?.message}
+            autoComplete='false'
           />
           <div className='absolute bottom-5 w-full border-b-2 border-black/60 dark:border-white/60'></div>
         </div>
@@ -45,6 +46,7 @@ export default function EditProfile() {
               <InputNumber
                 classNameInput='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage'
                 errorMessage={errors.phone?.message}
+                autoComplete='false'
                 {...field}
                 onChange={field.onChange}
               />

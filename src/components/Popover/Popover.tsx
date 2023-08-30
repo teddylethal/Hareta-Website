@@ -7,8 +7,10 @@ import {
   useHover,
   useInteractions,
   type Placement,
-  FloatingOverlay
+  FloatingOverlay,
+  FloatingArrow
 } from '@floating-ui/react'
+import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ElementType, useContext, useRef, useState } from 'react'
 import { ThemeContext } from 'src/App'
@@ -33,8 +35,9 @@ export default function Popover({
   placement,
   offsetValue = 14
 }: Props) {
-  const [isOpen, setIsOpen] = useState(initialOpen || false)
-  const arrowRef = useRef<HTMLElement>(null)
+  const [isOpen, setIsOpen] = useState<boolean>(initialOpen || false)
+
+  const arrowRef = useRef(null)
   const { x, y, refs, strategy, middlewareData, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
@@ -48,10 +51,6 @@ export default function Popover({
     })
   })
   const { theme } = useContext(ThemeContext)
-  // const color = 'border-b-' + `${colorCode ? `[${colorCode}]` : '[#F5F5F5]'}`
-  const arrowClassName =
-    'absolute -top-1 lg:top-0 z-10 translate-y-[-90%] border-[12px] border-x-transparent border-t-transparent ' +
-    `${theme === 'dark' ? 'border-b-[#202020]' : 'border-b-[#efefef]'}`
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover])
   return (
@@ -78,14 +77,21 @@ export default function Popover({
               exit={{ opacity: 0, transform: 'scale(0)' }}
               transition={{ duration: 0.2 }}
             >
-              <div className='absolute -top-6 left-[calc(50%-40px)] z-20 h-10 w-20 self-center bg-transparent'></div>
-              <span
+              {/* <div className='absolute -top-6 left-[calc(50%-40px)] z-20 h-10 w-20 self-center bg-transparent'></div> */}
+              {/* <span
                 ref={arrowRef}
                 className={arrowClassName}
                 style={{
                   left: middlewareData.arrow?.x,
                   top: middlewareData.arrow?.y
                 }}
+              /> */}
+              <FloatingArrow
+                ref={arrowRef}
+                context={context}
+                width={30}
+                height={10}
+                className={classNames({ ' fill-[#202020]': theme === 'dark', 'fill-[#efefef]': theme === 'light' })}
               />
               <div className={theme === 'dark' ? 'dark' : 'light'}>{renderPopover}</div>
             </motion.div>

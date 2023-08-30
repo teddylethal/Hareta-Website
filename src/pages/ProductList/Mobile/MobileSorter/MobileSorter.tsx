@@ -30,7 +30,7 @@ export default function MobileSorter() {
     <Fragment>
       <button
         onClick={open}
-        className='flex w-[60%] items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 text-sm text-textDark dark:bg-haretaColor/80 dark:text-textLight sm:text-base'
+        className='flex w-[60%] items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 text-sm text-textDark dark:bg-haretaColor/80 dark:text-textLight sm:text-base'
       >
         {sorting}
       </button>
@@ -69,7 +69,7 @@ export default function MobileSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Newest',
-                        'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Newest'
                       }
                     )}
@@ -85,7 +85,7 @@ export default function MobileSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Top seller',
-                        'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Top seller'
                       }
                     )}
@@ -101,7 +101,7 @@ export default function MobileSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Signature',
-                        'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Signature'
                       }
                     )}
@@ -117,7 +117,7 @@ export default function MobileSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Favourite',
-                        'bg-brownColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Favourite'
                       }
                     )}

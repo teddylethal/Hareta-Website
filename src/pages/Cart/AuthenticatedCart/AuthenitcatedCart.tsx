@@ -82,12 +82,12 @@ export default function AuthenitcatedCart() {
   }
 
   return (
-    <div className='bg-lightBg py-4 dark:bg-darkBg'>
+    <Fragment>
       {!isMobile && (
-        <div className='container'>
-          <div className='relative flex items-center space-x-96 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black '>
+        <Fragment>
+          {/* <div className='relative flex items-center space-x-96 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black '>
             <p className='pl-4 text-2xl uppercase text-textDark  dark:text-haretaColor xl:text-2xl'>CART</p>
-            {/* <form name='search_in_cart' className='my-2 flex w-full items-center' onSubmit={handleSearch}>
+            <form name='search_in_cart' className='my-2 flex w-full items-center' onSubmit={handleSearch}>
               <input
                 id='search_in_cart'
                 type='text'
@@ -106,8 +106,8 @@ export default function AuthenitcatedCart() {
                   />
                 </svg>
               </label>
-            </form> */}
-          </div>
+            </form>
+          </div> */}
 
           <div className='mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
             <div className=''>
@@ -261,9 +261,9 @@ export default function AuthenitcatedCart() {
                 </span>
                 <button
                   className={classNames(
-                    'col-span-1 h-10 rounded-md border-none  bg-brownColor/80  text-textDark dark:bg-haretaColor  dark:text-textDark',
+                    'col-span-1 h-10 rounded-md border-none  bg-vintageColor/90  text-textDark dark:bg-haretaColor  dark:text-textDark',
                     {
-                      ' hover:bg-brownColor dark:hover:bg-haretaColor/80': checkedPurchasesCount !== 0,
+                      ' hover:bg-vintageColor dark:hover:bg-haretaColor/80': checkedPurchasesCount !== 0,
                       'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':
                         checkedPurchasesCount === 0
                     }
@@ -275,7 +275,7 @@ export default function AuthenitcatedCart() {
               </div>
             </div>
           </div>
-        </div>
+        </Fragment>
       )}
 
       {isMobile && (
@@ -427,6 +427,6 @@ export default function AuthenitcatedCart() {
           handleTypeQuantity={handleTypeQuantity}
         />
       )}
-    </div>
+    </Fragment>
   )
 }

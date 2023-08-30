@@ -12,7 +12,7 @@ import useQueryConfig from 'src/hooks/useQueryConfig'
 import { ceil } from 'lodash'
 import PriceRange from './AsideFilter/PriceRange'
 import likeItemAPi from 'src/apis/userLikeItem.api'
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import ProductSekeleton from './ProductSkeleton'
 import ProductListSkeleton from './ProductListSkeleton'
@@ -22,20 +22,19 @@ import path from 'src/constants/path'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FloatingOverlay } from '@floating-ui/react'
+import { motion } from 'framer-motion'
+import { ColorRing } from 'react-loader-spinner'
 
 export default function ProductList() {
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, pageIsLoading } = useContext(AppContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
   const queryConfig = useQueryConfig()
 
-  const {
-    data: storeData,
-    isFetching,
-    isLoading
-  } = useQuery({
+  const { data: storeData, isFetching } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
@@ -58,7 +57,7 @@ export default function ProductList() {
   return (
     <div className='bg-lightBg py-2 duration-500 dark:bg-darkBg lg:py-3 xl:py-4'>
       <div className='container'>
-        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark dark:bg-[#202020] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
+        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark duration-500 dark:bg-[#202020] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>
@@ -87,7 +86,7 @@ export default function ProductList() {
         {!isMobile && (
           <div className='relative grid grid-cols-12 gap-2 lg:gap-4 xl:gap-6'>
             <div className='col-span-3'>
-              <div className='sticky left-0 top-12 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-[#efefef] px-2 py-4 dark:bg-[#202020] md:top-14 lg:top-20'>
+              <div className='sticky left-0 top-12 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-[#efefef] px-2 py-4 duration-500 dark:bg-[#202020] md:top-14 lg:top-20'>
                 <SearchBar />
                 <AsideSorter />
                 <PriceRange queryConfig={queryConfig} />
@@ -95,7 +94,7 @@ export default function ProductList() {
               </div>
             </div>
             <div className='col-start-4 col-end-13'>
-              {isLoading && <ProductListSkeleton />}
+              {(isFetching || !storeData) && <ProductListSkeleton />}
               {storeData && (
                 <div className=''>
                   <div className='grid grid-cols-2 gap-4 lg:grid-cols-3'>
@@ -118,34 +117,74 @@ export default function ProductList() {
                         </div>
                       ))}
                   </div>
-                  <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} />
+                  <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 24)} />
                 </div>
               )}
             </div>
           </div>
         )}
 
-        {isMobile && storeData && (
-          <div>
+        {isMobile && (
+          <Fragment>
             <SearchBar />
             <ActiveFiltering />
-            <div className='grid grid-cols-2 gap-4'>
-              {storeData &&
-                storeData.data.data.map((product) => (
-                  <div className='col-span-1' key={product.id}>
-                    <Product
-                      product={product}
-                      queryConfig={queryConfig}
-                      likedByUser={favouriteListId.includes(product.id)}
-                    />
-                  </div>
-                ))}
-            </div>
-            <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} isMobile />
-          </div>
+            {(isFetching || !storeData) && <ProductListSkeleton />}
+            {storeData && (
+              <Fragment>
+                <div className='grid grid-cols-2 gap-4'>
+                  {storeData &&
+                    storeData.data.data.map((product) => (
+                      <div className='col-span-1' key={product.id}>
+                        <Product
+                          product={product}
+                          queryConfig={queryConfig}
+                          likedByUser={favouriteListId.includes(product.id)}
+                        />
+                      </div>
+                    ))}
+                </div>
+                <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} isMobile />
+              </Fragment>
+            )}
+          </Fragment>
         )}
       </div>
       {isMobile && <MobileBottomBar queryConfig={queryConfig} />}
+
+      {pageIsLoading && (
+        <FloatingOverlay lockScroll>
+          <Fragment>
+            <motion.div
+              className='fixed inset-0 z-10 bg-black'
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 0.2
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className='fixed left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl shadow-sm'
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ColorRing
+                visible={true}
+                height='80'
+                width='80'
+                ariaLabel='blocks-loading'
+                wrapperStyle={{}}
+                wrapperClass='blocks-wrapper'
+                colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
+              />
+            </motion.div>
+          </Fragment>
+        </FloatingOverlay>
+      )}
     </div>
   )
 }

@@ -7,7 +7,7 @@ const path = {
   productDetail: ':nameId',
   cart: '/cart',
   user: '/user',
-  profile: '/user/profile',
+  account: '/user/account',
   wishList: '/user/wishlist',
   inventory: '/user/inventory',
   password: '/user/password',
