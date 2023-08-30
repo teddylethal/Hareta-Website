@@ -39,14 +39,14 @@ export default function Header() {
 
             <Link
               to={path.store}
-              className='rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'
+              className='rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor'
             >
               <div>Store</div>
             </Link>
 
             <Link
               to='/'
-              className='rounded-md border border-none p-1 hover:text-haretaColor dark:hover:text-haretaColor'
+              className='rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor'
             >
               <div>Event</div>
             </Link>
@@ -60,7 +60,10 @@ export default function Header() {
 
           <nav className='col-span-1 flex items-center justify-end space-x-1 uppercase lg:space-x-4  lg:text-lg '>
             {!isAuthenticated && (
-              <Link to={path.login} className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-haretaColor'>
+              <Link
+                to={path.login}
+                className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-brownColor dark:hover:text-haretaColor'
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   fill='none'

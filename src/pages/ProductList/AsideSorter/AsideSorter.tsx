@@ -52,7 +52,7 @@ export default function AsideSorter() {
             'flex  w-full items-center justify-center rounded-xl bg-[#ddd] py-0.5 text-sm font-medium text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:px-3  lg:text-base',
             {
               'rounded-b-none border-x border-t border-black/20 duration-500 dark:border-white/10': visible,
-              ' bg-vintageColor/80 hover:bg-vintageColor  dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
+              ' bg-vintageColor/90 hover:bg-vintageColor  dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
             }
           )}
           onClick={toggleOpenClose}
@@ -81,7 +81,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Newest',
-                        'bg-vintageColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Newest'
                       }
                     )}
@@ -97,7 +97,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Top seller',
-                        'bg-vintageColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Top seller'
                       }
                     )}
@@ -113,7 +113,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Signature',
-                        'bg-vintageColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Signature'
                       }
                     )}
@@ -129,7 +129,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           sorting !== 'Favourite',
-                        'bg-vintageColor/80  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
                           sorting === 'Favourite'
                       }
                     )}

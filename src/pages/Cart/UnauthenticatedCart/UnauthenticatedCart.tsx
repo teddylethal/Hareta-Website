@@ -267,7 +267,7 @@ export default function UnauthenticatedCart() {
                 </span>
                 <button
                   className={classNames(
-                    'col-span-1 h-10 rounded-md border-none  bg-vintageColor/80  text-textDark dark:bg-haretaColor  dark:text-textDark',
+                    'col-span-1 h-10 rounded-md border-none  bg-vintageColor/90  text-textDark dark:bg-haretaColor  dark:text-textDark',
                     {
                       ' hover:bg-vintageColor dark:hover:bg-haretaColor/80': checkedPurchasesCount !== 0,
                       'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':

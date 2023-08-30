@@ -369,13 +369,13 @@ export default function ProductDetail() {
 
               //         <div className='mt-4 flex justify-between'>
               //           <button
-              //             className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+              //             className='flex items-center space-x-2 rounded-md bg-vintageColor/90 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
               //             onClick={addToCart}
               //           >
               //             <FontAwesomeIcon icon={faCartPlus} />
               //             <p>Add to cart</p>
               //           </button>
-              //           <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
+              //           <button className='flex items-center space-x-2 rounded-md bg-vintageColor/90 px-6 py-2 text-lg hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
               //             Buy
               //           </button>
               //         </div>

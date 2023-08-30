@@ -161,7 +161,7 @@ export default function ProductDetailMobile(props: Props) {
           <button className='col-span-1 flex items-center justify-center text-center' onClick={openAddToCart}>
             <FontAwesomeIcon icon={faCartPlus} className='h-5' />
           </button>
-          <button className='col-span-1 rounded-sm bg-vintageColor/80  hover:bg-vintageColor hover:text-textDark dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
+          <button className='col-span-1 rounded-sm bg-vintageColor/90  hover:bg-vintageColor hover:text-textDark dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
             Buy
           </button>
         </div>

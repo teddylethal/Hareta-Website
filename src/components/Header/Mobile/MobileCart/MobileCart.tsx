@@ -177,7 +177,7 @@ export default function MobileCart({ className }: Props) {
                 <div className='flex space-x-2'>
                   <Link
                     to={path.store}
-                    className='flex items-center justify-center rounded-md bg-vintageColor/80 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
                     Store
@@ -186,7 +186,7 @@ export default function MobileCart({ className }: Props) {
                 <div>
                   <Link
                     to={path.cart}
-                    className='flex items-center justify-center rounded-md bg-vintageColor/80 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
                     Cart

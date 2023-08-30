@@ -170,7 +170,7 @@ export default function Profile() {
           <div className=''>
             {!editingMode && (
               <button
-                className='flex h-full space-x-2 rounded-md bg-vintageColor/80 px-2 py-1 text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60 lg:px-4 lg:py-2'
+                className='flex h-full space-x-2 rounded-md bg-vintageColor/90 px-2 py-1 text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60 lg:px-4 lg:py-2'
                 onClick={() => setEditingMode(true)}
               >
                 <FontAwesomeIcon icon={faUserPen} className='h-auto w-4 sm:w-5 lg:w-6' />
@@ -217,7 +217,7 @@ export default function Profile() {
 
               <div className='flex items-center space-x-2 pt-4'>
                 <button
-                  className='flex items-center space-x-1 rounded-md bg-vintageColor/80 px-2 py-1 text-sm text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60 lg:px-4 lg:py-2 lg:text-base'
+                  className='flex items-center space-x-1 rounded-md bg-vintageColor/90 px-2 py-1 text-sm text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60 lg:px-4 lg:py-2 lg:text-base'
                   type='submit'
                 >
                   <p>Save</p>

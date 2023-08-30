@@ -226,7 +226,7 @@ function Product({ product }: Props) {
             className={classNames(
               'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
               {
-                'bg-vintageColor/80 hover:bg-vintageColor': theme === 'light',
+                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
                 'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
               }
             )}
@@ -238,7 +238,7 @@ function Product({ product }: Props) {
             className={classNames(
               'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
               {
-                'bg-vintageColor/80 hover:bg-vintageColor': theme === 'light',
+                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
                 'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
               }
             )}
