@@ -57,7 +57,7 @@ export default function ProductList() {
   return (
     <div className='bg-lightBg py-2 duration-500 dark:bg-darkBg lg:py-3 xl:py-4'>
       <div className='container'>
-        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark dark:bg-[#202020] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
+        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark duration-500 dark:bg-[#202020] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>
@@ -86,7 +86,7 @@ export default function ProductList() {
         {!isMobile && (
           <div className='relative grid grid-cols-12 gap-2 lg:gap-4 xl:gap-6'>
             <div className='col-span-3'>
-              <div className='sticky left-0 top-12 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-[#efefef] px-2 py-4 dark:bg-[#202020] md:top-14 lg:top-20'>
+              <div className='sticky left-0 top-12 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-[#efefef] px-2 py-4 duration-500 dark:bg-[#202020] md:top-14 lg:top-20'>
                 <SearchBar />
                 <AsideSorter />
                 <PriceRange queryConfig={queryConfig} />

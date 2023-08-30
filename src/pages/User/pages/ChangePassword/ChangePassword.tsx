@@ -161,7 +161,7 @@ export default function ChangePassword() {
             className={classNames(
               'inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium   ',
               {
-                'bg-brownColor/80 text-textDark hover:bg-brownColor': theme === 'light',
+                'bg-vintageColor/80 text-textDark hover:bg-vintageColor': theme === 'light',
                 'bg-haretaColor/80 text-textLight hover:bg-haretaColor/60 ': theme === 'dark'
               }
             )}

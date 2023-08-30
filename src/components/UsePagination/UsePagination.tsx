@@ -107,7 +107,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
             className={classNames(
               'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-textDark px-2 py-2 text-sm text-textDark shadow-sm hover:border-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor lg:mx-2 lg:h-8 lg:w-8 lg:text-base ',
               {
-                'border-transparent bg-brownColor text-textDark dark:bg-haretaColor dark:text-textDark':
+                'border-transparent bg-vintageColor text-textDark dark:bg-haretaColor dark:text-textDark':
                   pageNumber === currentPage,
                 'border-textDark dark:border-textLight': pageNumber !== currentPage
               }

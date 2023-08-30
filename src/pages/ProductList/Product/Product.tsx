@@ -203,39 +203,45 @@ function Product({ product }: Props) {
         closeButton={false}
         isOpen={createTempCart}
         handleClose={() => setCreateTempCart(false)}
-        classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
+        classNameWrapper='relative w-80 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
       >
         <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
         <div className='mt-4 space-y-2 text-center'>
-          <div className='flex justify-center space-x-1 '>
-            <p>Items added without</p>
+          <div className='inline justify-center space-x-1 '>
+            <span>Items added without</span>
             <span className='text-haretaColor'>login</span>
-            <p>are temporary</p>
+            <span>are temporary</span>
           </div>
-          <div className='flex justify-center space-x-1'>
+          <div className='justify-center space-x-1'>
             <span className='text-haretaColor'>Login</span>
-            <p>to</p>
+            <span>to</span>
             <span className='text-haretaColor'>save</span>
-            <p>your items</p>
+            <span>your items</span>
           </div>
         </div>
         <div className='mt-8 flex justify-around'>
           <Link
             to={path.login}
             type='button'
-            className={classNames('justify-center rounded-md border border-transparent px-6 py-2 text-sm font-medium', {
-              'bg-brownColor/80 hover:bg-brownColor': theme === 'light',
-              'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-            })}
+            className={classNames(
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              {
+                'bg-vintageColor/80 hover:bg-vintageColor': theme === 'light',
+                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+              }
+            )}
           >
             Login
           </Link>
           <button
             type='button'
-            className={classNames('justify-center rounded-md border border-transparent px-6 py-2 text-sm font-medium', {
-              'bg-brownColor/80 hover:bg-brownColor': theme === 'light',
-              'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-            })}
+            className={classNames(
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              {
+                'bg-vintageColor/80 hover:bg-vintageColor': theme === 'light',
+                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+              }
+            )}
             onClick={createTemporaryCart}
           >
             Continue

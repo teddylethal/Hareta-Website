@@ -24,7 +24,7 @@ export default function CartPopoverWithoutLogin() {
   }
 
   return (
-    <div className='rounded-lg bg-brownColor/80 hover:bg-brownColor dark:bg-haretaColor dark:hover:bg-haretaColor/80'>
+    <div className='rounded-lg bg-vintageColor/80 hover:bg-vintageColor dark:bg-haretaColor dark:hover:bg-haretaColor/80'>
       <Popover
         className='flex border border-none px-1.5 py-1 lg:px-2'
         renderPopover={

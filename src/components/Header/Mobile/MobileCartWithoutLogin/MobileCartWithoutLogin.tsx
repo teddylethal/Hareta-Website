@@ -31,7 +31,7 @@ export default function MobileCartWithoutLogin() {
       <button onClick={openCart} className='relative flex items-end text-textDark dark:text-textLight'>
         <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-textDark dark:text-textLight' />
         {purchasesInLS.length > 0 && (
-          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-brownColor text-xs text-textDark dark:bg-haretaColor'>
+          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-vintageColor text-xs text-textDark dark:bg-haretaColor'>
             {purchasesInLS.length}
           </span>
         )}
@@ -145,7 +145,7 @@ export default function MobileCartWithoutLogin() {
                 <div className='flex space-x-2'>
                   <Link
                     to={path.store}
-                    className='flex items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-vintageColor/80 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
                     Store
@@ -154,7 +154,7 @@ export default function MobileCartWithoutLogin() {
                 <div>
                   <Link
                     to={path.cart}
-                    className='flex items-center justify-center rounded-md bg-brownColor/80 px-4 py-1 hover:bg-brownColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-vintageColor/80 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
                     Cart
