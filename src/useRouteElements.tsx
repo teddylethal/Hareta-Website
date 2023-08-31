@@ -21,7 +21,10 @@ import RequestVerifyEmail from './pages/RequestVerifyEmail'
 import RequestPasswordRecovery from './pages/PasswordRecovery/RequestPasswordRecovery'
 import ChangePasswordRecovery from './pages/PasswordRecovery/ChangePasswordRecovery'
 import AdminLayout from './pages/Admin/layouts/AdminLayout'
-import AdminItemPage from './pages/Admin/pages/AdminItemPage'
+import AdminCreateItem from './pages/Admin/pages/AdminCreateItem'
+import AdminAddItemColor from './pages/Admin/pages/AdminAddItemColor'
+import AdminMainPage from './pages/Admin/pages/AdminMainPage'
+import AddminUploadItemAvatar from './pages/Admin/pages/AddminUploadItemAvatar'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -114,7 +117,31 @@ export default function useRouteElements() {
           path: path.admin,
           element: (
             <AdminLayout>
-              <AdminItemPage />
+              <AdminMainPage />
+            </AdminLayout>
+          )
+        },
+        {
+          path: path.adminCreateItem,
+          element: (
+            <AdminLayout>
+              <AdminCreateItem />
+            </AdminLayout>
+          )
+        },
+        {
+          path: path.adminAddColor,
+          element: (
+            <AdminLayout>
+              <AdminAddItemColor />
+            </AdminLayout>
+          )
+        },
+        {
+          path: path.adminUploadItemAvatar,
+          element: (
+            <AdminLayout>
+              <AddminUploadItemAvatar />
             </AdminLayout>
           )
         }

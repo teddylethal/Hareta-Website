@@ -7,6 +7,8 @@ import { adminItemGroupApi } from 'src/apis/admin.api'
 import Input from 'src/components/Input'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
+import { useContext } from 'react'
+import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
 
 interface FormData {
   name: string
@@ -17,6 +19,8 @@ const itemGroupSchema = yup.object({
 })
 
 export default function AdminItemGroup() {
+  const { setItemGroup } = useContext(CreatingItemContext)
+
   //? GET ITEM GROUPS
   const { data: itemGroupListData, refetch } = useQuery({
     queryKey: ['item_group_list'],
@@ -62,6 +66,8 @@ export default function AdminItemGroup() {
     }
   })
 
+  //? SELECT GROUP
+
   return (
     <div className='relative rounded-lg border border-white/40 bg-black py-2 lg:py-4'>
       <div className='p-4'>
@@ -71,7 +77,10 @@ export default function AdminItemGroup() {
             <div className='flex flex-wrap gap-2'>
               {itemGroupList?.map((group) => (
                 <div key={group.id} className=''>
-                  <button className='rounded-lg border border-white/40 px-4 py-1 text-textLight/80 hover:border-white hover:text-textLight'>
+                  <button
+                    onClick={() => setItemGroup(group)}
+                    className='rounded-lg border border-white/40 px-4 py-1 text-textLight/80 hover:border-white hover:text-textLight'
+                  >
                     {group.name}
                   </button>
                 </div>

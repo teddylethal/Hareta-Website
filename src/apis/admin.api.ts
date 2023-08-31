@@ -6,16 +6,15 @@ const URL = 'auth'
 
 interface NewItemForm {
   name: string
+  group_id: string
   category: string
-  quantity: number
-  description: string
   collection: string
   type: string
+  quantity: number
   price: number
-  discount: number
   product_line: string
   color: string
-  group_id: string
+  description: string
 }
 
 interface UpdateItemForm {
@@ -56,7 +55,7 @@ export const adminItemGroupApi = {
 
 export const adminItemApi = {
   createNewItem(body: NewItemForm) {
-    return http.post<SuccessRespone<string>>(`${URL}/item`, body)
+    return http.post(`${URL}/item`, body)
   },
   updateItem(body: UpdateItemForm) {
     return http.put<SuccessRespone<string>>(`${URL}/item`, body)

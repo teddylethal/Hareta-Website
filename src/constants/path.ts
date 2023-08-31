@@ -14,7 +14,10 @@ const path = {
   verifyEmail: '/check-verification-code/:code',
   requestPasswordRecovery: '/passwordRecovery',
   changePasswordRecovery: '/passwordRecovery/:slug',
-  admin: '/auth/admin'
+  admin: '/auth/admin',
+  adminCreateItem: '/auth/admin/create-item',
+  adminAddColor: '/auth/admin/add-color',
+  adminUploadItemAvatar: '/auth/admin/item-avatar'
 } as const
 
 export default path
