@@ -20,10 +20,18 @@ import VerifyEmail from './pages/VerifyEmail'
 import RequestVerifyEmail from './pages/RequestVerifyEmail'
 import RequestPasswordRecovery from './pages/PasswordRecovery/RequestPasswordRecovery'
 import ChangePasswordRecovery from './pages/PasswordRecovery/ChangePasswordRecovery'
+import AdminLayout from './pages/Admin/layouts/AdminLayout'
+import AdminItemPage from './pages/Admin/pages/AdminItemPage'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
   return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
+}
+
+function AdminRoute() {
+  const { isAuthenticated, profile } = useContext(AppContext)
+  const isAdmin = profile?.role === 'admin'
+  return isAuthenticated && isAdmin ? <Outlet /> : <Navigate to={path.home} />
 }
 
 function RejectedRoute() {
@@ -95,6 +103,20 @@ export default function useRouteElements() {
               element: <WishList />
             }
           ]
+        }
+      ]
+    },
+    {
+      path: '',
+      element: <AdminRoute />,
+      children: [
+        {
+          path: path.admin,
+          element: (
+            <AdminLayout>
+              <AdminItemPage />
+            </AdminLayout>
+          )
         }
       ]
     },

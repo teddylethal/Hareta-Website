@@ -1,5 +1,3 @@
-type Role = 'user' | 'admin'
-
 export interface User {
   id: string
   status?: number
@@ -20,5 +18,5 @@ export interface User {
     cloud_name: string
     extension: string
   }
-  role: Role[]
+  role: string
 }

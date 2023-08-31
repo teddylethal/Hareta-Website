@@ -13,7 +13,8 @@ const path = {
   password: '/user/password',
   verifyEmail: '/check-verification-code/:code',
   requestPasswordRecovery: '/passwordRecovery',
-  changePasswordRecovery: '/passwordRecovery/:slug'
+  changePasswordRecovery: '/passwordRecovery/:slug',
+  admin: '/auth/admin'
 } as const
 
 export default path
