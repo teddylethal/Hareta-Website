@@ -172,8 +172,10 @@ export default function ProductDetail() {
                 toggleLikeItem={toggleLikeItem}
               />
             )}
-            <OtherItemsInCollection collectionName={defaltItem.collection} />
-            <OtherItemsInType type={defaltItem.type} />
+            <div className='my-20 space-y-20'>
+              <OtherItemsInCollection collectionName={defaltItem.collection} />
+              <OtherItemsInType type={defaltItem.type} />
+            </div>
           </Fragment>
         )}
         {isMobile && (

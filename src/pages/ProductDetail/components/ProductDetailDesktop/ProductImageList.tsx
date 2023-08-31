@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import producImageApi from 'src/apis/productImage.api'
 import { Product } from 'src/types/product.type'
 import { ProductImageWithIndex } from '../../ProductDetail'
@@ -8,10 +8,11 @@ import {
   faBan,
   faChevronLeft,
   faChevronRight,
-  faMagnifyingGlass,
+  faMagnifyingGlassPlus,
   faTriangleExclamation
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
+import { ColorRing } from 'react-loader-spinner'
 
 interface Props {
   itemID: string
@@ -23,7 +24,11 @@ export default function ProductImageList(props: Props) {
 
   //? GET IMAGE LIST
 
-  const { data: productImages } = useQuery({
+  const {
+    data: productImages,
+    isLoading,
+    isFetching
+  } = useQuery({
     queryKey: ['item_images', itemID],
     queryFn: () => producImageApi.getImageList(itemID as string),
     keepPreviousData: true
@@ -115,7 +120,7 @@ export default function ProductImageList(props: Props) {
       {activeImage?.image ? (
         <div
           className={classNames(
-            'relative w-full overflow-hidden rounded-xl border border-black/10 pt-[75%] dark:border-white/10',
+            'relative w-full overflow-hidden rounded-xl border border-black/20 pt-[75%] dark:border-white/20',
             {
               'cursor-zoom-in': zooming
             }
@@ -126,16 +131,20 @@ export default function ProductImageList(props: Props) {
           <img
             src={activeImage.image.url}
             alt={item.name}
-            className='pointer-events-none  absolute left-0 top-0 h-full w-full object-scale-down'
+            className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
             ref={imageRef}
           />
+
           <div className='absolute right-2 top-2 rounded-lg bg-black/40'>
             <button
               className='flex items-center justify-center p-2 text-textDark duration-500 dark:text-textLight '
               onClick={toggleZooming}
             >
               {!zooming && (
-                <FontAwesomeIcon icon={faMagnifyingGlass} className='h-auto w-6 hover:text-haretaColor lg:w-7 xl:w-8' />
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlassPlus}
+                  className='h-auto w-6 hover:text-haretaColor lg:w-7 xl:w-8'
+                />
               )}
               {zooming && <FontAwesomeIcon icon={faBan} className='h-auto w-6 hover:text-red-600 lg:w-7 xl:w-8' />}
             </button>
@@ -179,6 +188,22 @@ export default function ProductImageList(props: Props) {
           </button>
         )}
       </div>
+      {(isLoading || isFetching) && (
+        <Fragment>
+          <div className='absolute inset-0 h-full w-full bg-black/50'></div>
+          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+            <ColorRing
+              visible={true}
+              height='80'
+              width='80'
+              ariaLabel='blocks-loading'
+              wrapperStyle={{}}
+              wrapperClass='blocks-wrapper'
+              colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
+            />
+          </div>
+        </Fragment>
+      )}
     </div>
   )
 }

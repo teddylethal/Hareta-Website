@@ -8,6 +8,7 @@ import { formatCurrency } from 'src/utils/utils'
 import { AppContext } from 'src/contexts/app.context'
 import classNames from 'classnames'
 import ProductImageList from './ProductImageList'
+import ProductDescription from './ProductDescription'
 
 interface Props {
   defaultItem: Product
@@ -142,61 +143,10 @@ export default function ProductDetailDesktop(props: Props) {
         </div>
       </div>
       <div className='col-span-8'>
-        {/* <div className='relative'>
-          {activeImage?.image ? (
-            <div
-              className='relative w-full cursor-zoom-in overflow-hidden rounded-xl border border-black/10 pt-[75%] dark:border-white/10 '
-              onMouseMove={handleZoom}
-              onMouseLeave={handleRemoveZoom}
-            >
-              <img
-                src={activeImage.image.url}
-                alt={product.name}
-                className='pointer-events-none  absolute left-0 top-0 h-full w-full object-scale-down'
-                ref={imageRef}
-              />
-            </div>
-          ) : (
-            <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[80%] dark:bg-[#202020]'>
-              <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
-                <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
-              </div>
-            </div>
-          )}
-          <div className='absolute bottom-0 left-1/2 flex w-[80%] -translate-x-1/2 select-none justify-center space-x-2 rounded-xl bg-black/20 p-4'>
-            {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
-              <button
-                className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
-                onClick={previousImageList}
-              >
-                <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
-              </button>
-            )}
-            {currentImageList.map((image, index) => {
-              const isActive = image === activeImage
-              return (
-                <button onClick={handleChoosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
-                  <img
-                    src={image.image ? image.image.url : ''}
-                    alt={product.name}
-                    className='absolute left-0 top-0 h-full w-full object-scale-down'
-                  />
-                  {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
-                </button>
-              )
-            })}
-            {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
-              <button
-                className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
-                onClick={nextImageList}
-              >
-                <FontAwesomeIcon icon={faChevronRight} className='h-8' />
-              </button>
-            )}
-          </div>
-        </div> */}
         <ProductImageList item={defaultItem} itemID={activeItemID} />
-        <div className='h-80'></div>
+        <div className='mt-12'>
+          <ProductDescription item={defaultItem} />
+        </div>
       </div>
     </div>
   )

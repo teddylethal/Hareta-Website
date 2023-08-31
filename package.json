@@ -32,6 +32,7 @@
     "axios": "^1.4.0",
     "babel-plugin-macros": "^3.1.0",
     "classnames": "^2.3.2",
+    "dompurify": "^3.0.5",
     "framer-motion": "^10.12.21",
     "immer": "^10.0.2",
     "lodash": "^4.17.21",
@@ -50,6 +51,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.2",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.3.1",
     "@types/react": "^18.0.37",
