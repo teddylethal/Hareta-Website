@@ -82,7 +82,7 @@ export default function RequestVerifyEmail() {
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     fontSize={32}
-                    className='hidden pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor md:block'
+                    className='hidden pr-4 text-vintageColor/80 opacity-70 duration-300 hover:opacity-100 dark:text-haretaColor md:block'
                   />
                 </Link>
                 <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
@@ -103,7 +103,9 @@ export default function RequestVerifyEmail() {
                       <path d='M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z' />
                     </>
                   </svg>
-                  <div className='ml-2 text-center text-lg text-[#666666] dark:text-textVintage/80'>Your email: </div>
+                  <div className='ml-2 text-center text-lg font-semibold text-black dark:text-textVintage/80'>
+                    Your email:
+                  </div>
                 </div>
                 <div className='ml-3 w-full truncate text-center text-xl text-blue-700 dark:text-blue-400'>
                   {state?.email}

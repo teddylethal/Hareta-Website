@@ -171,7 +171,7 @@ export default function Register() {
               </div>
               <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
                 <span className='text-gray-400'>Already have an account?</span>
-                <Link className='ml-2 text-haretaColor' to={path.login}>
+                <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.login}>
                   Login
                 </Link>
               </div>

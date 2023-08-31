@@ -61,15 +61,13 @@ export default function ChangePasswordRecovery() {
       slug: slug as string,
       password: data.new_password
     }
-    // console.log(submitData)
     changePasswordRecoveryMutation.mutate(submitData, {
       onSuccess: () => {
         navigate(path.login, {
-          state: { type: 'Success', title: 'PasswordRecovery', context: 'Your password has been changed.' }
+          state: { type: 'Success', title: 'PasswordRecovery', email: data.email }
         })
       },
       onError: (error) => {
-        // console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
@@ -102,7 +100,7 @@ export default function ChangePasswordRecovery() {
                       <FontAwesomeIcon
                         icon={faArrowLeft}
                         fontSize={40}
-                        className='hidden pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor md:block'
+                        className='hidden pr-4 text-vintageColor/80 opacity-70 duration-300 hover:opacity-100 dark:text-haretaColor md:block'
                       />
                     </Link>
                     <div className='py-1 text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
