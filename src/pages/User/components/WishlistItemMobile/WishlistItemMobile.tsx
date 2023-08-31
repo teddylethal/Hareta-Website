@@ -125,7 +125,7 @@ export default function WishlistItemMobile({
         </div>
         <button
           className='bg-none hover:text-textDark dark:hover:text-textLight'
-          onClick={openUnlikeItemDialog(item.id)}
+          onClick={openUnlikeItemDialog(item.group.id)}
         >
           <p className='text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight sm:text-sm lg:text-sm'>
             Remove

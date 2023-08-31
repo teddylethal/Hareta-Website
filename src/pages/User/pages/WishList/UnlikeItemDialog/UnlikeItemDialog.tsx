@@ -26,7 +26,7 @@ export default function UnlikeItemDialog({
   const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
   const unlikeItem = () => {
     unlikeItemMutation.mutate(
-      { item_id: unlikeItemId as string },
+      { group_id: unlikeItemId as string },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['favourite_list'] })

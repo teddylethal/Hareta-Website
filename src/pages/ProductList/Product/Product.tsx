@@ -61,35 +61,6 @@ function Product({ product }: Props) {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
   }
 
-  // const likeItemMutation = useMutation(likeItemAPi.likeItem)
-  // const likeItem = () => {
-  //   likeItemMutation.mutate(
-  //     { item_id: product?.id as string },
-  //     {
-  //       onSuccess: () => {
-  //         queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
-  //       }
-  //     }
-  //   )
-  // }
-
-  // const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
-  // const unlikeItem = () => {
-  //   unlikeItemMutation.mutate(
-  //     { item_id: product?.id as string },
-  //     {
-  //       onSuccess: () => {
-  //         queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
-  //       }
-  //     }
-  //   )
-  // }
-
-  // const toggleLikeItem = () => {
-  //   likedByUser && unlikeItem()
-  //   !likedByUser && likeItem()
-  // }
-
   const createTemporaryCart = () => {
     const newPurchase: TemporaryPurchase = {
       id: Date.now().toString(),

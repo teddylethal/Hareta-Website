@@ -1,6 +1,6 @@
-import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faHeart, faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import QuantityController from 'src/components/QuantityController'
 import { Product } from 'src/types/product.type'
 import ItemTag from 'src/constants/itemTag'
@@ -49,14 +49,19 @@ export default function ProductDetailDesktop(props: Props) {
           <div className='flex items-center justify-between'>
             <p className='text-xl font-medium lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
             {isAuthenticated && (
-              <button onClick={toggleLikeItem} className='text-black/50 dark:text-white/50'>
-                <FontAwesomeIcon
-                  className={classNames('h-8', {
-                    'text-red-500': isLikedByUser
-                  })}
-                  icon={faHeart}
-                />
-              </button>
+              <Fragment>
+                {isLikedByUser && (
+                  <FontAwesomeIcon className={classNames('h-auto w-4 text-red-500 lg:w-6 xl:w-8', {})} icon={faHeart} />
+                )}
+                {!isLikedByUser && (
+                  <button onClick={toggleLikeItem} className='text-black/40 dark:text-white/40'>
+                    <FontAwesomeIcon
+                      className={classNames('h-auto w-4 hover:text-red-400 lg:w-6 xl:w-8', {})}
+                      icon={faHeartCirclePlus}
+                    />
+                  </button>
+                )}
+              </Fragment>
             )}
           </div>
           {defaultItem.tag !== 0 && (
@@ -109,7 +114,7 @@ export default function ProductDetailDesktop(props: Props) {
           </div>
 
           <div className='w-full'>
-            <div className='mt-6 flex items-center justify-between text-xs lg:text-sm xl:text-base'>
+            <div className='mt-6 items-center justify-between text-xs lg:flex lg:text-sm xl:text-base'>
               <div className='flex items-center space-x-2'>
                 <p className='text-textDark dark:text-textLight'>Quantity:</p>
                 <QuantityController
@@ -129,11 +134,10 @@ export default function ProductDetailDesktop(props: Props) {
 
             <div className='mt-4 flex justify-between'>
               <button
-                className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'
+                className='flex items-center rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'
                 onClick={handleAddToCart}
               >
                 <FontAwesomeIcon icon={faCartPlus} />
-                <p>Add to cart</p>
               </button>
               <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'>
                 Buy

@@ -34,6 +34,7 @@ export default function ProductDetail() {
   const isMobile = viewPort.width <= 768
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [likeItemDialog, setLikeItemDialog] = useState<boolean>(false)
 
   const queryClient = useQueryClient()
   const { nameId } = useParams()
@@ -66,7 +67,7 @@ export default function ProductDetail() {
   const { data: wishlistData } = useQuery({
     queryKey: ['favourite_list'],
     queryFn: () => {
-      return likeItemAPi.getFavouriteList()
+      return likeItemAPi.getWishList()
     },
     staleTime: 3 * 60 * 1000,
     enabled: isAuthenticated
@@ -92,10 +93,14 @@ export default function ProductDetail() {
   const likeItemMutation = useMutation(likeItemAPi.likeItem)
   const likeItem = () => {
     likeItemMutation.mutate(
-      { item_id: defaltItem?.id as string },
+      { group_id: defaltItem?.group.id as string },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+          setLikeItemDialog(true)
+          setTimeout(() => {
+            setLikeItemDialog(false)
+          }, 3000)
         }
       }
     )
@@ -104,7 +109,7 @@ export default function ProductDetail() {
   const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
   const unlikeItem = () => {
     unlikeItemMutation.mutate(
-      { item_id: defaltItem?.id as string },
+      { group_id: defaltItem?.id as string },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
@@ -209,6 +214,23 @@ export default function ProductDetail() {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
+      </DialogPopup>
+      <DialogPopup
+        isOpen={likeItemDialog}
+        handleClose={() => setLikeItemDialog(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className=' text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
+          />
+        </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to your Wishlist</p>
       </DialogPopup>
     </div>
   )
