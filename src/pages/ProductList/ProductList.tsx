@@ -43,7 +43,7 @@ export default function ProductList() {
   const { data: favouriteListData } = useQuery({
     queryKey: ['favourite_list'],
     queryFn: () => {
-      return likeItemAPi.getFavouriteList()
+      return likeItemAPi.getWishList()
     },
     staleTime: 3 * 60 * 1000,
     enabled: isAuthenticated

@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
@@ -14,13 +14,18 @@ export default function AdminItemsInGroup() {
     page: '1',
     limit: '50'
   }
-  const { data: itemsInGroupData } = useQuery({
+
+  const { data: itemsInGroupData, refetch } = useQuery({
     queryKey: ['items_in_group'],
     queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
     keepPreviousData: true,
     enabled: Boolean(itemGroup)
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
+
+  useEffect(() => {
+    refetch()
+  }, [itemGroup, refetch])
 
   //? CHOOSE ITEM
   const handleChooseVariant = (item: Product) => () => {
@@ -54,7 +59,6 @@ export default function AdminItemsInGroup() {
                     <div className=''>
                       {item.name} {item.color}
                     </div>
-                    {/* {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />} */}
                   </button>
                 </div>
               )
