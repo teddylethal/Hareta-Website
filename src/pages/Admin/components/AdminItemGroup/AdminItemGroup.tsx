@@ -89,7 +89,7 @@ export default function AdminItemGroup() {
           </div>
         </div>
       </div>
-      <div className='p-4'>
+      {/* <div className='p-4'>
         <div className='flex flex-col items-center justify-center'>
           <p className='text-lg font-semibold uppercase lg:text-lg'>Create new Item Group</p>
           <form className='mt-2' onSubmit={onSubmit}>
@@ -107,7 +107,7 @@ export default function AdminItemGroup() {
             </div>
           </form>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

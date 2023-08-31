@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react'
+import { Fragment, useRef } from 'react'
 import { toast } from 'react-toastify'
 import config from 'src/constants/config'
 
@@ -6,7 +6,7 @@ interface Props {
   onChangeImageFile?: (file?: File) => void
 }
 
-export default function InputFile({ onChangeImageFile }: Props) {
+export default function ImageInput({ onChangeImageFile }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleUploadAvatar = () => {
@@ -33,11 +33,11 @@ export default function InputFile({ onChangeImageFile }: Props) {
         onClick={(event) => ((event.target as HTMLInputElement).value = '')}
       />
       <button
-        className='absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60'
+        className=' flex h-full w-full cursor-pointer items-center justify-center'
         onClick={handleUploadAvatar}
         type='button'
       >
-        <p className='text-xs font-semibold md:text-sm lg:text-base'>Upload avatar</p>
+        <p className='text-xs font-semibold md:text-sm lg:text-base'>Choose image</p>
       </button>
     </Fragment>
   )

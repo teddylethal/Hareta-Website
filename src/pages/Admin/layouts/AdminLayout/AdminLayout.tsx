@@ -8,15 +8,15 @@ import { Product } from 'src/types/product.type'
 interface CreatingItemContextInterface {
   itemGroup: ItemGroup | null
   setItemGroup: React.Dispatch<React.SetStateAction<ItemGroup | null>>
-  newAddedItem: Product | null
-  setNewAddedItem: React.Dispatch<React.SetStateAction<Product | null>>
+  currentItem: Product | null
+  setCurrentItem: React.Dispatch<React.SetStateAction<Product | null>>
 }
 
 const initialCreatingItemContext: CreatingItemContextInterface = {
   itemGroup: null,
   setItemGroup: () => null,
-  newAddedItem: null,
-  setNewAddedItem: () => null
+  currentItem: null,
+  setCurrentItem: () => null
 }
 interface Props {
   children?: React.ReactNode
@@ -27,10 +27,10 @@ export const CreatingItemContext = createContext<CreatingItemContextInterface>(i
 export default function AdminLayout({ children }: Props) {
   //? DECLARE STATES
   const [itemGroup, setItemGroup] = useState<ItemGroup | null>(initialCreatingItemContext.itemGroup)
-  const [newAddedItem, setNewAddedItem] = useState<Product | null>(initialCreatingItemContext.newAddedItem)
+  const [currentItem, setCurrentItem] = useState<Product | null>(initialCreatingItemContext.currentItem)
 
   return (
-    <CreatingItemContext.Provider value={{ itemGroup, setItemGroup, newAddedItem, setNewAddedItem }}>
+    <CreatingItemContext.Provider value={{ itemGroup, setItemGroup, currentItem, setCurrentItem }}>
       <div className='bg-darkBg'>
         <div className='container'>
           <div className='py-8'>

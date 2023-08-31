@@ -63,7 +63,7 @@ export const adminItemApi = {
   makeDefaultItem(id: string) {
     return http.post<SuccessRespone<string>>(`${URL}/item/default`, { id: id })
   },
-  uploadItemAvatar(body: FormData) {
+  uploadItemAvatar(body: { id: string; file: File }) {
     return http.put<SuccessRespone<string>>(`${URL}/item/avatar`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'

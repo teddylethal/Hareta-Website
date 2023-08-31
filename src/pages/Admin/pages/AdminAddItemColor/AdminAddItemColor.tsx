@@ -17,7 +17,7 @@ import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
 type FormData = CreatingItemSchema
 
 export default function AdminAddItemColor() {
-  const { itemGroup, setNewAddedItem } = useContext(CreatingItemContext)
+  const { itemGroup, setCurrentItem } = useContext(CreatingItemContext)
 
   //? GET DEFAULT ITEM
   const itemInGroupQuery: ItemInGroupConfig = {
@@ -82,7 +82,7 @@ export default function AdminAddItemColor() {
     try {
       const newItem = await addColorMutation.mutateAsync({ ...data })
       if (newItem) {
-        setNewAddedItem(newItem.data)
+        setCurrentItem(newItem.data)
       }
       navigate({ pathname: path.adminUploadItemAvatar })
     } catch (error) {
