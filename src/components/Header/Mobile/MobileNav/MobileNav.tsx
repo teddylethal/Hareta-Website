@@ -47,7 +47,7 @@ export default function MobileNav({ className }: Props) {
               transition={{ duration: 0.3 }}
             />
             <motion.div
-              className='fixed right-0 top-0 z-10 flex h-full w-[75%] overflow-hidden rounded-l-md py-2 shadow-md'
+              className='fixed right-0 top-0 z-10 flex h-full w-[70%] overflow-hidden rounded-l-md py-2 shadow-md sm:w-[60%]'
               initial={{ opacity: 0, x: '20%' }}
               animate={{
                 opacity: 1,

@@ -34,7 +34,6 @@ export default function Register() {
     const body = omit(data, ['confirm_password'])
     registerAccountMutation.mutate(body, {
       onSuccess: () => {
-        //console.log(body)
         navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: '', from: path.register } })
       },
       onError: (error) => {

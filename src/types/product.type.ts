@@ -1,3 +1,24 @@
+export interface ItemGroup {
+  id: string
+  status: number
+  created_at: string
+  updated_at: string
+  name: string
+}
+
+export interface ItemAvatar {
+  id: string
+  status: number
+  created_at: string
+  updated_at: string
+  url: string
+  file_name: string
+  width: number
+  height: number
+  cloud_name: string
+  extension: string
+}
+
 export interface Product {
   id: string
   status: number
@@ -16,18 +37,10 @@ export interface Product {
   cron_status: number
   like_count: number
   product_line: string
-  avatar: {
-    id: string
-    status: number
-    created_at: string
-    updated_at: string
-    url: string
-    file_name: string
-    width: number
-    height: number
-    cloud_name: string
-    extension: string
-  }
+  avatar: ItemAvatar
+  color: string
+  default: boolean
+  group: ItemGroup
 }
 
 export interface ProductList {
@@ -52,6 +65,12 @@ export interface ProductListConfig {
   product_line?: string
   lower_price?: number | string
   upper_price?: number | string
+}
+
+export interface ItemInGroupConfig {
+  id: string
+  page: number | string
+  limit: number | string
 }
 
 export interface FavouriteListConfig {

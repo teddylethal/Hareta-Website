@@ -1,4 +1,4 @@
-import { faCartPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { memo, useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -31,7 +31,7 @@ interface Props {
 
 function Product({ product }: Props) {
   const { theme } = useContext(ThemeContext)
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, setPageIsLoading } = useContext(AppContext)
   const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
@@ -42,12 +42,12 @@ function Product({ product }: Props) {
 
   const addToCartMutation = useMutation(purchaseApi.addToCart)
   const addToCart = () => {
+    setPageIsLoading(true)
     addToCartMutation.mutate(
       { item_id: product.id as string, quantity: 1 },
       {
         onSuccess: () => {
-          const scrollX = window.scrollX
-          const scrollY = window.scrollY
+          setPageIsLoading(false)
           showSuccessDialog(setDialogIsOpen)
 
           queryClient.invalidateQueries({ queryKey: ['purchases'] })
@@ -60,35 +60,6 @@ function Product({ product }: Props) {
   const handleClickItem = () => {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
   }
-
-  // const likeItemMutation = useMutation(likeItemAPi.likeItem)
-  // const likeItem = () => {
-  //   likeItemMutation.mutate(
-  //     { item_id: product?.id as string },
-  //     {
-  //       onSuccess: () => {
-  //         queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
-  //       }
-  //     }
-  //   )
-  // }
-
-  // const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
-  // const unlikeItem = () => {
-  //   unlikeItemMutation.mutate(
-  //     { item_id: product?.id as string },
-  //     {
-  //       onSuccess: () => {
-  //         queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
-  //       }
-  //     }
-  //   )
-  // }
-
-  // const toggleLikeItem = () => {
-  //   likedByUser && unlikeItem()
-  //   !likedByUser && likeItem()
-  // }
 
   const createTemporaryCart = () => {
     const newPurchase: TemporaryPurchase = {
@@ -125,17 +96,19 @@ function Product({ product }: Props) {
   return (
     <div className='flex w-full items-center justify-center pb-0 pt-2 duration-500 hover:pb-2 hover:pt-0'>
       <div className='relative  w-full rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
-        <div className='relative w-full pt-[60%]'>
+        <div className='relative w-full pt-[80%]'>
           <button onClick={handleClickItem}>
-            <img
-              src={
-                product.avatar
-                  ? `${product.avatar.url}`
-                  : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-              }
-              alt={product.name}
-              className='absolute left-0 top-0 h-full w-full object-scale-down'
-            />
+            {product.avatar ? (
+              <img
+                src={product.avatar.url}
+                alt={product.name}
+                className='absolute left-0 top-0 h-full w-full object-scale-down'
+              />
+            ) : (
+              <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
+                <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
+              </div>
+            )}
           </button>
         </div>
         <div className='mx-2 mt-2 flex justify-between space-x-1 overflow-hidden sm:mx-3 lg:mx-4 lg:mt-4'>
@@ -203,45 +176,77 @@ function Product({ product }: Props) {
         closeButton={false}
         isOpen={createTempCart}
         handleClose={() => setCreateTempCart(false)}
-        classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
+        classNameWrapper='relative w-80 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
       >
         <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
         <div className='mt-4 space-y-2 text-center'>
-          <div className='flex justify-center space-x-1 '>
-            <p>Items added without</p>
+          <div className='inline justify-center space-x-1 '>
+            <span>Items added without</span>
             <span className='text-haretaColor'>login</span>
-            <p>are temporary</p>
+            <span>are temporary</span>
           </div>
-          <div className='flex justify-center space-x-1'>
+          <div className='justify-center space-x-1'>
             <span className='text-haretaColor'>Login</span>
-            <p>to</p>
+            <span>to</span>
             <span className='text-haretaColor'>save</span>
-            <p>your items</p>
+            <span>your items</span>
           </div>
         </div>
         <div className='mt-8 flex justify-around'>
           <Link
             to={path.login}
             type='button'
-            className={classNames('justify-center rounded-md border border-transparent px-6 py-2 text-sm font-medium', {
-              'bg-brownColor/80 hover:bg-brownColor': theme === 'light',
-              'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-            })}
+            className={classNames(
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              {
+                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
+                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+              }
+            )}
           >
             Login
           </Link>
           <button
             type='button'
-            className={classNames('justify-center rounded-md border border-transparent px-6 py-2 text-sm font-medium', {
-              'bg-brownColor/80 hover:bg-brownColor': theme === 'light',
-              'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-            })}
+            className={classNames(
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              {
+                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
+                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+              }
+            )}
             onClick={createTemporaryCart}
           >
             Continue
           </button>
         </div>
       </DialogPopup>
+
+      {/* <AnimatePresence>
+        {isLoading && (
+          <Fragment>
+            <motion.div
+              className='fixed inset-0 '
+              initial={{ opacity: 0, backgroundColor: 'black' }}
+              animate={{
+                opacity: 0.4
+              }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.div
+              className='fixed inset-0 flex h-4 w-16 items-center justify-center rounded-lg px-2 py-12 shadow-sm'
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                backgroundColor: theme === 'dark' ? '#101010' : '#f8f8f8',
+                color: theme === 'dark' ? '#eeeeee' : '#222222'
+              }}
+              exit={{ opacity: 0 }}
+            ></motion.div>
+          </Fragment>
+        )}
+      </AnimatePresence> */}
     </div>
   )
 }

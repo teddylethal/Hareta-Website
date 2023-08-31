@@ -5,7 +5,7 @@ import path from 'src/constants/path'
 export default function RegisterHeader() {
   const isRegister = Boolean(useMatch('/register'))
   return (
-    <header className='fixed top-0 z-10 flex h-10 w-full items-center justify-between bg-white py-3 duration-500 dark:bg-black sm:h-12 lg:h-16'>
+    <header className='fixed top-0 z-10 flex h-10 w-full items-center justify-between bg-white py-3 duration-500 dark:bg-black md:h-12 lg:h-16'>
       <div className='container'>
         <div className='flex items-center justify-between'>
           <nav className='flex items-center'>

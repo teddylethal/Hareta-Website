@@ -1,5 +1,4 @@
-// import { AnimatePresence, motion } from 'framer-motion'
-// import { Fragment, useEffect, useState } from 'react'
+
 import Footer from 'src/components/Footer'
 import Header from 'src/components/Header'
 // import { useScrollDirection } from 'src/hooks/useScrollDirection'
@@ -13,9 +12,7 @@ export default function MainLayout({ children }: Props) {
   // console.log(scrollDirection, 123)
 
   return (
-    <div className='relative bg-white dark:bg-black'>
-      {/* <div className='absolute h-full w-full'> */}
-      {/* <Headroom> */}
+    <div className='bg-lightBg dark:bg-darkBg'>
       <Header />
       {/* </Headroom> */}
       {/* </div> */}

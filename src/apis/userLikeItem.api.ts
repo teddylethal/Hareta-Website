@@ -5,13 +5,13 @@ const URL = 'auth/user-like-item/'
 const LIMIT = 100
 
 const likeItemAPi = {
-  likeItem(body: { item_id: string }) {
+  likeItem(body: { group_id: string }) {
     return http.post(URL, body)
   },
-  unlikeItem(body: { item_id: string }) {
+  unlikeItem(body: { group_id: string }) {
     return http.delete(URL, { data: body })
   },
-  getFavouriteList() {
+  getWishList() {
     const params = {
       page: 1,
       limit: LIMIT

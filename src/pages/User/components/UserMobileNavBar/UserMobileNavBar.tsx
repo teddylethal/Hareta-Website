@@ -9,7 +9,7 @@ export default function UserMobileNavBar() {
     <div className='grid grid-cols-4 rounded-md border border-black/10 bg-[#f8f8f8] text-textDark/70 duration-500 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
       <div className='col-span-1 flex items-center justify-center'>
         <NavLink
-          to={path.profile}
+          to={path.account}
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-brownColor dark:text-haretaColor': isActive,

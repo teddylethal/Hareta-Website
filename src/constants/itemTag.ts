@@ -1,3 +1,3 @@
-const itemTag = ['none', 'Top Seller', 'Signature', 'Favourite']
+const ItemTag = ['none', 'Top Seller', 'Signature', 'Favourite']
 
-export default itemTag
+export default ItemTag

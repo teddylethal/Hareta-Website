@@ -51,7 +51,7 @@ export default function SearchBar() {
           placeholder='Search'
           {...register('name')}
         />
-        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/80 px-3 py-1 duration-500 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>
+        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 duration-500 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'

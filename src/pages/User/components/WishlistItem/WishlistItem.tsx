@@ -89,7 +89,7 @@ export default function WishlistItem({
         </div>
         <button
           className='absolute bottom-0 right-0 bg-none hover:text-textDark dark:hover:text-textLight'
-          onClick={openUnlikeItemDialog(item.id)}
+          onClick={openUnlikeItemDialog(item.group.id)}
         >
           <p className='text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'>
             Remove

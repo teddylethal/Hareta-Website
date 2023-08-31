@@ -19,12 +19,15 @@ import { omit } from 'lodash'
 import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/SuccessPasswordRecoveryPopup'
 import SuccessEmailVerifyPopup from 'src/components/VerifyEmailDialog/SuccessEmailVerifyPopup'
+import { useViewport } from 'src/hooks/useViewport'
 
 type FormData = LoginSchema
 
 export default function Login() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
+  const viewPort = useViewport()
+  const isSmall = viewPort.width <= 425
   const {
     register,
     handleSubmit,
@@ -161,12 +164,23 @@ export default function Login() {
                     </p>
                   </Link>
                 </div>
-                <div className=''>
-                  <span className='text-gray-500'>Don&apos;t have an account?</span>
-                  <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.register}>
-                    Sign up
-                  </Link>
-                </div>
+                {!isSmall && (
+                  <div className='mt-8 text-right'>
+                    <span className='text-gray-400'>Don&apos;t have an account?</span>
+                    <Link className='ml-2 text-haretaColor' to={path.register}>
+                      Sign up
+                    </Link>
+                  </div>
+                )}
+
+                {isSmall && (
+                  <div className='mt-8 flex flex-col text-right'>
+                    <span className=' line-clamp-2 text-gray-400'>Don&apos;t have an account?</span>
+                    <Link className='ml-2 text-haretaColor' to={path.register}>
+                      Sign up
+                    </Link>
+                  </div>
+                )}
               </div>
             </form>
           </div>

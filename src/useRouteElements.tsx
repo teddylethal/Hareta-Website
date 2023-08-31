@@ -83,7 +83,7 @@ export default function useRouteElements() {
           ),
           children: [
             {
-              path: path.profile,
+              path: path.account,
               element: <Profile />
             },
             {
@@ -146,5 +146,6 @@ export default function useRouteElements() {
       )
     }
   ])
+
   return routeElements
 }

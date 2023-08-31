@@ -30,7 +30,8 @@ export default function MobileUser({ className, closeMenu }: Props) {
     <div ref={ref}>
       {!isAuthenticated && (
         <Link to={path.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
-          <FontAwesomeIcon icon={faUser} className='h-6 w-6 rounded-full dark:fill-white sm:h-7 sm:w-7 ' />
+          <FontAwesomeIcon icon={faUser} className='h-4 w-4 rounded-full dark:fill-white sm:h-6 sm:w-6 ' />
+          <p className=''>Login</p>
         </Link>
       )}
       {isAuthenticated && (
@@ -69,7 +70,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
             transition={{ duration: 0.3 }}
           >
             <Link
-              to={path.profile}
+              to={path.account}
               onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >

@@ -5,9 +5,12 @@ import {
   useFloating,
   useInteractions,
   type Placement,
-  useClick,
-  useDismiss
+  useDismiss,
+  useHover,
+  safePolygon,
+  FloatingArrow
 } from '@floating-ui/react'
+import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ElementType, useContext, useRef } from 'react'
 import { ThemeContext } from 'src/App'
@@ -21,6 +24,7 @@ interface Props {
   colorCode?: string
   placement?: Placement
   handleClick?: () => void
+  openChange?: React.Dispatch<React.SetStateAction<boolean>>
   isOpen?: boolean
 }
 
@@ -31,27 +35,31 @@ export default function FloatingOnClick({
   as: Element = 'div',
   placement,
   isOpen,
-  handleClick
+  openChange
 }: Props) {
-  const arrowRef = useRef<HTMLElement>(null)
+  const { theme } = useContext(ThemeContext)
+
+  const arrowRef = useRef(null)
   const { x, y, refs, middlewareData, context, strategy } = useFloating({
     open: isOpen,
-    onOpenChange: handleClick,
+    onOpenChange: openChange,
     middleware: [offset(10), shift(), arrow({ element: arrowRef })],
     placement: placement || 'bottom'
   })
-  const click = useClick(context)
+  // const click = useClick(context)
   const dismiss = useDismiss(context)
-  const { theme } = useContext(ThemeContext)
 
-  const arrowClassName =
-    'absolute z-10 translate-y-[-90%] border-[12px] border-x-transparent border-t-transparent ' +
-    `${theme === 'dark' ? 'border-b-[#202020]' : 'border-b-[#efefef]'}`
+  const hover = useHover(context, {
+    handleClose: safePolygon({
+      requireIntent: false,
+      blockPointerEvents: true
+    })
+  })
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss])
+  const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss])
   return (
     <div>
-      <Element className={className} ref={refs.setReference} {...getReferenceProps()}>
+      <Element ref={refs.setReference} {...getReferenceProps()} className={className}>
         {children}
       </Element>
       <AnimatePresence>
@@ -67,21 +75,35 @@ export default function FloatingOnClick({
               transformOrigin: `${middlewareData.arrow?.x}px top`
             }}
             {...getFloatingProps()}
-            initial={{ opacity: 0, y: '-10%' }}
+            initial={{ opacity: 0, y: '-5%' }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-10%' }}
+            exit={{ opacity: 0, y: '-5%' }}
             transition={{ duration: 0.2 }}
           >
-            {/* <div className='absolute -top-6 left-[calc(50%-40px)] z-20 h-10 w-20 self-center bg-transparent'></div> */}
-            <span
+            {/* <div className='absolute -top-6 left-1/2 z-20 h-8 w-[20%] -translate-x-1/2 self-center bg-transparent' /> */}
+
+            {/* <span
               ref={arrowRef}
-              className={arrowClassName}
+              className={classNames(
+                'absolute z-10 translate-y-[-90%] border-[12px] border-x-transparent border-t-transparent ',
+                {
+                  'border-b-[#202020]': theme === 'dark',
+                  'border-b-[#efefef]': theme === 'light'
+                }
+              )}
               style={{
                 left: middlewareData.arrow?.x,
                 top: middlewareData.arrow?.y
               }}
+            /> */}
+            <div className={classNames('-translate-y-1')}>{renderPopover}</div>
+            <FloatingArrow
+              ref={arrowRef}
+              context={context}
+              width={30}
+              height={10}
+              className={classNames({ 'z-[5] fill-[#202020]': theme === 'dark', 'fill-[#efefef]': theme === 'light' })}
             />
-            <div className={theme === 'dark' ? 'dark' : 'light'}>{renderPopover}</div>
           </motion.div>
         )}
       </AnimatePresence>

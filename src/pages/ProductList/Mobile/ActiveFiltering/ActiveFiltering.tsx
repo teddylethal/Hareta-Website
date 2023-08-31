@@ -27,7 +27,7 @@ export default function ActiveFiltering() {
   }
 
   return (
-    <div className='grid grid-cols-3 gap-1.5 px-4 py-2 text-textDark/80 dark:text-textLight/80'>
+    <div className='grid grid-cols-3 gap-1.5 py-2 text-textDark/80 dark:text-textLight/80'>
       {category && (
         <div className='col-span-1'>
           <div className='flex items-center justify-between rounded-lg border border-black/20 px-2 py-1 dark:border-white/20'>
