@@ -2,29 +2,30 @@ import { useContext, useEffect } from 'react'
 import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { ItemInGroupConfig, Product } from 'src/types/product.type'
+import { Product } from 'src/types/product.type'
 import classNames from 'classnames'
 
 export default function AdminItemsInGroup() {
   const { itemGroup, currentItem, setCurrentItem } = useContext(CreatingItemContext)
 
   //? ITEMS IN GROUP
-  const itemInGroupQuery: ItemInGroupConfig = {
-    id: itemGroup?.id as string,
-    page: '1',
-    limit: '50'
-  }
-
   const { data: itemsInGroupData, refetch } = useQuery({
     queryKey: ['items_in_group'],
-    queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
+    queryFn: () =>
+      productApi.getItemsInGroup({
+        id: itemGroup?.id as string,
+        page: '1',
+        limit: '50'
+      }),
     keepPreviousData: true,
     enabled: Boolean(itemGroup)
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 
   useEffect(() => {
-    refetch()
+    if (itemGroup) {
+      refetch()
+    }
   }, [itemGroup, refetch])
 
   //? CHOOSE ITEM

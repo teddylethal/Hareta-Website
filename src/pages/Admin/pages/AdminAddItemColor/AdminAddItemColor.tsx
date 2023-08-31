@@ -54,7 +54,7 @@ export default function AdminAddItemColor() {
       description: '',
       collection: '',
       type: '',
-      quantity: 0,
+      quantity: 1,
       product_line: '',
       color: ''
     },
@@ -80,10 +80,9 @@ export default function AdminAddItemColor() {
   const onInvalid = (errors: any) => console.error(errors)
   const onSubmit = async (data: FormData) => {
     try {
-      const newItem = await addColorMutation.mutateAsync({ ...data })
-      if (newItem) {
-        setCurrentItem(newItem.data)
-      }
+      const newItemRespone = await addColorMutation.mutateAsync({ ...data })
+      const newItem = newItemRespone.data.data
+      setCurrentItem(newItem)
       navigate({ pathname: path.adminUploadItemAvatar })
     } catch (error) {
       console.log(error)

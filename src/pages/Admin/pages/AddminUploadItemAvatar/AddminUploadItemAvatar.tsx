@@ -21,7 +21,7 @@ export default function AddminUploadItemAvatar() {
     return avatarFile ? URL.createObjectURL(avatarFile) : ''
   }, [avatarFile])
 
-  const avatar = currentItem?.avatar.url || ''
+  const avatar = currentItem?.avatar?.url || ''
 
   //? UPLOAD AVATAR
   const queryClient = useQueryClient()

@@ -1,26 +1,11 @@
-import * as yup from 'yup'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { adminItemGroupApi } from 'src/apis/admin.api'
-import Input from 'src/components/Input'
-import { isAxiosBadRequestError } from 'src/utils/utils'
-import { ErrorRespone } from 'src/types/utils.type'
 import { useContext } from 'react'
 import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
 import classNames from 'classnames'
 import productApi from 'src/apis/product.api'
 import { ProductListConfig } from 'src/types/product.type'
 import { ItemGroup } from 'src/types/admin.type'
-
-interface FormData {
-  name: string
-}
-
-const itemGroupSchema = yup.object({
-  name: yup.string().required('Name is required')
-})
 
 export default function AdminItemGroup() {
   const { setItemGroup, itemGroup } = useContext(CreatingItemContext)
@@ -36,51 +21,6 @@ export default function AdminItemGroup() {
     staleTime: 3 * 60 * 1000
   })
   const itemGroups = itemGroupsData?.data.data
-
-  //? GET ITEM GROUPS
-  const { data: itemGroupListData, refetch } = useQuery({
-    queryKey: ['item_group_list'],
-    queryFn: () => adminItemGroupApi.getItemGroups()
-  })
-  const itemGroupList = itemGroupListData?.data.data
-
-  //? CREATE NEW GROUP
-  const {
-    handleSubmit,
-    reset,
-    setError,
-    clearErrors,
-    register,
-    formState: { errors }
-  } = useForm<FormData>({
-    defaultValues: {
-      name: ''
-    },
-    resolver: yupResolver(itemGroupSchema)
-  })
-
-  const createGroupMutation = useMutation(adminItemGroupApi.createItemGroup)
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      await createGroupMutation.mutateAsync({ ...data })
-      refetch()
-      reset()
-      clearErrors()
-    } catch (error) {
-      if (isAxiosBadRequestError<ErrorRespone>(error)) {
-        const formError = error.response?.data
-        if (formError) {
-          const responeLog = formError?.log as string
-          if (responeLog.search(`'name'`) !== -1) {
-            setError('name', {
-              message: 'Name',
-              type: 'Server'
-            })
-          }
-        }
-      }
-    }
-  })
 
   //? SELECT GROUP
   const queryClient = useQueryClient()
@@ -114,9 +54,7 @@ export default function AdminItemGroup() {
                           className='absolute left-0 top-0 h-full w-full object-scale-down'
                         />
                       </div>
-                      <div className=''>
-                        {item.name} {item.color}
-                      </div>
+                      <div className=''>{item.name}</div>
                     </button>
                   </div>
                 )
@@ -125,25 +63,6 @@ export default function AdminItemGroup() {
           </div>
         </div>
       </div>
-      {/* <div className='p-4'>
-        <div className='flex flex-col items-center justify-center'>
-          <p className='text-lg font-semibold uppercase lg:text-lg'>Create new Item Group</p>
-          <form className='mt-2' onSubmit={onSubmit}>
-            <Input
-              classNameInput='text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
-              register={register}
-              name='name'
-              errorMessage={errors?.name?.message}
-              autoComplete='false'
-            />
-            <div className='flex w-full items-center justify-end'>
-              <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 lg:text-lg'>
-                Create
-              </button>
-            </div>
-          </form>
-        </div>
-      </div> */}
     </div>
   )
 }
