@@ -29,18 +29,6 @@ export default function RequestVerifyEmail() {
 
   const { counter, setCounter } = useTimer()
 
-  useEffect(() => {
-    if (state) {
-      if (state.error == 'Please verify your email') {
-        setDialogFail(true)
-      } else {
-        setDialogSuccess(true)
-      }
-    } else {
-      navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
-    }
-  }, [navigate, state])
-
   const requestVerifyMutation = useMutation({
     mutationFn: (body: FormData) => verifyEmail.requestVerify(body)
   })
@@ -67,14 +55,24 @@ export default function RequestVerifyEmail() {
       }
     )
   }
-  // const email = watch('email')
-  // useEffect(() => {
-  //   console.log(123)
-  //   reset('email':'test')
-  // }, [email, clearErrors])
+
+  useEffect(() => {
+    if (state) {
+      if (state.error == 'Please verify your email') {
+        setDialogFail(true)
+      } else {
+        setDialogSuccess(true)
+      }
+      requestVerifyMutation.mutate({ email: state.email })
+      // onSubmit()
+      setCounter(60)
+    } else {
+      navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
+    }
+  }, [state, navigate])
 
   return (
-    <AnimateTransition>
+    <AnimateTransition isDialog={state}>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
@@ -84,7 +82,7 @@ export default function RequestVerifyEmail() {
                   <FontAwesomeIcon
                     icon={faArrowLeft}
                     fontSize={32}
-                    className='hidden pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor md:block'
+                    className='hidden pr-4 text-vintageColor/80 opacity-70 duration-300 hover:opacity-100 dark:text-haretaColor md:block'
                   />
                 </Link>
                 <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
@@ -105,10 +103,14 @@ export default function RequestVerifyEmail() {
                       <path d='M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z' />
                     </>
                   </svg>
-                  <div className='ml-2 text-center text-lg text-[#666666] dark:text-textVintage/80'>Your email: </div>
+                  <div className='ml-2 text-center text-lg font-semibold text-black dark:text-textVintage/80'>
+                    Your email:
+                  </div>
                 </div>
-                <div className='ml-3 text-xl text-blue-700 dark:text-blue-400'>{state?.email}</div>
-                <div className='mt-4 w-4/5 sm:w-3/5'>
+                <div className='ml-3 w-full truncate text-center text-xl text-blue-700 dark:text-blue-400'>
+                  {state?.email}
+                </div>
+                <div className='mt-4 w-full sm:w-3/5'>
                   <Button
                     className='flex w-full items-center justify-center py-2 lg:py-3'
                     type='submit'

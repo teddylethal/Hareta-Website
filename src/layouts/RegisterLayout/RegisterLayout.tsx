@@ -23,6 +23,6 @@ export default function RegisterLayout({ children }: Props) {
 
       <div className='pt-10 sm:pt-12 lg:pt-16'>{children}</div>
       <Footer />
-    </div>
+    </>
   )
 }

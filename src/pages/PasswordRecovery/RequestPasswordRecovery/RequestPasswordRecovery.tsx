@@ -80,7 +80,7 @@ export default function RequestPasswordRecovery() {
 
   return (
     <>
-      <AnimateTransition>
+      <AnimateTransition isDialog={state?.failSlugVerify}>
         <div className='container'>
           <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
             <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
@@ -94,7 +94,7 @@ export default function RequestPasswordRecovery() {
                     <FontAwesomeIcon
                       icon={faArrowLeft}
                       fontSize={32}
-                      className='hidden pr-4 text-vintageColor/80 hover:text-vintageColor dark:text-haretaColor md:block'
+                      className='hidden pr-4 text-vintageColor/80 opacity-70 duration-300 hover:opacity-100 dark:text-haretaColor md:block'
                     />
                   </Link>
                   <div className=' text-center text-base uppercase text-vintageColor dark:text-haretaColor sm:text-xl xl:text-2xl'>
@@ -132,7 +132,10 @@ export default function RequestPasswordRecovery() {
                 </div>
                 <div className='mt-3 flex justify-center text-sm md:hidden'>
                   <p className='text-gray-400'>Go back to</p>
-                  <Link to={path.login} className='ml-1 text-brownColor dark:text-haretaColor'>
+                  <Link
+                    to={path.login}
+                    className='ml-1 text-brownColor dark:text-haretaColor/70 hover:dark:text-haretaColor'
+                  >
                     Login
                   </Link>
                 </div>
