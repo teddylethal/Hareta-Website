@@ -11,8 +11,9 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import AdminAddItemColorForm from './AdminAddItemColorForm'
 import { useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import { adminPath } from 'src/constants/path'
 import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import AdminCreatingPage from '../AdminCreatingPage'
 
 type FormData = CreatingItemSchema
 
@@ -83,7 +84,7 @@ export default function AdminAddItemColor() {
       const newItemRespone = await addColorMutation.mutateAsync({ ...data })
       const newItem = newItemRespone.data.data
       setCurrentItem(newItem)
-      navigate({ pathname: path.adminUploadItemAvatar })
+      navigate({ pathname: adminPath.uploadItemAvatar })
     } catch (error) {
       console.log(error)
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -115,9 +116,8 @@ export default function AdminAddItemColor() {
 
   return (
     <div className='relative'>
-      <div className='flex items-center justify-center rounded-xl border border-white/40 py-4'>
-        <p className='text-lg font-medium uppercase text-textLight lg:text-3xl'>Add new color</p>
-      </div>
+      <AdminCreatingPage />
+
       <div className='grid grid-cols-12 gap-4'>
         <div className='col-span-8'>
           <div className='relative mt-4 w-full space-y-4 rounded-xl border border-white/40 bg-black p-4'>

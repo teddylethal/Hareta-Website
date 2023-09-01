@@ -13,7 +13,8 @@ import AdminGroupNameList from '../../components/AdminGroupNameList'
 import AdminSetDefaultItem from '../../components/AdminSetDefaultItem'
 import { Product } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import { adminPath } from 'src/constants/path'
+import AdminCreatingPage from '../AdminCreatingPage'
 
 type FormData = CreatingItemSchema
 
@@ -54,7 +55,7 @@ export default function AdminCreateItem() {
       const newItem: Product = newItemRespone.data.data
       setCurrentItem(newItem)
       await setDefaultItemMutation.mutateAsync({ id: newItem.id })
-      navigate({ pathname: path.adminUploadItemAvatar })
+      navigate({ pathname: adminPath.uploadItemAvatar })
     } catch (error) {
       console.log(error)
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -68,9 +69,7 @@ export default function AdminCreateItem() {
 
   return (
     <div>
-      <div className='flex items-center justify-center rounded-xl border border-white/40 py-4'>
-        <p className='text-lg font-medium uppercase text-textLight lg:text-3xl'>Create new item</p>
-      </div>
+      <AdminCreatingPage />
       <div className='mt-12 space-y-8'>
         <div className='grid grid-cols-2 items-center gap-12'>
           <div className='col-span-1 space-y-4'>
@@ -82,9 +81,11 @@ export default function AdminCreateItem() {
         </div>
         <FormProvider {...methods}>
           <form
-            className='space-y-4 rounded-lg border border-white/40 p-4'
+            className='relative space-y-4 rounded-lg border border-white/40 p-4'
             onSubmit={handleSubmit(onSubmit, onInvalid)}
           >
+            {!itemGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+
             <AdminCreateItemForm />
             <div className='col-span-1 mt-2 flex items-center justify-end'>
               <button

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { createContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import path from 'src/constants/path'
+import { adminPath } from 'src/constants/path'
 import { ItemGroup } from 'src/types/admin.type'
 import { Product } from 'src/types/product.type'
 
@@ -37,7 +37,7 @@ export default function AdminLayout({ children }: Props) {
             <div className='relative flex items-center justify-around rounded-xl  border border-white/40 py-2 text-base font-semibold text-textLight/80 lg:text-xl'>
               {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
               <NavLink
-                to={path.adminCreateItem}
+                to={adminPath.creatingPage}
                 end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
@@ -49,7 +49,7 @@ export default function AdminLayout({ children }: Props) {
                 Create
               </NavLink>
               <NavLink
-                to={path.adminAddColor}
+                to={adminPath.updateItem}
                 end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
@@ -58,10 +58,10 @@ export default function AdminLayout({ children }: Props) {
                   })
                 }
               >
-                New color
+                Update
               </NavLink>
               <NavLink
-                to={path.adminUploadItemAvatar}
+                to={adminPath.images}
                 end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
@@ -70,10 +70,10 @@ export default function AdminLayout({ children }: Props) {
                   })
                 }
               >
-                Item avatar
+                Item Images
               </NavLink>
               <NavLink
-                to={path.admin}
+                to={adminPath.deletingPage}
                 end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {

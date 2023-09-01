@@ -7,7 +7,7 @@ import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
 import Landing from './pages/Landing'
 import { AppContext } from './contexts/app.context'
-import path from './constants/path'
+import path, { adminPath } from './constants/path'
 import Profile from './pages/User/pages/Profile'
 import Home from './pages/Home/Home'
 import ProductDetail from './pages/ProductDetail'
@@ -24,7 +24,8 @@ import AdminLayout from './pages/Admin/layouts/AdminLayout'
 import AdminCreateItem from './pages/Admin/pages/AdminCreateItem'
 import AdminAddItemColor from './pages/Admin/pages/AdminAddItemColor'
 import AdminMainPage from './pages/Admin/pages/AdminMainPage'
-import AddminUploadItemAvatar from './pages/Admin/pages/AddminUploadItemAvatar'
+import AdminCreatingPage from './pages/Admin/pages/AdminCreatingPage'
+import AdminUploadItemAvatar from './pages/Admin/pages/AdminUploadItemAvatar'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -114,7 +115,7 @@ export default function useRouteElements() {
       element: <AdminRoute />,
       children: [
         {
-          path: path.admin,
+          path: adminPath.mainPage,
           element: (
             <AdminLayout>
               <AdminMainPage />
@@ -122,7 +123,15 @@ export default function useRouteElements() {
           )
         },
         {
-          path: path.adminCreateItem,
+          path: adminPath.creatingPage,
+          element: (
+            <AdminLayout>
+              <AdminCreatingPage />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.createItem,
           element: (
             <AdminLayout>
               <AdminCreateItem />
@@ -130,7 +139,7 @@ export default function useRouteElements() {
           )
         },
         {
-          path: path.adminAddColor,
+          path: adminPath.addItemColor,
           element: (
             <AdminLayout>
               <AdminAddItemColor />
@@ -138,10 +147,18 @@ export default function useRouteElements() {
           )
         },
         {
-          path: path.adminUploadItemAvatar,
+          path: adminPath.updatingPage,
           element: (
             <AdminLayout>
-              <AddminUploadItemAvatar />
+              <AdminUploadItemAvatar />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.uploadItemAvatar,
+          element: (
+            <AdminLayout>
+              <AdminUploadItemAvatar />
             </AdminLayout>
           )
         }

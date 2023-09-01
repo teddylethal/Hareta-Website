@@ -11,7 +11,7 @@ import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
 import ImageInput from '../../components/ImageInput'
 
-export default function AddminUploadItemAvatar() {
+export default function AdminUploadItemAvatar() {
   const { currentItem } = useContext(CreatingItemContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
