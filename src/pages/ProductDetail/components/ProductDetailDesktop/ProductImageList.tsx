@@ -13,6 +13,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { ColorRing } from 'react-loader-spinner'
+import { Skeleton } from '@mui/material'
 
 interface Props {
   itemID: string
@@ -116,94 +117,107 @@ export default function ProductImageList(props: Props) {
   }
 
   return (
-    <div className='relative'>
-      {activeImage?.image ? (
-        <div
-          className={classNames(
-            'relative w-full overflow-hidden rounded-xl border border-black/20 pt-[75%] dark:border-white/20',
-            {
-              'cursor-zoom-in': zooming
-            }
-          )}
-          onMouseMove={handleZoom}
-          onMouseLeave={handleRemoveZoom}
-        >
-          <img
-            src={activeImage.image.url}
-            alt={item.name}
-            className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-            ref={imageRef}
+    <div className='relative w-full overflow-auto rounded-xl bg-[#dfdfdf] pt-[75%] dark:bg-[#202020]'>
+      {(isLoading || isFetching) && (
+        <div className='absolute inset-0 z-10 flex h-full w-full items-center justify-center rounded-lg bg-black/50'>
+          <ColorRing
+            visible={true}
+            height='80'
+            width='80'
+            ariaLabel='blocks-loading'
+            wrapperStyle={{}}
+            wrapperClass='blocks-wrapper'
+            colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
           />
-
-          <div className='absolute right-2 top-2 rounded-lg bg-black/40'>
-            <button
-              className='flex items-center justify-center p-2 text-textDark duration-500 dark:text-textLight '
-              onClick={toggleZooming}
-            >
-              {!zooming && (
-                <FontAwesomeIcon
-                  icon={faMagnifyingGlassPlus}
-                  className='h-auto w-6 hover:text-haretaColor lg:w-7 xl:w-8'
-                />
-              )}
-              {zooming && <FontAwesomeIcon icon={faBan} className='h-auto w-6 hover:text-red-600 lg:w-7 xl:w-8' />}
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[80%] dark:bg-[#202020]'>
-          <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
-            <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
-          </div>
         </div>
       )}
-      <div className='absolute bottom-0 left-1/2 flex w-[80%] -translate-x-1/2 select-none justify-center space-x-2 rounded-xl bg-black/20 p-4'>
-        {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
-          <button
-            className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
-            onClick={previousImageList}
+      {!isLoading &&
+        !isFetching &&
+        activeImage &&
+        (activeImage.image ? (
+          <div
+            className={classNames('absolute left-0 top-0 h-full w-full', {
+              'cursor-zoom-in': zooming
+            })}
+            onMouseMove={handleZoom}
+            onMouseLeave={handleRemoveZoom}
           >
-            <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
-          </button>
-        )}
-        {currentImageList.map((image, index) => {
-          const isActive = image === activeImage
-          return (
-            <button onClick={handleChoosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
-              <img
-                src={image.image ? image.image.url : ''}
-                alt={item.name}
-                className='absolute left-0 top-0 h-full w-full object-scale-down'
-              />
-              {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
-            </button>
-          )
-        })}
-        {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
-          <button
-            className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
-            onClick={nextImageList}
-          >
-            <FontAwesomeIcon icon={faChevronRight} className='h-8' />
-          </button>
+            <img
+              src={activeImage.image.url}
+              alt={item.name}
+              className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
+              ref={imageRef}
+            />
+
+            <div className='absolute right-2 top-2 rounded-lg bg-black/40'>
+              <button
+                className='flex items-center justify-center p-2 text-textDark duration-500 dark:text-textLight '
+                onClick={toggleZooming}
+              >
+                {!zooming && (
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlassPlus}
+                    className='h-auto w-6 hover:text-haretaColor lg:w-7 xl:w-8'
+                  />
+                )}
+                {zooming && <FontAwesomeIcon icon={faBan} className='h-auto w-6 hover:text-red-600 lg:w-7 xl:w-8' />}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[75%] dark:bg-[#202020]'>
+            <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
+              <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
+            </div>
+          </div>
+        ))}
+      <div className='absolute bottom-0 left-1/2 flex w-[80%] -translate-x-1/2 select-none justify-center space-x-2 rounded-xl bg-black/40 p-4'>
+        {(isFetching || isLoading) &&
+          Array(5)
+            .fill(0)
+            .map((_, index) => (
+              <div className='relative w-[20%] overflow-hidden rounded-lg bg-white/10 pt-[20%]' key={index}>
+                <Skeleton variant='rounded' className='absolute left-0 top-0' width={'100%'} height={'100%'} />
+              </div>
+            ))}
+        {!isLoading && !isFetching && (
+          <Fragment>
+            {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
+              <button
+                className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
+                onClick={previousImageList}
+              >
+                <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
+              </button>
+            )}
+            {currentImageList.map((image, index) => {
+              const isActive = image === activeImage
+              return (
+                <button
+                  onClick={handleChoosingImage(image)}
+                  className='rouded-lg relative w-[20%] overflow-hidden pt-[20%]'
+                  key={index}
+                >
+                  <img
+                    src={image.image ? image.image.url : ''}
+                    alt={item.name}
+                    className='absolute left-0 top-0 h-full w-full object-scale-down'
+                  />
+                  {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
+                </button>
+              )
+            })}
+            {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
+              <button
+                className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
+                onClick={nextImageList}
+              >
+                <FontAwesomeIcon icon={faChevronRight} className='h-8' />
+              </button>
+            )}
+          </Fragment>
         )}
       </div>
-      {(isLoading || isFetching) && (
-        <Fragment>
-          <div className='absolute inset-0 h-full w-full bg-black/50'></div>
-          <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-            <ColorRing
-              visible={true}
-              height='80'
-              width='80'
-              ariaLabel='blocks-loading'
-              wrapperStyle={{}}
-              wrapperClass='blocks-wrapper'
-              colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
-            />
-          </div>
-        </Fragment>
-      )}
     </div>
   )
 }

@@ -147,9 +147,12 @@ export default function ProductDetailDesktop(props: Props) {
         </div>
       </div>
       <div className='col-span-8'>
-        <ProductImageList item={defaultItem} itemID={activeItemID} />
-        <div className='mt-12'>
-          <ProductDescription item={defaultItem} />
+        <div className='h-full w-full'>
+          <ProductImageList item={defaultItem} itemID={activeItemID} />
+
+          <div className='mt-12'>
+            <ProductDescription item={defaultItem} />
+          </div>
         </div>
       </div>
     </div>
