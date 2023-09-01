@@ -6,6 +6,8 @@ import { useMutation } from '@tanstack/react-query'
 import { adminItemApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
+import { Fragment } from 'react'
+import AdminUpdatingPage from '../AdminUpdatingPage'
 
 interface FormData {
   id: string
@@ -31,10 +33,10 @@ export default function AdminSetDefaultItem() {
     resolver: yupResolver(defaultItemSchema)
   })
 
-  const createGroupMutation = useMutation(adminItemApi.setDefaultItem)
+  const setDefaultItemMutation = useMutation(adminItemApi.setDefaultItem)
   const onSubmit = handleSubmit(async (data) => {
     try {
-      const newGroupRespone = await createGroupMutation.mutateAsync({ ...data })
+      const newGroupRespone = await setDefaultItemMutation.mutateAsync({ ...data })
       reset()
       clearErrors()
     } catch (error) {
@@ -54,24 +56,28 @@ export default function AdminSetDefaultItem() {
   })
 
   return (
-    <div className='rounded-lg border border-white/40 p-4'>
-      <div className='flex flex-col items-center justify-center'>
-        <p className='text-lg font-semibold uppercase lg:text-lg'>Set default item</p>
-        <form className='mt-2' onSubmit={onSubmit}>
-          <Input
-            classNameInput='text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
-            register={register}
-            name='name'
-            errorMessage={errors?.id?.message}
-            autoComplete='false'
-          />
-          <div className='flex w-full items-center justify-end'>
-            <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 lg:text-lg'>
-              Set default
-            </button>
-          </div>
-        </form>
+    <Fragment>
+      <AdminUpdatingPage />
+
+      <div className='mt-4 rounded-lg border border-white/40 p-4'>
+        <div className='flex flex-col items-center justify-center'>
+          <p className='text-lg font-semibold uppercase lg:text-lg'>Set default item</p>
+          <form className='mt-2' onSubmit={onSubmit}>
+            <Input
+              classNameInput='text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
+              register={register}
+              name='name'
+              errorMessage={errors?.id?.message}
+              autoComplete='false'
+            />
+            <div className='flex w-full items-center justify-end'>
+              <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 lg:text-lg'>
+                Set default
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </Fragment>
   )
 }

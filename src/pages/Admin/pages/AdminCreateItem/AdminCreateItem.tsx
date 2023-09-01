@@ -10,7 +10,6 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
 import AdminGroupNameList from '../../components/AdminGroupNameList'
-import AdminSetDefaultItem from '../../components/AdminSetDefaultItem'
 import { Product } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
@@ -97,7 +96,6 @@ export default function AdminCreateItem() {
             </div>
           </form>
         </FormProvider>
-        <AdminSetDefaultItem />
       </div>
     </div>
   )
