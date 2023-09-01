@@ -30,7 +30,7 @@ export default function AdminItemGroup() {
   }
 
   return (
-    <div className='relative rounded-lg border border-white/40 bg-black py-2 lg:py-4'>
+    <div className='relative rounded-lg border border-white/40 bg-black py-2'>
       <div className='p-4'>
         <div className='flex flex-col items-center justify-center'>
           <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose Item Group</p>

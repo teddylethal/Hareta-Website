@@ -1,4 +1,4 @@
-import { ItemGroupList } from 'src/types/admin.type'
+import { ItemGroup, ItemGroupList } from 'src/types/admin.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
@@ -43,7 +43,7 @@ export const adminItemGroupApi = {
     return http.get<ItemGroupList>(`${URL}/group-item`)
   },
   createItemGroup(body: { name: string }) {
-    return http.post<SuccessRespone<string>>(`${URL}/group-item`, body)
+    return http.post<SuccessRespone<ItemGroup>>(`${URL}/group-item`, body)
   },
   updateItemGroup(id: string, name: string) {
     return http.put<SuccessRespone<string>>(`${URL}/group-item`, { id: id, name: name })
