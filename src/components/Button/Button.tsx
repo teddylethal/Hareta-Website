@@ -9,7 +9,14 @@ export default function Button(props: ButtonProps) {
   const { className, isLoading, disabled, children, ...rest } = props
   const newClassName = classNames(className, disabled ? ' cursor-not-allowed' : '')
   return (
-    <div className='w-full rounded-md bg-black text-center uppercase text-textVintage duration-500 hover:bg-opacity-90 hover:text-haretaColor dark:bg-vintageColor'>
+    <div
+      className={
+        'w-full rounded-md bg-black text-center uppercase text-textVintage duration-300   dark:bg-vintageColor ' +
+        (isLoading
+          ? ' bg-opacity-50 dark:bg-opacity-40 dark:text-gray-400 '
+          : ' hover:bg-opacity-80 hover:text-haretaColor dark:bg-opacity-80 dark:hover:bg-opacity-100')
+      }
+    >
       <button type='submit' className={newClassName} disabled={disabled} {...rest}>
         {isLoading && (
           <svg

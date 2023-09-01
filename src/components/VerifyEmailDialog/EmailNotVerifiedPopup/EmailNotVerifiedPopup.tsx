@@ -15,13 +15,21 @@ export default function EmailNotVerifiedPopup({ dialog, closeDialog }: Props) {
       closeDialog={closeDialog}
       customTitle={
         <p>
-          Email <span className='text-red-600'> not verified</span>
+          <span className='text-red-600'>Email not confirmed </span>
         </p>
       }
     >
-      <FontAwesomeIcon icon={faCircleXmark} className='mt-4 h-1/4 w-1/4 text-red-600' />
+      <FontAwesomeIcon icon={faCircleXmark} className='mt-2 h-1/4 w-1/4 text-red-600' />
       <p>
-        Please send an <span className={orangeTextColor}>email verification</span>
+        A verification <span className={orangeTextColor}>link</span> has been sent
+      </p>
+      <p>
+        to your
+        <span className={orangeTextColor}> email inbox.</span>
+      </p>
+      <p>
+        Follow the link to
+        <span className={orangeTextColor}> verify your email.</span>
       </p>
     </MessagePopup>
   )

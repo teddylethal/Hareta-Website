@@ -76,6 +76,10 @@ export default function useRouteElements() {
         {
           path: path.changePasswordRecovery,
           element: <ChangePasswordRecovery />
+        },
+        {
+          path: path.verifyEmail,
+          element: <VerifyEmail />
         }
       ]
     },
@@ -207,14 +211,6 @@ export default function useRouteElements() {
         <MainLayout>
           <ProductDetail />
         </MainLayout>
-      )
-    },
-    {
-      path: path.verifyEmail,
-      element: (
-        // <MainLayout>
-        <VerifyEmail />
-        // </MainLayout>
       )
     },
     {

@@ -17,9 +17,9 @@ export default function MessagePopup({ dialog, closeDialog, title, children = <d
         className='flex max-w-[470px] flex-col items-center rounded-2xl px-6 py-4 font-newfont 
       dark:bg-black dark:text-textDark sm:px-14 sm:py-5'
       >
-        <p className={'mb-3 text-2xl font-semibold capitalize sm:text-3xl ' + orangeTextColor}>
+        <div className={'mb-3 text-2xl font-semibold capitalize sm:text-3xl ' + orangeTextColor}>
           {title || customTitle}
-        </p>
+        </div>
         <div className='text-sm sm:text-xl'>{children}</div>
 
         <button
