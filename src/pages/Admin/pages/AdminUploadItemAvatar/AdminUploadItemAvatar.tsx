@@ -52,9 +52,7 @@ export default function AdminUploadItemAvatar() {
 
   return (
     <div>
-      <div className='flex items-center justify-center rounded-xl border border-white/40 py-4'>
-        <p className='text-lg font-medium uppercase text-textLight lg:text-3xl'>Upload avatar for item</p>
-      </div>
+      <AdminUploadItemAvatar />
       <div className='mt-4 grid grid-cols-12 gap-4'>
         <div className='col-span-6'>
           <div className='relative z-10 rounded-lg border border-white/40 p-4'>

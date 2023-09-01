@@ -49,7 +49,7 @@ export default function AdminLayout({ children }: Props) {
                 Create
               </NavLink>
               <NavLink
-                to={adminPath.updateItem}
+                to={adminPath.updatingPage}
                 end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {

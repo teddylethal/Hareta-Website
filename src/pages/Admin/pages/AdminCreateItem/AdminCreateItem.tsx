@@ -81,7 +81,7 @@ export default function AdminCreateItem() {
         </div>
         <FormProvider {...methods}>
           <form
-            className='relative space-y-4 rounded-lg border border-white/40 p-4'
+            className='relative space-y-4 overflow-hidden rounded-lg border border-white/40 p-4'
             onSubmit={handleSubmit(onSubmit, onInvalid)}
           >
             {!itemGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
