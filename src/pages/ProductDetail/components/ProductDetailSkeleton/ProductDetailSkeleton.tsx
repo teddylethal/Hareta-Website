@@ -92,7 +92,7 @@ export default function ProductDetailSkeleton() {
         <Fragment>
           <div className='bg-lightBg dark:bg-darkBg'>
             <div className=' bg-[#f8f8f8] p-2 dark:bg-[#202020]'>
-              <div className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
+              <div className='relative w-full cursor-zoom-in overflow-hidden bg-[#dfdfdf] pt-[75%] dark:bg-[#101010]'>
                 <Skeleton
                   variant='rounded'
                   className='absolute left-0 top-0 dark:bg-white/10'
