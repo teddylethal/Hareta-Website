@@ -60,8 +60,8 @@ export const adminItemApi = {
   updateItem(body: UpdateItemForm) {
     return http.put<SuccessRespone<string>>(`${URL}/item`, body)
   },
-  makeDefaultItem(id: string) {
-    return http.post<SuccessRespone<string>>(`${URL}/item/default`, { id: id })
+  setDefaultItem(body: { id: string }) {
+    return http.put<SuccessRespone<string>>(`${URL}/item/default`, body)
   },
   uploadItemAvatar(body: { id: string; file: File }) {
     return http.put<SuccessRespone<string>>(`${URL}/item/avatar`, body, {

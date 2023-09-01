@@ -37,6 +37,7 @@ export default function AddminUploadItemAvatar() {
           onSuccess: () => {
             showSuccessDialog(setSuccessDialogOpen)
             queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
+            queryClient.invalidateQueries({ queryKey: ['item_groups'] })
           }
         })
       }

@@ -24,7 +24,7 @@ export default function AdminGroupNameList() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4 lg:py-4'>
       <div className='flex flex-col items-center justify-center'>
-        <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose Item Group</p>
+        <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose Group Name</p>
         <div className='mt-2 w-full rounded-lg border border-white/40 p-2'>
           <div className='grid max-h-40 w-full grid-cols-4 gap-4 overflow-scroll  overscroll-contain '>
             {groupList?.map((group) => {

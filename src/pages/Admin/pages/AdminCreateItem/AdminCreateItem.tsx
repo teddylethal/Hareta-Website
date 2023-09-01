@@ -1,4 +1,3 @@
-import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminCreateNewGroup from '../../components/AdminCreateNewGroup'
 import { useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -11,11 +10,15 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
 import AdminGroupNameList from '../../components/AdminGroupNameList'
+import AdminSetDefaultItem from '../../components/AdminSetDefaultItem'
+import { Product } from 'src/types/product.type'
+import { useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
 
 type FormData = CreatingItemSchema
 
 export default function AdminCreateItem() {
-  const { itemGroup } = useContext(CreatingItemContext)
+  const { itemGroup, setCurrentItem } = useContext(CreatingItemContext)
   //? CREATE NEW ITEM
   const methods = useForm<FormData>({
     defaultValues: {
@@ -32,7 +35,7 @@ export default function AdminCreateItem() {
     },
     resolver: yupResolver(creatingItemSchema)
   })
-  const { handleSubmit, setValue, setError } = methods
+  const { handleSubmit, setValue } = methods
 
   useEffect(() => {
     setValue('name', itemGroup?.name || '')
@@ -40,13 +43,18 @@ export default function AdminCreateItem() {
   }, [itemGroup, setValue])
 
   const createNewItem = useMutation(adminItemApi.createNewItem)
+  const setDefaultItemMutation = useMutation(adminItemApi.setDefaultItem)
+  const navigate = useNavigate()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInvalid = (errors: any) => console.error(errors)
   const onSubmit = async (data: FormData) => {
     try {
       const newItemRespone = await createNewItem.mutateAsync({ ...data })
-      const newItem = newItemRespone.data.data
+      const newItem: Product = newItemRespone.data.data
+      setCurrentItem(newItem)
+      await setDefaultItemMutation.mutateAsync({ id: newItem.id })
+      navigate({ pathname: path.adminUploadItemAvatar })
     } catch (error) {
       console.log(error)
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -67,10 +75,9 @@ export default function AdminCreateItem() {
         <div className='grid grid-cols-2 items-center gap-12'>
           <div className='col-span-1 space-y-4'>
             <AdminCreateNewGroup />
-            <AdminGroupNameList />
           </div>
           <div className='col-span-1'>
-            <AdminItemGroup />
+            <AdminGroupNameList />
           </div>
         </div>
         <FormProvider {...methods}>
@@ -89,6 +96,7 @@ export default function AdminCreateItem() {
             </div>
           </form>
         </FormProvider>
+        <AdminSetDefaultItem />
       </div>
     </div>
   )
