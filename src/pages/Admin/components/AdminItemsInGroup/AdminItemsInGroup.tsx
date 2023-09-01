@@ -4,12 +4,17 @@ import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { Product } from 'src/types/product.type'
 import classNames from 'classnames'
+import { ColorRing } from 'react-loader-spinner'
 
 export default function AdminItemsInGroup() {
   const { itemGroup, currentItem, setCurrentItem } = useContext(CreatingItemContext)
 
   //? ITEMS IN GROUP
-  const { data: itemsInGroupData, refetch } = useQuery({
+  const {
+    data: itemsInGroupData,
+    refetch,
+    isFetching
+  } = useQuery({
     queryKey: ['items_in_group'],
     queryFn: () =>
       productApi.getItemsInGroup({
@@ -39,31 +44,45 @@ export default function AdminItemsInGroup() {
         <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose Item</p>
         <div className='mt-2 w-full rounded-lg border border-white/40 p-2'>
           <div className='grid max-h-60 w-full grid-cols-4 gap-4 overflow-scroll  overscroll-contain '>
-            {itemsInGroup.map((item, index) => {
-              const isActive = item.id === currentItem?.id
-              const avatarURL = item.avatar ? item.avatar.url : null
-              return (
-                <div
-                  key={index}
-                  className={classNames('col-span-1 overflow-hidden rounded-xl p-1', {
-                    'border border-brownColor dark:border-haretaColor': isActive
-                  })}
-                >
-                  <button className='space-y-2' onClick={handleChooseVariant(item)}>
-                    <div className='relative w-full pt-[100%]'>
-                      <img
-                        src={avatarURL || ''}
-                        alt={`${item.name} ${item.color}`}
-                        className='absolute left-0 top-0 h-full w-full object-scale-down'
-                      />
-                    </div>
-                    <div className=''>
-                      {item.name} {item.color}
-                    </div>
-                  </button>
-                </div>
-              )
-            })}
+            {isFetching && (
+              <div className='col-span-4 flex h-60 items-center justify-center'>
+                <ColorRing
+                  visible={true}
+                  height='60'
+                  width='60'
+                  ariaLabel='blocks-loading'
+                  wrapperStyle={{}}
+                  wrapperClass='blocks-wrapper'
+                  colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
+                />
+              </div>
+            )}
+            {!isFetching &&
+              itemsInGroup.map((item, index) => {
+                const isActive = item.id === currentItem?.id
+                const avatarURL = item.avatar ? item.avatar.url : null
+                return (
+                  <div
+                    key={index}
+                    className={classNames('col-span-1 overflow-hidden rounded-xl p-1', {
+                      'border border-brownColor dark:border-haretaColor': isActive
+                    })}
+                  >
+                    <button className='space-y-2' onClick={handleChooseVariant(item)}>
+                      <div className='relative w-full pt-[100%]'>
+                        <img
+                          src={avatarURL || ''}
+                          alt={`${item.name} ${item.color}`}
+                          className='absolute left-0 top-0 h-full w-full object-scale-down'
+                        />
+                      </div>
+                      <div className=''>
+                        {item.name} {item.color}
+                      </div>
+                    </button>
+                  </div>
+                )
+              })}
           </div>
         </div>
       </div>
