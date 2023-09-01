@@ -24,7 +24,6 @@ export default function ProductImageList(props: Props) {
   const { itemID, item } = props
 
   //? GET IMAGE LIST
-
   const {
     data: productImages,
     isLoading,

@@ -39,9 +39,9 @@ export default function AdminItemsInGroup() {
   }
 
   return (
-    <div className='relative rounded-lg border border-white/40 bg-black py-2 lg:py-4'>
+    <div className='relative rounded-lg border border-white/40 bg-black py-2'>
       <div className='flex flex-col items-center justify-center p-4'>
-        <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose Item</p>
+        <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose variant</p>
         <div className='mt-2 w-full rounded-lg border border-white/40 p-2'>
           <div className='grid max-h-60 w-full grid-cols-4 gap-4 overflow-scroll  overscroll-contain '>
             {isFetching && (
@@ -68,7 +68,7 @@ export default function AdminItemsInGroup() {
                       'border border-brownColor dark:border-haretaColor': isActive
                     })}
                   >
-                    <button className='space-y-2' onClick={handleChooseVariant(item)}>
+                    <button className='w-full space-y-2' onClick={handleChooseVariant(item)}>
                       <div className='relative w-full pt-[100%]'>
                         <img
                           src={avatarURL || ''}

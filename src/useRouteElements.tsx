@@ -28,6 +28,8 @@ import AdminCreatingPage from './pages/Admin/pages/AdminCreatingPage'
 import AdminUploadItemAvatar from './pages/Admin/pages/AdminUploadItemAvatar'
 import AdminUpdatingPage from './pages/Admin/pages/AdminUpdatingPage'
 import AdminSetDefaultItem from './pages/Admin/pages/AdminSetDefaultItem'
+import AdminImagesPage from './pages/Admin/pages/AdminImagesPage'
+import AdminAddItemImage from './pages/Admin/pages/AdminAddItemImage'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -169,6 +171,22 @@ export default function useRouteElements() {
           element: (
             <AdminLayout>
               <AdminUploadItemAvatar />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.images,
+          element: (
+            <AdminLayout>
+              <AdminImagesPage />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.addItemImage,
+          element: (
+            <AdminLayout>
+              <AdminAddItemImage />
             </AdminLayout>
           )
         }

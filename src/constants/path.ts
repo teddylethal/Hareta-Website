@@ -27,10 +27,10 @@ export const adminPath = {
   setDefaultItem: '/admin/update/default-item',
   images: '/admin/item-image',
   addItemImage: '/admin/item-image/add',
+  deleteItemImage: '/admin/item-image/delete',
   deletingPage: '/admin/delete',
   delteGroup: '/admin/delete/group',
-  deleteItem: '/admin/delete/item',
-  deleteItemImage: '/admin/delete/item-image'
+  deleteItem: '/admin/delete/item'
 } as const
 
 export default path
