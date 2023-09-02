@@ -38,7 +38,6 @@ export default function AdminLayout({ children }: Props) {
               {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
               <NavLink
                 to={adminPath.creatingPage}
-                end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -50,7 +49,6 @@ export default function AdminLayout({ children }: Props) {
               </NavLink>
               <NavLink
                 to={adminPath.updatingPage}
-                end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -62,7 +60,6 @@ export default function AdminLayout({ children }: Props) {
               </NavLink>
               <NavLink
                 to={adminPath.images}
-                end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -74,7 +71,6 @@ export default function AdminLayout({ children }: Props) {
               </NavLink>
               <NavLink
                 to={adminPath.deletingPage}
-                end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,

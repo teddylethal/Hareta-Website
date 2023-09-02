@@ -21,15 +21,18 @@ interface UpdateItemForm {
   id: string
   name?: string
   category?: string
-  quantity?: number
-  description?: string
   collection?: string
   type?: string
-  price?: number
-  discount?: number
-  product_line?: string
   color?: string
-  group_id?: string
+  product_line?: string
+  description?: string
+  price?: number
+  quantity?: number
+  discount?: number
+  tag?: number
+  like_count?: number
+  sold?: number
+  cron_status?: number
 }
 
 interface UpdateItemAvatarForm {

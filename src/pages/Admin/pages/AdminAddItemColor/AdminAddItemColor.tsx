@@ -119,7 +119,7 @@ export default function AdminAddItemColor() {
       <AdminCreatingPage />
 
       <div className='grid grid-cols-12 gap-4'>
-        <div className='col-span-8'>
+        <div className='col-span-6'>
           <div className='relative mt-4 w-full space-y-4 rounded-xl border border-white/40 bg-black p-4'>
             {!itemGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
             <div className='grid grid-cols-4 items-center gap-2'>
@@ -157,8 +157,8 @@ export default function AdminAddItemColor() {
           </div>
         </div>
 
-        <div className='col-span-4'>
-          <div className='py-4'>
+        <div className='col-span-6'>
+          <div className='sticky top-6 mt-4'>
             <AdminItemGroup />
           </div>
         </div>
