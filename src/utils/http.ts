@@ -34,8 +34,12 @@ class Http {
       (response) => {
         const { url } = response.config
         if (url === path.login || url === path.register) {
-          this.accessToken = response.data.data.token
-          setAccessTokenToLS(this.accessToken)
+          const accessToken = response.data.data.token
+          if (accessToken) {
+            this.accessToken = accessToken
+            setAccessTokenToLS(accessToken)
+          }
+          // setAccessTokenToLS(this.accessToken)
           // const headers = response.config.headers
           // axios.get<ProfileRespone>('https://api.hareta.me/auth/', { headers }).then((userResponse) => {
           //   console.log(userResponse.data.data)
