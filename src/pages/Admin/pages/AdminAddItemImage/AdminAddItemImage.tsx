@@ -13,7 +13,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 
 export default function AdminAddItemImage() {
-  const { currentItem } = useContext(CreatingItemContext)
+  const { currentItem, itemGroup } = useContext(CreatingItemContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
@@ -75,7 +75,7 @@ export default function AdminAddItemImage() {
 
       <div className=' mt-8 grid grid-cols-2 gap-6'>
         <div className='col-span-1'>
-          <div className='sticky top-4 rounded-lg border border-white/40'>
+          <div className='sticky top-6 rounded-lg border border-white/40'>
             <div className='grid grid-cols-2 gap-6 p-2'>
               <div className='col-span-1'>
                 <div className='relative w-full overflow-hidden rounded-md pt-[75%]'>
@@ -104,7 +104,7 @@ export default function AdminAddItemImage() {
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
                     <p className='col-span-1 font-medium uppercase text-textLight/60'>Name</p>
-                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentItem?.name}</p>
+                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{itemGroup?.name}</p>
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
                     <p className='col-span-1 font-medium uppercase text-textLight/60'>Color</p>
@@ -165,8 +165,8 @@ export default function AdminAddItemImage() {
             </div>
           </div>
         </div>
-        <div className='col-span-1 '>
-          <div className='space-y-4'>
+        <div className='col-span-1'>
+          <div className='flex min-h-full flex-col justify-between'>
             <AdminItemGroup />
             <AdminItemsInGroup />
           </div>

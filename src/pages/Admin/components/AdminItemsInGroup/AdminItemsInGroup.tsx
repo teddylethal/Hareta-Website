@@ -39,13 +39,13 @@ export default function AdminItemsInGroup() {
   }
 
   return (
-    <div className='relative rounded-lg border border-white/40 bg-black py-2'>
-      <div className='flex flex-col items-center justify-center p-4'>
+    <div className='relative rounded-lg border border-white/40 bg-black p-4'>
+      <div className='flex flex-col items-center justify-center'>
         <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose variant</p>
-        <div className='mt-2 w-full rounded-lg border border-white/40 p-2'>
-          <div className='grid max-h-60 w-full grid-cols-4 gap-4 overflow-scroll  overscroll-contain '>
+        <div className='mt-2 w-full rounded-lg border border-white/40 bg-[#202020]'>
+          <div className='grid h-60 w-full grid-cols-4 gap-4 overflow-scroll overscroll-contain p-2'>
             {isFetching && (
-              <div className='col-span-4 flex h-60 items-center justify-center'>
+              <div className='col-span-4 flex h-full items-center justify-center'>
                 <ColorRing
                   visible={true}
                   height='60'
@@ -64,21 +64,20 @@ export default function AdminItemsInGroup() {
                 return (
                   <div
                     key={index}
-                    className={classNames('col-span-1 overflow-hidden rounded-xl p-1', {
-                      'border border-brownColor dark:border-haretaColor': isActive
+                    className={classNames('col-span-1 h-min rounded-xl p-1 outline outline-1 outline-offset-0', {
+                      'outline-2 outline-haretaColor': isActive,
+                      'outline-haretaColor/40 ': !isActive
                     })}
                   >
                     <button className='w-full space-y-2' onClick={handleChooseVariant(item)}>
-                      <div className='relative w-full pt-[100%]'>
+                      <div className='relative w-full pt-[75%]'>
                         <img
                           src={avatarURL || ''}
                           alt={`${item.name} ${item.color}`}
                           className='absolute left-0 top-0 h-full w-full object-scale-down'
                         />
                       </div>
-                      <div className=''>
-                        {item.name} {item.color}
-                      </div>
+                      <div className=''>{item.color}</div>
                     </button>
                   </div>
                 )
