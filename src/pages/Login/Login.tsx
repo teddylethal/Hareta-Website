@@ -156,8 +156,8 @@ export default function Login() {
                 </Button>
               </div>
 
-              <div className='md:text-md mt-8 flex flex-col-reverse items-center justify-between text-xs sm:text-sm md:flex-row'>
-                <div className='mt-2'>
+              <div className='md:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs sm:text-sm md:mt-12 md:flex-row'>
+                <div className=''>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
                     <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-300 hover:opacity-100 dark:text-blue-400'>
                       Forgot Password?
@@ -165,18 +165,18 @@ export default function Login() {
                   </Link>
                 </div>
                 {!isSmall && (
-                  <div className='mt-8 text-right'>
+                  <div className='flex items-center text-center'>
                     <span className='text-gray-400'>Don&apos;t have an account?</span>
-                    <Link className='ml-2 text-haretaColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.register}>
                       Sign up
                     </Link>
                   </div>
                 )}
 
                 {isSmall && (
-                  <div className='mt-8 flex flex-col text-right'>
+                  <div className='mb-2 flex flex-col text-center'>
                     <span className=' line-clamp-2 text-gray-400'>Don&apos;t have an account?</span>
-                    <Link className='ml-2 text-haretaColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.register}>
                       Sign up
                     </Link>
                   </div>
