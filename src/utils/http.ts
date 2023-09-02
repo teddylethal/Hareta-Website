@@ -32,8 +32,9 @@ class Http {
     // Add a response interceptor
     this.instance.interceptors.response.use(
       (response) => {
+        console.log(response)
         const { url } = response.config
-        if (url === path.login || url === path.register) {
+        if (url === path.login) {
           const accessToken = response.data.data.token
           if (accessToken) {
             this.accessToken = accessToken
