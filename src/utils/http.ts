@@ -36,7 +36,7 @@ class Http {
         const { url } = response.config
         if (url === path.login) {
           const accessToken = response.data.data.token
-          if (accessToken) {
+          if (accessToken !== undefined) {
             this.accessToken = accessToken
             setAccessTokenToLS(accessToken)
           }
