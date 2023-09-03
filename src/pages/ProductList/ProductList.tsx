@@ -94,7 +94,7 @@ export default function ProductList() {
               {(isFetching || !storeData) && <ProductListSkeleton />}
               {storeData && (
                 <div className=''>
-                  <div className='grid grid-cols-2 gap-4 lg:grid-cols-3'>
+                  <div className='grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6'>
                     {isFetching &&
                       Array(12)
                         .fill(0)

@@ -33,9 +33,12 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === path.login || url === path.register) {
-          this.accessToken = response.data.data.token
-          setAccessTokenToLS(this.accessToken)
+        if (url === path.login) {
+          const accessToken = response.data.data.token
+          if (accessToken !== undefined) {
+            this.accessToken = accessToken
+            setAccessTokenToLS(accessToken)
+          }
           // const headers = response.config.headers
           // axios.get<ProfileRespone>('https://api.hareta.me/auth/', { headers }).then((userResponse) => {
           //   console.log(userResponse.data.data)
