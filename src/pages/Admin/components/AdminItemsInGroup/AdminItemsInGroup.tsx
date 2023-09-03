@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { Product } from 'src/types/product.type'
@@ -7,13 +7,14 @@ import classNames from 'classnames'
 import { ColorRing } from 'react-loader-spinner'
 
 export default function AdminItemsInGroup() {
-  const { itemGroup, currentItem, setCurrentItem } = useContext(CreatingItemContext)
+  const { itemGroup, currentItem, setCurrentItem } = useContext(AdminContext)
 
   //? ITEMS IN GROUP
   const {
     data: itemsInGroupData,
     refetch,
-    isFetching
+    isFetching,
+    isFetched
   } = useQuery({
     queryKey: ['items_in_group'],
     queryFn: () =>
@@ -40,25 +41,30 @@ export default function AdminItemsInGroup() {
 
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
-      <div className='flex flex-col items-center justify-center'>
-        <p className='mb-2 text-lg font-semibold uppercase lg:text-xl'>Choose variant</p>
-        <div className='mt-2 w-full rounded-lg border border-white/40 bg-[#202020]'>
-          <div className='grid h-60 w-full grid-cols-4 gap-4 overflow-scroll overscroll-contain p-2'>
-            {isFetching && (
-              <div className='col-span-4 flex h-full items-center justify-center'>
-                <ColorRing
-                  visible={true}
-                  height='60'
-                  width='60'
-                  ariaLabel='blocks-loading'
-                  wrapperStyle={{}}
-                  wrapperClass='blocks-wrapper'
-                  colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
-                />
-              </div>
-            )}
-            {!isFetching &&
-              itemsInGroup.map((item, index) => {
+      <div className='flex w-full flex-col items-center justify-center space-y-4'>
+        <p className='text-lg font-semibold uppercase lg:text-xl'>Choose variant</p>
+        <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
+          {!itemGroup && (
+            <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
+              select a group
+            </div>
+          )}
+          {isFetching && (
+            <div className='inset-0 flex h-full w-full items-center justify-center bg-black/50'>
+              <ColorRing
+                visible={true}
+                height='60'
+                width='60'
+                ariaLabel='blocks-loading'
+                wrapperStyle={{}}
+                wrapperClass='blocks-wrapper'
+                colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
+              />
+            </div>
+          )}
+          {isFetched && (
+            <div className='m-2 grid grid-cols-4 gap-4'>
+              {itemsInGroup.map((item, index) => {
                 const isActive = item.id === currentItem?.id
                 const avatarURL = item.avatar ? item.avatar.url : null
                 return (
@@ -82,7 +88,8 @@ export default function AdminItemsInGroup() {
                   </div>
                 )
               })}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

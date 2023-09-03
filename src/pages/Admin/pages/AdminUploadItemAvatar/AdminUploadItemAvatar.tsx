@@ -1,5 +1,5 @@
 import { Fragment, useContext, useMemo, useState } from 'react'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { adminItemApi } from 'src/apis/admin.api'
 import DialogPopup from 'src/components/DialogPopup'
@@ -13,7 +13,7 @@ import ImageInput from '../../components/ImageInput'
 import AdminUpdatingPage from '../AdminUpdatingPage'
 
 export default function AdminUploadItemAvatar() {
-  const { currentItem } = useContext(CreatingItemContext)
+  const { currentItem } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)

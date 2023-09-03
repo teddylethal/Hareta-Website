@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
 import AdminImagesPage from '../AdminImagesPage'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import ImageInput from '../../components/ImageInput'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import producImageApi from 'src/apis/productImage.api'
@@ -13,7 +13,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 
 export default function AdminAddItemImage() {
-  const { currentItem, itemGroup } = useContext(CreatingItemContext)
+  const { currentItem, itemGroup } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)

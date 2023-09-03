@@ -80,13 +80,13 @@ export const adminItemApi = {
 
 export const adminItemImageApi = {
   addImage(body: UpdateItemAvatarForm) {
-    return http.post<SuccessRespone<string>>(`${URL}/item-image`, body, {
+    return http.post<SuccessRespone<string>>(`/item-image`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
   },
   deleteImage(body: { id: string }) {
-    return http.delete(`${URL}/item-image`, { data: body })
+    return http.delete(`/item-image`, { data: body })
   }
 }

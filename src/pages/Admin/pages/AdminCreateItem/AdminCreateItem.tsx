@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { adminItemApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import AdminGroupNameList from '../../components/AdminGroupNameList'
 import { Product } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
@@ -18,7 +18,7 @@ import AdminCreatingPage from '../AdminCreatingPage'
 type FormData = CreatingItemSchema
 
 export default function AdminCreateItem() {
-  const { itemGroup, setCurrentItem } = useContext(CreatingItemContext)
+  const { itemGroup, setCurrentItem } = useContext(AdminContext)
   //? CREATE NEW ITEM
   const methods = useForm<FormData>({
     defaultValues: {

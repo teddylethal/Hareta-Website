@@ -1,12 +1,12 @@
 import { useContext } from 'react'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import { adminItemGroupApi } from 'src/apis/admin.api'
 import { useQuery } from '@tanstack/react-query'
 import { ItemGroup } from 'src/types/admin.type'
 import classNames from 'classnames'
 
 export default function AdminGroupNameList() {
-  const { setItemGroup, itemGroup } = useContext(CreatingItemContext)
+  const { setItemGroup, itemGroup } = useContext(AdminContext)
 
   //? GET GROUP LIST
   const { data: itemsInGroupData } = useQuery({

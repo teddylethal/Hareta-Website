@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import AdminUpdatingPage from '../AdminUpdatingPage'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProvider, useForm } from 'react-hook-form'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import { UpdateItemSchema, updateItemSchema } from '../../utils/rules'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { adminItemApi } from 'src/apis/admin.api'
@@ -19,7 +19,7 @@ import AdminDialog from '../../components/AdminDialog'
 type FormData = UpdateItemSchema
 
 export default function AdminUpdateItem() {
-  const { currentItem, itemGroup, setCurrentItem } = useContext(CreatingItemContext)
+  const { currentItem, itemGroup, setCurrentItem } = useContext(AdminContext)
   const { setPageIsLoading } = useContext(AppContext)
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
 
@@ -28,8 +28,6 @@ export default function AdminUpdateItem() {
   const { data: itemDetailData } = useQuery({
     queryKey: ['item', defaultItemID],
     queryFn: () => productApi.getProductDetail(defaultItemID as string),
-    keepPreviousData: true,
-    staleTime: 3 * 60 * 1000,
     enabled: Boolean(currentItem)
   })
   const itemDetail = itemDetailData?.data.data
@@ -85,6 +83,8 @@ export default function AdminUpdateItem() {
       setPageIsLoading(true)
       await updateItemMutation.mutateAsync({ ...data })
       setPageIsLoading(false)
+      setCurrentItem(null)
+      reset()
       showSuccessDialog(setSuccessDialogOpen, 2000)
     } catch (error) {
       console.log(error)

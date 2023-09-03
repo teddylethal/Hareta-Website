@@ -1,4 +1,3 @@
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Fragment, useContext, useState } from 'react'
@@ -18,6 +17,7 @@ import useQueryConfig from 'src/hooks/useQueryConfig'
 import WishlistItem from '../../components/WishlistItem'
 import { useViewport } from 'src/hooks/useViewport'
 import WishlistItemMobile from '../../components/WishlistItemMobile'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export default function WishList() {
   const { theme } = useContext(ThemeContext)
@@ -237,18 +237,6 @@ export default function WishList() {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
-        <button
-          type='button'
-          className={classNames(
-            'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
-            {
-              'text-textDark/50': theme === 'light',
-              'text-textLight/50': theme === 'dark'
-            }
-          )}
-        >
-          <FontAwesomeIcon icon={faXmark} fontSize={20} />
-        </button>
       </DialogPopup>
     </Fragment>
   )

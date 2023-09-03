@@ -12,13 +12,13 @@ import { ErrorRespone } from 'src/types/utils.type'
 import AdminAddItemColorForm from './AdminAddItemColorForm'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import AdminCreatingPage from '../AdminCreatingPage'
 
 type FormData = CreatingItemSchema
 
 export default function AdminAddItemColor() {
-  const { itemGroup, setCurrentItem } = useContext(CreatingItemContext)
+  const { itemGroup, setCurrentItem } = useContext(AdminContext)
 
   //? GET DEFAULT ITEM
   const itemInGroupQuery: ItemInGroupConfig = {
