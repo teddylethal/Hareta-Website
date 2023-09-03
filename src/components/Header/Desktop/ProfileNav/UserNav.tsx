@@ -20,7 +20,7 @@ export default function UserNav() {
             className='h-6 w-6 rounded-full object-cover'
           />
 
-          <div className='text-sm font-medium normal-case group-hover:text-brownColor dark:group-hover:text-haretaColor  md:text-base lg:text-lg'>
+          <div className='text-sm font-medium normal-case duration-300 group-hover:text-brownColor  dark:group-hover:text-haretaColor md:text-base lg:text-lg'>
             {profile ? profile.name : ''}
           </div>
         </div>

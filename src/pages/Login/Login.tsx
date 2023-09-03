@@ -33,6 +33,7 @@ export default function Login() {
     handleSubmit,
     setError,
     getValues,
+    setValue,
     formState: { errors }
   } = useForm<FormData>({
     resolver: yupResolver(loginSchema)
@@ -91,11 +92,14 @@ export default function Login() {
   useEffect(() => {
     if (state) {
       setDialog(true)
+      if (state?.email) {
+        setValue('email', state?.email)
+      }
     }
   }, [state])
 
   return (
-    <AnimateTransition>
+    <AnimateTransition isDialog={state}>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
@@ -152,25 +156,27 @@ export default function Login() {
                 </Button>
               </div>
 
-              <div className='md:text-md flex justify-between text-sm'>
-                <div className=' mt-8 text-left'>
+              <div className='md:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs sm:text-sm md:mt-12 md:flex-row'>
+                <div className=''>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
-                    <p className=' text-blue-700 underline underline-offset-1 dark:text-blue-400'>Forgot Password?</p>
+                    <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-300 hover:opacity-100 dark:text-blue-400'>
+                      Forgot Password?
+                    </p>
                   </Link>
                 </div>
                 {!isSmall && (
-                  <div className='mt-8 text-right'>
+                  <div className='flex items-center text-center'>
                     <span className='text-gray-400'>Don&apos;t have an account?</span>
-                    <Link className='ml-2 text-haretaColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.register}>
                       Sign up
                     </Link>
                   </div>
                 )}
 
                 {isSmall && (
-                  <div className='mt-8 flex flex-col text-right'>
+                  <div className='mb-2 flex flex-col text-center'>
                     <span className=' line-clamp-2 text-gray-400'>Don&apos;t have an account?</span>
-                    <Link className='ml-2 text-haretaColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.register}>
                       Sign up
                     </Link>
                   </div>
@@ -180,28 +186,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-      {
-        /* /* state &&
-        // (state?.type == 'Success' ? (
-        //   {state?.title == 'PasswordRecovery' : <div></div> ? <div></div>} */
-        //   // <SuccessPopup
-        //   //   dialog={dialog}
-        //   //   closeDialog={() => {
-        //   //     setDialog(false)
-        //   //   }}
-        //   //   title={state?.title}
-        //   //   context={state?.context}
-        //   //   guide='Please login to continue'
-        //   // />
-        // ) : (
-        //   <InvalidLinkPopup
-        //     dialog={dialog}
-        //     closeDialog={() => {
-        //       setDialog(false)
-        //     }}
-        //   />
-        // ))}
-      }
       {state && state?.type == 'Success' && state?.title == 'PasswordRecovery' && (
         <SuccessPasswordRecoveryPopup dialog={dialog} closeDialog={closeDialog} />
       )}

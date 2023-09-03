@@ -57,13 +57,16 @@ export default function AccountInput({
         </span>
         {isPasswordInput && (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-          <div className='absolute right-8 top-1/2 translate-y-[-40%] md:right-10' onClick={() => setVisible(!visible)}>
+          <div
+            className='absolute right-8 top-1/2 translate-y-[-40%] hover:cursor-pointer md:right-10'
+            onClick={() => setVisible(!visible)}
+          >
             {visible && (
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-4 w-4 fill-black duration-300 dark:fill-vintageColor md:h-6 md:w-6'
+                className='h-4 w-4 fill-black dark:fill-vintageColor md:h-6 md:w-6'
               >
                 <path d='M12 15a3 3 0 100-6 3 3 0 000 6z' />
                 <path
@@ -78,7 +81,7 @@ export default function AccountInput({
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-4 w-4 fill-black duration-300 dark:fill-vintageColor md:h-6  md:w-6'
+                className='h-4 w-4 fill-black/50 hover:fill-black dark:fill-vintageColor/70 hover:dark:fill-vintageColor md:h-6 md:w-6'
               >
                 <path d='M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z' />
                 <path d='M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0115.75 12zM12.53 15.713l-4.243-4.244a3.75 3.75 0 004.243 4.243z' />
