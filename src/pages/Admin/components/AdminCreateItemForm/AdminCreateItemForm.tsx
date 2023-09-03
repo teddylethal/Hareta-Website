@@ -4,12 +4,12 @@ import { CreatingItemSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import Input from 'src/components/Input'
 import classNames from 'classnames'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 
 type FormData = CreatingItemSchema
 
 export default function AdminCreateItemForm() {
-  const { itemGroup } = useContext(CreatingItemContext)
+  const { itemGroup } = useContext(AdminContext)
   const {
     register,
     control,

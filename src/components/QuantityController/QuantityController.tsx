@@ -69,6 +69,7 @@ export default function QuantityController({
         <FontAwesomeIcon icon={faMinus} className={classNameIcon} />
       </button>
       <InputNumber
+        name='quantity'
         className=''
         classNameError='hidden'
         classNameInput={classNameInput}

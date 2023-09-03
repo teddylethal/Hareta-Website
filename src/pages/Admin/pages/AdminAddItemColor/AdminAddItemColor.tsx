@@ -12,13 +12,13 @@ import { ErrorRespone } from 'src/types/utils.type'
 import AdminAddItemColorForm from './AdminAddItemColorForm'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import AdminCreatingPage from '../AdminCreatingPage'
 
 type FormData = CreatingItemSchema
 
 export default function AdminAddItemColor() {
-  const { itemGroup, setCurrentItem } = useContext(CreatingItemContext)
+  const { itemGroup, setCurrentItem } = useContext(AdminContext)
 
   //? GET DEFAULT ITEM
   const itemInGroupQuery: ItemInGroupConfig = {
@@ -27,7 +27,7 @@ export default function AdminAddItemColor() {
     limit: '50'
   }
   const { data: itemsInGroupData } = useQuery({
-    queryKey: ['items_in_group_for_admin', itemInGroupQuery],
+    queryKey: ['items_in_group_for_detail', itemInGroupQuery],
     queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
     keepPreviousData: true,
     enabled: Boolean(itemGroup)
@@ -119,8 +119,8 @@ export default function AdminAddItemColor() {
       <AdminCreatingPage />
 
       <div className='grid grid-cols-12 gap-4'>
-        <div className='col-span-8'>
-          <div className='relative mt-4 w-full space-y-4 rounded-xl border border-white/40 bg-black p-4'>
+        <div className='col-span-6'>
+          <div className='relative mt-4 w-full space-y-4 overflow-hidden rounded-xl border border-white/40 bg-black p-4'>
             {!itemGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
             <div className='grid grid-cols-4 items-center gap-2'>
               <div className='col-span-2'>
@@ -133,7 +133,7 @@ export default function AdminAddItemColor() {
                   )}
                   {itemGroup && (
                     <img
-                      src={defaultItem?.avatar.url || ''}
+                      src={defaultItem?.avatar?.url || ''}
                       alt={defaultItem?.name}
                       className='absolute left-0 top-0 h-full w-full object-scale-down'
                     />
@@ -157,8 +157,8 @@ export default function AdminAddItemColor() {
           </div>
         </div>
 
-        <div className='col-span-4'>
-          <div className='py-4'>
+        <div className='col-span-6'>
+          <div className='sticky top-6 mt-4'>
             <AdminItemGroup />
           </div>
         </div>

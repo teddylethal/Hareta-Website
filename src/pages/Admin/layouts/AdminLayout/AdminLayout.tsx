@@ -4,33 +4,41 @@ import { NavLink } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
 import { ItemGroup } from 'src/types/admin.type'
 import { Product } from 'src/types/product.type'
+import { ProductImage } from 'src/types/productImage.type'
 
-interface CreatingItemContextInterface {
+interface AdminContextInterface {
   itemGroup: ItemGroup | null
   setItemGroup: React.Dispatch<React.SetStateAction<ItemGroup | null>>
   currentItem: Product | null
   setCurrentItem: React.Dispatch<React.SetStateAction<Product | null>>
+  currentImage: ProductImage | null
+  setCurrentImage: React.Dispatch<React.SetStateAction<ProductImage | null>>
 }
 
-const initialCreatingItemContext: CreatingItemContextInterface = {
+const initialAdminContext: AdminContextInterface = {
   itemGroup: null,
   setItemGroup: () => null,
   currentItem: null,
-  setCurrentItem: () => null
+  setCurrentItem: () => null,
+  currentImage: null,
+  setCurrentImage: () => null
 }
 interface Props {
   children?: React.ReactNode
 }
 
-export const CreatingItemContext = createContext<CreatingItemContextInterface>(initialCreatingItemContext)
+export const AdminContext = createContext<AdminContextInterface>(initialAdminContext)
 
 export default function AdminLayout({ children }: Props) {
   //? DECLARE STATES
-  const [itemGroup, setItemGroup] = useState<ItemGroup | null>(initialCreatingItemContext.itemGroup)
-  const [currentItem, setCurrentItem] = useState<Product | null>(initialCreatingItemContext.currentItem)
+  const [itemGroup, setItemGroup] = useState<ItemGroup | null>(initialAdminContext.itemGroup)
+  const [currentItem, setCurrentItem] = useState<Product | null>(initialAdminContext.currentItem)
+  const [currentImage, setCurrentImage] = useState<ProductImage | null>(initialAdminContext.currentImage)
 
   return (
-    <CreatingItemContext.Provider value={{ itemGroup, setItemGroup, currentItem, setCurrentItem }}>
+    <AdminContext.Provider
+      value={{ itemGroup, setItemGroup, currentItem, setCurrentItem, currentImage, setCurrentImage }}
+    >
       <div className='bg-darkBg'>
         <div className='container'>
           <div className='py-8'>
@@ -38,7 +46,6 @@ export default function AdminLayout({ children }: Props) {
               {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
               <NavLink
                 to={adminPath.creatingPage}
-                end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -50,7 +57,6 @@ export default function AdminLayout({ children }: Props) {
               </NavLink>
               <NavLink
                 to={adminPath.updatingPage}
-                end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -62,7 +68,6 @@ export default function AdminLayout({ children }: Props) {
               </NavLink>
               <NavLink
                 to={adminPath.images}
-                end
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -73,8 +78,7 @@ export default function AdminLayout({ children }: Props) {
                 Item Images
               </NavLink>
               <NavLink
-                to={adminPath.deletingPage}
-                end
+                to={adminPath.deleteItem}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -89,6 +93,6 @@ export default function AdminLayout({ children }: Props) {
           </div>
         </div>
       </div>
-    </CreatingItemContext.Provider>
+    </AdminContext.Provider>
   )
 }

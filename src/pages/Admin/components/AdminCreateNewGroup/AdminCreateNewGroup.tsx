@@ -8,7 +8,7 @@ import { ErrorRespone } from 'src/types/utils.type'
 import { adminItemGroupApi } from 'src/apis/admin.api'
 import { ItemGroup } from 'src/types/admin.type'
 import { useContext } from 'react'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 
 interface FormData {
   name: string
@@ -19,7 +19,7 @@ const itemGroupSchema = yup.object({
 })
 
 export default function AdminCreateNewGroup() {
-  const { setItemGroup } = useContext(CreatingItemContext)
+  const { setItemGroup } = useContext(AdminContext)
 
   //? CREATE NEW GROUP
   const {

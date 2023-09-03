@@ -2,12 +2,11 @@ import { useContext, useEffect } from 'react'
 import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { Product } from 'src/types/product.type'
 import classNames from 'classnames'
 import { ColorRing } from 'react-loader-spinner'
 
-export default function AdminItemsInGroup() {
-  const { itemGroup, currentItem, setCurrentItem } = useContext(AdminContext)
+export default function AdminVariantList() {
+  const { itemGroup } = useContext(AdminContext)
 
   //? ITEMS IN GROUP
   const {
@@ -16,7 +15,7 @@ export default function AdminItemsInGroup() {
     isFetching,
     isFetched
   } = useQuery({
-    queryKey: ['items_in_group'],
+    queryKey: ['variant_list'],
     queryFn: () =>
       productApi.getItemsInGroup({
         id: itemGroup?.id as string,
@@ -34,15 +33,10 @@ export default function AdminItemsInGroup() {
     }
   }, [itemGroup, refetch])
 
-  //? CHOOSE ITEM
-  const handleChooseVariant = (item: Product) => () => {
-    setCurrentItem(item)
-  }
-
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className='text-lg font-semibold uppercase lg:text-xl'>Choose variant</p>
+        <p className='text-lg font-semibold uppercase lg:text-xl'> variant list</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {!itemGroup && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
@@ -65,17 +59,10 @@ export default function AdminItemsInGroup() {
           {isFetched && (
             <div className='m-2 grid grid-cols-4 gap-4'>
               {itemsInGroup.map((item, index) => {
-                const isActive = item.id === currentItem?.id
                 const avatarURL = item.avatar ? item.avatar.url : null
                 return (
-                  <div
-                    key={index}
-                    className={classNames('col-span-1 h-min rounded-xl p-1 outline outline-1 outline-offset-0', {
-                      'outline-2 outline-haretaColor': isActive,
-                      'outline-haretaColor/40 ': !isActive
-                    })}
-                  >
-                    <button className='w-full space-y-2' onClick={handleChooseVariant(item)}>
+                  <div key={index} className={classNames('col-span-1 h-min rounded-xl p-1', {})}>
+                    <div className='w-full space-y-2'>
                       <div className='relative w-full pt-[75%]'>
                         <img
                           src={avatarURL || ''}
@@ -84,7 +71,7 @@ export default function AdminItemsInGroup() {
                         />
                       </div>
                       <div className=''>{item.color}</div>
-                    </button>
+                    </div>
                   </div>
                 )
               })}

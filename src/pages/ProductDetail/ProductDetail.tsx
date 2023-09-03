@@ -44,8 +44,7 @@ export default function ProductDetail() {
   const { data: productDetailData, isFetching } = useQuery({
     queryKey: ['item', id],
     queryFn: () => productApi.getProductDetail(id as string),
-    keepPreviousData: true,
-    staleTime: 3 * 60 * 1000
+    keepPreviousData: true
   })
   const defaltItem = productDetailData?.data.data
 

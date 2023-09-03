@@ -16,7 +16,7 @@ interface Props {
 export default function DialogPopup({
   isOpen,
   handleClose,
-  classNameWrapper = 'relative w-80 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all',
+  classNameWrapper = 'relative min-w-80 max-w-md transform overflow-hidden rounded-2xl p-10 align-middle shadow-xl transition-all',
   children,
   closeButton = true
 }: Props) {

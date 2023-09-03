@@ -23,7 +23,7 @@ export default function AdminAddItemColorForm() {
         <div className='col-span-2'>
           <Input
             classNameInput={classNames(
-              'text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor',
+              'text-textLight bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor',
               {
                 'outline-red-600': Boolean(errors.color)
               }
@@ -47,7 +47,7 @@ export default function AdminAddItemColorForm() {
             render={({ field }) => (
               <InputNumber
                 classNameInput={classNames(
-                  'text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor',
+                  'text-textLight bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor',
                   {
                     'outline-red-600': Boolean(errors.quantity)
                   }
@@ -167,17 +167,13 @@ export default function AdminAddItemColorForm() {
           />
         </div>
       </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>description</p>
-        </div>
-        <div className='col-span-2'>
-          <textarea
-            className='h-60 w-full rounded-lg bg-white px-2 py-1 text-base font-medium capitalize text-textDark outline-none lg:text-lg'
-            {...register('description')}
-            autoComplete='false'
-          />
-        </div>
+      <div className='space-y-4'>
+        <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>description</p>
+        <textarea
+          className='h-60 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium capitalize text-textLight outline-none lg:text-lg'
+          {...register('description')}
+          autoComplete='false'
+        />
       </div>
     </Fragment>
   )

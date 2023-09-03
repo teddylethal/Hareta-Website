@@ -8,7 +8,7 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { Fragment, useContext, useEffect } from 'react'
 import AdminUpdatingPage from '../AdminUpdatingPage'
-import { CreatingItemContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
 
@@ -21,7 +21,7 @@ const defaultItemSchema = yup.object({
 })
 
 export default function AdminSetDefaultItem() {
-  const { currentItem } = useContext(CreatingItemContext)
+  const { currentItem } = useContext(AdminContext)
 
   //? SET DEFAULT ITEM
   const {

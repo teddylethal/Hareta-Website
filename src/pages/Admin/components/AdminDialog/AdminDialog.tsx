@@ -1,0 +1,40 @@
+import { faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import DialogPopup from 'src/components/DialogPopup'
+
+interface Props {
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  state?: boolean
+  content?: string
+}
+
+export default function AdminDialog({ isOpen, setIsOpen, state = true, content = 'successfully' }: Props) {
+  return (
+    <DialogPopup
+      isOpen={isOpen}
+      handleClose={() => {
+        setIsOpen(false)
+      }}
+      classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+    >
+      <div className='text-center'>
+        {state && (
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className={'text- rounded-full  bg-white/20 p-4 text-center text-success'}
+          />
+        )}
+        {!state && (
+          <FontAwesomeIcon
+            icon={faTriangleExclamation}
+            fontSize={36}
+            className={'text- rounded-full  bg-white/20 p-4 text-center text-red-600'}
+          />
+        )}
+      </div>
+      <p className='mt-6 text-center text-xl font-semibold uppercase leading-6'>{content}</p>
+    </DialogPopup>
+  )
+}

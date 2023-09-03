@@ -28,6 +28,12 @@ import AdminCreatingPage from './pages/Admin/pages/AdminCreatingPage'
 import AdminUploadItemAvatar from './pages/Admin/pages/AdminUploadItemAvatar'
 import AdminUpdatingPage from './pages/Admin/pages/AdminUpdatingPage'
 import AdminSetDefaultItem from './pages/Admin/pages/AdminSetDefaultItem'
+import AdminImagesPage from './pages/Admin/pages/AdminImagesPage'
+import AdminAddItemImage from './pages/Admin/pages/AdminAddItemImage'
+import AdminUpdateItem from './pages/Admin/pages/AdminUpdateItem'
+import AdminDeleteItemImage from './pages/Admin/pages/AdminDeleteItemImage'
+import AdminDeleteItem from './pages/Admin/pages/AdminDeleteItem'
+import AdminDeleteGroup from './pages/Admin/pages/AdminDeleteGroup'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -173,6 +179,54 @@ export default function useRouteElements() {
           element: (
             <AdminLayout>
               <AdminUploadItemAvatar />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.updateItem,
+          element: (
+            <AdminLayout>
+              <AdminUpdateItem />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.images,
+          element: (
+            <AdminLayout>
+              <AdminImagesPage />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.addItemImage,
+          element: (
+            <AdminLayout>
+              <AdminAddItemImage />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.deleteItemImage,
+          element: (
+            <AdminLayout>
+              <AdminDeleteItemImage />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.deleteItem,
+          element: (
+            <AdminLayout>
+              <AdminDeleteItem />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.deleteGroup,
+          element: (
+            <AdminLayout>
+              <AdminDeleteGroup />
             </AdminLayout>
           )
         }
