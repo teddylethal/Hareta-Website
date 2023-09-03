@@ -11,10 +11,10 @@ export default function Button(props: ButtonProps) {
   return (
     <div
       className={
-        'w-full rounded-md bg-black text-center uppercase text-textVintage duration-300   dark:bg-vintageColor ' +
+        'w-full rounded-md bg-haretaColor text-center uppercase text-textVintage duration-300 dark:bg-haretaColor ' +
         (isLoading
-          ? ' bg-opacity-50 dark:bg-opacity-40 dark:text-gray-400 '
-          : ' hover:bg-opacity-80 hover:text-haretaColor dark:bg-opacity-80 dark:hover:bg-opacity-100')
+          ? ' bg-opacity-70 dark:bg-opacity-40 dark:text-gray-400 '
+          : ' hover:bg-opacity-100 dark:bg-opacity-80 dark:hover:bg-opacity-100')
       }
     >
       <button type='submit' className={newClassName} disabled={disabled} {...rest}>

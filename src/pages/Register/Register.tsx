@@ -64,7 +64,6 @@ export default function Register() {
 
               <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x xl:divide-gray-300 dark:xl:divide-stone-700'>
                 <div className='xl:mr-8'>
-                  <div className='text-xl text-textDark dark:text-vintageColor'>Account</div>
                   <AccountInput
                     name='email'
                     register={register}
@@ -121,7 +120,6 @@ export default function Register() {
                 </div>
 
                 <div className='mt-8 xl:mt-0 xl:pl-8'>
-                  <div className='text-xl dark:text-vintageColor'>Personal information</div>
                   <AccountInput
                     name='name'
                     register={register}

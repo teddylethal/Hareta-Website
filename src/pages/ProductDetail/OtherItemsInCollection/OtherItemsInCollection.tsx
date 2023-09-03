@@ -110,7 +110,7 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
             }
           >
             {productsInCollection.map((product) => (
-              <div className='mx-2' key={product.id}>
+              <div className='mx-4' key={product.id}>
                 <Product product={product} queryConfig={queryConfig} />
               </div>
             ))}

@@ -62,7 +62,7 @@ export default function ProductDetailMobile(props: Props) {
 
             {defaultItem.tag !== 0 && (
               <div className='relative mt-2'>
-                <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+                <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textLight'>
                   {ItemTag[defaultItem.tag]}
                 </span>
                 <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />

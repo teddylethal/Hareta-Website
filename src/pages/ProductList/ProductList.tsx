@@ -83,7 +83,7 @@ export default function ProductList() {
         {!isMobile && (
           <div className='relative grid grid-cols-12 gap-2 lg:gap-4 xl:gap-6'>
             <div className='col-span-3'>
-              <div className='sticky left-0 top-12 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-[#efefef] px-2 py-4 duration-500 dark:bg-[#202020] md:top-14 lg:top-20'>
+              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg bg-[#efefef] px-2 py-4 duration-500 dark:bg-[#202020] md:top-10 lg:top-16'>
                 <SearchBar />
                 <AsideSorter />
                 <PriceRange queryConfig={queryConfig} />

@@ -10,7 +10,7 @@ export default function MobileFooter() {
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
-              Follow us on
+              Follow us
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
@@ -67,7 +67,6 @@ export default function MobileFooter() {
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
             <div className='col-span-2 px-2 text-xs sm:px-4 sm:text-sm'>
-
               974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam
             </div>
           </div>
@@ -81,7 +80,6 @@ export default function MobileFooter() {
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs sm:px-4 sm:text-sm'>
-
               <Link to={path.home}>FAQ</Link>
               <Link to={path.home}>Policy and terms</Link>
               <Link to={path.home}>Order tracking</Link>
@@ -89,7 +87,7 @@ export default function MobileFooter() {
           </div>
         </div>
         <div className='overflow-hidden border-b border-black/40 dark:border-white/40'>
-          <div className='relative grid grid-cols-2 py-2'>
+          <div className='relative grid grid-cols-3 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
               Contact
             </div>

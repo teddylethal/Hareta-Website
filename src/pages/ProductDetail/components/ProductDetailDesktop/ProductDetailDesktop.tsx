@@ -45,7 +45,7 @@ export default function ProductDetailDesktop(props: Props) {
   return (
     <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
       <div className='col-span-4'>
-        <div className='sticky left-0 top-12 flex-col rounded-xl bg-[#f8f8f8] p-6 text-textDark dark:bg-[#202020] dark:text-textLight md:top-14 lg:top-20'>
+        <div className='sticky left-0 top-8 flex-col rounded-xl bg-[#f8f8f8] p-6 text-textDark dark:bg-[#202020] dark:text-textLight md:top-10 lg:top-16'>
           <div className='flex items-center justify-between'>
             <p className='text-xl font-medium lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
             {isAuthenticated && (
@@ -66,7 +66,7 @@ export default function ProductDetailDesktop(props: Props) {
           </div>
           {defaultItem.tag !== 0 && (
             <div className='relative mt-2'>
-              <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+              <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textLight'>
                 {ItemTag[defaultItem.tag]}
               </span>
               <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />

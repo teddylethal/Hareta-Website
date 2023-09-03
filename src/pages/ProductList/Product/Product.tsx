@@ -147,7 +147,7 @@ function Product({ product }: Props) {
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textDark lg:h-6 lg:w-20  lg:text-sm'>
+            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
               {itemTag[product.tag]}
             </span>
             <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />

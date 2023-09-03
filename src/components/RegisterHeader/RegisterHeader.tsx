@@ -1,5 +1,4 @@
 import { Link, useMatch } from 'react-router-dom'
-import ToggleTheme from '../ToggleTheme'
 import path from 'src/constants/path'
 
 export default function RegisterHeader() {
@@ -16,7 +15,7 @@ export default function RegisterHeader() {
               {isRegister ? 'register' : 'login'}
             </p>
           </nav>
-          <ToggleTheme className='mr-4 h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10' />
+          {/* <ToggleTheme className='mr-4 h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10' /> */}
         </div>
       </div>
     </header>
