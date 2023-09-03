@@ -27,7 +27,7 @@ export default function AdminAddItemColor() {
     limit: '50'
   }
   const { data: itemsInGroupData } = useQuery({
-    queryKey: ['items_in_group_for_admin', itemInGroupQuery],
+    queryKey: ['items_in_group_for_detail', itemInGroupQuery],
     queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
     keepPreviousData: true,
     enabled: Boolean(itemGroup)

@@ -53,7 +53,7 @@ export default function AdminDeleteItem() {
         </div>
         <div className='col-span-1'>
           <div className='relative space-y-4 overflow-hidden rounded-lg border border-white/40 p-4'>
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid grid-cols-3 items-center gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Image</p>
               <div className='col-span-2'>
                 <div className='relative w-full pt-[75%]'>
@@ -67,7 +67,7 @@ export default function AdminDeleteItem() {
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>group name</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.group.name}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.group?.name}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Item name</p>
