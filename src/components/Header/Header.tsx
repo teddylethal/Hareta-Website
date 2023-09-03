@@ -29,7 +29,7 @@ export default function Header() {
   const isMobile = viewPort.width <= 768
 
   return (
-    <header className='fixed top-0 z-10 flex h-10 w-full items-center bg-white duration-500 dark:bg-black md:h-12 lg:h-16'>
+    <div className='top-0 z-10 flex h-10 w-full items-center bg-white duration-500 dark:bg-black md:h-12 lg:h-16'>
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center text-black duration-500  dark:text-white'>
           <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase lg:space-x-4 lg:text-lg'>
@@ -92,7 +92,7 @@ export default function Header() {
             {isAuthenticated ? <CartPopoverWithLogin /> : <CartPopoverWithoutLogin />}
 
             <div className='flex items-center justify-center px-1'>
-              <ToggleTheme className='h-6 w-6 lg:h-8 lg:w-8' />
+              <ToggleTheme className='h-6 w-6 rounded-full duration-500 hover:bg-black/20 dark:hover:bg-white/50 lg:h-8 lg:w-8' />
             </div>
           </nav>
         </div>
@@ -100,6 +100,6 @@ export default function Header() {
 
       {/*//! Mobile */}
       {isMobile && <MobileHeader />}
-    </header>
+    </div>
   )
 }
