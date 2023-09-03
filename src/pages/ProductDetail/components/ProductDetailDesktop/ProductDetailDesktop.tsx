@@ -1,14 +1,21 @@
-import { faCartPlus, faHeart, faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeart, faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment, useContext, useState } from 'react'
 import QuantityController from 'src/components/QuantityController'
-import { Product } from 'src/types/product.type'
 import ItemTag from 'src/constants/itemTag'
 import { formatCurrency } from 'src/utils/utils'
 import { AppContext } from 'src/contexts/app.context'
 import classNames from 'classnames'
 import ProductImageList from './ProductImageList'
 import ProductDescription from './ProductDescription'
+import { TemporaryPurchase } from 'src/types/cart.type'
+import { CartContext } from 'src/contexts/cart.context'
+import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import { Product } from 'src/types/product.type'
+import { Link } from 'react-router-dom'
+import path from 'src/constants/path'
+import { ThemeContext } from 'src/App'
+import DialogPopup from 'src/components/DialogPopup'
 
 interface Props {
   defaultItem: Product
@@ -22,13 +29,20 @@ export default function ProductDetailDesktop(props: Props) {
   const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
   const { isAuthenticated } = useContext(AppContext)
+  const { theme } = useContext(ThemeContext)
+  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
+
+  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [createTempCart, setCreateTempCart] = useState<boolean>(false)
 
   //? CHOOSE VARIANT
   const [activeItemID, setActiveItemID] = useState<string>(defaultItem.id)
-  const handleChooseVariant = (id: string) => () => {
+  const [activeItem, setActiveItem] = useState<Product>(defaultItem)
+  const handleChooseVariant = (item: Product) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setQuantity(1)
-    setActiveItemID(id)
+    setActiveItemID(item.id)
+    setActiveItem(item)
   }
 
   //? ADD TO CART
@@ -40,6 +54,39 @@ export default function ProductDetailDesktop(props: Props) {
   const handleAddToCart = () => {
     addToCart(activeItemID, quantity)
     setQuantity(1)
+  }
+
+  //? ADD TO TEMPORARY CART
+  const createTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: 1,
+      item: activeItem
+    }
+    setPurchasesInLS([...purchasesInLS, newPurchase])
+    setCreateTempCart(false)
+    showSuccessDialog(setDialogIsOpen)
+  }
+
+  const addToTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: 1,
+      item: activeItem
+    }
+    const purchaseIndex = purchasesInLS.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    if (purchaseIndex !== -1) {
+      const newQuantity = purchasesInLS[purchaseIndex].quantity + 1
+      const newPurchasesList = purchasesInLS.map((purchase, index) => {
+        if (index === purchaseIndex) {
+          return { ...purchase, quantity: newQuantity }
+        } else return purchase
+      })
+      setPurchasesInLS(newPurchasesList)
+    } else {
+      setPurchasesInLS([...purchasesInLS, newPurchase])
+    }
+    showSuccessDialog(setDialogIsOpen)
   }
 
   return (
@@ -97,7 +144,7 @@ export default function ProductDetailDesktop(props: Props) {
                         'border border-brownColor dark:border-haretaColor': isActive
                       })}
                     >
-                      <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item.id)}>
+                      <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item)}>
                         <img
                           src={avatarURL || ''}
                           alt={`${defaultItem.name} ${item.color}`}
@@ -134,7 +181,15 @@ export default function ProductDetailDesktop(props: Props) {
             <div className='mt-4 flex justify-between'>
               <button
                 className='flex items-center rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'
-                onClick={handleAddToCart}
+                onClick={
+                  isAuthenticated
+                    ? handleAddToCart
+                    : purchasesInLS.length === 0
+                    ? () => {
+                        setCreateTempCart(true)
+                      }
+                    : addToTemporaryCart
+                }
               >
                 <FontAwesomeIcon icon={faCartPlus} />
               </button>
@@ -154,6 +209,74 @@ export default function ProductDetailDesktop(props: Props) {
           </div>
         </div>
       </div>
+
+      <DialogPopup
+        closeButton={false}
+        isOpen={createTempCart}
+        handleClose={() => setCreateTempCart(false)}
+        classNameWrapper='relative w-80 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
+      >
+        <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
+        <div className='mt-4 space-y-2 text-center'>
+          <div className='inline justify-center space-x-1 '>
+            <span>Items added without</span>
+            <span className='text-haretaColor'>login</span>
+            <span>are temporary</span>
+          </div>
+          <div className='justify-center space-x-1'>
+            <span className='text-haretaColor'>Login</span>
+            <span>to</span>
+            <span className='text-haretaColor'>save</span>
+            <span>your items</span>
+          </div>
+        </div>
+        <div className='mt-8 flex justify-around'>
+          <Link
+            to={path.login}
+            type='button'
+            className={classNames(
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              {
+                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
+                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+              }
+            )}
+          >
+            Login
+          </Link>
+          <button
+            type='button'
+            className={classNames(
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              {
+                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
+                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+              }
+            )}
+            onClick={createTemporaryCart}
+          >
+            Continue
+          </button>
+        </div>
+      </DialogPopup>
+
+      <DialogPopup
+        isOpen={dialogIsOpen}
+        handleClose={() => setDialogIsOpen(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className=' text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
+          />
+        </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Added successfully</p>
+      </DialogPopup>
     </div>
   )
 }

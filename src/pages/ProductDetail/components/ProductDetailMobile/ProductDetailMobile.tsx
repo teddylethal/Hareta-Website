@@ -1,4 +1,4 @@
-import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment, useContext, useState } from 'react'
 import { Product } from 'src/types/product.type'
@@ -9,6 +9,11 @@ import AddTocartPopover from '../../AddTocartPopover'
 import { AppContext } from 'src/contexts/app.context'
 import MobileProductImageList from './MobileProductImageList'
 import ItemTag from 'src/constants/itemTag'
+import { CartContext } from 'src/contexts/cart.context'
+import { ThemeContext } from 'src/App'
+import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import { TemporaryPurchase } from 'src/types/cart.type'
+import DialogPopup from 'src/components/DialogPopup'
 
 interface Props {
   defaultItem: Product
@@ -22,26 +27,66 @@ export default function ProductDetailMobile(props: Props) {
   const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
   const { isAuthenticated } = useContext(AppContext)
+  const { theme } = useContext(ThemeContext)
+  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
+
+  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [activeItem, setActiveItem] = useState<Product>(defaultItem)
+
+  const { visible: createTempCart, ref: createDialogRef, setVisible: setCreateTempCart } = useClickOutside(false)
 
   //? CHOOSE VARIANT
-  const [activeItemID, setActiveItemID] = useState<string>(defaultItem.id)
-  const handleChooseVariant = (id: string) => () => {
+  const handleChooseVariant = (item: Product) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    setActiveItemID(id)
+    setActiveItem(item)
   }
 
   //? ADD TO CART
-
   const { ref, visible, setVisible } = useClickOutside(false)
   const openAddToCart = () => {
     setVisible(true)
+  }
+
+  //? ADD TO TEMPORARY CART
+  const createTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: 1,
+      item: activeItem
+    }
+    setPurchasesInLS([...purchasesInLS, newPurchase])
+    setCreateTempCart(false)
+    setVisible(false)
+    showSuccessDialog(setDialogIsOpen)
+  }
+
+  const addToTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: 1,
+      item: activeItem
+    }
+    const purchaseIndex = purchasesInLS.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    if (purchaseIndex !== -1) {
+      const newQuantity = purchasesInLS[purchaseIndex].quantity + 1
+      const newPurchasesList = purchasesInLS.map((purchase, index) => {
+        if (index === purchaseIndex) {
+          return { ...purchase, quantity: newQuantity }
+        } else return purchase
+      })
+      setPurchasesInLS(newPurchasesList)
+    } else {
+      setPurchasesInLS([...purchasesInLS, newPurchase])
+    }
+    setVisible(false)
+    showSuccessDialog(setDialogIsOpen)
   }
 
   return (
     <Fragment>
       <div className={classNames('bg-lightBg dark:bg-darkBg')}>
         <div className=' rounded-lg bg-[#f8f8f8] px-3 py-2 dark:bg-[#202020]'>
-          <MobileProductImageList item={defaultItem} itemID={activeItemID} />
+          <MobileProductImageList item={defaultItem} itemID={activeItem.id} />
           <div className='relative flex flex-col bg-[#f8f8f8] py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
             <span className='text-2xl text-haretaColor'>${formatCurrency(defaultItem.price)}</span>
             <div className='mt-4 flex items-center justify-between'>
@@ -79,7 +124,7 @@ export default function ProductDetailMobile(props: Props) {
               <div className='max-h-64 w-full overflow-auto py-4'>
                 <div className='grid w-full grid-cols-3 gap-4'>
                   {itemsInGroup.map((item, index) => {
-                    const isActive = item.id === activeItemID
+                    const isActive = item.id === activeItem.id
                     const avatarURL = item.avatar ? item.avatar.url : null
                     return (
                       <div
@@ -88,7 +133,7 @@ export default function ProductDetailMobile(props: Props) {
                           'border border-brownColor dark:border-haretaColor': isActive
                         })}
                       >
-                        <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item.id)}>
+                        <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item)}>
                           <img
                             src={avatarURL || ''}
                             alt={`${defaultItem.name} ${item.color}`}
@@ -121,14 +166,39 @@ export default function ProductDetailMobile(props: Props) {
       {visible && (
         <AddTocartPopover
           item={defaultItem}
-          itemID={activeItemID}
+          activeItem={activeItem}
+          setActiveItem={setActiveItem}
           itemsInGroup={itemsInGroup}
           elementRef={ref}
           visible={visible}
           setVisble={setVisible}
           handleAddToCart={addToCart}
+          //? TEMPORARY CART
+          tempCartDialogRef={createDialogRef}
+          createTemporaryCart={createTemporaryCart}
+          addToTemporaryCart={addToTemporaryCart}
+          createTempCart={createTempCart}
+          setCreateTempCart={setCreateTempCart}
         />
       )}
+
+      <DialogPopup
+        isOpen={dialogIsOpen}
+        handleClose={() => setDialogIsOpen(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className=' text-center'>
+          <FontAwesomeIcon
+            icon={faCheck}
+            fontSize={36}
+            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+              'bg-black/20': theme === 'light',
+              'bg-white/20': theme === 'dark'
+            })}
+          />
+        </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Added successfully</p>
+      </DialogPopup>
     </Fragment>
   )
 }
