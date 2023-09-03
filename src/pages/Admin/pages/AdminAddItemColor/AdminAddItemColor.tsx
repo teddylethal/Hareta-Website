@@ -120,7 +120,7 @@ export default function AdminAddItemColor() {
 
       <div className='grid grid-cols-12 gap-4'>
         <div className='col-span-6'>
-          <div className='relative mt-4 w-full space-y-4 rounded-xl border border-white/40 bg-black p-4'>
+          <div className='relative mt-4 w-full space-y-4 overflow-hidden rounded-xl border border-white/40 bg-black p-4'>
             {!itemGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
             <div className='grid grid-cols-4 items-center gap-2'>
               <div className='col-span-2'>
@@ -133,7 +133,7 @@ export default function AdminAddItemColor() {
                   )}
                   {itemGroup && (
                     <img
-                      src={defaultItem?.avatar.url || ''}
+                      src={defaultItem?.avatar?.url || ''}
                       alt={defaultItem?.name}
                       className='absolute left-0 top-0 h-full w-full object-scale-down'
                     />

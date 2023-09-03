@@ -78,7 +78,7 @@ export default function AdminLayout({ children }: Props) {
                 Item Images
               </NavLink>
               <NavLink
-                to={adminPath.deletingPage}
+                to={adminPath.deleteItem}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,

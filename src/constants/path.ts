@@ -29,7 +29,7 @@ export const adminPath = {
   addItemImage: '/admin/item-image/add',
   deleteItemImage: '/admin/item-image/delete',
   deletingPage: '/admin/delete',
-  delteGroup: '/admin/delete/group',
+  deleteGroup: '/admin/delete/group',
   deleteItem: '/admin/delete/item'
 } as const
 

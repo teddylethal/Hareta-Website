@@ -12,8 +12,8 @@ import { adminItemImageApi } from 'src/apis/admin.api'
 import { AppContext } from 'src/contexts/app.context'
 
 export default function AdminDeleteItemImage() {
-  const { setPageIsLoading } = useContext(AppContext)
   const { currentItem, currentImage, setCurrentImage } = useContext(AdminContext)
+  const { setPageIsLoading } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
 
@@ -43,7 +43,7 @@ export default function AdminDeleteItemImage() {
   return (
     <div>
       <AdminImagesPage />
-      <div className='mt-12 grid grid-cols-2 gap-8'>
+      <div className='mt-8 grid grid-cols-2 gap-8'>
         <div className='col-span-1'>
           <div className='space-y-8'>
             <AdminItemGroup />

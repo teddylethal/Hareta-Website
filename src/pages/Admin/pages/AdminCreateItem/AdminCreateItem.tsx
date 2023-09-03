@@ -69,7 +69,7 @@ export default function AdminCreateItem() {
   return (
     <div>
       <AdminCreatingPage />
-      <div className='mt-12 space-y-8'>
+      <div className='mt-4 space-y-8'>
         <div className='grid grid-cols-2 items-center gap-12'>
           <div className='col-span-1 space-y-4'>
             <AdminCreateNewGroup />
