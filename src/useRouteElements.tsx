@@ -31,6 +31,7 @@ import AdminSetDefaultItem from './pages/Admin/pages/AdminSetDefaultItem'
 import AdminImagesPage from './pages/Admin/pages/AdminImagesPage'
 import AdminAddItemImage from './pages/Admin/pages/AdminAddItemImage'
 import AdminUpdateItem from './pages/Admin/pages/AdminUpdateItem'
+import AdminDeleteItemImage from './pages/Admin/pages/AdminDeleteItemImage'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -117,7 +118,7 @@ export default function useRouteElements() {
     },
     {
       path: '',
-      element: <AdminRoute />,
+      element: <ProtectedRoute />,
       children: [
         {
           path: adminPath.mainPage,
@@ -196,6 +197,14 @@ export default function useRouteElements() {
           element: (
             <AdminLayout>
               <AdminAddItemImage />
+            </AdminLayout>
+          )
+        },
+        {
+          path: adminPath.deleteItemImage,
+          element: (
+            <AdminLayout>
+              <AdminDeleteItemImage />
             </AdminLayout>
           )
         }

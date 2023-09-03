@@ -13,10 +13,8 @@ import AdminUpdateItemForm from '../../components/AdminUpdateItemForm'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
 import { AppContext } from 'src/contexts/app.context'
-import DialogPopup from 'src/components/DialogPopup'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import AdminDialog from '../../components/AdminDialog'
 
 type FormData = UpdateItemSchema
 
@@ -86,8 +84,8 @@ export default function AdminUpdateItem() {
     try {
       setPageIsLoading(true)
       await updateItemMutation.mutateAsync({ ...data })
-      showSuccessDialog(setSuccessDialogOpen)
       setPageIsLoading(false)
+      showSuccessDialog(setSuccessDialogOpen, 2000)
     } catch (error) {
       console.log(error)
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -138,22 +136,7 @@ export default function AdminUpdateItem() {
           </div>
         </div>
       </div>
-      <DialogPopup
-        isOpen={successDialogOpen}
-        handleClose={() => {
-          setSuccessDialogOpen(false)
-        }}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
-      >
-        <div className=' text-center'>
-          <FontAwesomeIcon
-            icon={faCheck}
-            fontSize={36}
-            className={'text- rounded-full  bg-white/20 p-4 text-center text-success'}
-          />
-        </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Upload avatar successfully</p>
-      </DialogPopup>
+      <AdminDialog isOpen={successDialogOpen} setIsOpen={setSuccessDialogOpen} />
     </div>
   )
 }
