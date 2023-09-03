@@ -24,7 +24,7 @@ export default function MobileProductImageList(props: Props) {
   //? HANDLE IMAGE LIST
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
   const [activeImageIndex, setActiveImageIndex] = useState(0)
-  const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
+  const [currentIndexImages, setCurrentIndexImages] = useState([0, 4])
   const imagesData = productImages?.data.data
   const imagesWithIndex = useMemo(
     () =>
@@ -44,7 +44,7 @@ export default function MobileProductImageList(props: Props) {
   useEffect(() => {
     setActiveImage(imagesWithIndex[0])
     setActiveImageIndex(0)
-    setCurrentIndexImages([0, 5])
+    setCurrentIndexImages([0, 4])
   }, [imagesWithIndex])
 
   const nextImageList = () => {
@@ -83,34 +83,39 @@ export default function MobileProductImageList(props: Props) {
           </div>
         )}
       </div>
-      <div className='relative mt-3 flex select-none justify-center space-x-2'>
+      <div className='relative mt-3 flex select-none justify-center'>
+        <div className='flex w-full px-4'>
+          {currentImageList.map((image) => {
+            const isActive = image === activeImage
+            return (
+              <div className='w-full px-1' key={image.id}>
+                <button onClick={handleChoosingImage(image)} className='relative w-full pt-[75%]'>
+                  <img
+                    src={image.image ? image.image.url : ''}
+                    alt={item.name}
+                    className='absolute left-0 top-0 h-full w-full object-scale-down'
+                  />
+                  {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
+                </button>
+              </div>
+            )
+          })}
+        </div>
         {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
           <button
-            className='absolute left-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
+            className='absolute left-0 top-1/2 -translate-y-1/2 justify-start rounded-md bg-black/60 px-1 py-2 text-textLight'
             onClick={previousImageList}
           >
-            <FontAwesomeIcon icon={faChevronLeft} className='h-6' />
+            <FontAwesomeIcon icon={faChevronLeft} className='h-auto w-3 sm:w-4' />
           </button>
         )}
-        {currentImageList.map((image, index) => {
-          const isActive = image === activeImage
-          return (
-            <button onClick={handleChoosingImage(image)} className='relative w-[20%] pt-[20%]' key={index}>
-              <img
-                src={image.image ? image.image.url : ''}
-                alt={item.name}
-                className='absolute left-0 top-0 h-full w-full object-scale-down'
-              />
-              {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
-            </button>
-          )
-        })}
+
         {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
           <button
-            className='absolute right-0 top-1/2 z-[5] h-8 w-4 -translate-y-1/2 bg-black/20 text-textLight'
+            className='absolute right-0 top-1/2 -translate-y-1/2 rounded-md bg-black/60 px-1 py-2 text-textLight'
             onClick={nextImageList}
           >
-            <FontAwesomeIcon icon={faChevronRight} className='h-6' />
+            <FontAwesomeIcon icon={faChevronRight} className='h-auto w-3 sm:w-4' />
           </button>
         )}
       </div>

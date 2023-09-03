@@ -121,7 +121,7 @@ export default function ProductDetailMobile(props: Props) {
                   {itemsInGroup.length} variants
                 </p>
               </div>
-              <div className='max-h-64 w-full overflow-auto py-4'>
+              <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/20 p-2 dark:border-white/20'>
                 <div className='grid w-full grid-cols-3 gap-4'>
                   {itemsInGroup.map((item, index) => {
                     const isActive = item.id === activeItem.id

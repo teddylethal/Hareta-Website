@@ -92,7 +92,7 @@ export default function ProductDetailDesktop(props: Props) {
   return (
     <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
       <div className='col-span-4'>
-        <div className='sticky left-0 top-8 flex-col rounded-xl bg-[#f8f8f8] p-6 text-textDark dark:bg-[#202020] dark:text-textLight md:top-10 lg:top-16'>
+        <div className='sticky left-0 top-8 flex-col rounded-xl bg-[#f8f8f8] p-2 text-textDark dark:bg-[#202020] dark:text-textLight md:top-10 lg:top-16 lg:p-4 xl:p-6'>
           <div className='relative flex items-center justify-between'>
             <p className='line-clamp-2 text-xl font-semibold lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
             {isAuthenticated && (
@@ -125,14 +125,14 @@ export default function ProductDetailDesktop(props: Props) {
             </span>
           </div>
 
-          <div className='mt-8 w-full rounded-lg border border-black/20 p-4 dark:border-white/20'>
+          <div className='mt-8 w-full rounded-lg border border-black/20 p-2 dark:border-white/20'>
             <div className='flex items-center justify-between'>
               <p className='text-base font-medium lg:text-lg xl:text-xl'>Variant</p>
               <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
                 {itemsInGroup.length} variants
               </p>
             </div>
-            <div className='max-h-64 w-full overflow-auto py-4'>
+            <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/20 p-2 dark:border-white/20'>
               <div className='grid w-full grid-cols-3 gap-4'>
                 {itemsInGroup.map((item, index) => {
                   const isActive = item.id === activeItemID
