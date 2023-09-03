@@ -13,7 +13,7 @@ import AdminGroupNameList from '../../components/AdminGroupNameList'
 import { Product } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
-import AdminCreatingPage from '../AdminCreatingPage'
+import AdminCreatePageHeader from '../../components/AdminCreatePageHeader'
 
 type FormData = CreatingItemSchema
 
@@ -68,7 +68,7 @@ export default function AdminCreateItem() {
 
   return (
     <div>
-      <AdminCreatingPage />
+      <AdminCreatePageHeader />
       <div className='mt-4 space-y-8'>
         <div className='grid grid-cols-2 items-center gap-12'>
           <div className='col-span-1 space-y-4'>

@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import AdminDialog from '../../components/AdminDialog'
-import AdminImagesPage from '../AdminImagesPage'
+import AdminImagesPageHeader from '../../components/AdminImagesPageHeader'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
@@ -42,7 +42,7 @@ export default function AdminDeleteItemImage() {
 
   return (
     <div>
-      <AdminImagesPage />
+      <AdminImagesPageHeader />
       <div className='mt-8 grid grid-cols-2 gap-8'>
         <div className='col-span-1'>
           <div className='space-y-8'>

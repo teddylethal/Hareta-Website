@@ -24,11 +24,8 @@ import AdminLayout from './pages/Admin/layouts/AdminLayout'
 import AdminCreateItem from './pages/Admin/pages/AdminCreateItem'
 import AdminAddItemColor from './pages/Admin/pages/AdminAddItemColor'
 import AdminMainPage from './pages/Admin/pages/AdminMainPage'
-import AdminCreatingPage from './pages/Admin/pages/AdminCreatingPage'
 import AdminUploadItemAvatar from './pages/Admin/pages/AdminUploadItemAvatar'
-import AdminUpdatingPage from './pages/Admin/pages/AdminUpdatingPage'
 import AdminSetDefaultItem from './pages/Admin/pages/AdminSetDefaultItem'
-import AdminImagesPage from './pages/Admin/pages/AdminImagesPage'
 import AdminAddItemImage from './pages/Admin/pages/AdminAddItemImage'
 import AdminUpdateItem from './pages/Admin/pages/AdminUpdateItem'
 import AdminDeleteItemImage from './pages/Admin/pages/AdminDeleteItemImage'
@@ -131,14 +128,6 @@ export default function useRouteElements() {
           )
         },
         {
-          path: adminPath.creatingPage,
-          element: (
-            <AdminLayout>
-              <AdminCreatingPage />
-            </AdminLayout>
-          )
-        },
-        {
           path: adminPath.createItem,
           element: (
             <AdminLayout>
@@ -151,14 +140,6 @@ export default function useRouteElements() {
           element: (
             <AdminLayout>
               <AdminAddItemColor />
-            </AdminLayout>
-          )
-        },
-        {
-          path: adminPath.updatingPage,
-          element: (
-            <AdminLayout>
-              <AdminUpdatingPage />
             </AdminLayout>
           )
         },
@@ -183,14 +164,6 @@ export default function useRouteElements() {
           element: (
             <AdminLayout>
               <AdminUpdateItem />
-            </AdminLayout>
-          )
-        },
-        {
-          path: adminPath.images,
-          element: (
-            <AdminLayout>
-              <AdminImagesPage />
             </AdminLayout>
           )
         },

@@ -1,7 +1,6 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
-import AdminImagesPage from '../AdminImagesPage'
 import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import ImageInput from '../../components/ImageInput'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -11,6 +10,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { ColorRing } from 'react-loader-spinner'
 import DialogPopup from 'src/components/DialogPopup'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import AdminImagesPageHeader from '../../components/AdminImagesPageHeader'
 
 export default function AdminAddItemImage() {
   const { currentItem, itemGroup } = useContext(AdminContext)
@@ -71,7 +71,7 @@ export default function AdminAddItemImage() {
 
   return (
     <div>
-      <AdminImagesPage />
+      <AdminImagesPageHeader />
 
       <div className=' mt-8 grid grid-cols-2 gap-6'>
         <div className='col-span-1'>

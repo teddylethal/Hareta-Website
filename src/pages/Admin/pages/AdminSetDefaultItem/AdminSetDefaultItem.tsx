@@ -7,7 +7,7 @@ import { adminItemApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { Fragment, useContext, useEffect } from 'react'
-import AdminUpdatingPage from '../AdminUpdatingPage'
+import AdminUpdatePageHeader from '../../components/AdminUpdatePageHeader'
 import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
@@ -72,7 +72,7 @@ export default function AdminSetDefaultItem() {
 
   return (
     <Fragment>
-      <AdminUpdatingPage />
+      <AdminUpdatePageHeader />
 
       <div className='mt-4 grid grid-cols-12 gap-6'>
         <div className='col-span-5'>

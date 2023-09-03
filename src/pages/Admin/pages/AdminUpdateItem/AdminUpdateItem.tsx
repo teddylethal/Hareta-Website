@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import AdminUpdatingPage from '../AdminUpdatingPage'
+import AdminUpdatePageHeader from '../../components/AdminUpdatePageHeader'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProvider, useForm } from 'react-hook-form'
 import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
@@ -105,7 +105,7 @@ export default function AdminUpdateItem() {
 
   return (
     <div>
-      <AdminUpdatingPage />
+      <AdminUpdatePageHeader />
       <div className='mt-12 space-y-8'>
         <div className='grid grid-cols-2 gap-12'>
           <div className='col-span-1'>

@@ -10,7 +10,7 @@ import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
 import ImageInput from '../../components/ImageInput'
-import AdminUpdatingPage from '../AdminUpdatingPage'
+import AdminUpdatePageHeader from '../../components/AdminUpdatePageHeader'
 
 export default function AdminUploadItemAvatar() {
   const { currentItem } = useContext(AdminContext)
@@ -53,7 +53,7 @@ export default function AdminUploadItemAvatar() {
 
   return (
     <div>
-      <AdminUpdatingPage />
+      <AdminUpdatePageHeader />
       <div className='mt-4 grid grid-cols-12 gap-4'>
         <div className='col-span-6'>
           <div className='relative z-10 rounded-lg border border-white/40 p-4'>

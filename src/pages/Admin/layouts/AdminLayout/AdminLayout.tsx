@@ -45,7 +45,7 @@ export default function AdminLayout({ children }: Props) {
             <div className='relative flex items-center justify-around rounded-xl  border border-haretaColor py-2 text-base font-semibold text-textLight/80 lg:text-xl'>
               {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
               <NavLink
-                to={adminPath.creatingPage}
+                to={adminPath.createItem}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -56,7 +56,7 @@ export default function AdminLayout({ children }: Props) {
                 Create
               </NavLink>
               <NavLink
-                to={adminPath.updatingPage}
+                to={adminPath.uploadItemAvatar}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -67,7 +67,7 @@ export default function AdminLayout({ children }: Props) {
                 Update
               </NavLink>
               <NavLink
-                to={adminPath.images}
+                to={adminPath.addItemImage}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
