@@ -46,17 +46,17 @@ export default function ProductDetailDesktop(props: Props) {
     <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
       <div className='col-span-4'>
         <div className='sticky left-0 top-8 flex-col rounded-xl bg-[#f8f8f8] p-6 text-textDark dark:bg-[#202020] dark:text-textLight md:top-10 lg:top-16'>
-          <div className='flex items-center justify-between'>
-            <p className='text-xl font-medium lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
+          <div className='relative flex items-center justify-between'>
+            <p className='line-clamp-2 text-xl font-semibold lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
             {isAuthenticated && (
               <Fragment>
                 {isLikedByUser && (
-                  <FontAwesomeIcon className={classNames('h-auto w-4 text-red-500 lg:w-6 xl:w-8', {})} icon={faHeart} />
+                  <FontAwesomeIcon className={classNames('h-auto w-5 text-red-500 lg:w-6 xl:w-7', {})} icon={faHeart} />
                 )}
                 {!isLikedByUser && (
                   <button onClick={toggleLikeItem} className='text-black/40 dark:text-white/40'>
                     <FontAwesomeIcon
-                      className={classNames('h-auto w-4 hover:text-red-400 lg:w-6 xl:w-8', {})}
+                      className={classNames('h-auto w-5 hover:text-red-500 lg:w-6 xl:w-7', {})}
                       icon={faHeartCirclePlus}
                     />
                   </button>
@@ -72,7 +72,6 @@ export default function ProductDetailDesktop(props: Props) {
               <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
             </div>
           )}
-
           <div className='mt-2'>
             <span className='text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg xl:text-xl'>
               ${formatCurrency(defaultItem.price)}
