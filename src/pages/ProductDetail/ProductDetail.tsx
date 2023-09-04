@@ -64,7 +64,7 @@ export default function ProductDetail() {
 
   //? WISHLIST DATA
   const { data: wishlistData } = useQuery({
-    queryKey: ['favourite_list'],
+    queryKey: ['user_wish_list'],
     queryFn: () => {
       return likeItemAPi.getWishList()
     },
@@ -89,6 +89,7 @@ export default function ProductDetail() {
     )
   }
 
+  //? LIKE ITEM
   const likeItemMutation = useMutation(likeItemAPi.likeItem)
   const likeItem = () => {
     likeItemMutation.mutate(

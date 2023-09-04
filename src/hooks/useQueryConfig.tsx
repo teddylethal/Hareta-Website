@@ -18,7 +18,8 @@ export default function useQueryConfig() {
       type: queryParams.type,
       product_line: queryParams.product_line,
       lower_price: queryParams.lower_price,
-      upper_price: queryParams.upper_price
+      upper_price: queryParams.upper_price,
+      tag: queryParams.tag
     },
     isUndefined
   )

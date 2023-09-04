@@ -26,7 +26,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        haretaColor: '#FFA500',
+        haretaColor: '#ff6a00',
         textVintage: '#FFFBF5',
         textDark: '#222222',
         vintageColor: '#A27B5C',
@@ -35,7 +35,8 @@ module.exports = {
         lightBg: '#e8e8e8',
         success: '#4bb543',
         brownColor: '#B77729',
-        orangeColor: '#ff6a00'
+        orangeColor: '#ff6a00',
+        sunYellow: '#ffc107'
       }
     }
   },

@@ -104,17 +104,17 @@ export default function Login() {
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
             <form
-              className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 dark:bg-[#222222] md:p-10'
+              className='rounded-xl bg-[#222222] p-5 shadow-sm duration-500 dark:bg-[#222222] md:p-10'
               onSubmit={onSubmit}
               noValidate
             >
-              <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Login</div>
+              <div className='text-center text-2xl uppercase text-haretaColor'>Login</div>
 
               <AccountInput
                 name='email'
                 register={register}
                 type='text'
-                className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
+                className='mt-8 autofill:text-textDark autofill:dark:text-textLight'
                 errorMessage={errors.email?.message}
                 labelName='Email'
                 required
@@ -167,7 +167,7 @@ export default function Login() {
                 {!isSmall && (
                   <div className='flex items-center text-center'>
                     <span className='text-gray-400'>Don&apos;t have an account?</span>
-                    <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/60 duration-300 hover:text-haretaColor' to={path.register}>
                       Sign up
                     </Link>
                   </div>
@@ -176,7 +176,7 @@ export default function Login() {
                 {isSmall && (
                   <div className='mb-2 flex flex-col text-center'>
                     <span className=' line-clamp-2 text-gray-400'>Don&apos;t have an account?</span>
-                    <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/60 duration-300 hover:text-haretaColor' to={path.register}>
                       Sign up
                     </Link>
                   </div>

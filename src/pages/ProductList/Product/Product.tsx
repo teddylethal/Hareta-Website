@@ -1,20 +1,24 @@
-import { faCartPlus, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import {} from '@fortawesome/free-regular-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
-import { memo, useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { memo, useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import purchaseApi from 'src/apis/cart.api'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import itemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
 import { ThemeContext } from 'src/App'
 import { AppContext } from 'src/contexts/app.context'
-import { CartContext } from 'src/contexts/cart.context'
-import { TemporaryPurchase } from 'src/types/cart.type'
+import producImageApi from 'src/apis/productImage.api'
+import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
+import { ProductImage } from 'src/types/productImage.type'
+import likeItemAPi from 'src/apis/userLikeItem.api'
+
+const MAXLENGTH = 5
 
 export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
   setIsOpen(true)
@@ -29,128 +33,135 @@ interface Props {
   likedByUser?: boolean
 }
 
-function Product({ product }: Props) {
+function Product({ product, likedByUser = false }: Props) {
   const { theme } = useContext(ThemeContext)
-  const { isAuthenticated, setPageIsLoading } = useContext(AppContext)
-  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
+  const { isAuthenticated } = useContext(AppContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
-  const [createTempCart, setCreateTempCart] = useState<boolean>(false)
+  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(likedByUser)
 
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
 
-  const addToCartMutation = useMutation(purchaseApi.addToCart)
-  const addToCart = () => {
-    setPageIsLoading(true)
-    addToCartMutation.mutate(
-      { item_id: product.id as string, quantity: 1 },
-      {
-        onSuccess: () => {
-          setPageIsLoading(false)
-          showSuccessDialog(setDialogIsOpen)
+  //? GET IMAGE LIST
+  const itemID = product.id
+  const { data: imageListData, isLoading } = useQuery({
+    queryKey: ['default_item_images', itemID],
+    queryFn: () => producImageApi.getImageList(itemID as string),
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 3
+  })
+  const imageList = imageListData?.data.data
 
-          queryClient.invalidateQueries({ queryKey: ['purchases'] })
-          window.scrollTo(scrollX, scrollY)
-        }
-      }
-    )
+  //? HANDLE CHANGE IMAGE WHILE HOVERING
+  const avatarUrl = product.avatar ? product.avatar.url : null
+  const [hoveringImage, setHoveringImage] = useState<boolean>(false)
+  const [imageListCarousel, setImageListCarousel] = useState<ProductImage[]>([])
+  useEffect(() => {
+    if (imageList) {
+      setImageListCarousel(imageList.length > MAXLENGTH ? imageList?.slice(0, MAXLENGTH) : imageList)
+    }
+  }, [imageList])
+
+  const handleHoveringImage = () => {
+    setHoveringImage(true)
+  }
+
+  const handleUnhoveringImage = () => {
+    setHoveringImage(false)
   }
 
   const handleClickItem = () => {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
   }
 
-  const createTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
-      id: Date.now().toString(),
-      quantity: 1,
-      item: product
-    }
-    setPurchasesInLS([...purchasesInLS, newPurchase])
-    setCreateTempCart(false)
-    showSuccessDialog(setDialogIsOpen)
+  //? HANDLE LIKE ITEM
+  const likeItem = () => {
+    setIsLikedByUser(true)
   }
 
-  const addToTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
-      id: Date.now().toString(),
-      quantity: 1,
-      item: product
-    }
-    const purchaseIndex = purchasesInLS.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
-    if (purchaseIndex !== -1) {
-      const newQuantity = purchasesInLS[purchaseIndex].quantity + 1
-      const newPurchasesList = purchasesInLS.map((purchase, index) => {
-        if (index === purchaseIndex) {
-          return { ...purchase, quantity: newQuantity }
-        } else return purchase
-      })
-      setPurchasesInLS(newPurchasesList)
-    } else {
-      setPurchasesInLS([...purchasesInLS, newPurchase])
-    }
-    showSuccessDialog(setDialogIsOpen)
+  const unlikeItem = () => {
+    setIsLikedByUser(false)
   }
+
+  const toggleLikeItem = () => {
+    isLikedByUser && unlikeItem()
+    !isLikedByUser && likeItem()
+  }
+
+  const queryClient = useQueryClient()
+  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
+  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  useEffect(() => {
+    const updateLikeItem = setTimeout(() => {
+      if (isLikedByUser && !likedByUser) {
+        likeItemMutation.mutate({ group_id: product.group.id })
+      } else if (!isLikedByUser && likedByUser) {
+        unlikeItemMutation.mutate({ group_id: product.group.id })
+      }
+      queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+    }, 1500)
+
+    return () => clearTimeout(updateLikeItem)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLikedByUser])
 
   return (
-    <div className='flex w-full items-center justify-center pb-0 pt-2 duration-500 hover:pb-2 hover:pt-0'>
+    <div
+      className='flex w-full items-center justify-center pb-0 pt-2 duration-500 hover:pb-2 hover:pt-0'
+      onMouseEnter={handleHoveringImage}
+      onMouseLeave={handleUnhoveringImage}
+    >
       <div className='relative  w-full overflow-hidden rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
-        <div className='relative w-full pt-[75%]'>
-          <button onClick={handleClickItem}>
-            {product.avatar ? (
-              <img
-                src={product.avatar.url}
-                alt={product.name}
-                className='absolute left-0 top-0 h-full w-full object-cover'
-              />
-            ) : (
-              <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
-                <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
-              </div>
-            )}
+        <button onClick={handleClickItem} className='relative w-full bg-[#dfdfdf] pt-[75%] dark:bg-[#282828]'>
+          {hoveringImage && (
+            <div className='absolute left-0 top-0 h-full w-full object-cover'>
+              <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
+              <div className='absolute inset-0'></div>
+            </div>
+          )}
+          {!hoveringImage && (
+            <div className='absolute left-0 top-0 h-full w-full'>
+              {avatarUrl ? (
+                <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
+              ) : (
+                <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
+                  <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
+                </div>
+              )}
+            </div>
+          )}
+        </button>
+        <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
+          <button
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
+            onClick={handleClickItem}
+          >
+            {product.name}
           </button>
-        </div>
-        <div className='mx-2 mt-2 flex justify-between space-x-1 overflow-hidden sm:mx-3 lg:mx-4 lg:mt-4'>
-          <div className='flex flex-col justify-between space-y-1 overflow-hidden'>
-            <button
-              className='h-full overflow-hidden truncate text-left text-sm uppercase text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
-              onClick={handleClickItem}
-            >
-              {product.name}
-            </button>
 
-            <span className='text-xs font-medium text-brownColor dark:text-haretaColor sm:text-sm lg:text-base'>
-              ${formatCurrency(product.price)}
-            </span>
-          </div>
-
-          <div className={classNames('mx-1 flex items-end justify-center', {})}>
-            <button
-              className=''
-              onClick={
-                isAuthenticated
-                  ? addToCart
-                  : purchasesInLS.length === 0
-                  ? () => {
-                      setCreateTempCart(true)
-                    }
-                  : addToTemporaryCart
-              }
-            >
-              <FontAwesomeIcon
-                icon={faCartPlus}
-                className='text-base text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-lg lg:text-xl'
-              />
-            </button>
-          </div>
+          <span className='text-xs font-medium text-brownColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
+            ${formatCurrency(product.price)}
+          </span>
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textDark lg:h-6 lg:w-20  lg:text-sm'>
+            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
               {itemTag[product.tag]}
             </span>
             <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
+          </div>
+        )}
+        {isAuthenticated && (
+          <div className='absolute right-1 top-1'>
+            <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
+              <FontAwesomeIcon
+                icon={faHeart}
+                className={classNames('h-auto w-4 md:w-5  xl:w-6', {
+                  'text-red-500': isLikedByUser,
+                  ' text-textLight': !isLikedByUser
+                })}
+              />
+            </button>
           </div>
         )}
       </div>
@@ -171,82 +182,6 @@ function Product({ product }: Props) {
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
       </DialogPopup>
-
-      <DialogPopup
-        closeButton={false}
-        isOpen={createTempCart}
-        handleClose={() => setCreateTempCart(false)}
-        classNameWrapper='relative w-80 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
-      >
-        <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
-        <div className='mt-4 space-y-2 text-center'>
-          <div className='inline justify-center space-x-1 '>
-            <span>Items added without</span>
-            <span className='text-haretaColor'>login</span>
-            <span>are temporary</span>
-          </div>
-          <div className='justify-center space-x-1'>
-            <span className='text-haretaColor'>Login</span>
-            <span>to</span>
-            <span className='text-haretaColor'>save</span>
-            <span>your items</span>
-          </div>
-        </div>
-        <div className='mt-8 flex justify-around'>
-          <Link
-            to={path.login}
-            type='button'
-            className={classNames(
-              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
-              {
-                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
-                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-              }
-            )}
-          >
-            Login
-          </Link>
-          <button
-            type='button'
-            className={classNames(
-              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
-              {
-                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
-                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-              }
-            )}
-            onClick={createTemporaryCart}
-          >
-            Continue
-          </button>
-        </div>
-      </DialogPopup>
-
-      {/* <AnimatePresence>
-        {isLoading && (
-          <Fragment>
-            <motion.div
-              className='fixed inset-0 '
-              initial={{ opacity: 0, backgroundColor: 'black' }}
-              animate={{
-                opacity: 0.4
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.div
-              className='fixed inset-0 flex h-4 w-16 items-center justify-center rounded-lg px-2 py-12 shadow-sm'
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1,
-                backgroundColor: theme === 'dark' ? '#101010' : '#f8f8f8',
-                color: theme === 'dark' ? '#eeeeee' : '#222222'
-              }}
-              exit={{ opacity: 0 }}
-            ></motion.div>
-          </Fragment>
-        )}
-      </AnimatePresence> */}
     </div>
   )
 }

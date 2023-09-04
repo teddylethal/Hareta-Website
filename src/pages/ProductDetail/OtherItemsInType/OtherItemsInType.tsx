@@ -110,7 +110,7 @@ export default function OtherItemsInType({ type }: Props) {
             }
           >
             {itemsInType.map((product) => (
-              <div className='mx-2' key={product.id}>
+              <div className='mx-6' key={product.id}>
                 <Product product={product} queryConfig={queryConfig} />
               </div>
             ))}

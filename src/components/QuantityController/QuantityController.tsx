@@ -10,6 +10,7 @@ interface Props extends InputNumberProps {
   onDecrease?: (value: number) => void
   onType?: (value: number) => void
   onFocusOut?: (value: number) => void
+  setQuantity?: React.Dispatch<React.SetStateAction<number>>
   classNameWrapper?: string
   classNameInput?: string
   classNameButton?: string
@@ -22,6 +23,7 @@ export default function QuantityController({
   onDecrease,
   onType,
   onFocusOut,
+  setQuantity,
   classNameWrapper,
   classNameInput = 'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none text-haretaColor dark:bg-black bg-white border border-black/20 dark:border-white/20',
   classNameButton = 'round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight border border-black/20 dark:border-white/20',
@@ -34,10 +36,12 @@ export default function QuantityController({
     let _value = Number(e.target.value)
     if (max !== undefined && _value > max) {
       _value = max
-    } else if (_value < 1) {
-      _value = 1
     }
+    //  else if (_value < 1) {
+    //   _value = 1
+    // }
     onType && onType(_value)
+    setQuantity && setQuantity(_value)
     setLocalValue(_value)
   }
 
@@ -69,6 +73,8 @@ export default function QuantityController({
         <FontAwesomeIcon icon={faMinus} className={classNameIcon} />
       </button>
       <InputNumber
+        type='text'
+        autoComplete='off'
         name='quantity'
         className=''
         classNameError='hidden'

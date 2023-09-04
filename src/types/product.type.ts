@@ -65,6 +65,7 @@ export interface ProductListConfig {
   product_line?: string
   lower_price?: number | string
   upper_price?: number | string
+  tag?: number | string
 }
 
 export interface ItemInGroupConfig {

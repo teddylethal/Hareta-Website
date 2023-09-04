@@ -2,20 +2,26 @@ import classNames from 'classnames'
 import { useContext, useState } from 'react'
 import { ThemeContext } from 'src/App'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
-import { StoreContext } from 'src/contexts/store.context'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { motion } from 'framer-motion'
+import useQueryConfig from 'src/hooks/useQueryConfig'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import { omit } from 'lodash'
+import path from 'src/constants/path'
+import ItemTag from 'src/constants/itemTag'
 
 // interface Props {
 //   queryConfig: QueryConfig
 // }
 
 export default function AsideSorter() {
-  const { sorting, setSorting } = useContext(StoreContext)
-
   const { theme } = useContext(ThemeContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
+
+  const queryConfig = useQueryConfig()
+  const { tag } = queryConfig
+  const tagEnum = tag ? Number(tag) : 0
 
   const open = () => {
     setVisible(true)
@@ -30,10 +36,37 @@ export default function AsideSorter() {
     else close()
   }
 
-  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //? HANDLE CHOOSE SORT
+  const navigate = useNavigate()
+  const handleChange = (tagIndex: number) => () => {
     // console.log(event)
-    e.preventDefault()
-    setSorting((e.target as HTMLInputElement).innerText)
+    if (tagIndex === 0) {
+      navigate({
+        pathname: path.store,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig
+            },
+            ['page', 'limit', 'tag']
+          )
+        ).toString()
+      })
+    } else {
+      navigate({
+        pathname: path.store,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig,
+              tag: String(tagIndex)
+            },
+            ['page', 'limit']
+          )
+        ).toString()
+      })
+    }
+
     close()
   }
 
@@ -49,7 +82,7 @@ export default function AsideSorter() {
       <div className='col-span-7 items-center' ref={ref}>
         <button
           className={classNames(
-            'flex  w-full items-center justify-center rounded-xl bg-[#ddd] py-0.5 text-sm font-medium text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:px-3  lg:text-base',
+            'flex w-full items-center justify-center rounded-xl bg-[#ddd] py-0.5 text-sm font-medium capitalize text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:px-3  lg:text-base',
             {
               'rounded-b-none border-x border-t border-black/20 duration-500 dark:border-white/10': visible,
               ' bg-vintageColor/90 hover:bg-vintageColor  dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
@@ -57,7 +90,7 @@ export default function AsideSorter() {
           )}
           onClick={toggleOpenClose}
         >
-          {sorting}
+          {tagEnum === 0 ? 'Newest' : ItemTag[tagEnum]}
         </button>
         <AnimateChangeInHeight>
           {visible && isOpening && (
@@ -75,30 +108,28 @@ export default function AsideSorter() {
               <ul className='flex grow flex-col space-y-2 text-xs text-textDark/80 dark:text-textLight/80 lg:text-base'>
                 <li className='w-full'>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(0)}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Newest',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Newest'
+                          tagEnum !== 0,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 0
                       }
                     )}
                   >
-                    <p>Newest</p>
+                    Newest
                   </button>
                 </li>
                 <li className='w-full'>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(1)}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Top seller',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Top seller'
+                          tagEnum !== 1,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 1
                       }
                     )}
                   >
@@ -107,14 +138,13 @@ export default function AsideSorter() {
                 </li>
                 <li className='w-full'>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(2)}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Signature',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Signature'
+                          tagEnum !== 2,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 2
                       }
                     )}
                   >
@@ -123,14 +153,13 @@ export default function AsideSorter() {
                 </li>
                 <li className='w-full'>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(3)}
                     className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 dark:border-white/40 lg:px-2 ',
+                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Favourite',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Favourite'
+                          tagEnum !== 3,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 3
                       }
                     )}
                   >
