@@ -13,7 +13,7 @@ import {
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ElementType, useContext, useRef } from 'react'
-import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   children: React.ReactNode
@@ -37,7 +37,7 @@ export default function FloatingOnClick({
   isOpen,
   openChange
 }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
 
   const arrowRef = useRef(null)
   const { x, y, refs, middlewareData, context, strategy } = useFloating({

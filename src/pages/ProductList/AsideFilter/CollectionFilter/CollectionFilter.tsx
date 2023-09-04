@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { motion } from 'framer-motion'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { ThemeContext } from 'src/App'
+
 import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
@@ -11,6 +11,7 @@ import path from 'src/constants/path'
 import { omit } from 'lodash'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import classNames from 'classnames'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   queryConfig: QueryConfig
@@ -19,7 +20,7 @@ interface Props {
 }
 
 export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isMobile = false }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
   const { category, collection, type } = queryConfig

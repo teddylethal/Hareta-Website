@@ -14,7 +14,7 @@ import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { Product } from 'src/types/product.type'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
-import { ThemeContext } from 'src/App'
+
 import DialogPopup from 'src/components/DialogPopup'
 
 interface Props {
@@ -28,8 +28,7 @@ interface Props {
 export default function ProductDetailDesktop(props: Props) {
   const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
-  const { isAuthenticated } = useContext(AppContext)
-  const { theme } = useContext(ThemeContext)
+  const { isAuthenticated, theme } = useContext(AppContext)
   const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)

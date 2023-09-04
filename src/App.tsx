@@ -1,7 +1,7 @@
 import useRouteElements from './useRouteElements'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { LocalStorageEventTarget } from './utils/auth'
 import { AppContext } from './contexts/app.context'
 import { CartContext } from './contexts/cart.context'
@@ -15,13 +15,9 @@ export const ThemeContext = createContext({
 })
 
 function App() {
-  const { reset, pageIsLoading } = useContext(AppContext)
+  const { reset, pageIsLoading, theme } = useContext(AppContext)
   const { setExtendedPurchases } = useContext(CartContext)
 
-  const [theme, setTheme] = useState('dark')
-  const toggleTheme = () => {
-    setTheme((theme) => (theme === 'light' ? 'dark' : 'light'))
-  }
   const routeElements = useRouteElements()
 
   useEffect(() => {
@@ -40,13 +36,11 @@ function App() {
   }, [])
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div className={theme === 'dark' ? 'dark' : 'light'}>
-        {routeElements}
-        <ToastContainer limit={5} />
-        {pageIsLoading && <PageIsLoading />}
-      </div>
-    </ThemeContext.Provider>
+    <div className={theme === 'dark' ? 'dark' : 'light'}>
+      {routeElements}
+      <ToastContainer limit={5} />
+      {pageIsLoading && <PageIsLoading />}
+    </div>
   )
 }
 

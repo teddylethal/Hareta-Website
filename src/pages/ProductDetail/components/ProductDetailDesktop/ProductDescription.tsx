@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useContext, useRef, useState } from 'react'
-import { ThemeContext } from 'src/App'
+
 import { Product } from 'src/types/product.type'
 import DOMPurify from 'dompurify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,13 +10,14 @@ import useQueryConfig from 'src/hooks/useQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { omit } from 'lodash'
 import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   item: Product
 }
 
 export default function ProductDescription({ item }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
 
   const detailRef = useRef<HTMLDivElement>(null)
 

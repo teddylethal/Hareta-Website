@@ -1,12 +1,12 @@
 import { useContext } from 'react'
-import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   className?: string
 }
 
 export default function ToggleTheme({ className }: Props) {
-  const { theme, toggleTheme } = useContext(ThemeContext)
+  const { theme, toggleTheme } = useContext(AppContext)
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions

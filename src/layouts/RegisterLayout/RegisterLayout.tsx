@@ -1,13 +1,13 @@
 import { useContext } from 'react'
-import { ThemeContext } from 'src/App'
 import Footer from 'src/components/Footer'
 import RegisterHeader from 'src/components/RegisterHeader'
+import { AppContext } from 'src/contexts/app.context'
 interface Props {
   children?: React.ReactNode
 }
 
 export default function RegisterLayout({ children }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   return (
     <div
       className='min-h-screen bg-cover bg-center duration-500 '

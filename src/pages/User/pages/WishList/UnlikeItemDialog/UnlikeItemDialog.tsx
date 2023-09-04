@@ -2,8 +2,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import React, { Fragment, useContext } from 'react'
-import { ThemeContext } from 'src/App'
+
 import likeItemAPi from 'src/apis/userLikeItem.api'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   isOpen: boolean
@@ -21,7 +22,7 @@ export default function UnlikeItemDialog({
   setUnlikeItemId,
   classNameWrapper
 }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const queryClient = useQueryClient()
   const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
   const unlikeItem = () => {

@@ -1,6 +1,6 @@
 import { useState, createContext } from 'react'
 import { User } from 'src/types/user.type'
-import { getAccessTokenFromLS, getProfileFromLS } from 'src/utils/auth'
+import { getAccessTokenFromLS, getProfileFromLS, getThemeFromLS } from 'src/utils/auth'
 
 interface AppContextInterface {
   isAuthenticated: boolean
@@ -9,6 +9,8 @@ interface AppContextInterface {
   setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
   profile: User | null
   setProfile: React.Dispatch<React.SetStateAction<User | null>>
+  theme: string
+  toggleTheme: () => void
   reset: () => void
 }
 
@@ -19,7 +21,9 @@ const initialAppContext: AppContextInterface = {
   setProfile: () => null,
   reset: () => null,
   pageIsLoading: false,
-  setPageIsLoading: () => null
+  setPageIsLoading: () => null,
+  theme: getThemeFromLS(),
+  toggleTheme: () => null
 }
 
 export const AppContext = createContext<AppContextInterface>(initialAppContext)
@@ -27,7 +31,11 @@ export const AppContext = createContext<AppContextInterface>(initialAppContext)
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAppContext.isAuthenticated)
   const [pageIsLoading, setPageIsLoading] = useState<boolean>(initialAppContext.pageIsLoading)
+  const [theme, setTheme] = useState<string>(initialAppContext.theme)
   const [profile, setProfile] = useState<User | null>(initialAppContext.profile)
+  const toggleTheme = () => {
+    setTheme((theme) => (theme === 'light' ? 'dark' : 'light'))
+  }
 
   const reset = () => {
     setIsAuthenticated(false)
@@ -36,7 +44,17 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AppContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, profile, setProfile, reset, pageIsLoading, setPageIsLoading }}
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        profile,
+        setProfile,
+        reset,
+        pageIsLoading,
+        setPageIsLoading,
+        theme,
+        toggleTheme
+      }}
     >
       {children}
     </AppContext.Provider>

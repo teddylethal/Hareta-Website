@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ThemeContext } from 'src/App'
+
 import productApi from 'src/apis/product.api'
 import Button from 'src/components/Button'
 import QuantityController from 'src/components/QuantityController'
@@ -45,8 +45,7 @@ export default function AddTocartPopover({
   createTempCart,
   setCreateTempCart
 }: Props) {
-  const { isAuthenticated } = useContext(AppContext)
-  const { theme } = useContext(ThemeContext)
+  const { isAuthenticated, theme } = useContext(AppContext)
   const { purchasesInLS } = useContext(CartContext)
   const [activeItemID, setActiveItemID] = useState<string>(activeItem.id)
 

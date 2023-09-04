@@ -3,19 +3,19 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import ToggleTheme from 'src/components/ToggleTheme'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { ThemeContext } from 'src/App'
 import path from 'src/constants/path'
 import MobileSupport from '../MobileSupport'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import MobileUser from '../MobileUser'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   className?: string
 }
 
 export default function MobileNav({ className }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
   const openMenu = () => {

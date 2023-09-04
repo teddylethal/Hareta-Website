@@ -14,7 +14,6 @@ import classNames from 'classnames'
 import OtherItemsInType from './OtherItemsInType'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
-import { ThemeContext } from 'src/App'
 import { AppContext } from 'src/contexts/app.context'
 import ProductDetailLoading from './components/ProductDetailLoading'
 import ProductDetailSkeleton from './components/ProductDetailSkeleton/ProductDetailSkeleton'
@@ -27,8 +26,7 @@ export interface ProductImageWithIndex extends ProductImage {
 }
 
 export default function ProductDetail() {
-  const { theme } = useContext(ThemeContext)
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, theme } = useContext(AppContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768

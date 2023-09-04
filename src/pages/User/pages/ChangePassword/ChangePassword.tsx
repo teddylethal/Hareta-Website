@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { Fragment, useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { ThemeContext } from 'src/App'
+
 import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
 import Input from 'src/components/Input'
@@ -18,8 +18,7 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 type FormData = ChangePasswordSchema
 
 export default function ChangePassword() {
-  const { setIsAuthenticated, setProfile } = useContext(AppContext)
-  const { theme } = useContext(ThemeContext)
+  const { theme, setIsAuthenticated, setProfile } = useContext(AppContext)
 
   const [successDialog, setSuccessDialog] = useState<boolean>(false)
 

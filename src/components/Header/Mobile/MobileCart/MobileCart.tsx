@@ -1,7 +1,6 @@
 import { Fragment, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ThemeContext } from 'src/App'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { CartContext } from 'src/contexts/cart.context'
 import purchaseApi from 'src/apis/cart.api'
@@ -11,13 +10,14 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   className?: string
 }
 
 export default function MobileCart({ className }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)

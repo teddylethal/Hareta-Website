@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Fragment, useContext } from 'react'
-import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
+
 import { StoreContext } from 'src/contexts/store.context'
 import useClickOutside from 'src/hooks/useClickOutside'
 
 export default function MobileSorter() {
-  const { theme } = useContext(ThemeContext)
-  const { visible, setVisible, ref } = useClickOutside(false)
+  const { theme } = useContext(AppContext)
   const { sorting, setSorting } = useContext(StoreContext)
+  const { visible, setVisible, ref } = useClickOutside(false)
 
   const open = () => {
     setVisible(true)

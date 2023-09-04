@@ -4,13 +4,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Fragment, useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { ThemeContext } from 'src/App'
 import { Link } from 'react-router-dom'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function MobileCartWithoutLogin() {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)

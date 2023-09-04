@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dialog, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { Fragment, useContext, useRef } from 'react'
-import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   isOpen: boolean
@@ -20,7 +20,7 @@ export default function DialogPopup({
   children,
   closeButton = true
 }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
 
   const completeButtonRef = useRef(null)
 

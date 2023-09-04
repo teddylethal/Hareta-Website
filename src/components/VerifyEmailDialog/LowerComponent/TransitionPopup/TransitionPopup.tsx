@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Dialog, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import React, { Fragment, useContext } from 'react'
-import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   isOpen: boolean
@@ -39,7 +39,7 @@ export default function TransitionPopup({
     </div>
   )
 }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

@@ -1,7 +1,7 @@
 import { Fragment, useContext, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { ThemeContext } from 'src/App'
+
 import CategoryFilter from '../../AsideFilter/CategoryFilter'
 import CollectionFilter from '../../AsideFilter/CollectionFilter'
 import TypeFilter from '../../AsideFilter/TypeFilter'
@@ -12,13 +12,14 @@ import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import classNames from 'classnames'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   queryConfig: QueryConfig
 }
 
 export default function MobileBottomBar({ queryConfig }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const { category, collection, type } = queryConfig
 

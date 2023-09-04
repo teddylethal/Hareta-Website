@@ -11,7 +11,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import itemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
-import { ThemeContext } from 'src/App'
+
 import { AppContext } from 'src/contexts/app.context'
 import producImageApi from 'src/apis/productImage.api'
 import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
@@ -34,8 +34,7 @@ interface Props {
 }
 
 function Product({ product, likedByUser = false }: Props) {
-  const { theme } = useContext(ThemeContext)
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, theme } = useContext(AppContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [isLikedByUser, setIsLikedByUser] = useState<boolean>(likedByUser)

@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useContext, useState } from 'react'
-import { ThemeContext } from 'src/App'
+
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { motion } from 'framer-motion'
@@ -9,13 +9,14 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import { omit } from 'lodash'
 import path from 'src/constants/path'
 import ItemTag from 'src/constants/itemTag'
+import { AppContext } from 'src/contexts/app.context'
 
 // interface Props {
 //   queryConfig: QueryConfig
 // }
 
 export default function AsideSorter() {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
 

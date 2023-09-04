@@ -4,15 +4,16 @@ import { useContext, useState } from 'react'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import { motion } from 'framer-motion'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { ThemeContext } from 'src/App'
+
 import { priceRanges } from '../priceRangeSample'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   handleChoosePrice: (index: number) => void
 }
 
 export default function PriceSample({ handleChoosePrice }: Props) {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
 

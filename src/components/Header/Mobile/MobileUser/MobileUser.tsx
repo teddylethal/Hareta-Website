@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { ThemeContext } from 'src/App'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
 import path from 'src/constants/path'
@@ -16,8 +15,7 @@ interface Props {
 }
 
 export default function MobileUser({ className, closeMenu }: Props) {
-  const { isAuthenticated, setIsAuthenticated, profile } = useContext(AppContext)
-  const { theme } = useContext(ThemeContext)
+  const { isAuthenticated, setIsAuthenticated, profile, theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
   const handleLogout = () => {

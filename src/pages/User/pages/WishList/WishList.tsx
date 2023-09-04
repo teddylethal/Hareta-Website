@@ -10,7 +10,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import purchaseApi from 'src/apis/cart.api'
 import UnlikeItemDialog from './UnlikeItemDialog'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
-import { ThemeContext } from 'src/App'
+
 import classNames from 'classnames'
 import { omit } from 'lodash'
 import useQueryConfig from 'src/hooks/useQueryConfig'
@@ -18,9 +18,10 @@ import WishlistItem from '../../components/WishlistItem'
 import { useViewport } from 'src/hooks/useViewport'
 import WishlistItemMobile from '../../components/WishlistItemMobile'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function WishList() {
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [unlikeDialog, setUnlikeDialog] = useState<boolean>(false)

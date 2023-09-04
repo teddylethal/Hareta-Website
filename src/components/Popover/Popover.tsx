@@ -13,7 +13,7 @@ import {
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ElementType, useContext, useRef, useState } from 'react'
-import { ThemeContext } from 'src/App'
+import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
   children: React.ReactNode
@@ -50,7 +50,7 @@ export default function Popover({
       blockPointerEvents: true
     })
   })
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(AppContext)
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover])
   return (

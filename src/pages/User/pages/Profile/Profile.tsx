@@ -5,7 +5,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { ThemeContext } from 'src/App'
+
 import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
 import InputFile from 'src/components/InputFile'
@@ -29,8 +29,7 @@ const formatDate = (timeStamp: string) => {
 }
 
 export default function Profile() {
-  const { setProfile } = useContext(AppContext)
-  const { theme } = useContext(ThemeContext)
+  const { theme, setProfile } = useContext(AppContext)
 
   const [editingMode, setEditingMode] = useState<boolean>(false)
   const [hoveringAvatar, setHoveringAvatar] = useState<boolean>(false)

@@ -10,7 +10,7 @@ import { AppContext } from 'src/contexts/app.context'
 import MobileProductImageList from './MobileProductImageList'
 import ItemTag from 'src/constants/itemTag'
 import { CartContext } from 'src/contexts/cart.context'
-import { ThemeContext } from 'src/App'
+
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { TemporaryPurchase } from 'src/types/cart.type'
 import DialogPopup from 'src/components/DialogPopup'
@@ -26,8 +26,7 @@ interface Props {
 export default function ProductDetailMobile(props: Props) {
   const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
-  const { isAuthenticated } = useContext(AppContext)
-  const { theme } = useContext(ThemeContext)
+  const { isAuthenticated, theme } = useContext(AppContext)
   const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
