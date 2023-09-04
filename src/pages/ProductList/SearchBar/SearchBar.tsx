@@ -47,6 +47,7 @@ export default function SearchBar() {
         onSubmit={handleSearch}
       >
         <input
+          autoComplete='off'
           className='w-full rounded-md  bg-transparent px-4 py-1 text-base text-textDark outline-none ring-1 ring-vintageColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:text-textLight dark:caret-white dark:ring-haretaColor/60 dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg'
           placeholder='Search'
           {...register('name')}
