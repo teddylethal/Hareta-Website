@@ -1,6 +1,5 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ColorRing } from 'react-loader-spinner'
 import Carousel from 'react-multi-carousel'
 import { ProductImage } from 'src/types/productImage.type'
 
@@ -9,7 +8,7 @@ interface Props {
   isLoading?: boolean
 }
 
-export default function ImageDisplayCarousel({ imageList, isLoading }: Props) {
+export default function ImageDisplayCarousel({ imageList }: Props) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -39,39 +38,22 @@ export default function ImageDisplayCarousel({ imageList, isLoading }: Props) {
       autoPlay={true}
       transitionDuration={500}
       arrows={false}
-      className='absolute left-0 top-0 h-full w-full object-cover'
     >
-      {isLoading &&
-        Array(4)
-          .fill(0)
-          .map((_, index) => (
-            <div className='flex items-center justify-center' key={index}>
-              <ColorRing
-                visible={true}
-                height='80'
-                width='80'
-                ariaLabel='blocks-loading'
-                wrapperStyle={{}}
-                wrapperClass='blocks-wrapper'
-                colors={['#ccc', '#ccc', '#ccc', '#ccc', '#ccc']}
-              />
-            </div>
-          ))}
-      {!isLoading &&
-        imageList.map((image) => {
-          const imageURL = image.image ? image.image.url : null
-          return (
-            <div className='' key={image.id}>
-              {imageURL ? (
-                <img src={imageURL} alt={image.color} className='w-full object-cover' />
-              ) : (
-                <div className='flex items-center justify-center'>
-                  <FontAwesomeIcon icon={faTriangleExclamation} fontSize={40} />
-                </div>
-              )}
-            </div>
-          )
-        })}
+      {imageList.map((image) => {
+        const imageURL = image.image ? image.image.url : null
+        // const imageURL = null
+        return (
+          <div className='relative left-0 top-0 w-full pt-[75%]' key={image.id}>
+            {imageURL ? (
+              <img src={imageURL} alt={image.color} className='absolute left-0 top-0 h-full w-full object-cover' />
+            ) : (
+              <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center object-cover'>
+                <FontAwesomeIcon icon={faTriangleExclamation} fontSize={40} />
+              </div>
+            )}
+          </div>
+        )
+      })}
     </Carousel>
   )
 }

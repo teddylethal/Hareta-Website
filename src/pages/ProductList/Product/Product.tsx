@@ -18,7 +18,7 @@ import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
 import { ProductImage } from 'src/types/productImage.type'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 
-const MAXLENGTH = 5
+const MAXLENGTH = 3
 
 export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
   setIsOpen(true)
@@ -57,7 +57,7 @@ function Product({ product, likedByUser = false }: Props) {
   const [imageListCarousel, setImageListCarousel] = useState<ProductImage[]>([])
   useEffect(() => {
     if (imageList) {
-      setImageListCarousel(imageList.length > MAXLENGTH ? imageList?.slice(0, MAXLENGTH) : imageList)
+      setImageListCarousel(imageList.length > MAXLENGTH + 1 ? imageList?.slice(1, MAXLENGTH + 1) : imageList)
     }
   }, [imageList])
 
@@ -111,14 +111,14 @@ function Product({ product, likedByUser = false }: Props) {
       onMouseLeave={handleUnhoveringImage}
     >
       <div className='relative  w-full overflow-hidden rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
-        <button onClick={handleClickItem} className='relative w-full bg-[#dfdfdf] pt-[75%] dark:bg-[#282828]'>
-          {hoveringImage && (
-            <div className='absolute left-0 top-0 h-full w-full object-cover'>
-              <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
-              <div className='absolute inset-0'></div>
-            </div>
-          )}
-          {!hoveringImage && (
+        {hoveringImage && (
+          <div className='relative bg-[#dfdfdf] dark:bg-[#282828]'>
+            <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
+            <div className='absolute inset-0'></div>
+          </div>
+        )}
+        {!hoveringImage && (
+          <div className='relative w-full bg-[#dfdfdf] pt-[75%] dark:bg-[#282828]'>
             <div className='absolute left-0 top-0 h-full w-full'>
               {avatarUrl ? (
                 <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
@@ -128,8 +128,8 @@ function Product({ product, likedByUser = false }: Props) {
                 </div>
               )}
             </div>
-          )}
-        </button>
+          </div>
+        )}
         <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
           <button
             className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
