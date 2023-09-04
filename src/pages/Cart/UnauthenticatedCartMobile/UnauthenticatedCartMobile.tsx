@@ -75,7 +75,7 @@ export default function UnauthenticatedCartMobile(props: Props) {
                         })}`}
                         className='flex flex-grow items-center'
                       >
-                        <div className='relative flex w-[80%] flex-shrink-0 items-center pt-[80%]'>
+                        <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden pt-[80%]'>
                           <img
                             alt={purchase.item.name}
                             src={

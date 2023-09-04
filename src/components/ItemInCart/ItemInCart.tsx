@@ -90,7 +90,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
             })}`}
             className='flex flex-grow items-center'
           >
-            <div className='flex h-24 w-24 flex-shrink-0 items-center'>
+            <div className='flex h-24 w-24 flex-shrink-0 items-center overflow-hidden'>
               <img
                 alt={purchase.item.name}
                 src={

@@ -131,7 +131,7 @@ export default function UnauthenticatedCart() {
                               to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
                               className='flex flex-grow items-center'
                             >
-                              <div className='flex h-24 w-24 flex-shrink-0 items-center'>
+                              <div className='flex h-24 w-24 flex-shrink-0 items-center overflow-hidden'>
                                 <img
                                   alt={purchase.item.name}
                                   src={
