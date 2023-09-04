@@ -134,6 +134,7 @@ export default function UnauthenticatedCartMobile(props: Props) {
           <div className=' col-span-1 flex flex-shrink-0 items-center'>
             {extendedTempPurchases.length > 0 && (
               <input
+                name='all_are_selected'
                 type='checkbox'
                 className='h-5 w-5 accent-haretaColor'
                 checked={isAllChecked}

@@ -89,32 +89,6 @@ export default function UnauthenticatedCart() {
     <Fragment>
       {!isMobile && (
         <Fragment>
-          {/* <div className='relative flex items-center rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
-            <p className='grow truncate pl-4 text-2xl uppercase  text-textDark dark:text-haretaColor xl:text-2xl'>
-              Cart
-            </p>
-            <form name='search_in_cart' className='my-2 flex grow items-center' onSubmit={handleSearch}>
-              <input
-                id='search_in_cart'
-                type='text'
-                className='peer mr-4 w-full rounded-md  bg-transparent px-4 py-2 text-base text-textDark outline-none ring-1   ring-haretaColor/60 duration-500 autofill:text-textDark focus:ring-2 focus:ring-haretaColor dark:text-textLight dark:caret-white dark:autofill:text-textLight lg:text-lg'
-                placeholder='Search'
-              />
-              <label
-                htmlFor='search_in_cart'
-                className='absolute right-8 flex h-8 w-12 items-center justify-center rounded-lg bg-haretaColor/60 duration-500 peer-focus:bg-haretaColor'
-              >
-                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
-                  <path
-                    fillRule='evenodd'
-                    d='M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </label>
-            </form>
-          </div> */}
-
           <div className=' mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
             <div className=''>
               <div className='grid grid-cols-12 rounded-sm px-8 py-4 text-sm uppercase text-textDark  dark:text-textLight lg:text-lg'>
@@ -235,6 +209,7 @@ export default function UnauthenticatedCart() {
                   {extendedTempPurchases.length > 0 && (
                     <Fragment>
                       <input
+                        name='all_are_selected'
                         type='checkbox'
                         className='h-5 w-5 accent-haretaColor'
                         checked={isAllChecked}

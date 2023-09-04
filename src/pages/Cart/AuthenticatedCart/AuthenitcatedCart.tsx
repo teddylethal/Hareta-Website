@@ -40,26 +40,6 @@ export default function AuthenitcatedCart() {
     )
   }
 
-  // //? HANDLE QUANTITY
-  // const handleQuantity = (purchaseIndex: number, value: number, enable: boolean) => {
-  //   if (enable) {
-  //     const purchase = extendedPurchases[purchaseIndex]
-  //     setExtendedPurchases(
-  //       produce((draft) => {
-  //         draft[purchaseIndex].disabled = true
-  //       })
-  //     )
-  //   }
-  // }
-
-  // const handleTypeQuantity = (purchaseIndex: number) => (value: number) => {
-  //   setExtendedPurchases(
-  //     produce((draft) => {
-  //       draft[purchaseIndex].quantity = value
-  //     })
-  //   )
-  // }
-
   //? HANDLE REMOVE
   const queryClient = useQueryClient()
   const removePurchasesMutation = useMutation({
@@ -102,83 +82,6 @@ export default function AuthenitcatedCart() {
                       key={purchase.id}
                       className='border-b last:border-none hover:bg-[#efefef]  dark:hover:bg-[#101010]'
                     >
-                      {/* <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
-                        <div className='col-span-6'>
-                          <div className='flex'>
-                            <div className='flex flex-shrink-0 items-center justify-center pr-3'>
-                              <input
-                                type='checkbox'
-                                className='h-5 w-5 accent-haretaColor'
-                                checked={purchase.checked}
-                                onChange={handleChecking(index)}
-                              />
-                            </div>
-                            <Link
-                              to={`${path.home}${generateNameId({
-                                name: purchase.item.name,
-                                id: purchase.item.id
-                              })}`}
-                              className='flex flex-grow items-center'
-                            >
-                              <div className='flex h-24 w-24 flex-shrink-0 items-center'>
-                                <img
-                                  alt={purchase.item.name}
-                                  src={
-                                    purchase.item.avatar
-                                      ? purchase.item.avatar.url
-                                      : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-                                  }
-                                />
-                              </div>
-                              <div className='ml-4 flex-grow px-2 text-left'>
-                                <div className='truncate text-base lg:text-lg'>{purchase.item.name}</div>
-                              </div>
-                            </Link>
-                          </div>
-                        </div>
-                        <div className='col-span-6'>
-                          <div className='grid grid-cols-4 items-center'>
-                            <div className='col-span-1'>
-                              <div className='flex items-center justify-center'>
-                                <span className='text-textDark dark:text-textLight'>
-                                  ${formatCurrency(purchase.item.price)}
-                                </span>
-                              </div>
-                            </div>
-                            <div className='col-span-1'>
-                              <QuantityController
-                                max={purchase.item.quantity}
-                                value={purchase.quantity}
-                                classNameWrapper='flex items-center justify-center'
-                                onIncrease={(value) => handleQuantity(index, value, value <= purchase.item.quantity)}
-                                onDecrease={(value) => handleQuantity(index, value, value >= 1)}
-                                onType={handleTypeQuantity(index)}
-                                onFocusOut={(value) =>
-                                  handleQuantity(
-                                    index,
-                                    value,
-                                    value >= 1 && value <= purchase.item.quantity && value !== purchase.previousQuantity
-                                  )
-                                }
-                                disabled={purchase.disabled}
-                              />
-                            </div>
-                            <div className='col-span-1'>
-                              <span className='text-haretaColor'>
-                                ${formatCurrency(purchase.item.price * purchase.quantity)}
-                              </span>
-                            </div>
-                            <div className='col-span-1'>
-                              <button
-                                className='bg-none text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'
-                                onClick={handleRemove(index)}
-                              >
-                                Remove
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
                       <ItemInCart
                         handleChecking={handleChecking}
                         index={index}
@@ -204,6 +107,7 @@ export default function AuthenitcatedCart() {
                   {extendedPurchases.length > 0 && (
                     <Fragment>
                       <input
+                        name='all_are_selected'
                         type='checkbox'
                         className='h-5 w-5 accent-haretaColor'
                         checked={isAllChecked}

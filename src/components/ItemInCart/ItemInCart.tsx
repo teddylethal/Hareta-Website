@@ -76,6 +76,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
         <div className='flex'>
           <div className='flex flex-shrink-0 items-center justify-center pr-3'>
             <input
+              name='is_selected'
               type='checkbox'
               className='h-5 w-5 accent-haretaColor'
               checked={purchase.checked}

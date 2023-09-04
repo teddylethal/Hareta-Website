@@ -64,6 +64,7 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
       <div className='grid grid-cols-12 items-center justify-between'>
         <div className='col-span-1 flex flex-shrink-0 items-center justify-center'>
           <input
+            name='is_selected'
             type='checkbox'
             className='h-4 w-4 accent-haretaColor'
             checked={purchase.checked}
