@@ -18,6 +18,8 @@ export default function CartPopoverWithLogin() {
   const { data: cartData, refetch } = useQuery({
     queryKey: ['purchases'],
     queryFn: () => purchaseApi.getPurchases(),
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 3,
     enabled: isAuthenticated
   })
 
