@@ -1,23 +1,22 @@
-import { faCartPlus, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import {} from '@fortawesome/free-regular-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { memo, useContext, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import purchaseApi from 'src/apis/cart.api'
 import itemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
 import { ThemeContext } from 'src/App'
 import { AppContext } from 'src/contexts/app.context'
-import { CartContext } from 'src/contexts/cart.context'
-import { TemporaryPurchase } from 'src/types/cart.type'
 import producImageApi from 'src/apis/productImage.api'
 import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
 import { ProductImage } from 'src/types/productImage.type'
+import likeItemAPi from 'src/apis/userLikeItem.api'
 
 const MAXLENGTH = 5
 
@@ -34,20 +33,18 @@ interface Props {
   likedByUser?: boolean
 }
 
-function Product({ product }: Props) {
+function Product({ product, likedByUser = false }: Props) {
   const { theme } = useContext(ThemeContext)
+  const { isAuthenticated } = useContext(AppContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(likedByUser)
 
   const navigate = useNavigate()
 
   //? GET IMAGE LIST
   const itemID = product.id
-  const {
-    data: imageListData,
-    isLoading,
-    isFetching
-  } = useQuery({
+  const { data: imageListData, isLoading } = useQuery({
     queryKey: ['default_item_images', itemID],
     queryFn: () => producImageApi.getImageList(itemID as string),
     keepPreviousData: true,
@@ -77,6 +74,37 @@ function Product({ product }: Props) {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
   }
 
+  //? HANDLE LIKE ITEM
+  const likeItem = () => {
+    setIsLikedByUser(true)
+  }
+
+  const unlikeItem = () => {
+    setIsLikedByUser(false)
+  }
+
+  const toggleLikeItem = () => {
+    isLikedByUser && unlikeItem()
+    !isLikedByUser && likeItem()
+  }
+
+  const queryClient = useQueryClient()
+  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
+  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  useEffect(() => {
+    const updateLikeItem = setTimeout(() => {
+      if (isLikedByUser && !likedByUser) {
+        likeItemMutation.mutate({ group_id: product.group.id })
+      } else if (!isLikedByUser && likedByUser) {
+        unlikeItemMutation.mutate({ group_id: product.group.id })
+      }
+      queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+    }, 1500)
+
+    return () => clearTimeout(updateLikeItem)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLikedByUser])
+
   return (
     <div
       className='flex w-full items-center justify-center pb-0 pt-2 duration-500 hover:pb-2 hover:pt-0'
@@ -87,7 +115,7 @@ function Product({ product }: Props) {
         <button onClick={handleClickItem} className='relative w-full bg-[#dfdfdf] pt-[75%] dark:bg-[#282828]'>
           {hoveringImage && (
             <div className='absolute left-0 top-0 h-full w-full object-cover'>
-              <ImageDisplayCarousel imageList={imageListCarousel} />
+              <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
               <div className='absolute inset-0'></div>
             </div>
           )}
@@ -121,6 +149,19 @@ function Product({ product }: Props) {
               {itemTag[product.tag]}
             </span>
             <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
+          </div>
+        )}
+        {isAuthenticated && (
+          <div className='absolute right-1 top-1'>
+            <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
+              <FontAwesomeIcon
+                icon={faHeart}
+                className={classNames('h-auto w-4 md:w-5  xl:w-6', {
+                  'text-red-500': isLikedByUser,
+                  ' text-textLight': !isLikedByUser
+                })}
+              />
+            </button>
           </div>
         )}
       </div>
