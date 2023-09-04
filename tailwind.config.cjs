@@ -35,6 +35,7 @@ module.exports = {
         lightBg: '#e8e8e8',
         success: '#4bb543',
         brownColor: '#B77729',
+        orangeColor: '#ff6a00',
         sunYellow: '#ffc107'
       }
     }
