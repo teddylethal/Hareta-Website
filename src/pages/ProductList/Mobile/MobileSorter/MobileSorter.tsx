@@ -2,16 +2,23 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
+import { omit } from 'lodash'
 import { Fragment, useContext } from 'react'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import ItemTag from 'src/constants/itemTag'
+import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 
-import { StoreContext } from 'src/contexts/store.context'
 import useClickOutside from 'src/hooks/useClickOutside'
+import useQueryConfig from 'src/hooks/useQueryConfig'
 
 export default function MobileSorter() {
   const { theme } = useContext(AppContext)
-  const { sorting, setSorting } = useContext(StoreContext)
   const { visible, setVisible, ref } = useClickOutside(false)
+
+  const queryConfig = useQueryConfig()
+  const { tag } = queryConfig
+  const tagEnum = tag ? Number(tag) : 0
 
   const open = () => {
     setVisible(true)
@@ -20,10 +27,37 @@ export default function MobileSorter() {
     setVisible(false)
   }
 
-  const handleChange = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //? HANDLE CHOOSE SORT
+  const navigate = useNavigate()
+  const handleChange = (tagIndex: number) => () => {
     // console.log(event)
-    e.preventDefault()
-    setSorting((e.target as HTMLInputElement).innerText)
+    if (tagIndex === 0) {
+      navigate({
+        pathname: path.store,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig
+            },
+            ['page', 'limit', 'tag']
+          )
+        ).toString()
+      })
+    } else {
+      navigate({
+        pathname: path.store,
+        search: createSearchParams(
+          omit(
+            {
+              ...queryConfig,
+              tag: String(tagIndex)
+            },
+            ['page', 'limit']
+          )
+        ).toString()
+      })
+    }
+
     close()
   }
 
@@ -33,7 +67,7 @@ export default function MobileSorter() {
         onClick={open}
         className='flex w-[60%] items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 text-sm text-textDark dark:bg-haretaColor/80 dark:text-textLight sm:text-base'
       >
-        {sorting}
+        {tagEnum === 0 ? 'Newest' : ItemTag[tagEnum]}
       </button>
       <AnimatePresence>
         {visible && (
@@ -64,14 +98,13 @@ export default function MobileSorter() {
               <ul className='flex flex-col space-y-2 px-4 py-2 text-sm text-textDark/80 dark:text-textLight/80 lg:text-base'>
                 <li className='w-full'>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(0)}
                     className={classNames(
                       ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Newest',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Newest'
+                          tagEnum === 0,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 0
                       }
                     )}
                   >
@@ -80,14 +113,13 @@ export default function MobileSorter() {
                 </li>
                 <li className='w-full '>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(1)}
                     className={classNames(
                       ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Top seller',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Top seller'
+                          tagEnum === 1,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 1
                       }
                     )}
                   >
@@ -96,14 +128,13 @@ export default function MobileSorter() {
                 </li>
                 <li className='w-full '>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(2)}
                     className={classNames(
                       ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Signature',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Signature'
+                          tagEnum === 2,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 2
                       }
                     )}
                   >
@@ -112,14 +143,13 @@ export default function MobileSorter() {
                 </li>
                 <li className='w-full '>
                   <button
-                    onClick={handleChange}
+                    onClick={handleChange(3)}
                     className={classNames(
                       ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          sorting !== 'Favourite',
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight':
-                          sorting === 'Favourite'
+                          tagEnum === 3,
+                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 3
                       }
                     )}
                   >
