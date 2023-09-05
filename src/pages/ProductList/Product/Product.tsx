@@ -98,7 +98,7 @@ function Product({ product, likedByUser = false }: Props) {
         unlikeItemMutation.mutate({ group_id: product.group.id })
       }
       queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
-    }, 1500)
+    }, 1000)
 
     return () => clearTimeout(updateLikeItem)
     // eslint-disable-next-line react-hooks/exhaustive-deps

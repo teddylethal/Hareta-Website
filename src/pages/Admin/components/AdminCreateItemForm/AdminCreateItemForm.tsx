@@ -5,6 +5,8 @@ import InputNumber from 'src/components/InputNumber'
 import Input from 'src/components/Input'
 import classNames from 'classnames'
 import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
+import 'react-quill/dist/quill.snow.css'
+import QuillEditor from 'src/components/QuillEditor'
 
 type FormData = CreatingItemSchema
 
@@ -13,8 +15,18 @@ export default function AdminCreateItemForm() {
   const {
     register,
     control,
+    setValue,
+    watch,
     formState: { errors }
   } = useFormContext<FormData>()
+
+  //? EDIT DESCRIPTION
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onEditorStateChange = (editorState: any) => {
+    setValue('description', editorState)
+  }
+
+  const editorContent = watch('description')
 
   return (
     <Fragment>
@@ -212,13 +224,15 @@ export default function AdminCreateItemForm() {
         </div>
       </div>
 
-      <div className=' items-center space-y-2'>
+      <div className=' items-center space-y-2 bg-slate-900'>
         <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>description</p>
-        <textarea
+        {/* <textarea
           className='h-96 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium text-haretaColor outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg '
           {...register('description')}
           autoComplete='false'
-        />
+        /> */}
+        {/* <div className='h-96 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium text-haretaColor outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg ' /> */}
+        <QuillEditor value={editorContent} setValue={onEditorStateChange} />
       </div>
     </Fragment>
   )

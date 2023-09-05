@@ -30,7 +30,7 @@ export default function UnlikeItemDialog({
       { group_id: unlikeItemId as string },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+          queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
         }
       }
     )

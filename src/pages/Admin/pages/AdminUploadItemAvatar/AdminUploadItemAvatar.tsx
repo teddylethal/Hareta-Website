@@ -1,6 +1,6 @@
-import { Fragment, useContext, useMemo, useState } from 'react'
+import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminItemApi } from 'src/apis/admin.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,6 +11,7 @@ import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
 import ImageInput from '../../components/ImageInput'
 import AdminUpdatingPage from '../AdminUpdatingPage'
+import producImageApi from 'src/apis/productImage.api'
 
 export default function AdminUploadItemAvatar() {
   const { currentItem } = useContext(AdminContext)
@@ -24,15 +25,40 @@ export default function AdminUploadItemAvatar() {
 
   const avatar = currentItem?.avatar?.url || ''
 
+  //? GET IMAGE LIST
+  const { data: itemImageListData, refetch } = useQuery({
+    queryKey: ['item_image_list'],
+    queryFn: () => producImageApi.getImageList(currentItem?.id as string),
+    keepPreviousData: true,
+    enabled: Boolean(currentItem)
+  })
+  const imageList = itemImageListData?.data.data
+  useEffect(() => {
+    if (currentItem) {
+      refetch()
+    }
+  }, [currentItem, refetch])
+
+  //? AUTO ADD FIRST IMAGE
+  const addItemImage = useMutation(producImageApi.addImage)
+
   //? UPLOAD AVATAR
   const queryClient = useQueryClient()
   const uploadAvatarMutation = useMutation(adminItemApi.uploadItemAvatar)
   const handleSubmit = () => {
     try {
-      if (avatarFile) {
+      if (avatarFile && currentItem) {
         const body = {
-          id: currentItem?.id as string,
+          id: currentItem.id as string,
           file: avatarFile
+        }
+        if (imageList?.length === 0) {
+          const addImageBody = {
+            item_id: currentItem.id,
+            color: currentItem.color,
+            file: avatarFile
+          }
+          addItemImage.mutate(addImageBody)
         }
         uploadAvatarMutation.mutate(body, {
           onSuccess: () => {

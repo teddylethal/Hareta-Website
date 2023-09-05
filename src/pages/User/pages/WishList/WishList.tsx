@@ -34,7 +34,7 @@ export default function WishList() {
   const queryClient = useQueryClient()
 
   const { data: favouriteListData } = useQuery({
-    queryKey: ['favourite_list'],
+    queryKey: ['user_wish_list'],
     queryFn: () => {
       return likeItemAPi.getWishList()
     },
