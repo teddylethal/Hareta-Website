@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useContext, useRef, useState } from 'react'
+import { createRef, useContext, useLayoutEffect, useRef, useState } from 'react'
 
 import { Product } from 'src/types/product.type'
 import DOMPurify from 'dompurify'
@@ -66,6 +66,18 @@ export default function ProductDescription({ item }: Props) {
     })
   }
 
+  //? HANDLE DESCRIPTION
+  const [extendButton, setExtendButton] = useState(false)
+  const itemDescriptionRef = createRef<HTMLDivElement>()
+  const itemDescriptionContentRef = createRef<HTMLDivElement>()
+  useLayoutEffect(() => {
+    if (itemDescriptionRef.current && itemDescriptionContentRef.current) {
+      if (itemDescriptionRef.current.clientHeight < itemDescriptionContentRef.current.scrollHeight) {
+        setExtendButton(true)
+      } else setExtendButton(false)
+    }
+  }, [itemDescriptionRef, itemDescriptionContentRef])
+
   const [extending, setExtending] = useState<boolean>(false)
   const extend = () => {
     setExtending(true)
@@ -76,6 +88,7 @@ export default function ProductDescription({ item }: Props) {
     }
     setExtending(false)
   }
+
   return (
     <div className={theme === 'dark' ? 'dark' : 'light'}>
       <div className='text-textDark dark:text-textLight ' ref={detailRef}>
@@ -130,28 +143,22 @@ export default function ProductDescription({ item }: Props) {
         <div className='mt-10 '>
           <AnimateChangeInHeight>
             <div
+              ref={itemDescriptionRef}
               className={classNames('relative ', {
-                'h-80 overflow-hidden': !extending,
+                'max-h-80 overflow-hidden': !extending,
                 'h-full overflow-visible': extending
               })}
             >
               <div
+                ref={itemDescriptionContentRef}
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(item.description)
                 }}
+                className='overflow-visible'
               />
-              <div
-                className={classNames('', {
-                  'absolute bottom-0 left-1/2 -translate-x-1/2': !extending,
-                  'mt-2 flex w-full justify-center': extending
-                })}
-              >
-                <div
-                  className={classNames(
-                    'rounded-lg bg-black px-2 py-0.5 text-xs font-medium text-textLight duration-500 lg:text-sm xl:text-base'
-                  )}
-                >
-                  {!extending && (
+              {extendButton && (
+                <div className='absolute bottom-0 left-1/2 -translate-x-1/2'>
+                  <div className='rounded-lg bg-black/60 px-2 py-0.5 text-xs font-medium text-textLight duration-500 lg:text-sm xl:text-base'>
                     <button
                       className='flex items-center justify-center space-x-2 p-2 hover:text-haretaColor'
                       onClick={extend}
@@ -159,53 +166,23 @@ export default function ProductDescription({ item }: Props) {
                       <p>Extend</p>
                       <FontAwesomeIcon icon={faChevronDown} />
                     </button>
-                  )}
-                  {extending && (
-                    <button
-                      className='flex items-center justify-center space-x-2 p-2 hover:text-haretaColor'
-                      onClick={collapse}
-                    >
-                      <p>Collapse</p>
-                      <FontAwesomeIcon icon={faChevronUp} />
-                    </button>
-                  )}
+                  </div>
                 </div>
-              </div>
+              )}
+              {extending && (
+                <div className='mt-4 flex w-full justify-center'>
+                  <button
+                    className='flex items-center justify-center space-x-2 rounded-lg border border-black/20 bg-black/60 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
+                    onClick={collapse}
+                  >
+                    <p>Collapse</p>
+                    <FontAwesomeIcon icon={faChevronUp} />
+                  </button>
+                </div>
+              )}
             </div>
           </AnimateChangeInHeight>
         </div>
-        {/* <div
-          className={classNames('relative mt-10 overflow-scroll bg-red-500 duration-300', {
-            'h-[360px]': !extending,
-            'h-[2000px]': extending
-          })}
-        >
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(item.description)
-            }}
-          />
-          <div className='absolute bottom-1 left-1/2 -translate-x-1/2 text-xs text-textDark duration-500 dark:text-textLight lg:text-sm xl:text-lg'>
-            {!extending && (
-              <button
-                className='flex items-center justify-center space-x-1 p-2  hover:text-brownColor dark:hover:text-haretaColor'
-                onClick={extend}
-              >
-                <p>Extend</p>
-                <FontAwesomeIcon icon={faChevronDown} />
-              </button>
-            )}
-            {extending && (
-              <button
-                className='flex items-center justify-center space-x-1 p-2  hover:text-brownColor dark:hover:text-haretaColor'
-                onClick={collapse}
-              >
-                <p>Collapse</p>
-                <FontAwesomeIcon icon={faChevronUp} />
-              </button>
-            )}
-          </div>
-        </div> */}
       </div>
     </div>
   )

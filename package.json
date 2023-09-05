@@ -34,6 +34,7 @@
     "axios": "^1.4.0",
     "babel-plugin-macros": "^3.1.0",
     "classnames": "^2.3.2",
+    "detect-element-overflow": "^1.4.1",
     "dompurify": "^3.0.5",
     "framer-motion": "^10.12.21",
     "immer": "^10.0.2",

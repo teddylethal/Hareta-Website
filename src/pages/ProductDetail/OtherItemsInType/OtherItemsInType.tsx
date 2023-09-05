@@ -65,7 +65,7 @@ export default function OtherItemsInType({ type }: Props) {
 
   if (!itemsInType) return null
   return (
-    <div className='mt-8 rounded-lg border border-black/20 bg-[#e8e8e8] p-4 text-textDark dark:border-white/20 dark:bg-[#222] dark:text-textLight'>
+    <div className='rounded-lg border border-black/20 bg-[#e8e8e8] p-4 text-textDark dark:border-white/20 dark:bg-[#222] dark:text-textLight'>
       <button
         onClick={handleClick}
         className='text-lg font-medium uppercase hover:text-brownColor dark:hover:text-haretaColor lg:text-2xl'

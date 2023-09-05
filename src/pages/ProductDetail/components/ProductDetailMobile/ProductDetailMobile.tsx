@@ -14,6 +14,9 @@ import { CartContext } from 'src/contexts/cart.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import { TemporaryPurchase } from 'src/types/cart.type'
 import DialogPopup from 'src/components/DialogPopup'
+import ProductDescription from '../ProductDetailDesktop/ProductDescription'
+import OtherItemsInCollection from '../../OtherItemsInCollection'
+import OtherItemsInType from '../../OtherItemsInType'
 
 interface Props {
   defaultItem: Product
@@ -148,9 +151,14 @@ export default function ProductDetailMobile(props: Props) {
             </div>
 
             <div className='mt-4 h-full text-sm lg:text-lg'>
-              <p className=''>{defaultItem.description}</p>
+              <ProductDescription item={defaultItem} />
             </div>
           </div>
+        </div>
+
+        <div className='mt-8 space-y-4 rounded-lg bg-[#f8f8f8] p-3 dark:bg-[#202020]'>
+          <OtherItemsInCollection collectionName={defaultItem.collection} />
+          <OtherItemsInType type={defaultItem.type} />
         </div>
 
         <div className='fixed bottom-0 left-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base text-textDark dark:bg-black dark:text-textLight sm:h-12'>
