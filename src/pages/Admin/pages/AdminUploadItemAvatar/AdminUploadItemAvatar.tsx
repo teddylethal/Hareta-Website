@@ -58,7 +58,11 @@ export default function AdminUploadItemAvatar() {
             color: currentItem.color,
             file: avatarFile
           }
-          addItemImage.mutate(addImageBody)
+          addItemImage.mutate(addImageBody, {
+            onSuccess: () => {
+              queryClient.invalidateQueries({ queryKey: ['item_image_list'] })
+            }
+          })
         }
         uploadAvatarMutation.mutate(body, {
           onSuccess: () => {

@@ -70,7 +70,7 @@ export default function AdminVariantList() {
                           className='absolute left-0 top-0 h-full w-full object-scale-down'
                         />
                       </div>
-                      <div className=''>{item.color}</div>
+                      <p className='text-center'>{item.color}</p>
                     </div>
                   </div>
                 )

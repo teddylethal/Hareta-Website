@@ -148,12 +148,12 @@ export default function ProductDescription({ item }: Props) {
               >
                 <div
                   className={classNames(
-                    'rounded-lg bg-black/20 px-2 py-0.5 text-xs font-medium text-textDark duration-500 dark:bg-white/20 dark:text-textLight lg:text-sm xl:text-base'
+                    'rounded-lg bg-black px-2 py-0.5 text-xs font-medium text-textLight duration-500 lg:text-sm xl:text-base'
                   )}
                 >
                   {!extending && (
                     <button
-                      className='flex items-center justify-center space-x-2 p-2 hover:text-brownColor dark:hover:text-haretaColor'
+                      className='flex items-center justify-center space-x-2 p-2 hover:text-haretaColor'
                       onClick={extend}
                     >
                       <p>Extend</p>
@@ -162,7 +162,7 @@ export default function ProductDescription({ item }: Props) {
                   )}
                   {extending && (
                     <button
-                      className='flex items-center justify-center space-x-2 p-2  hover:text-brownColor dark:hover:text-haretaColor'
+                      className='flex items-center justify-center space-x-2 p-2 hover:text-haretaColor'
                       onClick={collapse}
                     >
                       <p>Collapse</p>

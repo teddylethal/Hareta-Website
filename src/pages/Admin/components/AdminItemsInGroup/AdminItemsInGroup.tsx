@@ -75,7 +75,7 @@ export default function AdminItemsInGroup() {
                       'outline-haretaColor/40 ': !isActive
                     })}
                   >
-                    <button className='w-full space-y-2' onClick={handleChooseVariant(item)}>
+                    <button className='w-full justify-center space-y-2' onClick={handleChooseVariant(item)}>
                       <div className='relative w-full pt-[75%]'>
                         <img
                           src={avatarURL || ''}
@@ -83,7 +83,7 @@ export default function AdminItemsInGroup() {
                           className='absolute left-0 top-0 h-full w-full object-scale-down'
                         />
                       </div>
-                      <div className=''>{item.color}</div>
+                      <p className='w-full text-center'>{item.color}</p>
                     </button>
                   </div>
                 )

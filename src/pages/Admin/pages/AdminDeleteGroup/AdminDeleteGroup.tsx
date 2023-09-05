@@ -12,6 +12,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import AdminDialog from '../../components/AdminDialog'
 import ItemTag from 'src/constants/itemTag'
 import AdminVariantList from '../../components/AdminVariantList'
+import DOMPurify from 'dompurify'
 
 export default function AdminDeleteGroup() {
   const { itemGroup, setItemGroup } = useContext(AdminContext)
@@ -134,7 +135,12 @@ export default function AdminDeleteGroup() {
             </div>
             <div className='gap-4'>
               <p className='text-lg font-medium uppercase text-white/60'>description</p>
-              <p className='text-lg capitalize text-haretaColor'>{itemDetail?.description}</p>
+              <div
+                className='text-lg capitalize text-haretaColor'
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(itemDetail?.description as string)
+                }}
+              />
             </div>
             {!itemGroup && <div className='absolute inset-0 bg-black'></div>}
           </div>
