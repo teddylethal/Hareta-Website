@@ -130,9 +130,9 @@ export default function ProductDescription({ item }: Props) {
         <div className='mt-10 '>
           <AnimateChangeInHeight>
             <div
-              className={classNames('relative overflow-hidden ', {
-                'h-[360px] ': !extending,
-                'h-[2000px]': extending
+              className={classNames('relative ', {
+                'h-80 overflow-hidden': !extending,
+                'h-full overflow-visible': extending
               })}
             >
               <div
@@ -140,25 +140,36 @@ export default function ProductDescription({ item }: Props) {
                   __html: DOMPurify.sanitize(item.description)
                 }}
               />
-              <div className='absolute bottom-1 left-1/2 -translate-x-1/2 rounded-lg px-2 py-1 text-xs text-textDark duration-500 dark:text-textLight lg:text-sm xl:text-base'>
-                {!extending && (
-                  <button
-                    className='flex items-center justify-center space-x-2 p-2 hover:text-brownColor dark:hover:text-haretaColor'
-                    onClick={extend}
-                  >
-                    <p>Extend</p>
-                    <FontAwesomeIcon icon={faChevronDown} />
-                  </button>
-                )}
-                {extending && (
-                  <button
-                    className='flex items-center justify-center space-x-2 p-2  hover:text-brownColor dark:hover:text-haretaColor'
-                    onClick={collapse}
-                  >
-                    <p>Collapse</p>
-                    <FontAwesomeIcon icon={faChevronUp} />
-                  </button>
-                )}
+              <div
+                className={classNames('', {
+                  'absolute bottom-0 left-1/2 -translate-x-1/2': !extending,
+                  'mt-2 flex w-full justify-center': extending
+                })}
+              >
+                <div
+                  className={classNames(
+                    'rounded-lg bg-black/20 px-2 py-0.5 text-xs font-medium text-textDark duration-500 dark:bg-white/20 dark:text-textLight lg:text-sm xl:text-base'
+                  )}
+                >
+                  {!extending && (
+                    <button
+                      className='flex items-center justify-center space-x-2 p-2 hover:text-brownColor dark:hover:text-haretaColor'
+                      onClick={extend}
+                    >
+                      <p>Extend</p>
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </button>
+                  )}
+                  {extending && (
+                    <button
+                      className='flex items-center justify-center space-x-2 p-2  hover:text-brownColor dark:hover:text-haretaColor'
+                      onClick={collapse}
+                    >
+                      <p>Collapse</p>
+                      <FontAwesomeIcon icon={faChevronUp} />
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </AnimateChangeInHeight>

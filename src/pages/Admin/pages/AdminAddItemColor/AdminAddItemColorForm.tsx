@@ -4,6 +4,7 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { CreatingItemSchema } from '../../utils/rules'
 import Input from 'src/components/Input'
 import InputNumber from 'src/components/InputNumber'
+import QuillEditor from 'src/components/QuillEditor'
 
 type FormData = CreatingItemSchema
 
@@ -11,8 +12,18 @@ export default function AdminAddItemColorForm() {
   const {
     register,
     control,
+    setValue,
+    watch,
     formState: { errors }
   } = useFormContext<FormData>()
+
+  //? EDIT DESCRIPTION
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onEditorStateChange = (editorState: any) => {
+    setValue('description', editorState)
+  }
+
+  const editorContent = watch('description')
 
   return (
     <Fragment>
@@ -169,11 +180,12 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='space-y-4'>
         <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>description</p>
-        <textarea
+        {/* <textarea
           className='h-60 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium capitalize text-textLight outline-none lg:text-lg'
           {...register('description')}
           autoComplete='false'
-        />
+        /> */}
+        <QuillEditor value={editorContent} setValue={onEditorStateChange} />
       </div>
     </Fragment>
   )
