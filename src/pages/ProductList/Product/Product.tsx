@@ -114,7 +114,7 @@ function Product({ product, likedByUser = false }: Props) {
         {hoveringImage && (
           <div className='relative bg-[#dfdfdf] dark:bg-[#282828]'>
             <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
-            <div className='absolute inset-0'></div>
+            <button className='absolute inset-0' onClick={handleClickItem}></button>
           </div>
         )}
         {!hoveringImage && (

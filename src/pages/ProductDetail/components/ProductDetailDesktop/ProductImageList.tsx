@@ -170,7 +170,7 @@ export default function ProductImageList(props: Props) {
             </div>
           </div>
         ))}
-      <div className='absolute bottom-0 left-1/2 flex w-[80%] -translate-x-1/2 select-none justify-center space-x-2 rounded-xl bg-black/40 p-4'>
+      <div className='absolute bottom-0 left-1/2 flex w-[60%] -translate-x-1/2 select-none justify-center space-x-2 rounded-xl bg-black/40 p-4'>
         {(isFetching || isLoading) &&
           Array(5)
             .fill(0)
