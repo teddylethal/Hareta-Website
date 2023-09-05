@@ -1,6 +1,6 @@
-import { faCartPlus, faCheck, faHeart, faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Fragment, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import QuantityController from 'src/components/QuantityController'
 import ItemTag from 'src/constants/itemTag'
 import { formatCurrency } from 'src/utils/utils'
@@ -91,23 +91,19 @@ export default function ProductDetailDesktop(props: Props) {
   return (
     <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
       <div className='col-span-4'>
-        <div className='sticky left-0 top-8 flex-col rounded-xl bg-[#f8f8f8] p-2 text-textDark dark:bg-[#202020] dark:text-textLight md:top-10 lg:top-16 lg:p-4 xl:p-6'>
+        <div className='sticky left-0 top-14 flex-col rounded-xl bg-[#f8f8f8] p-2 text-textDark dark:bg-[#202020] dark:text-textLight  lg:top-20 lg:p-4 xl:p-6'>
           <div className='relative flex items-center justify-between'>
             <p className='line-clamp-2 text-xl font-semibold lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
             {isAuthenticated && (
-              <Fragment>
-                {isLikedByUser && (
-                  <FontAwesomeIcon className={classNames('h-auto w-5 text-red-500 lg:w-6 xl:w-7', {})} icon={faHeart} />
-                )}
-                {!isLikedByUser && (
-                  <button onClick={toggleLikeItem} className='text-black/40 dark:text-white/40'>
-                    <FontAwesomeIcon
-                      className={classNames('h-auto w-5 hover:text-red-500 lg:w-6 xl:w-7', {})}
-                      icon={faHeartCirclePlus}
-                    />
-                  </button>
-                )}
-              </Fragment>
+              <button onClick={toggleLikeItem} className=''>
+                <FontAwesomeIcon
+                  className={classNames('h-auto w-5 hover:text-red-500 lg:w-6 xl:w-7', {
+                    'text-red-500': isLikedByUser,
+                    'text-black/40 dark:text-white/40': !isLikedByUser
+                  })}
+                  icon={faHeart}
+                />
+              </button>
             )}
           </div>
           {defaultItem.tag !== 0 && (

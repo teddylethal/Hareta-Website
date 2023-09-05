@@ -1,12 +1,17 @@
 import UserSideNav from '../../components/UserSideNav'
 import { Outlet } from 'react-router-dom'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useViewport } from 'src/hooks/useViewport'
 import UserMobileNavBar from '../../components/UserMobileNavBar'
 
 export default function UserLayout() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
+
+  //? CHANGE TITLE
+  useEffect(() => {
+    document.title = 'User | Hareta Workshop'
+  })
 
   if (isMobile) {
     return (

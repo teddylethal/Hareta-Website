@@ -1,7 +1,7 @@
 import { faAngleRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import path from 'src/constants/path'
@@ -94,7 +94,7 @@ export default function ProductDetail() {
       { group_id: defaltItem?.group.id as string },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+          queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
           setLikeItemDialog(true)
           setTimeout(() => {
             setLikeItemDialog(false)
@@ -107,10 +107,10 @@ export default function ProductDetail() {
   const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
   const unlikeItem = () => {
     unlikeItemMutation.mutate(
-      { group_id: defaltItem?.id as string },
+      { group_id: defaltItem?.group.id as string },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['favourite_list'] })
+          queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
         }
       }
     )
@@ -132,11 +132,16 @@ export default function ProductDetail() {
     setDialogIsOpen(false)
   }
 
+  //? CHANGE TITLE
+  useEffect(() => {
+    document.title = `${defaltItem?.name} | Hareta Workshop`
+  })
+
   if (!defaltItem) return <ProductDetailLoading />
   return (
     <div className='bg-lightBg py-2 dark:bg-darkBg lg:py-3 xl:py-4'>
       <div className='container'>
-        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg bg-[#efefef] px-2 py-1 text-xs font-light uppercase text-textDark duration-500 dark:bg-[#202020] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
+        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg border border-black/20 bg-[#f8f8f8] px-2 py-1 text-xs font-medium uppercase text-textDark duration-500 dark:border-white/20 dark:bg-[#000] dark:text-textLight lg:mb-3 lg:space-x-2 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>

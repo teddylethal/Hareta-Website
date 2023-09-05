@@ -1,6 +1,6 @@
 import { useState, createContext } from 'react'
 import { User } from 'src/types/user.type'
-import { getAccessTokenFromLS, getProfileFromLS, getThemeFromLS } from 'src/utils/auth'
+import { getAccessTokenFromLS, getProfileFromLS, getThemeFromLS, setThemeToLS } from 'src/utils/auth'
 
 interface AppContextInterface {
   isAuthenticated: boolean
@@ -34,7 +34,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<string>(initialAppContext.theme)
   const [profile, setProfile] = useState<User | null>(initialAppContext.profile)
   const toggleTheme = () => {
-    setTheme((theme) => (theme === 'light' ? 'dark' : 'light'))
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    setThemeToLS(newTheme)
   }
 
   const reset = () => {

@@ -91,12 +91,12 @@ export default function ProductDetailMobile(props: Props) {
             <div className='mt-4 flex items-center justify-between'>
               <p className='text-2xl'>{defaultItem.name}</p>
               {isAuthenticated && (
-                <button className='text-white/50'>
+                <button className=''>
                   <FontAwesomeIcon
                     icon={faHeart}
                     onClick={toggleLikeItem}
-                    className={classNames('h-6', {
-                      'text-textDark/60 dark:text-textLight/60': !isLikedByUser,
+                    className={classNames('h-6 hover:text-red-500', {
+                      'text-textDark/40 dark:text-textLight/40': !isLikedByUser,
                       'text-red-500': isLikedByUser
                     })}
                   />
