@@ -1,3 +1,73 @@
+import classNames from 'classnames'
+import { error } from 'console'
+import { useForm, useFormContext } from 'react-hook-form'
+import Input from 'src/components/Input'
+import { OrderSchema } from 'src/utils/rules'
+
+type FormData = OrderSchema
+
 export default function ShippingInfor() {
-  return <div className='h-80 w-full bg-red-500'>ShippingInfor</div>
+  const {
+    register,
+    control,
+    formState: { errors }
+  } = useFormContext<FormData>()
+
+  return (
+    <div className='h-80 w-full p-3 text-textDark dark:text-textLight xl:p-4 '>
+      <div className='space-y-4'>
+        <div className=''>
+          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
+          <div className='relative'>
+            <Input
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              register={register}
+              name='name'
+              errorMessage={errors?.name?.message}
+              autoComplete='false'
+            />
+            <div
+              className={classNames('absolute bottom-5 w-full border-b-2 border-black/60 dark:border-white/60', {
+                'border-red-700': errors?.name
+              })}
+            ></div>
+          </div>
+        </div>
+        <div className='text-lg xl:text-xl'>
+          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>Phone</p>
+          <div className='relative'>
+            <Input
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              register={register}
+              name='phone'
+              errorMessage={errors?.phone?.message}
+              autoComplete='false'
+            />
+            <div
+              className={classNames('absolute bottom-5 w-full border-b-2 border-black/60 dark:border-white/60', {
+                'border-red-700': errors?.phone
+              })}
+            ></div>
+          </div>
+        </div>
+        <div className=''>
+          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>email</p>
+          <div className='relative'>
+            <Input
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              register={register}
+              name='email'
+              errorMessage={errors?.email?.message}
+              autoComplete='false'
+            />
+            <div
+              className={classNames('absolute bottom-5 w-full border-b-2 border-black/60 dark:border-white/60', {
+                'border-red-700': errors?.email
+              })}
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }

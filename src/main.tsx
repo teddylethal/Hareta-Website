@@ -10,6 +10,7 @@ import { AppProvider } from './contexts/app.context'
 import { StoreProvider } from './contexts/store.context'
 import { CartProvider } from './contexts/cart.context'
 import ScrollToTop from './ScrollToTop'
+import { OrderProvider } from './contexts/order.context'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,7 +29,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <StoreProvider>
             <AppProvider>
               <CartProvider>
-                <App />
+                <OrderProvider>
+                  <App />
+                </OrderProvider>
               </CartProvider>
             </AppProvider>
           </StoreProvider>

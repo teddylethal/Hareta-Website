@@ -1,6 +1,4 @@
-import classNames from 'classnames'
-import { NavLink, Outlet } from 'react-router-dom'
-import path from 'src/constants/path'
+import { Outlet } from 'react-router-dom'
 import OrderHeader from '../../components/OrderHeader'
 import OrderDetail from '../../components/OrderDetail'
 

@@ -140,6 +140,15 @@ export const changePasswordRecoverySchema = yup.object({
   confirm_new_password: handleConfirmPasswordYup('new_password')
 })
 
+export const orderSchema = yup.object({
+  email: handleEmailYup(),
+  name: yup.string().required('Name is required'),
+  phone: yup.string().required('Phone number is required'),
+  address: yup.string().required('Address is required'),
+  id: yup.array().of(yup.string()).required()
+})
+export type OrderSchema = yup.InferType<typeof orderSchema>
+
 export type RegisterSchema = yup.InferType<typeof registerSchema>
 
 export type LoginSchema = yup.InferType<typeof loginSchema>

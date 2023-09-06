@@ -1,13 +1,32 @@
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import OrderDesktopLayout from '../OrderDesktopLayout'
 import OrderMobileLayout from '../OrderMobileLayout'
+import { OrderSchema, orderSchema } from 'src/utils/rules'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useContext } from 'react'
+import { OrderContext } from 'src/contexts/order.context'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+type FormData = OrderSchema
 
 export default function OrderLayout() {
+  const { purchaseList } = useContext(OrderContext)
+
+  const methods = useForm<FormData>({
+    defaultValues: {
+      name: '',
+      phone: '',
+      email: '',
+      address: ''
+    },
+    resolver: yupResolver(orderSchema)
+  })
+
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
@@ -53,8 +72,13 @@ export default function OrderLayout() {
             order
           </NavLink>
         </div>
-        {!isMobile && <OrderDesktopLayout />}
-        {isMobile && <OrderMobileLayout />}
+        <FormProvider {...methods}>
+          <form>
+            {!isMobile && <OrderDesktopLayout />}
+
+            {isMobile && <OrderMobileLayout />}
+          </form>
+        </FormProvider>
       </div>
     </div>
   )

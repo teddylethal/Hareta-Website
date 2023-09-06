@@ -31,7 +31,7 @@ module.exports = {
         textDark: '#222222',
         vintageColor: '#A27B5C',
         textLight: '#EEEEEE',
-        darkBg: '#101010',
+        darkBg: '#181818',
         lightBg: '#e8e8e8',
         success: '#4bb543',
         brownColor: '#B77729',

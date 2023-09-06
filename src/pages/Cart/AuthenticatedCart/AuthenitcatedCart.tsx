@@ -9,6 +9,8 @@ import { formatCurrency } from 'src/utils/utils'
 import AuthenticatedCartMobile from '../AuthenticatedCartMobile'
 import ItemInCart from 'src/components/ItemInCart'
 import purchaseApi from 'src/apis/cart.api'
+import { Link } from 'react-router-dom'
+import path from 'src/constants/path'
 
 export default function AuthenitcatedCart() {
   const viewport = useViewport()
@@ -138,19 +140,25 @@ export default function AuthenitcatedCart() {
                 <span className='col-span-1 text-center text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
-                <button
-                  className={classNames(
-                    'col-span-1 h-10 rounded-md border-none  bg-vintageColor/90  text-textDark dark:bg-haretaColor  dark:text-textDark',
-                    {
-                      ' hover:bg-vintageColor dark:hover:bg-haretaColor/80': checkedPurchasesCount !== 0,
-                      'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':
-                        checkedPurchasesCount === 0
-                    }
-                  )}
-                  disabled={checkedPurchasesCount === 0}
-                >
-                  Check out
-                </button>
+                {checkedPurchasesCount === 0 && (
+                  <div
+                    className={classNames(
+                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/90 bg-opacity-50 text-textDark text-opacity-60 dark:bg-haretaColor  dark:bg-opacity-50 dark:text-textDark  dark:text-opacity-60'
+                    )}
+                  >
+                    Check out
+                  </div>
+                )}
+                {checkedPurchasesCount > 0 && (
+                  <Link
+                    to={path.shippingInfor}
+                    className={classNames(
+                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor/90  text-textDark hover:bg-vintageColor  dark:bg-haretaColor dark:text-textDark dark:hover:bg-haretaColor/80'
+                    )}
+                  >
+                    Check out
+                  </Link>
+                )}
               </div>
             </div>
           </div>
