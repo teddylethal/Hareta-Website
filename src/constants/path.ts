@@ -13,7 +13,10 @@ const path = {
   password: '/user/password',
   verifyEmail: '/check-verification-code/:code',
   requestPasswordRecovery: '/passwordRecovery',
-  changePasswordRecovery: '/passwordRecovery/:slug'
+  changePasswordRecovery: '/passwordRecovery/:slug',
+  order: '/order',
+  shippingInfor: '/order/shipping-information',
+  payment: '/order/payment'
 } as const
 
 export const adminPath = {

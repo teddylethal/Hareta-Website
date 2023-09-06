@@ -34,6 +34,8 @@ import AdminUpdateItem from './pages/Admin/pages/AdminUpdateItem'
 import AdminDeleteItemImage from './pages/Admin/pages/AdminDeleteItemImage'
 import AdminDeleteItem from './pages/Admin/pages/AdminDeleteItem'
 import AdminDeleteGroup from './pages/Admin/pages/AdminDeleteGroup'
+import OrderLayout from './pages/Order/layouts/OrderLayout'
+import ShippingInfor from './pages/Order/pages/ShippingInfor'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -274,6 +276,24 @@ export default function useRouteElements() {
           <Cart />
         </MainLayout>
       )
+    },
+    {
+      path: path.order,
+      element: (
+        <MainLayout>
+          <OrderLayout />
+        </MainLayout>
+      ),
+      children: [
+        {
+          path: path.shippingInfor,
+          element: <ShippingInfor />
+        },
+        {
+          path: path.payment,
+          element: <ChangePassword />
+        }
+      ]
     }
   ])
 
