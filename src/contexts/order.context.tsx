@@ -14,6 +14,8 @@ interface OrderContextInterface {
   setAddressCountry: React.Dispatch<React.SetStateAction<ICountry>>
   setAddressState: React.Dispatch<React.SetStateAction<IState | null>>
   setAddressCity: React.Dispatch<React.SetStateAction<ICity | null>>
+  confirmPayment: boolean
+  setConfirmPayment: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const initialOrderContext: OrderContextInterface = {
@@ -26,7 +28,9 @@ const initialOrderContext: OrderContextInterface = {
   addressCity: null,
   setAddressCountry: () => null,
   setAddressState: () => null,
-  setAddressCity: () => null
+  setAddressCity: () => null,
+  confirmPayment: false,
+  setConfirmPayment: () => null
 }
 
 export const OrderContext = createContext<OrderContextInterface>(initialOrderContext)
@@ -39,6 +43,7 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   const [addressCountry, setAddressCountry] = useState<ICountry>(initialOrderContext.addressCountry)
   const [addressState, setAddressState] = useState<IState | null>(initialOrderContext.addressState)
   const [addressCity, setAddressCity] = useState<ICity | null>(initialOrderContext.addressCity)
+  const [confirmPayment, setConfirmPayment] = useState<boolean>(initialOrderContext.confirmPayment)
 
   return (
     <OrderContext.Provider
@@ -52,7 +57,9 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
         addressCity,
         setAddressCountry,
         setAddressState,
-        setAddressCity
+        setAddressCity,
+        confirmPayment,
+        setConfirmPayment
       }}
     >
       {children}

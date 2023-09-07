@@ -1,3 +1,3 @@
-import AuthenitcatedCart from './AuthenitcatedCart'
+import AuthenticatedCart from './AuthenticatedCart'
 
-export default AuthenitcatedCart
+export default AuthenticatedCart

@@ -16,7 +16,7 @@ export default function OrderDetail() {
   //? GET CART LIST
 
   return (
-    <div className='sticky rounded-xl p-3 lg:p-4'>
+    <div className=' rounded-xl p-3 lg:p-4'>
       <p className='text-2xl font-semibold uppercase xl:text-3xl'>order</p>
       <div className='my-4 w-full border border-black/80 dark:border-white/80'></div>
       <div className='max-h-60 overflow-auto'>

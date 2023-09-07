@@ -36,6 +36,7 @@ import AdminDeleteItem from './pages/Admin/pages/AdminDeleteItem'
 import AdminDeleteGroup from './pages/Admin/pages/AdminDeleteGroup'
 import OrderLayout from './pages/Order/layouts/OrderLayout'
 import ShippingInfor from './pages/Order/pages/ShippingInfor'
+import Payment from './pages/Order/pages/Payment'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -291,7 +292,7 @@ export default function useRouteElements() {
         },
         {
           path: path.payment,
-          element: <ChangePassword />
+          element: <Payment />
         }
       ]
     }

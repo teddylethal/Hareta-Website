@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { OrderContext } from 'src/contexts/order.context'
 
-export default function AuthenitcatedCart() {
+export default function AuthenticatedCart() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)

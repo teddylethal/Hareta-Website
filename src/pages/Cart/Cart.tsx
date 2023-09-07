@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
-import AuthenitcatedCart from './AuthenticatedCart'
+import AuthenticatedCart from './AuthenticatedCart'
 import UnauthenticatedCart from './UnauthenticatedCart'
 import { NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
@@ -44,7 +44,7 @@ export default function Cart() {
             cart
           </NavLink>
         </div>
-        {isAuthenticated && <AuthenitcatedCart />}
+        {isAuthenticated && <AuthenticatedCart />}
         {!isAuthenticated && <UnauthenticatedCart />}
       </div>
     </div>
