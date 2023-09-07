@@ -1,32 +1,41 @@
 import { faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Listbox, Transition } from '@headlessui/react'
-import { City, ICity, ICountry, IState } from 'country-state-city'
-import { Fragment, useEffect, useState } from 'react'
+import classNames from 'classnames'
+import { City, ICity } from 'country-state-city'
+import { Fragment, useContext, useEffect, useState } from 'react'
+import { OrderContext } from 'src/contexts/order.context'
 
 interface Props {
-  selectedCountry: ICountry
-  selectedState: IState | null
-  selectedCity: ICity | null
-  setSelectedCity: React.Dispatch<React.SetStateAction<ICity | null>>
+  isError?: boolean
 }
 
-export default function SelectCity({ selectedCountry, selectedState, selectedCity, setSelectedCity }: Props) {
+export default function SelectCity({ isError = false }: Props) {
+  const { addressCountry, addressState, addressCity, setAddressCity } = useContext(OrderContext)
+
   const [cityList, setCityList] = useState<ICity[]>(
-    selectedState ? City.getCitiesOfState(selectedCountry.isoCode, selectedState.isoCode) : []
+    addressState ? City.getCitiesOfState(addressCountry.isoCode, addressState.isoCode) : []
   )
 
   useEffect(() => {
-    if (selectedState) {
-      setCityList(City.getCitiesOfState(selectedCountry.isoCode, selectedState.isoCode))
+    if (addressState) {
+      setCityList(City.getCitiesOfState(addressCountry.isoCode, addressState.isoCode))
     }
-  }, [selectedCountry, selectedState])
+  }, [addressCountry, addressState])
 
   return (
-    <Listbox value={selectedCity} onChange={setSelectedCity}>
+    <Listbox value={addressCity} onChange={setAddressCity}>
       <div className='relative mt-1'>
-        <Listbox.Button className='relative flex w-full cursor-default items-center justify-between rounded-lg border border-black/40 bg-white py-2 text-left text-xs dark:border-white/40 dark:bg-black sm:text-sm md:text-base lg:text-lg xl:text-xl'>
-          <span className='block truncate px-3'>{selectedCity ? selectedCity.name : 'City'}</span>
+        <Listbox.Button
+          className={classNames(
+            'relative flex w-full cursor-default items-center justify-between rounded-lg border  bg-white py-2 text-left text-xs  dark:bg-black sm:text-sm md:text-base lg:text-lg xl:text-xl',
+            {
+              'border-black/40 dark:border-white/40': !isError,
+              'border-red-700 dark:border-red-700': isError
+            }
+          )}
+        >
+          <span className='block truncate px-3'>{addressCity ? addressCity.name : 'City / District'}</span>
           <span className='pointer-events-none right-0 flex items-center pr-2'>
             <FontAwesomeIcon icon={faChevronDown} className=' text-gray-400' />
           </span>

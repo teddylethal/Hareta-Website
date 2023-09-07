@@ -1,22 +1,20 @@
 import { faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Listbox, Transition } from '@headlessui/react'
-import { Country, ICountry } from 'country-state-city'
-import { Fragment } from 'react'
-
-interface Props {
-  selectedCountry: ICountry
-  setSelectedCountry: React.Dispatch<React.SetStateAction<ICountry>>
-}
+import { Country } from 'country-state-city'
+import { Fragment, useContext } from 'react'
+import { OrderContext } from 'src/contexts/order.context'
 
 const COUNTRIES = Country.getAllCountries()
 
-export default function SelectCountry({ selectedCountry, setSelectedCountry }: Props) {
+export default function SelectCountry() {
+  const { addressCountry, setAddressCountry } = useContext(OrderContext)
+
   return (
-    <Listbox value={selectedCountry} onChange={setSelectedCountry}>
+    <Listbox value={addressCountry} onChange={setAddressCountry}>
       <div className='relative mt-1'>
         <Listbox.Button className='relative flex w-full cursor-default items-center justify-between rounded-lg border border-black/40 bg-white py-2 text-left text-xs dark:border-white/40 dark:bg-black sm:text-sm md:text-base lg:text-lg xl:text-xl'>
-          <span className='block truncate px-3'>{selectedCountry?.name}</span>
+          <span className='block truncate px-3'>{addressCountry?.name}</span>
           <span className='pointer-events-none right-0 flex items-center pr-2'>
             <FontAwesomeIcon icon={faChevronDown} className=' text-gray-400' />
           </span>

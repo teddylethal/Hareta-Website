@@ -1,27 +1,36 @@
 import { faCheck, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Listbox, Transition } from '@headlessui/react'
-import { ICountry, IState, State } from 'country-state-city'
-import { Fragment, useEffect, useState } from 'react'
+import classNames from 'classnames'
+import { IState, State } from 'country-state-city'
+import { Fragment, useContext, useEffect, useState } from 'react'
+import { OrderContext } from 'src/contexts/order.context'
 
 interface Props {
-  selectedCountry: ICountry
-  selectedState: IState | null
-  setSelectedState: React.Dispatch<React.SetStateAction<IState | null>>
+  isError?: boolean
 }
 
-export default function SelectState({ selectedCountry, selectedState, setSelectedState }: Props) {
-  const [stateList, setStateList] = useState<IState[]>(State.getStatesOfCountry(selectedCountry.isoCode))
+export default function SelectState({ isError = false }: Props) {
+  const { addressCountry, addressState, setAddressState } = useContext(OrderContext)
+  const [stateList, setStateList] = useState<IState[]>(State.getStatesOfCountry(addressCountry.isoCode))
 
   useEffect(() => {
-    setStateList(State.getStatesOfCountry(selectedCountry.isoCode))
-  }, [selectedCountry])
+    setStateList(State.getStatesOfCountry(addressCountry.isoCode))
+  }, [addressCountry])
 
   return (
-    <Listbox value={selectedState} onChange={setSelectedState}>
+    <Listbox value={addressState} onChange={setAddressState}>
       <div className='relative mt-1'>
-        <Listbox.Button className='relative flex w-full cursor-default items-center justify-between rounded-lg border border-black/40 bg-white py-2 text-left text-xs dark:border-white/40 dark:bg-black sm:text-sm md:text-base lg:text-lg xl:text-xl'>
-          <span className='block truncate px-3'>{selectedState ? selectedState.name : 'State / Province'}</span>
+        <Listbox.Button
+          className={classNames(
+            'relative flex w-full cursor-default items-center justify-between rounded-lg border  bg-white py-2 text-left text-xs  dark:bg-black sm:text-sm md:text-base lg:text-lg xl:text-xl',
+            {
+              'border-black/40 dark:border-white/40': !isError,
+              'border-red-700 dark:border-red-700': isError
+            }
+          )}
+        >
+          <span className='block truncate px-3'>{addressState ? addressState.name : 'State / Province'}</span>
           <span className='pointer-events-none right-0 flex items-center pr-2'>
             <FontAwesomeIcon icon={faChevronDown} className=' text-gray-400' />
           </span>
