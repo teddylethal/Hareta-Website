@@ -4,15 +4,18 @@ import React, { Fragment, useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import { formatCurrency } from 'src/utils/utils'
 import MobileItemInCart from '../MobileItemInCart'
+import { Link } from 'react-router-dom'
+import path from 'src/constants/path'
 
 interface Props {
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
   handleSelectAll: () => void
   handleRemove: (purchaseIndex: number) => () => void
+  handleCheckout: () => void
 }
 
 export default function AuthenticatedCartMobile(props: Props) {
-  const { handleChecking, handleRemove, handleSelectAll } = props
+  const { handleChecking, handleRemove, handleSelectAll, handleCheckout } = props
 
   const { extendedPurchases } = useContext(CartContext)
   const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
@@ -21,8 +24,6 @@ export default function AuthenticatedCartMobile(props: Props) {
   const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, current) => {
     return result + current.item.price * current.quantity
   }, 0)
-
-  //? HANLDE ADD TO CART
 
   return (
     <Fragment>
@@ -79,19 +80,26 @@ export default function AuthenticatedCartMobile(props: Props) {
               ${formatCurrency(totalCheckedPurchasesPrice)}
             </span>
           </div>
-          <button
-            className={classNames(
-              'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm  text-textDark dark:bg-vintageColor  dark:text-textDark',
-              {
-                ' hover:bg-haretaColor dark:hover:bg-haretaColor': checkedPurchasesCount !== 0,
-                'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':
-                  checkedPurchasesCount === 0
-              }
-            )}
-            disabled={checkedPurchasesCount === 0}
-          >
-            Check out
-          </button>
+          {checkedPurchasesCount === 0 && (
+            <div
+              className={classNames(
+                'col-span-3 h-8 cursor-not-allowed rounded-sm border-none bg-[#eee]/50 text-sm text-textDark/60  dark:bg-vintageColor/50  dark:text-textDark/60'
+              )}
+            >
+              Check out
+            </div>
+          )}
+          {checkedPurchasesCount > 0 && (
+            <Link
+              to={path.shippingInfor}
+              onClick={handleCheckout}
+              className={classNames(
+                'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm text-textDark hover:bg-haretaColor  dark:bg-vintageColor dark:text-textDark  dark:hover:bg-haretaColor'
+              )}
+            >
+              Check out
+            </Link>
+          )}
         </div>
       </div>
     </Fragment>

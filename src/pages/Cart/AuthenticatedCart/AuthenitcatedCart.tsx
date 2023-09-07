@@ -11,11 +11,13 @@ import ItemInCart from 'src/components/ItemInCart'
 import purchaseApi from 'src/apis/cart.api'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
+import { OrderContext } from 'src/contexts/order.context'
 
 export default function AuthenitcatedCart() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
+  const { setPurchaseList } = useContext(OrderContext)
 
   // const purchasesInCart = cartData?.data.data
   const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
@@ -54,6 +56,11 @@ export default function AuthenitcatedCart() {
   const handleRemove = (purchaseIndex: number) => () => {
     const purchaseId = extendedPurchases[purchaseIndex].id
     removePurchasesMutation.mutate({ id: purchaseId })
+  }
+
+  //? HANDLE CHECKOUT
+  const handleCheckout = () => {
+    setPurchaseList(checkedPurchases)
   }
 
   return (
@@ -151,6 +158,7 @@ export default function AuthenitcatedCart() {
                 )}
                 {checkedPurchasesCount > 0 && (
                   <Link
+                    onClick={handleCheckout}
                     to={path.shippingInfor}
                     className={classNames(
                       'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor/90  text-textDark hover:bg-vintageColor  dark:bg-haretaColor dark:text-textDark dark:hover:bg-haretaColor/80'
@@ -167,6 +175,7 @@ export default function AuthenitcatedCart() {
 
       {isMobile && (
         <AuthenticatedCartMobile
+          handleCheckout={handleCheckout}
           handleChecking={handleChecking}
           handleRemove={handleRemove}
           handleSelectAll={handleSelectAll}

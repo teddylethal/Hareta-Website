@@ -10,6 +10,7 @@ import { useViewport } from 'src/hooks/useViewport'
 import { TemporaryPurchase } from 'src/types/cart.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import UnauthenticatedCartMobile from '../UnauthenticatedCartMobile'
+import { OrderContext } from 'src/contexts/order.context'
 
 export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
   disabled: boolean
@@ -22,6 +23,7 @@ export default function UnauthenticatedCart() {
   const isMobile = viewport.width <= 768
   const { setPurchasesInLS, purchasesInLS } = useContext(CartContext)
   const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedTemporaryPurchase[]>([])
+  const { setTempPurchaseList } = useContext(OrderContext)
 
   useEffect(() => {
     setExtendedTempPurchases((prev) => {
@@ -83,6 +85,11 @@ export default function UnauthenticatedCart() {
     const purchaseId = extendedTempPurchases[purchaseIndex].id
     const newPurchaseList = purchasesInLS.filter((purchase) => purchase.id !== purchaseId)
     setPurchasesInLS(newPurchaseList)
+  }
+
+  //? HANDLE CHECKOUT
+  const handleCheckout = () => {
+    setTempPurchaseList(checkedPurchases)
   }
 
   return (
@@ -252,6 +259,7 @@ export default function UnauthenticatedCart() {
                 {checkedPurchasesCount > 0 && (
                   <Link
                     to={path.shippingInfor}
+                    onClick={handleCheckout}
                     className={classNames(
                       'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor/90  text-textDark hover:bg-vintageColor  dark:bg-haretaColor dark:text-textDark dark:hover:bg-haretaColor/80'
                     )}
@@ -273,6 +281,7 @@ export default function UnauthenticatedCart() {
           handleRemove={handleRemove}
           handleSelectAll={handleSelectAll}
           handleTypeQuantity={handleTypeQuantity}
+          handleCheckout={handleCheckout}
         />
       )}
     </Fragment>

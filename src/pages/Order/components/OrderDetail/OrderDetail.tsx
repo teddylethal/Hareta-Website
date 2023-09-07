@@ -1,15 +1,15 @@
 import { useContext } from 'react'
-import { CartContext } from 'src/contexts/cart.context'
+import { OrderContext } from 'src/contexts/order.context'
 import { formatCurrency } from 'src/utils/utils'
 
 export default function OrderDetail() {
-  const { extendedPurchases } = useContext(CartContext)
+  const { purchaseList } = useContext(OrderContext)
 
-  const totalPurchasesPrice = extendedPurchases.reduce((result, current) => {
+  const totalPurchasesPrice = purchaseList.reduce((result, current) => {
     return result + current.item.price * current.quantity
   }, 0)
 
-  const totalDiscount = extendedPurchases.reduce((result, current) => {
+  const totalDiscount = purchaseList.reduce((result, current) => {
     return result + current.item.discount * current.quantity
   }, 0)
 
@@ -20,7 +20,7 @@ export default function OrderDetail() {
       <p className='text-2xl font-semibold uppercase xl:text-3xl'>order</p>
       <div className='my-4 w-full border border-black/80 dark:border-white/80'></div>
       <div className='max-h-60 overflow-auto'>
-        {extendedPurchases.map((purchase, index) => (
+        {purchaseList.map((purchase, index) => (
           <div className='relative grid grid-cols-3 items-center gap-2 py-3 xl:py-4' key={purchase.id}>
             <div className='col-span-2'>
               <p className='text-lg font-bold capitalize xl:text-xl'>{purchase.item.name}</p>

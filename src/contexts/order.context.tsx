@@ -1,20 +1,32 @@
 import { createContext, useState } from 'react'
-import { Purchase } from 'src/types/cart.type'
+import { ExtendsPurchase } from './cart.context'
+import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
 
 interface OrderContextInterface {
-  purchaseList: Purchase[]
-  setPurchaseList: React.Dispatch<React.SetStateAction<Purchase[]>>
+  purchaseList: ExtendsPurchase[]
+  setPurchaseList: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
+  tempPurchaseList: ExtendedTemporaryPurchase[]
+  setTempPurchaseList: React.Dispatch<React.SetStateAction<ExtendedTemporaryPurchase[]>>
 }
 
 const initialOrderContext: OrderContextInterface = {
   purchaseList: [],
-  setPurchaseList: () => null
+  setPurchaseList: () => null,
+  tempPurchaseList: [],
+  setTempPurchaseList: () => null
 }
 
 export const OrderContext = createContext<OrderContextInterface>(initialOrderContext)
 
 export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
-  const [purchaseList, setPurchaseList] = useState<Purchase[]>([])
+  const [purchaseList, setPurchaseList] = useState<ExtendsPurchase[]>(initialOrderContext.purchaseList)
+  const [tempPurchaseList, setTempPurchaseList] = useState<ExtendedTemporaryPurchase[]>(
+    initialOrderContext.tempPurchaseList
+  )
 
-  return <OrderContext.Provider value={{ purchaseList, setPurchaseList }}>{children}</OrderContext.Provider>
+  return (
+    <OrderContext.Provider value={{ purchaseList, setPurchaseList, tempPurchaseList, setTempPurchaseList }}>
+      {children}
+    </OrderContext.Provider>
+  )
 }

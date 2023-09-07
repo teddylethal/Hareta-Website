@@ -15,11 +15,19 @@ interface Props {
   handleQuantity: (purchaseIndex: number, value: number, enable: boolean) => void
   handleTypeQuantity: (purchaseIndex: number) => (value: number) => void
   handleRemove: (purchaseIndex: number) => () => void
+  handleCheckout: () => void
 }
 
 export default function UnauthenticatedCartMobile(props: Props) {
-  const { extendedTempPurchases, handleChecking, handleQuantity, handleRemove, handleSelectAll, handleTypeQuantity } =
-    props
+  const {
+    extendedTempPurchases,
+    handleChecking,
+    handleQuantity,
+    handleRemove,
+    handleSelectAll,
+    handleTypeQuantity,
+    handleCheckout
+  } = props
 
   const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
@@ -151,19 +159,26 @@ export default function UnauthenticatedCartMobile(props: Props) {
               ${formatCurrency(totalCheckedPurchasesPrice)}
             </span>
           </div>
-          <button
-            className={classNames(
-              'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm  text-textDark dark:bg-vintageColor  dark:text-textDark',
-              {
-                ' hover:bg-haretaColor dark:hover:bg-haretaColor': checkedPurchasesCount !== 0,
-                'cursor-not-allowed bg-opacity-50 text-opacity-60 dark:bg-opacity-50 dark:text-opacity-60':
-                  checkedPurchasesCount === 0
-              }
-            )}
-            disabled={checkedPurchasesCount === 0}
-          >
-            Check out
-          </button>
+          {checkedPurchasesCount === 0 && (
+            <div
+              className={classNames(
+                'col-span-3 h-8 cursor-not-allowed rounded-sm border-none bg-[#eee]/50 text-sm text-textDark/60  dark:bg-vintageColor/50  dark:text-textDark/60'
+              )}
+            >
+              Check out
+            </div>
+          )}
+          {checkedPurchasesCount > 0 && (
+            <Link
+              to={path.shippingInfor}
+              onClick={handleCheckout}
+              className={classNames(
+                'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm text-textDark hover:bg-haretaColor  dark:bg-vintageColor dark:text-textDark  dark:hover:bg-haretaColor'
+              )}
+            >
+              Check out
+            </Link>
+          )}
         </div>
       </div>
     </Fragment>
