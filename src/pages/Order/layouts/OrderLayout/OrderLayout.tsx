@@ -45,39 +45,15 @@ export default function OrderLayout() {
   //? HANDLE PLACE ORDER
   const queryClient = useQueryClient()
   const createOrderMutation = useMutation(orderApi.createOrder)
-  // const onPlaceOrder = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault()
-  //   const body = {
-  //     name: getValues('name'),
-  //     phone: getValues('phone'),
-  //     email: getValues('email'),
-  //     address: `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`,
-  //     id: idList
-  //   }
-  //   createOrderMutation.mutate(body, {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({ queryKey: ['purchases'] })
-  //       setSuccesDialog(true)
-  //     }
-  //   })
-  // }
+
   const onPlaceOrder = handleSubmit(async (data) => {
     try {
       const fullAddress = `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`
-      const orderSuccessRespone = await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
+      await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
       queryClient.invalidateQueries({ queryKey: ['purchases'] })
       setSuccesDialog(true)
     } catch (error) {
       console.log(error)
-      // if (isAxiosBadRequestError<ErrorRespone>(error)) {
-      //   const formError = error.response?.data
-      //   if (formError?.message) {
-      //     setError('email', {
-      //       message: formError.message,
-      //       type: 'Server'
-      //     })
-      //   }
-      // }
     }
   })
 

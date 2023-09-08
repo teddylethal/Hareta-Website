@@ -78,30 +78,6 @@ export default function OrderDetail() {
   }
 
   //? HANDLE CLEAR ERRORS
-  // useEffect(() => {
-  //   if (name !== '' && errors.name) {
-  //     clearErrors('name')
-  //   }
-  // }, [clearErrors, errors.name, name])
-
-  // useEffect(() => {
-  //   if (phone !== '' && errors.phone) {
-  //     clearErrors('phone')
-  //   }
-  // }, [clearErrors, errors.phone, phone])
-
-  // useEffect(() => {
-  //   if (email !== '' && errors.email) {
-  //     clearErrors('email')
-  //   }
-  // }, [clearErrors, errors.email, email])
-
-  // useEffect(() => {
-  //   if (address !== '' && errors.address) {
-  //     clearErrors('address')
-  //   }
-  // }, [clearErrors, errors.address, address])
-
   useEffect(() => {
     if (addressState) {
       setNoneState(false)
@@ -194,44 +170,6 @@ export default function OrderDetail() {
           Confirm order
         </button>
       )}
-      {/* <DialogPopup
-        isOpen={shippingInfoWarnDialog}
-        handleClose={() => setShippingInfoWarnDialog(false)}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
-      >
-        <div className={theme === 'dark' ? 'dark' : 'light'}>
-          <div className='mb-4 text-center'>
-            <FontAwesomeIcon
-              icon={faXmarkCircle}
-              className='text- h-auto w-8 rounded-full text-center text-red-700 md:w-10 lg:w-12 xl:w-16'
-            />
-          </div>
-          <p className='inline text-center text-xl font-medium uppercase leading-6'>
-            You must full fill <span className='text-brownColor dark:text-haretaColor'>shipping information</span> first
-          </p>
-        </div>
-      </DialogPopup>
-
-      <DialogPopup
-        isOpen={confirmPaymentWarnDialog}
-        handleClose={() => setConfirmPaymentWarnDialog(false)}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
-      >
-        <div className={theme === 'dark' ? 'dark' : 'light'}>
-          <div className='mb-4 text-center'>
-            <FontAwesomeIcon
-              icon={faXmarkCircle}
-              className='h-auto w-8 rounded-full text-center text-red-700 md:w-10 lg:w-12 xl:w-16'
-            />
-          </div>
-          <p className='inline text-center text-xl font-medium uppercase leading-6'>
-            You must accept our{' '}
-            <span className='font-medium text-brownColor/80 hover:text-brownColor dark:text-haretaColor/80 dark:hover:text-haretaColor/60'>
-              payment policy
-            </span>
-          </p>
-        </div>
-      </DialogPopup> */}
     </div>
   )
 }
