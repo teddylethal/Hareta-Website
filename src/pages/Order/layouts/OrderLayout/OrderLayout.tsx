@@ -1,4 +1,4 @@
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
@@ -8,27 +8,56 @@ import OrderDesktopLayout from '../OrderDesktopLayout'
 import OrderMobileLayout from '../OrderMobileLayout'
 import { OrderSchema, orderSchema } from 'src/utils/rules'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { OrderContext } from 'src/contexts/order.context'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import { orderApi } from 'src/apis/order.api'
+import DialogPopup from 'src/components/DialogPopup'
+import { AppContext } from 'src/contexts/app.context'
 
 type FormData = OrderSchema
 
 export default function OrderLayout() {
-  const { purchaseList } = useContext(OrderContext)
+  const { purchaseList, addressCountry, addressCity, addressState } = useContext(OrderContext)
+  const { theme } = useContext(AppContext)
 
+  const [successDialog, setSuccesDialog] = useState(false)
+
+  const idList = purchaseList.map((purchase) => purchase.id)
   const methods = useForm<FormData>({
     defaultValues: {
       name: '',
       phone: '',
       email: '',
-      address: ''
+      address: '',
+      id: idList
     },
     resolver: yupResolver(orderSchema)
   })
+  const { getValues } = methods
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
+
+  //? HANDLE PLACE ORDER
+  const createOrderMutation = useMutation(orderApi.createOrder)
+  const onPlaceOrder = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const body = {
+      name: getValues('name'),
+      phone: getValues('phone'),
+      email: getValues('email'),
+      address: `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`,
+      id: idList
+    }
+    console.log(body)
+    // createOrderMutation.mutate(body, {
+    //   onSuccess: () => {
+    //     setSuccesDialog(true)
+    //   }
+    // })
+  }
 
   return (
     <div className='bg-lightBg py-2 duration-500 dark:bg-darkBg lg:py-3 xl:py-4'>
@@ -73,13 +102,30 @@ export default function OrderLayout() {
           </NavLink>
         </div>
         <FormProvider {...methods}>
-          <form>
+          <form onSubmit={onPlaceOrder}>
             {!isMobile && <OrderDesktopLayout />}
 
             {isMobile && <OrderMobileLayout />}
           </form>
         </FormProvider>
       </div>
+      <DialogPopup
+        isOpen={successDialog}
+        handleClose={() => setSuccesDialog(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className={theme === 'dark' ? 'dark' : 'light'}>
+          <div className='mb-4 text-center'>
+            <FontAwesomeIcon
+              icon={faCheck}
+              className='text- h-auto w-8 rounded-full text-center text-success md:w-10 lg:w-12 xl:w-16'
+            />
+          </div>
+          <p className='mt-6 text-center text-xl font-medium uppercase leading-6'>
+            Your order was created successfully
+          </p>
+        </div>
+      </DialogPopup>
     </div>
   )
 }

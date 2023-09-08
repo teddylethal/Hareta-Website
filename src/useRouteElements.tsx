@@ -37,6 +37,7 @@ import AdminDeleteGroup from './pages/Admin/pages/AdminDeleteGroup'
 import OrderLayout from './pages/Order/layouts/OrderLayout'
 import ShippingInfor from './pages/Order/pages/ShippingInfor'
 import Payment from './pages/Order/pages/Payment'
+import { OrderContext } from './contexts/order.context'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -47,6 +48,12 @@ function AdminRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
   const isAdmin = profile?.role === 'admin'
   return isAuthenticated && isAdmin ? <Outlet /> : <Navigate to={path.home} />
+}
+
+function OrderRoute() {
+  const { purchaseList, tempPurchaseList } = useContext(OrderContext)
+  const accpeted = purchaseList.length > 0 || tempPurchaseList.length > 0
+  return accpeted ? <Outlet /> : <Navigate to={path.home} />
 }
 
 function RejectedRoute() {
@@ -235,6 +242,30 @@ export default function useRouteElements() {
         }
       ]
     },
+    {
+      path: '',
+      element: <OrderRoute />,
+      children: [
+        {
+          path: path.order,
+          element: (
+            <MainLayout>
+              <OrderLayout />
+            </MainLayout>
+          ),
+          children: [
+            {
+              path: path.shippingInfor,
+              element: <ShippingInfor />
+            },
+            {
+              path: path.payment,
+              element: <Payment />
+            }
+          ]
+        }
+      ]
+    },
 
     {
       path: path.home,
@@ -277,24 +308,6 @@ export default function useRouteElements() {
           <Cart />
         </MainLayout>
       )
-    },
-    {
-      path: path.order,
-      element: (
-        <MainLayout>
-          <OrderLayout />
-        </MainLayout>
-      ),
-      children: [
-        {
-          path: path.shippingInfor,
-          element: <ShippingInfor />
-        },
-        {
-          path: path.payment,
-          element: <Payment />
-        }
-      ]
     }
   ])
 

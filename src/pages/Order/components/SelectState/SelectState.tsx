@@ -11,12 +11,13 @@ interface Props {
 }
 
 export default function SelectState({ isError = false }: Props) {
-  const { addressCountry, addressState, setAddressState } = useContext(OrderContext)
+  const { addressCountry, addressState, setAddressState, setAddressCity } = useContext(OrderContext)
   const [stateList, setStateList] = useState<IState[]>(State.getStatesOfCountry(addressCountry.isoCode))
 
   useEffect(() => {
     setStateList(State.getStatesOfCountry(addressCountry.isoCode))
-  }, [addressCountry])
+    setAddressState(null)
+  }, [addressCountry, setAddressCity, setAddressState])
 
   return (
     <Listbox value={addressState} onChange={setAddressState}>

@@ -2,126 +2,26 @@ import classNames from 'classnames'
 import { useFormContext } from 'react-hook-form'
 import Input from 'src/components/Input'
 import { OrderSchema } from 'src/utils/rules'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext } from 'react'
 import SelectCountry from '../../components/SelectCountry'
 import SelectState from '../../components/SelectState'
 import SelectCity from '../../components/SelectCity'
 import { OrderContext } from 'src/contexts/order.context'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
-import DialogPopup from 'src/components/DialogPopup'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
-import { AppContext } from 'src/contexts/app.context'
 
 type FormData = OrderSchema
 
 export default function ShippingInfor() {
-  const { addressState, addressCity } = useContext(OrderContext)
-  const { theme } = useContext(AppContext)
-  const [warningDialog, setWarningDialog] = useState(false)
-  const [noneState, setNoneState] = useState(false)
-  const [noneCity, setNoneCity] = useState(false)
+  const { noneCity, noneState } = useContext(OrderContext)
+
   const {
     register,
-    watch,
-    setError,
-    clearErrors,
     formState: { errors }
   } = useFormContext<FormData>()
 
-  //? CONTINUE TO PAYMENT
-  const name = watch('name')
-  const phone = watch('phone')
-  const email = watch('email')
-  const address = watch('address')
-  const checkValidate = () => {
-    if (
-      name === '' ||
-      phone === '' ||
-      email === '' ||
-      address === '' ||
-      addressState === null ||
-      addressCity === null
-    ) {
-      return false
-    }
-    return true
-  }
-
-  const navigate = useNavigate()
-  const validButton = () => {
-    navigate({
-      pathname: path.payment
-    })
-  }
-
-  //? HANDLE INVALID FORM
-  const shippingInfoRef = useRef<HTMLDivElement>(null)
-  const invalidButton = () => {
-    setWarningDialog(true)
-    if (name === '') {
-      setError('name', { message: 'Name is required' })
-    }
-    if (phone === '') {
-      setError('phone', { message: 'Phone number is required' })
-    }
-    if (email === '') {
-      setError('email', { message: 'Email is required' })
-    }
-    if (address === '') {
-      setError('address', { message: 'Address is required' })
-    }
-    if (!addressState) {
-      setNoneState(true)
-    }
-    if (!addressCity) {
-      setNoneCity(true)
-    }
-    if (shippingInfoRef.current) {
-      shippingInfoRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  //? HANDLE CLEAR ERRORS
-  useEffect(() => {
-    if (name !== '' && errors.name) {
-      clearErrors('name')
-    }
-  }, [clearErrors, errors.name, name])
-
-  useEffect(() => {
-    if (phone !== '' && errors.phone) {
-      clearErrors('phone')
-    }
-  }, [clearErrors, errors.phone, phone])
-
-  useEffect(() => {
-    if (email !== '' && errors.email) {
-      clearErrors('email')
-    }
-  }, [clearErrors, errors.email, email])
-
-  useEffect(() => {
-    if (address !== '' && errors.address) {
-      clearErrors('address')
-    }
-  }, [clearErrors, errors.address, address])
-
-  useEffect(() => {
-    if (addressState) {
-      setNoneState(false)
-    }
-  }, [addressState])
-
-  useEffect(() => {
-    if (addressCity) {
-      setNoneCity(false)
-    }
-  }, [addressCity])
-
   return (
-    <div className='w-full p-3 text-textDark dark:text-textLight xl:p-4 ' ref={shippingInfoRef}>
+    <div className='w-full p-3 text-textDark dark:text-textLight xl:p-4 '>
       <div className='space-y-4'>
         <div className=''>
           <p className=' uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
@@ -206,32 +106,15 @@ export default function ShippingInfor() {
           </div>
         </div>
         <div className='flex w-full justify-end py-4'>
-          <button
+          <Link
+            to={path.payment}
             type='button'
             className='flex items-center justify-center rounded-lg bg-vintageColor/80 px-4 py-2 text-base capitalize text-textLight hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 xl:text-lg'
-            onClick={checkValidate() ? validButton : invalidButton}
           >
             continue to payment
-          </button>
+          </Link>
         </div>
       </div>
-      <DialogPopup
-        isOpen={warningDialog}
-        handleClose={() => setWarningDialog(false)}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
-      >
-        <div className={theme === 'dark' ? 'dark' : 'light'}>
-          <div className='mb-4 text-center'>
-            <FontAwesomeIcon
-              icon={faXmarkCircle}
-              className='text- h-auto w-8 rounded-full text-center text-red-700 md:w-10 lg:w-12 xl:w-16'
-            />
-          </div>
-          <p className='inline text-center text-xl font-medium uppercase leading-6'>
-            You must full fill <p className='text-brownColor dark:text-haretaColor'>shipping information</p> first
-          </p>
-        </div>
-      </DialogPopup>
     </div>
   )
 }

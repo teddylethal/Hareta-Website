@@ -21,7 +21,8 @@ export default function SelectCity({ isError = false }: Props) {
     if (addressState) {
       setCityList(City.getCitiesOfState(addressCountry.isoCode, addressState.isoCode))
     }
-  }, [addressCountry, addressState])
+    setAddressCity(null)
+  }, [addressCountry, addressState, setAddressCity])
 
   return (
     <Listbox value={addressCity} onChange={setAddressCity}>

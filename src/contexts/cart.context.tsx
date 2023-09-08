@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react'
 import { Purchase, TemporaryPurchase } from 'src/types/cart.type'
+import { getExtendedPurchasesFromLS, getExtendedTempPurchasesFromLS } from 'src/utils/cartInLS'
 
 export interface ExtendsPurchase extends Purchase {
   disabled: boolean
@@ -10,25 +11,29 @@ export interface ExtendsPurchase extends Purchase {
 interface CartContextInterface {
   extendedPurchases: ExtendsPurchase[]
   setExtendedPurchases: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
-  purchasesInLS: TemporaryPurchase[]
-  setPurchasesInLS: React.Dispatch<React.SetStateAction<TemporaryPurchase[]>>
+  tempExtendedPurchase: TemporaryPurchase[]
+  setTempExtendedPurchase: React.Dispatch<React.SetStateAction<TemporaryPurchase[]>>
 }
 
 const initialcartContext: CartContextInterface = {
-  extendedPurchases: [],
+  extendedPurchases: getExtendedPurchasesFromLS(),
   setExtendedPurchases: () => null,
-  purchasesInLS: [],
-  setPurchasesInLS: () => null
+  tempExtendedPurchase: getExtendedTempPurchasesFromLS(),
+  setTempExtendedPurchase: () => null
 }
 
 export const CartContext = createContext<CartContextInterface>(initialcartContext)
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [extendedPurchases, setExtendedPurchases] = useState<ExtendsPurchase[]>([])
-  const [purchasesInLS, setPurchasesInLS] = useState<TemporaryPurchase[]>([])
+  const [extendedPurchases, setExtendedPurchases] = useState<ExtendsPurchase[]>(initialcartContext.extendedPurchases)
+  const [tempExtendedPurchase, setTempExtendedPurchase] = useState<TemporaryPurchase[]>(
+    initialcartContext.tempExtendedPurchase
+  )
 
   return (
-    <CartContext.Provider value={{ extendedPurchases, setExtendedPurchases, purchasesInLS, setPurchasesInLS }}>
+    <CartContext.Provider
+      value={{ extendedPurchases, setExtendedPurchases, tempExtendedPurchase, setTempExtendedPurchase }}
+    >
       {children}
     </CartContext.Provider>
   )

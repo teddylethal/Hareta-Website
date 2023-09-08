@@ -12,6 +12,7 @@ import purchaseApi from 'src/apis/cart.api'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { OrderContext } from 'src/contexts/order.context'
+import { setOrderListToLS } from 'src/utils/order'
 
 export default function AuthenticatedCart() {
   const viewport = useViewport()
@@ -61,6 +62,7 @@ export default function AuthenticatedCart() {
   //? HANDLE CHECKOUT
   const handleCheckout = () => {
     setPurchaseList(checkedPurchases)
+    setOrderListToLS(checkedPurchases)
   }
 
   return (

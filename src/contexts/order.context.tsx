@@ -2,6 +2,7 @@ import { createContext, useState } from 'react'
 import { ExtendsPurchase } from './cart.context'
 import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
 import { Country, ICity, ICountry, IState } from 'country-state-city'
+import { getOrderListFromLS, getTempOrderListFromLS } from 'src/utils/order'
 
 interface OrderContextInterface {
   purchaseList: ExtendsPurchase[]
@@ -16,12 +17,16 @@ interface OrderContextInterface {
   setAddressCity: React.Dispatch<React.SetStateAction<ICity | null>>
   confirmPayment: boolean
   setConfirmPayment: React.Dispatch<React.SetStateAction<boolean>>
+  noneCity: boolean
+  noneState: boolean
+  setNoneCity: React.Dispatch<React.SetStateAction<boolean>>
+  setNoneState: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const initialOrderContext: OrderContextInterface = {
-  purchaseList: [],
+  purchaseList: getOrderListFromLS(),
   setPurchaseList: () => null,
-  tempPurchaseList: [],
+  tempPurchaseList: getTempOrderListFromLS(),
   setTempPurchaseList: () => null,
   addressCountry: Country.getCountryByCode('VN') as ICountry,
   addressState: null,
@@ -30,7 +35,11 @@ const initialOrderContext: OrderContextInterface = {
   setAddressState: () => null,
   setAddressCity: () => null,
   confirmPayment: false,
-  setConfirmPayment: () => null
+  setConfirmPayment: () => null,
+  noneCity: false,
+  noneState: false,
+  setNoneCity: () => null,
+  setNoneState: () => null
 }
 
 export const OrderContext = createContext<OrderContextInterface>(initialOrderContext)
@@ -44,6 +53,8 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   const [addressState, setAddressState] = useState<IState | null>(initialOrderContext.addressState)
   const [addressCity, setAddressCity] = useState<ICity | null>(initialOrderContext.addressCity)
   const [confirmPayment, setConfirmPayment] = useState<boolean>(initialOrderContext.confirmPayment)
+  const [noneState, setNoneState] = useState(false)
+  const [noneCity, setNoneCity] = useState(false)
 
   return (
     <OrderContext.Provider
@@ -59,7 +70,11 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
         setAddressState,
         setAddressCity,
         confirmPayment,
-        setConfirmPayment
+        setConfirmPayment,
+        noneState,
+        noneCity,
+        setNoneState,
+        setNoneCity
       }}
     >
       {children}

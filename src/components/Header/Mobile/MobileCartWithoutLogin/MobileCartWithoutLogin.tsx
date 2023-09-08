@@ -11,7 +11,7 @@ import { AppContext } from 'src/contexts/app.context'
 
 export default function MobileCartWithoutLogin() {
   const { theme } = useContext(AppContext)
-  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
+  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)
   const openCart = () => {
@@ -22,17 +22,17 @@ export default function MobileCartWithoutLogin() {
   }
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = purchasesInLS[purchaseIndex].id
-    const newPurchaseList = purchasesInLS.filter((purchase) => purchase.id !== purchaseId)
-    setPurchasesInLS(newPurchaseList)
+    const purchaseId = tempExtendedPurchase[purchaseIndex].id
+    const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
+    setTempExtendedPurchase(newPurchaseList)
   }
   return (
     <div>
       <button onClick={openCart} className='relative flex items-end text-textDark dark:text-textLight'>
         <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-textDark dark:text-textLight' />
-        {purchasesInLS.length > 0 && (
+        {tempExtendedPurchase.length > 0 && (
           <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-vintageColor text-xs text-textDark dark:bg-haretaColor'>
-            {purchasesInLS.length}
+            {tempExtendedPurchase.length}
           </span>
         )}
       </button>
@@ -80,11 +80,11 @@ export default function MobileCartWithoutLogin() {
 
               <div className=''>
                 <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
-                  {purchasesInLS.length} items in cart
+                  {tempExtendedPurchase.length} items in cart
                 </div>
                 <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#202020]'>
-                  {purchasesInLS.length > 0 ? (
-                    purchasesInLS.map((purchase, index) => (
+                  {tempExtendedPurchase.length > 0 ? (
+                    tempExtendedPurchase.map((purchase, index) => (
                       <div className=' flex space-x-3 p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
                         <div className='h-12 w-12'>
                           <div className='relative w-full bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>

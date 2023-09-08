@@ -46,7 +46,7 @@ export default function AddTocartPopover({
   setCreateTempCart
 }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { purchasesInLS } = useContext(CartContext)
+  const { tempExtendedPurchase } = useContext(CartContext)
   const [activeItemID, setActiveItemID] = useState<string>(activeItem.id)
 
   //? GET ITEM DATA
@@ -177,7 +177,7 @@ export default function AddTocartPopover({
               onClick={
                 isAuthenticated
                   ? addToCart
-                  : purchasesInLS.length === 0
+                  : tempExtendedPurchase.length === 0
                   ? () => {
                       setCreateTempCart(true)
                     }

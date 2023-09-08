@@ -8,7 +8,7 @@ import { Fragment, useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 
 export default function CartPopoverWithoutLogin() {
-  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
+  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
 
   const navigate = useNavigate()
 
@@ -17,9 +17,9 @@ export default function CartPopoverWithoutLogin() {
   }
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = purchasesInLS[purchaseIndex].id
-    const newPurchaseList = purchasesInLS.filter((purchase) => purchase.id !== purchaseId)
-    setPurchasesInLS(newPurchaseList)
+    const purchaseId = tempExtendedPurchase[purchaseIndex].id
+    const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
+    setTempExtendedPurchase(newPurchaseList)
   }
 
   return (
@@ -30,12 +30,12 @@ export default function CartPopoverWithoutLogin() {
           <div className='relative -top-1 w-[360px] rounded-md bg-[#efefef] py-2 text-sm text-textDark shadow-md dark:bg-[#202020] dark:text-textLight lg:top-0'>
             <Fragment>
               <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
-                {purchasesInLS.length} items in cart
+                {tempExtendedPurchase.length} items in cart
               </div>
               <div className='m-2 overflow-auto rounded-md bg-[#f8f8f8] outline outline-1 outline-black/10 dark:bg-[#101010] dark:outline-white/10'>
-                {purchasesInLS.length > 0 ? (
+                {tempExtendedPurchase.length > 0 ? (
                   <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
-                    {purchasesInLS.map((purchase, index) => (
+                    {tempExtendedPurchase.map((purchase, index) => (
                       <div className='flex items-center  p-3 hover:bg-[#e8e8e8] dark:hover:bg-black' key={purchase.id}>
                         <div className='h-14 w-14'>
                           <div className='relative w-full  pt-[100%]'>
@@ -114,9 +114,9 @@ export default function CartPopoverWithoutLogin() {
       >
         <div className='flex items-center space-x-2 px-2 py-0.5  text-textDark  dark:text-textLight '>
           <FontAwesomeIcon icon={faCartShopping} className='' />
-          {purchasesInLS.length > 0 && (
+          {tempExtendedPurchase.length > 0 && (
             <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-textDark dark:bg-black dark:text-textLight lg:text-sm xl:text-base'>
-              {purchasesInLS.length}
+              {tempExtendedPurchase.length}
             </div>
           )}
         </div>

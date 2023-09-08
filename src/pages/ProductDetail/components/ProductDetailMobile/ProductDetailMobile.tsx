@@ -30,7 +30,7 @@ export default function ProductDetailMobile(props: Props) {
   const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { purchasesInLS, setPurchasesInLS } = useContext(CartContext)
+  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [activeItem, setActiveItem] = useState<Product>(defaultItem)
@@ -56,7 +56,7 @@ export default function ProductDetailMobile(props: Props) {
       quantity: 1,
       item: activeItem
     }
-    setPurchasesInLS([...purchasesInLS, newPurchase])
+    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
     setCreateTempCart(false)
     setVisible(false)
     showSuccessDialog(setDialogIsOpen)
@@ -68,17 +68,17 @@ export default function ProductDetailMobile(props: Props) {
       quantity: 1,
       item: activeItem
     }
-    const purchaseIndex = purchasesInLS.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const newQuantity = purchasesInLS[purchaseIndex].quantity + 1
-      const newPurchasesList = purchasesInLS.map((purchase, index) => {
+      const newQuantity = tempExtendedPurchase[purchaseIndex].quantity + 1
+      const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
         if (index === purchaseIndex) {
           return { ...purchase, quantity: newQuantity }
         } else return purchase
       })
-      setPurchasesInLS(newPurchasesList)
+      setTempExtendedPurchase(newPurchasesList)
     } else {
-      setPurchasesInLS([...purchasesInLS, newPurchase])
+      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
     }
     setVisible(false)
     showSuccessDialog(setDialogIsOpen)

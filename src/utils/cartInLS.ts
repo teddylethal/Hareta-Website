@@ -1,11 +1,30 @@
+import { ExtendsPurchase } from 'src/contexts/cart.context'
 import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
 
-export const getCartFromLS = (): ExtendedTemporaryPurchase[] => {
+export const setExtendedPurchasesToLS = (extendedPurchases: ExtendsPurchase[]) => {
+  localStorage.setItem('extended_purchases', JSON.stringify(extendedPurchases))
+}
+
+export const getExtendedPurchasesFromLS = (): ExtendsPurchase[] => {
+  const res = localStorage.getItem('extended_purchases')
+  return res ? JSON.parse(res) : []
+}
+
+export const setExtendedTempPurchasesToLS = (extendedPurchases: ExtendedTemporaryPurchase[]) => {
+  localStorage.setItem('extended_temp_purchases', JSON.stringify(extendedPurchases))
+}
+
+export const getExtendedTempPurchasesFromLS = (): ExtendedTemporaryPurchase[] => {
+  const res = localStorage.getItem('extended_temp_purchases')
+  return res ? JSON.parse(res) : []
+}
+
+export const getTempCartFromLS = (): ExtendedTemporaryPurchase[] => {
   const res = localStorage.getItem('temporary_cart')
   return res ? JSON.parse(res) : []
 }
 
-export const setTemporaryCartToLs = (cart: ExtendedTemporaryPurchase[]) => {
+export const setTempCartToLS = (cart: ExtendedTemporaryPurchase[]) => {
   // const index = cart.findIndex((itemInCart) => itemInCart.id === item.id)
   // console.log(index)
   // if (index) {
