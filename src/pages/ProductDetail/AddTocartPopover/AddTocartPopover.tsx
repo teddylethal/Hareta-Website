@@ -13,6 +13,9 @@ import QuantityController from 'src/components/QuantityController'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { CartContext } from 'src/contexts/cart.context'
+import useClickOutside from 'src/hooks/useClickOutside'
+import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import { TemporaryPurchase } from 'src/types/cart.type'
 import { Product } from 'src/types/product.type'
 
 interface Props {
@@ -21,33 +24,27 @@ interface Props {
   setActiveItem: React.Dispatch<React.SetStateAction<Product>>
   itemsInGroup: Product[]
   elementRef: React.RefObject<HTMLDivElement>
-  tempCartDialogRef: React.RefObject<HTMLDivElement>
   visible: boolean
-  setVisble: React.Dispatch<React.SetStateAction<boolean>>
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>
   handleAddToCart: (itemID: string, quantity: number) => void
-  //? TEMPORARY CART
-  createTemporaryCart: () => void
-  addToTemporaryCart: () => void
-  createTempCart: boolean
-  setCreateTempCart: React.Dispatch<React.SetStateAction<boolean>>
+  setDialogIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setErrorDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function AddTocartPopover({
   activeItem,
   itemsInGroup,
-  setVisble,
+  setVisible,
   elementRef,
   handleAddToCart,
   setActiveItem,
-  tempCartDialogRef,
-  createTemporaryCart,
-  addToTemporaryCart,
-  createTempCart,
-  setCreateTempCart
+  setDialogIsOpen,
+  setErrorDialog
 }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchase } = useContext(CartContext)
+  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
   const [activeItemID, setActiveItemID] = useState<string>(activeItem.id)
+  const { visible: createTempCart, ref: createDialogRef, setVisible: setCreateTempCart } = useClickOutside(false)
 
   //? GET ITEM DATA
   const { data: productDetailData, isLoading } = useQuery({
@@ -74,14 +71,59 @@ export default function AddTocartPopover({
 
   const addToCart = () => {
     handleAddToCart(activeItemID, quantity)
-    setVisble(false)
+    setVisible(false)
   }
 
   const closeAddToCart = () => {
-    setVisble(false)
+    setVisible(false)
   }
 
   const avatarURL = item?.avatar ? item.avatar.url : null
+
+  //? ADD TO TEMPORARY CART
+  const createTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: 1,
+      item: activeItem
+    }
+    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+    setCreateTempCart(false)
+    setVisible(false)
+    setQuantity(1)
+    showSuccessDialog(setDialogIsOpen)
+  }
+
+  const addToTemporaryCart = () => {
+    const newPurchase: TemporaryPurchase = {
+      id: Date.now().toString(),
+      quantity: quantity,
+      item: activeItem
+    }
+    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    if (purchaseIndex !== -1) {
+      const purchase = tempExtendedPurchase[purchaseIndex]
+      const maxQuanityInStore = purchase.item.quantity
+      const currentQuantityInCart = purchase.quantity
+      if (currentQuantityInCart + quantity <= maxQuanityInStore) {
+        const newQuantity = currentQuantityInCart + quantity
+        const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
+          if (index === purchaseIndex) {
+            return { ...purchase, quantity: newQuantity }
+          } else return purchase
+        })
+        setTempExtendedPurchase(newPurchasesList)
+        setQuantity(1)
+      } else {
+        setErrorDialog(true)
+        setQuantity(1)
+      }
+    } else {
+      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+    }
+    setVisible(false)
+    showSuccessDialog(setDialogIsOpen)
+  }
 
   if (!item) return null
   return (
@@ -193,7 +235,7 @@ export default function AddTocartPopover({
             <div ref={elementRef}>
               <div
                 className='fixed left-1/2 top-1/2 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-white/60 bg-black p-8 align-middle'
-                ref={tempCartDialogRef}
+                ref={createDialogRef}
               >
                 <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
                 <div className='mt-4 space-y-2 text-center'>

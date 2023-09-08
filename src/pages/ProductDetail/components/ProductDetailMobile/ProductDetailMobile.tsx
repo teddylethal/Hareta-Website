@@ -1,4 +1,4 @@
-import { faCartPlus, faCheck, faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment, useContext, useState } from 'react'
 import { Product } from 'src/types/product.type'
@@ -9,10 +9,6 @@ import AddTocartPopover from '../../AddTocartPopover'
 import { AppContext } from 'src/contexts/app.context'
 import MobileProductImageList from './MobileProductImageList'
 import ItemTag from 'src/constants/itemTag'
-import { CartContext } from 'src/contexts/cart.context'
-
-import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
-import { TemporaryPurchase } from 'src/types/cart.type'
 import DialogPopup from 'src/components/DialogPopup'
 import ProductDescription from '../ProductDetailDesktop/ProductDescription'
 import OtherItemsInCollection from '../../OtherItemsInCollection'
@@ -30,12 +26,10 @@ export default function ProductDetailMobile(props: Props) {
   const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [errorDialog, setErrorDialog] = useState<boolean>(false)
   const [activeItem, setActiveItem] = useState<Product>(defaultItem)
-
-  const { visible: createTempCart, ref: createDialogRef, setVisible: setCreateTempCart } = useClickOutside(false)
 
   //? CHOOSE VARIANT
   const handleChooseVariant = (item: Product) => () => {
@@ -47,41 +41,6 @@ export default function ProductDetailMobile(props: Props) {
   const { ref, visible, setVisible } = useClickOutside(false)
   const openAddToCart = () => {
     setVisible(true)
-  }
-
-  //? ADD TO TEMPORARY CART
-  const createTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
-      id: Date.now().toString(),
-      quantity: 1,
-      item: activeItem
-    }
-    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
-    setCreateTempCart(false)
-    setVisible(false)
-    showSuccessDialog(setDialogIsOpen)
-  }
-
-  const addToTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
-      id: Date.now().toString(),
-      quantity: 1,
-      item: activeItem
-    }
-    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
-    if (purchaseIndex !== -1) {
-      const newQuantity = tempExtendedPurchase[purchaseIndex].quantity + 1
-      const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
-        if (index === purchaseIndex) {
-          return { ...purchase, quantity: newQuantity }
-        } else return purchase
-      })
-      setTempExtendedPurchase(newPurchasesList)
-    } else {
-      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
-    }
-    setVisible(false)
-    showSuccessDialog(setDialogIsOpen)
   }
 
   return (
@@ -178,14 +137,10 @@ export default function ProductDetailMobile(props: Props) {
           itemsInGroup={itemsInGroup}
           elementRef={ref}
           visible={visible}
-          setVisble={setVisible}
+          setVisible={setVisible}
           handleAddToCart={addToCart}
-          //? TEMPORARY CART
-          tempCartDialogRef={createDialogRef}
-          createTemporaryCart={createTemporaryCart}
-          addToTemporaryCart={addToTemporaryCart}
-          createTempCart={createTempCart}
-          setCreateTempCart={setCreateTempCart}
+          setDialogIsOpen={setDialogIsOpen}
+          setErrorDialog={setErrorDialog}
         />
       )}
 
@@ -205,6 +160,18 @@ export default function ProductDetailMobile(props: Props) {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Added successfully</p>
+      </DialogPopup>
+      <DialogPopup
+        isOpen={errorDialog}
+        handleClose={() => setErrorDialog(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className='text-center'>
+          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-red-700 md:w-10 lg:w-12 xl:w-16')} />
+        </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>
+          The quantity of the current item you are trying to add exceed our store
+        </p>
       </DialogPopup>
     </Fragment>
   )
