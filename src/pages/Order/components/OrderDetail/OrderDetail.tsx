@@ -1,10 +1,8 @@
-import { faCheck, faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
+import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useMutation } from '@tanstack/react-query'
 import { useContext, useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
-import { orderApi } from 'src/apis/order.api'
+import { useNavigate } from 'react-router-dom'
 import DialogPopup from 'src/components/DialogPopup'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
@@ -15,13 +13,12 @@ import { formatCurrency } from 'src/utils/utils'
 type FormData = OrderSchema
 
 export default function OrderDetail() {
-  const { addressCountry, addressState, addressCity, purchaseList, setNoneCity, setNoneState, confirmPayment } =
+  const { addressState, addressCity, purchaseList, setNoneCity, setNoneState, confirmPayment } =
     useContext(OrderContext)
   const { theme } = useContext(AppContext)
 
   const [shippingInfoWarnDialog, setShippingInfoWarnDialog] = useState(false)
   const [confirmPaymentWarnDialog, setConfirmPaymentWarnDialog] = useState(false)
-  const [successDialog, setSuccesDialog] = useState(false)
 
   const totalPurchasesPrice = purchaseList.reduce((result, current) => {
     return result + current.item.price * current.quantity
@@ -221,7 +218,7 @@ export default function OrderDetail() {
           <div className='mb-4 text-center'>
             <FontAwesomeIcon
               icon={faXmarkCircle}
-              className='text- h-auto w-8 rounded-full text-center text-red-700 md:w-10 lg:w-12 xl:w-16'
+              className='h-auto w-8 rounded-full text-center text-red-700 md:w-10 lg:w-12 xl:w-16'
             />
           </div>
           <p className='inline text-center text-xl font-medium uppercase leading-6'>

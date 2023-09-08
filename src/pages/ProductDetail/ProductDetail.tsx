@@ -1,4 +1,4 @@
-import { faAngleRight, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Fragment, useContext, useEffect, useState } from 'react'
@@ -20,6 +20,9 @@ import ProductDetailSkeleton from './components/ProductDetailSkeleton/ProductDet
 import ProductDetailDesktop from './components/ProductDetailDesktop'
 import ProductDetailMobile from './components/ProductDetailMobile'
 import { ItemInGroupConfig } from 'src/types/product.type'
+import { AxiosError } from 'axios'
+import { ErrorRespone } from 'src/types/utils.type'
+import { errorResponeList } from 'src/constants/error'
 
 export interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -32,6 +35,7 @@ export default function ProductDetail() {
   const isMobile = viewPort.width <= 768
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [errorDialog, setErrorDialog] = useState<boolean>(false)
   const [likeItemDialog, setLikeItemDialog] = useState<boolean>(false)
 
   const queryClient = useQueryClient()
@@ -73,7 +77,7 @@ export default function ProductDetail() {
   const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []
   const isLikedByUser = favouriteListId.includes(id)
 
-  //? API FUNCTIONS
+  //? ADD TO CART
   const addToCartMutation = useMutation(purchaseApi.addToCart)
   const addToCart = (itemID: string, quantity: number) => {
     addToCartMutation.mutate(
@@ -82,6 +86,15 @@ export default function ProductDetail() {
         onSuccess: () => {
           showDialog()
           queryClient.invalidateQueries({ queryKey: ['purchases'] })
+        },
+        onError: (axiosError) => {
+          const errorRespone = axiosError as AxiosError
+          const errorKey = (errorRespone.response?.data as ErrorRespone).error_key
+          const quantityError = errorResponeList.find((error) => error.error_key === errorKey)
+          if (quantityError) {
+            setErrorDialog(true)
+          }
+          return Promise.reject(axiosError)
         }
       }
     )
@@ -234,6 +247,18 @@ export default function ProductDetail() {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to your Wishlist</p>
+      </DialogPopup>
+      <DialogPopup
+        isOpen={errorDialog}
+        handleClose={() => setErrorDialog(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <div className='text-center'>
+          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-red-700 md:w-10 lg:w-12 xl:w-16')} />
+        </div>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>
+          The quantity of the current item you are trying to add exceed our store
+        </p>
       </DialogPopup>
     </div>
   )
