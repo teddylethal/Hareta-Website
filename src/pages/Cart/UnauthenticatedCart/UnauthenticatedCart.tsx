@@ -24,7 +24,7 @@ export default function UnauthenticatedCart() {
   const isMobile = viewport.width <= 768
   const { setTempExtendedPurchase, tempExtendedPurchase } = useContext(CartContext)
   const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedTemporaryPurchase[]>([])
-  const { setTempPurchaseList } = useContext(OrderContext)
+  const { setTempOrderList } = useContext(OrderContext)
 
   useEffect(() => {
     setExtendedTempPurchases((prev) => {
@@ -90,7 +90,7 @@ export default function UnauthenticatedCart() {
 
   //? HANDLE CHECKOUT
   const handleCheckout = () => {
-    setTempPurchaseList(checkedPurchases)
+    setTempOrderList(checkedPurchases)
     setTempOrderListToLS(checkedPurchases)
   }
 

@@ -1,7 +1,7 @@
 import { faAngleRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import OrderDesktopLayout from '../OrderDesktopLayout'
@@ -11,20 +11,21 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { useContext, useState } from 'react'
 import { OrderContext } from 'src/contexts/order.context'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { orderApi } from 'src/apis/order.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { AppContext } from 'src/contexts/app.context'
+import { setOrderListToLS } from 'src/utils/order'
 
 type FormData = OrderSchema
 
 export default function OrderLayout() {
-  const { purchaseList, addressCountry, addressCity, addressState } = useContext(OrderContext)
+  const { orderList, addressCountry, addressCity, addressState, setOrderList } = useContext(OrderContext)
   const { theme } = useContext(AppContext)
 
   const [successDialog, setSuccesDialog] = useState(false)
 
-  const idList = purchaseList.map((purchase) => purchase.id)
+  const idList = orderList.map((orderItem) => orderItem.id)
   const methods = useForm<FormData>({
     defaultValues: {
       name: '',
@@ -41,6 +42,7 @@ export default function OrderLayout() {
   const isMobile = viewPort.width <= 768
 
   //? HANDLE PLACE ORDER
+  const queryClient = useQueryClient()
   const createOrderMutation = useMutation(orderApi.createOrder)
   const onPlaceOrder = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -51,12 +53,21 @@ export default function OrderLayout() {
       address: `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`,
       id: idList
     }
-    console.log(body)
-    // createOrderMutation.mutate(body, {
-    //   onSuccess: () => {
-    //     setSuccesDialog(true)
-    //   }
-    // })
+    createOrderMutation.mutate(body, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['purchases'] })
+        setSuccesDialog(true)
+      }
+    })
+  }
+
+  //? HANDLE CONFIRM
+  const navigate = useNavigate()
+  const handleConfirm = () => {
+    setSuccesDialog(false)
+    navigate(path.cart)
+    setOrderList([])
+    setOrderListToLS([])
   }
 
   return (
@@ -113,6 +124,7 @@ export default function OrderLayout() {
         isOpen={successDialog}
         handleClose={() => setSuccesDialog(false)}
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+        closeButton={false}
       >
         <div className={theme === 'dark' ? 'dark' : 'light'}>
           <div className='mb-4 text-center'>
@@ -124,6 +136,14 @@ export default function OrderLayout() {
           <p className='mt-6 text-center text-xl font-medium uppercase leading-6'>
             Your order was created successfully
           </p>
+          <div className='mt-4 flex w-full items-center justify-center'>
+            <button
+              className='rounded-lg bg-brownColor/80 px-4 py-1 hover:bg-haretaColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+              onClick={handleConfirm}
+            >
+              Confirm
+            </button>
+          </div>
         </div>
       </DialogPopup>
     </div>

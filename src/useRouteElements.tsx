@@ -51,8 +51,8 @@ function AdminRoute() {
 }
 
 function OrderRoute() {
-  const { purchaseList, tempPurchaseList } = useContext(OrderContext)
-  const accpeted = purchaseList.length > 0 || tempPurchaseList.length > 0
+  const { orderList, tempOrderList } = useContext(OrderContext)
+  const accpeted = orderList.length > 0 || tempOrderList.length > 0
   return accpeted ? <Outlet /> : <Navigate to={path.home} />
 }
 

@@ -5,10 +5,10 @@ import { Country, ICity, ICountry, IState } from 'country-state-city'
 import { getOrderListFromLS, getTempOrderListFromLS } from 'src/utils/order'
 
 interface OrderContextInterface {
-  purchaseList: ExtendsPurchase[]
-  setPurchaseList: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
-  tempPurchaseList: ExtendedTemporaryPurchase[]
-  setTempPurchaseList: React.Dispatch<React.SetStateAction<ExtendedTemporaryPurchase[]>>
+  orderList: ExtendsPurchase[]
+  setOrderList: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
+  tempOrderList: ExtendedTemporaryPurchase[]
+  setTempOrderList: React.Dispatch<React.SetStateAction<ExtendedTemporaryPurchase[]>>
   addressCountry: ICountry
   addressState: IState | null
   addressCity: ICity | null
@@ -24,10 +24,10 @@ interface OrderContextInterface {
 }
 
 const initialOrderContext: OrderContextInterface = {
-  purchaseList: getOrderListFromLS(),
-  setPurchaseList: () => null,
-  tempPurchaseList: getTempOrderListFromLS(),
-  setTempPurchaseList: () => null,
+  orderList: getOrderListFromLS(),
+  setOrderList: () => null,
+  tempOrderList: getTempOrderListFromLS(),
+  setTempOrderList: () => null,
   addressCountry: Country.getCountryByCode('VN') as ICountry,
   addressState: null,
   addressCity: null,
@@ -45,10 +45,8 @@ const initialOrderContext: OrderContextInterface = {
 export const OrderContext = createContext<OrderContextInterface>(initialOrderContext)
 
 export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
-  const [purchaseList, setPurchaseList] = useState<ExtendsPurchase[]>(initialOrderContext.purchaseList)
-  const [tempPurchaseList, setTempPurchaseList] = useState<ExtendedTemporaryPurchase[]>(
-    initialOrderContext.tempPurchaseList
-  )
+  const [orderList, setOrderList] = useState<ExtendsPurchase[]>(initialOrderContext.orderList)
+  const [tempOrderList, setTempOrderList] = useState<ExtendedTemporaryPurchase[]>(initialOrderContext.tempOrderList)
   const [addressCountry, setAddressCountry] = useState<ICountry>(initialOrderContext.addressCountry)
   const [addressState, setAddressState] = useState<IState | null>(initialOrderContext.addressState)
   const [addressCity, setAddressCity] = useState<ICity | null>(initialOrderContext.addressCity)
@@ -59,10 +57,10 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <OrderContext.Provider
       value={{
-        purchaseList,
-        setPurchaseList,
-        tempPurchaseList,
-        setTempPurchaseList,
+        orderList,
+        setOrderList,
+        tempOrderList,
+        setTempOrderList,
         addressCountry,
         addressState,
         addressCity,

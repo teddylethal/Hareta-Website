@@ -18,7 +18,7 @@ export default function AuthenticatedCart() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
-  const { setPurchaseList } = useContext(OrderContext)
+  const { setOrderList } = useContext(OrderContext)
 
   // const purchasesInCart = cartData?.data.data
   const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
@@ -61,7 +61,7 @@ export default function AuthenticatedCart() {
 
   //? HANDLE CHECKOUT
   const handleCheckout = () => {
-    setPurchaseList(checkedPurchases)
+    setOrderList(checkedPurchases)
     setOrderListToLS(checkedPurchases)
   }
 

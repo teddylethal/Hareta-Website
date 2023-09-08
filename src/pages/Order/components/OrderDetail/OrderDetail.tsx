@@ -13,18 +13,17 @@ import { formatCurrency } from 'src/utils/utils'
 type FormData = OrderSchema
 
 export default function OrderDetail() {
-  const { addressState, addressCity, purchaseList, setNoneCity, setNoneState, confirmPayment } =
-    useContext(OrderContext)
+  const { addressState, addressCity, orderList, setNoneCity, setNoneState, confirmPayment } = useContext(OrderContext)
   const { theme } = useContext(AppContext)
 
   const [shippingInfoWarnDialog, setShippingInfoWarnDialog] = useState(false)
   const [confirmPaymentWarnDialog, setConfirmPaymentWarnDialog] = useState(false)
 
-  const totalPurchasesPrice = purchaseList.reduce((result, current) => {
+  const totalPrice = orderList.reduce((result, current) => {
     return result + current.item.price * current.quantity
   }, 0)
 
-  const totalDiscount = purchaseList.reduce((result, current) => {
+  const totalDiscount = orderList.reduce((result, current) => {
     return result + current.item.discount * current.quantity
   }, 0)
 
@@ -135,15 +134,15 @@ export default function OrderDetail() {
       <p className='text-2xl font-semibold uppercase xl:text-3xl'>order</p>
       <div className='my-4 w-full border border-black/80 dark:border-white/80'></div>
       <div className='max-h-60 overflow-auto'>
-        {purchaseList.map((purchase, index) => (
-          <div className='relative grid grid-cols-3 items-center gap-2 py-3 xl:py-4' key={purchase.id}>
+        {orderList.map((orderItem, index) => (
+          <div className='relative grid grid-cols-3 items-center gap-2 py-3 xl:py-4' key={orderItem.id}>
             <div className='col-span-2'>
-              <p className='text-lg font-bold capitalize xl:text-xl'>{purchase.item.name}</p>
-              <p className='text-sm capitalize xl:text-base'>{purchase.item.color}</p>
+              <p className='text-lg font-bold capitalize xl:text-xl'>{orderItem.item.name}</p>
+              <p className='text-sm capitalize xl:text-base'>{orderItem.item.color}</p>
             </div>
             <div className='col-span-1 text-right'>
-              <p className='text-base xl:text-lg'>${purchase.item.price}</p>
-              <p className='text-sm xl:text-base'>x {purchase.quantity}</p>
+              <p className='text-base xl:text-lg'>${orderItem.item.price}</p>
+              <p className='text-sm xl:text-base'>x {orderItem.quantity}</p>
             </div>
             {index !== 0 && (
               <div className='absolute left-1/2 top-0 w-1/6 -translate-x-1/2 border-t border-dashed border-black/60 dark:border-white/60'></div>
@@ -156,7 +155,7 @@ export default function OrderDetail() {
         <div className='grid grid-cols-3 gap-2'>
           <div className='col-span-2 text-textDark/80 dark:text-textLight/80'>Bill</div>
           <div className='col-span-1 text-right text-brownColor dark:text-haretaColor'>
-            ${formatCurrency(totalPurchasesPrice)}
+            ${formatCurrency(totalPrice)}
           </div>
         </div>
         <div className='grid grid-cols-3 gap-2'>
@@ -170,7 +169,7 @@ export default function OrderDetail() {
       <div className='grid grid-cols-3 gap-2 text-xl font-bold uppercase xl:text-2xl'>
         <div className='col-span-2 text-textDark/80 dark:text-textLight/80'>Total</div>
         <div className='col-span-1 text-right text-brownColor dark:text-haretaColor'>
-          ${formatCurrency(totalPurchasesPrice - totalDiscount)}
+          ${formatCurrency(totalPrice - totalDiscount)}
         </div>
       </div>
 
