@@ -66,7 +66,7 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
           <input
             name='is_selected'
             type='checkbox'
-            className='h-4 w-4 accent-haretaColor'
+            className='h-4 w-4 accent-vintageColor dark:accent-haretaColor'
             checked={purchase.checked}
             onChange={handleChecking(index)}
           />

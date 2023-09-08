@@ -1,3 +1,4 @@
+import { Order } from 'src/types/order.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 import { OrderSchema } from 'src/utils/rules'
@@ -11,7 +12,7 @@ export const orderApi = {
     return http.get(URL)
   },
   createOrder(body: CreateOrderForm) {
-    return http.post<SuccessRespone<string>>(URL, body)
+    return http.post<SuccessRespone<Order>>(URL, body)
   },
   updateOrder(body: { id: string; status: string }) {
     return http.put<SuccessRespone<string>>(URL, body)

@@ -1,11 +1,7 @@
-import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import DialogPopup from 'src/components/DialogPopup'
+import { Link, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { AppContext } from 'src/contexts/app.context'
 import { OrderContext } from 'src/contexts/order.context'
 import { OrderSchema } from 'src/utils/rules'
 import { formatCurrency } from 'src/utils/utils'
@@ -13,11 +9,8 @@ import { formatCurrency } from 'src/utils/utils'
 type FormData = OrderSchema
 
 export default function OrderDetail() {
-  const { addressState, addressCity, orderList, setNoneCity, setNoneState, confirmPayment } = useContext(OrderContext)
-  const { theme } = useContext(AppContext)
-
-  const [shippingInfoWarnDialog, setShippingInfoWarnDialog] = useState(false)
-  const [confirmPaymentWarnDialog, setConfirmPaymentWarnDialog] = useState(false)
+  const { addressState, addressCity, orderList, setNoneCity, setNoneState, confirmPayment, setConfirmPayment } =
+    useContext(OrderContext)
 
   const totalPrice = orderList.reduce((result, current) => {
     return result + current.item.price * current.quantity
@@ -27,13 +20,7 @@ export default function OrderDetail() {
     return result + current.item.discount * current.quantity
   }, 0)
 
-  const {
-    watch,
-    setError,
-    clearErrors,
-
-    formState: { errors }
-  } = useFormContext<FormData>()
+  const { watch, setError } = useFormContext<FormData>()
 
   // //? CHECK VALID
   const name = watch('name')
@@ -67,7 +54,6 @@ export default function OrderDetail() {
       addressCity === null
     ) {
       navigate(path.shippingInfor)
-      setShippingInfoWarnDialog(true)
       if (name === '') {
         setError('name', { message: 'Name is required' })
       }
@@ -87,35 +73,34 @@ export default function OrderDetail() {
         setNoneCity(true)
       }
     } else if (!confirmPayment) {
-      setConfirmPaymentWarnDialog(true)
-      navigate(path.payment)
+      return
     }
   }
 
   //? HANDLE CLEAR ERRORS
-  useEffect(() => {
-    if (name !== '' && errors.name) {
-      clearErrors('name')
-    }
-  }, [clearErrors, errors.name, name])
+  // useEffect(() => {
+  //   if (name !== '' && errors.name) {
+  //     clearErrors('name')
+  //   }
+  // }, [clearErrors, errors.name, name])
 
-  useEffect(() => {
-    if (phone !== '' && errors.phone) {
-      clearErrors('phone')
-    }
-  }, [clearErrors, errors.phone, phone])
+  // useEffect(() => {
+  //   if (phone !== '' && errors.phone) {
+  //     clearErrors('phone')
+  //   }
+  // }, [clearErrors, errors.phone, phone])
 
-  useEffect(() => {
-    if (email !== '' && errors.email) {
-      clearErrors('email')
-    }
-  }, [clearErrors, errors.email, email])
+  // useEffect(() => {
+  //   if (email !== '' && errors.email) {
+  //     clearErrors('email')
+  //   }
+  // }, [clearErrors, errors.email, email])
 
-  useEffect(() => {
-    if (address !== '' && errors.address) {
-      clearErrors('address')
-    }
-  }, [clearErrors, errors.address, address])
+  // useEffect(() => {
+  //   if (address !== '' && errors.address) {
+  //     clearErrors('address')
+  //   }
+  // }, [clearErrors, errors.address, address])
 
   useEffect(() => {
     if (addressState) {
@@ -173,6 +158,25 @@ export default function OrderDetail() {
         </div>
       </div>
 
+      <div className='mt-4 flex items-center space-x-2 font-medium'>
+        <input
+          name='confirm'
+          type='checkbox'
+          className='h-5 w-5 accent-vintageColor dark:accent-haretaColor'
+          checked={confirmPayment}
+          onChange={() => setConfirmPayment(!confirmPayment)}
+        />
+        <p className=''>
+          By clicking, you accept our{' '}
+          <Link
+            to={path.home}
+            className='font-medium text-brownColor/80 hover:text-brownColor dark:text-haretaColor/80 dark:hover:text-haretaColor/60'
+          >
+            payment policy
+          </Link>{' '}
+        </p>
+      </div>
+
       {!validForm() && (
         <button
           type='button'
@@ -190,7 +194,7 @@ export default function OrderDetail() {
           Confirm order
         </button>
       )}
-      <DialogPopup
+      {/* <DialogPopup
         isOpen={shippingInfoWarnDialog}
         handleClose={() => setShippingInfoWarnDialog(false)}
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
@@ -227,7 +231,7 @@ export default function OrderDetail() {
             </span>
           </p>
         </div>
-      </DialogPopup>
+      </DialogPopup> */}
     </div>
   )
 }

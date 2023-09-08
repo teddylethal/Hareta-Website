@@ -1,11 +1,7 @@
-import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
-import { OrderContext } from 'src/contexts/order.context'
 
 export default function Payment() {
-  const { confirmPayment, setConfirmPayment } = useContext(OrderContext)
-
   return (
     <div className='p-3 text-textDark dark:text-textLight xl:p-4'>
       <p className='text-1xl w-full text-center font-bold uppercase lg:text-2xl xl:text-4xl'>payment method</p>
@@ -54,7 +50,7 @@ export default function Payment() {
         </div>
       </div>
 
-      <div className='mt-4 flex items-center space-x-2'>
+      {/* <div className='mt-4 flex items-center space-x-2'>
         <input
           name='confirm'
           type='checkbox'
@@ -71,7 +67,7 @@ export default function Payment() {
             payment policy
           </Link>{' '}
         </p>
-      </div>
+      </div> */}
 
       <div className='mt-4 text-lg font-semibold xl:text-xl'>
         <p className=''>

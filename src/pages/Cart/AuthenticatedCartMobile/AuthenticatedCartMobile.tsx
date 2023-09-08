@@ -27,7 +27,7 @@ export default function AuthenticatedCartMobile(props: Props) {
 
   return (
     <Fragment>
-      <div className='relative mx-2'>
+      <div className='relative'>
         <div className='grid grid-cols-12 rounded-md border border-black/20 bg-[#f8f8f8] px-4 py-2 text-base font-medium uppercase text-textDark dark:border-white/20 dark:bg-[#202020] dark:text-textLight lg:text-lg'>
           <div className='col-span-1'></div>
           <div className='col-span-6 text-center'>Product</div>
@@ -59,13 +59,13 @@ export default function AuthenticatedCartMobile(props: Props) {
             </div>
           )}
         </div>
-        <div className='grid w-full grid-cols-12 items-center justify-between rounded-sm px-2 py-2 shadow xl:mx-4'>
-          <div className=' col-span-1 flex flex-shrink-0 items-center'>
+        <div className='grid w-full grid-cols-12 items-center justify-between rounded-sm py-2 shadow'>
+          <div className='col-span-1 flex flex-shrink-0 items-center'>
             {extendedPurchases.length > 0 && (
               <input
                 name='all_are_selected'
                 type='checkbox'
-                className='h-5 w-5 accent-haretaColor'
+                className='h-5 w-5 accent-vintageColor dark:accent-haretaColor'
                 checked={isAllChecked}
                 onChange={handleSelectAll}
               />
@@ -74,7 +74,7 @@ export default function AuthenticatedCartMobile(props: Props) {
           <div className='col-span-1 flex items-center justify-center text-textDark dark:text-textLight'>
             ({checkedPurchasesCount})
           </div>
-          <div className='col-span-7 flex items-center justify-center space-x-2'>
+          <div className='col-span-7 flex items-center justify-center space-x-2 text-sm font-medium sm:text-base'>
             <div className='col-span-1 items-center text-right uppercase text-textDark dark:text-textLight'>Total:</div>
             <span className='col-span-1 text-center text-haretaColor'>
               ${formatCurrency(totalCheckedPurchasesPrice)}
@@ -83,7 +83,7 @@ export default function AuthenticatedCartMobile(props: Props) {
           {checkedPurchasesCount === 0 && (
             <div
               className={classNames(
-                'col-span-3 h-8 cursor-not-allowed rounded-sm border-none bg-[#eee]/50 text-sm text-textDark/60  dark:bg-vintageColor/50  dark:text-textDark/60'
+                'col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/80 text-center text-xs font-medium uppercase text-textDark opacity-40 dark:bg-haretaColor/80 dark:text-textLight sm:text-sm'
               )}
             >
               Check out
@@ -94,7 +94,7 @@ export default function AuthenticatedCartMobile(props: Props) {
               to={path.shippingInfor}
               onClick={handleCheckout}
               className={classNames(
-                'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm text-textDark hover:bg-haretaColor  dark:bg-vintageColor dark:text-textDark  dark:hover:bg-haretaColor'
+                'col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-vintageColor/80 text-center text-xs font-medium uppercase text-textDark hover:bg-vintageColor dark:bg-haretaColor/80 dark:text-textLight dark:hover:bg-haretaColor/60  sm:text-sm'
               )}
             >
               Check out

@@ -162,7 +162,7 @@ export default function UnauthenticatedCartMobile(props: Props) {
           {checkedPurchasesCount === 0 && (
             <div
               className={classNames(
-                'col-span-3 h-8 cursor-not-allowed rounded-sm border-none bg-[#eee]/50 text-sm text-textDark/60  dark:bg-vintageColor/50  dark:text-textDark/60'
+                'col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/80 text-center text-xs font-medium uppercase text-textDark opacity-40 dark:bg-haretaColor/80 dark:text-textLight sm:text-sm'
               )}
             >
               Check out
@@ -173,7 +173,7 @@ export default function UnauthenticatedCartMobile(props: Props) {
               to={path.shippingInfor}
               onClick={handleCheckout}
               className={classNames(
-                'col-span-3 h-8 rounded-sm border-none bg-[#eee] text-sm text-textDark hover:bg-haretaColor  dark:bg-vintageColor dark:text-textDark  dark:hover:bg-haretaColor'
+                'col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-vintageColor/80 text-center text-xs font-medium uppercase text-textDark hover:bg-vintageColor dark:bg-haretaColor/80 dark:text-textLight dark:hover:bg-haretaColor/60  sm:text-sm'
               )}
             >
               Check out

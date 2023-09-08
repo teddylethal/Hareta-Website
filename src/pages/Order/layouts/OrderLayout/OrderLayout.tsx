@@ -20,7 +20,8 @@ import { setOrderListToLS } from 'src/utils/order'
 type FormData = OrderSchema
 
 export default function OrderLayout() {
-  const { orderList, addressCountry, addressCity, addressState, setOrderList } = useContext(OrderContext)
+  const { orderList, addressCountry, addressCity, addressState, setOrderList, setConfirmPayment } =
+    useContext(OrderContext)
   const { theme } = useContext(AppContext)
 
   const [successDialog, setSuccesDialog] = useState(false)
@@ -36,7 +37,7 @@ export default function OrderLayout() {
     },
     resolver: yupResolver(orderSchema)
   })
-  const { getValues } = methods
+  const { getValues, handleSubmit } = methods
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -44,30 +45,50 @@ export default function OrderLayout() {
   //? HANDLE PLACE ORDER
   const queryClient = useQueryClient()
   const createOrderMutation = useMutation(orderApi.createOrder)
-  const onPlaceOrder = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const body = {
-      name: getValues('name'),
-      phone: getValues('phone'),
-      email: getValues('email'),
-      address: `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`,
-      id: idList
+  // const onPlaceOrder = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault()
+  //   const body = {
+  //     name: getValues('name'),
+  //     phone: getValues('phone'),
+  //     email: getValues('email'),
+  //     address: `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`,
+  //     id: idList
+  //   }
+  //   createOrderMutation.mutate(body, {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries({ queryKey: ['purchases'] })
+  //       setSuccesDialog(true)
+  //     }
+  //   })
+  // }
+  const onPlaceOrder = handleSubmit(async (data) => {
+    try {
+      const fullAddress = `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`
+      const orderSuccessRespone = await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
+      queryClient.invalidateQueries({ queryKey: ['purchases'] })
+      setSuccesDialog(true)
+    } catch (error) {
+      console.log(error)
+      // if (isAxiosBadRequestError<ErrorRespone>(error)) {
+      //   const formError = error.response?.data
+      //   if (formError?.message) {
+      //     setError('email', {
+      //       message: formError.message,
+      //       type: 'Server'
+      //     })
+      //   }
+      // }
     }
-    createOrderMutation.mutate(body, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['purchases'] })
-        setSuccesDialog(true)
-      }
-    })
-  }
+  })
 
   //? HANDLE CONFIRM
   const navigate = useNavigate()
   const handleConfirm = () => {
     setSuccesDialog(false)
-    navigate(path.cart)
     setOrderList([])
     setOrderListToLS([])
+    navigate(path.cart)
+    setConfirmPayment(false)
   }
 
   return (
