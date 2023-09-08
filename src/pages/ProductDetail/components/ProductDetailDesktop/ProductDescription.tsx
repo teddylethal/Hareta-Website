@@ -144,7 +144,7 @@ export default function ProductDescription({ item }: Props) {
           <AnimateChangeInHeight>
             <div
               ref={itemDescriptionRef}
-              className={classNames('relative ', {
+              className={classNames('relative py-1', {
                 'max-h-80 overflow-hidden': !extending,
                 'h-full overflow-visible': extending
               })}
@@ -158,21 +158,19 @@ export default function ProductDescription({ item }: Props) {
               />
               {extendButton && (
                 <div className='absolute bottom-0 left-1/2 -translate-x-1/2'>
-                  <div className='rounded-lg bg-black/60 px-2 py-0.5 text-xs font-medium text-textLight duration-500 lg:text-sm xl:text-base'>
-                    <button
-                      className='flex items-center justify-center space-x-2 p-2 hover:text-haretaColor'
-                      onClick={extend}
-                    >
-                      <p>Extend</p>
-                      <FontAwesomeIcon icon={faChevronDown} />
-                    </button>
-                  </div>
+                  <button
+                    className='flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/80 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
+                    onClick={extend}
+                  >
+                    <p>Extend</p>
+                    <FontAwesomeIcon icon={faChevronDown} />
+                  </button>
                 </div>
               )}
               {extending && (
                 <div className='mt-4 flex w-full justify-center'>
                   <button
-                    className='flex items-center justify-center space-x-2 rounded-lg border border-black/20 bg-black/60 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
+                    className='flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/60 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
                     onClick={collapse}
                   >
                     <p>Collapse</p>

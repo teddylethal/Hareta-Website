@@ -106,7 +106,7 @@ function Product({ product, likedByUser = false }: Props) {
 
   return (
     <div
-      className='flex w-full items-center justify-center pb-0 pt-2 duration-500 hover:pb-2 hover:pt-0'
+      className='flex w-full items-center justify-center pb-0 pt-2 duration-500 md:hover:pb-2 md:hover:pt-0'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
