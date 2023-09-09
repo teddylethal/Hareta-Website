@@ -55,7 +55,8 @@ export default function Profile() {
 
   const { data: userData, refetch } = useQuery({
     queryKey: ['profile'],
-    queryFn: userApi.getProfile
+    queryFn: userApi.getProfile,
+    staleTime: 1000 * 60 * 3
   })
   const profile = userData?.data.data
 

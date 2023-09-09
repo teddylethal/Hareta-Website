@@ -57,7 +57,7 @@ function Product({ product, likedByUser = false }: Props) {
   const [imageListCarousel, setImageListCarousel] = useState<ProductImage[]>([])
   useEffect(() => {
     if (imageList) {
-      setImageListCarousel(imageList.length > MAXLENGTH + 1 ? imageList?.slice(1, MAXLENGTH + 1) : imageList)
+      setImageListCarousel(imageList.length > MAXLENGTH + 1 ? imageList?.slice(1, MAXLENGTH + 1) : imageList.slice(1))
     }
   }, [imageList])
 

@@ -149,6 +149,23 @@ export const orderSchema = yup.object({
 })
 export type OrderSchema = yup.InferType<typeof orderSchema>
 
+export const orderSchemaForGuest = yup.object({
+  email: handleEmailYup(),
+  name: yup.string().required('Name is required'),
+  phone: yup.string().required('Phone number is required'),
+  address: yup.string().required('Address is required'),
+  item: yup
+    .array()
+    .of(
+      yup.object().shape({
+        id: yup.string().required(),
+        quantity: yup.number().required()
+      })
+    )
+    .required()
+})
+export type OrderSchemaForGuest = yup.InferType<typeof orderSchemaForGuest>
+
 export type RegisterSchema = yup.InferType<typeof registerSchema>
 
 export type LoginSchema = yup.InferType<typeof loginSchema>

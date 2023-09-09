@@ -5,27 +5,43 @@ import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import OrderDesktopLayout from '../OrderDesktopLayout'
 import OrderMobileLayout from '../OrderMobileLayout'
-import { OrderSchema, orderSchema } from 'src/utils/rules'
+import { OrderSchema, OrderSchemaForGuest, orderSchema } from 'src/utils/rules'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { OrderContext } from 'src/contexts/order.context'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { orderApi } from 'src/apis/order.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { AppContext } from 'src/contexts/app.context'
-import { setOrderListToLS } from 'src/utils/order'
+import { setOrderListToLS, setTempOrderListToLS } from 'src/utils/order'
 import PathBar from 'src/components/PathBar'
+import userApi from 'src/apis/user.api'
+import { CartContext } from 'src/contexts/cart.context'
 
 type FormData = OrderSchema
+type FormDataForGuest = OrderSchemaForGuest
 
 export default function OrderLayout() {
-  const { orderList, addressCountry, addressCity, addressState, setOrderList, setConfirmPayment } =
-    useContext(OrderContext)
-  const { theme } = useContext(AppContext)
+  const {
+    orderList,
+    addressCountry,
+    addressCity,
+    addressState,
+    setOrderList,
+    setConfirmPayment,
+    tempOrderList,
+    setTempOrderList
+  } = useContext(OrderContext)
+  const { theme, isAuthenticated } = useContext(AppContext)
+  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
 
   const [successDialog, setSuccesDialog] = useState(false)
 
+  const viewPort = useViewport()
+  const isMobile = viewPort.width <= 768
+
+  //? ORDER FORM
   const idList = orderList.map((orderItem) => orderItem.id)
   const methods = useForm<FormData>({
     defaultValues: {
@@ -37,10 +53,31 @@ export default function OrderLayout() {
     },
     resolver: yupResolver(orderSchema)
   })
-  const { getValues, handleSubmit } = methods
+  const { getValues, handleSubmit, setValue, clearErrors } = methods
 
-  const viewPort = useViewport()
-  const isMobile = viewPort.width <= 768
+  //? ORDER FORM FOR GUEST
+  const itemList = tempOrderList.map((purchase) => ({ id: purchase.item.id, quantity: purchase.quantity }))
+
+  //? GET USER INFO
+  const { data: userData } = useQuery({
+    queryKey: ['profile'],
+    queryFn: userApi.getProfile,
+    staleTime: 1000 * 60 * 3,
+    enabled: isAuthenticated
+  })
+  const profile = userData?.data.data
+
+  //? HANDLE FILL USER INFO
+  useEffect(() => {
+    if (profile) {
+      setValue('name', profile.name || '')
+      setValue('phone', profile.phone || '')
+      setValue('email', profile.email || '')
+      clearErrors('name')
+      clearErrors('phone')
+      clearErrors('email')
+    }
+  }, [profile, setValue, clearErrors])
 
   //? HANDLE PLACE ORDER
   const queryClient = useQueryClient()
@@ -57,12 +94,42 @@ export default function OrderLayout() {
     }
   })
 
+  //? PLACE ORDER WITHOUT LOGIN
+  const createOrderForGuestMutation = useMutation(orderApi.createOrderWithouLogin)
+  const placeOrderWithoutLogin = handleSubmit(async (data) => {
+    const fullAddress = `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`
+    const formData: FormDataForGuest = {
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      address: fullAddress,
+      item: itemList
+    }
+    try {
+      await createOrderForGuestMutation.mutateAsync(formData)
+
+      setSuccesDialog(true)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
   //? HANDLE CONFIRM
   const navigate = useNavigate()
   const handleConfirm = () => {
     setSuccesDialog(false)
     setOrderList([])
     setOrderListToLS([])
+    navigate(path.cart)
+    setConfirmPayment(false)
+  }
+
+  const guestConfirm = () => {
+    const orderIdList = tempOrderList.map((tempOrderItem) => tempOrderItem.id)
+    setSuccesDialog(false)
+    setTempExtendedPurchase(tempExtendedPurchase.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
+    setTempOrderList([])
+    setTempOrderListToLS([])
     navigate(path.cart)
     setConfirmPayment(false)
   }
@@ -78,7 +145,7 @@ export default function OrderLayout() {
           ]}
         />
         <FormProvider {...methods}>
-          <form onSubmit={onPlaceOrder}>
+          <form onSubmit={isAuthenticated ? onPlaceOrder : placeOrderWithoutLogin}>
             {!isMobile && <OrderDesktopLayout />}
 
             {isMobile && <OrderMobileLayout />}
@@ -104,7 +171,7 @@ export default function OrderLayout() {
           <div className='mt-4 flex w-full items-center justify-center'>
             <button
               className='rounded-lg bg-brownColor/80 px-4 py-1 hover:bg-haretaColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
-              onClick={handleConfirm}
+              onClick={isAuthenticated ? handleConfirm : guestConfirm}
             >
               Confirm
             </button>

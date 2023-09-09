@@ -9,11 +9,15 @@ import SelectCity from '../../components/SelectCity'
 import { OrderContext } from 'src/contexts/order.context'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
+import { useViewport } from 'src/hooks/useViewport'
 
 type FormData = OrderSchema
 
 export default function ShippingInfor() {
   const { noneCity, noneState } = useContext(OrderContext)
+
+  const viewPort = useViewport()
+  const isMobile = viewPort.width <= 768
 
   const {
     register,
@@ -23,6 +27,8 @@ export default function ShippingInfor() {
   return (
     <div className='w-full p-3 text-textDark dark:text-textLight xl:p-4 '>
       <div className='space-y-4'>
+        <p className='w-full text-center text-xl font-bold uppercase lg:text-2xl xl:text-4xl'>shipping information</p>
+
         <div className=''>
           <p className=' uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
           <div className='relative'>
@@ -105,15 +111,17 @@ export default function ShippingInfor() {
             </div>
           </div>
         </div>
-        <div className='flex w-full justify-end py-4'>
-          <Link
-            to={path.payment}
-            type='button'
-            className='flex items-center justify-center rounded-lg bg-vintageColor/80 px-4 py-2 text-base capitalize text-textLight hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 xl:text-lg'
-          >
-            continue to payment
-          </Link>
-        </div>
+        {!isMobile && (
+          <div className='flex w-full justify-end py-4'>
+            <Link
+              to={path.payment}
+              type='button'
+              className='flex items-center justify-center rounded-lg bg-vintageColor/80 px-4 py-2 text-base capitalize text-textLight hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 xl:text-lg'
+            >
+              continue to payment
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   )

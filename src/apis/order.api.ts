@@ -1,11 +1,13 @@
 import { Order } from 'src/types/order.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
-import { OrderSchema } from 'src/utils/rules'
+import { OrderSchema, OrderSchemaForGuest } from 'src/utils/rules'
 
 const URL = '/auth/order'
 
 type CreateOrderForm = OrderSchema
+
+type CreateOrderFormForGuest = OrderSchemaForGuest
 
 export const orderApi = {
   getOrderList() {
@@ -17,7 +19,7 @@ export const orderApi = {
   updateOrder(body: { id: string; status: string }) {
     return http.put<SuccessRespone<string>>(URL, body)
   },
-  deleteItemGroup(body: { id: string }) {
-    return http.delete(`${URL}/group-item`, { data: body })
+  createOrderWithouLogin(body: CreateOrderFormForGuest) {
+    return http.post<SuccessRespone<string>>('/order', body)
   }
 }
