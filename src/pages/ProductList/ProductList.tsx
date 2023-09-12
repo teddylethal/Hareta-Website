@@ -18,9 +18,11 @@ import ProductSekeleton from './ProductSkeleton'
 import ProductListSkeleton from './ProductListSkeleton'
 import ActiveFiltering from './Mobile/ActiveFiltering'
 import PathBar from 'src/components/PathBar'
+import { StoreContext } from 'src/contexts/store.context'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
+  const { setWishlistIDs } = useContext(StoreContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -36,7 +38,8 @@ export default function ProductList() {
     staleTime: 3 * 60 * 1000
   })
 
-  const { data: favouriteListData } = useQuery({
+  //? GET WISHLIST
+  const { data: wishlistData, isInitialLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
       return likeItemAPi.getWishList()
@@ -44,8 +47,13 @@ export default function ProductList() {
     staleTime: 3 * 60 * 1000,
     enabled: isAuthenticated
   })
-  const favouriteList = favouriteListData?.data.data
-  const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []
+
+  useEffect(() => {
+    const wishlist = wishlistData?.data.data
+    if (wishlist) {
+      setWishlistIDs(wishlist.map((item) => item.id))
+    }
+  }, [setWishlistIDs, wishlistData])
 
   //? CHANGE TITLE
   useEffect(() => {
@@ -88,11 +96,7 @@ export default function ProductList() {
                     {!isFetching &&
                       storeData.data.data.map((product) => (
                         <div className='col-span-1' key={product.id}>
-                          <Product
-                            product={product}
-                            queryConfig={queryConfig}
-                            likedByUser={favouriteListId.includes(product.id)}
-                          />
+                          <Product product={product} initialLoading={isInitialLoading} />
                         </div>
                       ))}
                   </div>
@@ -114,11 +118,7 @@ export default function ProductList() {
                   {storeData &&
                     storeData.data.data.map((product) => (
                       <div className='col-span-1' key={product.id}>
-                        <Product
-                          product={product}
-                          queryConfig={queryConfig}
-                          likedByUser={favouriteListId.includes(product.id)}
-                        />
+                        <Product product={product} initialLoading={isInitialLoading} />
                       </div>
                     ))}
                 </div>

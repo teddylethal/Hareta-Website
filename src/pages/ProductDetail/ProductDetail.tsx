@@ -23,6 +23,7 @@ import { ItemInGroupConfig } from 'src/types/product.type'
 import { AxiosError } from 'axios'
 import { ErrorRespone } from 'src/types/utils.type'
 import { errorResponeList } from 'src/constants/error'
+import { StoreContext } from 'src/contexts/store.context'
 
 export interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -30,6 +31,7 @@ export interface ProductImageWithIndex extends ProductImage {
 
 export default function ProductDetail() {
   const { isAuthenticated, theme } = useContext(AppContext)
+  const { setWishlistIDs, wishlistIDs } = useContext(StoreContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -37,6 +39,7 @@ export default function ProductDetail() {
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
   const [likeItemDialog, setLikeItemDialog] = useState<boolean>(false)
+  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(false)
 
   const queryClient = useQueryClient()
   const { nameId } = useParams()
@@ -64,7 +67,7 @@ export default function ProductDetail() {
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 
-  //? WISHLIST DATA
+  //? GET WISHLIST
   const { data: wishlistData } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
@@ -73,9 +76,17 @@ export default function ProductDetail() {
     staleTime: 3 * 60 * 1000,
     enabled: isAuthenticated
   })
-  const favouriteList = wishlistData?.data.data
-  const favouriteListId = favouriteList ? favouriteList.map((item) => item.id) : []
-  const isLikedByUser = favouriteListId.includes(id)
+
+  useEffect(() => {
+    const wishlist = wishlistData?.data.data
+    if (wishlist) {
+      setWishlistIDs(wishlist.map((item) => item.id))
+    }
+  }, [setWishlistIDs, wishlistData])
+
+  useEffect(() => {
+    setIsLikedByUser(wishlistIDs.includes(id))
+  }, [wishlistIDs, id])
 
   //? ADD TO CART
   const addToCartMutation = useMutation(purchaseApi.addToCart)
@@ -103,11 +114,13 @@ export default function ProductDetail() {
   //? LIKE ITEM
   const likeItemMutation = useMutation(likeItemAPi.likeItem)
   const likeItem = () => {
+    setIsLikedByUser(true)
     likeItemMutation.mutate(
       { group_id: defaltItem?.group.id as string },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+          const newWishlistIDs = [...wishlistIDs, id]
+          setWishlistIDs(newWishlistIDs)
           setLikeItemDialog(true)
           setTimeout(() => {
             setLikeItemDialog(false)
@@ -119,11 +132,17 @@ export default function ProductDetail() {
 
   const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
   const unlikeItem = () => {
+    setIsLikedByUser(false)
     unlikeItemMutation.mutate(
       { group_id: defaltItem?.group.id as string },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+          const IDindex = wishlistIDs.indexOf(id)
+          const tempArray = wishlistIDs
+          if (IDindex > -1) {
+            tempArray.splice(IDindex, 1)
+            setWishlistIDs(tempArray)
+          }
         }
       }
     )

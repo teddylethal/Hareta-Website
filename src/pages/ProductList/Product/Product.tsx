@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import itemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
@@ -17,6 +16,7 @@ import producImageApi from 'src/apis/productImage.api'
 import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
 import { ProductImage } from 'src/types/productImage.type'
 import likeItemAPi from 'src/apis/userLikeItem.api'
+import { StoreContext } from 'src/contexts/store.context'
 
 const MAXLENGTH = 3
 
@@ -29,17 +29,30 @@ export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction
 
 interface Props {
   product: ProductType
-  queryConfig: QueryConfig
-  likedByUser?: boolean
+  initialLoading?: boolean
 }
 
-function Product({ product, likedByUser = false }: Props) {
+function Product({ product, initialLoading }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
+  const { setWishlistIDs, wishlistIDs } = useContext(StoreContext)
+
+  // const initialInWishlist = wishlistIDs.includes(product.id)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
-  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(likedByUser)
+  const [isLikedByUser, setIsLikedByUser] = useState<boolean>(false)
+  const [initialInWishlist, setInitialInWishlist] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsLikedByUser(wishlistIDs.includes(product.id))
+  }, [product.id, wishlistIDs])
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!initialLoading) {
+      setInitialInWishlist(wishlistIDs.includes(product.id))
+    }
+  }, [initialLoading, product.id, wishlistIDs])
 
   //? GET IMAGE LIST
   const itemID = product.id
@@ -69,17 +82,28 @@ function Product({ product, likedByUser = false }: Props) {
     setHoveringImage(false)
   }
 
+  //? HANDLE ENTER ITEM
+  const queryClient = useQueryClient()
   const handleClickItem = () => {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+    queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
   }
 
   //? HANDLE LIKE ITEM
   const likeItem = () => {
     setIsLikedByUser(true)
+    const newWishlistIDs = [...wishlistIDs, product.id]
+    setWishlistIDs(newWishlistIDs)
   }
 
   const unlikeItem = () => {
     setIsLikedByUser(false)
+    const IDindex = wishlistIDs.indexOf(product.id)
+    const tempArray = wishlistIDs
+    if (IDindex > -1) {
+      tempArray.splice(IDindex, 1)
+      setWishlistIDs(tempArray)
+    }
   }
 
   const toggleLikeItem = () => {
@@ -87,17 +111,15 @@ function Product({ product, likedByUser = false }: Props) {
     !isLikedByUser && likeItem()
   }
 
-  const queryClient = useQueryClient()
   const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
   const likeItemMutation = useMutation(likeItemAPi.likeItem)
   useEffect(() => {
     const updateLikeItem = setTimeout(() => {
-      if (isLikedByUser && !likedByUser) {
+      if (isLikedByUser && initialInWishlist === false) {
         likeItemMutation.mutate({ group_id: product.group.id })
-      } else if (!isLikedByUser && likedByUser) {
+      } else if (!isLikedByUser && initialInWishlist === true) {
         unlikeItemMutation.mutate({ group_id: product.group.id })
       }
-      queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
     }, 1000)
 
     return () => clearTimeout(updateLikeItem)
