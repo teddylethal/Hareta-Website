@@ -4,6 +4,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import EmptyProductList from '../EmptyProductList'
 
 interface Props {
   queryConfig: QueryConfig
@@ -11,41 +12,6 @@ interface Props {
   isMobile?: boolean
 }
 export default function UsePagination({ queryConfig, totalPage, isMobile }: Props) {
-  // const navigate = useNavigate()
-
-  // const handleClickPage = (pageNumber: number) => () => {
-  //   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  //   navigate({
-  //     pathname: path.store,
-  //     search: createSearchParams({
-  //       ...queryConfig,
-  //       page: pageNumber.toString()
-  //     }).toString()
-  //   })
-  // }
-
-  // const handlePrevious = () => {
-  //   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  //   navigate({
-  //     pathname: path.store,
-  //     search: createSearchParams({
-  //       ...queryConfig,
-  //       page: (currentPage - 1).toString()
-  //     }).toString()
-  //   })
-  // }
-
-  // const handleNext = () => {
-  //   window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  //   navigate({
-  //     pathname: path.store,
-  //     search: createSearchParams({
-  //       ...queryConfig,
-  //       page: (currentPage + 1).toString()
-  //     }).toString()
-  //   })
-  // }
-
   const currentPage = Number(queryConfig.page)
   const RANGE = isMobile ? 1 : 2
 
@@ -120,6 +86,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       })
   }
 
+  if (totalPage === 0) return <EmptyProductList />
   return (
     <div className='mt-6 flex flex-wrap items-center justify-center'>
       {currentPage > 1 ? (

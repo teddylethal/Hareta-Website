@@ -60,22 +60,22 @@ export default function DialogPopup({
                 )}
               >
                 {children}
-                {closeButton && (
-                  <button
-                    type='button'
-                    className={classNames(
-                      'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
-                      {
-                        'text-textDark/50': theme === 'light',
-                        'text-textLight/50': theme === 'dark'
-                      }
-                    )}
-                    onClick={handleClose}
-                    ref={completeButtonRef}
-                  >
-                    <FontAwesomeIcon icon={faXmark} fontSize={20} />
-                  </button>
-                )}
+                <button
+                  type='button'
+                  className={classNames(
+                    'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
+                    {
+                      'text-textDark/50': theme === 'light',
+                      'text-textLight/50': theme === 'dark',
+                      visible: closeButton,
+                      invisible: !closeButton
+                    }
+                  )}
+                  onClick={handleClose}
+                  ref={completeButtonRef}
+                >
+                  <FontAwesomeIcon icon={faXmark} />
+                </button>
               </Dialog.Panel>
             </Transition.Child>
           </div>

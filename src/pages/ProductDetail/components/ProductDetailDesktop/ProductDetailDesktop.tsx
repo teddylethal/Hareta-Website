@@ -100,10 +100,13 @@ export default function ProductDetailDesktop(props: Props) {
     showSuccessDialog(setDialogIsOpen)
   }
 
+  //? CHECK IN STOCK
+  const inStock = activeItem.quantity > 0
+
   return (
     <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
       <div className='col-span-4'>
-        <div className='sticky left-0 top-14 flex-col rounded-xl bg-[#f8f8f8] p-2 text-textDark dark:bg-[#202020] dark:text-textLight  lg:top-20 lg:p-4 xl:p-6'>
+        <div className='sticky left-0 top-14 flex-col rounded-xl bg-[#f8f8f8] p-2 text-textDark dark:bg-[#202020] dark:text-textLight lg:top-20 lg:p-4 xl:p-6'>
           <div className='relative flex items-center justify-between'>
             <p className='line-clamp-2 text-xl font-semibold lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
             {isAuthenticated && (
@@ -132,14 +135,14 @@ export default function ProductDetailDesktop(props: Props) {
             </span>
           </div>
 
-          <div className='mt-8 w-full rounded-lg border border-black/20 p-2 dark:border-white/20'>
+          <div className='mt-8 w-full rounded-lg border border-black/60 p-2 dark:border-white/60'>
             <div className='flex items-center justify-between'>
               <p className='text-base font-medium lg:text-lg xl:text-xl'>Variant</p>
               <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
                 {itemsInGroup.length} variants
               </p>
             </div>
-            <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/20 p-2 dark:border-white/20'>
+            <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/40 p-2 dark:border-white/40'>
               <div className='grid w-full grid-cols-3 gap-4'>
                 {itemsInGroup.map((item, index) => {
                   const isActive = item.id === activeItemID
@@ -147,8 +150,9 @@ export default function ProductDetailDesktop(props: Props) {
                   return (
                     <div
                       key={index}
-                      className={classNames('col-span-1 rounded-xl', {
-                        'border border-brownColor dark:border-haretaColor': isActive
+                      className={classNames('col-span-1 rounded-xl border', {
+                        ' border-brownColor dark:border-haretaColor': isActive,
+                        ' border-black/20 dark:border-white/20': !isActive
                       })}
                     >
                       <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item)}>
@@ -166,45 +170,52 @@ export default function ProductDetailDesktop(props: Props) {
             </div>
           </div>
 
-          <div className='w-full'>
-            <div className='mt-6 items-center justify-between text-xs lg:flex lg:text-sm xl:text-base'>
-              <div className='flex items-center space-x-2'>
-                <p className='text-textDark dark:text-textLight'>Quantity:</p>
-                <QuantityController
-                  classNameWrapper=''
-                  value={quantity}
-                  max={defaultItem.quantity}
-                  onDecrease={handleQuantity}
-                  onIncrease={handleQuantity}
-                  onType={handleQuantity}
-                />
+          {inStock && (
+            <div className='w-full'>
+              <div className='mt-6 items-center justify-between text-xs lg:flex lg:space-x-2 lg:text-sm xl:text-base'>
+                <div className='flex items-center space-x-2'>
+                  <p className='text-textDark dark:text-textLight'>Quantity:</p>
+                  <QuantityController
+                    classNameWrapper=''
+                    value={quantity}
+                    max={defaultItem.quantity}
+                    onDecrease={handleQuantity}
+                    onIncrease={handleQuantity}
+                    onType={handleQuantity}
+                  />
+                </div>
+                <p className='items-center space-x-1 text-textDark/60 dark:text-textLight/60'>
+                  {defaultItem.quantity <= 10 && <span>Only</span>}
+                  <span>{defaultItem.quantity} available</span>
+                </p>
               </div>
-              <div className='flex items-center space-x-1 text-textDark/60 dark:text-textLight/60'>
-                {defaultItem.quantity <= 10 && <p>Only</p>}
-                <p>{defaultItem.quantity} available</p>
-              </div>
-            </div>
 
-            <div className='mt-4 flex justify-between'>
-              <button
-                className='flex items-center rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'
-                onClick={
-                  isAuthenticated
-                    ? handleAddToCart
-                    : tempExtendedPurchase.length === 0
-                    ? () => {
-                        setCreateTempCart(true)
-                      }
-                    : addToTemporaryCart
-                }
-              >
-                <FontAwesomeIcon icon={faCartPlus} />
-              </button>
-              <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'>
-                Buy
-              </button>
+              <div className='mt-4 flex justify-between'>
+                <button
+                  className='flex items-center rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'
+                  onClick={
+                    isAuthenticated
+                      ? handleAddToCart
+                      : tempExtendedPurchase.length === 0
+                      ? () => {
+                          setCreateTempCart(true)
+                        }
+                      : addToTemporaryCart
+                  }
+                >
+                  <FontAwesomeIcon icon={faCartPlus} />
+                </button>
+                <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'>
+                  Buy
+                </button>
+              </div>
             </div>
-          </div>
+          )}
+          {!inStock && (
+            <div className='mt-2 flex w-full items-center justify-center text-lg font-semibold uppercase text-brownColor/80 dark:text-haretaColor/80 lg:mt-4 lg:text-xl xl:mt-6 xl:text-2xl'>
+              out of stock
+            </div>
+          )}
         </div>
       </div>
       <div className='col-span-8'>

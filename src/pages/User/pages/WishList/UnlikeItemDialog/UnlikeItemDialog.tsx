@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useRef } from 'react'
 
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { AppContext } from 'src/contexts/app.context'
@@ -37,9 +37,11 @@ export default function UnlikeItemDialog({
     setUnlikeItemId('')
     handleClose()
   }
+
+  const completeButtonRef = useRef(null)
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as='div' className='relative z-10' onClose={handleClose}>
+      <Dialog as='div' className='relative z-10' onClose={handleClose} initialFocus={completeButtonRef}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
@@ -49,7 +51,7 @@ export default function UnlikeItemDialog({
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-black bg-opacity-[0.025]' />
+          <div className='fixed inset-0 bg-black/10' />
         </Transition.Child>
 
         <div className='fixed inset-0 overflow-y-auto'>
@@ -83,6 +85,7 @@ export default function UnlikeItemDialog({
                     type='button'
                     className='inline-flex justify-center rounded-md border border-transparent bg-orange-100 px-4 py-2 text-sm font-medium text-red-600 hover:bg-orange-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
                     onClick={handleClose}
+                    ref={completeButtonRef}
                   >
                     Cancel
                   </button>

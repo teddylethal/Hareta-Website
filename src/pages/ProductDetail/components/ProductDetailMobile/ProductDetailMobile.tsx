@@ -75,14 +75,14 @@ export default function ProductDetailMobile(props: Props) {
               </div>
             )}
 
-            <div className='mt-8 w-full rounded-lg border border-black/20 p-4 dark:border-white/20'>
+            <div className='mt-8 w-full rounded-lg border border-black/60 p-4 dark:border-white/60'>
               <div className='flex items-center justify-between'>
-                <p className='text-base font-medium lg:text-lg xl:text-xl'>Variant</p>
-                <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
+                <p className='text-base font-medium sm:text-lg'>Variant</p>
+                <p className='text-sm text-textDark/60 dark:text-textLight/60 sm:text-base '>
                   {itemsInGroup.length} variants
                 </p>
               </div>
-              <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/20 p-2 dark:border-white/20'>
+              <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/40 p-2 dark:border-white/40'>
                 <div className='grid w-full grid-cols-3 gap-4'>
                   {itemsInGroup.map((item, index) => {
                     const isActive = item.id === activeItem.id
@@ -90,8 +90,9 @@ export default function ProductDetailMobile(props: Props) {
                     return (
                       <div
                         key={index}
-                        className={classNames('col-span-1 rounded-xl', {
-                          'border border-brownColor dark:border-haretaColor': isActive
+                        className={classNames('col-span-1 rounded-xl border', {
+                          'border-brownColor dark:border-haretaColor': isActive,
+                          'border-black/20 dark:border-white/20': !isActive
                         })}
                       >
                         <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item)}>
@@ -100,7 +101,6 @@ export default function ProductDetailMobile(props: Props) {
                             alt={`${defaultItem.name} ${item.color}`}
                             className='absolute left-0 top-0 h-full w-full object-scale-down'
                           />
-                          {/* {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />} */}
                         </button>
                       </div>
                     )

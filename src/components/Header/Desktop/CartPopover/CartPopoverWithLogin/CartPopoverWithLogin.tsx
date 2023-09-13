@@ -58,7 +58,7 @@ export default function CartPopoverWithLogin() {
   }
 
   return (
-    <div className='rounded-lg bg-vintageColor duration-300 hover:bg-vintageColor/80 dark:bg-haretaColor dark:hover:bg-haretaColor/80'>
+    <div className='rounded-lg bg-vintageColor/80 duration-300 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
       <Popover
         className='flex border border-none px-1.5 py-1 lg:px-2'
         renderPopover={
@@ -92,11 +92,11 @@ export default function CartPopoverWithLogin() {
                               to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
                               className='flex'
                             >
-                              <p className='truncate px-2 capitalize hover:text-[#E76161] dark:hover:text-haretaColor lg:text-base'>
+                              <p className='truncate px-2 font-semibold capitalize hover:text-brownColor dark:hover:text-haretaColor lg:text-base'>
                                 {purchase.item.name}
                               </p>
                             </Link>
-                            <span className='flex-shrink-0 text-orange-600'>
+                            <span className='flex-shrink-0 font-medium text-orange-600'>
                               ${formatCurrency(purchase.item.price)}
                             </span>
                           </div>
@@ -105,7 +105,7 @@ export default function CartPopoverWithLogin() {
 
                             <div className='flex space-x-3'>
                               <button
-                                className='text-sm text-textDark/60  hover:text-[#E76161] dark:text-textLight/60 dark:hover:text-haretaColor'
+                                className='text-sm text-textDark/60  hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
                                 onClick={handleBuyItem}
                               >
                                 Buy

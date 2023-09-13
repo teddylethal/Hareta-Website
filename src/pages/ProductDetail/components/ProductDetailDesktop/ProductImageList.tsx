@@ -202,7 +202,9 @@ export default function ProductImageList(props: Props) {
                     alt={item.name}
                     className='absolute left-0 top-0 h-full w-full object-scale-down'
                   />
-                  {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />}
+                  {isActive && (
+                    <div className='absolute inset-0 rounded-lg border-2 border-vintageColor dark:border-haretaColor' />
+                  )}
                 </button>
               )
             })}

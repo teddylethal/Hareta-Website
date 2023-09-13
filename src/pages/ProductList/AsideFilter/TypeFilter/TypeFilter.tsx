@@ -84,7 +84,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
 
   return (
     <div
-      className='overflow-hidden rounded-md bg-[#e8e8e8] p-2 outline outline-1 outline-black/20 duration-500 dark:bg-[#202020] dark:outline-white/20'
+      className='overflow-hidden rounded-md bg-[#e8e8e8] p-2 outline outline-1 outline-black/20 duration-500 dark:bg-[#101010] dark:outline-white/20'
       ref={ref}
     >
       <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>

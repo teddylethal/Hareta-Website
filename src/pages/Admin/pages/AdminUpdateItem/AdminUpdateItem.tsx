@@ -8,7 +8,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { adminItemApi } from 'src/apis/admin.api'
 import productApi from 'src/apis/product.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
-import { ErrorRespone } from 'src/types/utils.type'
+import { ErrorRespone, NoUndefinedField } from 'src/types/utils.type'
 import AdminUpdateItemForm from '../../components/AdminUpdateItemForm'
 import AdminItemGroup from '../../components/AdminItemGroup'
 import AdminItemsInGroup from '../../components/AdminItemsInGroup'
@@ -16,7 +16,7 @@ import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminDialog from '../../components/AdminDialog'
 
-type FormData = UpdateItemSchema
+type FormData = NoUndefinedField<UpdateItemSchema>
 
 export default function AdminUpdateItem() {
   const { currentItem, itemGroup, setCurrentItem } = useContext(AdminContext)
@@ -26,7 +26,7 @@ export default function AdminUpdateItem() {
   //? GET ITEM DETAIL
   const defaultItemID = currentItem?.id
   const { data: itemDetailData } = useQuery({
-    queryKey: ['item', defaultItemID],
+    queryKey: ['item_detail_for_admin', defaultItemID],
     queryFn: () => productApi.getProductDetail(defaultItemID as string),
     enabled: Boolean(currentItem)
   })
@@ -53,7 +53,12 @@ export default function AdminUpdateItem() {
     },
     resolver: yupResolver(updateItemSchema)
   })
-  const { handleSubmit, setValue, reset } = methods
+  const {
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { isSubmitSuccessful }
+  } = methods
 
   useEffect(() => {
     if (itemDetail) {
@@ -84,7 +89,6 @@ export default function AdminUpdateItem() {
       await updateItemMutation.mutateAsync({ ...data })
       setPageIsLoading(false)
       setCurrentItem(null)
-      reset()
       showSuccessDialog(setSuccessDialogOpen, 2000)
     } catch (error) {
       console.log(error)
@@ -97,11 +101,17 @@ export default function AdminUpdateItem() {
     }
   }
 
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset()
+    }
+  }, [isSubmitSuccessful, reset])
+
   //? HANDLE CHOOSE GROUP
   useEffect(() => {
     setCurrentItem(null)
     reset()
-  }, [itemGroup, setCurrentItem, reset])
+  }, [itemGroup, setCurrentItem, reset, setValue])
 
   return (
     <div>
@@ -117,13 +127,13 @@ export default function AdminUpdateItem() {
           <div className='col-span-1'>
             <FormProvider {...methods}>
               <form
-                className='relative space-y-4 overflow-hidden rounded-lg border border-white/40 p-4'
+                className='relative overflow-hidden rounded-lg border border-white/40 p-4'
                 onSubmit={handleSubmit(onSubmit, onInvalid)}
               >
                 {(!itemDetail || !currentItem) && <div className='absolute inset-0 z-10 bg-black/50'></div>}
 
                 <AdminUpdateItemForm />
-                <div className='col-span-1 mt-2 flex items-center justify-end'>
+                <div className='col-span-1 mt-8 flex items-center justify-end'>
                   <button
                     className='rounded-lg bg-haretaColor/80 px-4 py-1 text-sm hover:bg-haretaColor/60 lg:text-base'
                     type='submit'

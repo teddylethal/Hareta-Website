@@ -36,7 +36,7 @@ export default function CartPopoverWithoutLogin() {
                 {tempExtendedPurchase.length > 0 ? (
                   <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
                     {tempExtendedPurchase.map((purchase, index) => (
-                      <div className='flex items-center  p-3 hover:bg-[#e8e8e8] dark:hover:bg-black' key={purchase.id}>
+                      <div className='flex items-center p-3 hover:bg-[#e8e8e8] dark:hover:bg-black' key={purchase.id}>
                         <div className='h-14 w-14'>
                           <div className='relative w-full  pt-[100%]'>
                             <img
@@ -57,26 +57,26 @@ export default function CartPopoverWithoutLogin() {
                               to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
                               className='flex'
                             >
-                              <p className='text-md truncate px-2 capitalize hover:text-[#E76161] dark:hover:text-haretaColor lg:text-base'>
+                              <p className='truncate px-2 font-semibold capitalize hover:text-brownColor dark:hover:text-haretaColor lg:text-base'>
                                 {purchase.item.name}
                               </p>
                             </Link>
-                            <span className='flex-shrink-0 text-orange-600'>
+                            <span className='flex-shrink-0 font-medium text-orange-600'>
                               ${formatCurrency(purchase.item.price)}
                             </span>
                           </div>
                           <div className='ml-2 flex justify-between'>
-                            <span className='text-gray-500 dark:text-gray-400'>x{purchase.quantity}</span>
+                            <span className='text-xs capitalize text-textDark/60 dark:text-textLight/60 lg:text-sm'>{`(${purchase.item.color})`}</span>
 
                             <div className='flex space-x-3'>
                               <button
-                                className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                                className='text-sm text-textDark/60  hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
                                 onClick={handleBuyItem}
                               >
                                 Buy
                               </button>
                               <button
-                                className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                                className='text-sm text-textDark/60  dark:text-textLight/60 '
                                 onClick={handleRemove(index)}
                               >
                                 Remove

@@ -106,11 +106,11 @@ export default function MobileCartWithoutLogin() {
                               className='flex'
                               onClick={closeCart}
                             >
-                              <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                              <p className='truncate px-2 py-1 font-semibold hover:text-vintageColor dark:hover:text-haretaColor'>
                                 {purchase.item.name}
                               </p>
                             </Link>
-                            <span className='flex-shrink-0 text-orange-600'>
+                            <span className='flex-shrink-0 font-medium text-orange-600'>
                               ${formatCurrency(purchase.item.price)}
                             </span>
                           </div>

@@ -142,11 +142,11 @@ export default function MobileCart({ className }: Props) {
                               className='flex'
                               onClick={closeCart}
                             >
-                              <p className='truncate px-2 py-1 hover:text-vintageColor dark:hover:text-haretaColor'>
+                              <p className='truncate px-2 py-1 font-semibold hover:text-vintageColor dark:hover:text-haretaColor'>
                                 {purchase.item.name}
                               </p>
                             </Link>
-                            <span className='flex-shrink-0 text-orange-600'>
+                            <span className='flex-shrink-0 font-medium text-orange-600'>
                               ${formatCurrency(purchase.item.price)}
                             </span>
                           </div>
@@ -155,7 +155,7 @@ export default function MobileCart({ className }: Props) {
 
                             <div className='flex space-x-3'>
                               <button
-                                className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
+                                className='text-sm text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-600'
                                 onClick={handleRemove(index)}
                               >
                                 Remove

@@ -74,7 +74,7 @@ export default function AsideSorter() {
   return (
     <div
       className={classNames(
-        'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-[#f8f8f8] px-3 py-2 text-base font-medium duration-500 dark:bg-[#303030] lg:text-lg'
+        'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-[#f8f8f8] px-3 py-2 text-base font-medium duration-500 dark:bg-[#202020] lg:text-lg'
       )}
     >
       <p className='col-span-5 flex h-6 items-center text-left text-sm font-medium uppercase text-textDark duration-500 dark:text-textLight lg:h-7  lg:text-lg'>

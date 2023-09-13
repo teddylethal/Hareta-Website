@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react'
+import { useContext } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { UpdateItemSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
@@ -28,7 +28,7 @@ export default function AdminUpdateItemForm() {
   const editorContent = watch('description')
 
   return (
-    <Fragment>
+    <div className='space-y-4'>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
           <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>group name</p>
@@ -266,6 +266,7 @@ export default function AdminUpdateItemForm() {
           <Controller
             control={control}
             name='tag'
+            defaultValue={0}
             render={({ field }) => (
               <InputNumber
                 classNameInput={classNames(
@@ -371,6 +372,6 @@ export default function AdminUpdateItemForm() {
         /> */}
         <QuillEditor value={editorContent} setValue={onEditorStateChange} />
       </div>
-    </Fragment>
+    </div>
   )
 }

@@ -137,14 +137,8 @@ export default function PriceRange({ queryConfig }: Props) {
     })
   }
 
-  // window.onbeforeunload = () => {
-  //   navigate({
-  //     pathname: path.store
-  //   })
-  // }
-
   return (
-    <div className='relative w-full rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#303030]'>
+    <div className='relative w-full rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#202020]'>
       <PriceSample handleChoosePrice={handleChoosePrice} />
       {active && (
         <button
