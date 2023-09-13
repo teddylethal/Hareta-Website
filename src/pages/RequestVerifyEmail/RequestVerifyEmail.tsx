@@ -80,10 +80,13 @@ export default function RequestVerifyEmail() {
                 </div>
                 <div className='mt-4 h-10 w-28 rounded-xl bg-black dark:bg-inherit sm:mt-8 sm:h-14 sm:w-32'>
                   <button
+                    disabled={counter > 0 || click}
                     onClick={onSubmit}
                     className={
                       'flex h-full w-full items-center justify-center rounded-xl bg-orangeColor text-sm font-semibold text-black duration-500 dark:text-white sm:text-base  ' +
-                      (counter > 0 || click ? 'bg-opacity-80 dark:bg-opacity-50' : 'hover:bg-opacity-80')
+                      (counter > 0 || click
+                        ? 'cursor-not-allowed bg-opacity-80 dark:bg-opacity-50'
+                        : 'hover:bg-opacity-80')
                     }
                   >
                     {(counter > 0 || click) && (
