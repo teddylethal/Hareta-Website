@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 import userApi from 'src/apis/user.api'
@@ -18,7 +18,7 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import EditProfile from './EditProfile'
 import { useViewport } from 'src/hooks/useViewport'
 import moment from 'moment'
-import ProfileLoading from './ProfileLoading'
+const ProfileLoading = React.lazy(() => import('./ProfileLoading'))
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
 

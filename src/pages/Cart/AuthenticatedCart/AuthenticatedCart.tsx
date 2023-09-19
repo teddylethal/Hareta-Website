@@ -6,13 +6,15 @@ import React, { Fragment, useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { formatCurrency } from 'src/utils/utils'
-import AuthenticatedCartMobile from '../AuthenticatedCartMobile'
-import ItemInCart from 'src/components/ItemInCart'
 import purchaseApi from 'src/apis/cart.api'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { OrderContext } from 'src/contexts/order.context'
 import { setOrderListToLS } from 'src/utils/order'
+
+//? REACT LAZY
+const AuthenticatedCartMobile = React.lazy(() => import('../AuthenticatedCartMobile'))
+const ItemInCart = React.lazy(() => import('src/components/ItemInCart'))
 
 export default function AuthenticatedCart() {
   const viewport = useViewport()

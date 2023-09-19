@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { CartContext, ExtendsPurchase } from 'src/contexts/cart.context'
@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import QuantityController from 'src/components/QuantityController'
+const QuantityController = React.lazy(() => import('src/components/QuantityController'))
 
 interface Props {
   purchase: ExtendsPurchase

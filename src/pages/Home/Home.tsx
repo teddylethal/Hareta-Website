@@ -1,3 +1,13 @@
+import EventCarousel from './components/EventCarousel'
+import NewReleaseCarousel from './components/NewReleaseCarousel'
+import SignatureItemCarousel from './components/SignatureItemCarousel'
+
 export default function Home() {
-  return <div className='flex h-[500px] w-full items-center justify-center bg-pink-200 text-2xl'>HOME</div>
+  return (
+    <div className='space-y-8'>
+      <EventCarousel />
+      <NewReleaseCarousel />
+      <SignatureItemCarousel />
+    </div>
+  )
 }

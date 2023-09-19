@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import useQueryConfig, { QueryConfig } from 'src/hooks/useQueryConfig'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
 import Product from 'src/pages/ProductList/Product'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
@@ -34,7 +34,6 @@ export default function OtherItemsInType({ type }: Props) {
       items: 1
     }
   }
-  const queryConfig = useQueryConfig()
   const inTypeQueryConfig: QueryConfig = { type: type, page: '1', limit: '12' }
   const { data: productsData, isLoading } = useQuery({
     queryKey: ['products_in_type', inTypeQueryConfig],
@@ -111,7 +110,7 @@ export default function OtherItemsInType({ type }: Props) {
           >
             {itemsInType.map((product) => (
               <div className='mx-6' key={product.id}>
-                <Product product={product} queryConfig={queryConfig} />
+                <Product product={product} />
               </div>
             ))}
           </Carousel>

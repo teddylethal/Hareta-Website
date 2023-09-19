@@ -1,0 +1,14 @@
+.custom-dot-list-style button {
+  border: none;
+  background: rgb(162 123 92 / 0.8);
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem /* 16px */ * var(--tw-space-x-reverse));
+  margin-left: calc(1rem /* 16px */ * calc(1 - var(--tw-space-x-reverse)));
+}
+.react-multi-carousel-dot.react-multi-carousel-dot--active button {
+  background: rgb(255, 68, 68) !important;
+}
+
+:is(.dark .dark\:bg-vintageColor\/80) {
+  background-color: rgb(162 123 92 / 0.8);
+}

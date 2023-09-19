@@ -3,9 +3,9 @@ import React, { Fragment, useContext } from 'react'
 
 import { CartContext } from 'src/contexts/cart.context'
 import { formatCurrency } from 'src/utils/utils'
-import MobileItemInCart from '../MobileItemInCart'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
+const MobileItemInCart = React.lazy(() => import('../MobileItemInCart'))
 
 interface Props {
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void

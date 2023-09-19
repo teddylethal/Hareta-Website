@@ -3,15 +3,15 @@ import { produce } from 'immer'
 import { keyBy } from 'lodash'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import QuantityController from 'src/components/QuantityController'
 import path from 'src/constants/path'
 import { CartContext } from 'src/contexts/cart.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { TemporaryPurchase } from 'src/types/cart.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import UnauthenticatedCartMobile from '../UnauthenticatedCartMobile'
 import { OrderContext } from 'src/contexts/order.context'
 import { setTempOrderListToLS } from 'src/utils/order'
+const UnauthenticatedCartMobile = React.lazy(() => import('../UnauthenticatedCartMobile'))
+const QuantityController = React.lazy(() => import('src/components/QuantityController'))
 
 export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
   disabled: boolean

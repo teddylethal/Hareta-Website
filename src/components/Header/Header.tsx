@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import ToggleTheme from '../ToggleTheme'
 import { createContext, useContext } from 'react'
 import { useViewport } from 'src/hooks/useViewport'
@@ -13,6 +13,7 @@ import CartPopoverWithoutLogin from './Desktop/CartPopover/CartPopoverWithoutLog
 import MobileHeader from './Mobile/MobileHeader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import classNames from 'classnames'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -35,23 +36,27 @@ export default function Header() {
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center text-black duration-500  dark:text-white'>
           <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase lg:space-x-4 lg:text-lg'>
-            <Link to={path.home}>
+            <NavLink to={path.home}>
               <img src='/images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to={path.store}
-              className='rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor'
+              className={({ isActive }) =>
+                classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
+                  'text-brownColor dark:text-haretaColor': isActive
+                })
+              }
             >
               <div>Store</div>
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to='/'
               className='rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor'
             >
               <div>Event</div>
-            </Link>
+            </NavLink>
 
             <SupportNav />
           </nav>
