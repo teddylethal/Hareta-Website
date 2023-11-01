@@ -10,8 +10,9 @@ import { TemporaryPurchase } from 'src/types/cart.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { OrderContext } from 'src/contexts/order.context'
 import { setTempOrderListToLS } from 'src/utils/order'
-const UnauthenticatedCartMobile = React.lazy(() => import('../UnauthenticatedCartMobile'))
-const QuantityController = React.lazy(() => import('src/components/QuantityController'))
+
+import UnauthenticatedCartMobile from '../UnauthenticatedCartMobile'
+import QuantityController from 'src/components/QuantityController'
 
 export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
   disabled: boolean

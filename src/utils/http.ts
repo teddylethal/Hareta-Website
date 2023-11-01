@@ -5,13 +5,14 @@ import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
 
+export const ApiURL = 'http://146.190.193.176:3000/'
 class Http {
   instance: AxiosInstance
   private accessToken: string
   constructor() {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
-      baseURL: 'https://api.hareta.me/',
+      baseURL: ApiURL,
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'

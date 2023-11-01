@@ -12,9 +12,8 @@ import path from 'src/constants/path'
 import { OrderContext } from 'src/contexts/order.context'
 import { setOrderListToLS } from 'src/utils/order'
 
-//? REACT LAZY
-const AuthenticatedCartMobile = React.lazy(() => import('../AuthenticatedCartMobile'))
-const ItemInCart = React.lazy(() => import('src/components/ItemInCart'))
+import AuthenticatedCartMobile from '../AuthenticatedCartMobile'
+import ItemInCart from 'src/components/ItemInCart'
 
 export default function AuthenticatedCart() {
   const viewport = useViewport()

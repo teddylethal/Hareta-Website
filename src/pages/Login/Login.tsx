@@ -20,6 +20,7 @@ import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/SuccessPasswordRecoveryPopup'
 import SuccessEmailVerifyPopup from 'src/components/VerifyEmailDialog/SuccessEmailVerifyPopup'
 import { useViewport } from 'src/hooks/useViewport'
+import { ApiURL } from 'src/utils/http'
 
 type FormData = LoginSchema
 
@@ -52,14 +53,13 @@ export default function Login() {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
-        axios.get('https://api.hareta.me/auth/', { headers }).then((response) => {
+        axios.get(`${ApiURL}auth/`, { headers }).then((response) => {
           setProfileToLS(response.data.data)
           setProfile(response.data.data)
         })
         navigate(-1)
       },
       onError: (error) => {
-        // console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           if (formError) {
@@ -96,7 +96,7 @@ export default function Login() {
         setValue('email', state?.email)
       }
     }
-  }, [state])
+  }, [setValue, state])
 
   return (
     <AnimateTransition isDialog={state}>

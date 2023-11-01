@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import React, { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
@@ -17,10 +17,10 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from 'src/contexts/app.context'
 
 //? IMPORT COMPONENTS
-const UnlikeItemDialog = React.lazy(() => import('./UnlikeItemDialog'))
-const DialogPopup = React.lazy(() => import('src/components/DialogPopup'))
-const WishlistItem = React.lazy(() => import('../../components/WishlistItem'))
-const WishlistItemMobile = React.lazy(() => import('../../components/WishlistItemMobile'))
+import UnlikeItemDialog from './UnlikeItemDialog'
+import DialogPopup from 'src/components/DialogPopup'
+import WishlistItem from '../../components/WishlistItem'
+import WishlistItemMobile from '../../components/WishlistItemMobile'
 
 export default function WishList() {
   const { theme, isAuthenticated } = useContext(AppContext)

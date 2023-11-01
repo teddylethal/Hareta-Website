@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import PathBar from 'src/components/PathBar'
-const AuthenticatedCart = React.lazy(() => import('./AuthenticatedCart'))
-const UnauthenticatedCart = React.lazy(() => import('./UnauthenticatedCart'))
+import AuthenticatedCart from './AuthenticatedCart'
+import UnauthenticatedCart from './UnauthenticatedCart'
 
 export default function Cart() {
   const { isAuthenticated } = useContext(AppContext)

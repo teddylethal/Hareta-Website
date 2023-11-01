@@ -1,55 +1,75 @@
-import { useContext, lazy } from 'react'
+import { useContext } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import Landing from './pages/Landing'
 import { AppContext } from './contexts/app.context'
 import path, { adminPath } from './constants/path'
 import { OrderContext } from './contexts/order.context'
+import Landing from './pages/Landing'
 
 //? IMPORT LAYOUTS
-const RegisterLayout = lazy(() => import('./layouts/RegisterLayout'))
-const MainLayout = lazy(() => import('./layouts/MainLayout'))
+// const RegisterLayout = lazy(() => import('./layouts/RegisterLayout'))
+// const MainLayout = lazy(() => import('./layouts/MainLayout'))
+import RegisterLayout from './layouts/RegisterLayout'
+import MainLayout from './layouts/MainLayout'
 
 //? IMPORT MAIN PAGES
-const Login = lazy(() => import('./pages/Login'))
-const Register = lazy(() => import('./pages/Register'))
-const ProductList = lazy(() => import('./pages/ProductList'))
-const Cart = lazy(() => import('./pages/Cart'))
-const Home = lazy(() => import('./pages/Home'))
-const ProductDetail = lazy(() => import('./pages/ProductDetail'))
-const VerifyEmail = lazy(() => import('./pages/VerifyEmail'))
-const RequestVerifyEmail = lazy(() => import('./pages/RequestVerifyEmail'))
+// const Login = lazy(() => import('./pages/Login'))
+// const Register = lazy(() => import('./pages/Register'))
+// const ProductList = lazy(() => import('./pages/ProductList'))
+// const Cart = lazy(() => import('./pages/Cart'))
+// const Home = lazy(() => import('./pages/Home'))
+// const ProductDetail = lazy(() => import('./pages/ProductDetail'))
+// const VerifyEmail = lazy(() => import('./pages/VerifyEmail'))
+// const RequestVerifyEmail = lazy(() => import('./pages/RequestVerifyEmail'))
+import Login from './pages/Login'
+import Register from './pages/Register'
+import ProductList from './pages/ProductList'
+import Cart from './pages/Cart'
+import Home from './pages/Home'
+import ProductDetail from './pages/ProductDetail'
+import VerifyEmail from './pages/VerifyEmail'
+import RequestVerifyEmail from './pages/RequestVerifyEmail'
 
 //? IMPORT USER COMPONENTS
-const UserLayout = lazy(() => import('./pages/User/layouts/UserLayout'))
-const Profile = lazy(() => import('./pages/User/pages/Profile'))
-const WishList = lazy(() => import('./pages/User/pages/WishList'))
-const Inventory = lazy(() => import('./pages/User/pages/Inventory'))
-const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
+// const UserLayout = lazy(() => import('./pages/User/layouts/UserLayout'))
+// const Profile = lazy(() => import('./pages/User/pages/Profile'))
+// const WishList = lazy(() => import('./pages/User/pages/WishList'))
+// const Inventory = lazy(() => import('./pages/User/pages/Inventory'))
+// const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
+import UserLayout from './pages/User/layouts/UserLayout'
+import Profile from './pages/User/pages/Profile'
+import WishList from './pages/User/pages/WishList'
+import Inventory from './pages/User/pages/Inventory'
+import ChangePassword from './pages/User/pages/ChangePassword'
 
 //? IMPORT PASSWORD RECOVERY
-const RequestPasswordRecovery = lazy(() => import('./pages/PasswordRecovery/RequestPasswordRecovery'))
-const ChangePasswordRecovery = lazy(() => import('./pages/PasswordRecovery/ChangePasswordRecovery'))
+// const RequestPasswordRecovery = lazy(() => import('./pages/PasswordRecovery/RequestPasswordRecovery'))
+// const ChangePasswordRecovery = lazy(() => import('./pages/PasswordRecovery/ChangePasswordRecovery'))
+import RequestPasswordRecovery from './pages/PasswordRecovery/RequestPasswordRecovery'
+import ChangePasswordRecovery from './pages/PasswordRecovery/ChangePasswordRecovery'
 
 //? IMPORT ORDER COMPONENTS
-const OrderLayout = lazy(() => import('./pages/Order/layouts/OrderLayout'))
-const ShippingInfor = lazy(() => import('./pages/Order/pages/ShippingInfor'))
-const Payment = lazy(() => import('./pages/Order/pages/Payment'))
+// const OrderLayout = lazy(() => import('./pages/Order/layouts/OrderLayout'))
+// const ShippingInfor = lazy(() => import('./pages/Order/pages/ShippingInfor'))
+// const Payment = lazy(() => import('./pages/Order/pages/Payment'))
+import OrderLayout from './pages/Order/layouts/OrderLayout'
+import ShippingInfor from './pages/Order/pages/ShippingInfor'
+import Payment from './pages/Order/pages/Payment'
 
 //? IMPORT ADMIN COMPONENTS
-const AdminLayout = lazy(() => import('./pages/Admin/layouts/AdminLayout'))
-const AdminCreateItem = lazy(() => import('./pages/Admin/pages/AdminCreateItem'))
-const AdminAddItemColor = lazy(() => import('./pages/Admin/pages/AdminAddItemColor'))
-const AdminMainPage = lazy(() => import('./pages/Admin/pages/AdminMainPage'))
-const AdminCreatingPage = lazy(() => import('./pages/Admin/pages/AdminCreatingPage'))
-const AdminUploadItemAvatar = lazy(() => import('./pages/Admin/pages/AdminUploadItemAvatar'))
-const AdminUpdatingPage = lazy(() => import('./pages/Admin/pages/AdminUpdatingPage'))
-const AdminSetDefaultItem = lazy(() => import('./pages/Admin/pages/AdminSetDefaultItem'))
-const AdminAddItemImage = lazy(() => import('./pages/Admin/pages/AdminAddItemImage'))
-const AdminImagesPage = lazy(() => import('./pages/Admin/pages/AdminImagesPage'))
-const AdminUpdateItem = lazy(() => import('./pages/Admin/pages/AdminUpdateItem'))
-const AdminDeleteItemImage = lazy(() => import('./pages/Admin/pages/AdminDeleteItemImage'))
-const AdminDeleteItem = lazy(() => import('./pages/Admin/pages/AdminDeleteItem'))
-const AdminDeleteGroup = lazy(() => import('./pages/Admin/pages/AdminDeleteGroup'))
+import AdminLayout from './pages/Admin/layouts/AdminLayout'
+import AdminCreateItem from './pages/Admin/pages/AdminCreateItem'
+import AdminAddItemColor from './pages/Admin/pages/AdminAddItemColor'
+import AdminMainPage from './pages/Admin/pages/AdminMainPage'
+import AdminCreatingPage from './pages/Admin/pages/AdminCreatingPage'
+import AdminUploadItemAvatar from './pages/Admin/pages/AdminUploadItemAvatar'
+import AdminUpdatingPage from './pages/Admin/pages/AdminUpdatingPage'
+import AdminSetDefaultItem from './pages/Admin/pages/AdminSetDefaultItem'
+import AdminAddItemImage from './pages/Admin/pages/AdminAddItemImage'
+import AdminImagesPage from './pages/Admin/pages/AdminImagesPage'
+import AdminUpdateItem from './pages/Admin/pages/AdminUpdateItem'
+import AdminDeleteItemImage from './pages/Admin/pages/AdminDeleteItemImage'
+import AdminDeleteItem from './pages/Admin/pages/AdminDeleteItem'
+import AdminDeleteGroup from './pages/Admin/pages/AdminDeleteGroup'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -59,7 +79,8 @@ function ProtectedRoute() {
 function AdminRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
   const isAdmin = profile?.role === 'admin'
-  return isAuthenticated && isAdmin ? <Outlet /> : <Navigate to={path.home} />
+  return <Outlet />
+  // return isAuthenticated && isAdmin ? <Outlet /> : <Navigate to={path.home} />
 }
 
 function OrderRoute() {

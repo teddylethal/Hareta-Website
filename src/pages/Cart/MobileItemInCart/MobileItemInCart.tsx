@@ -8,7 +8,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-const QuantityController = React.lazy(() => import('src/components/QuantityController'))
+
+import QuantityController from 'src/components/QuantityController'
 
 interface Props {
   purchase: ExtendsPurchase

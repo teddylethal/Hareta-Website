@@ -43,25 +43,25 @@ interface UpdateItemAvatarForm {
 
 export const adminItemGroupApi = {
   getItemGroups() {
-    return http.get<ItemGroupList>(`${URL}/group-item`)
+    return http.get<ItemGroupList>(`${URL}/group-item/`)
   },
   createItemGroup(body: { name: string }) {
-    return http.post<SuccessRespone<ItemGroup>>(`${URL}/group-item`, body)
+    return http.post<SuccessRespone<ItemGroup>>(`${URL}/group-item/`, body)
   },
   updateItemGroup(id: string, name: string) {
     return http.put<SuccessRespone<string>>(`${URL}/group-item`, { id: id, name: name })
   },
   deleteItemGroup(body: { id: string }) {
-    return http.delete(`${URL}/group-item`, { data: body })
+    return http.delete(`${URL}/group-item/`, { data: body })
   }
 }
 
 export const adminItemApi = {
   createNewItem(body: NewItemForm) {
-    return http.post(`${URL}/item`, body)
+    return http.post(`${URL}/item/`, body)
   },
   updateItem(body: UpdateItemForm) {
-    return http.put<SuccessRespone<string>>(`${URL}/item/`, body)
+    return http.put<SuccessRespone<string>>(`${URL}/item`, body)
   },
   setDefaultItem(body: { id: string }) {
     return http.put<SuccessRespone<string>>(`${URL}/item/default`, body)
@@ -74,19 +74,19 @@ export const adminItemApi = {
     })
   },
   deleteItem(body: { id: string }) {
-    return http.delete(`${URL}/item`, { data: body })
+    return http.delete(`${URL}/item/`, { data: body })
   }
 }
 
 export const adminItemImageApi = {
   addImage(body: UpdateItemAvatarForm) {
-    return http.post<SuccessRespone<string>>(`/item-image`, body, {
+    return http.post<SuccessRespone<string>>(`/item-image/`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
   },
   deleteImage(body: { id: string }) {
-    return http.delete(`/item-image`, { data: body })
+    return http.delete(`/item-image/`, { data: body })
   }
 }

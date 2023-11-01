@@ -18,7 +18,7 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import EditProfile from './EditProfile'
 import { useViewport } from 'src/hooks/useViewport'
 import moment from 'moment'
-const ProfileLoading = React.lazy(() => import('./ProfileLoading'))
+import ProfileLoading from './ProfileLoading'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
 

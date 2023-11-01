@@ -6,7 +6,8 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import classNames from 'classnames'
-const QuantityController = React.lazy(() => import('src/components/QuantityController'))
+
+import QuantityController from 'src/components/QuantityController'
 
 interface Props {
   extendedTempPurchases: ExtendedTemporaryPurchase[]
