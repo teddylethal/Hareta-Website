@@ -61,7 +61,7 @@ export const adminItemApi = {
     return http.post(`${URL}/item/`, body)
   },
   updateItem(body: UpdateItemForm) {
-    return http.put<SuccessRespone<string>>(`${URL}/item`, body)
+    return http.put<SuccessRespone<string>>(`${URL}/item/`, body)
   },
   setDefaultItem(body: { id: string }) {
     return http.put<SuccessRespone<string>>(`${URL}/item/default`, body)

@@ -1,10 +1,10 @@
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import EventCarousel from './components/EventCarousel'
 import NewReleaseCarousel from './components/NewReleaseCarousel'
-import SignatureItemCarousel from './components/SignatureItemCarousel'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { ProductListConfig } from 'src/types/product.type'
+import TopSellerItems from './components/TopSellerItems'
 
 export default function Home() {
   //? GET PRODUCT LIST
@@ -20,14 +20,14 @@ export default function Home() {
   const itemList = itemListData?.data.data || []
 
   return (
-    <div className='space-y-20'>
+    <div className='bg-lightBg duration-500 dark:bg-darkBg'>
       <EventCarousel />
-      <div className='bg-lightBg py-2 duration-500 dark:bg-darkBg lg:py-3 xl:py-4'>
-        <div className='container'>
-          <div className='space-y-12'>
-            <NewReleaseCarousel itemList={itemList} />
-            <SignatureItemCarousel />
-          </div>
+      <div className='container'>
+        <div className='my-10 xl:my-14'>
+          <NewReleaseCarousel itemList={itemList} />
+        </div>
+        <div className='my-10 xl:my-14'>
+          <TopSellerItems />
         </div>
       </div>
     </div>
