@@ -21,7 +21,7 @@ export default function EventCarouselItem() {
   const showedItems = itemList.length > ITEMSHOW ? itemList.slice(0, ITEMSHOW) : itemList
 
   return (
-    <div className='grid grid-cols-12 gap-4 bg-[#dfdfdf] px-8 py-6 text-textDark dark:bg-[#202020] dark:text-textLight xl:gap-6 xl:px-10 xl:py-8'>
+    <div className='grid grid-cols-12 gap-4 bg-[#dfdfdf] px-8 py-6 text-textDark dark:bg-[#202020] dark:text-textLight xl:gap-6 xl:px-10 xl:py-12'>
       <div className='col-span-7'>
         <div className='foont-bold text-lg uppercase text-brownColor dark:text-haretaColor lg:text-2xl xl:text-4xl'>
           Mild winter

@@ -4,7 +4,6 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
-import EmptyProductList from '../EmptyProductList'
 
 interface Props {
   queryConfig: QueryConfig
@@ -86,7 +85,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       })
   }
 
-  if (totalPage === 0) return <EmptyProductList />
+  if (totalPage === 0) return
   return (
     <div className='mt-6 flex flex-wrap items-center justify-center'>
       {currentPage > 1 ? (

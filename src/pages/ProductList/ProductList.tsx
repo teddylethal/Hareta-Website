@@ -19,6 +19,7 @@ import ProductListSkeleton from './ProductListSkeleton'
 import ActiveFiltering from './Mobile/ActiveFiltering'
 import PathBar from 'src/components/PathBar'
 import { StoreContext } from 'src/contexts/store.context'
+import EmptyProductList from 'src/components/EmptyProductList'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
@@ -29,6 +30,7 @@ export default function ProductList() {
 
   const queryConfig = useQueryConfig()
 
+  //? GET PRODUCT LIST
   const { data: storeData, isFetching } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
@@ -81,6 +83,7 @@ export default function ProductList() {
             </div>
             <div className='col-start-4 col-end-13'>
               {(isFetching || !storeData) && <ProductListSkeleton />}
+              {storeData?.data.paging.total == 0 && <EmptyProductList />}
               {storeData && (
                 <div className=''>
                   <div className='grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6'>

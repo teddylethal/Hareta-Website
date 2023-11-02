@@ -2,6 +2,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@tanstack/react-query'
 import Carousel from 'react-multi-carousel'
+import { DotProps } from 'react-multi-carousel/lib/types'
 import productApi from 'src/apis/product.api'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import Product from 'src/pages/ProductList/Product'
@@ -10,6 +11,7 @@ import EventCarouselItem from '../EventCarouselItem'
 import React from 'react'
 import classNames from 'classnames'
 import './style.css'
+import CustomDotsCarousel from '../CustomeDotsCarousel'
 
 export default function EventCarousel() {
   const responsive = {
@@ -52,24 +54,14 @@ export default function EventCarousel() {
   }
 
   //? CUSTOM DOT
+  const CustomDots = ({ active, onClick }: DotProps) => {
+    return (
+      <button onClick={() => (onClick ? onClick() : {})}>
+        <CustomDotsCarousel active={active} />
+      </button>
+    )
+  }
   const eventList = Array(4).fill(0)
-  // eslint-disable-next-line react/prop-types
-  // const CustomDot = ({ index, onClick, active }) => {
-  //   return (
-  //     <button
-  //       onClick={(e) => {
-  //         onClick()
-  //         e.preventDefault()
-  //       }}
-  //       className={classNames('', {
-  //         'custom-dot--active': active,
-  //         'border-none outline-none': !active
-  //       })}
-  //     >
-  //       {React.Children.toArray(eventList)[index]}
-  //     </button>
-  //   )
-  // }
 
   return (
     <div>
@@ -77,7 +69,7 @@ export default function EventCarousel() {
         showDots
         dotListClass='custom-dot-list-style'
         className='dark:bg-vintageColor/80'
-        // customDot={<CustomDot onClick={undefined} index={undefined} active={undefined} />}
+        customDot={<CustomDots />}
         responsive={responsive}
         autoPlaySpeed={5000}
         infinite={true}
