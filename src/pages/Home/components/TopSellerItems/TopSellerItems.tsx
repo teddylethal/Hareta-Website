@@ -6,6 +6,7 @@ import Product from 'src/pages/ProductList/Product'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import Carousel from 'react-multi-carousel'
 import classNames from 'classnames'
+import { CarouselProps } from 'react-multi-carousel/lib/types'
 
 const LIMIT = 4
 const responsive = {
@@ -123,9 +124,6 @@ export default function TopSellerItems() {
                 // showDots
                 arrows={false}
                 responsive={responsive}
-                autoPlaySpeed={5000}
-                infinite={true}
-                autoPlay={true}
                 transitionDuration={500}
                 centerMode
               >

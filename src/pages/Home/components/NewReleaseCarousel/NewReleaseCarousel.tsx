@@ -74,7 +74,7 @@ export default function NewReleaseCarousel() {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronLeft}
-                  className='text-primary-400 absolute left-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/20 p-2 text-textDark/60 duration-300 hover:bg-black/40 hover:text-textDark dark:bg-white/20 dark:text-textLight/60 dark:hover:bg-white/40 dark:hover:text-textLight md:left-4 md:h-4 md:w-4 md:hover:h-5 md:hover:w-5 xl:h-8 xl:w-8 xl:hover:h-10 xl:hover:w-10'
+                  className='text-primary-400 absolute left-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/10 p-2 text-textDark/60 duration-300 hover:bg-black/20 hover:text-textDark dark:bg-white/10 dark:text-textLight/60 dark:hover:bg-white/20 dark:hover:text-textLight md:left-4 md:h-4 md:w-4 md:hover:h-5 md:hover:w-5 xl:h-8 xl:w-8 xl:hover:h-10 xl:hover:w-10'
                 />
               </ArrowFix>
             }
@@ -82,7 +82,7 @@ export default function NewReleaseCarousel() {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronRight}
-                  className='text-primary-400 absolute right-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/20 p-2 text-textDark/60 duration-300 hover:bg-black/40 hover:text-textDark dark:bg-white/20 dark:text-textLight/60 dark:hover:bg-white/40 dark:hover:text-textLight md:right-4 md:h-4 md:w-4 md:hover:h-5 md:hover:w-5 xl:h-8 xl:w-8 xl:hover:h-10 xl:hover:w-10'
+                  className='text-primary-400 absolute right-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/10 p-2 text-textDark/60 duration-300 hover:bg-black/20 hover:text-textDark dark:bg-white/10 dark:text-textLight/60 dark:hover:bg-white/20 dark:hover:text-textLight md:right-4 md:h-4 md:w-4 md:hover:h-5 md:hover:w-5 xl:h-8 xl:w-8 xl:hover:h-10 xl:hover:w-10'
                 />
               </ArrowFix>
             }

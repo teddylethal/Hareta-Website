@@ -23,8 +23,9 @@ export default function AdminItemsInGroup() {
         page: '1',
         limit: '50'
       }),
+    enabled: Boolean(itemGroup),
     keepPreviousData: true,
-    enabled: Boolean(itemGroup)
+    staleTime: 60000 * 3
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 

@@ -10,6 +10,8 @@ import { useViewport } from 'src/hooks/useViewport'
 import { Product as ProductType } from 'src/types/product.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 
+const LIMIT = 5
+
 interface Props {
   product: ProductType
   dragging: boolean
@@ -30,7 +32,7 @@ export default function NewReleaseItem({ product, dragging }: Props) {
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data || []
-  const displayImages = imageList?.length > 4 ? imageList.slice(1, 4) : imageList.slice(1, imageList.length)
+  const displayImages = imageList?.length > LIMIT ? imageList.slice(1, LIMIT) : imageList.slice(1, imageList.length)
 
   //? HANDLE ENTER ITEM
   const navigate = useNavigate()
@@ -53,7 +55,11 @@ export default function NewReleaseItem({ product, dragging }: Props) {
           <div className='relative w-full bg-[#dfdfdf] pt-[80%] dark:bg-[#282828]'>
             <div className='absolute left-0 top-0 h-full w-full'>
               {avatarUrl ? (
-                <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
+                <img
+                  src={avatarUrl}
+                  alt={product.name}
+                  className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
+                />
               ) : (
                 <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
                   <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
@@ -105,11 +111,11 @@ export default function NewReleaseItem({ product, dragging }: Props) {
                     displayImages.map((image) => {
                       return (
                         <div className='col-span-1' key={image.id}>
-                          <div className='rouded-lg relative w-full overflow-hidden pt-[100%]'>
+                          <div className='relative w-full overflow-hidden pt-[100%]'>
                             <img
                               src={image.image ? image.image.url : ''}
                               alt={product.name}
-                              className='absolute left-0 top-0 h-full w-full object-scale-down'
+                              className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
                             />
                           </div>
                         </div>
