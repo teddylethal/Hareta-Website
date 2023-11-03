@@ -6,9 +6,13 @@ import { ProductImage } from 'src/types/productImage.type'
 interface Props {
   imageList: ProductImage[]
   isLoading?: boolean
+  customClassname?: string
 }
 
-export default function ImageDisplayCarousel({ imageList }: Props) {
+export default function ImageDisplayCarousel({
+  imageList,
+  customClassname = 'relative left-0 top-0 w-full pt-[75%]'
+}: Props) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -43,7 +47,7 @@ export default function ImageDisplayCarousel({ imageList }: Props) {
         const imageURL = image.image ? image.image.url : null
         // const imageURL = null
         return (
-          <div className='relative left-0 top-0 w-full pt-[75%]' key={image.id}>
+          <div className={customClassname} key={image.id}>
             {imageURL ? (
               <img src={imageURL} alt={image.color} className='absolute left-0 top-0 h-full w-full object-cover' />
             ) : (

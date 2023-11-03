@@ -64,11 +64,10 @@ export default function EventCarousel() {
   const eventList = Array(4).fill(0)
 
   return (
-    <div>
+    <div className='bg-[#dfdfdf] dark:bg-[#202020]'>
       <Carousel
         showDots
         dotListClass='custom-dot-list-style'
-        className='dark:bg-vintageColor/80'
         customDot={<CustomDots />}
         responsive={responsive}
         autoPlaySpeed={5000}

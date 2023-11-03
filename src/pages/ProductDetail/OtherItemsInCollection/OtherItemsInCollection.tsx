@@ -34,6 +34,8 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
       items: 1
     }
   }
+
+  //? GET ITEMS IN COLLECTION
   const inCollectionQueryConfig: QueryConfig = { collection: collectionName, page: '1', limit: '12' }
   const { data: productsData, isLoading } = useQuery({
     queryKey: ['products_in_collection', inCollectionQueryConfig],

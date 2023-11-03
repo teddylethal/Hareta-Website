@@ -12,9 +12,10 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 
 interface Props {
   product: ProductType
+  dragging: boolean
 }
 
-export default function NewReleaseItem({ product }: Props) {
+export default function NewReleaseItem({ product, dragging }: Props) {
   //? IS MOBILE
   const viewPort = useViewport()
   const isMobile = viewPort.width < 768
@@ -41,8 +42,11 @@ export default function NewReleaseItem({ product }: Props) {
 
   return (
     <button
-      className='w-full items-start rounded-lg text-left hover:bg-black/5 dark:hover:bg-white/5'
-      onClick={handleClickItem}
+      className='w-full cursor-grab items-start rounded-lg text-left hover:bg-black/5 dark:hover:bg-white/5'
+      onClick={(e) => {
+        if (dragging) e.preventDefault()
+        else handleClickItem()
+      }}
     >
       <div className='grid w-full grid-cols-2 gap-2 p-4 md:grid-cols-3 md:px-8 md:py-6 lg:py-8 xl:gap-4 xl:px-12 xl:py-10'>
         <div className='col-span-1'>
@@ -61,7 +65,7 @@ export default function NewReleaseItem({ product }: Props) {
         <div className='col-span-1 md:col-span-2'>
           <div className='flex h-full flex-col justify-between pl-2 sm:pl-8 lg:pl-10 xl:pl-14'>
             <div className='flex flex-col justify-between space-y-2 overflow-hidden'>
-              <p className='h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor lg:text-xl xl:text-3xl'>
+              <p className='h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-textDark duration-500 dark:text-textLight lg:text-xl xl:text-3xl'>
                 {product.name}
               </p>
               {product.tag !== 0 && (

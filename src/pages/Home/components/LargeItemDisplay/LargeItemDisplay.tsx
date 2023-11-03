@@ -1,7 +1,7 @@
 import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import {} from '@fortawesome/free-regular-svg-icons'
-import { Product as ProductType } from 'src/types/product.type'
-import { memo, useContext, useEffect, useState } from 'react'
+import { Product } from 'src/types/product.type'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,7 +28,7 @@ export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction
 }
 
 interface Props {
-  product: ProductType
+  product: Product
   initialLoading?: boolean
 }
 
@@ -36,23 +36,21 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
   const { setWishlistIDs, wishlistIDs } = useContext(StoreContext)
 
-  // const initialInWishlist = wishlistIDs.includes(product.id)
-
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [isLikedByUser, setIsLikedByUser] = useState<boolean>(false)
   const [initialInWishlist, setInitialInWishlist] = useState<boolean>(false)
 
   useEffect(() => {
-    setIsLikedByUser(wishlistIDs.includes(product.id))
-  }, [product.id, wishlistIDs])
+    if (product) setIsLikedByUser(wishlistIDs.includes(product.id))
+  }, [product, product.id, wishlistIDs])
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!initialLoading) {
+    if (!initialLoading && product) {
       setInitialInWishlist(wishlistIDs.includes(product.id))
     }
-  }, [initialLoading, product.id, wishlistIDs])
+  }, [initialLoading, product, product.id, wishlistIDs])
 
   //? GET IMAGE LIST
   const itemID = product.id
@@ -128,22 +126,16 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
 
   return (
     <div
-      className='flex w-full items-center justify-center pb-0 pt-2 duration-500 md:hover:pb-2 md:hover:pt-0'
+      className='flex h-full w-full items-center justify-center pb-0 pt-2 duration-500 md:hover:pb-2 md:hover:pt-0'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
-      <div className='relative  w-full overflow-hidden rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
+      <div className='relative h-full w-full overflow-hidden rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
         {hoveringImage && (
-          <div className='relative bg-[#dfdfdf] dark:bg-[#282828]'>
-            <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
-            <button className='absolute inset-0' onClick={handleClickItem}></button>
-          </div>
-        )}
-        {!hoveringImage && (
-          <div className='relative w-full bg-[#dfdfdf] pt-[75%] dark:bg-[#282828]'>
+          <div className='relative h-min w-full bg-[#dfdfdf] dark:bg-[#282828]'>
             <div className='absolute left-0 top-0 h-full w-full'>
               {avatarUrl ? (
-                <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
+                <img src={avatarUrl} alt={product.name} className=' w-full object-cover' />
               ) : (
                 <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
                   <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
@@ -152,7 +144,24 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
             </div>
           </div>
         )}
-        <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
+        {!hoveringImage && (
+          <div className='w-full bg-[#dfdfdf] dark:bg-[#282828]'>
+            <div className='relative w-full'>
+              {avatarUrl ? (
+                <img
+                  src={avatarUrl}
+                  alt={product.name}
+                  className='absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 '
+                />
+              ) : (
+                <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
+                  <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
           <button
             className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
             onClick={handleClickItem}
@@ -163,7 +172,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
           <span className='text-xs font-medium text-brownColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
             ${formatCurrency(product.price)}
           </span>
-        </div>
+        </div> */}
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
             <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
