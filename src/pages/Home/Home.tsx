@@ -4,7 +4,7 @@ import NewReleaseCarousel from './components/NewReleaseCarousel'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { ProductListConfig } from 'src/types/product.type'
-import TopSellerItems from './components/TopSellerItems'
+import TopSellerCarousel from './components/TopSellerCarousel'
 
 export default function Home() {
   // //? GET PRODUCT LIST
@@ -26,7 +26,7 @@ export default function Home() {
         <NewReleaseCarousel />
       </div>
       <div className='my-10 xl:my-14'>
-        <TopSellerItems />
+        <TopSellerCarousel />
       </div>
     </div>
   )
