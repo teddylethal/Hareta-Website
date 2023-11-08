@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { ProductListConfig } from 'src/types/product.type'
 import TopSellerCarousel from './components/TopSellerCarousel'
+import FavouriteItem from './components/FavouriteItem'
+import { useEffect } from 'react'
 
 export default function Home() {
   // //? GET PRODUCT LIST
@@ -19,14 +21,22 @@ export default function Home() {
   // })
   // const itemList = itemListData?.data.data || []
 
+  //? CHANGE TITLE
+  useEffect(() => {
+    document.title = 'Hareta Workshop'
+  })
+
   return (
-    <div className='bg-lightBg duration-500 dark:bg-darkBg'>
+    <div className='bg-lightBg duration-300 dark:bg-darkBg'>
       <EventCarousel />
       <div className='my-10 xl:my-14'>
         <NewReleaseCarousel />
       </div>
       <div className='my-10 xl:my-14'>
         <TopSellerCarousel />
+      </div>
+      <div className='my-10 xl:my-16'>
+        <FavouriteItem />
       </div>
     </div>
   )

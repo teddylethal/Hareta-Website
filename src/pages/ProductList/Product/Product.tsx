@@ -30,9 +30,10 @@ export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction
 interface Props {
   product: ProductType
   initialLoading?: boolean
+  disableClick?: boolean
 }
 
-function Product({ product, initialLoading }: Props) {
+function Product({ product, initialLoading, disableClick = false }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
   const { setWishlistIDs, wishlistIDs } = useContext(StoreContext)
 
@@ -84,9 +85,13 @@ function Product({ product, initialLoading }: Props) {
 
   //? HANDLE ENTER ITEM
   const queryClient = useQueryClient()
-  const handleClickItem = () => {
-    navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
-    queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+  const handleClickItem = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (disableClick) {
+      event.preventDefault()
+    } else {
+      navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+      queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+    }
   }
 
   //? HANDLE LIKE ITEM

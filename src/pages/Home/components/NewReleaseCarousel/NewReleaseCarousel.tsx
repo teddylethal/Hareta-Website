@@ -1,11 +1,13 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Carousel from 'react-multi-carousel'
+import Carousel, { DotProps } from 'react-multi-carousel'
 import NewReleaseItem from '../NewReleaseItem'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { useState } from 'react'
+import classNames from 'classnames'
+import { toArray } from 'lodash'
 
 const IsNewReleased = 86400 * 1000 * 30
 const date = new Date()
@@ -51,15 +53,42 @@ export default function NewReleaseCarousel() {
 
   const newRelaseList = itemList.filter((item) => date.getTime() - new Date(item.created_at).getTime() <= IsNewReleased)
 
+  //? CUSTOM DOTS
+  const dots = newRelaseList.map((item) => <div className='' key={item.id}></div>)
+  const CustomDot = ({ index, onClick, active }: DotProps) => {
+    return (
+      <button
+        onClick={(e) => {
+          onClick && onClick()
+          e.preventDefault()
+        }}
+        className='py-2'
+      >
+        <div
+          className={classNames('mx-0.5 h-1 w-8 rounded-md  duration-500', {
+            ' bg-haretaColor': active,
+            ' bg-haretaColor/40': !active
+          })}
+        >
+          {toArray(dots)[index as number]}
+        </div>
+      </button>
+    )
+  }
+
   return (
     <div className='container'>
       <div className='text-textDark duration-500 dark:text-textLight'>
         <div className='w-full text-center'>
-          <p className='text-2xl font-bold uppercase text-sunYellow lg:text-4xl xl:text-5xl'>new release</p>
+          <p className='text-2xl font-bold uppercase text-haretaColor/80 dark:text-sunYellow lg:text-4xl xl:text-5xl'>
+            new release
+          </p>
         </div>
-        <div className='mt-4 lg:mt-6 xl:mt-8'>
+        <div className='relative mt-4 pb-8 lg:mt-6 xl:mt-8'>
           <Carousel
-            // showDots
+            showDots
+            renderDotsOutside
+            customDot={<CustomDot />}
             beforeChange={() => setDragging(true)}
             afterChange={() => setDragging(false)}
             responsive={responsive}

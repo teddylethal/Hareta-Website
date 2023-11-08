@@ -61,7 +61,7 @@ export default function EventCarousel() {
   const eventList = Array(4).fill(0)
 
   return (
-    <div className='bg-[#dfdfdf] dark:bg-[#202020]'>
+    <div className='bg-[#f8f8f8] dark:bg-[#282828]'>
       <Carousel
         showDots
         dotListClass='custom-dot-list-style'
