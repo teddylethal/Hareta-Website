@@ -9,14 +9,19 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { useViewport } from 'src/hooks/useViewport'
 import Product from 'src/pages/ProductList/Product'
 import ProductSekeleton from 'src/pages/ProductList/ProductSkeleton'
 
-const LIMIT = 8
+const DESKTOP_LIMIT = 8
+const MOBILE_LIMIT = 4
 
 export default function FavouriteItem() {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
+
+  const viewPort = useViewport()
+  const isMobile = viewPort.width < 768
 
   //? GET WISHLIST
   const { data: wishlistData, isInitialLoading } = useQuery({
@@ -35,14 +40,15 @@ export default function FavouriteItem() {
   }, [setWishlistIDs, wishlistData])
 
   //? GET FAVOURTIE ITEMS
-  const itemsConfig: QueryConfig = { limit: String(LIMIT) }
+  const itemsConfig: QueryConfig = { limit: String(DESKTOP_LIMIT) }
   const { data: itemsData, isFetched } = useQuery({
     queryKey: ['favourtie_items', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
     }
   })
-  const displayedItems = itemsData?.data.data || []
+  const itemList = itemsData?.data.data || []
+  const displayedItems = isMobile ? itemList.slice(0, MOBILE_LIMIT) : itemList.slice(0, DESKTOP_LIMIT)
 
   //? HANDLE NAVIGATE
   const navigate = useNavigate()
@@ -69,12 +75,12 @@ export default function FavouriteItem() {
               className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-haretaColor hover:font-medium hover:text-textDark dark:border-white/60 dark:hover:border-transparent md:gap-3 md:text-base xl:text-lg'
               onClick={handleNavigate}
             >
-              <p className='uppercase'>explore</p>
+              {!isMobile && <p className='uppercase'>explore</p>}
               <FontAwesomeIcon icon={faAnglesRight} />
             </button>
           </div>
           <div className='px-2 md:px-8 xl:px-12'>
-            <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 xl:grid-cols-4 xl:gap-6'>
+            <div className='grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-4 xl:grid-cols-4 xl:gap-6'>
               {!isFetched &&
                 Array(8)
                   .fill(0)
