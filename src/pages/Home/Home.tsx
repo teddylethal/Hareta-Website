@@ -12,17 +12,6 @@ export default function Home() {
   const viewport = useViewport()
   const height = viewport.height
   const [pageIsLoading, setPageIsLoading] = useState<boolean>(true)
-  // //? GET PRODUCT LIST
-  // const queryConfig = useQueryConfig()
-  // const { data: itemListData, isFetching } = useQuery({
-  //   queryKey: ['items', queryConfig],
-  //   queryFn: () => {
-  //     return productApi.getProductList(queryConfig as ProductListConfig)
-  //   },
-  //   keepPreviousData: true,
-  //   staleTime: 3 * 60 * 1000
-  // })
-  // const itemList = itemListData?.data.data || []
 
   //? CHANGE TITLE
   useEffect(() => {
