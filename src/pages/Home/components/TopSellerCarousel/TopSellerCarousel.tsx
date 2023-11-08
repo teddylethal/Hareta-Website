@@ -17,13 +17,21 @@ import path from 'src/constants/path'
 
 const LIMIT = 10
 
-export default function TopSellerCarousel() {
+interface Props {
+  setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function TopSellerCarousel({ setPageIsLoading }: Props) {
   const [disableClick, setDisableClick] = useState<boolean>(false)
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
   //? GET WISHLIST
-  const { data: wishlistData, isInitialLoading } = useQuery({
+  const {
+    data: wishlistData,
+    isInitialLoading,
+    isLoading
+  } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
       return likeItemAPi.getWishList()
@@ -37,6 +45,9 @@ export default function TopSellerCarousel() {
       setWishlistIDs(wishlist.map((item) => item.id))
     }
   }, [setWishlistIDs, wishlistData])
+
+  //? SET LOADING PAGE
+  useEffect(() => setPageIsLoading(isLoading), [isLoading, setPageIsLoading])
 
   //? GET TOP SELLER ITEMS
   const itemsConfig: QueryConfig = { tag: '1', limit: String(LIMIT) }

@@ -5,11 +5,15 @@ import NewReleaseItem from '../NewReleaseItem'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { toArray } from 'lodash'
 
-const IsNewReleased = 86400 * 1000 * 30
+interface Props {
+  setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const IsNewReleased = 86400 * 1000 * 1
 const date = new Date()
 const responsive = {
   superLargeDesktop: {
@@ -38,12 +42,12 @@ const ArrowFix = (arrowProps: any) => {
   return <span {...restArrowProps}>{children}</span>
 }
 
-export default function NewReleaseCarousel() {
+export default function NewReleaseCarousel({ setPageIsLoading }: Props) {
   const [dragging, setDragging] = useState<boolean>(false)
 
   //? GET ITEMS
   const itemsConfig: QueryConfig = {}
-  const { data: itemsData } = useQuery({
+  const { data: itemsData, isLoading } = useQuery({
     queryKey: ['new_release_items', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
@@ -52,6 +56,9 @@ export default function NewReleaseCarousel() {
   const itemList = itemsData?.data.data || []
 
   const newRelaseList = itemList.filter((item) => date.getTime() - new Date(item.created_at).getTime() <= IsNewReleased)
+
+  //? SET LOADING PAGE
+  useEffect(() => setPageIsLoading(isLoading), [isLoading, setPageIsLoading])
 
   //? CUSTOM DOTS
   const dots = newRelaseList.map((item) => <div className='' key={item.id}></div>)

@@ -16,7 +16,11 @@ import ProductSekeleton from 'src/pages/ProductList/ProductSkeleton'
 const DESKTOP_LIMIT = 8
 const MOBILE_LIMIT = 4
 
-export default function FavouriteItem() {
+interface Props {
+  setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function MostFavouriteList({ setPageIsLoading }: Props) {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
@@ -41,7 +45,11 @@ export default function FavouriteItem() {
 
   //? GET FAVOURTIE ITEMS
   const itemsConfig: QueryConfig = { limit: String(DESKTOP_LIMIT) }
-  const { data: itemsData, isFetched } = useQuery({
+  const {
+    data: itemsData,
+    isFetched,
+    isLoading
+  } = useQuery({
     queryKey: ['favourtie_items', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
@@ -49,6 +57,9 @@ export default function FavouriteItem() {
   })
   const itemList = itemsData?.data.data || []
   const displayedItems = isMobile ? itemList.slice(0, MOBILE_LIMIT) : itemList.slice(0, DESKTOP_LIMIT)
+
+  //? SET LOADING PAGE
+  useEffect(() => setPageIsLoading(isLoading), [isLoading, setPageIsLoading])
 
   //? HANDLE NAVIGATE
   const navigate = useNavigate()
