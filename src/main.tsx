@@ -11,6 +11,7 @@ import { StoreProvider } from './contexts/store.context'
 import { CartProvider } from './contexts/cart.context'
 import ScrollToTop from './ScrollToTop'
 import { OrderProvider } from './contexts/order.context'
+import ErrorBoundary from './components/ErrorBoundary'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <AppProvider>
               <CartProvider>
                 <OrderProvider>
-                  <App />
+                  <ErrorBoundary>
+                    <App />
+                  </ErrorBoundary>
                 </OrderProvider>
               </CartProvider>
             </AppProvider>
