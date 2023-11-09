@@ -70,6 +70,7 @@ import AdminUpdateItem from './pages/Admin/pages/AdminUpdateItem'
 import AdminDeleteItemImage from './pages/Admin/pages/AdminDeleteItemImage'
 import AdminDeleteItem from './pages/Admin/pages/AdminDeleteItem'
 import AdminDeleteGroup from './pages/Admin/pages/AdminDeleteGroup'
+import NotFound from './pages/NotFound'
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -339,6 +340,14 @@ export default function useRouteElements() {
       element: (
         <MainLayout>
           <Cart />
+        </MainLayout>
+      )
+    },
+    {
+      path: '*',
+      element: (
+        <MainLayout>
+          <NotFound />
         </MainLayout>
       )
     }
