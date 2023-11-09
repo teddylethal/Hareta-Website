@@ -1,76 +1,58 @@
-import { useContext } from 'react'
+import { useContext, lazy, Suspense } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import { AppContext } from './contexts/app.context'
 import path, { adminPath } from './constants/path'
 import { OrderContext } from './contexts/order.context'
-import Landing from './pages/Landing'
+
+import NotFound from './pages/NotFound'
+import PageIsLoading from './components/PageIsLoading'
 
 //? IMPORT LAYOUTS
-// const RegisterLayout = lazy(() => import('./layouts/RegisterLayout'))
-// const MainLayout = lazy(() => import('./layouts/MainLayout'))
 import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
+import AdminLayout from './pages/Admin/layouts/AdminLayout'
 
 //? IMPORT MAIN PAGES
-// const Login = lazy(() => import('./pages/Login'))
-// const Register = lazy(() => import('./pages/Register'))
-// const ProductList = lazy(() => import('./pages/ProductList'))
-// const Cart = lazy(() => import('./pages/Cart'))
-// const Home = lazy(() => import('./pages/Home'))
-// const ProductDetail = lazy(() => import('./pages/ProductDetail'))
-// const VerifyEmail = lazy(() => import('./pages/VerifyEmail'))
-// const RequestVerifyEmail = lazy(() => import('./pages/RequestVerifyEmail'))
-import Login from './pages/Login'
-import Register from './pages/Register'
 import ProductList from './pages/ProductList'
-import Cart from './pages/Cart'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
-import VerifyEmail from './pages/VerifyEmail'
-import RequestVerifyEmail from './pages/RequestVerifyEmail'
+import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
+const Cart = lazy(() => import('./pages/Cart'))
 
 //? IMPORT USER COMPONENTS
-// const UserLayout = lazy(() => import('./pages/User/layouts/UserLayout'))
-// const Profile = lazy(() => import('./pages/User/pages/Profile'))
-// const WishList = lazy(() => import('./pages/User/pages/WishList'))
-// const Inventory = lazy(() => import('./pages/User/pages/Inventory'))
-// const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
-import UserLayout from './pages/User/layouts/UserLayout'
-import Profile from './pages/User/pages/Profile'
-import WishList from './pages/User/pages/WishList'
-import Inventory from './pages/User/pages/Inventory'
-import ChangePassword from './pages/User/pages/ChangePassword'
+const UserLayout = lazy(() => import('./pages/User/layouts/UserLayout'))
+const Profile = lazy(() => import('./pages/User/pages/Profile'))
+const WishList = lazy(() => import('./pages/User/pages/WishList'))
+const Inventory = lazy(() => import('./pages/User/pages/Inventory'))
+const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
 
-//? IMPORT PASSWORD RECOVERY
-// const RequestPasswordRecovery = lazy(() => import('./pages/PasswordRecovery/RequestPasswordRecovery'))
-// const ChangePasswordRecovery = lazy(() => import('./pages/PasswordRecovery/ChangePasswordRecovery'))
-import RequestPasswordRecovery from './pages/PasswordRecovery/RequestPasswordRecovery'
-import ChangePasswordRecovery from './pages/PasswordRecovery/ChangePasswordRecovery'
+//? IMPORT LOGIN/REGISTER COMPONENTS
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
+const VerifyEmail = lazy(() => import('./pages/VerifyEmail'))
+const RequestVerifyEmail = lazy(() => import('./pages/RequestVerifyEmail'))
+const RequestPasswordRecovery = lazy(() => import('./pages/PasswordRecovery/RequestPasswordRecovery'))
+const ChangePasswordRecovery = lazy(() => import('./pages/PasswordRecovery/ChangePasswordRecovery'))
 
 //? IMPORT ORDER COMPONENTS
-// const OrderLayout = lazy(() => import('./pages/Order/layouts/OrderLayout'))
-// const ShippingInfor = lazy(() => import('./pages/Order/pages/ShippingInfor'))
-// const Payment = lazy(() => import('./pages/Order/pages/Payment'))
-import OrderLayout from './pages/Order/layouts/OrderLayout'
-import ShippingInfor from './pages/Order/pages/ShippingInfor'
-import Payment from './pages/Order/pages/Payment'
+const OrderLayout = lazy(() => import('./pages/Order/layouts/OrderLayout'))
+const ShippingInfor = lazy(() => import('./pages/Order/pages/ShippingInfor'))
+const Payment = lazy(() => import('./pages/Order/pages/Payment'))
 
 //? IMPORT ADMIN COMPONENTS
-import AdminLayout from './pages/Admin/layouts/AdminLayout'
-import AdminCreateItem from './pages/Admin/pages/AdminCreateItem'
-import AdminAddItemColor from './pages/Admin/pages/AdminAddItemColor'
-import AdminMainPage from './pages/Admin/pages/AdminMainPage'
-import AdminCreatingPage from './pages/Admin/pages/AdminCreatingPage'
-import AdminUploadItemAvatar from './pages/Admin/pages/AdminUploadItemAvatar'
-import AdminUpdatingPage from './pages/Admin/pages/AdminUpdatingPage'
-import AdminSetDefaultItem from './pages/Admin/pages/AdminSetDefaultItem'
-import AdminAddItemImage from './pages/Admin/pages/AdminAddItemImage'
-import AdminImagesPage from './pages/Admin/pages/AdminImagesPage'
-import AdminUpdateItem from './pages/Admin/pages/AdminUpdateItem'
-import AdminDeleteItemImage from './pages/Admin/pages/AdminDeleteItemImage'
-import AdminDeleteItem from './pages/Admin/pages/AdminDeleteItem'
-import AdminDeleteGroup from './pages/Admin/pages/AdminDeleteGroup'
-import NotFound from './pages/NotFound'
+const AdminCreateItem = lazy(() => import('./pages/Admin/pages/AdminCreateItem'))
+const AdminAddItemColor = lazy(() => import('./pages/Admin/pages/AdminAddItemColor'))
+const AdminMainPage = lazy(() => import('./pages/Admin/pages/AdminMainPage'))
+const AdminCreatingPage = lazy(() => import('./pages/Admin/pages/AdminCreatingPage'))
+const AdminUploadItemAvatar = lazy(() => import('./pages/Admin/pages/AdminUploadItemAvatar'))
+const AdminUpdatingPage = lazy(() => import('./pages/Admin/pages/AdminUpdatingPage'))
+const AdminSetDefaultItem = lazy(() => import('./pages/Admin/pages/AdminSetDefaultItem'))
+const AdminAddItemImage = lazy(() => import('./pages/Admin/pages/AdminAddItemImage'))
+const AdminUpdateItem = lazy(() => import('./pages/Admin/pages/AdminUpdateItem'))
+const AdminImagesPage = lazy(() => import('./pages/Admin/pages/AdminImagesPage'))
+const AdminDeleteItemImage = lazy(() => import('./pages/Admin/pages/AdminDeleteItemImage'))
+const AdminDeleteItem = lazy(() => import('./pages/Admin/pages/AdminDeleteItem'))
+const AdminDeleteGroup = lazy(() => import('./pages/Admin/pages/AdminDeleteGroup'))
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -80,21 +62,36 @@ function ProtectedRoute() {
 function AdminRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
   const isAdmin = profile?.role === 'admin'
-  return <Outlet />
-  // return isAuthenticated && isAdmin ? <Outlet /> : <Navigate to={path.home} />
+  return isAuthenticated && isAdmin ? (
+    <AdminLayout>
+      <Suspense fallback={<PageIsLoading />}>
+        <Outlet />
+      </Suspense>
+    </AdminLayout>
+  ) : (
+    <Navigate to={path.home} />
+  )
 }
 
 function OrderRoute() {
   const { orderList, tempOrderList } = useContext(OrderContext)
   const accpeted = orderList.length > 0 || tempOrderList.length > 0
-  return accpeted ? <Outlet /> : <Navigate to={path.home} />
+  return accpeted ? (
+    <Suspense fallback={<PageIsLoading />}>
+      <Outlet />
+    </Suspense>
+  ) : (
+    <Navigate to={path.home} />
+  )
 }
 
 function RejectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? (
     <RegisterLayout>
-      <Outlet />
+      <Suspense fallback={<PageIsLoading />}>
+        <Outlet />
+      </Suspense>
     </RegisterLayout>
   ) : (
     <Navigate to='/' />
@@ -142,7 +139,9 @@ export default function useRouteElements() {
           path: path.user,
           element: (
             <MainLayout>
-              <UserLayout />
+              <Suspense fallback={<LoadingWithEmptyContent />}>
+                <UserLayout />
+              </Suspense>
             </MainLayout>
           ),
           children: [
@@ -172,107 +171,55 @@ export default function useRouteElements() {
       children: [
         {
           path: adminPath.mainPage,
-          element: (
-            <AdminLayout>
-              <AdminMainPage />
-            </AdminLayout>
-          )
+          element: <AdminMainPage />
         },
         {
           path: adminPath.creatingPage,
-          element: (
-            <AdminLayout>
-              <AdminCreatingPage />
-            </AdminLayout>
-          )
+          element: <AdminCreatingPage />
         },
         {
           path: adminPath.createItem,
-          element: (
-            <AdminLayout>
-              <AdminCreateItem />
-            </AdminLayout>
-          )
+          element: <AdminCreateItem />
         },
         {
           path: adminPath.addItemColor,
-          element: (
-            <AdminLayout>
-              <AdminAddItemColor />
-            </AdminLayout>
-          )
+          element: <AdminAddItemColor />
         },
         {
           path: adminPath.updatingPage,
-          element: (
-            <AdminLayout>
-              <AdminUpdatingPage />
-            </AdminLayout>
-          )
+          element: <AdminUpdatingPage />
         },
         {
           path: adminPath.setDefaultItem,
-          element: (
-            <AdminLayout>
-              <AdminSetDefaultItem />
-            </AdminLayout>
-          )
+          element: <AdminSetDefaultItem />
         },
         {
           path: adminPath.uploadItemAvatar,
-          element: (
-            <AdminLayout>
-              <AdminUploadItemAvatar />
-            </AdminLayout>
-          )
+          element: <AdminUploadItemAvatar />
         },
         {
           path: adminPath.updateItem,
-          element: (
-            <AdminLayout>
-              <AdminUpdateItem />
-            </AdminLayout>
-          )
+          element: <AdminUpdateItem />
         },
         {
           path: adminPath.images,
-          element: (
-            <AdminLayout>
-              <AdminImagesPage />
-            </AdminLayout>
-          )
+          element: <AdminImagesPage />
         },
         {
           path: adminPath.addItemImage,
-          element: (
-            <AdminLayout>
-              <AdminAddItemImage />
-            </AdminLayout>
-          )
+          element: <AdminAddItemImage />
         },
         {
           path: adminPath.deleteItemImage,
-          element: (
-            <AdminLayout>
-              <AdminDeleteItemImage />
-            </AdminLayout>
-          )
+          element: <AdminDeleteItemImage />
         },
         {
           path: adminPath.deleteItem,
-          element: (
-            <AdminLayout>
-              <AdminDeleteItem />
-            </AdminLayout>
-          )
+          element: <AdminDeleteItem />
         },
         {
           path: adminPath.deleteGroup,
-          element: (
-            <AdminLayout>
-              <AdminDeleteGroup />
-            </AdminLayout>
-          )
+          element: <AdminDeleteGroup />
         }
       ]
     },
@@ -310,15 +257,6 @@ export default function useRouteElements() {
         </MainLayout>
       )
     },
-
-    {
-      path: '/landing',
-      element: (
-        <MainLayout>
-          <Landing />
-        </MainLayout>
-      )
-    },
     {
       path: path.store,
       element: (
@@ -339,7 +277,9 @@ export default function useRouteElements() {
       path: path.cart,
       element: (
         <MainLayout>
-          <Cart />
+          <Suspense fallback={<PageIsLoading />}>
+            <Cart />
+          </Suspense>
         </MainLayout>
       )
     },

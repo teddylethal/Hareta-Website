@@ -8,10 +8,10 @@ export default function PageIsLoading() {
     <FloatingOverlay lockScroll>
       <Fragment>
         <motion.div
-          className='fixed inset-0 z-10 bg-black'
+          className='fixed inset-0 z-10 bg-black dark:bg-black'
           initial={{ opacity: 0 }}
           animate={{
-            opacity: 0.2
+            opacity: 0.8
           }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
@@ -32,7 +32,7 @@ export default function PageIsLoading() {
             ariaLabel='blocks-loading'
             wrapperStyle={{}}
             wrapperClass='blocks-wrapper'
-            colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
+            colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
           />
         </motion.div>
       </Fragment>
