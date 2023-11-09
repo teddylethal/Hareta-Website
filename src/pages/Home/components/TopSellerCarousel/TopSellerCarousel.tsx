@@ -14,6 +14,7 @@ import { StoreContext } from 'src/contexts/store.context'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
+import { useTranslation } from 'react-i18next'
 
 const LIMIT = 10
 
@@ -118,20 +119,23 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
     }
   }
 
+  //? Translation
+  const { t } = useTranslation('home')
+
   return (
     <div className='bg-[#f8f8f8] text-textDark duration-500 dark:bg-[#282828] dark:text-textLight'>
       <div className='container'>
         <div className='py-4 md:py-8 lg:py-10 xl:py-12'>
           <div className='flex items-center justify-between'>
             <p className='w-full select-none py-2 text-left text-2xl font-bold uppercase lg:text-4xl xl:text-5xl'>
-              Top seller
+              {t('top seller')}
             </p>
             {displayedItems.length >= 3 && (
               <button
                 className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-haretaColor hover:font-medium hover:text-textDark dark:border-white/60 dark:hover:border-transparent md:gap-3 md:text-base xl:text-lg'
                 onClick={handleNavigate}
               >
-                <p className='uppercase'>explore</p>
+                <p className='truncate uppercase'>{t('explore')}</p>
                 <FontAwesomeIcon icon={faAnglesRight} />
               </button>
             )}

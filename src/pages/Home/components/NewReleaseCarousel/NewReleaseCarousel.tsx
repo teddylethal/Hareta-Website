@@ -8,6 +8,7 @@ import productApi from 'src/apis/product.api'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import toArray from 'lodash/toArray'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -83,12 +84,15 @@ export default function NewReleaseCarousel({ setPageIsLoading }: Props) {
     )
   }
 
+  //? Translation
+  const { t } = useTranslation('home')
+
   return (
     <div className='container'>
       <div className='text-textDark duration-500 dark:text-textLight'>
         <div className='w-full text-center'>
           <p className='text-2xl font-bold uppercase text-haretaColor/80 dark:text-sunYellow lg:text-4xl xl:text-5xl'>
-            new release
+            {t('new release')}
           </p>
         </div>
         <div className='relative mt-4 pb-8 lg:mt-6 xl:mt-8'>

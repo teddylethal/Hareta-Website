@@ -2,6 +2,7 @@ import { faAnglesRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import likeItemAPi from 'src/apis/userLikeItem.api'
@@ -72,13 +73,16 @@ export default function MostFavouriteList({ setPageIsLoading }: Props) {
     })
   }
 
+  //? Translation
+  const { t } = useTranslation('home')
+
   return (
     <div className='text-textDark dark:text-textLight'>
       <div className='container'>
         <div className='relative rounded-xl border border-black/60 py-4 duration-300 dark:border-white/60 md:py-8 lg:py-10 xl:py-12'>
           <div className='absolute left-2 top-0 -translate-y-1/2 bg-lightBg duration-300 dark:bg-darkBg md:left-4 xl:left-8'>
             <p className='py-2 text-left text-2xl font-bold uppercase text-haretaColor/80 dark:text-sunYellow lg:text-4xl xl:text-5xl'>
-              Most favourite
+              {t('most favourite')}
             </p>
           </div>
           <div className='absolute right-2 top-0 -translate-y-1/2 bg-lightBg duration-300 dark:bg-darkBg md:right-4 xl:right-8'>
@@ -86,7 +90,7 @@ export default function MostFavouriteList({ setPageIsLoading }: Props) {
               className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-haretaColor hover:font-medium hover:text-textDark dark:border-white/60 dark:hover:border-transparent md:gap-3 md:text-base xl:text-lg'
               onClick={handleNavigate}
             >
-              {!isMobile && <p className='uppercase'>explore</p>}
+              {!isMobile && <p className='truncate uppercase'>{t('explore')}</p>}
               <FontAwesomeIcon icon={faAnglesRight} />
             </button>
           </div>
