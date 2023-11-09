@@ -1,16 +1,20 @@
 import { faDiscord, faFacebook, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 
 export default function MobileFooter() {
+  //? Translation
+  const { t } = useTranslation('footer')
+
   return (
     <div className='w-full bg-[#efefef] pb-14 duration-500 dark:bg-[#303030] sm:pb-16'>
       <div className='flex flex-col text-textDark/80 duration-500 dark:text-textLight/80'>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
-              Follow us
+              {t('follow us on')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
@@ -61,7 +65,7 @@ export default function MobileFooter() {
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
-              Our main office
+              {t('our main office')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
@@ -74,22 +78,22 @@ export default function MobileFooter() {
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
-              Support
+              {t('support')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs sm:px-4 sm:text-sm'>
-              <Link to={path.home}>FAQ</Link>
-              <Link to={path.home}>Policy and terms</Link>
-              <Link to={path.home}>Order tracking</Link>
+              <Link to={path.home}>{t('faq')}</Link>
+              <Link to={path.home}>{t('policy and terms')}</Link>
+              <Link to={path.home}>{t('order tracking')}</Link>
             </div>
           </div>
         </div>
         <div className='overflow-hidden border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
-              Contact
+              {t('contact')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/60 dark:border-white/60' /> */}
@@ -115,7 +119,7 @@ export default function MobileFooter() {
             </div>
           </div>
           <div className=' mt-4 flex w-full items-center justify-center text-xs text-textDark/60 dark:text-textLight/60 lg:text-sm'>
-            Copyright © 2023 Hareta Workshop. All rights reserved
+            {t('coppyright')}
           </div>
         </div>
       </div>

@@ -3,11 +3,13 @@ import { initReactI18next } from 'react-i18next'
 
 //? ENGLISH
 import HEADER_EN from 'src/locales/en/header.json'
+import FOOTER_EN from 'src/locales/en/footer.json'
 import HOME_EN from 'src/locales/en/home.json'
 import STORE_EN from 'src/locales/en/store.json'
 
 //? VIETNAMESE
 import HEADER_VI from 'src/locales/vi/header.json'
+import FOOTER_VI from 'src/locales/vi/footer.json'
 import HOME_VI from 'src/locales/vi/home.json'
 import STORE_VI from 'src/locales/vi/store.json'
 
@@ -22,11 +24,13 @@ export const locales = {
 export const resources = {
   en: {
     header: HEADER_EN,
+    footer: FOOTER_EN,
     home: HOME_EN,
     store: STORE_EN
   },
   vi: {
     header: HEADER_VI,
+    footer: FOOTER_VI,
     home: HOME_VI,
     store: STORE_VI
   }
@@ -38,7 +42,7 @@ export const defaultNS = 'header'
 i18n.use(initReactI18next).init({
   resources,
   lng: 'en',
-  ns: ['header', 'home', 'store'],
+  ns: ['header', 'footer', 'home', 'store'],
   fallbackLng: 'en',
   defaultNS,
   interpolation: {

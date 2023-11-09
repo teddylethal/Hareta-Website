@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import MobileUser from '../MobileUser'
 import { AppContext } from 'src/contexts/app.context'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   className?: string
@@ -24,6 +25,9 @@ export default function MobileNav({ className }: Props) {
   const closeMenu = () => {
     setVisible(false)
   }
+
+  //? Translation
+  const { t } = useTranslation('header')
 
   return (
     <div className={className}>
@@ -69,7 +73,7 @@ export default function MobileNav({ className }: Props) {
                   className='w-full px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor'
                   onClick={closeMenu}
                 >
-                  <div>Store</div>
+                  <div>{t('navbar.store')}</div>
                 </Link>
 
                 <Link
@@ -77,7 +81,7 @@ export default function MobileNav({ className }: Props) {
                   className='w-full px-2 py-2 hover:text-brownColor dark:hover:text-haretaColor'
                   onClick={closeMenu}
                 >
-                  <div>Event</div>
+                  <div>{t('navbar.event')}</div>
                 </Link>
 
                 <div className='flex w-full flex-col items-center hover:text-haretaColor dark:hover:text-haretaColor'>
