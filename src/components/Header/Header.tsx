@@ -35,7 +35,7 @@ export default function Header() {
     <div className='top-0 z-10 flex h-10 w-full items-center bg-white duration-500 dark:bg-black md:h-12 lg:h-16'>
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center text-black duration-500  dark:text-white'>
-          <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase lg:space-x-4 lg:text-lg'>
+          <nav className='col-span-1 flex items-center justify-start space-x-2 text-base font-medium uppercase md:font-semibold lg:space-x-4 lg:text-lg'>
             <NavLink to={path.home}>
               <img src='/images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
             </NavLink>
@@ -61,7 +61,7 @@ export default function Header() {
             <SupportNav />
           </nav>
 
-          <div className='col-span-1 flex grow select-none justify-center text-xs text-haretaColor md:text-sm lg:text-base'>
+          <div className='col-span-1 flex grow select-none justify-center text-xs text-haretaColor md:text-sm md:font-semibold lg:text-base'>
             <h2>Decor your life with us</h2>
           </div>
 
@@ -69,7 +69,7 @@ export default function Header() {
             {!isAuthenticated && (
               <Link
                 to={path.login}
-                className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-brownColor dark:hover:text-haretaColor'
+                className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-brownColor dark:hover:text-haretaColor md:font-semibold'
               >
                 <FontAwesomeIcon icon={faUser} />
 
