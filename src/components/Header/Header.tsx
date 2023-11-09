@@ -33,7 +33,7 @@ export default function Header() {
   const { isAuthenticated } = useContext(AppContext)
 
   const viewPort = useViewport()
-  const isMobile = viewPort.width <= 768
+  const isMobile = viewPort.width < 768
 
   return (
     <div className='top-0 z-10 flex h-10 w-full items-center bg-white duration-300 dark:bg-black md:h-12 lg:h-16'>

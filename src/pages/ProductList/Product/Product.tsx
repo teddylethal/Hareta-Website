@@ -137,7 +137,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
-      <div className='relative  w-full overflow-hidden rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
+      <div className='relative w-full overflow-hidden rounded-xl bg-white pb-4 duration-500 dark:bg-[#303030]'>
         {hoveringImage && (
           <div className='relative bg-[#dfdfdf] dark:bg-[#282828]'>
             <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />

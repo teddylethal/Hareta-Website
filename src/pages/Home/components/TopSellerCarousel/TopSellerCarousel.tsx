@@ -159,7 +159,7 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
                 <Carousel
                   beforeChange={() => setDisableClick(true)}
                   afterChange={() => setDisableClick(false)}
-                  className='cursor-grab overflow-hidden'
+                  className='overflow-hidden'
                   showDots
                   renderDotsOutside
                   autoPlay

@@ -1,26 +1,24 @@
 import Popover from 'src/components/Popover'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import path from 'src/constants/path'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { Fragment, useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
+import { useTranslation } from 'react-i18next'
 
 export default function CartPopoverWithoutLogin() {
   const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
-
-  const navigate = useNavigate()
-
-  const handleBuyItem = () => {
-    navigate('profile')
-  }
 
   const handleRemove = (purchaseIndex: number) => () => {
     const purchaseId = tempExtendedPurchase[purchaseIndex].id
     const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
     setTempExtendedPurchase(newPurchaseList)
   }
+
+  //? Use translation
+  const { t } = useTranslation('header')
 
   return (
     <div className='rounded-lg bg-vintageColor hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
@@ -30,7 +28,7 @@ export default function CartPopoverWithoutLogin() {
           <div className='relative -top-1 w-[360px] rounded-md bg-[#efefef] py-2 text-sm text-textDark shadow-md dark:bg-[#202020] dark:text-textLight lg:top-0'>
             <Fragment>
               <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
-                {tempExtendedPurchase.length} items in cart
+                {tempExtendedPurchase.length} {t('cart button.items in cart')}
               </div>
               <div className='m-2 overflow-auto rounded-md bg-[#f8f8f8] outline outline-1 outline-black/10 dark:bg-[#101010] dark:outline-white/10'>
                 {tempExtendedPurchase.length > 0 ? (
@@ -69,17 +67,17 @@ export default function CartPopoverWithoutLogin() {
                             <span className='text-xs capitalize text-textDark/60 dark:text-textLight/60 lg:text-sm'>{`(${purchase.item.color})`}</span>
 
                             <div className='flex space-x-3'>
-                              <button
+                              {/* <button
                                 className='text-sm text-textDark/60  hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
                                 onClick={handleBuyItem}
                               >
                                 Buy
-                              </button>
+                              </button> */}
                               <button
                                 className='text-sm text-textDark/60  dark:text-textLight/60 '
                                 onClick={handleRemove(index)}
                               >
-                                Remove
+                                {t('cart button.remove')}
                               </button>
                             </div>
                           </div>
@@ -98,12 +96,12 @@ export default function CartPopoverWithoutLogin() {
             <div className='mx-3 mb-2 mt-4 flex items-center justify-between'>
               <Link to={path.store}>
                 <button className='justify-self-start rounded-md bg-vintageColor/90 px-4 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/70'>
-                  Store
+                  {t('cart button.store')}
                 </button>
               </Link>
               <Link to={path.cart}>
                 <button className='justify-self-start rounded-md bg-vintageColor/90 px-4 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/70'>
-                  Enter Cart
+                  {t('cart button.enter cart')}
                 </button>
               </Link>
             </div>

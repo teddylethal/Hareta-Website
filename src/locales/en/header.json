@@ -3,5 +3,19 @@
     "store": "Store",
     "event": "Event",
     "support": "Support"
+  },
+  "support": {
+    "about us": "about us",
+    "privacy & terms": "privacy & terms",
+    "faq": "faq",
+    "contact us": "contact us",
+    "order tracking": "order tracking"
+  },
+  "cart button": {
+    "items in cart": "items in cart",
+    "buy": "buy",
+    "remove": "remove",
+    "store": "store",
+    "enter cart": "enter cart"
   }
 }

@@ -3,5 +3,19 @@
     "store": "Cửa hàng",
     "event": "Sự kiện",
     "support": "Hỗ trợ"
+  },
+  "support": {
+    "about us": "giới thiệu",
+    "privacy & terms": "chính sách & điều khoản",
+    "faq": "hỏi đáp",
+    "contact us": "liên hệ",
+    "order tracking": "tra cứu đơn hàng"
+  },
+  "cart button": {
+    "items in cart": "sản phẩm trong giỏ hàng",
+    "buy": "mua",
+    "remove": "xóa",
+    "store": "cửa hàng",
+    "enter cart": "giỏ hàng"
   }
 }

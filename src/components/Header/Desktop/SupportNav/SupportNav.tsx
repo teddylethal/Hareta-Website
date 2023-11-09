@@ -1,6 +1,7 @@
 import FloatingOnClick from 'src/components/FoatingOnClick'
 import SupportPopover from './SupportPopover'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function SupportNav() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -8,17 +9,24 @@ export default function SupportNav() {
     setIsOpen(!isOpen)
   }
 
+  const closePopover = () => {
+    setIsOpen(false)
+  }
+
+  //? Use translation
+  const { t } = useTranslation('header')
+
   return (
     <div className='group '>
       <FloatingOnClick
-        renderPopover={<SupportPopover />}
+        renderPopover={<SupportPopover closePopover={closePopover} />}
         className='flex cursor-default select-none items-center space-x-0.5 p-1 text-textDark duration-500  dark:text-textLight'
         isOpen={isOpen}
         handleClick={handleClick}
         openChange={setIsOpen}
       >
         <div className='z-10 flex items-center  group-hover:text-brownColor dark:group-hover:text-haretaColor '>
-          <p>Support</p>
+          <p>{t('navbar.support')}</p>
           {isOpen && (
             <svg
               xmlns='http://www.w3.org/2000/svg'

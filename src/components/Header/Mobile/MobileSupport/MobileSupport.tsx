@@ -4,9 +4,17 @@ import { Link } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
 import classNames from 'classnames'
 import ChangeLanguage from 'src/components/ChangeLanguage'
+import { useTranslation } from 'react-i18next'
 
 export default function MobileSupport() {
   const { visible, setVisible, ref } = useClickOutside(false)
+
+  const closeExtend = () => {
+    setVisible(false)
+  }
+
+  //? Use translation
+  const { t } = useTranslation('header')
 
   return (
     <div ref={ref} className='w-full'>
@@ -17,7 +25,7 @@ export default function MobileSupport() {
         })}
         onClick={() => setVisible(!visible)}
       >
-        <span>Support</span>
+        <span>{t('navbar.support')}</span>
         {visible && (
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' className='h-6 w-6'>
             <path
@@ -52,22 +60,22 @@ export default function MobileSupport() {
               // transition={{ duration: 0.3 }}
             >
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                About us
+                {t('support.about us')}
               </Link>
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                Privacy & Terms
+                {t('support.privacy & terms')}
               </Link>
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                FAQ
+                {t('support.faq')}
               </Link>
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                Contact us
+                {t('support.contact us')}
               </Link>
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
-                Order tracking
+                {t('support.order tracking')}
               </Link>
               <div className='hover:text-haretaColor dark:hover:text-haretaColor'>
-                <ChangeLanguage />
+                <ChangeLanguage closePopover={closeExtend} />
               </div>
             </motion.div>
           )}

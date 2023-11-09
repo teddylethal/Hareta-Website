@@ -5,11 +5,16 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { locales } from 'src/i18n/i18n'
 
-export default function ChangeLanguage() {
+interface Props {
+  closePopover: () => void
+}
+
+export default function ChangeLanguage({ closePopover }: Props) {
   //? Change language
   const { i18n } = useTranslation()
   const currentLanguage = locales[i18n.language as keyof typeof locales]
   const changeLanguage = (lng: 'en' | 'vi') => {
+    closePopover()
     i18n.changeLanguage(lng)
   }
 
