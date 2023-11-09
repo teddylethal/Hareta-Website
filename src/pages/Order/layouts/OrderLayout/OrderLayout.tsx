@@ -141,7 +141,7 @@ export default function OrderLayout() {
           pathList={[
             { pathName: 'home', url: '/' },
             { pathName: 'cart', url: '/cart' },
-            { pathName: 'order', url: '/order/shipping-information' }
+            { pathName: 'order', url: '/order' }
           ]}
         />
         <FormProvider {...methods}>

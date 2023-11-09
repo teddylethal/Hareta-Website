@@ -64,7 +64,7 @@ function AdminRoute() {
   const isAdmin = profile?.role === 'admin'
   return isAuthenticated && isAdmin ? (
     <AdminLayout>
-      <Suspense fallback={<PageIsLoading />}>
+      <Suspense fallback={<LoadingWithEmptyContent />}>
         <Outlet />
       </Suspense>
     </AdminLayout>
@@ -77,7 +77,7 @@ function OrderRoute() {
   const { orderList, tempOrderList } = useContext(OrderContext)
   const accpeted = orderList.length > 0 || tempOrderList.length > 0
   return accpeted ? (
-    <Suspense fallback={<PageIsLoading />}>
+    <Suspense fallback={<LoadingWithEmptyContent />}>
       <Outlet />
     </Suspense>
   ) : (
@@ -277,7 +277,7 @@ export default function useRouteElements() {
       path: path.cart,
       element: (
         <MainLayout>
-          <Suspense fallback={<PageIsLoading />}>
+          <Suspense fallback={<LoadingWithEmptyContent />}>
             <Cart />
           </Suspense>
         </MainLayout>
