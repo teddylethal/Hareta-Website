@@ -2,19 +2,21 @@ import classNames from 'classnames'
 import { useFormContext } from 'react-hook-form'
 import Input from 'src/components/Input'
 import { OrderSchema } from 'src/utils/rules'
-import { useContext } from 'react'
-import SelectCountry from '../../components/SelectCountry'
-import SelectState from '../../components/SelectState'
-import SelectCity from '../../components/SelectCity'
+import { lazy, useContext } from 'react'
 import { OrderContext } from 'src/contexts/order.context'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 
+const SelectCountry = lazy(() => import('../../components/SelectCountry'))
+const SelectState = lazy(() => import('../../components/SelectState'))
+// import SelectCountry from '../../components/SelectCountry'
+// import SelectState from '../../components/SelectState'
+
 type FormData = OrderSchema
 
 export default function ShippingInfor() {
-  const { noneCity, noneState } = useContext(OrderContext)
+  const { noneState } = useContext(OrderContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -100,13 +102,12 @@ export default function ShippingInfor() {
             </div>
           </div>
           <div className='mt-2'>
-            <SelectCountry />
             <div className='mt-4 grid grid-cols-2 gap-3 lg:gap-4 xl:gap-6'>
               <div className='col-span-1'>
-                <SelectState isError={noneState} />
+                <SelectCountry />
               </div>
               <div className='col-span-1'>
-                <SelectCity isError={noneCity} />
+                <SelectState isError={noneState} />
               </div>
             </div>
           </div>
