@@ -1,14 +1,13 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useQuery } from '@tanstack/react-query'
 import Carousel from 'react-multi-carousel'
 import { DotProps } from 'react-multi-carousel/lib/types'
-import productApi from 'src/apis/product.api'
-import useQueryConfig from 'src/hooks/useQueryConfig'
-import { ProductListConfig } from 'src/types/product.type'
 import EventCarouselItem from '../EventCarouselItem'
-import './style.css'
 import CustomDotsCarousel from '../CustomeDotsCarousel'
+// import { useQuery } from '@tanstack/react-query'
+// import productApi from 'src/apis/product.api'
+// import useQueryConfig from 'src/hooks/useQueryConfig'
+// import { ProductListConfig } from 'src/types/product.type'
 
 export default function EventCarousel() {
   const responsive = {
@@ -31,16 +30,16 @@ export default function EventCarousel() {
   }
 
   //? GET STORE DATA
-  const queryConfig = useQueryConfig()
-  const { data: storeData, isFetching } = useQuery({
-    queryKey: ['items', queryConfig],
-    queryFn: () => {
-      return productApi.getProductList(queryConfig as ProductListConfig)
-    },
-    keepPreviousData: true,
-    staleTime: 3 * 60 * 1000
-  })
-  const itemList = storeData?.data.data || []
+  // const queryConfig = useQueryConfig()
+  // const { data: storeData, isFetching } = useQuery({
+  //   queryKey: ['items', queryConfig],
+  //   queryFn: () => {
+  //     return productApi.getProductList(queryConfig as ProductListConfig)
+  //   },
+  //   keepPreviousData: true,
+  //   staleTime: 3 * 60 * 1000
+  // })
+  // const itemList = storeData?.data.data || []
 
   //? ARROW FIX FOR CAROUSEL
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

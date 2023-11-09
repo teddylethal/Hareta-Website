@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { toArray } from 'lodash'
+import toArray from 'lodash/toArray'
 
 interface Props {
   setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>

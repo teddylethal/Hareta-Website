@@ -4,7 +4,7 @@ import { ProductSchema, productSchema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 
 type FormData = ProductSchema
 

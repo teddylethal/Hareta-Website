@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import { createRef, useContext, useLayoutEffect, useRef, useState } from 'react'
-
 import { Product } from 'src/types/product.type'
 import DOMPurify from 'dompurify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,7 +7,7 @@ import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 

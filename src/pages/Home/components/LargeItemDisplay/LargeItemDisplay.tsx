@@ -2,23 +2,17 @@ import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid
 import {} from '@fortawesome/free-regular-svg-icons'
 import { Product } from 'src/types/product.type'
 import { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { formatCurrency, generateNameId } from 'src/utils/utils'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import itemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
 
 import { AppContext } from 'src/contexts/app.context'
-import producImageApi from 'src/apis/productImage.api'
-import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
-import { ProductImage } from 'src/types/productImage.type'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { StoreContext } from 'src/contexts/store.context'
 
-const MAXLENGTH = 3
+// const MAXLENGTH = 3
 
 export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
   setIsOpen(true)
@@ -44,8 +38,6 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
     if (product) setIsLikedByUser(wishlistIDs.includes(product.id))
   }, [product, product.id, wishlistIDs])
 
-  const navigate = useNavigate()
-
   useEffect(() => {
     if (!initialLoading && product) {
       setInitialInWishlist(wishlistIDs.includes(product.id))
@@ -53,24 +45,24 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
   }, [initialLoading, product, product.id, wishlistIDs])
 
   //? GET IMAGE LIST
-  const itemID = product.id
-  const { data: imageListData, isLoading } = useQuery({
-    queryKey: ['default_item_images', itemID],
-    queryFn: () => producImageApi.getImageList(itemID as string),
-    keepPreviousData: true,
-    staleTime: 1000 * 60 * 3
-  })
-  const imageList = imageListData?.data.data
+  // const itemID = product.id
+  // const { data: imageListData, isLoading } = useQuery({
+  //   queryKey: ['default_item_images', itemID],
+  //   queryFn: () => producImageApi.getImageList(itemID as string),
+  //   keepPreviousData: true,
+  //   staleTime: 1000 * 60 * 3
+  // })
+  // const imageList = imageListData?.data.data
 
   //? HANDLE CHANGE IMAGE WHILE HOVERING
   const avatarUrl = product.avatar ? product.avatar.url : null
   const [hoveringImage, setHoveringImage] = useState<boolean>(false)
-  const [imageListCarousel, setImageListCarousel] = useState<ProductImage[]>([])
-  useEffect(() => {
-    if (imageList) {
-      setImageListCarousel(imageList.length > MAXLENGTH + 1 ? imageList?.slice(1, MAXLENGTH + 1) : imageList.slice(1))
-    }
-  }, [imageList])
+  // const [imageListCarousel, setImageListCarousel] = useState<ProductImage[]>([])
+  // useEffect(() => {
+  //   if (imageList) {
+  //     setImageListCarousel(imageList.length > MAXLENGTH + 1 ? imageList?.slice(1, MAXLENGTH + 1) : imageList.slice(1))
+  //   }
+  // }, [imageList])
 
   const handleHoveringImage = () => {
     setHoveringImage(true)
@@ -81,11 +73,11 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
   }
 
   //? HANDLE ENTER ITEM
-  const queryClient = useQueryClient()
-  const handleClickItem = () => {
-    navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
-    queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
-  }
+  // const queryClient = useQueryClient()
+  // const handleClickItem = () => {
+  //   navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+  //   queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+  // }
 
   //? HANDLE LIKE ITEM
   const likeItem = () => {

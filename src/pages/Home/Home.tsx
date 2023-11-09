@@ -2,7 +2,7 @@ import EventCarousel from './components/EventCarousel'
 import NewReleaseCarousel from './components/NewReleaseCarousel'
 import TopSellerCarousel from './components/TopSellerCarousel'
 import { Fragment, useEffect, useState } from 'react'
-import MostFavouriteList from './components/MostFavouriteList/FavouriteItem'
+import MostFavouriteList from './components/MostFavouriteList/MostFavouriteList'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 
 export default function Home() {

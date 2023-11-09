@@ -8,7 +8,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { Fragment, useContext, useEffect } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
-import { keyBy } from 'lodash'
+import keyBy from 'lodash/keyBy'
 import { AppContext } from 'src/contexts/app.context'
 import classNames from 'classnames'
 

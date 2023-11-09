@@ -10,7 +10,7 @@ import purchaseApi from 'src/apis/cart.api'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 
 import classNames from 'classnames'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { useViewport } from 'src/hooks/useViewport'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'

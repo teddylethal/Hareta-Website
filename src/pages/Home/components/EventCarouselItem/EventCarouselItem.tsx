@@ -9,7 +9,7 @@ const ITEMSHOW = 4 as const
 export default function EventCarouselItem() {
   //? GET STORE DATA
   const queryConfig = useQueryConfig()
-  const { data: storeData, isFetching } = useQuery({
+  const { data: storeData } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
