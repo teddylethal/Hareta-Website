@@ -20,6 +20,7 @@ import ActiveFiltering from './Mobile/ActiveFiltering'
 import PathBar from 'src/components/PathBar'
 import { StoreContext } from 'src/contexts/store.context'
 import EmptyProductList from 'src/components/EmptyProductList'
+import { useTranslation } from 'react-i18next'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
@@ -61,13 +62,16 @@ export default function ProductList() {
     document.title = 'Store | Hareta Workshop'
   })
 
+  //? TRANSLATION
+  const { t } = useTranslation('store')
+
   return (
     <div className='bg-lightBg py-2 duration-500 dark:bg-darkBg lg:py-3 xl:py-4'>
       <div className='container'>
         <PathBar
           pathList={[
-            { pathName: 'home', url: '/' },
-            { pathName: 'store', url: '/store' }
+            { pathName: t('path bar.home'), url: '/' },
+            { pathName: t('path bar.store'), url: '/store' }
           ]}
         />
 

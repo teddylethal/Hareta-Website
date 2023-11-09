@@ -1,4 +1,25 @@
 {
-  "search": "Search",
-  "sort_by": "Sort by"
+  "aside filter": {
+    "search": "Search",
+    "sort by": "Sort by",
+    "price": "price",
+    "from": "from",
+    "to": "to",
+    "apply": "apply",
+    "filter": "filter",
+    "category": "category",
+    "collection": "collection",
+    "type": "type",
+    "all": "all",
+    "clear": "clear",
+    "newest": "newest",
+    "top seller": "top seller",
+    "signature": "signature",
+    "favourite": "favourite",
+    "reset": "reset"
+  },
+  "path bar": {
+    "home": "home",
+    "store": "store"
+  }
 }

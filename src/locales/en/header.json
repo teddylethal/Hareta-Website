@@ -17,5 +17,11 @@
     "remove": "remove",
     "store": "store",
     "enter cart": "enter cart"
+  },
+  "user": {
+    "account": "Account",
+    "trade history": "Trade history",
+    "wishlist": "Wishlist",
+    "log out": "Log Out"
   }
 }

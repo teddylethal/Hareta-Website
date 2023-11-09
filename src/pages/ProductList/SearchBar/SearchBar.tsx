@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import omit from 'lodash/omit'
+import { useTranslation } from 'react-i18next'
 
 type FormData = ProductSchema
 
@@ -40,6 +41,9 @@ export default function SearchBar() {
     })
   })
 
+  //? TRANSLATION
+  const { t } = useTranslation('store')
+
   return (
     <div className='w-full'>
       <form
@@ -49,7 +53,7 @@ export default function SearchBar() {
         <input
           autoComplete='off'
           className='w-full rounded-md bg-transparent px-4 py-1 text-base text-textDark outline-none ring-1 ring-vintageColor/80 duration-500 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:text-textLight dark:caret-white dark:ring-haretaColor/80 dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg'
-          placeholder='Search'
+          placeholder={t('aside filter.search')}
           {...register('name')}
         />
         <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 duration-500 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>

@@ -12,6 +12,7 @@ import omit from 'lodash/omit'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   queryConfig: QueryConfig
@@ -82,6 +83,9 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
     }
   }
 
+  //? TRANSLATION
+  const { t } = useTranslation('store')
+
   return (
     <div
       className='overflow-hidden rounded-md bg-[#e8e8e8] p-2 outline outline-1 outline-black/20 duration-500 dark:bg-[#101010] dark:outline-white/20'
@@ -90,14 +94,14 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
       <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>
         <div
           className={classNames(
-            'flex items-center text-textDark/80 hover:text-brownColor dark:text-textLight/80 dark:hover:text-haretaColor',
+            'flex items-center capitalize text-textDark/80 hover:text-brownColor dark:text-textLight/80 dark:hover:text-haretaColor',
 
             {
               'mb-2': visible || type
             }
           )}
         >
-          Type
+          {t('aside filter.type')}
           {(!visible || !isOpening) && (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -163,7 +167,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
                 className='flex items-center justify-start px-2 py-1 capitalize hover:text-brownColor dark:hover:text-haretaColor'
                 onClick={handleChange}
               >
-                all
+                {t('aside filter.all')}
               </button>
               {data &&
                 data.data.data.map((name, index) => (

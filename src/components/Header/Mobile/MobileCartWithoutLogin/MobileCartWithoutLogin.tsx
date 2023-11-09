@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
+import { useTranslation } from 'react-i18next'
 
 export default function MobileCartWithoutLogin() {
   const { theme } = useContext(AppContext)
@@ -26,6 +27,10 @@ export default function MobileCartWithoutLogin() {
     const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
     setTempExtendedPurchase(newPurchaseList)
   }
+
+  //? Use translation
+  const { t } = useTranslation('header')
+
   return (
     <div>
       <button onClick={openCart} className='relative flex items-end text-textDark dark:text-textLight'>
@@ -80,7 +85,7 @@ export default function MobileCartWithoutLogin() {
 
               <div className=''>
                 <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
-                  {tempExtendedPurchase.length} items in cart
+                  {tempExtendedPurchase.length} {t('cart button.items in cart')}
                 </div>
                 <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#202020]'>
                   {tempExtendedPurchase.length > 0 ? (
@@ -122,7 +127,7 @@ export default function MobileCartWithoutLogin() {
                                 className='text-sm text-gray-500 hover:text-[#E76161] dark:text-gray-400 dark:hover:text-haretaColor'
                                 onClick={handleRemove(index)}
                               >
-                                Remove
+                                {t('cart button.remove')}
                               </button>
                             </div>
                           </div>
@@ -148,7 +153,7 @@ export default function MobileCartWithoutLogin() {
                     className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
-                    Store
+                    {t('cart button.store')}
                   </Link>
                 </div>
                 <div>
@@ -157,7 +162,7 @@ export default function MobileCartWithoutLogin() {
                     className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
-                    Cart
+                    {t('cart button.enter cart')}
                   </Link>
                 </div>
               </div>

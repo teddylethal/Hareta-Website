@@ -1,4 +1,25 @@
 {
-  "search": "Tìm kiếm",
-  "sort_by": "Sắp xếp theo"
+  "aside filter": {
+    "search": "Tìm kiếm",
+    "sort by": "xếp theo",
+    "price": "giá",
+    "from": "từ",
+    "to": "đến",
+    "apply": "áp dụng",
+    "filter": "bộ lọc",
+    "category": "hạng mục",
+    "collection": "bộ sưu tập",
+    "type": "loại",
+    "all": "tất cả",
+    "clear": "xóa bộ lọc",
+    "newest": "mới nhất",
+    "top seller": "bán chạy",
+    "signature": "signature",
+    "favourite": "yêu thích",
+    "reset": "hủy"
+  },
+  "path bar": {
+    "home": "Trang chủ",
+    "store": "Cửa hàng"
+  }
 }

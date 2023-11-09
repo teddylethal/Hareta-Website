@@ -8,6 +8,7 @@ import path from 'src/constants/path'
 import { clearLS } from 'src/utils/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   className?: string
@@ -23,6 +24,9 @@ export default function MobileUser({ className, closeMenu }: Props) {
     setIsAuthenticated(false)
     setVisible(false)
   }
+
+  //? TRANSLATION
+  const { t } = useTranslation('header')
 
   return (
     <div ref={ref}>
@@ -72,7 +76,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
               onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
-              <p>Account</p>
+              <p>{t('user.account')}</p>
             </Link>
 
             <Link
@@ -80,14 +84,14 @@ export default function MobileUser({ className, closeMenu }: Props) {
               onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
-              <p>Inventory</p>
+              <p>{t('user.trade history')}</p>
             </Link>
             <Link
               to={path.wishList}
               onClick={closeMenu}
               className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
-              <p>Wishlist</p>
+              <p>{t('user.wishlist')}</p>
             </Link>
 
             {/* <div className='my-1 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' /> */}
@@ -98,7 +102,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
               className='flex items-center justify-start space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
             >
               <FontAwesomeIcon icon={faRightFromBracket} />
-              <p>Log out</p>
+              <p>{t('user.log out')}</p>
             </button>
           </motion.div>
         )}

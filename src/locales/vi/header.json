@@ -17,5 +17,11 @@
     "remove": "xóa",
     "store": "cửa hàng",
     "enter cart": "giỏ hàng"
+  },
+  "user": {
+    "account": "Tài khoản",
+    "trade history": "Lịch sử mua hàng",
+    "wishlist": "Danh sách yêu thích",
+    "log out": "Đăng Xuất"
   }
 }

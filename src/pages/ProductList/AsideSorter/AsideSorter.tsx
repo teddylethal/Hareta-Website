@@ -10,6 +10,7 @@ import omit from 'lodash/omit'
 import path from 'src/constants/path'
 import ItemTag from 'src/constants/itemTag'
 import { AppContext } from 'src/contexts/app.context'
+import { useTranslation } from 'react-i18next'
 
 // interface Props {
 //   queryConfig: QueryConfig
@@ -71,14 +72,17 @@ export default function AsideSorter() {
     close()
   }
 
+  //? TRANSLATION
+  const { t } = useTranslation('store')
+
   return (
     <div
       className={classNames(
         'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-[#f8f8f8] px-3 py-2 text-base font-medium duration-500 dark:bg-[#202020] lg:text-lg'
       )}
     >
-      <p className='col-span-5 flex h-6 items-center text-left text-sm font-medium uppercase text-textDark duration-500 dark:text-textLight lg:h-7  lg:text-lg'>
-        Sort by:
+      <p className='col-span-5 flex h-6 items-center text-left text-xs font-medium uppercase text-textDark duration-500 dark:text-textLight lg:h-7 lg:text-base xl:text-lg'>
+        {t('aside filter.sort by')}
       </p>
       <div className='col-span-7 items-center' ref={ref}>
         <button
@@ -91,7 +95,7 @@ export default function AsideSorter() {
           )}
           onClick={toggleOpenClose}
         >
-          {tagEnum === 0 ? 'Newest' : ItemTag[tagEnum]}
+          {tagEnum === 0 ? t('aside filter.newest') : ItemTag[tagEnum]}
         </button>
         <AnimateChangeInHeight>
           {visible && isOpening && (
@@ -119,7 +123,7 @@ export default function AsideSorter() {
                       }
                     )}
                   >
-                    Newest
+                    {t('aside filter.newest')}
                   </button>
                 </li>
                 <li className='w-full'>
@@ -134,7 +138,7 @@ export default function AsideSorter() {
                       }
                     )}
                   >
-                    Top seller
+                    {t('aside filter.top seller')}
                   </button>
                 </li>
                 <li className='w-full'>
@@ -149,7 +153,7 @@ export default function AsideSorter() {
                       }
                     )}
                   >
-                    Signature
+                    {t('aside filter.signature')}
                   </button>
                 </li>
                 <li className='w-full'>
@@ -164,7 +168,7 @@ export default function AsideSorter() {
                       }
                     )}
                   >
-                    Favourite
+                    {t('aside filter.favourite')}
                   </button>
                 </li>
               </ul>

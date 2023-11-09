@@ -7,6 +7,7 @@ import useClickOutside from 'src/hooks/useClickOutside'
 
 import { priceRanges } from '../priceRangeSample'
 import { AppContext } from 'src/contexts/app.context'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   handleChoosePrice: (index: number) => void
@@ -35,13 +36,16 @@ export default function PriceSample({ handleChoosePrice }: Props) {
     handleChoosePrice(index)
   }
 
+  //? TRANSLATION
+  const { t } = useTranslation('store')
+
   return (
     <div className='duration-500' ref={ref}>
       <button
         className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor lg:text-lg'
         onClick={toggleOpenClose}
       >
-        <p className=' uppercase '>Price</p>
+        <p className=' uppercase '>{t('aside filter.price')}</p>
         {(!visible || !isOpening) && <FontAwesomeIcon icon={faCaretDown} />}
         {visible && isOpening && <FontAwesomeIcon icon={faCaretUp} />}
       </button>
