@@ -46,10 +46,6 @@ class Http {
           //   setProfileToLS(userResponse.data.data)
           // })
         }
-        // else if (url === '/logout') {
-        //   this.accessToken = ''
-        //   clearLS()
-        // }
         return response
       },
       function (error: AxiosError) {
@@ -60,7 +56,7 @@ class Http {
           toast.error(message)
         }
         // console.log(error)
-        if ((error.response?.data as ErrorRespone).status_code === 500) {
+        if ((error.response?.data as ErrorRespone).status_code === HttpStatusCode.InternalServerError) {
           clearLS()
         }
         return Promise.reject(error)

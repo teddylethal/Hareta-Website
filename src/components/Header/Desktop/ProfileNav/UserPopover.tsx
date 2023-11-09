@@ -24,6 +24,7 @@ export default function UserPopover() {
       queryKey: ['purchases']
     })
   }
+
   return (
     <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-[#efefef] px-2 py-3 text-base font-medium capitalize text-textDark/90 shadow-lg dark:bg-[#202020] dark:text-textLight/90 lg:top-0 lg:w-52 lg:text-xl'>
       <Link
