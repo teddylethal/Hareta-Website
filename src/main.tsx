@@ -12,6 +12,7 @@ import { CartProvider } from './contexts/cart.context'
 import ScrollToTop from './ScrollToTop'
 import { OrderProvider } from './contexts/order.context'
 import ErrorBoundary from './components/ErrorBoundary'
+import 'src/i18n/i18n'
 
 const queryClient = new QueryClient({
   defaultOptions: {

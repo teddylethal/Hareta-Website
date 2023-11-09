@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
 import classNames from 'classnames'
+import ChangeLanguage from 'src/components/ChangeLanguage'
 
 export default function MobileSupport() {
   const { visible, setVisible, ref } = useClickOutside(false)
@@ -40,7 +41,7 @@ export default function MobileSupport() {
         <AnimatePresence>
           {visible && (
             <motion.div
-              className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-textDark dark:border-white/20 dark:text-textLight sm:text-sm'
+              className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-medium  text-textDark dark:border-white/20 dark:text-textLight sm:text-sm'
               // initial={{ opacity: 0, y: '-20%' }}
               // animate={{
               //   opacity: 1,
@@ -65,6 +66,9 @@ export default function MobileSupport() {
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 Order tracking
               </Link>
+              <div className='hover:text-haretaColor dark:hover:text-haretaColor'>
+                <ChangeLanguage />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
