@@ -118,6 +118,7 @@ export default function ProductList() {
             <SearchBar />
             <ActiveFiltering />
             {(isFetching || !storeData) && <ProductListSkeleton />}
+            {storeData?.data.paging.total == 0 && <EmptyProductList />}
             {storeData && (
               <Fragment>
                 <div className='grid grid-cols-2 gap-4'>
