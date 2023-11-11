@@ -19,6 +19,7 @@ import EditProfile from './EditProfile'
 import { useViewport } from 'src/hooks/useViewport'
 import moment from 'moment'
 import ProfileLoading from './ProfileLoading'
+import { useTranslation } from 'react-i18next'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
 
@@ -131,6 +132,9 @@ export default function Profile() {
     setAvatarFile(file)
   }
 
+  //? translation
+  const { t } = useTranslation('user')
+
   if (!profile) return <ProfileLoading />
   else {
     return (
@@ -163,7 +167,7 @@ export default function Profile() {
             <div className='ml-2 flex flex-col space-y-1 sm:ml-4 lg:ml-8'>
               <p className='text-base sm:text-lg lg:text-2xl'>{profile.name}</p>
               <p className='truncate text-xs text-textDark/60 dark:text-textLight/60 sm:text-sm lg:text-base'>
-                Joined in {formatDate(profile.created_at)}
+                {t('profile.joined')} {formatDate(profile.created_at)}
               </p>
             </div>
           </div>
@@ -174,7 +178,7 @@ export default function Profile() {
                 onClick={() => setEditingMode(true)}
               >
                 <FontAwesomeIcon icon={faUserPen} className='h-auto w-4 sm:w-5 lg:w-6' />
-                {!isMobile && <p>Edit</p>}
+                {!isMobile && <p>{t('profile.edit')}</p>}
               </button>
             )}
           </div>
@@ -183,21 +187,27 @@ export default function Profile() {
         {!editingMode && (
           <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#202020] '>
             <div className=''>
-              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Name</p>
+              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+                {t('profile.name')}
+              </p>
               <div>
                 <p className='py-1 text-sm  lg:text-base '>{profile.name}</p>
                 <div className='mt-1 min-h-[1.25rem]'></div>
               </div>
             </div>
             <div className=''>
-              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Phone number</p>
+              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+                {t('profile.phone number')}
+              </p>
               <div>
                 <p className='py-1 text-sm  lg:text-base '>{profile.phone}</p>
                 <div className='mt-1 min-h-[1.25rem]'></div>
               </div>
             </div>
             <div className=''>
-              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>email</p>
+              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+                {t('profile.email')}
+              </p>
               <p className='py-1 text-sm  lg:text-base '>{profile.email}</p>
             </div>
           </div>
@@ -211,7 +221,9 @@ export default function Profile() {
             >
               <EditProfile />
               <div className=''>
-                <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>email</p>
+                <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+                  {t('profile.email')}
+                </p>
                 <p className='py-1 text-sm lg:text-base '>{profile.email}</p>
               </div>
 
@@ -220,14 +232,14 @@ export default function Profile() {
                   className='flex items-center space-x-1 rounded-md bg-vintageColor/90 px-2 py-1 text-sm text-textDark hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-textLight dark:hover:bg-haretaColor/60 lg:px-4 lg:py-2 lg:text-base'
                   type='submit'
                 >
-                  <p>Save</p>
+                  <p>{t('profile.save')}</p>
                 </button>
                 <button
                   className='flex items-center space-x-1 rounded-md px-2 py-1 text-sm text-textDark hover:underline dark:text-textLight lg:px-4 lg:py-2 lg:text-base'
                   onClick={handleCancel}
                   type='button'
                 >
-                  <p>Cancel</p>
+                  <p>{t('profile.cancel')}</p>
                 </button>
               </div>
             </form>
@@ -251,7 +263,7 @@ export default function Profile() {
               })}
             />
           </div>
-          <p className='mt-6 text-center text-xl font-medium leading-6'>Your profile was updated</p>
+          <p className='mt-6 text-center text-xl font-medium leading-6'>{t('profile.message')}</p>
         </DialogPopup>
       </div>
     )

@@ -1,19 +1,21 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
-//? ENGLISH
-import HEADER_EN from 'src/locales/en/header.json'
-import FOOTER_EN from 'src/locales/en/footer.json'
-import HOME_EN from 'src/locales/en/home.json'
-import STORE_EN from 'src/locales/en/store.json'
-import SUPPORT_EN from 'src/locales/en/support.json'
+//? enGLISH
+import header_en from 'src/locales/en/header.json'
+import footer_en from 'src/locales/en/footer.json'
+import home_en from 'src/locales/en/home.json'
+import store_en from 'src/locales/en/store.json'
+import support_en from 'src/locales/en/support.json'
+import user_en from 'src/locales/en/user.json'
 
-//? VIETNAMESE
-import HEADER_VI from 'src/locales/vi/header.json'
-import FOOTER_VI from 'src/locales/vi/footer.json'
-import HOME_VI from 'src/locales/vi/home.json'
-import STORE_VI from 'src/locales/vi/store.json'
-import SUPPORT_VI from 'src/locales/vi/support.json'
+//? viETNAMESE
+import header_vi from 'src/locales/vi/header.json'
+import footer_vi from 'src/locales/vi/footer.json'
+import home_vi from 'src/locales/vi/home.json'
+import store_vi from 'src/locales/vi/store.json'
+import support_vi from 'src/locales/vi/support.json'
+import user_vi from 'src/locales/vi/user.json'
 
 export const locales = {
   en: 'English',
@@ -25,28 +27,32 @@ export const locales = {
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 export const resources = {
   en: {
-    header: HEADER_EN,
-    footer: FOOTER_EN,
-    home: HOME_EN,
-    store: STORE_EN,
-    support: SUPPORT_EN
+    header: header_en,
+    footer: footer_en,
+    home: home_en,
+    store: store_en,
+    support: support_en,
+    user: user_en
   },
   vi: {
-    header: HEADER_VI,
-    footer: FOOTER_VI,
-    home: HOME_VI,
-    store: STORE_VI,
-    support: SUPPORT_VI
+    header: header_vi,
+    footer: footer_vi,
+    home: home_vi,
+    store: store_vi,
+    support: support_vi,
+    user: user_vi
   }
 } as const
 
 export const defaultNS = 'header'
 
+const ns = ['header', 'footer', 'home', 'store', 'support', 'user']
+
 // eslint-disable-next-line import/no-named-as-default-member
 i18n.use(initReactI18next).init({
   resources,
   lng: 'en',
-  ns: ['header', 'footer', 'home', 'store', 'support'],
+  ns,
   fallbackLng: 'en',
   defaultNS,
   interpolation: {

@@ -1,0 +1,23 @@
+{
+  "path": {
+    "home": "Trang chủ",
+    "user": "Người dùng"
+  },
+  "layout": {
+    "account": "Tài khoản",
+    "password": "Mật khẩu",
+    "inventory": "Kho đồ",
+    "wishlist": "Mong muốn"
+  },
+  "profile": {
+    "joined": "Ngày tham gia",
+    "name": "Tên",
+    "phone number": "Số điện thoại",
+    "email": "Địa chỉ email",
+    "edit": "Chỉnh sửa",
+    "save": "Lưu",
+    "cancel": "Hủy bỏ",
+    "message": "Thông tin của bạn đã được cập nhật",
+    "upload avatar": "Chọn ảnh"
+  }
+}

@@ -1,4 +1,5 @@
 import React, { Fragment, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import config from 'src/constants/config'
 
@@ -22,6 +23,9 @@ export default function InputFile({ onChangeImageFile }: Props) {
     }
   }
 
+  //? translation
+  const { t } = useTranslation('user')
+
   return (
     <Fragment>
       <input
@@ -37,7 +41,7 @@ export default function InputFile({ onChangeImageFile }: Props) {
         onClick={handleUploadAvatar}
         type='button'
       >
-        <p className='text-xs font-semibold md:text-sm lg:text-base'>Upload avatar</p>
+        <p className='text-xs font-semibold md:text-sm lg:text-base'>{t('profile.upload avatar')}</p>
       </button>
     </Fragment>
   )

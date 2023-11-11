@@ -4,14 +4,18 @@ import { Fragment, useEffect } from 'react'
 import { useViewport } from 'src/hooks/useViewport'
 import UserMobileNavBar from '../../components/UserMobileNavBar'
 import PathBar from 'src/components/PathBar'
+import { useTranslation } from 'react-i18next'
 
 export default function UserLayout() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
+  //? translation
+  const { t } = useTranslation('user')
+
   //? CHANGE TITLE
   useEffect(() => {
-    document.title = 'User | Hareta Workshop'
+    document.title = `${t('path.user')} | Hareta Workshop`
   })
 
   if (isMobile) {

@@ -1,0 +1,23 @@
+{
+  "path": {
+    "home": "home",
+    "user": "User"
+  },
+  "layout": {
+    "account": "Account",
+    "password": "Password",
+    "inventory": "Inventory",
+    "wishlist": "Wishlist"
+  },
+  "profile": {
+    "joined": "Joinded in",
+    "name": "name",
+    "phone number": "phone number",
+    "email": "email",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "message": "Your profile was updated",
+    "upload avatar": "Upload avatar"
+  }
+}

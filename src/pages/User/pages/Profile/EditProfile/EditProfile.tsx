@@ -2,6 +2,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import Input from 'src/components/Input'
 import InputNumber from 'src/components/InputNumber'
 import { UserSchema } from 'src/utils/rules'
@@ -15,11 +16,14 @@ export default function EditProfile() {
     formState: { errors }
   } = useFormContext<FormData>()
 
+  //? translation
+  const { t } = useTranslation('user')
+
   return (
     <Fragment>
       <div className=''>
         <div className='flex items-center space-x-2'>
-          <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Name</p>
+          <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>{t('profile.name')}</p>
           <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
         </div>
         <div className='relative'>
@@ -35,7 +39,9 @@ export default function EditProfile() {
       </div>
       <div className=''>
         <div className='flex items-center space-x-2'>
-          <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>Phone number</p>
+          <p className='text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+            {t('profile.phone number')}
+          </p>
           <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
         </div>
         <div className='relative'>
