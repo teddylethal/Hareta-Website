@@ -18,8 +18,7 @@ const path = {
   shippingInfor: '/order/shipping-information',
   payment: '/order/payment',
   orderTracking: '/orderTracking',
-  privacyAndTerms: '/privacy&terms',
-  contact: '/contact'
+  privacyAndTerms: '/privacy&terms'
 } as const
 
 export const adminPath = {

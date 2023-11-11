@@ -12,12 +12,13 @@ import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
 import AdminLayout from './pages/Admin/layouts/AdminLayout'
 
-//? IMPORT MAIN PAGES
+//? IMPORT PAGES
 import ProductList from './pages/ProductList'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 const Cart = lazy(() => import('./pages/Cart'))
+const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
 
 //? IMPORT USER COMPONENTS
 const UserLayout = lazy(() => import('./pages/User/layouts/UserLayout'))
@@ -292,6 +293,16 @@ export default function useRouteElements() {
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
             <Cart />
+          </Suspense>
+        </MainLayout>
+      )
+    },
+    {
+      path: path.privacyAndTerms,
+      element: (
+        <MainLayout>
+          <Suspense fallback={<LoadingWithEmptyContent />}>
+            <PrivacyAndTerms />
           </Suspense>
         </MainLayout>
       )

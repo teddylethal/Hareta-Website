@@ -73,9 +73,9 @@ export default function MobileSupport() {
                 {t('support.faq')}
               </Link> */}
 
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+              {/* <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 {t('support.contact us')}
-              </Link>
+              </Link> */}
 
               <Link to={path.orderTracking} className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 {t('support.order tracking')}

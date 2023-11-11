@@ -35,12 +35,12 @@ export default function SupportPopover({ closePopover }: Props) {
         {t('support.faq')}
       </Link> */}
 
-      <Link
+      {/* <Link
         to='/'
         className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
         {t('support.contact us')}
-      </Link>
+      </Link> */}
 
       <Link
         to={path.orderTracking}
