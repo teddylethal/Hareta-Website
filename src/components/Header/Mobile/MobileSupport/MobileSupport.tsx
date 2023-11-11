@@ -5,6 +5,8 @@ import useClickOutside from 'src/hooks/useClickOutside'
 import classNames from 'classnames'
 import ChangeLanguage from 'src/components/ChangeLanguage'
 import { useTranslation } from 'react-i18next'
+import path from 'src/constants/path'
+import ToggleTheme from 'src/components/ToggleTheme'
 
 export default function MobileSupport() {
   const { visible, setVisible, ref } = useClickOutside(false)
@@ -59,23 +61,32 @@ export default function MobileSupport() {
               // exit={{ opacity: 0, y: '-20%' }}
               // transition={{ duration: 0.3 }}
             >
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+              {/* <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 {t('support.about us')}
-              </Link>
+              </Link> */}
+
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 {t('support.privacy & terms')}
               </Link>
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+
+              {/* <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 {t('support.faq')}
-              </Link>
+              </Link> */}
+
               <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 {t('support.contact us')}
               </Link>
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+
+              <Link to={path.orderTracking} className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
                 {t('support.order tracking')}
               </Link>
+
               <div className='hover:text-haretaColor dark:hover:text-haretaColor'>
                 <ChangeLanguage closePopover={closeExtend} />
+              </div>
+
+              <div className='hover:text-haretaColor dark:hover:text-haretaColor'>
+                <ToggleTheme className='h-5 w-5 sm:h-6 sm:w-6' />
               </div>
             </motion.div>
           )}

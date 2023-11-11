@@ -1,7 +1,6 @@
 import { Fragment, useContext } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import ToggleTheme from 'src/components/ToggleTheme'
 import useClickOutside from 'src/hooks/useClickOutside'
 import path from 'src/constants/path'
 import MobileSupport from '../MobileSupport'
@@ -63,28 +62,20 @@ export default function MobileNav({ className }: Props) {
               transition={{ duration: 0.3 }}
               ref={ref}
             >
-              <div className='flex w-full flex-col items-start justify-start px-3 text-sm font-medium uppercase sm:text-base'>
+              <div className=' flex w-full flex-col items-start justify-start px-3 text-sm font-medium uppercase sm:text-base'>
                 <Link to={path.home} className='w-full px-2 py-2' onClick={closeMenu}>
-                  <img src='/images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
+                  <div>{t('navbar.home')}</div>
                 </Link>
 
-                <Link
-                  to={path.store}
-                  className='w-full px-2 py-2 hover:text-haretaColor dark:hover:text-haretaColor'
-                  onClick={closeMenu}
-                >
+                <Link to={path.store} className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.store')}</div>
                 </Link>
 
-                <Link
-                  to='/'
-                  className='w-full px-2 py-2 hover:text-brownColor dark:hover:text-haretaColor'
-                  onClick={closeMenu}
-                >
+                <Link to='/' className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.event')}</div>
                 </Link>
 
-                <div className='flex w-full flex-col items-center hover:text-haretaColor dark:hover:text-haretaColor'>
+                <div className='flex w-full flex-col items-center'>
                   <MobileSupport />
                 </div>
 
@@ -97,7 +88,6 @@ export default function MobileNav({ className }: Props) {
                 </div>
               </div>
               <div className='absolute right-0 flex h-10 space-x-2 p-2'>
-                <ToggleTheme className='h-6 w-6 duration-300' />
                 <button onClick={closeMenu}>
                   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='h-6 w-6'>
                     <path

@@ -1,0 +1,18 @@
+{
+  "path": {
+    "home": "home",
+    "order tracking": "order tracking",
+    "privacy & terms": "privacy & terms",
+    "contact": "contact"
+  },
+  "order": {
+    "content": "enter order id to check your order information",
+    "placeholder": "Order ID"
+  },
+  "orderDetail": {
+    "title": "Order list",
+    "order": "order",
+    "day created": "created",
+    "state": "state"
+  }
+}

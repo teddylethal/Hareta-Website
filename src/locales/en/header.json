@@ -1,5 +1,6 @@
 {
   "navbar": {
+    "home": "Home",
     "store": "Store",
     "event": "Event",
     "support": "Support"

@@ -159,7 +159,7 @@ export default function MobileCart({ className }: Props) {
 
                             <div className='flex space-x-3'>
                               <button
-                                className='text-sm text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-600'
+                                className='text-sm capitalize text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-600'
                                 onClick={handleRemove(index)}
                               >
                                 {t('cart button.remove')}
@@ -181,7 +181,7 @@ export default function MobileCart({ className }: Props) {
                 <div className='flex space-x-2'>
                   <Link
                     to={path.store}
-                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 capitalize hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
                     {t('cart button.store')}
@@ -190,7 +190,7 @@ export default function MobileCart({ className }: Props) {
                 <div>
                   <Link
                     to={path.cart}
-                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 capitalize hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
                     onClick={closeCart}
                   >
                     {t('cart button.enter cart')}

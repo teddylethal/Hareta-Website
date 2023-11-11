@@ -9,8 +9,7 @@ import { formatCurrency } from 'src/utils/utils'
 type FormData = OrderSchema
 
 export default function OrderDetail() {
-  const { addressState, addressCity, orderList, setNoneCity, setNoneState, confirmPayment, setConfirmPayment } =
-    useContext(OrderContext)
+  const { addressState, orderList, setNoneState, confirmPayment, setConfirmPayment } = useContext(OrderContext)
 
   const totalPrice = orderList.reduce((result, current) => {
     return result + current.item.price * current.quantity
@@ -28,15 +27,7 @@ export default function OrderDetail() {
   const email = watch('email')
   const address = watch('address')
   const validForm = () => {
-    if (
-      name === '' ||
-      phone === '' ||
-      email === '' ||
-      address === '' ||
-      addressState === null ||
-      addressCity === null ||
-      !confirmPayment
-    ) {
+    if (name === '' || phone === '' || email === '' || address === '' || addressState === null || !confirmPayment) {
       return false
     }
     return true
@@ -45,14 +36,7 @@ export default function OrderDetail() {
   //? HANDLE INVALID FORM
   const navigate = useNavigate()
   const invalidButton = () => {
-    if (
-      name === '' ||
-      phone === '' ||
-      email === '' ||
-      address === '' ||
-      addressState === null ||
-      addressCity === null
-    ) {
+    if (name === '' || phone === '' || email === '' || address === '' || addressState === null) {
       navigate(path.shippingInfor)
       if (name === '') {
         setError('name', { message: 'Name is required' })
@@ -69,9 +53,6 @@ export default function OrderDetail() {
       if (!addressState) {
         setNoneState(true)
       }
-      if (!addressCity) {
-        setNoneCity(true)
-      }
     } else if (!confirmPayment) {
       return
     }
@@ -83,12 +64,6 @@ export default function OrderDetail() {
       setNoneState(false)
     }
   }, [addressState, setNoneState])
-
-  useEffect(() => {
-    if (addressCity) {
-      setNoneCity(false)
-    }
-  }, [addressCity, setNoneCity])
 
   return (
     <div className=' rounded-xl p-3 lg:p-4'>

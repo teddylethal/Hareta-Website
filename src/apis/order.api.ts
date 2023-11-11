@@ -1,9 +1,9 @@
-import { Order } from 'src/types/order.type'
+import { Order, OrderList } from 'src/types/order.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 import { OrderSchema, OrderSchemaForGuest } from 'src/utils/rules'
 
-const URL = '/auth/order'
+const URL = '/auth/order/'
 
 type CreateOrderForm = OrderSchema
 
@@ -11,7 +11,7 @@ type CreateOrderFormForGuest = OrderSchemaForGuest
 
 export const orderApi = {
   getOrderList() {
-    return http.get(URL)
+    return http.get<OrderList>(URL)
   },
   createOrder(body: CreateOrderForm) {
     return http.post<SuccessRespone<Order>>(URL, body)

@@ -71,26 +71,15 @@ export default function MobileUser({ className, closeMenu }: Props) {
             exit={{ opacity: 0, y: '-10%' }}
             transition={{ duration: 0.3 }}
           >
-            <Link
-              to={path.account}
-              onClick={closeMenu}
-              className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
-            >
+            <Link to={path.account} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.account')}</p>
             </Link>
 
-            <Link
-              to={path.inventory}
-              onClick={closeMenu}
-              className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
-            >
+            <Link to={path.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.trade history')}</p>
             </Link>
-            <Link
-              to={path.wishList}
-              onClick={closeMenu}
-              className='flex items-center py-1 hover:text-haretaColor dark:hover:text-haretaColor'
-            >
+
+            <Link to={path.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.wishlist')}</p>
             </Link>
 
@@ -99,7 +88,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
             <button
               onClick={handleLogout}
               type='button'
-              className='flex items-center justify-start space-x-2 py-1 hover:text-haretaColor dark:hover:text-haretaColor'
+              className='flex items-center justify-start space-x-2 py-1 font-medium'
             >
               <FontAwesomeIcon icon={faRightFromBracket} />
               <p>{t('user.log out')}</p>

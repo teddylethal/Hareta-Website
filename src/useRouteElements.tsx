@@ -25,6 +25,7 @@ const Profile = lazy(() => import('./pages/User/pages/Profile'))
 const WishList = lazy(() => import('./pages/User/pages/WishList'))
 const Inventory = lazy(() => import('./pages/User/pages/Inventory'))
 const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
+const OrderTracking = lazy(() => import('./pages/Support/pages/OrderTracking'))
 
 //? IMPORT LOGIN/REGISTER COMPONENTS
 const Login = lazy(() => import('./pages/Login'))
@@ -56,7 +57,13 @@ const AdminDeleteGroup = lazy(() => import('./pages/Admin/pages/AdminDeleteGroup
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
-  return isAuthenticated ? <Outlet /> : <Navigate to='/login' />
+  return isAuthenticated ? (
+    <Suspense fallback={<LoadingWithEmptyContent />}>
+      <Outlet />
+    </Suspense>
+  ) : (
+    <Navigate to='/login' />
+  )
 }
 
 function AdminRoute() {
@@ -139,9 +146,7 @@ export default function useRouteElements() {
           path: path.user,
           element: (
             <MainLayout>
-              <Suspense fallback={<LoadingWithEmptyContent />}>
-                <UserLayout />
-              </Suspense>
+              <UserLayout />
             </MainLayout>
           ),
           children: [
@@ -162,6 +167,14 @@ export default function useRouteElements() {
               element: <WishList />
             }
           ]
+        },
+        {
+          path: path.orderTracking,
+          element: (
+            <MainLayout>
+              <OrderTracking />
+            </MainLayout>
+          )
         }
       ]
     },

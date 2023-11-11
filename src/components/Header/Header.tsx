@@ -40,8 +40,11 @@ export default function Header() {
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center text-black duration-300  dark:text-white'>
           <nav className='col-span-2 flex items-center justify-start space-x-2 text-base font-medium uppercase md:font-semibold lg:space-x-4 lg:text-lg'>
-            <NavLink to={path.home}>
-              <img src='/images/sun.png' alt='Home' className='h-8 max-w-none lg:h-11' />
+            <NavLink
+              to={path.home}
+              className='rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor'
+            >
+              <div>{t('navbar.home')}</div>
             </NavLink>
 
             <NavLink
@@ -89,9 +92,9 @@ export default function Header() {
 
             {isAuthenticated ? <CartPopoverWithLogin /> : <CartPopoverWithoutLogin />}
 
-            <div className='flex items-center justify-center px-1'>
+            {/* <div className='flex items-center justify-center px-1'>
               <ToggleTheme className='h-6 w-6 rounded-full duration-300 hover:bg-black/20 dark:hover:bg-white/50 lg:h-8 lg:w-8' />
-            </div>
+            </div> */}
           </nav>
         </div>
       )}

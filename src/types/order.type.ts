@@ -9,3 +9,14 @@ export interface Order {
   phone: string
   total: number
 }
+
+export interface OrderList {
+  data: Order[]
+  paging: {
+    page: number
+    limit: number
+    total: number
+    cursor: string
+    next_cursor: string
+  }
+}

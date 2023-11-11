@@ -23,16 +23,8 @@ type FormData = OrderSchema
 type FormDataForGuest = OrderSchemaForGuest
 
 export default function OrderLayout() {
-  const {
-    orderList,
-    addressCountry,
-    addressCity,
-    addressState,
-    setOrderList,
-    setConfirmPayment,
-    tempOrderList,
-    setTempOrderList
-  } = useContext(OrderContext)
+  const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
+    useContext(OrderContext)
   const { theme, isAuthenticated } = useContext(AppContext)
   const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
 
@@ -85,7 +77,7 @@ export default function OrderLayout() {
 
   const onPlaceOrder = handleSubmit(async (data) => {
     try {
-      const fullAddress = `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`
+      const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
       await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
       queryClient.invalidateQueries({ queryKey: ['purchases'] })
       setSuccesDialog(true)
@@ -97,7 +89,7 @@ export default function OrderLayout() {
   //? PLACE ORDER WITHOUT LOGIN
   const createOrderForGuestMutation = useMutation(orderApi.createOrderWithouLogin)
   const placeOrderWithoutLogin = handleSubmit(async (data) => {
-    const fullAddress = `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry.name}`
+    const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
     const formData: FormDataForGuest = {
       name: data.name,
       phone: data.phone,

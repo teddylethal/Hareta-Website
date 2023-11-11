@@ -16,7 +16,10 @@ const path = {
   changePasswordRecovery: '/passwordRecovery/:slug',
   order: '/order',
   shippingInfor: '/order/shipping-information',
-  payment: '/order/payment'
+  payment: '/order/payment',
+  orderTracking: '/orderTracking',
+  privacyAndTerms: '/privacy&terms',
+  contact: '/contact'
 } as const
 
 export const adminPath = {

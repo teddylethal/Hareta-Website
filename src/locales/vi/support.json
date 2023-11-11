@@ -1,0 +1,18 @@
+{
+  "path": {
+    "home": "Trang chủ",
+    "order tracking": "Kiểm tra đơn hàng",
+    "privacy & terms": "Chính sách & điều khoản",
+    "contact": "Liên hệ"
+  },
+  "order": {
+    "content": "nhập mã đơn hàng để kiểm tra thông tin đơn hàng của bạn",
+    "placeholder": "Mã đơn hàng"
+  },
+  "orderDetail": {
+    "title": "Danh sách đơn hàng",
+    "order": "Đơn hàng",
+    "day created": "Ngày tạo",
+    "state": "Tình trạng"
+  }
+}
