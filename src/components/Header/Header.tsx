@@ -41,9 +41,13 @@ export default function Header() {
           <nav className='col-span-2 flex items-center justify-start space-x-2 text-base font-medium uppercase md:font-semibold lg:space-x-4 lg:text-lg'>
             <NavLink
               to={path.home}
-              className='rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor'
+              className={({ isActive }) =>
+                classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
+                  'text-brownColor dark:text-haretaColor': isActive
+                })
+              }
             >
-              <div>{t('navbar.home')}</div>
+              <p>{t('navbar.home')}</p>
             </NavLink>
 
             <NavLink

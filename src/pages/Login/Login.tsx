@@ -108,7 +108,7 @@ export default function Login() {
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
             <form
-              className='rounded-xl bg-[#222222] p-5 shadow-sm duration-500 dark:bg-[#222222] md:p-10'
+              className='rounded-xl bg-lightBg p-5 shadow-sm duration-300 dark:bg-[#222222] md:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -170,7 +170,7 @@ export default function Login() {
                 </div>
                 {!isSmall && (
                   <div className='flex items-center text-center'>
-                    <span className='text-gray-400'>{t("login.Don't have an account?")}</span>
+                    <span className='text-textDark/60 dark:text-textLight/60'>{t("login.Don't have an account?")}</span>
                     <Link className='ml-2 text-haretaColor/60 duration-300 hover:text-haretaColor' to={path.register}>
                       {t('login.sign up')}
                     </Link>
@@ -179,7 +179,9 @@ export default function Login() {
 
                 {isSmall && (
                   <div className='mb-2 flex flex-col text-center'>
-                    <span className=' line-clamp-2 text-gray-400'>Don&apos;t have an account?</span>
+                    <span className='line-clamp-2 text-textDark/60 dark:text-textLight/60'>
+                      {t("login.Don't have an account?")}
+                    </span>
                     <Link className='ml-2 text-haretaColor/60 duration-300 hover:text-haretaColor' to={path.register}>
                       {t('login.sign up')}
                     </Link>

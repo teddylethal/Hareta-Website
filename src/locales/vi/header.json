@@ -14,10 +14,10 @@
   },
   "cart button": {
     "items in cart": "sản phẩm trong giỏ hàng",
-    "buy": "mua",
-    "remove": "xóa",
-    "store": "cửa hàng",
-    "enter cart": "giỏ hàng"
+    "buy": "Mua",
+    "remove": "Xóa",
+    "store": "Cửa hàng",
+    "enter cart": "Giỏ hàng"
   },
   "user": {
     "account": "Tài khoản",

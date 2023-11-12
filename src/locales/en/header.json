@@ -14,10 +14,10 @@
   },
   "cart button": {
     "items in cart": "items in cart",
-    "buy": "buy",
-    "remove": "remove",
-    "store": "store",
-    "enter cart": "enter cart"
+    "buy": "Buy",
+    "remove": "Remove",
+    "store": "Store",
+    "enter cart": "Enter cart"
   },
   "user": {
     "account": "Account",
