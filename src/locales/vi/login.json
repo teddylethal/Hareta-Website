@@ -1,0 +1,29 @@
+{
+  "login": {
+    "home": "Trang chủ",
+    "login": "Đăng nhập",
+    "password": "Mật khẩu",
+    "Don't have an account?": "Chưa có tài khoản?",
+    "Forgot Password?": "Quên mật khẩu?",
+    "email": "Địa chỉ email",
+    "sign up": "Đăng kí"
+  },
+  "register": {
+    "register": "Đăng kí",
+    "Email address": "Địa chỉ email",
+    "Password": "Mật khẩu",
+    "Confirm password": "Nhập lại mật khẩu",
+    "Name": "Tên người dùng",
+    "Phone number": "Số điện thoại",
+    "Already have an account?": "Đã có tài khoản?"
+  },
+  "password": {
+    "password recovery": "Khôi phục mật khẩu",
+    "Email address": "Địa chỉ email",
+    "Send": "Gửi",
+    "Go back to": "Quay trở lại",
+    "Wait for": "Hãy đợi",
+    "second": "giây",
+    "seconds": "giây"
+  }
+}

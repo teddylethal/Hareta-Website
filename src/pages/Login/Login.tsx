@@ -21,6 +21,7 @@ import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/Succe
 import SuccessEmailVerifyPopup from 'src/components/VerifyEmailDialog/SuccessEmailVerifyPopup'
 import { useViewport } from 'src/hooks/useViewport'
 import { ApiURL } from 'src/utils/http'
+import { useTranslation } from 'react-i18next'
 
 type FormData = LoginSchema
 
@@ -98,6 +99,9 @@ export default function Login() {
     }
   }, [setValue, state])
 
+  //? translation
+  const { t } = useTranslation('login')
+
   return (
     <AnimateTransition isDialog={state}>
       <div className='container'>
@@ -108,7 +112,7 @@ export default function Login() {
               onSubmit={onSubmit}
               noValidate
             >
-              <div className='text-center text-2xl uppercase text-haretaColor'>Login</div>
+              <div className='text-center text-2xl uppercase text-haretaColor'>{t('login.login')}</div>
 
               <AccountInput
                 name='email'
@@ -116,7 +120,7 @@ export default function Login() {
                 type='text'
                 className='mt-8 autofill:text-textDark autofill:dark:text-textLight'
                 errorMessage={errors.email?.message}
-                labelName='Email'
+                labelName={t('login.email')}
                 required
                 autoComplete='on'
                 svgData={
@@ -133,7 +137,7 @@ export default function Login() {
                 type='password'
                 className='mt-3'
                 errorMessage={errors.password?.message}
-                labelName='Password'
+                labelName={t('login.password')}
                 required
                 isPasswordInput
                 svgData={
@@ -152,7 +156,7 @@ export default function Login() {
                   isLoading={loginAccountMutation.isLoading}
                   disabled={loginAccountMutation.isLoading}
                 >
-                  Login
+                  {t('login.login')}
                 </Button>
               </div>
 
@@ -160,15 +164,15 @@ export default function Login() {
                 <div className=''>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
                     <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-300 hover:opacity-100 dark:text-blue-400'>
-                      Forgot Password?
+                      {t('login.Forgot Password?')}
                     </p>
                   </Link>
                 </div>
                 {!isSmall && (
                   <div className='flex items-center text-center'>
-                    <span className='text-gray-400'>Don&apos;t have an account?</span>
+                    <span className='text-gray-400'>{t("login.Don't have an account?")}</span>
                     <Link className='ml-2 text-haretaColor/60 duration-300 hover:text-haretaColor' to={path.register}>
-                      Sign up
+                      {t('login.sign up')}
                     </Link>
                   </div>
                 )}
@@ -177,7 +181,7 @@ export default function Login() {
                   <div className='mb-2 flex flex-col text-center'>
                     <span className=' line-clamp-2 text-gray-400'>Don&apos;t have an account?</span>
                     <Link className='ml-2 text-haretaColor/60 duration-300 hover:text-haretaColor' to={path.register}>
-                      Sign up
+                      {t('login.sign up')}
                     </Link>
                   </div>
                 )}

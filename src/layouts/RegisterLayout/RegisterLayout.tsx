@@ -10,7 +10,7 @@ export default function RegisterLayout({ children }: Props) {
   const { theme } = useContext(AppContext)
   return (
     <div
-      className='min-h-screen bg-cover bg-center duration-500 '
+      className='min-h-screen bg-cover bg-center duration-300 '
       style={{
         backgroundImage: `url(${
           theme === 'dark'

@@ -12,6 +12,7 @@ import Button from 'src/components/Button'
 import path from 'src/constants/path'
 import AccountInput from 'src/components/AccountInput'
 import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
+import { useTranslation } from 'react-i18next'
 
 type FormData = RegisterSchema
 
@@ -50,6 +51,9 @@ export default function Register() {
     })
   })
 
+  //? translation
+  const { t } = useTranslation('login')
+
   return (
     <AnimateTransition>
       <div className='container'>
@@ -60,7 +64,9 @@ export default function Register() {
               onSubmit={onSubmit}
               noValidate
             >
-              <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>Register</div>
+              <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
+                {t('register.register')}
+              </div>
 
               <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x xl:divide-gray-300 dark:xl:divide-stone-700'>
                 <div className='xl:mr-8'>
@@ -70,7 +76,7 @@ export default function Register() {
                     type='text'
                     className='mt-4'
                     errorMessage={errors.email?.message}
-                    labelName='Email address'
+                    labelName={t('register.Email address')}
                     required
                     svgData={
                       <>
@@ -87,7 +93,7 @@ export default function Register() {
                     className='mt-3'
                     errorMessage={errors.password?.message}
                     autoComplete='on'
-                    labelName='Password'
+                    labelName={t('register.Password')}
                     required
                     isPasswordInput
                     svgData={
@@ -106,7 +112,7 @@ export default function Register() {
                     className='mt-3'
                     errorMessage={errors.confirm_password?.message}
                     autoComplete='on'
-                    labelName='Confirm password'
+                    labelName={t('register.Confirm password')}
                     required
                     isPasswordInput
                     svgData={
@@ -126,7 +132,7 @@ export default function Register() {
                     type='text'
                     className='mt-4'
                     errorMessage={errors.name?.message}
-                    labelName='Name'
+                    labelName={t('register.Name')}
                     required
                     svgData={
                       <path
@@ -143,7 +149,7 @@ export default function Register() {
                     type='text'
                     className='mt-3'
                     errorMessage={errors.phone?.message}
-                    labelName='Phone number'
+                    labelName={t('register.Phone number')}
                     required
                     svgData={
                       <path
@@ -163,13 +169,13 @@ export default function Register() {
                   isLoading={registerAccountMutation.isLoading}
                   disabled={registerAccountMutation.isLoading}
                 >
-                  Sign up
+                  {t('login.sign up')}
                 </Button>
               </div>
               <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
-                <span className='text-gray-400'>Already have an account?</span>
+                <span className='text-gray-400'>{t('register.Already have an account?')}</span>
                 <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.login}>
-                  Login
+                  {t('login.login')}
                 </Link>
               </div>
             </form>

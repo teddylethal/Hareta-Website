@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { locales } from 'src/i18n/i18n'
 
 interface Props {
-  closePopover: () => void
+  closePopover?: () => void
 }
 
 export default function ChangeLanguage({ closePopover }: Props) {
@@ -14,7 +14,7 @@ export default function ChangeLanguage({ closePopover }: Props) {
   const { i18n } = useTranslation()
   const currentLanguage = locales[i18n.language as keyof typeof locales]
   const changeLanguage = (lng: 'en' | 'vi') => {
-    closePopover()
+    closePopover && closePopover()
     i18n.changeLanguage(lng)
   }
 

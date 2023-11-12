@@ -1,0 +1,29 @@
+{
+  "login": {
+    "home": "Home",
+    "login": "Login",
+    "password": "Password",
+    "Don't have an account?": "Don't have an account?",
+    "Forgot Password?": "Forgot password?",
+    "email": "Email address",
+    "sign up": "Sign up"
+  },
+  "register": {
+    "register": "register",
+    "Email address": "Email address",
+    "Password": "Password",
+    "Confirm password": "Confirm password",
+    "Name": "Name",
+    "Phone number": "Phone number",
+    "Already have an account?": "Already have an account?"
+  },
+  "password": {
+    "password recovery": "password recovery",
+    "Email address": "Email address",
+    "Send": "Send",
+    "Go back to": "Go back to",
+    "Wait for": "Wait for",
+    "second": "second",
+    "seconds": "seconds"
+  }
+}
