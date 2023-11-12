@@ -8,14 +8,16 @@ import home_en from 'src/locales/en/home.json'
 import store_en from 'src/locales/en/store.json'
 import support_en from 'src/locales/en/support.json'
 import user_en from 'src/locales/en/user.json'
+import product_en from 'src/locales/en/product.json'
 
-//? viETNAMESE
+//? VIETNAMESE
 import header_vi from 'src/locales/vi/header.json'
 import footer_vi from 'src/locales/vi/footer.json'
 import home_vi from 'src/locales/vi/home.json'
 import store_vi from 'src/locales/vi/store.json'
 import support_vi from 'src/locales/vi/support.json'
 import user_vi from 'src/locales/vi/user.json'
+import product_vi from 'src/locales/vi/product.json'
 
 export const locales = {
   en: 'English',
@@ -32,7 +34,8 @@ export const resources = {
     home: home_en,
     store: store_en,
     support: support_en,
-    user: user_en
+    user: user_en,
+    product: product_en
   },
   vi: {
     header: header_vi,
@@ -40,13 +43,14 @@ export const resources = {
     home: home_vi,
     store: store_vi,
     support: support_vi,
-    user: user_vi
+    user: user_vi,
+    product: product_vi
   }
 } as const
 
 export const defaultNS = 'header'
 
-const ns = ['header', 'footer', 'home', 'store', 'support', 'user']
+const ns = ['header', 'footer', 'home', 'store', 'support', 'user', 'product']
 
 // eslint-disable-next-line import/no-named-as-default-member
 i18n.use(initReactI18next).init({

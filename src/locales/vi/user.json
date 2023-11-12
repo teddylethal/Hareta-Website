@@ -7,7 +7,7 @@
     "account": "Tài khoản",
     "password": "Mật khẩu",
     "inventory": "Kho đồ",
-    "wishlist": "Mong muốn"
+    "wishlist": "Danh sách mong muốn"
   },
   "profile": {
     "joined": "Ngày tham gia",
@@ -33,6 +33,9 @@
     "remove": "Xóa",
     "message": "Sản phẩm đã được thêm vào giỏ hàng",
     "remove message": "Xóa sản phẩm khỏi danh sách mong muốn?",
-    "cancel": "Hủy bỏ"
+    "cancel": "Hủy bỏ",
+    "top seller": "Bán chạy",
+    "signature": "Đặc trưng",
+    "favourite": "Yêu thích"
   }
 }

@@ -12,11 +12,11 @@
     "type": "loại",
     "all": "tất cả",
     "clear": "xóa bộ lọc",
-    "newest": "mới nhất",
-    "top seller": "bán chạy",
-    "signature": "signature",
-    "favourite": "yêu thích",
-    "reset": "hủy"
+    "newest": "Mới nhất",
+    "top seller": "Bán chạy",
+    "signature": "Đặc trưng",
+    "favourite": "Yêu thích",
+    "reset": "Hủy"
   },
   "path bar": {
     "home": "Trang chủ",

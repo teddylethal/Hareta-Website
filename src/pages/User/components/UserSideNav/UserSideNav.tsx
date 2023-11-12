@@ -14,7 +14,7 @@ export default function UserSideNav() {
         <NavLink
           to={path.account}
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-xl font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-textDark dark:hover:text-textLight': !isActive
             })
@@ -29,7 +29,7 @@ export default function UserSideNav() {
         <NavLink
           to={path.password}
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-xl font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-textDark dark:hover:text-textLight': !isActive
             })
@@ -43,7 +43,7 @@ export default function UserSideNav() {
         <NavLink
           to={path.inventory}
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-xl font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-textDark dark:hover:text-textLight': !isActive
             })
@@ -57,7 +57,7 @@ export default function UserSideNav() {
         <NavLink
           to={path.wishList}
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-xl font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-textDark dark:hover:text-textLight': !isActive
             })

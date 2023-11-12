@@ -8,7 +8,6 @@ import useQueryConfig from 'src/hooks/useQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
 import path from 'src/constants/path'
-import ItemTag from 'src/constants/itemTag'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
 
@@ -95,7 +94,10 @@ export default function AsideSorter() {
           )}
           onClick={toggleOpenClose}
         >
-          {tagEnum === 0 ? t('aside filter.newest') : ItemTag[tagEnum]}
+          {tagEnum === 0 && t('aside filter.newest')}
+          {tagEnum == 1 && t('aside filter.top seller')}
+          {tagEnum == 2 && t('aside filter.signature')}
+          {tagEnum == 3 && t('aside filter.favourite')}
         </button>
         <AnimateChangeInHeight>
           {visible && isOpening && (

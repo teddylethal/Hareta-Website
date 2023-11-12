@@ -7,7 +7,6 @@ import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import itemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
 
@@ -17,6 +16,7 @@ import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
 import { ProductImage } from 'src/types/productImage.type'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { StoreContext } from 'src/contexts/store.context'
+import { useTranslation } from 'react-i18next'
 
 const MAXLENGTH = 3
 
@@ -131,6 +131,10 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLikedByUser])
 
+  //? use translation
+  const { t } = useTranslation('product')
+  const tag = product.tag
+
   return (
     <div
       className='flex w-full items-center justify-center pb-0 pt-2 duration-500 md:hover:pb-2 md:hover:pt-0'
@@ -172,7 +176,9 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
             <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
-              {itemTag[product.tag]}
+              {tag == 1 && t('top seller')}
+              {tag == 2 && t('signature')}
+              {tag == 3 && t('favourite')}
             </span>
             <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
           </div>
