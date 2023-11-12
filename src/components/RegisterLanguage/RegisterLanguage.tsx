@@ -19,8 +19,8 @@ export default function RegisterLanguage() {
   const currentLanguage = locales[i18n.language as keyof typeof locales]
   const changeLanguage = (lng: 'en' | 'vi') => {
     closePopover && closePopover()
-    i18n.changeLanguage(lng)
     setLanguageToLS(lng)
+    i18n.changeLanguage(lng)
   }
 
   return (

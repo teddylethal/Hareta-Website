@@ -1,5 +1,6 @@
 import { ReactNode, useId, useState } from 'react'
 import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   type: React.HTMLInputTypeAttribute
@@ -37,6 +38,64 @@ export default function AccountInput({
   const inputId = useId()
   const [visible, setVisible] = useState<boolean>(false)
 
+  //? handle error message
+  const { t } = useTranslation('yuperrors')
+  let message = ''
+  switch (errorMessage) {
+    case 'Email address is required':
+      message = t('email.Email address is required')
+      break
+    case 'Incorrect email format':
+      message = t('email.Incorrect email format')
+      break
+    case 'Email address must have at least 5 characters':
+      message = t('email.Email address must have at least 5 characters')
+      break
+    case 'Email address can only have a total length of 160 characters':
+      message = t('email.Email address can only have a total length of 160 characters')
+      break
+    case 'Password is required':
+      message = t('password.Password is required')
+      break
+    case 'Confirm Password is required':
+      message = t('password.Confirm Password is required')
+      break
+    case 'Password must be 8-16 characters':
+      message = t('password.Password must be 8-16 characters')
+      break
+    case 'Passwords do not match':
+      message = t('password.Passwords do not match')
+      break
+    case 'Name is required':
+      message = t('register.Name is required')
+      break
+    case 'Phone number is required':
+      message = t('register.Phone number is required')
+      break
+    case 'Price range is not allowed':
+      message = t('price.Price range is not allowed')
+      break
+    case 'Maximum name length is 160 character':
+      message = t('user.Maximum name length is 160 character')
+      break
+    case 'Maximum phone number length is 20 characters':
+      message = t('user.Maximum phone number length is 20 characters')
+      break
+    case 'Can not use this image':
+      message = t('user.Can not use this image')
+      break
+    case 'Customer name is required':
+      message = t('order.Customer name is required')
+      break
+    case 'Customer phone number is required':
+      message = t('order.Customer phone number is required')
+      break
+    case 'Address is required':
+      message = t('order.Address is required')
+      break
+    default:
+      break
+  }
   return (
     <div className={className}>
       <div
@@ -109,9 +168,7 @@ export default function AccountInput({
           {labelName}
         </label>
       </div>
-      <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 ' + (notifyMessage ? 'hidden' : '')}>
-        {errorMessage}
-      </div>
+      <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 ' + (notifyMessage ? 'hidden' : '')}>{message}</div>
       <div className={'mt-1 min-h-[1.25rem] text-sm text-blue-600 ' + (!notifyMessage ? 'hidden' : '')}>
         {notifyMessage}
       </div>

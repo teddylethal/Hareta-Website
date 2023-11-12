@@ -1,6 +1,5 @@
 import type { RegisterOptions, UseFormGetValues } from 'react-hook-form'
 import * as yup from 'yup'
-import { getLanguageFromLS } from './utils'
 
 type Rules = { [key in 'email' | 'password' | 'confirm_password']?: RegisterOptions }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,48 +56,42 @@ export const getRules = (getValues?: UseFormGetValues<any>): Rules => ({
   }
 })
 
-const isEng = getLanguageFromLS() == 'en'
 const handleEmailYup = () => {
   return yup
     .string()
-    .required(isEng ? 'Email address is required' : 'Bạn cần phải điền địa chỉ email')
-    .email(isEng ? 'Incorrect email format' : 'Địa chỉ email sai định dạng')
-    .min(5, isEng ? 'Email address must have at least 5 characters' : 'Địa chỉ email phải có ít nhất 5 kí tự')
-    .max(
-      160,
-      isEng
-        ? 'Email address can only have a total length of 160 characters'
-        : 'Địa chỉ email chỉ có thể bao gồm tối đa 160 kí tự'
-    )
+    .required('Email address is required')
+    .email('Incorrect email format')
+    .min(5, 'Email address must have at least 5 characters')
+    .max(160, 'Email address can only have a total length of 160 characters')
 }
 
 const handlePasswordYup = () => {
   return yup
     .string()
-    .required(isEng ? 'Password is required' : 'Bận cần phải điền mật khẩu')
-    .min(8, isEng ? 'Password must be 8-16 characters' : 'Mật khẩu phải bao gồm ít nhất 8 kí tự')
-    .max(16, isEng ? 'Password must be 8-16 characters' : 'Mật khẩu phải bao gồm ít nhất 8 kí tự')
+    .required('Password is required')
+    .min(8, 'Password must be 8-16 characters')
+    .max(16, 'Password must be 8-16 characters')
 }
 const handleConfirmPasswordYup = (refString: string) => {
   return yup
     .string()
-    .required(isEng ? 'Confirm Password is required' : 'Bạn cần phải nhập lại mật khẩu')
-    .min(8, isEng ? 'Password must be 8-16 characters' : 'Mật khẩu phải bao gồm ít nhất 8 kí tự')
-    .max(16, isEng ? 'Password must be 8-16 characters' : 'Mật khẩu phải bao gồm ít nhất 8 kí tự')
-    .oneOf([yup.ref(refString)], isEng ? 'Passwords do not match' : 'Mật khẩu không khớp')
+    .required('Confirm Password is required')
+    .min(8, 'Password must be 8-16 characters')
+    .max(16, 'Password must be 8-16 characters')
+    .oneOf([yup.ref(refString)], 'Passwords do not match')
 }
 
 export const registerSchema = yup.object({
   email: handleEmailYup(),
   password: handlePasswordYup(),
   confirm_password: handleConfirmPasswordYup('password'),
-  name: yup.string().required(isEng ? 'Name is required' : 'Bạn cần điền tên của mình'),
-  phone: yup.string().required(isEng ? 'Phone number is required' : 'Bạn cần điền số điện thoại của mình')
+  name: yup.string().required('Name is required'),
+  phone: yup.string().required('Phone number is required')
 })
 
 export const loginSchema = yup.object({
-  email: yup.string().required(isEng ? 'Email address is required' : 'Bạn cần phải điền địa chỉ email'),
-  password: yup.string().required(isEng ? 'Password is required' : 'Bận cần phải điền mật khẩu')
+  email: yup.string().required('Email address is required'),
+  password: yup.string().required('Password is required')
 })
 
 export const requestVerifySchema = yup.object({
@@ -118,37 +111,22 @@ function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
 }
 
 export const priceSchema = yup.object({
-  lower_price: yup
-    .string()
-    .default('')
-    .test({
-      name: 'price-is-not-allowed',
-      message: isEng ? 'Price range is not allowed' : 'Khoảng giá không hợp lệ',
-      test: testPriceMinMax
-    }),
-  upper_price: yup
-    .string()
-    .default('')
-    .test({
-      name: 'price-is-not-allowed',
-      message: isEng ? 'Price range is not allowed' : 'Khoảng giá không hợp lệ',
-      test: testPriceMinMax
-    })
+  lower_price: yup.string().default('').test({
+    name: 'price-is-not-allowed',
+    message: 'Price range is not allowed',
+    test: testPriceMinMax
+  }),
+  upper_price: yup.string().default('').test({
+    name: 'price-is-not-allowed',
+    message: 'Price range is not allowed',
+    test: testPriceMinMax
+  })
 })
 
 export const userSchema = yup.object({
-  name: yup
-    .string()
-    .default('')
-    .max(160, isEng ? 'Maximum name length is 160 character' : 'Độ dài tối đa của tên là 160 kí tự'),
-  phone: yup
-    .string()
-    .default('')
-    .max(20, isEng ? 'Maximum phone number length is 20 characters' : 'Độ dài tối đa của số điện thoại là 20 kí tự'),
-  avatar: yup
-    .string()
-    .default('')
-    .max(1000, isEng ? 'Can not use this image' : 'Không thể sử dụng hình ảnh này')
+  name: yup.string().default('').max(160, 'Maximum name length is 160 character'),
+  phone: yup.string().default('').max(20, 'Maximum phone number length is 20 characters'),
+  avatar: yup.string().default('').max(1000, 'Can not use this image')
 })
 
 export const changePasswordSchema = yup.object({
@@ -165,18 +143,18 @@ export const changePasswordRecoverySchema = yup.object({
 
 export const orderSchema = yup.object({
   email: handleEmailYup(),
-  name: yup.string().required(isEng ? 'Customer name is required' : 'Bạn cần điền tên người mua hàng'),
-  phone: yup.string().required(isEng ? 'Phone number is required' : 'Bạn cần điền số điện thoại người mua hàng'),
-  address: yup.string().required(isEng ? 'Address is required' : 'Bạn cần điền địa chỉ nhận hàng'),
+  name: yup.string().required('Customer name is required'),
+  phone: yup.string().required('Customer phone number is required'),
+  address: yup.string().required('Address is required'),
   id: yup.array().of(yup.string()).required()
 })
 export type OrderSchema = yup.InferType<typeof orderSchema>
 
 export const orderSchemaForGuest = yup.object({
   email: handleEmailYup(),
-  name: yup.string().required(isEng ? 'Customer name is required' : 'Bạn cần điền tên người mua hàng'),
-  phone: yup.string().required(isEng ? 'Phone number is required' : 'Bạn cần điền số điện thoại người mua hàng'),
-  address: yup.string().required(isEng ? 'Address is required' : 'Bạn cần điền địa chỉ nhận hàng'),
+  name: yup.string().required('Customer name is required'),
+  phone: yup.string().required('Phone number is required'),
+  address: yup.string().required('Address is required'),
   item: yup
     .array()
     .of(

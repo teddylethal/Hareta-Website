@@ -10,6 +10,7 @@ import support_en from 'src/locales/en/support.json'
 import user_en from 'src/locales/en/user.json'
 import productdetail_en from 'src/locales/en/productdetail.json'
 import login_en from 'src/locales/en/login.json'
+import yuperrors_en from 'src/locales/en/yuperrors.json'
 
 //? VIETNAMESE
 import header_vi from 'src/locales/vi/header.json'
@@ -20,6 +21,8 @@ import support_vi from 'src/locales/vi/support.json'
 import user_vi from 'src/locales/vi/user.json'
 import productdetail_vi from 'src/locales/vi/productdetail.json'
 import login_vi from 'src/locales/vi/login.json'
+import yuperrors_vi from 'src/locales/vi/yuperrors.json'
+
 import { getLanguageFromLS } from 'src/utils/utils'
 
 export const locales = {
@@ -39,7 +42,8 @@ export const resources = {
     support: support_en,
     user: user_en,
     productdetail: productdetail_en,
-    login: login_en
+    login: login_en,
+    yuperrors: yuperrors_en
   },
   vi: {
     header: header_vi,
@@ -49,13 +53,14 @@ export const resources = {
     support: support_vi,
     user: user_vi,
     productdetail: productdetail_vi,
-    login: login_vi
+    login: login_vi,
+    yuperrors: yuperrors_vi
   }
 } as const
 
 export const defaultNS = 'header'
 
-const ns = ['header', 'footer', 'home', 'store', 'support', 'user', 'productdetail', 'login']
+const ns = ['header', 'footer', 'home', 'store', 'support', 'user', 'productdetail', 'login', 'yuperrors']
 
 // eslint-disable-next-line import/no-named-as-default-member
 i18n.use(initReactI18next).init({
