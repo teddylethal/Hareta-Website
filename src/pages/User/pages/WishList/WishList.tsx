@@ -21,6 +21,7 @@ import UnlikeItemDialog from './UnlikeItemDialog'
 import DialogPopup from 'src/components/DialogPopup'
 import WishlistItem from '../../components/WishlistItem'
 import WishlistItemMobile from '../../components/WishlistItemMobile'
+import { useTranslation } from 'react-i18next'
 
 export default function WishList() {
   const { theme, isAuthenticated } = useContext(AppContext)
@@ -111,6 +112,9 @@ export default function WishList() {
     })
   }
 
+  //? translation
+  const { t } = useTranslation('user')
+
   return (
     <Fragment>
       <div className='m-2 h-[calc(100vh-128px)] overflow-scroll rounded-sm md:m-3 lg:mx-4 lg:my-4 lg:overscroll-contain'>
@@ -162,7 +166,7 @@ export default function WishList() {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('wishlist.message')}</p>
       </DialogPopup>
     </Fragment>
   )

@@ -13,7 +13,7 @@ export default function LoadingWithEmptyContent() {
       <FloatingOverlay lockScroll>
         <Fragment>
           <motion.div
-            className='fixed inset-0 z-10 bg-black'
+            className='fixed inset-0 z-10 bg-white dark:bg-black'
             initial={{ opacity: 0.8 }}
             animate={{
               opacity: 0.8

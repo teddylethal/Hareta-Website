@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import React, { Fragment, useContext, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { AppContext } from 'src/contexts/app.context'
@@ -38,6 +39,9 @@ export default function UnlikeItemDialog({
     handleClose()
   }
 
+  //? translation
+  const { t } = useTranslation('user')
+
   const completeButtonRef = useRef(null)
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -71,7 +75,7 @@ export default function UnlikeItemDialog({
                   'bg-black/80 text-textLight': theme === 'dark'
                 })}
               >
-                <p className='text-lg font-semibold'>Remove this item from your wishlist?</p>
+                <p className='text-lg font-semibold'>{t('wishlist.remove message')}</p>
 
                 <div className='mt-8 flex justify-between'>
                   <button
@@ -79,7 +83,7 @@ export default function UnlikeItemDialog({
                     className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
                     onClick={unlikeItem}
                   >
-                    Remove
+                    {t('wishlist.remove')}
                   </button>
                   <button
                     type='button'
@@ -87,7 +91,7 @@ export default function UnlikeItemDialog({
                     onClick={handleClose}
                     ref={completeButtonRef}
                   >
-                    Cancel
+                    {t('wishlist.cancel')}
                   </button>
                 </div>
               </Dialog.Panel>

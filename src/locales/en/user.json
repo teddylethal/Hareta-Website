@@ -19,5 +19,20 @@
     "cancel": "Cancel",
     "message": "Your profile was updated",
     "upload avatar": "Upload avatar"
+  },
+  "password": {
+    "current password": "current password",
+    "new password": "new password",
+    "confirm new password": "confirm new password",
+    "cancel": "Cancel",
+    "change password": "Change password",
+    "message": "Password changed successfully!",
+    "go to login": "Go to login"
+  },
+  "wishlist": {
+    "remove": "Remove",
+    "message": "Item was added to cart",
+    "remove message": "Remove this item from your wishlist?",
+    "cancel": "Cancel"
   }
 }

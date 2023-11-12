@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { Fragment, useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
@@ -89,12 +90,15 @@ export default function ChangePassword() {
     reset()
   }
 
+  //? translation
+  const { t } = useTranslation('user')
+
   return (
     <Fragment>
       <form className='my-4 px-2 md:my-6 md:px-4 lg:my-8 lg:px-6' onSubmit={onSubmit}>
         <div className='flex flex-col space-y-2 rounded-lg border border-black/20 bg-[#efefef] p-4 dark:border-white/20 dark:bg-[#202020]'>
           <div className='relative mt-2 w-full'>
-            <p className='text-sm font-medium uppercase lg:text-lg'>Current password</p>
+            <p className='text-sm font-medium uppercase lg:text-lg'>{t('password.current password')}</p>
             <Input
               type='password'
               classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage '
@@ -104,7 +108,7 @@ export default function ChangePassword() {
             />
           </div>
           <div className='relative w-full '>
-            <p className='text-sm font-medium uppercase lg:text-lg'>New password</p>
+            <p className='text-sm font-medium uppercase lg:text-lg'>{t('password.new password')}</p>
             <Input
               type='password'
               classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
@@ -114,7 +118,7 @@ export default function ChangePassword() {
             />
           </div>
           <div className='relative w-full '>
-            <p className='text-sm font-medium uppercase lg:text-lg'>Confirm new password</p>
+            <p className='text-sm font-medium uppercase lg:text-lg'>{t('password.confirm new password')}</p>
             <Input
               type='password'
               classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark peer dark:caret-white autofill:dark:text-textVintage'
@@ -125,13 +129,13 @@ export default function ChangePassword() {
           </div>
           <div className='flex w-full justify-start space-x-8 pt-2 text-sm sm:w-[50%] lg:text-base'>
             <button type='button' className='hover:underline' onClick={handleCancle}>
-              Cancel
+              {t('password.cancel')}
             </button>
             <button
               type='submit'
               className='rounded-md bg-vintageColor/90 px-2 py-1  hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/70 lg:px-4 lg:py-2 '
             >
-              Change password
+              {t('password.change password')}
             </button>
           </div>
         </div>
@@ -152,7 +156,7 @@ export default function ChangePassword() {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Password changed successfully!</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('password.message')}</p>
         <div className='mt-8 flex items-center justify-center'>
           <button
             onClick={handelConfirm}
@@ -165,7 +169,7 @@ export default function ChangePassword() {
               }
             )}
           >
-            Go to login
+            {t('password.go to login')}
           </button>
         </div>
       </DialogPopup>

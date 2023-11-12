@@ -26,8 +26,8 @@ export default function UserLayout() {
             <div className='pt-2'>
               <PathBar
                 pathList={[
-                  { pathName: 'home', url: '/' },
-                  { pathName: 'user', url: '/user' }
+                  { pathName: t('path.home'), url: '/' },
+                  { pathName: t('path.user'), url: '/user' }
                 ]}
               />
               <div className='pb-6'>
@@ -50,8 +50,8 @@ export default function UserLayout() {
             <div className='pb-6 pt-2 lg:pb-8 xl:pb-10'>
               <PathBar
                 pathList={[
-                  { pathName: 'home', url: '/' },
-                  { pathName: 'user', url: '/user' }
+                  { pathName: t('path.home'), url: '/' },
+                  { pathName: t('path.user'), url: '/user' }
                 ]}
               />
 

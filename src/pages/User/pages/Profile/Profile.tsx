@@ -187,7 +187,7 @@ export default function Profile() {
         {!editingMode && (
           <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#202020] '>
             <div className=''>
-              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+              <p className='text-base font-semibold uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
                 {t('profile.name')}
               </p>
               <div>
@@ -196,7 +196,7 @@ export default function Profile() {
               </div>
             </div>
             <div className=''>
-              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+              <p className='text-base font-semibold uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
                 {t('profile.phone number')}
               </p>
               <div>
@@ -205,7 +205,7 @@ export default function Profile() {
               </div>
             </div>
             <div className=''>
-              <p className=' text-base uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
+              <p className='text-base font-semibold uppercase text-textDark/60 dark:text-textLight/60 lg:text-lg'>
                 {t('profile.email')}
               </p>
               <p className='py-1 text-sm  lg:text-base '>{profile.email}</p>

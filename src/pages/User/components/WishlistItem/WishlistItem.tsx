@@ -1,5 +1,6 @@
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useTranslation } from 'react-i18next'
 import itemTag from 'src/constants/itemTag'
 import { Product } from 'src/types/product.type'
 import { formatCurrency } from 'src/utils/utils'
@@ -19,6 +20,9 @@ export default function WishlistItem({
   addToCart,
   openUnlikeItemDialog
 }: Props) {
+  //? translation
+  const { t } = useTranslation('user')
+
   return (
     <div className='grid grid-cols-12 items-center py-6 text-center text-textDark dark:text-textLight '>
       <div className='col-span-4'>
@@ -92,7 +96,7 @@ export default function WishlistItem({
           onClick={openUnlikeItemDialog(item.group.id)}
         >
           <p className='text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'>
-            Remove
+            {t('wishlist.remove')}
           </p>
         </button>
       </div>

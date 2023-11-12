@@ -19,5 +19,20 @@
     "cancel": "Hủy bỏ",
     "message": "Thông tin của bạn đã được cập nhật",
     "upload avatar": "Chọn ảnh"
+  },
+  "password": {
+    "current password": "Mật khẩu hiện tại",
+    "new password": "Mật khẩu mới",
+    "confirm new password": "Nhập lại mật khẩu mới",
+    "cancel": "Hủy bỏ",
+    "change password": "Đổi mật khẩu",
+    "message": "Đổi mật khẩu thành công!",
+    "go to login": "Đi tới đăng nhập"
+  },
+  "wishlist": {
+    "remove": "Xóa",
+    "message": "Sản phẩm đã được thêm vào giỏ hàng",
+    "remove message": "Xóa sản phẩm khỏi danh sách mong muốn?",
+    "cancel": "Hủy bỏ"
   }
 }

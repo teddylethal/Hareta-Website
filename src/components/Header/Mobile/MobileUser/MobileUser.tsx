@@ -76,7 +76,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
             </Link>
 
             <Link to={path.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
-              <p>{t('user.trade history')}</p>
+              <p>{t('user.inventory')}</p>
             </Link>
 
             <Link to={path.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
