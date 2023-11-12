@@ -10,6 +10,7 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   item: Product
@@ -88,13 +89,18 @@ export default function ProductDescription({ item }: Props) {
     setExtending(false)
   }
 
+  //? translation
+  const { t } = useTranslation('productdetail')
+
   return (
     <div className={theme === 'dark' ? 'dark' : 'light'}>
       <div className='text-textDark dark:text-textLight ' ref={detailRef}>
         <div className='space-y-4'>
-          <p className='text-xl font-semibold uppercase lg:text-2xl xl:text-3xl'>Detail</p>
+          <p className='text-xl font-semibold uppercase lg:text-2xl xl:text-3xl'>{t('detail.Detail')}</p>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>Category</div>
+            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+              {t('detail.Category')}
+            </div>
             <div className='col-span-2'>
               <button
                 className='text-base capitalize hover:text-brownColor dark:hover:text-haretaColor lg:text-lg xl:text-xl'
@@ -106,7 +112,7 @@ export default function ProductDescription({ item }: Props) {
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
             <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
-              Collection
+              {t('detail.Collection')}
             </div>
             <div className='col-span-2'>
               <button
@@ -118,7 +124,9 @@ export default function ProductDescription({ item }: Props) {
             </div>
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>Type</div>
+            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+              {t('detail.Type')}
+            </div>
             <div className='col-span-2'>
               <button
                 className='text-base capitalize hover:text-brownColor dark:hover:text-haretaColor lg:text-lg xl:text-xl'
@@ -130,12 +138,14 @@ export default function ProductDescription({ item }: Props) {
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
             <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
-              Product line
+              {t('detail.Product line')}
             </div>
             <div className='col-span-2 text-base capitalize lg:text-lg xl:text-xl'>{item.product_line}</div>
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>In store</div>
+            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+              {t('detail.In store')}
+            </div>
             <div className='col-span-2 text-base capitalize lg:text-lg xl:text-xl'>{item.quantity}</div>
           </div>
         </div>
@@ -161,7 +171,7 @@ export default function ProductDescription({ item }: Props) {
                     className='flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/80 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
                     onClick={extend}
                   >
-                    <p>Extend</p>
+                    <p>{t('detail.Extend')}</p>
                     <FontAwesomeIcon icon={faChevronDown} />
                   </button>
                 </div>
@@ -172,7 +182,7 @@ export default function ProductDescription({ item }: Props) {
                     className='flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/60 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
                     onClick={collapse}
                   >
-                    <p>Collapse</p>
+                    <p>{t('detail.Collapse')}</p>
                     <FontAwesomeIcon icon={faChevronUp} />
                   </button>
                 </div>

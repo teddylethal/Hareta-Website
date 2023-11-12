@@ -5,6 +5,7 @@ import { Skeleton } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import React, { useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import productApi from 'src/apis/product.api'
@@ -125,6 +126,9 @@ export default function AddTocartPopover({
     showSuccessDialog(setDialogIsOpen)
   }
 
+  //? translation
+  const { t } = useTranslation('productdetail')
+
   if (!item) return null
   return (
     <FloatingPortal>
@@ -164,10 +168,12 @@ export default function AddTocartPopover({
                 <p className=''>{item.name}</p>
                 <span className=' text-haretaColor'>${item.price}</span>
 
-                <p className='flex'>
-                  {item.quantity <= 10 && 'Only '}
-                  {item.quantity} in store
-                </p>
+                <div className='flex space-x-1'>
+                  <p className=''>{item.quantity <= 10 && t('sidebar.only')} </p>
+                  <p>
+                    {item.quantity} {t('sidebar.available')}
+                  </p>
+                </div>
               </div>
             </div>
             <button onClick={closeAddToCart} className='px-2'>
@@ -176,7 +182,7 @@ export default function AddTocartPopover({
           </div>
           <div className='relative mt-4 flex items-center justify-between rounded-lg bg-lightBg px-3 py-2 shadow-sm dark:bg-darkBg'>
             {isLoading && <div className='absolute left-0 top-0 h-full w-full cursor-not-allowed bg-black/40'></div>}
-            <p className=''>Quantity</p>
+            <p className=''>{t('sidebar.quantity')}</p>
             <QuantityController
               classNameWrapper=''
               value={quantity}
@@ -226,7 +232,7 @@ export default function AddTocartPopover({
                   : addToTemporaryCart
               }
             >
-              Add to cart
+              {t('message.Add to cart')}
             </Button>
           </div>
           {createTempCart && <div className='absolute inset-0  bg-black/50 ' ref={elementRef}></div>}
@@ -237,18 +243,20 @@ export default function AddTocartPopover({
                 className='fixed left-1/2 top-1/2 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-white/60 bg-black p-8 align-middle'
                 ref={createDialogRef}
               >
-                <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
+                <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>
+                  {t('message.Cart expires soon')}
+                </p>
                 <div className='mt-4 space-y-2 text-center'>
                   <div className='inline justify-center space-x-1 '>
-                    <span>Items added without</span>
-                    <span className='text-haretaColor'>login</span>
-                    <span>are temporary</span>
+                    <span>{t('message.Items added without')}</span>
+                    <span className='text-haretaColor'>{t('message.login')}</span>
+                    <span>{t('message.are temporary')}</span>
                   </div>
                   <div className='justify-center space-x-1'>
-                    <span className='text-haretaColor'>Login</span>
-                    <span>to</span>
-                    <span className='text-haretaColor'>save</span>
-                    <span>your items</span>
+                    <span className='capitalize text-haretaColor'>{t('message.login')}</span>
+                    <span>{t('message.to')}</span>
+                    <span className='text-haretaColor'>{t('message.save')}</span>
+                    <span>{t('message.your items')}</span>
                   </div>
                 </div>
                 <div className='mt-8 flex justify-around'>
@@ -256,19 +264,19 @@ export default function AddTocartPopover({
                     to={path.login}
                     type='button'
                     className={classNames(
-                      'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+                      'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
                       {
                         'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
                         'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
                       }
                     )}
                   >
-                    Login
+                    {t('message.login')}
                   </Link>
                   <button
                     type='button'
                     className={classNames(
-                      'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+                      'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
                       {
                         'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
                         'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
@@ -276,7 +284,7 @@ export default function AddTocartPopover({
                     )}
                     onClick={createTemporaryCart}
                   >
-                    Continue
+                    {t('message.Continue')}
                   </button>
                 </div>
               </div>

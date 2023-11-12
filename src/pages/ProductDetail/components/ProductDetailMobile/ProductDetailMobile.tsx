@@ -8,11 +8,11 @@ import useClickOutside from 'src/hooks/useClickOutside'
 import AddTocartPopover from '../../AddTocartPopover'
 import { AppContext } from 'src/contexts/app.context'
 import MobileProductImageList from './MobileProductImageList'
-import ItemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
 import ProductDescription from '../ProductDetailDesktop/ProductDescription'
 import OtherItemsInCollection from '../../OtherItemsInCollection'
 import OtherItemsInType from '../../OtherItemsInType'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   defaultItem: Product
@@ -43,6 +43,10 @@ export default function ProductDetailMobile(props: Props) {
     setVisible(true)
   }
 
+  const tag = defaultItem.tag
+  //? translation
+  const { t } = useTranslation('productdetail')
+
   return (
     <Fragment>
       <div className={classNames('bg-lightBg dark:bg-darkBg')}>
@@ -69,7 +73,9 @@ export default function ProductDetailMobile(props: Props) {
             {defaultItem.tag !== 0 && (
               <div className='relative mt-2'>
                 <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textLight'>
-                  {ItemTag[defaultItem.tag]}
+                  {tag == 1 && t('tag.top seller')}
+                  {tag == 2 && t('tag.signature')}
+                  {tag == 3 && t('tag.favourite')}
                 </span>
                 <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
               </div>
@@ -77,9 +83,9 @@ export default function ProductDetailMobile(props: Props) {
 
             <div className='mt-8 w-full rounded-lg border border-black/60 p-4 dark:border-white/60'>
               <div className='flex items-center justify-between'>
-                <p className='text-base font-medium sm:text-lg'>Variant</p>
+                <p className='text-base font-medium sm:text-lg'>{t('sidebar.variant')}</p>
                 <p className='text-sm text-textDark/60 dark:text-textLight/60 sm:text-base '>
-                  {itemsInGroup.length} variants
+                  {itemsInGroup.length} {t('sidebar.variants')}
                 </p>
               </div>
               <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/40 p-2 dark:border-white/40'>
@@ -124,8 +130,15 @@ export default function ProductDetailMobile(props: Props) {
           <button className='col-span-1 flex items-center justify-center text-center' onClick={openAddToCart}>
             <FontAwesomeIcon icon={faCartPlus} className='h-5' />
           </button>
-          <button className='col-span-1 rounded-sm bg-vintageColor/90  hover:bg-vintageColor hover:text-textDark dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'>
-            Buy
+          <button
+            disabled={visible}
+            className={classNames('col-span-1 rounded-sm ', {
+              'bg-vintageColor/80  hover:bg-vintageColor hover:text-textDark dark:bg-haretaColor/80 dark:hover:bg-haretaColor':
+                !visible,
+              'bg-vintageColor/40 text-textDark/60 dark:bg-haretaColor/40 dark:text-textLight/60': visible
+            })}
+          >
+            {t('sidebar.buy')}
           </button>
         </div>
       </div>
@@ -159,7 +172,7 @@ export default function ProductDetailMobile(props: Props) {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Added successfully</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Added successfully')}</p>
       </DialogPopup>
       <DialogPopup
         isOpen={errorDialog}
@@ -170,7 +183,7 @@ export default function ProductDetailMobile(props: Props) {
           <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-red-700 md:w-10 lg:w-12 xl:w-16')} />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
-          The quantity of the current item you are trying to add exceed our store
+          {t('message.The quantity of the current item you are trying to add exceed our store')}
         </p>
       </DialogPopup>
     </Fragment>

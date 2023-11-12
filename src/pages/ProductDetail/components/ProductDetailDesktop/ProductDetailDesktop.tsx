@@ -2,7 +2,6 @@ import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import QuantityController from 'src/components/QuantityController'
-import ItemTag from 'src/constants/itemTag'
 import { formatCurrency } from 'src/utils/utils'
 import { AppContext } from 'src/contexts/app.context'
 import classNames from 'classnames'
@@ -16,6 +15,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 
 import DialogPopup from 'src/components/DialogPopup'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   defaultItem: Product
@@ -99,9 +99,13 @@ export default function ProductDetailDesktop(props: Props) {
     }
     showSuccessDialog(setDialogIsOpen)
   }
+  const tag = defaultItem.tag
 
   //? CHECK IN STOCK
   const inStock = activeItem.quantity > 0
+
+  //? translation
+  const { t } = useTranslation('productdetail')
 
   return (
     <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
@@ -124,7 +128,9 @@ export default function ProductDetailDesktop(props: Props) {
           {defaultItem.tag !== 0 && (
             <div className='relative mt-2'>
               <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textLight'>
-                {ItemTag[defaultItem.tag]}
+                {tag == 1 && t('tag.top seller')}
+                {tag == 2 && t('tag.signature')}
+                {tag == 3 && t('tag.favourite')}
               </span>
               <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
             </div>
@@ -137,9 +143,9 @@ export default function ProductDetailDesktop(props: Props) {
 
           <div className='mt-8 w-full rounded-lg border border-black/60 p-2 dark:border-white/60'>
             <div className='flex items-center justify-between'>
-              <p className='text-base font-medium lg:text-lg xl:text-xl'>Variant</p>
+              <p className='text-base font-medium lg:text-lg xl:text-xl'>{t('sidebar.variant')}</p>
               <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
-                {itemsInGroup.length} variants
+                {itemsInGroup.length} {t('sidebar.variants')}
               </p>
             </div>
             <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/40 p-2 dark:border-white/40'>
@@ -174,7 +180,7 @@ export default function ProductDetailDesktop(props: Props) {
             <div className='w-full'>
               <div className='mt-6 items-center justify-between text-xs lg:flex lg:space-x-2 lg:text-sm xl:text-base'>
                 <div className='flex items-center space-x-2'>
-                  <p className='text-textDark dark:text-textLight'>Quantity:</p>
+                  <p className='text-textDark dark:text-textLight'>{t('sidebar.quantity')}:</p>
                   <QuantityController
                     classNameWrapper=''
                     value={quantity}
@@ -184,9 +190,11 @@ export default function ProductDetailDesktop(props: Props) {
                     onType={handleQuantity}
                   />
                 </div>
-                <p className='items-center space-x-1 text-textDark/60 dark:text-textLight/60'>
-                  {defaultItem.quantity <= 10 && <span>Only</span>}
-                  <span>{defaultItem.quantity} available</span>
+                <p className='items-center space-x-1 text-xs text-textDark/60 dark:text-textLight/60 lg:text-sm'>
+                  {defaultItem.quantity <= 10 && <span>{t('sidebar.only')}</span>}
+                  <span>
+                    {defaultItem.quantity} {t('sidebar.available')}
+                  </span>
                 </p>
               </div>
 
@@ -206,14 +214,14 @@ export default function ProductDetailDesktop(props: Props) {
                   <FontAwesomeIcon icon={faCartPlus} />
                 </button>
                 <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'>
-                  Buy
+                  {t('sidebar.buy')}
                 </button>
               </div>
             </div>
           )}
           {!inStock && (
             <div className='mt-2 flex w-full items-center justify-center text-lg font-semibold uppercase text-brownColor/80 dark:text-haretaColor/80 lg:mt-4 lg:text-xl xl:mt-6 xl:text-2xl'>
-              out of stock
+              {t('sidebar.out of stock')}
             </div>
           )}
         </div>
@@ -232,20 +240,22 @@ export default function ProductDetailDesktop(props: Props) {
         closeButton={false}
         isOpen={createTempCart}
         handleClose={() => setCreateTempCart(false)}
-        classNameWrapper='relative w-80 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
+        classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
       >
-        <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>Cart expires soon</p>
+        <p className='text-center text-xl font-semibold uppercase leading-6 text-red-700'>
+          {t('message.Cart expires soon')}
+        </p>
         <div className='mt-4 space-y-2 text-center'>
           <div className='inline justify-center space-x-1 '>
-            <span>Items added without</span>
-            <span className='text-haretaColor'>login</span>
-            <span>are temporary</span>
+            <span>{t('message.Items added without')}</span>
+            <span className='text-haretaColor'>{t('message.login')}</span>
+            <span>{t('message.are temporary')}</span>
           </div>
           <div className='justify-center space-x-1'>
-            <span className='text-haretaColor'>Login</span>
-            <span>to</span>
-            <span className='text-haretaColor'>save</span>
-            <span>your items</span>
+            <span className='capitalize text-haretaColor'>{t('message.login')}</span>
+            <span>{t('message.to')}</span>
+            <span className='text-haretaColor'>{t('message.save')}</span>
+            <span>{t('message.your items')}</span>
           </div>
         </div>
         <div className='mt-8 flex justify-around'>
@@ -253,19 +263,19 @@ export default function ProductDetailDesktop(props: Props) {
             to={path.login}
             type='button'
             className={classNames(
-              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
               {
                 'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
                 'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
               }
             )}
           >
-            Login
+            {t('message.login')}
           </Link>
           <button
             type='button'
             className={classNames(
-              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium lg:px-6 lg:py-2',
+              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
               {
                 'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
                 'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
@@ -273,7 +283,7 @@ export default function ProductDetailDesktop(props: Props) {
             )}
             onClick={createTemporaryCart}
           >
-            Continue
+            {t('message.Continue')}
           </button>
         </div>
       </DialogPopup>
@@ -293,7 +303,7 @@ export default function ProductDetailDesktop(props: Props) {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Added successfully</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Added successfully')}</p>
       </DialogPopup>
 
       <DialogPopup
@@ -305,7 +315,7 @@ export default function ProductDetailDesktop(props: Props) {
           <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-red-700 md:w-10 lg:w-12 xl:w-16')} />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
-          The quantity of the current item you are trying to add exceed our store
+          {t('message.The quantity of the current item you are trying to add exceed our store')}
         </p>
       </DialogPopup>
     </div>

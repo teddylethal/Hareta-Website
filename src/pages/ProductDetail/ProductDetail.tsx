@@ -24,6 +24,7 @@ import { AxiosError } from 'axios'
 import { ErrorRespone } from 'src/types/utils.type'
 import { errorResponeList } from 'src/constants/error'
 import { StoreContext } from 'src/contexts/store.context'
+import { useTranslation } from 'react-i18next'
 
 export interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -169,6 +170,9 @@ export default function ProductDetail() {
     document.title = `${defaltItem?.name} | Hareta Workshop`
   })
 
+  //? translation
+  const { t } = useTranslation('productdetail')
+
   if (!defaltItem) return <ProductDetailLoading />
   return (
     <div className='bg-lightBg py-2 dark:bg-darkBg lg:py-3 xl:py-4'>
@@ -183,7 +187,7 @@ export default function ProductDetail() {
               })
             }
           >
-            home
+            {t('path.home')}
           </NavLink>
           <FontAwesomeIcon icon={faAngleRight} />
           <NavLink
@@ -195,7 +199,7 @@ export default function ProductDetail() {
               })
             }
           >
-            store
+            {t('path.store')}
           </NavLink>
           <FontAwesomeIcon icon={faAngleRight} />
           <div className={'text-brownColor dark:text-haretaColor'}>{defaltItem.name}</div>
