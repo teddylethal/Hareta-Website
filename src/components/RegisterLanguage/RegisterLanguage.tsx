@@ -2,6 +2,7 @@ import { useState } from 'react'
 import FloatingOnClick from '../FoatingOnClick'
 import { useTranslation } from 'react-i18next'
 import { locales } from 'src/i18n/i18n'
+import { setLanguageToLS } from 'src/utils/utils'
 
 export default function RegisterLanguage() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -17,9 +18,11 @@ export default function RegisterLanguage() {
   const { i18n } = useTranslation()
   const currentLanguage = locales[i18n.language as keyof typeof locales]
   const changeLanguage = (lng: 'en' | 'vi') => {
-    closePopover()
+    closePopover && closePopover()
     i18n.changeLanguage(lng)
+    setLanguageToLS(lng)
   }
+
   return (
     <div className='group'>
       <FloatingOnClick

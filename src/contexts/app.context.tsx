@@ -12,6 +12,9 @@ interface AppContextInterface {
   theme: string
   toggleTheme: () => void
   reset: () => void
+  //? language
+  // language: string
+  // setLanguage: React.Dispatch<React.SetStateAction<string>>
 }
 
 const initialAppContext: AppContextInterface = {
@@ -24,6 +27,7 @@ const initialAppContext: AppContextInterface = {
   setPageIsLoading: () => null,
   theme: getThemeFromLS(),
   toggleTheme: () => null
+  //? language
 }
 
 export const AppContext = createContext<AppContextInterface>(initialAppContext)

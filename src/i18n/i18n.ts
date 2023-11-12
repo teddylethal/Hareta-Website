@@ -20,6 +20,7 @@ import support_vi from 'src/locales/vi/support.json'
 import user_vi from 'src/locales/vi/user.json'
 import productdetail_vi from 'src/locales/vi/productdetail.json'
 import login_vi from 'src/locales/vi/login.json'
+import { getLanguageFromLS } from 'src/utils/utils'
 
 export const locales = {
   en: 'English',
@@ -59,7 +60,7 @@ const ns = ['header', 'footer', 'home', 'store', 'support', 'user', 'productdeta
 // eslint-disable-next-line import/no-named-as-default-member
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
+  lng: getLanguageFromLS(),
   ns,
   fallbackLng: 'en',
   defaultNS,

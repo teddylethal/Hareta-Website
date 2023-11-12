@@ -4,6 +4,7 @@ import AnimateChangeInHeight from '../AnimateChangeInHeight'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { locales } from 'src/i18n/i18n'
+import { setLanguageToLS } from 'src/utils/utils'
 
 interface Props {
   closePopover?: () => void
@@ -16,6 +17,7 @@ export default function ChangeLanguage({ closePopover }: Props) {
   const changeLanguage = (lng: 'en' | 'vi') => {
     closePopover && closePopover()
     i18n.changeLanguage(lng)
+    setLanguageToLS(lng)
   }
 
   const { visible, setVisible, ref } = useClickOutside(false)
