@@ -14,6 +14,7 @@ import { setOrderListToLS } from 'src/utils/order'
 
 import AuthenticatedCartMobile from '../AuthenticatedCartMobile'
 import ItemInCart from 'src/components/ItemInCart'
+import { useTranslation } from 'react-i18next'
 
 export default function AuthenticatedCart() {
   const viewport = useViewport()
@@ -66,6 +67,9 @@ export default function AuthenticatedCart() {
     setOrderListToLS(checkedPurchases)
   }
 
+  //? transaltion
+  const { t } = useTranslation('cart')
+
   return (
     <Fragment>
       {!isMobile && (
@@ -75,15 +79,15 @@ export default function AuthenticatedCart() {
               <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-textDark  dark:text-textLight lg:text-lg'>
                 <div className='col-span-6'>
                   <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>
-                    Product
+                    {t('content.product')}
                   </p>
                 </div>
                 <div className='col-span-6'>
                   <div className='grid grid-cols-4 text-center'>
-                    <div className='col-span-1'>Unit Price</div>
-                    <div className='col-span-1'>Quantity</div>
-                    <div className='col-span-1'>Subtotal</div>
-                    <div className='col-span-1'>Action</div>
+                    <div className='col-span-1'>{t('content.unit price')}</div>
+                    <div className='col-span-1'>{t('content.quantity')}</div>
+                    <div className='col-span-1'>{t('content.subtotal')}</div>
+                    <div className='col-span-1'>{t('content.action')}</div>
                   </div>
                 </div>
               </div>
@@ -130,22 +134,22 @@ export default function AuthenticatedCart() {
                         className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
                         onClick={handleSelectAll}
                       >
-                        Select all
+                        {t('content.select all')}
                       </button>
                     </Fragment>
                   )}
                 </div>
                 <div className='col-span-1 flex items-center text-center text-textDark dark:text-textLight'>
                   {checkedPurchasesCount < 2
-                    ? `${checkedPurchasesCount} item was selected`
-                    : `${checkedPurchasesCount} items were selected`}
+                    ? `${checkedPurchasesCount} ${t('content.item was selected')}`
+                    : `${checkedPurchasesCount} ${t('content.items were selected')}`}
                 </div>
               </div>
               <div className='col-span-6 grid grid-cols-4 items-center'>
                 <div className='col-span-1'></div>
 
                 <div className='col-span-1 items-center text-right font-medium uppercase text-textDark dark:text-textLight'>
-                  Total:
+                  {t('content.total')}:
                 </div>
                 <span className='col-span-1 text-center text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
@@ -153,10 +157,10 @@ export default function AuthenticatedCart() {
                 {checkedPurchasesCount === 0 && (
                   <div
                     className={classNames(
-                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/90 bg-opacity-50 text-textDark text-opacity-60 dark:bg-haretaColor  dark:bg-opacity-50 dark:text-textDark  dark:text-opacity-60'
+                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/50 text-textDark text-opacity-60 dark:bg-haretaColor/50 dark:text-textDark  dark:text-opacity-60'
                     )}
                   >
-                    Check out
+                    {t('content.check out')}
                   </div>
                 )}
                 {checkedPurchasesCount > 0 && (
@@ -164,10 +168,10 @@ export default function AuthenticatedCart() {
                     onClick={handleCheckout}
                     to={path.shippingInfor}
                     className={classNames(
-                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor/90  text-textDark hover:bg-vintageColor  dark:bg-haretaColor dark:text-textDark dark:hover:bg-haretaColor/80'
+                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor  text-textDark hover:bg-vintageColor/80  dark:bg-haretaColor/80 dark:text-textDark dark:hover:bg-haretaColor'
                     )}
                   >
-                    Check out
+                    {t('content.check out')}
                   </Link>
                 )}
               </div>

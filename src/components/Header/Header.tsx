@@ -79,11 +79,11 @@ export default function Header() {
             {!isAuthenticated && (
               <Link
                 to={path.login}
-                className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-brownColor dark:hover:text-haretaColor md:font-semibold'
+                className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-brownColor dark:hover:text-haretaColor md:font-semibold lg:space-x-2'
               >
                 <FontAwesomeIcon icon={faUser} />
 
-                <p>Login</p>
+                <p>{t('navbar.login')}</p>
               </Link>
             )}
 

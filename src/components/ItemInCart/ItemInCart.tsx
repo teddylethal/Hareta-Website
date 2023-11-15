@@ -7,6 +7,7 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   purchase: ExtendsPurchase
@@ -69,6 +70,9 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
   //   const purchaseId = extendedPurchases[purchaseIndex].id
   //   removePurchasesMutation.mutate({ id: purchaseId })
   // }
+
+  //? transaltion
+  const { t } = useTranslation('cart')
 
   return (
     <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
@@ -140,7 +144,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
               className='bg-none text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'
               onClick={handleRemove(index)}
             >
-              Remove
+              {t('content.remove')}
             </button>
           </div>
         </div>

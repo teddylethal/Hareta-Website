@@ -133,14 +133,14 @@ export default function CartPopoverWithLogin() {
               </div>
             </Fragment>
 
-            <div className='mx-3 mb-2 mt-4 flex items-center justify-between text-textDark dark:text-textLight'>
+            <div className='mx-3 mb-2 mt-4 flex items-center justify-between text-textDark'>
               <Link to={path.store}>
-                <button className='justify-self-start rounded-md bg-vintageColor/90 px-4 py-1 text-sm capitalize hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/70'>
+                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm capitalize hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
                   {t('cart button.store')}
                 </button>
               </Link>
               <Link to={path.cart}>
-                <button className='justify-self-start rounded-md bg-vintageColor/90 px-4 py-1 text-sm capitalize hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/70'>
+                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm capitalize hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
                   {t('cart button.enter cart')}
                 </button>
               </Link>
@@ -150,7 +150,7 @@ export default function CartPopoverWithLogin() {
         }
         placement='bottom-end'
       >
-        <div className='flex items-center space-x-2 px-2 py-0.5  text-textDark dark:text-textLight'>
+        <div className='flex items-center space-x-2 px-2 py-0.5  text-textDark'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
           {extendedPurchases.length > 0 && (
             <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs text-textDark dark:bg-black dark:text-textLight lg:text-sm xl:text-base'>

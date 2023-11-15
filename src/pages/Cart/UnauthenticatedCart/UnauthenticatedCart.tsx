@@ -13,6 +13,7 @@ import { setTempOrderListToLS } from 'src/utils/order'
 
 import UnauthenticatedCartMobile from '../UnauthenticatedCartMobile'
 import QuantityController from 'src/components/QuantityController'
+import { useTranslation } from 'react-i18next'
 
 export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
   disabled: boolean
@@ -95,6 +96,9 @@ export default function UnauthenticatedCart() {
     setTempOrderListToLS(checkedPurchases)
   }
 
+  //? transaltion
+  const { t } = useTranslation('cart')
+
   return (
     <Fragment>
       {!isMobile && (
@@ -107,15 +111,15 @@ export default function UnauthenticatedCart() {
                     <input type='checkbox' className='h-4 w-4 accent-haretaColor' />
                   </div> */}
                   <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>
-                    Product
+                    {t('content.product')}
                   </p>
                 </div>
                 <div className='col-span-6'>
                   <div className='grid grid-cols-4 text-center'>
-                    <div className='col-span-1'>Unit Price</div>
-                    <div className='col-span-1'>Quantity</div>
-                    <div className='col-span-1'>Subtotal</div>
-                    <div className='col-span-1'>Action</div>
+                    <div className='col-span-1'>{t('content.unit price')}</div>
+                    <div className='col-span-1'>{t('content.quantity')}</div>
+                    <div className='col-span-1'>{t('content.subtotal')}</div>
+                    <div className='col-span-1'>{t('content.action')}</div>
                   </div>
                 </div>
               </div>
@@ -194,7 +198,7 @@ export default function UnauthenticatedCart() {
                                 className='bg-none text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'
                                 onClick={handleRemove(index)}
                               >
-                                Remove
+                                {t('content.remove')}
                               </button>
                             </div>
                           </div>
@@ -230,22 +234,22 @@ export default function UnauthenticatedCart() {
                         className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
                         onClick={handleSelectAll}
                       >
-                        Select all
+                        {t('content.select all')}
                       </button>
                     </Fragment>
                   )}
                 </div>
                 <div className='col-span-1 flex items-center text-center text-textDark dark:text-textLight'>
                   {checkedPurchasesCount < 2
-                    ? `${checkedPurchasesCount} item was selected`
-                    : `${checkedPurchasesCount} items were selected`}
+                    ? `${checkedPurchasesCount} ${t('content.item was selected')}`
+                    : `${checkedPurchasesCount} ${t('content.items were selected')}`}
                 </div>
               </div>
               <div className='col-span-6 grid grid-cols-4 items-center'>
                 <div className='col-span-1'></div>
 
                 <div className='col-span-1 items-center text-right font-medium uppercase text-textDark dark:text-textLight'>
-                  Total:
+                  {t('content.total')}:
                 </div>
                 <span className='col-span-1 text-center text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
@@ -253,10 +257,10 @@ export default function UnauthenticatedCart() {
                 {checkedPurchasesCount === 0 && (
                   <div
                     className={classNames(
-                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/90 bg-opacity-50 text-textDark text-opacity-60 dark:bg-haretaColor  dark:bg-opacity-50 dark:text-textDark  dark:text-opacity-60'
+                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/50 text-textDark text-opacity-60 dark:bg-haretaColor/60 dark:text-textDark  dark:text-opacity-60'
                     )}
                   >
-                    Check out
+                    {t('content.check out')}
                   </div>
                 )}
                 {checkedPurchasesCount > 0 && (
@@ -264,10 +268,10 @@ export default function UnauthenticatedCart() {
                     to={path.shippingInfor}
                     onClick={handleCheckout}
                     className={classNames(
-                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor/90  text-textDark hover:bg-vintageColor  dark:bg-haretaColor dark:text-textDark dark:hover:bg-haretaColor/80'
+                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor  text-textDark hover:bg-vintageColor/80  dark:bg-haretaColor/80 dark:text-textDark dark:hover:bg-haretaColor'
                     )}
                   >
-                    Check out
+                    {t('content.check out')}
                   </Link>
                 )}
               </div>

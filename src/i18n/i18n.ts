@@ -10,6 +10,7 @@ import support_en from 'src/locales/en/support.json'
 import user_en from 'src/locales/en/user.json'
 import productdetail_en from 'src/locales/en/productdetail.json'
 import login_en from 'src/locales/en/login.json'
+import cart_en from 'src/locales/en/cart.json'
 import yuperrors_en from 'src/locales/en/yuperrors.json'
 
 //? VIETNAMESE
@@ -21,6 +22,7 @@ import support_vi from 'src/locales/vi/support.json'
 import user_vi from 'src/locales/vi/user.json'
 import productdetail_vi from 'src/locales/vi/productdetail.json'
 import login_vi from 'src/locales/vi/login.json'
+import cart_vi from 'src/locales/vi/cart.json'
 import yuperrors_vi from 'src/locales/vi/yuperrors.json'
 
 import { getLanguageFromLS } from 'src/utils/utils'
@@ -43,6 +45,7 @@ export const resources = {
     user: user_en,
     productdetail: productdetail_en,
     login: login_en,
+    cart: cart_en,
     yuperrors: yuperrors_en
   },
   vi: {
@@ -54,6 +57,7 @@ export const resources = {
     user: user_vi,
     productdetail: productdetail_vi,
     login: login_vi,
+    cart: cart_vi,
     yuperrors: yuperrors_vi
   }
 } as const

@@ -1,0 +1,21 @@
+{
+  "": {},
+  "sample": "sample",
+  "path": {
+    "home": "Trang chủ",
+    "cart": "Giỏ hàng"
+  },
+  "content": {
+    "product": "Sản phẩm",
+    "unit price": "Đơn giá",
+    "quantity": "Số lượng",
+    "subtotal": "Thành tiền",
+    "action": "Thao tác",
+    "remove": "Xóa",
+    "select all": "Tất cả",
+    "check out": "Thanh toán",
+    "total": "Tổng tiền",
+    "item was selected": "sản phẩm được chọn",
+    "items were selected": "sản phẩm được chọn"
+  }
+}

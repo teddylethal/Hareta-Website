@@ -3,7 +3,8 @@
     "home": "Home",
     "store": "Store",
     "event": "Event",
-    "support": "Support"
+    "support": "Support",
+    "login": "Login"
   },
   "support": {
     "about us": "about us",

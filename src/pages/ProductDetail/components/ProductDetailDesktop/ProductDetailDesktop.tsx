@@ -198,9 +198,9 @@ export default function ProductDetailDesktop(props: Props) {
                 </p>
               </div>
 
-              <div className='mt-4 flex justify-between'>
+              <div className='mt-4 flex justify-between text-textDark'>
                 <button
-                  className='flex items-center rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'
+                  className='flex items-center rounded-md bg-vintageColor px-6 py-1 text-sm hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:py-1.5 lg:text-base xl:text-lg'
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
@@ -213,7 +213,7 @@ export default function ProductDetailDesktop(props: Props) {
                 >
                   <FontAwesomeIcon icon={faCartPlus} />
                 </button>
-                <button className='flex items-center space-x-2 rounded-md bg-vintageColor/80 px-6 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 lg:py-1.5 lg:text-base xl:text-lg'>
+                <button className='flex items-center space-x-2 rounded-md bg-vintageColor px-6 py-1 text-sm hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:py-1.5 lg:text-base xl:text-lg'>
                   {t('sidebar.buy')}
                 </button>
               </div>
