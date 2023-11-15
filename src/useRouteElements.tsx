@@ -17,11 +17,11 @@ import ProductList from './pages/ProductList'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
+import UserLayout from './pages/User/layouts/UserLayout'
 const Cart = lazy(() => import('./pages/Cart'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
 
 //? IMPORT USER COMPONENTS
-const UserLayout = lazy(() => import('./pages/User/layouts/UserLayout'))
 const Profile = lazy(() => import('./pages/User/pages/Profile'))
 const WishList = lazy(() => import('./pages/User/pages/WishList'))
 const Inventory = lazy(() => import('./pages/User/pages/Inventory'))
@@ -59,11 +59,9 @@ const AdminDeleteGroup = lazy(() => import('./pages/Admin/pages/AdminDeleteGroup
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
   return isAuthenticated ? (
-    <Suspense fallback={<LoadingWithEmptyContent />}>
-      <Outlet />
-    </Suspense>
+    <Outlet />
   ) : (
-    <Navigate to='/login' />
+    <Navigate to='/login' state={{ context: 'AccessProtectedRouteDenied', from: 'user' }} />
   )
 }
 
@@ -144,7 +142,7 @@ export default function useRouteElements() {
       element: <ProtectedRoute />,
       children: [
         {
-          path: path.user,
+          path: '',
           element: (
             <MainLayout>
               <UserLayout />
@@ -152,30 +150,38 @@ export default function useRouteElements() {
           ),
           children: [
             {
-              path: path.account,
-              element: <Profile />
+              path: path.profile,
+              element: (
+                <Suspense fallback={<LoadingWithEmptyContent />}>
+                  <Profile />
+                </Suspense>
+              )
             },
             {
               path: path.password,
-              element: <ChangePassword />
+              element: (
+                <Suspense fallback={<LoadingWithEmptyContent />}>
+                  <ChangePassword />
+                </Suspense>
+              )
             },
             {
               path: path.inventory,
-              element: <Inventory />
+              element: (
+                <Suspense fallback={<LoadingWithEmptyContent />}>
+                  <Inventory />
+                </Suspense>
+              )
             },
             {
               path: path.wishList,
-              element: <WishList />
+              element: (
+                <Suspense fallback={<LoadingWithEmptyContent />}>
+                  <WishList />
+                </Suspense>
+              )
             }
           ]
-        },
-        {
-          path: path.orderTracking,
-          element: (
-            <MainLayout>
-              <OrderTracking />
-            </MainLayout>
-          )
         }
       ]
     },
@@ -303,6 +309,16 @@ export default function useRouteElements() {
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
             <PrivacyAndTerms />
+          </Suspense>
+        </MainLayout>
+      )
+    },
+    {
+      path: path.orderTracking,
+      element: (
+        <MainLayout>
+          <Suspense fallback={<LoadingWithEmptyContent />}>
+            <OrderTracking />
           </Suspense>
         </MainLayout>
       )

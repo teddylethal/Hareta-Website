@@ -20,7 +20,7 @@
     "enter cart": "Enter cart"
   },
   "user": {
-    "account": "Account",
+    "profile": "Profile",
     "inventory": "Inventory",
     "wishlist": "Wishlist",
     "log out": "Log Out"

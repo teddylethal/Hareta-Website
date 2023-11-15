@@ -27,9 +27,12 @@ type FormData = LoginSchema
 
 export default function Login() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
-  const navigate = useNavigate()
+  //? responsive
   const viewPort = useViewport()
   const isSmall = viewPort.width <= 425
+  const navigate = useNavigate()
+  const { state } = useLocation()
+
   const {
     register,
     handleSubmit,
@@ -58,7 +61,11 @@ export default function Login() {
           setProfileToLS(response.data.data)
           setProfile(response.data.data)
         })
-        navigate(-1)
+        if (state && state.context == 'AccessProtectedRouteDenied' && state.from == 'user') {
+          navigate(path.profile)
+        } else {
+          navigate(-1)
+        }
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -89,9 +96,8 @@ export default function Login() {
 
   const [dialog, setDialog] = useState(true)
   const closeDialog = () => setDialog(false)
-  const { state } = useLocation()
   useEffect(() => {
-    if (state) {
+    if (state && (state.title == 'PasswordRecovery' || state.title == 'EmailVerification')) {
       setDialog(true)
       if (state?.email) {
         setValue('email', state?.email)

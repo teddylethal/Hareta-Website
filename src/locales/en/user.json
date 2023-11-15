@@ -4,7 +4,7 @@
     "user": "User"
   },
   "layout": {
-    "account": "Account",
+    "profile": "Profile",
     "password": "Password",
     "inventory": "Inventory",
     "wishlist": "Wishlist"

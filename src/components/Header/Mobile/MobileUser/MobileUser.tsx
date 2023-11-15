@@ -71,8 +71,8 @@ export default function MobileUser({ className, closeMenu }: Props) {
             exit={{ opacity: 0, y: '-10%' }}
             transition={{ duration: 0.3 }}
           >
-            <Link to={path.account} onClick={closeMenu} className='flex items-center py-1 font-medium'>
-              <p>{t('user.account')}</p>
+            <Link to={path.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+              <p>{t('user.profile')}</p>
             </Link>
 
             <Link to={path.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>

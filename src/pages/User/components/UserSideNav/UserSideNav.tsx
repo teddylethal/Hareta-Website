@@ -12,7 +12,8 @@ export default function UserSideNav() {
     <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-textDark/70  duration-500 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
       <div className=''>
         <NavLink
-          to={path.account}
+          to={path.profile}
+          end
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
@@ -21,13 +22,14 @@ export default function UserSideNav() {
           }
         >
           <FontAwesomeIcon icon={faUser} />
-          <p>{t('layout.account')}</p>
+          <p>{t('layout.profile')}</p>
         </NavLink>
       </div>
 
       <div className='border-t border-black/10 dark:border-white/20'>
         <NavLink
           to={path.password}
+          aria-current='page'
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
@@ -42,6 +44,7 @@ export default function UserSideNav() {
       <div className='border-t border-black/10 dark:border-white/20'>
         <NavLink
           to={path.inventory}
+          aria-current='true'
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
@@ -56,6 +59,7 @@ export default function UserSideNav() {
       <div className='border-t border-black/10 dark:border-white/20'>
         <NavLink
           to={path.wishList}
+          aria-current='true'
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
