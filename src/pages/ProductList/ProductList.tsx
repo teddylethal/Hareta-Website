@@ -59,7 +59,7 @@ export default function ProductList() {
 
   //? CHANGE TITLE
   useEffect(() => {
-    document.title = 'Store | Hareta Workshop'
+    document.title = `${t('path bar.store')} | Hareta Workshop`
   })
 
   //? TRANSLATION

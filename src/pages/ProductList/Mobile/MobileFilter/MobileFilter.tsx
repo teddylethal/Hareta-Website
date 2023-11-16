@@ -13,6 +13,7 @@ import path from 'src/constants/path'
 import classNames from 'classnames'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { AppContext } from 'src/contexts/app.context'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   queryConfig: QueryConfig
@@ -43,6 +44,9 @@ export default function MobileBottomBar({ queryConfig }: Props) {
       pathname: path.store
     })
   }
+
+  //? TRANSLATION
+  const { t } = useTranslation('store')
 
   return (
     <Fragment>
@@ -101,7 +105,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
                       }
                     )}
                   >
-                    Clear
+                    {t('aside filter.clear')}
                   </button>
                 </div>
               </div>

@@ -86,10 +86,11 @@ export default function AsideSorter() {
       <div className='col-span-7 items-center' ref={ref}>
         <button
           className={classNames(
-            'flex w-full items-center justify-center rounded-xl bg-[#ddd] py-0.5 text-sm font-medium capitalize text-textDark duration-300 dark:bg-[#202020] dark:text-textLight lg:px-3  lg:text-base',
+            'flex w-full items-center justify-center rounded-xl bg-[#ddd] py-0.5 text-sm font-medium capitalize text-textDark duration-300 dark:bg-[#202020] lg:px-3  lg:text-base',
             {
-              'rounded-b-none border-x border-t border-black/20 duration-500 dark:border-white/10': visible,
-              ' bg-vintageColor/90 hover:bg-vintageColor  dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60': !visible
+              'rounded-b-none border-x border-t border-black/20 text-textDark duration-500 dark:border-white/10 dark:text-textLight':
+                visible,
+              ' bg-vintageColor hover:bg-vintageColor/80  dark:bg-haretaColor/80 dark:hover:bg-haretaColor': !visible
             }
           )}
           onClick={toggleOpenClose}
@@ -121,7 +122,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           tagEnum !== 0,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 0
+                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 0
                       }
                     )}
                   >
@@ -136,7 +137,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           tagEnum !== 1,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 1
+                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 1
                       }
                     )}
                   >
@@ -151,7 +152,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           tagEnum !== 2,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 2
+                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 2
                       }
                     )}
                   >
@@ -166,7 +167,7 @@ export default function AsideSorter() {
                       {
                         'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
                           tagEnum !== 3,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 3
+                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 3
                       }
                     )}
                   >

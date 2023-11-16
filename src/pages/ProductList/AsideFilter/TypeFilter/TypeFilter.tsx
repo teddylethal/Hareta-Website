@@ -26,6 +26,9 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
   const [isOpening, setIsopening] = useState<boolean>(false)
   const { category, collection, type } = queryConfig
 
+  //? TRANSLATION
+  const { t } = useTranslation('store')
+
   const queryParams = useQueryParams()
   const navigate = useNavigate()
   const { data } = useQuery({
@@ -55,7 +58,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
       setMobileFilterOpen(false)
     }
 
-    if (selectedType === 'All') {
+    if (selectedType.toUpperCase() === t('aside filter.all').toUpperCase()) {
       navigate({
         pathname: path.store,
         search: createSearchParams(
@@ -82,9 +85,6 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
       })
     }
   }
-
-  //? TRANSLATION
-  const { t } = useTranslation('store')
 
   return (
     <div
