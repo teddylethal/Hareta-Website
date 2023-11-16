@@ -87,7 +87,7 @@ export default function ProductList() {
             </div>
             <div className='col-start-4 col-end-13'>
               {(isFetching || !storeData) && <ProductListSkeleton />}
-              {storeData?.data.paging.total == 0 && <EmptyProductList />}
+              {storeData?.data.paging.total == 0 && <EmptyProductList currentPage='store' />}
               {storeData && (
                 <div className=''>
                   <div className='grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6'>
@@ -118,7 +118,7 @@ export default function ProductList() {
             <SearchBar />
             <ActiveFiltering />
             {(isFetching || !storeData) && <ProductListSkeleton />}
-            {storeData?.data.paging.total == 0 && <EmptyProductList />}
+            {storeData?.data.paging.total == 0 && <EmptyProductList currentPage='store' />}
             {storeData && (
               <Fragment>
                 <div className='grid grid-cols-2 gap-4'>

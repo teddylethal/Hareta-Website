@@ -20,3 +20,9 @@ export interface OrderList {
     next_cursor: string
   }
 }
+
+export interface ItemOrderConfig {
+  order_id: string
+  page: number | string
+  limit: number | string
+}

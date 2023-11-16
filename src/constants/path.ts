@@ -17,6 +17,7 @@ const path = {
   shippingInfor: '/order/shipping-information',
   payment: '/order/payment',
   orderTracking: '/orderTracking',
+  orderInformation: '/orderTracking/:orderId',
   privacyAndTerms: '/privacy&terms'
 } as const
 

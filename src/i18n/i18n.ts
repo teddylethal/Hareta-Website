@@ -1,7 +1,8 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import { getLanguageFromLS } from 'src/utils/utils'
 
-//? enGLISH
+//! ENGLISH
 import header_en from 'src/locales/en/header.json'
 import footer_en from 'src/locales/en/footer.json'
 import home_en from 'src/locales/en/home.json'
@@ -12,8 +13,9 @@ import productdetail_en from 'src/locales/en/productdetail.json'
 import login_en from 'src/locales/en/login.json'
 import cart_en from 'src/locales/en/cart.json'
 import yuperrors_en from 'src/locales/en/yuperrors.json'
+import utils_en from 'src/locales/en/utils.json'
 
-//? VIETNAMESE
+//! VIETNAMESE
 import header_vi from 'src/locales/vi/header.json'
 import footer_vi from 'src/locales/vi/footer.json'
 import home_vi from 'src/locales/vi/home.json'
@@ -24,8 +26,7 @@ import productdetail_vi from 'src/locales/vi/productdetail.json'
 import login_vi from 'src/locales/vi/login.json'
 import cart_vi from 'src/locales/vi/cart.json'
 import yuperrors_vi from 'src/locales/vi/yuperrors.json'
-
-import { getLanguageFromLS } from 'src/utils/utils'
+import utils_vi from 'src/locales/vi/utils.json'
 
 export const locales = {
   en: 'English',
@@ -46,7 +47,8 @@ export const resources = {
     productdetail: productdetail_en,
     login: login_en,
     cart: cart_en,
-    yuperrors: yuperrors_en
+    yuperrors: yuperrors_en,
+    utils: utils_en
   },
   vi: {
     header: header_vi,
@@ -58,7 +60,8 @@ export const resources = {
     productdetail: productdetail_vi,
     login: login_vi,
     cart: cart_vi,
-    yuperrors: yuperrors_vi
+    yuperrors: yuperrors_vi,
+    utils: utils_vi
   }
 } as const
 

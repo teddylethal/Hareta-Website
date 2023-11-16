@@ -1,22 +1,19 @@
-import classNames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from 'src/constants/path'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
-import { useTranslation } from 'react-i18next'
+import { OrderConfig } from 'src/pages/Support/pages/OrderTracking/OrderTracking'
 
 interface Props {
-  queryConfig: QueryConfig
+  orderConfig: OrderConfig
   totalPage: number
   isMobile?: boolean
 }
-export default function UsePagination({ queryConfig, totalPage, isMobile }: Props) {
-  const currentPage = Number(queryConfig.page)
-  const RANGE = isMobile ? 1 : 2
 
-  //? TRANSLATION
-  const { t } = useTranslation('utils')
+export default function OrderPagination({ orderConfig, totalPage, isMobile }: Props) {
+  const currentPage = Number(orderConfig.page)
+  const RANGE = isMobile ? 1 : 2
 
   const renderPagination = () => {
     let dotAfter = false
@@ -67,9 +64,9 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
         return (
           <Link
             to={{
-              pathname: path.store,
+              pathname: path.orderTracking,
               search: createSearchParams({
-                ...queryConfig,
+                ...orderConfig,
                 page: pageNumber.toString()
               }).toString()
             }}
@@ -95,9 +92,9 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       {currentPage > 1 ? (
         <Link
           to={{
-            pathname: path.store,
+            pathname: path.orderTracking,
             search: createSearchParams({
-              ...queryConfig,
+              ...orderConfig,
               page: (currentPage - 1).toString()
             }).toString()
           }}
@@ -107,12 +104,10 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
             icon={faAngleLeft}
             className='py-1 text-textDark group-hover:text-brownColor dark:text-textLight dark:group-hover:text-haretaColor'
           />
-          {!isMobile && <p>{t('pagination.prev')}</p>}
         </Link>
       ) : (
         <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
           <FontAwesomeIcon icon={faAngleLeft} className='py-1 text-textDark dark:text-textLight' />
-          {!isMobile && <p>{t('pagination.prev')}</p>}
         </span>
       )}
 
@@ -121,15 +116,14 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       {currentPage < totalPage ? (
         <Link
           to={{
-            pathname: path.store,
+            pathname: path.orderTracking,
             search: createSearchParams({
-              ...queryConfig,
+              ...orderConfig,
               page: (currentPage + 1).toString()
             }).toString()
           }}
           className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-brownColor  hover:text-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base'
         >
-          {!isMobile && <p>{t('pagination.next')}</p>}
           <FontAwesomeIcon
             icon={faAngleRight}
             className='py-1 text-textDark group-hover:text-brownColor dark:text-textLight dark:group-hover:text-haretaColor'
@@ -137,7 +131,6 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
         </Link>
       ) : (
         <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
-          {!isMobile && <p>{t('pagination.next')}</p>}
           <FontAwesomeIcon icon={faAngleRight} className='py-1 text-textDark dark:text-textLight' />
         </span>
       )}

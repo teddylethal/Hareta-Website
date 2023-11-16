@@ -13,6 +13,26 @@
     "title": "Order list",
     "order": "order",
     "day created": "created",
-    "state": "state"
+    "state": "state",
+    "order id": "Order ID:"
+  },
+  "order information": {
+    "order information": "Order information",
+    "customer information": "Customer information",
+    "order state": "Order state",
+    "order id": "Order id",
+    "created at": "Created at",
+    "updated at": "Updated at",
+    "status": "State",
+    "name": "Customer name",
+    "email": "Email",
+    "phone": "Phone number",
+    "address": "Delivery address",
+    "total": "Total",
+    "Product list": "Product list",
+    "Quantity": "Quantity",
+    "Product": "Product",
+    "Subtotal": "Subtotal",
+    "Unit price": "Unit price"
   }
 }

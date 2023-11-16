@@ -3,15 +3,35 @@ import { useTranslation } from 'react-i18next'
 import { orderApi } from 'src/apis/order.api'
 import OrderItem from '../../components/OrderItem'
 import PathBar from 'src/components/PathBar'
+import { Fragment, useContext } from 'react'
+import { AppContext } from 'src/contexts/app.context'
+import OrderPagination from 'src/components/OrderPagination'
+import { ceil } from 'lodash'
+import OrderTrackingLoading from 'src/components/OrderTrackingLoading'
+import EmptyProductList from 'src/components/EmptyProductList'
+
+const LIMIT = 5 as const
+
+export interface OrderConfig {
+  page: string
+  limit: string
+}
 
 export default function OrderTracking() {
+  const { isAuthenticated } = useContext(AppContext)
+
   //? get order list
+  const orderConfig: OrderConfig = {
+    page: '1',
+    limit: String(LIMIT)
+  }
   const { data: orderData, isFetching } = useQuery({
-    queryKey: ['orders'],
+    queryKey: ['orders', orderConfig],
     queryFn: () => {
       return orderApi.getOrderList()
     },
     keepPreviousData: true,
+    enabled: isAuthenticated,
     staleTime: 3 * 60 * 1000
   })
   const orderList = orderData?.data.data || []
@@ -28,6 +48,7 @@ export default function OrderTracking() {
             { pathName: t('path.order tracking'), url: '/orderTracking' }
           ]}
         />
+
         <div className='flex flex-col space-y-6 py-2 md:space-y-10 md:py-4 xl:space-y-10 xl:py-6'>
           <p className='upperacse w-full text-center font-medium uppercase text-haretaColor md:text-xl xl:text-2xl'>
             {t('order.content')}
@@ -63,28 +84,38 @@ export default function OrderTracking() {
                 {t('orderDetail.title')}
               </p>
 
-              <div className='mt-4 grid grid-cols-4 gap-2 px-2 font-semibold uppercase md:mt-6 md:grid-cols-6 md:gap-4 md:px-3 lg:px-4 xl:mt-8'>
-                <div className='col-span-2 md:col-span-4'>
-                  <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>{t('orderDetail.order')}</p>
-                </div>
-                <div className='cols-span-1'>
-                  <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>{t('orderDetail.day created')}</p>
-                </div>
-                <div className='col-span-1'>
-                  <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>{t('orderDetail.state')}</p>
-                </div>
-              </div>
-
-              <div className='mt-2 md:mt-3 xl:mt-4'>
-                {orderList?.map((order) => (
-                  <div
-                    key={order.id}
-                    className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-2 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] md:px-3 lg:px-4 '
-                  >
-                    <OrderItem order={order} />
+              {(isFetching || !orderData) && <OrderTrackingLoading />}
+              {orderData && orderData.data.paging.total == 0 && <EmptyProductList currentPage='order' />}
+              {orderData && (
+                <Fragment>
+                  <div className='mt-4 grid grid-cols-4 gap-2 px-2 font-semibold uppercase md:mt-6 md:grid-cols-6 md:gap-4 md:px-3 lg:px-4 xl:mt-8'>
+                    <div className='col-span-2 md:col-span-4'>
+                      <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>{t('orderDetail.order')}</p>
+                    </div>
+                    <div className='cols-span-1'>
+                      <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>
+                        {t('orderDetail.day created')}
+                      </p>
+                    </div>
+                    <div className='col-span-1'>
+                      <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>{t('orderDetail.state')}</p>
+                    </div>
                   </div>
-                ))}
-              </div>
+                  <div className='mt-2 md:mt-3 xl:mt-4'>
+                    {orderList?.map((order) => (
+                      <div
+                        key={order.id}
+                        className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-2 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] md:px-3 lg:px-4 '
+                      >
+                        <OrderItem order={order} />
+                      </div>
+                    ))}
+                  </div>
+                  <div className=''>
+                    <OrderPagination orderConfig={orderConfig} totalPage={ceil(orderData.data.paging.total / LIMIT)} />
+                  </div>
+                </Fragment>
+              )}
             </div>
           </div>
         </div>

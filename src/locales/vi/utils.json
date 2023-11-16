@@ -1,0 +1,19 @@
+{
+  "pagination": {
+    "prev": "Trước",
+    "next": "Sau"
+  },
+  "no products": {
+    "store": {
+      "title": "Không thể tìm thấy sản phẩm",
+      "message": "Không thể tìm thấy sản phẩm bạn mong muốn trong cửa hàng"
+    },
+    "order": {
+      "title": "Bạn không có bất kì đơn hàng nào",
+      "message": "Có vẻ bạn chưa từng mua hàng ở Hareta Workshop",
+      "go to": "Đi tới",
+      "store": "Cửa hàng",
+      "now": ""
+    }
+  }
+}

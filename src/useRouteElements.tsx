@@ -20,6 +20,7 @@ import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 import UserLayout from './pages/User/layouts/UserLayout'
 const Cart = lazy(() => import('./pages/Cart'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
+const OrderItemInformation = lazy(() => import('./pages/Support/components/OrderItemInformation'))
 
 //? IMPORT USER COMPONENTS
 const Profile = lazy(() => import('./pages/User/pages/Profile'))
@@ -319,6 +320,16 @@ export default function useRouteElements() {
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
             <OrderTracking />
+          </Suspense>
+        </MainLayout>
+      )
+    },
+    {
+      path: path.orderInformation,
+      element: (
+        <MainLayout>
+          <Suspense fallback={<LoadingWithEmptyContent />}>
+            <OrderItemInformation />
           </Suspense>
         </MainLayout>
       )

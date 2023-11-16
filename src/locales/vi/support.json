@@ -1,7 +1,7 @@
 {
   "path": {
     "home": "Trang chủ",
-    "order tracking": "Kiểm tra đơn hàng",
+    "order tracking": "Tra cứu đơn hàng",
     "privacy & terms": "Chính sách & điều khoản",
     "contact": "Liên hệ"
   },
@@ -12,7 +12,27 @@
   "orderDetail": {
     "title": "Danh sách đơn hàng",
     "order": "Đơn hàng",
-    "day created": "Ngày tạo",
-    "state": "Tình trạng"
+    "day created": "Ngày đặt",
+    "state": "Tình trạng",
+    "order id": "Mã đơn hàng:"
+  },
+  "order information": {
+    "order information": "Thông tin đơn hàng",
+    "customer information": "Thông tin khách hàng",
+    "order state": "Tình trạng đơn hàng",
+    "order id": "Mã đơn hàng:",
+    "created at": "Ngày mua",
+    "updated at": "Ngày cập nhật",
+    "status": "Tình trạng",
+    "name": "Tên",
+    "email": "Địa chỉ email",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ nhận hàng",
+    "total": "Giá trị đơn hàng",
+    "Product list": "Danh sách sản phẩm",
+    "Quantity": "Số lượng",
+    "Product": "Sản phẩm",
+    "Subtotal": "Thành tiền",
+    "Unit price": "Đơn giá"
   }
 }
