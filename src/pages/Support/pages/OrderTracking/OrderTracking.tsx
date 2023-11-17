@@ -1,41 +1,86 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { orderApi } from 'src/apis/order.api'
-import OrderItem from '../../components/OrderItem'
 import PathBar from 'src/components/PathBar'
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { AppContext } from 'src/contexts/app.context'
-import OrderPagination from 'src/components/OrderPagination'
-import { ceil } from 'lodash'
-import OrderTrackingLoading from 'src/components/OrderTrackingLoading'
-import EmptyProductList from 'src/components/EmptyProductList'
 import { useViewport } from 'src/hooks/useViewport'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { NavLink, useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
+import { formatDate, generateNameId, isAxiosBadRequestError } from 'src/utils/utils'
+import { ColorRing } from 'react-loader-spinner'
+import { FloatingOverlay, FloatingPortal } from '@floating-ui/react'
+import { motion } from 'framer-motion'
+import classNames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRectangleList } from '@fortawesome/free-solid-svg-icons'
+import { ErrorRespone } from 'src/types/utils.type'
+import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
+import DialogPopup from 'src/components/DialogPopup'
+import OrderTrackingForUser from '../OrderTrackingForUser'
 
-const LIMIT = 5 as const
+const orderSchema = yup.object({
+  orderId: yup.string().trim().required('ID is required')
+})
 
+type OrderSchema = yup.InferType<typeof orderSchema>
 export interface OrderConfig {
   page: string
   limit: string
 }
 
 export default function OrderTracking() {
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, theme } = useContext(AppContext)
+  const [finding, setFinding] = useState<boolean>(false)
+  const [cantFind, setCantFind] = useState<boolean>(false)
 
-  //? get order list
-  const orderConfig: OrderConfig = {
-    page: '1',
-    limit: String(LIMIT)
-  }
-  const { data: orderData, isFetching } = useQuery({
-    queryKey: ['orders', orderConfig],
-    queryFn: () => {
-      return orderApi.getOrderList()
+  //? Find order
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors }
+  } = useForm<OrderSchema>({
+    defaultValues: {
+      orderId: ''
     },
-    keepPreviousData: true,
-    enabled: isAuthenticated,
-    staleTime: 3 * 60 * 1000
+    resolver: yupResolver(orderSchema)
   })
-  const orderList = orderData?.data.data || []
+  const findOrderMutation = useMutation(isAuthenticated ? orderApi.getOrderById : orderApi.getOrderOfGuestById)
+  const navigate = useNavigate()
+  const handleSearch = handleSubmit((data) => {
+    setFinding(true)
+    findOrderMutation.mutate(data.orderId, {
+      onSuccess: (respone) => {
+        setFinding(false)
+        const order = respone.data.data
+        navigate({
+          pathname: `${path.orderTracking}/${generateNameId({ name: formatDate(order.created_at), id: order.id })}`
+        })
+      },
+      onError: (error) => {
+        setFinding(false)
+        if (isAxiosBadRequestError<ErrorRespone>(error)) {
+          const formError = error.response?.data
+          if (formError) {
+            const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
+            if (errorRespone?.error_key == 'ErrInvalidRequest') {
+              setError('orderId', {
+                message: errorRespone.error_message,
+                type: 'Server'
+              })
+            }
+            if (errorRespone?.error_key == 'ErrCannotGetOrder') {
+              setCantFind(true)
+            }
+          }
+        }
+      }
+    })
+  })
 
   //? Translation
   const { t } = useTranslation(['support'])
@@ -59,11 +104,21 @@ export default function OrderTracking() {
           </p>
 
           <div className='md:px-20 xl:px-40'>
-            <form className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-300 dark:bg-[#101010]'>
+            <form
+              className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-300 dark:bg-[#101010]'
+              onSubmit={handleSearch}
+            >
               <input
                 autoComplete='off'
-                className='w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1 ring-vintageColor/80 duration-300 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:caret-white dark:ring-haretaColor/80 dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg'
+                className={classNames(
+                  'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-300 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:caret-white  dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg',
+                  {
+                    'ring-red-600': errors.orderId?.message,
+                    'ring-vintageColor/80 dark:ring-haretaColor/80': !errors.orderId?.message
+                  }
+                )}
                 placeholder={t('order.placeholder')}
+                {...register('orderId')}
               />
               <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>
                 <svg
@@ -80,47 +135,79 @@ export default function OrderTracking() {
                 </svg>
               </button>
             </form>
+            <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 md:text-base '}>{errors.orderId?.message}</div>
           </div>
 
           <div className='md:px-12 xl:px-24'>
-            <div className='rounded-lg border border-black/40 px-2 py-4 dark:border-white/40 md:px-4 md:py-8 xl:px-6 xl:py-12 '>
-              <p className='text-center text-lg font-bold uppercase md:text-xl xl:text-2xl'>{t('orderDetail.title')}</p>
+            {isAuthenticated && <OrderTrackingForUser />}
 
-              {(isFetching || !orderData) && <OrderTrackingLoading />}
-              {orderData && orderData.data.paging.total == 0 && <EmptyProductList currentPage='order' />}
-              {orderData && (
-                <Fragment>
-                  <div className='mt-4 grid grid-cols-4 gap-2 px-2 font-semibold uppercase md:mt-6 md:grid-cols-6 md:gap-4 md:px-3 lg:px-4 xl:mt-8'>
-                    <div className='col-span-2 md:col-span-4'>
-                      <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>{t('orderDetail.order')}</p>
-                    </div>
-                    <div className='cols-span-1'>
-                      <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>
-                        {t('orderDetail.day created')}
-                      </p>
-                    </div>
-                    <div className='col-span-1'>
-                      <p className='text-center text-xs sm:text-sm md:text-lg xl:text-xl'>{t('orderDetail.state')}</p>
-                    </div>
-                  </div>
-                  <div className='mt-2 md:mt-3 xl:mt-4'>
-                    {orderList?.map((order) => (
-                      <div
-                        key={order.id}
-                        className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-2 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] md:px-3 lg:px-4 '
-                      >
-                        <OrderItem order={order} />
-                      </div>
-                    ))}
-                  </div>
-                  <div className=''>
-                    <OrderPagination orderConfig={orderConfig} totalPage={ceil(orderData.data.paging.total / LIMIT)} />
-                  </div>
-                </Fragment>
-              )}
-            </div>
+            {!isAuthenticated && (
+              <div className='flex flex-col items-center justify-center px-2 md:px-20 xl:px-32'>
+                <FontAwesomeIcon
+                  icon={faRectangleList}
+                  className='h-auto w-40 text-textDark/60 dark:text-textLight/60 md:w-60 xl:w-80'
+                />
+                <div className='mt-2 justify-center space-y-1 text-center font-medium md:text-lg xl:text-xl'>
+                  <NavLink to={path.login} className='inline font-semibold text-haretaColor'>
+                    {t('order.login')}
+                  </NavLink>
+                  {t('order.message')}
+                </div>
+              </div>
+            )}
           </div>
         </div>
+        {finding && (
+          <FloatingPortal>
+            <FloatingOverlay lockScroll className={theme === 'dark' ? 'dark' : 'light'}>
+              <Fragment>
+                <motion.div
+                  className={classNames('fixed inset-0 z-10 bg-white dark:bg-black', {})}
+                  initial={{ opacity: 0.8 }}
+                  animate={{
+                    opacity: 0.8
+                  }}
+                  exit={{ opacity: 0 }}
+                />
+                <motion.div
+                  className='fixed left-1/2 top-1/2 z-10 flex w-10/12 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center md:w-1/2'
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ColorRing
+                    visible={true}
+                    height='80'
+                    width='80'
+                    ariaLabel='blocks-loading'
+                    wrapperStyle={{}}
+                    wrapperClass='blocks-wrapper'
+                    colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
+                  />
+                  <div className='mt-4 line-clamp-2 text-center text-lg font-semibold uppercase text-textDark dark:text-textLight md:text-2xl xl:text-4xl'>
+                    {t('order.finding order')}
+                  </div>
+                </motion.div>
+              </Fragment>
+            </FloatingOverlay>
+          </FloatingPortal>
+        )}
+        <DialogPopup
+          isOpen={cantFind}
+          handleClose={() => setCantFind(false)}
+          classNameWrapper='relative w-[90%] px-2 md:px-6 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+        >
+          <div className='mt-4 flex w-full justify-center'>
+            <img src='/images/cant-find-item.png' alt='No item' className='h-auto w-40 md:w-72 ' />
+          </div>
+          <div className='w-full text-center text-sm uppercase sm:text-base md:text-lg xl:text-xl'>
+            <p className='font-semibold text-red-600'>{t('order.Cannot find your order')}</p>
+            <p className='mt-1'>{t('order.Please check your order ID')}</p>
+          </div>
+        </DialogPopup>
       </div>
     </div>
   )

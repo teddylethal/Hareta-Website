@@ -8,5 +8,7 @@ export const HttpStatusMessage = [
   { error_key: 'ErrWaitingForANewLink', error_message: 'You need to wait one minute to send another one' },
   { error_key: 'ErrPasswordRecoveryNotFound', error_message: 'Invalid Link' },
   { error_key: 'ErrLinkHasBeenExpired', error_message: 'Link has been expired' },
-  { error_key: 'ErrQuantityExceed', error_message: 'The quantity you are trying to add exceed our store' }
+  { error_key: 'ErrQuantityExceed', error_message: 'The quantity you are trying to add exceed our store' },
+  { error_key: 'ErrInvalidRequest', error_message: 'Order ID is invalid' },
+  { error_key: 'ErrCannotGetOrder', error_message: 'Cannot find your order' }
 ]

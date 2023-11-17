@@ -8,7 +8,12 @@
   },
   "order": {
     "content": "nhập mã đơn hàng để kiểm tra thông tin đơn hàng của bạn",
-    "placeholder": "Mã đơn hàng"
+    "placeholder": "Mã đơn hàng",
+    "finding order": "Đang tìm kiếm đơn hàng của bạn",
+    "login": "Đăng nhập",
+    "message": " để thuận tiện theo dõi các đơn hàng của bạn",
+    "Cannot find your order": "Không tìm được đơn hàng",
+    "Please check your order ID": "Hãy kiểm tra lại mã đơn hàng của bạn"
   },
   "orderDetail": {
     "title": "Danh sách đơn hàng",

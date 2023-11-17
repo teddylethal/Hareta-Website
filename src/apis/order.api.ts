@@ -29,5 +29,8 @@ export const orderApi = {
   },
   getOrderById(id: string) {
     return http.get<SuccessRespone<Order>>(`${orderURL}${id}`)
+  },
+  getOrderOfGuestById(id: string) {
+    return http.get<SuccessRespone<Order>>(`/order/${id}`)
   }
 }

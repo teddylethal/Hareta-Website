@@ -8,7 +8,12 @@
   },
   "order": {
     "content": "enter order id to check your order information",
-    "placeholder": "Order ID"
+    "placeholder": "Order ID",
+    "finding order": "Finding your order",
+    "login": "Login",
+    "message": " to conveniently track your orders",
+    "Cannot find your order": "Cannot find your order",
+    "Please check your order ID": "Please check your order ID"
   },
   "orderDetail": {
     "title": "Order list",

@@ -11,7 +11,7 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { ItemOrderConfig, Order } from 'src/types/order.type'
-import { generateNameId } from 'src/utils/utils'
+import { formatDate, generateNameId } from 'src/utils/utils'
 
 interface Props {
   order: Order
@@ -23,10 +23,7 @@ export default function OrderItem({ order }: Props) {
   //? viewport
   const viewport = useViewport()
   const isMobile = viewport.width <= 640
-  //? format date
-  const formatDate = (timeStamp: string) => {
-    return moment(timeStamp).utc().format('YYYY-MM-DD')
-  }
+
   //? translation
   const { t } = useTranslation('support')
 
@@ -51,7 +48,6 @@ export default function OrderItem({ order }: Props) {
   const remain = isMobile ? (totalPurchases > 1 ? totalPurchases - 1 : 0) : totalPurchases > 3 ? totalPurchases - 3 : 0
 
   //? HANDLE ENTER ITEM
-
   const navigate = useNavigate()
   const handleClickItem = () => {
     navigate({
