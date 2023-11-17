@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios'
+import moment from 'moment'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { locales } from 'src/i18n/i18n'
 
@@ -38,4 +39,8 @@ export const setLanguageToLS = (lng: keyof typeof locales) => {
 
 export const getLanguageFromLS = () => {
   return (localStorage.getItem('current_language') || 'en') as keyof typeof locales
+}
+
+export const formatDate = (timeStamp: string) => {
+  return moment(timeStamp).utc().format('YYYY-MM-DD')
 }

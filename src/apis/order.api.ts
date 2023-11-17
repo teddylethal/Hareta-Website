@@ -26,5 +26,8 @@ export const orderApi = {
   },
   getItemListOfOrder(params: ItemOrderConfig) {
     return http.get<PurchaseList>(itemOrderURL, { params })
+  },
+  getOrderById(id: string) {
+    return http.get<SuccessRespone<Order>>(`${orderURL}${id}`)
   }
 }

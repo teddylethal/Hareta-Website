@@ -9,6 +9,7 @@ import OrderPagination from 'src/components/OrderPagination'
 import { ceil } from 'lodash'
 import OrderTrackingLoading from 'src/components/OrderTrackingLoading'
 import EmptyProductList from 'src/components/EmptyProductList'
+import { useViewport } from 'src/hooks/useViewport'
 
 const LIMIT = 5 as const
 
@@ -39,13 +40,16 @@ export default function OrderTracking() {
   //? Translation
   const { t } = useTranslation(['support'])
 
+  //? Responsive
+  const isMobile = useViewport().width < 768
+
   return (
     <div className='bg-lightBg py-2 text-textDark duration-300 dark:bg-darkBg dark:text-textLight md:py-3 xl:py-4'>
       <div className='container'>
         <PathBar
           pathList={[
             { pathName: t('path.home'), url: '/' },
-            { pathName: t('path.order tracking'), url: '/orderTracking' }
+            { pathName: isMobile ? t('path.order tracking--mobile') : t('path.order tracking'), url: '/orderTracking' }
           ]}
         />
 
@@ -79,10 +83,8 @@ export default function OrderTracking() {
           </div>
 
           <div className='md:px-12 xl:px-24'>
-            <div className='rounded-lg border border-black/40 p-2 dark:border-white/40 md:p-4 xl:p-6 '>
-              <p className='text-center font-bold uppercase sm:text-lg md:text-xl xl:text-2xl'>
-                {t('orderDetail.title')}
-              </p>
+            <div className='rounded-lg border border-black/40 px-2 py-4 dark:border-white/40 md:px-4 md:py-8 xl:px-6 xl:py-12 '>
+              <p className='text-center text-lg font-bold uppercase md:text-xl xl:text-2xl'>{t('orderDetail.title')}</p>
 
               {(isFetching || !orderData) && <OrderTrackingLoading />}
               {orderData && orderData.data.paging.total == 0 && <EmptyProductList currentPage='order' />}

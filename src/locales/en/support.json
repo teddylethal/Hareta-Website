@@ -3,7 +3,8 @@
     "home": "home",
     "order tracking": "order tracking",
     "privacy & terms": "privacy & terms",
-    "contact": "contact"
+    "contact": "contact",
+    "order tracking--mobile": "order tracking"
   },
   "order": {
     "content": "enter order id to check your order information",

@@ -76,7 +76,7 @@ export default function OrderItem({ order }: Props) {
       )}
       {purchasesData && (
         <button
-          className='grid grid-cols-4 gap-2 py-1 md:grid-cols-6 md:gap-4 md:py-2 xl:py-4'
+          className='grid w-full grid-cols-4 gap-2 py-1 md:grid-cols-6 md:gap-4 md:px-3 md:py-2 lg:px-4 xl:py-4'
           onClick={handleClickItem}
         >
           <div className='col-span-2 md:col-span-4'>
@@ -125,12 +125,12 @@ export default function OrderItem({ order }: Props) {
               </div>
             </div>
           </div>
-          <div className='col-span-1 min-h-full '>
+          <div className='col-span-1 flex min-h-full items-center justify-center'>
             <p className='flex h-full flex-col items-center justify-center text-center text-xs font-medium sm:text-sm md:text-base xl:text-lg'>
               {formatDate(order.created_at)}
             </p>
           </div>
-          <div className='col-span-1'></div>
+          <div className='col-span-1 flex min-h-full items-center justify-center'>{order.status}</div>
         </button>
       )}
     </Fragment>
