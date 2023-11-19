@@ -6,7 +6,6 @@ import { Fragment, useContext, useState } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { NavLink, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
@@ -21,12 +20,8 @@ import { ErrorRespone } from 'src/types/utils.type'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import DialogPopup from 'src/components/DialogPopup'
 import OrderTrackingForUser from '../OrderTrackingForUser'
+import SearchOrder from '../../components/SearchOrder'
 
-const orderSchema = yup.object({
-  orderId: yup.string().trim().required('ID is required')
-})
-
-type OrderSchema = yup.InferType<typeof orderSchema>
 export interface OrderConfig {
   page: string
   limit: string
@@ -36,51 +31,6 @@ export default function OrderTracking() {
   const { isAuthenticated, theme } = useContext(AppContext)
   const [finding, setFinding] = useState<boolean>(false)
   const [cantFind, setCantFind] = useState<boolean>(false)
-
-  //? Find order
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors }
-  } = useForm<OrderSchema>({
-    defaultValues: {
-      orderId: ''
-    },
-    resolver: yupResolver(orderSchema)
-  })
-  const findOrderMutation = useMutation(isAuthenticated ? orderApi.getOrderById : orderApi.getOrderOfGuestById)
-  const navigate = useNavigate()
-  const handleSearch = handleSubmit((data) => {
-    setFinding(true)
-    findOrderMutation.mutate(data.orderId, {
-      onSuccess: (respone) => {
-        setFinding(false)
-        const order = respone.data.data
-        navigate({
-          pathname: `${path.orderTracking}/${generateNameId({ name: formatDate(order.created_at), id: order.id })}`
-        })
-      },
-      onError: (error) => {
-        setFinding(false)
-        if (isAxiosBadRequestError<ErrorRespone>(error)) {
-          const formError = error.response?.data
-          if (formError) {
-            const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
-            if (errorRespone?.error_key == 'ErrInvalidRequest') {
-              setError('orderId', {
-                message: errorRespone.error_message,
-                type: 'Server'
-              })
-            }
-            if (errorRespone?.error_key == 'ErrCannotGetOrder') {
-              setCantFind(true)
-            }
-          }
-        }
-      }
-    })
-  })
 
   //? Translation
   const { t } = useTranslation(['support'])
@@ -103,40 +53,7 @@ export default function OrderTracking() {
             {t('order.content')}
           </p>
 
-          <div className='md:px-20 xl:px-40'>
-            <form
-              className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-300 dark:bg-[#101010]'
-              onSubmit={handleSearch}
-            >
-              <input
-                autoComplete='off'
-                className={classNames(
-                  'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-300 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:caret-white  dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg',
-                  {
-                    'ring-red-600': errors.orderId?.message,
-                    'ring-vintageColor/80 dark:ring-haretaColor/80': !errors.orderId?.message
-                  }
-                )}
-                placeholder={t('order.placeholder')}
-                {...register('orderId')}
-              />
-              <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                  fill='currentColor'
-                  className='h-4 w-4 lg:h-5 lg:w-5'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </button>
-            </form>
-            <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 md:text-base '}>{errors.orderId?.message}</div>
-          </div>
+          <SearchOrder setCantFind={setCantFind} setFinding={setFinding} />
 
           <div className='md:px-12 xl:px-24'>
             {isAuthenticated && <OrderTrackingForUser />}

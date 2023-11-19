@@ -11,6 +11,8 @@
     "placeholder": "Mã đơn hàng",
     "finding order": "Đang tìm kiếm đơn hàng của bạn",
     "login": "Đăng nhập",
+    "Order ID is required": "Bạn cần điền mã đơn hàng",
+    "Order ID is invalid": "Mã đơn hàng không hợp lệ",
     "message": " để thuận tiện theo dõi các đơn hàng của bạn",
     "Cannot find your order": "Không tìm được đơn hàng",
     "Please check your order ID": "Hãy kiểm tra lại mã đơn hàng của bạn"

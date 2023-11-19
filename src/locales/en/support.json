@@ -11,6 +11,8 @@
     "placeholder": "Order ID",
     "finding order": "Finding your order",
     "login": "Login",
+    "Order ID is required": "Order ID is required",
+    "Order ID is invalid": "Order ID is invalid",
     "message": " to conveniently track your orders",
     "Cannot find your order": "Cannot find your order",
     "Please check your order ID": "Please check your order ID"
