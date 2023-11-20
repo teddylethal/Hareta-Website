@@ -2,7 +2,14 @@ import { createContext, useState } from 'react'
 import { ExtendsPurchase } from './cart.context'
 import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
 import { Country, ICity, ICountry, IState } from 'country-state-city'
-import { getOrderListFromLS, getTempOrderListFromLS } from 'src/utils/order'
+import {
+  getCountryAddressFromLS,
+  getOrderListFromLS,
+  getStateAddressFromLS,
+  getTempOrderListFromLS,
+  setCountryAddressToLS,
+  setStateAddressToLS
+} from 'src/utils/order'
 
 interface OrderContextInterface {
   orderList: ExtendsPurchase[]
@@ -12,8 +19,8 @@ interface OrderContextInterface {
   addressCountry: ICountry
   addressState: IState | null
   addressCity: ICity | null
-  setAddressCountry: React.Dispatch<React.SetStateAction<ICountry>>
-  setAddressState: React.Dispatch<React.SetStateAction<IState | null>>
+  setCountryAddress: (country: ICountry) => void
+  setStateAddress: (state: IState | null) => void
   setAddressCity: React.Dispatch<React.SetStateAction<ICity | null>>
   confirmPayment: boolean
   setConfirmPayment: React.Dispatch<React.SetStateAction<boolean>>
@@ -28,11 +35,11 @@ const initialOrderContext: OrderContextInterface = {
   setOrderList: () => null,
   tempOrderList: getTempOrderListFromLS(),
   setTempOrderList: () => null,
-  addressCountry: Country.getCountryByCode('VN') as ICountry,
-  addressState: null,
+  addressCountry: (getCountryAddressFromLS() || Country.getCountryByCode('VN')) as ICountry,
+  addressState: getStateAddressFromLS(),
   addressCity: null,
-  setAddressCountry: () => null,
-  setAddressState: () => null,
+  setCountryAddress: () => null,
+  setStateAddress: () => null,
   setAddressCity: () => null,
   confirmPayment: false,
   setConfirmPayment: () => null,
@@ -54,6 +61,16 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   const [noneState, setNoneState] = useState(false)
   const [noneCity, setNoneCity] = useState(false)
 
+  const setCountryAddress = (country: ICountry) => {
+    setAddressCountry(country)
+    setCountryAddressToLS(country)
+  }
+
+  const setStateAddress = (state: IState | null) => {
+    setAddressState(state)
+    setStateAddressToLS(state)
+  }
+
   return (
     <OrderContext.Provider
       value={{
@@ -64,8 +81,8 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
         addressCountry,
         addressState,
         addressCity,
-        setAddressCountry,
-        setAddressState,
+        setCountryAddress,
+        setStateAddress,
         setAddressCity,
         confirmPayment,
         setConfirmPayment,

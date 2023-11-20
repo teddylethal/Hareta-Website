@@ -27,7 +27,8 @@
   },
   "order": {
     "Customer name is required": "Customer name is required",
+    "Customer email address is required": "Customer email address is required",
     "Customer phone number is required": "Customer phone number is required",
-    "Address is required": "Address is required"
+    "Address is required": "Delivery address is required"
   }
 }

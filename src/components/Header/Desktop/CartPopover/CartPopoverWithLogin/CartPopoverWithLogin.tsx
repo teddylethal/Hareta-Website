@@ -57,7 +57,7 @@ export default function CartPopoverWithLogin() {
   const { t } = useTranslation('header')
 
   return (
-    <div className='rounded-lg bg-vintageColor duration-300 hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
+    <div className='rounded-lg bg-vintageColor duration-300 hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'>
       <Popover
         className='flex border border-none px-1.5 py-1 lg:px-2'
         renderPopover={
@@ -133,16 +133,16 @@ export default function CartPopoverWithLogin() {
               </div>
             </Fragment>
 
-            <div className='mx-3 mb-2 mt-4 flex items-center justify-between text-textDark'>
+            <div className='mx-3 mb-2 mt-4 flex items-center justify-between font-medium text-black dark:text-white'>
               <Link to={path.store}>
-                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm capitalize hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
+                <div className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm capitalize hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'>
                   {t('cart button.store')}
-                </button>
+                </div>
               </Link>
               <Link to={path.cart}>
-                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm capitalize hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
+                <div className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm capitalize hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'>
                   {t('cart button.enter cart')}
-                </button>
+                </div>
               </Link>
             </div>
             <div className='absolute -top-4 right-0 h-4 w-1/4 bg-none'></div>
@@ -150,10 +150,10 @@ export default function CartPopoverWithLogin() {
         }
         placement='bottom-end'
       >
-        <div className='flex items-center space-x-2 px-2 py-0.5  text-textDark'>
+        <div className='flex items-center space-x-2 px-2 py-0.5  text-black dark:text-white'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
           {extendedPurchases.length > 0 && (
-            <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs text-textDark dark:bg-black dark:text-textLight lg:text-sm xl:text-base'>
+            <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-textDark dark:bg-black dark:text-textLight lg:text-sm xl:text-base'>
               {extendedPurchases.length}
             </div>
           )}

@@ -169,7 +169,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
             {product.name}
           </button>
 
-          <span className='text-xs font-medium text-brownColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
+          <span className='text-xs font-semibold text-brownColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
             ${formatCurrency(product.price)}
           </span>
         </div>

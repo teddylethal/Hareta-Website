@@ -1,5 +1,6 @@
-import { InputHTMLAttributes } from 'react'
+import { Fragment, InputHTMLAttributes } from 'react'
 import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string
@@ -13,18 +14,41 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 export default function Input({
   name,
   register,
-  className,
+  className = 'bg-transparent',
   errorMessage,
   rules,
-  classNameInput = 'peer w-full rounded-sm border border-gray-300 p-3 outline-none outline',
-  classNameError = 'mt-1 min-h-[1.25rem] text-sm text-red-600',
+  classNameInput = 'w-full rounded-sm border border-gray-300 p-3 outline-none outline',
+  classNameError = 'mt-1 min-h-[1.25rem] lg:min-h-[1.5rem] text-sm lg:text-base text-red-600',
   ...rest
 }: Props) {
+  //? handle errors
+  const { t } = useTranslation('yuperrors')
+  let message = ''
+  switch (errorMessage) {
+    case 'Customer name is required':
+      message = t('order.Customer name is required')
+      break
+    case 'Customer phone number is required':
+      message = t('order.Customer phone number is required')
+      break
+    case 'Email address is required':
+      message = t('order.Customer email address is required')
+      break
+    case 'Address is required':
+      message = t('order.Address is required')
+      break
+    default:
+      message = errorMessage as string
+      break
+  }
+
   const registerResult = register && name ? register(name, rules) : {}
   return (
-    <div className={className}>
-      <input className={classNameInput} {...registerResult} {...rest} />
-      <div className={classNameError}>{errorMessage}</div>
-    </div>
+    <Fragment>
+      <div className={className}>
+        <input className={classNameInput} {...registerResult} {...rest} />
+      </div>
+      <div className={classNameError}>{message}</div>
+    </Fragment>
   )
 }

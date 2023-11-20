@@ -157,7 +157,7 @@ export default function AuthenticatedCart() {
                 {checkedPurchasesCount === 0 && (
                   <div
                     className={classNames(
-                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/50 text-textDark text-opacity-60 dark:bg-haretaColor/50 dark:text-textDark  dark:text-opacity-60'
+                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/50 text-black text-opacity-60 dark:bg-haretaColor/50 dark:text-white dark:text-opacity-60'
                     )}
                   >
                     {t('content.check out')}
@@ -168,7 +168,7 @@ export default function AuthenticatedCart() {
                     onClick={handleCheckout}
                     to={path.shippingInfor}
                     className={classNames(
-                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor  text-textDark hover:bg-vintageColor/80  dark:bg-haretaColor/80 dark:text-textDark dark:hover:bg-haretaColor'
+                      'font-mediums col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor text-black hover:bg-vintageColor/90 dark:bg-haretaColor dark:text-white dark:hover:bg-haretaColor/90'
                     )}
                   >
                     {t('content.check out')}

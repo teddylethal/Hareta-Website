@@ -4,6 +4,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import { IState, State } from 'country-state-city'
 import { Fragment, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { OrderContext } from 'src/contexts/order.context'
 
 interface Props {
@@ -11,16 +12,20 @@ interface Props {
 }
 
 export default function SelectState({ isError = false }: Props) {
-  const { addressCountry, addressState, setAddressState, setAddressCity } = useContext(OrderContext)
+  const { addressCountry, addressState, setStateAddress } = useContext(OrderContext)
   const [stateList, setStateList] = useState<IState[]>(State.getStatesOfCountry(addressCountry.isoCode))
 
   useEffect(() => {
+    if (addressState?.countryCode == addressCountry.isoCode) return
     setStateList(State.getStatesOfCountry(addressCountry.isoCode))
-    setAddressState(null)
-  }, [addressCountry, setAddressCity, setAddressState])
+    setStateAddress(null)
+  }, [addressCountry.isoCode, addressState?.countryCode, setStateAddress])
+
+  //? translation
+  const { t } = useTranslation('order')
 
   return (
-    <Listbox value={addressState} onChange={setAddressState}>
+    <Listbox value={addressState} onChange={setStateAddress}>
       <div className='relative mt-1'>
         <Listbox.Button
           className={classNames(
@@ -31,7 +36,9 @@ export default function SelectState({ isError = false }: Props) {
             }
           )}
         >
-          <span className='block truncate px-3'>{addressState ? addressState.name : 'State / Province'}</span>
+          <span className='block truncate px-3'>
+            {addressState ? addressState.name : t('shipping information.State / Province')}
+          </span>
           <span className='pointer-events-none right-0 flex items-center pr-2'>
             <FontAwesomeIcon icon={faChevronDown} className=' text-gray-400' />
           </span>

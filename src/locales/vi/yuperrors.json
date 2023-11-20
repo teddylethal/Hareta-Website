@@ -27,7 +27,8 @@
   },
   "order": {
     "Customer name is required": "Bạn cần điền tên của người mua hàng",
-    "Customer phone number is required": "Bạn cần điền số điện thoại người mua hàng",
+    "Customer phone number is required": "Bạn cần điền số điện thoại của người mua hàng",
+    "Customer email address is required": "Bạn cần điền địa chỉ email của người mua hàng",
     "Address is required": "Bạn cần điền địa chỉ nhận hàng"
   }
 }

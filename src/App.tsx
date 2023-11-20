@@ -6,6 +6,7 @@ import { LocalStorageEventTarget } from './utils/auth'
 import { AppContext } from './contexts/app.context'
 import { CartContext } from './contexts/cart.context'
 import PageIsLoading from './components/PageIsLoading'
+import { OrderContext } from './contexts/order.context'
 
 export type ThemeContextType = 'light' | 'dark'
 export const ThemeContext = createContext({
@@ -17,6 +18,7 @@ export const ThemeContext = createContext({
 function App() {
   const { reset, pageIsLoading, theme } = useContext(AppContext)
   const { setExtendedPurchases } = useContext(CartContext)
+  const { setOrderList, setTempOrderList } = useContext(OrderContext)
 
   const routeElements = useRouteElements()
 
@@ -24,12 +26,15 @@ function App() {
     const resetFunction = () => {
       reset()
       setExtendedPurchases([])
+
+      //? clear order list
+      setOrderList([])
     }
     LocalStorageEventTarget.addEventListener('clearLS', resetFunction)
     return () => {
       LocalStorageEventTarget.removeEventListener('clearLS', resetFunction)
     }
-  }, [reset, setExtendedPurchases])
+  }, [reset, setExtendedPurchases, setOrderList, setTempOrderList])
 
   useEffect(() => {
     document.title = 'Hareta Workshop'

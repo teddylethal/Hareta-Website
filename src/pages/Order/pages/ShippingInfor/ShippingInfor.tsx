@@ -7,6 +7,7 @@ import { OrderContext } from 'src/contexts/order.context'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
+import { useTranslation } from 'react-i18next'
 
 const SelectCountry = lazy(() => import('../../components/SelectCountry'))
 const SelectState = lazy(() => import('../../components/SelectState'))
@@ -26,77 +27,88 @@ export default function ShippingInfor() {
     formState: { errors }
   } = useFormContext<FormData>()
 
+  //? translation
+  const { t } = useTranslation('order')
+
   return (
     <div className='w-full p-3 text-textDark dark:text-textLight xl:p-4 '>
       <div className='space-y-4'>
-        <p className='w-full text-center text-xl font-bold uppercase lg:text-2xl xl:text-4xl'>shipping information</p>
+        <p className='w-full text-center text-xl font-bold uppercase lg:text-2xl xl:text-4xl'>
+          {t('layout.Shipping information')}
+        </p>
 
         <div className=''>
-          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>Name</p>
+          <p className='uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Name')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage text-brownColor dark:text-haretaColor'
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 dark:caret-white text-brownColor dark:text-haretaColor font-medium'
               classNameError='mt-1 min-h-[1.25rem] lg:min-h-[1.5rem] text-sm lg:text-base text-red-600'
               register={register}
               name='name'
               errorMessage={errors?.name?.message}
-              autoComplete='false'
+              autoComplete='off'
             />
             <div
-              className={classNames('absolute bottom-6 w-full border-b-2 border-black/60 dark:border-white/60', {
-                'border-red-700 dark:border-red-700': errors?.name
+              className={classNames('absolute bottom-6 w-full border-b-2 ', {
+                'border-black/60 dark:border-white/60': !errors?.name,
+                'border-red-600 dark:border-red-600': errors?.name
               })}
             ></div>
           </div>
         </div>
         <div className=''>
-          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>Phone</p>
+          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Phone')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage text-brownColor dark:text-haretaColor'
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 dark:caret-white text-brownColor dark:text-haretaColor font-medium'
               register={register}
               name='phone'
               errorMessage={errors?.phone?.message}
-              autoComplete='false'
+              autoComplete='off'
             />
             <div
-              className={classNames('absolute bottom-6 w-full border-b-2 border-black/60 dark:border-white/60', {
-                'border-red-700 dark:border-red-700': errors?.phone
+              className={classNames('absolute bottom-6 w-full border-b-2 ', {
+                'border-black/60 dark:border-white/60': !errors?.phone,
+                'border-red-600 dark:border-red-600': errors?.phone
               })}
             ></div>
           </div>
         </div>
-        <div className=''>
-          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>email</p>
+        <div>
+          <p className='uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Email address')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage text-brownColor dark:text-haretaColor'
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 dark:caret-white text-brownColor dark:text-haretaColor font-medium'
               register={register}
               name='email'
               errorMessage={errors?.email?.message}
-              autoComplete='false'
+              autoComplete='off'
             />
             <div
-              className={classNames('absolute bottom-6 w-full border-b-2 border-black/60 dark:border-white/60', {
-                'border-red-700 dark:border-red-700': errors?.email
+              className={classNames('absolute bottom-6 w-full border-b-2 ', {
+                'border-black/60 dark:border-white/60': !errors?.email,
+                'border-red-600 dark:border-red-600': errors?.email
               })}
             ></div>
           </div>
         </div>
         <div className='py-8'>
           <div className=''>
-            <p className=' uppercase text-textDark/60 dark:text-textLight/60'>address</p>
+            <p className='uppercase text-textDark/60 dark:text-textLight/60'>
+              {t('shipping information.Delivery address')}
+            </p>
             <div className='relative'>
               <Input
-                classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+                classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 dark:caret-white font-medium'
                 register={register}
                 name='address'
                 errorMessage={errors?.address?.message}
-                autoComplete='false'
+                autoComplete='off'
               />
               <div
-                className={classNames('absolute bottom-6 w-full border-b-2 border-black/60 dark:border-white/60', {
-                  'border-red-700 dark:border-red-700': errors?.address
+                className={classNames('absolute bottom-6 w-full border-b-2 ', {
+                  'border-black/60 dark:border-white/60': !errors?.address,
+                  'border-red-600 dark:border-red-600': errors?.address
                 })}
               ></div>
             </div>
@@ -117,9 +129,9 @@ export default function ShippingInfor() {
             <Link
               to={path.payment}
               type='button'
-              className='flex items-center justify-center rounded-lg bg-vintageColor/80 px-4 py-2 text-base capitalize text-textLight hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60 xl:text-lg'
+              className='flex items-center justify-center rounded-lg bg-vintageColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-vintageColor/90 dark:bg-haretaColor dark:text-white dark:hover:bg-haretaColor/90 xl:text-lg'
             >
-              continue to payment
+              {t('layout.Continue to payment')}
             </Link>
           </div>
         )}

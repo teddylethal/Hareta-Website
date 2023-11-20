@@ -1,0 +1,53 @@
+{
+  "": {},
+  "sample": "sample",
+  "path": {
+    "Home": "Home",
+    "Cart": "Cart",
+    "Order": "Order"
+  },
+  "shipping information": {
+    "Name": "Name",
+    "Phone": "Phone",
+    "Email address": "Email address",
+    "Delivery address": "Delivery address",
+    "Country": "Country",
+    "State / Province": "State / Province"
+  },
+  "layout": {
+    "Continue to payment": "Continue to payment",
+    "Back to shipping information": "Back to shipping information",
+    "Shipping information": "Shipping information",
+    "Payment": "Payment",
+    "Order": "Order",
+    "Bill": "Bill",
+    "Discount": "Discount",
+    "Total": "Total",
+    "payment policy": "payment policy",
+    "Confirm order": "Confirm order",
+    "Payment method": "Payment method",
+    "By clicking, you accept our": "By clicking, you accept our",
+    "YOUR ORDER WAS DENIDED": "YOUR ORDER WAS DENIDED",
+    "You must fullfilled your": "You must fullfilled your",
+    "order information": "order information",
+    "You must accept with the": "You must accept with the",
+    "Your order was created successfully": "Your order was created successfully",
+    "A payment instruction email was sent to your email address": "A payment instruction email was sent to your email address ",
+    "Please complete transaction in 48 hours to complete your order": "Please complete transaction in 48 hours to complete your order",
+    "Sincerely thanks!": "Sincerely thanks!",
+    "Confirm": "Confirm"
+  },
+  "payment": {
+    "At the moment we only accept": "At the moment we only accept",
+    "Online payment": "Online payment",
+    "due to our": "due to our",
+    "PLEASE COMPLETE YOUR PAYMENT IN 48 HOURS AFTER PLACING YOUR ORDER": "PLEASE COMPLETE YOUR PAYMENT IN 48 HOURS AFTER PLACING YOUR ORDER",
+    "NATIONAL PAYMENT": "NATIONAL PAYMENT",
+    "INTERNATIONAL PAYMENT": "INTERNATIONAL PAYMENT",
+    "(VIETNAM)": "(VIETNAM)",
+    "(PAYPAL)": "(PAYPAL)",
+    "or": "OR",
+    "Any transactions made before placing an order will": "Any transactions made before placing an order will",
+    "NOT BE ACCEPTED": "NOT BE ACCEPTED"
+  }
+}

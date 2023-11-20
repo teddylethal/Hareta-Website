@@ -1,0 +1,53 @@
+{
+  "": {},
+  "sample": "sample",
+  "path": {
+    "Home": "Trang chủ",
+    "Cart": "Giỏ hàng",
+    "Order": "Đơn hàng"
+  },
+  "shipping information": {
+    "Name": "Tên khách hàng",
+    "Phone": "Số điện thoại",
+    "Email address": "Địa chỉ email",
+    "Delivery address": "Địa chỉ nhận hàng",
+    "Country": "Quốc gia",
+    "State / Province": "Tỉnh / Thành phố"
+  },
+  "layout": {
+    "Continue to payment": "Đi tới thanh toán",
+    "Back to shipping information": "Trở lại thông tin giao hàng",
+    "Shipping information": "Thông tin giao hàng",
+    "Payment": "Thanh toán",
+    "Order": "Đơn hàng",
+    "Bill": "Thành tiền",
+    "Discount": "Giảm giá",
+    "Total": "Tổng cộng",
+    "Confirm order": "Xác nhận đặt hàng",
+    "Payment method": "Phương thức thanh toán",
+    "By clicking, you accept our": "Đồng ý với",
+    "payment policy": "chính sách thanh toán",
+    "YOUR ORDER WAS DENIDED": "Đơn hàng bị từ chối",
+    "You must fullfilled your": "Bạn phải điền đầy đủ",
+    "order information": "thông tin giao hàng",
+    "You must accept with the": "Bạn phải đồng ý với",
+    "Your order was created successfully": "Đơn hàng được tạo thành công",
+    "A payment instruction email was sent to your email address": "Một email hướng dẫn thanh toán đã được gửi đến địa chỉ email của bạn",
+    "Please complete transaction in 48 hours to complete your order": "Hãy hoàn tất thanh toán trong vòng 48 giờ để hoàn tất đơn hàng của bạn",
+    "Sincerely thanks!": "Chân thành cảm ơn!",
+    "Confirm": "Xác nhận"
+  },
+  "payment": {
+    "At the moment we only accept": "Hiện tại chúng tôi chỉ chấp nhận thanh toán thông qua",
+    "Online payment": "giao dịch trực tuyến",
+    "due to our": "đã được ghi rõ trong",
+    "PLEASE COMPLETE YOUR PAYMENT IN 48 HOURS AFTER PLACING YOUR ORDER": "Hãy thanh toán trong vòng 48 giờ kể từ thời điểm đặt hàng để hoàn tất đơn hàng của bạn",
+    "NATIONAL PAYMENT": "Thanh toán nội địa",
+    "INTERNATIONAL PAYMENT": "Thanh toán quốc tế",
+    "(VIETNAM)": "(Việt Nam)",
+    "(PAYPAL)": "(PAYPAL)",
+    "or": "hoặc",
+    "Any transactions made before placing an order will": "Mọi giao dịch được thực hiện trước khi xác nhận đặt hàng đều",
+    "NOT BE ACCEPTED": "KHÔNG ĐƯỢC CHẤP NHẬN"
+  }
+}

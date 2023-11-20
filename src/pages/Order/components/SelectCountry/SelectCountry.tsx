@@ -8,10 +8,10 @@ import { OrderContext } from 'src/contexts/order.context'
 const COUNTRIES = Country.getAllCountries()
 
 export default function SelectCountry() {
-  const { addressCountry, setAddressCountry } = useContext(OrderContext)
+  const { addressCountry, setCountryAddress } = useContext(OrderContext)
 
   return (
-    <Listbox value={addressCountry} onChange={setAddressCountry}>
+    <Listbox value={addressCountry} onChange={setCountryAddress}>
       <div className='relative mt-1'>
         <Listbox.Button className='relative flex w-full cursor-default items-center justify-between rounded-lg border border-black/40 bg-white py-2 text-left text-xs dark:border-white/40 dark:bg-black sm:text-sm md:text-base lg:text-lg xl:text-xl'>
           <span className='block truncate px-3'>{addressCountry?.name}</span>

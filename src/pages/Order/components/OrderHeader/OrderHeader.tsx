@@ -1,8 +1,12 @@
 import classNames from 'classnames'
+import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
 
 export default function OrderHeader() {
+  //? translation
+  const { t } = useTranslation('order')
+
   return (
     <div className='rounded-lg border border-black/40 bg-white text-textDark dark:border-white/40 dark:bg-black dark:text-textLight'>
       <div className='relative grid grid-cols-2'>
@@ -17,7 +21,7 @@ export default function OrderHeader() {
               })
             }
           >
-            Shipping Information
+            {t('layout.Shipping information')}
           </NavLink>
         </div>
         <div className='col-span-1 '>
@@ -30,7 +34,7 @@ export default function OrderHeader() {
               })
             }
           >
-            payment
+            {t('layout.Payment')}
           </NavLink>
         </div>
       </div>

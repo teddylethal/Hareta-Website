@@ -21,7 +21,7 @@ export default function CartPopoverWithoutLogin() {
   const { t } = useTranslation('header')
 
   return (
-    <div className='rounded-lg bg-vintageColor hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
+    <div className='rounded-lg bg-vintageColor hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'>
       <Popover
         className='flex border border-none px-1.5 py-1 lg:px-2'
         renderPopover={
@@ -93,14 +93,14 @@ export default function CartPopoverWithoutLogin() {
               </div>
             </Fragment>
 
-            <div className='mx-3 mb-2 mt-4 flex items-center justify-between text-textDark'>
+            <div className='mx-3 mb-2 mt-4 flex items-center justify-between font-medium text-black dark:text-white'>
               <Link to={path.store}>
-                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
+                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'>
                   {t('cart button.store')}
                 </button>
               </Link>
               <Link to={path.cart}>
-                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
+                <button className='justify-self-start rounded-md bg-vintageColor px-4 py-1 text-sm hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'>
                   {t('cart button.enter cart')}
                 </button>
               </Link>
@@ -110,10 +110,10 @@ export default function CartPopoverWithoutLogin() {
         }
         placement='bottom-end'
       >
-        <div className='flex items-center space-x-2 px-2 py-0.5  text-textDark'>
+        <div className='flex items-center space-x-2 px-2 py-0.5 text-black dark:text-white'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
           {tempExtendedPurchase.length > 0 && (
-            <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs text-textDark dark:bg-black dark:text-textLight lg:text-sm xl:text-base'>
+            <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-textDark dark:bg-black dark:text-textLight lg:text-sm xl:text-base'>
               {tempExtendedPurchase.length}
             </div>
           )}

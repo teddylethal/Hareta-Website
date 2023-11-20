@@ -198,9 +198,9 @@ export default function ProductDetailDesktop(props: Props) {
                 </p>
               </div>
 
-              <div className='mt-4 flex justify-between text-textDark'>
+              <div className='mt-4 flex justify-between text-black dark:text-white'>
                 <button
-                  className='flex items-center rounded-md bg-vintageColor px-6 py-1 text-sm hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:py-1.5 lg:text-base xl:text-lg'
+                  className='flex items-center rounded-md bg-vintageColor px-6 py-1 text-sm hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90 lg:py-1.5 lg:text-base xl:text-lg'
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
@@ -213,7 +213,7 @@ export default function ProductDetailDesktop(props: Props) {
                 >
                   <FontAwesomeIcon icon={faCartPlus} />
                 </button>
-                <button className='flex items-center space-x-2 rounded-md bg-vintageColor px-6 py-1 text-sm hover:bg-vintageColor/80 dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:py-1.5 lg:text-base xl:text-lg'>
+                <button className='flex items-center space-x-2 rounded-md bg-vintageColor px-6 py-1 text-sm font-medium hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90 lg:py-1.5 lg:text-base xl:text-lg'>
                   {t('sidebar.buy')}
                 </button>
               </div>
@@ -240,7 +240,7 @@ export default function ProductDetailDesktop(props: Props) {
         closeButton={false}
         isOpen={createTempCart}
         handleClose={() => setCreateTempCart(false)}
-        classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all'
+        classNameWrapper='relative w-md max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all  '
       >
         <p className='text-center text-xl font-semibold uppercase leading-6 text-red-700'>
           {t('message.Cart expires soon')}
@@ -265,8 +265,8 @@ export default function ProductDetailDesktop(props: Props) {
             className={classNames(
               'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
               {
-                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
-                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+                'bg-vintageColor text-black hover:bg-vintageColor/90': theme === 'light',
+                'bg-haretaColor text-white hover:bg-haretaColor/90': theme === 'dark'
               }
             )}
           >
@@ -277,8 +277,8 @@ export default function ProductDetailDesktop(props: Props) {
             className={classNames(
               'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
               {
-                'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
-                'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
+                'bg-vintageColor text-black hover:bg-vintageColor/90': theme === 'light',
+                'bg-haretaColor text-white hover:bg-haretaColor/90': theme === 'dark'
               }
             )}
             onClick={createTemporaryCart}

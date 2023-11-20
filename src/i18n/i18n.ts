@@ -14,6 +14,7 @@ import login_en from 'src/locales/en/login.json'
 import cart_en from 'src/locales/en/cart.json'
 import yuperrors_en from 'src/locales/en/yuperrors.json'
 import utils_en from 'src/locales/en/utils.json'
+import order_en from 'src/locales/en/order.json'
 
 //! VIETNAMESE
 import header_vi from 'src/locales/vi/header.json'
@@ -27,6 +28,7 @@ import login_vi from 'src/locales/vi/login.json'
 import cart_vi from 'src/locales/vi/cart.json'
 import yuperrors_vi from 'src/locales/vi/yuperrors.json'
 import utils_vi from 'src/locales/vi/utils.json'
+import order_vi from 'src/locales/vi/order.json'
 
 export const locales = {
   en: 'English',
@@ -47,6 +49,7 @@ export const resources = {
     productdetail: productdetail_en,
     login: login_en,
     cart: cart_en,
+    order: order_en,
     yuperrors: yuperrors_en,
     utils: utils_en
   },
@@ -60,6 +63,7 @@ export const resources = {
     productdetail: productdetail_vi,
     login: login_vi,
     cart: cart_vi,
+    order: order_vi,
     yuperrors: yuperrors_vi,
     utils: utils_vi
   }

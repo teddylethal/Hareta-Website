@@ -18,9 +18,7 @@ import { setOrderListToLS, setTempOrderListToLS } from 'src/utils/order'
 import PathBar from 'src/components/PathBar'
 import userApi from 'src/apis/user.api'
 import { CartContext } from 'src/contexts/cart.context'
-
-type FormData = OrderSchema
-type FormDataForGuest = OrderSchemaForGuest
+import { useTranslation } from 'react-i18next'
 
 export default function OrderLayout() {
   const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
@@ -35,12 +33,12 @@ export default function OrderLayout() {
 
   //? ORDER FORM
   const idList = orderList.map((orderItem) => orderItem.id)
-  const methods = useForm<FormData>({
+  const methods = useForm<OrderSchema>({
     defaultValues: {
-      name: '',
-      phone: '',
-      email: '',
-      address: '',
+      // name: '',
+      // phone: '',
+      // email: '',
+      // address: '',
       id: idList
     },
     resolver: yupResolver(orderSchema)
@@ -65,9 +63,9 @@ export default function OrderLayout() {
       setValue('name', profile.name || '')
       setValue('phone', profile.phone || '')
       setValue('email', profile.email || '')
-      clearErrors('name')
-      clearErrors('phone')
-      clearErrors('email')
+      // clearErrors('name')
+      // clearErrors('phone')
+      // clearErrors('email')
     }
   }, [profile, setValue, clearErrors])
 
@@ -90,7 +88,7 @@ export default function OrderLayout() {
   const createOrderForGuestMutation = useMutation(orderApi.createOrderWithouLogin)
   const placeOrderWithoutLogin = handleSubmit(async (data) => {
     const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
-    const formData: FormDataForGuest = {
+    const formData: OrderSchemaForGuest = {
       name: data.name,
       phone: data.phone,
       email: data.email,
@@ -126,14 +124,17 @@ export default function OrderLayout() {
     setConfirmPayment(false)
   }
 
+  //? translation
+  const { t } = useTranslation('order')
+
   return (
     <div className='bg-lightBg py-2 duration-500 dark:bg-darkBg lg:py-3 xl:py-4'>
       <div className='container'>
         <PathBar
           pathList={[
-            { pathName: 'home', url: '/' },
-            { pathName: 'cart', url: '/cart' },
-            { pathName: 'order', url: '/order' }
+            { pathName: t('path.Home'), url: '/' },
+            { pathName: t('path.Cart'), url: '/cart' },
+            { pathName: t('path.Order'), url: '/order' }
           ]}
         />
         <FormProvider {...methods}>
@@ -145,9 +146,9 @@ export default function OrderLayout() {
         </FormProvider>
       </div>
       <DialogPopup
-        isOpen={successDialog}
+        isOpen={true}
         handleClose={() => setSuccesDialog(false)}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+        classNameWrapper='relative w-10/12 md:w-8/12 max-w:lg transform overflow-hidden rounded-2xl py-6 px-4 align-middle shadow-xl transition-all'
         closeButton={false}
       >
         <div className={theme === 'dark' ? 'dark' : 'light'}>
@@ -157,15 +158,20 @@ export default function OrderLayout() {
               className='text- h-auto w-8 rounded-full text-center text-success md:w-10 lg:w-12 xl:w-16'
             />
           </div>
-          <p className='mt-6 text-center text-xl font-medium uppercase leading-6'>
-            Your order was created successfully
+          <p className='mt-6 text-center text-base font-bold uppercase leading-6 md:text-lg xl:text-xl'>
+            {t('layout.Your order was created successfully')}
           </p>
+          <div className='mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium md:text-base xl:text-lg'>
+            <p className='text-center'>{t('layout.A payment instruction email was sent to your email address')}</p>
+            <p className='text-center'>{t('layout.Please complete transaction in 48 hours to complete your order')}</p>
+            <p className='text-center text-base font-semibold md:text-lg xl:text-xl'>{t('layout.Sincerely thanks!')}</p>
+          </div>
           <div className='mt-4 flex w-full items-center justify-center'>
             <button
-              className='rounded-lg bg-brownColor/80 px-4 py-1 hover:bg-haretaColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+              className='rounded-lg bg-vintageColor px-4 py-1 hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'
               onClick={isAuthenticated ? handleConfirm : guestConfirm}
             >
-              Confirm
+              {t('layout.Confirm')}
             </button>
           </div>
         </div>
