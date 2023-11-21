@@ -13,13 +13,17 @@ interface CartContextInterface {
   setExtendedPurchases: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
   tempExtendedPurchase: TemporaryPurchase[]
   setTempExtendedPurchase: React.Dispatch<React.SetStateAction<TemporaryPurchase[]>>
+  unavailablePurchaseIds: string[]
+  setUnavailablePurchaseIds: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const initialcartContext: CartContextInterface = {
   extendedPurchases: getExtendedPurchasesFromLS(),
   setExtendedPurchases: () => null,
   tempExtendedPurchase: getExtendedTempPurchasesFromLS(),
-  setTempExtendedPurchase: () => null
+  setTempExtendedPurchase: () => null,
+  unavailablePurchaseIds: [],
+  setUnavailablePurchaseIds: () => null
 }
 
 export const CartContext = createContext<CartContextInterface>(initialcartContext)
@@ -29,10 +33,20 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [tempExtendedPurchase, setTempExtendedPurchase] = useState<TemporaryPurchase[]>(
     initialcartContext.tempExtendedPurchase
   )
+  const [unavailablePurchaseIds, setUnavailablePurchaseIds] = useState<string[]>(
+    initialcartContext.unavailablePurchaseIds
+  )
 
   return (
     <CartContext.Provider
-      value={{ extendedPurchases, setExtendedPurchases, tempExtendedPurchase, setTempExtendedPurchase }}
+      value={{
+        extendedPurchases,
+        setExtendedPurchases,
+        tempExtendedPurchase,
+        setTempExtendedPurchase,
+        unavailablePurchaseIds,
+        setUnavailablePurchaseIds
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -8,6 +8,7 @@ import { produce } from 'immer'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import { useTranslation } from 'react-i18next'
+import classNames from 'classnames'
 
 interface Props {
   purchase: ExtendsPurchase
@@ -17,7 +18,7 @@ interface Props {
 }
 
 export default function ItemInCart({ purchase, index, handleChecking, handleRemove }: Props) {
-  const { setExtendedPurchases } = useContext(CartContext)
+  const { setExtendedPurchases, unavailablePurchaseIds, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [quantity, setQuantity] = useState<number>(purchase.quantity)
 
@@ -52,27 +53,21 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
   useEffect(() => {
     const updateQuantity = setTimeout(() => {
       updatePurchasesMutation.mutate({ id: purchase.id, quantity: quantity })
-    }, 1500)
+      const newUnavailablePurchaseIds = unavailablePurchaseIds.filter((id) => {
+        return id != purchase.id
+      })
+      setUnavailablePurchaseIds(newUnavailablePurchaseIds)
+    }, 1000)
 
     return () => clearTimeout(updateQuantity)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [purchase.id, quantity])
 
-  //? HANDLE REMOVE
-  // const removePurchasesMutation = useMutation({
-  //   mutationFn: purchaseApi.removePurchases,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ['purchases'] })
-  //   }
-  // })
-
-  // const handleRemove = (purchaseIndex: number) => () => {
-  //   const purchaseId = extendedPurchases[purchaseIndex].id
-  //   removePurchasesMutation.mutate({ id: purchaseId })
-  // }
-
   //? transaltion
   const { t } = useTranslation('cart')
+
+  //? is unavailable
+  const unavailable = unavailablePurchaseIds.includes(purchase.id)
 
   return (
     <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
@@ -105,7 +100,13 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
               />
             </div>
             <div className='ml-4 flex-grow px-2 text-left'>
-              <div className='truncate text-base lg:text-lg'>{purchase.item.name}</div>
+              <div
+                className={classNames('truncate text-base lg:text-lg', {
+                  'text-red-600': unavailable
+                })}
+              >
+                {purchase.item.name}
+              </div>
             </div>
           </Link>
         </div>
@@ -134,6 +135,13 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
                 )
               }
               disabled={purchase.disabled}
+              classNameInput={classNames(
+                'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
+                {
+                  'text-red-600 font-semibold': unavailable,
+                  'text-haretaColor font-medium': !unavailable
+                }
+              )}
             />
           </div>
           <div className='col-span-1'>

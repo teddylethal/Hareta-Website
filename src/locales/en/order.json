@@ -49,5 +49,19 @@
     "or": "OR",
     "Any transactions made before placing an order will": "Any transactions made before placing an order will",
     "NOT BE ACCEPTED": "NOT BE ACCEPTED"
+  },
+  "denided order": {
+    "Your order was denied due to ": "Your order was denied due to ",
+    "unavailable quantity": "unavailable quantity",
+    " of some items.": " of some items.",
+    "some items ": "",
+    "have unavailable quantity.": "",
+    "This accident sometimes occurs when someone else had place an order including your desired items before you did. Therefore the quantity of those items in our storage could not meet your need.": "This accident sometimes occurs when someone else had place an order including your desired items before you did. Therefore the quantity of those items in our storage could not meet your need.",
+    "Please ": "Please ",
+    "recheck": "recheck",
+    " the unavailable items and ": " the unavailable items and ",
+    "adjust the quantity.": "adjust the quantity.",
+    "Sincerely apologies for this accident!": "Sincerely apologies for this accident!",
+    "Return to cart": "Return to cart"
   }
 }

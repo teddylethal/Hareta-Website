@@ -49,5 +49,19 @@
     "or": "hoặc",
     "Any transactions made before placing an order will": "Mọi giao dịch được thực hiện trước khi xác nhận đặt hàng đều",
     "NOT BE ACCEPTED": "KHÔNG ĐƯỢC CHẤP NHẬN"
+  },
+  "denided order": {
+    "Your order was denied due to ": "Đơn hàng của bạn đã bị từ chối vì ",
+    "unavailable quantity": "",
+    " of some items.": "",
+    "some items ": "một số sản phẩm ",
+    "have unavailable quantity.": "có số lượng không hợp lệ.",
+    "This accident sometimes occurs when someone else had place an order including your desired items before you did. Therefore the quantity of those items in our storage could not meet your need.": "Lỗi này xuất hiện do trong thời gian chuẩn bị đơn hàng của bạn đã có người khác đặt 1 số lượng của sản phẩm trùng với sản phẩm mà bạn muốn mua. Điều này dẫn đến lượng hàng hiện tại trong kho của chúng tôi không thể đáp ứng được nhu cầu mua của bạn.",
+    "Please ": "Vui lòng ",
+    "recheck": "kiểm tra lại",
+    " the unavailable items and ": " những sản phẩm bị lỗi số lượng ",
+    "adjust the quantity.": "và điều chỉnh lại.",
+    "Sincerely apologies for this accident!": "Chúng tôi chân thành xin lỗi!",
+    "Return to cart": "Trở lại giỏ hàng"
   }
 }

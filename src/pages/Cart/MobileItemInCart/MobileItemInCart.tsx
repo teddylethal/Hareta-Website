@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import QuantityController from 'src/components/QuantityController'
+import classNames from 'classnames'
 
 interface Props {
   purchase: ExtendsPurchase
@@ -19,7 +20,7 @@ interface Props {
 }
 
 export default function MobileItemInCart({ purchase, index, handleChecking, handleRemove }: Props) {
-  const { setExtendedPurchases } = useContext(CartContext)
+  const { setExtendedPurchases, unavailablePurchaseIds, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [quantity, setQuantity] = useState<number>(purchase.quantity)
 
@@ -54,11 +55,18 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
   useEffect(() => {
     const updateQuantity = setTimeout(() => {
       updatePurchasesMutation.mutate({ id: purchase.id, quantity: quantity })
-    }, 1500)
+      const newUnavailablePurchaseIds = unavailablePurchaseIds.filter((id) => {
+        return id != purchase.id
+      })
+      setUnavailablePurchaseIds(newUnavailablePurchaseIds)
+    }, 1000)
 
     return () => clearTimeout(updateQuantity)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [purchase.id, quantity])
+
+  //? is unavailable
+  const unavailable = unavailablePurchaseIds.includes(purchase.id)
 
   return (
     <div className='w-full'>
@@ -72,7 +80,9 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
             onChange={handleChecking(index)}
           />
         </div>
-        <p className='col-span-6 truncate  text-center text-base'>{purchase.item.name}</p>
+        <p className={classNames('col-span-6 truncate  text-center text-base', { 'text-red-600': unavailable })}>
+          {purchase.item.name}
+        </p>
         <span className='col-span-4 flex items-center justify-center text-xs'>
           ${formatCurrency(purchase.item.price)}
         </span>
@@ -126,6 +136,13 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
               )
             }
             disabled={purchase.disabled}
+            classNameInput={classNames(
+              'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
+              {
+                'text-red-600 font-semibold': unavailable,
+                'text-haretaColor font-medium': !unavailable
+              }
+            )}
           />
         </div>
 
