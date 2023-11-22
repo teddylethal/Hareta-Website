@@ -88,7 +88,8 @@ export default function OrderDetail() {
         >
           {t('layout.By clicking, you accept our')}{' '}
           <Link
-            to={path.home}
+            state={{ from: 'order' }}
+            to={path.privacyAndTerms}
             className='font-medium text-brownColor hover:text-brownColor/90 dark:text-haretaColor dark:hover:text-haretaColor/90'
           >
             {t('layout.payment policy')}

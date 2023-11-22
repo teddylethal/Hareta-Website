@@ -22,7 +22,7 @@ export default function SupportPopover({ closePopover }: Props) {
       </Link> */}
 
       <Link
-        to='/'
+        to={path.privacyAndTerms}
         className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
       >
         {t('support.privacy & terms')}

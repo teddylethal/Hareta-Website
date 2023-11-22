@@ -2,7 +2,7 @@ const path = {
   home: '/',
   login: '/login',
   register: '/register',
-  requestVerify: '/requestVerify',
+  requestVerify: '/request-verify',
   store: '/store',
   productDetail: ':nameId',
   cart: '/cart',
@@ -11,15 +11,16 @@ const path = {
   inventory: '/user/inventory',
   password: '/user/password',
   verifyEmail: '/check-verification-code/:code',
-  requestPasswordRecovery: '/passwordRecovery',
-  changePasswordRecovery: '/passwordRecovery/:slug',
+  requestPasswordRecovery: '/password-recovery',
+  changePasswordRecovery: '/password-recovery/:slug',
   order: '/order',
   shippingInfor: '/order/shipping-information',
   payment: '/order/payment',
-  orderTracking: '/orderTracking',
-  orderInformation: '/orderTracking/:orderId',
-  privacyAndTerms: '/privacy&terms'
+  orderTracking: '/order-tracking',
+  orderInformation: '/order-tracking/:orderId',
+  privacyAndTerms: '/privacy-and-terms'
 } as const
+export default path
 
 export const adminPath = {
   mainPage: '/admin',
@@ -38,4 +39,20 @@ export const adminPath = {
   deleteItem: '/admin/delete/item'
 } as const
 
-export default path
+export const privacyPath = {
+  ProductInformation: 'productInformation',
+  OrderingAndPayments: 'orderingAndPayments',
+  ShippingAndDelivery: 'shippingAndDelivery',
+  ReturnsAndRefunds: 'returnsAndRefunds',
+  ProductWarranty: 'productWarranty',
+  IntellectualProperty: 'intellectualProperty',
+  InformationCollection: 'informationCollection',
+  UseOfInformation: 'useOfInformation',
+  DataProtection: 'dataProtection',
+  SharingOfInformation: 'sharingOfInformation',
+  CookiesAndTracking: 'cookiesAndTracking',
+  ThirdPartyLinks: 'thirdPartyLinks',
+  ChildrenPrivacy: 'childrenPrivacy',
+  ChangeToThePrivacyPolicy: 'changeToThePrivacyPolicy',
+  TermAndConditions: 'termAndConditions'
+}

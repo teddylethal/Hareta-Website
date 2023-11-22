@@ -1,0 +1,94 @@
+{
+  "": {
+    "sample": "sample"
+  },
+  "sample": "sample",
+  "title": {
+    "Privacy and terms": "Privacy and terms",
+    "1. Product Information:": "1. Product Information:",
+    "2. Ordering and Payment:": "2. Ordering and Payment:",
+    "3. Shipping and Delivery:": "3. Shipping and Delivery:",
+    "4. Returns and Refunds:": "4. Returns and Refunds:",
+    "5. Product Warranty:": "5. Product Warranty:",
+    "6. Intellectual Property:": "6. Intellectual Property:",
+    "7. Information Collection": "6. Information Collection",
+    "8. Use of Information": "7. Use of Information",
+    "9. Data Protection": "8. Data Protection",
+    "10. Sharing of Information": "9. Sharing of Information",
+    "11. Cookies and Tracking Technologies": "10. Cookies and Tracking Technologies",
+    "12. Third-party Links": "11. Third-party Links",
+    "13. Children's Privacy": "12. Children's Privacy",
+    "14. Changes to the Privacy Policy": "13. Changes to the Privacy Policy",
+    "15. Terms and Conditions": "14.Terms and Conditions"
+  },
+  "Product Information": {
+    "a": "a. Our artisan keycaps are handcrafted and made with high-quality materials.",
+    "b": "b. Each keycap is unique and may have slight variations in color, texture, and design.",
+    "c": "c. Product images on our website are for illustrative purposes only. Actual products may differ slightly."
+  },
+  "Ordering and Payment": {
+    "a": "a. Orders can be placed through our website or other designated platforms.",
+    "b": "b. Payment must be made in full at the time of placing the order.",
+    "c": "c. We accept various payment methods, including credit/debit cards and online payment gateways."
+  },
+  "Shipping and Delivery": {
+    "a": "a. We strive to process and ship orders within a reasonable timeframe.",
+    "b": "b. Shipping costs and estimated delivery times will be provided during the checkout process.",
+    "c": "c. We are not responsible for any delays or damages caused by the shipping carrier."
+  },
+  "Returns and Refunds": {
+    "a": "a, We accept returns within 14 days of delivery for unused and undamaged products.",
+    "b": "b. Customers are responsible for return shipping costs unless the product is defective or damaged.",
+    "c": "c. Refunds will be issued within a reasonable timeframe after receiving the returned product."
+  },
+  "Product Warranty": {
+    "a": "a. Our artisan keycaps come with a limited warranty against manufacturing defects.",
+    "b": "b. The warranty does not cover damages caused by misuse, accidents, or improper handling.",
+    "c": "c. To claim warranty, customers must provide proof of purchase and contact our customer support."
+  },
+  "Intellectual Property": {
+    "a": "a. All designs, logos, and trademarks displayed on our products are the property of our company.",
+    "b": "b. Unauthorized use or reproduction of our intellectual property is strictly prohibited."
+  },
+  "Information Collection": {
+    "We may collect personal information from you when you visit our website or place an order for our products. The types of information we may collect include:": "We may collect personal information from you when you visit our website or place an order for our products. The types of information we may collect include:",
+    "- Contact details (name, email address, phone number)": "- Contact details (name, email address, phone number)",
+    "- Shipping and billing addresses": "- Shipping and billing addresses",
+    "- Payment information (credit card details)": "- Payment information (credit card details)",
+    "- Order history": "- Order history"
+  },
+  "Use of Information": {
+    "We use the collected information for various purposes including:": "We use the collected information for various purposes including:",
+    "- Processing and fulfilling your orders": "- Processing and fulfilling your orders",
+    "- Communicating with you about your orders or inquiries": "- Communicating with you about your orders or inquiries",
+    "- Providing customer support services": "- Providing customer support services",
+    "- Improving our products and services": "- Improving our products and services",
+    "- Sending promotional offers or newsletters (with your consent)": "- Sending promotional offers or newsletters (with your consent)"
+  },
+  "Data Protection": {
+    "content": "We take appropriate measures to protect your personal data from unauthorized access, alteration, disclosure, or destruction. We implement industry-standard security practices such as encryption during data transmission and storage."
+  },
+  "Sharing of Information": {
+    "content": "We do not sell or rent your personal information to third parties for marketing purposes without obtaining your explicit consent. However, we may share certain data with trusted service providers who assist us in operating our business effectively (e.g., payment processors). In some cases, we may be required by law to disclose certain personal information if requested by a government authority."
+  },
+  "Cookies and Tracking Technologies": {
+    "content": "Our website uses cookies and similar tracking technologies to enhance user experience and gather statistical data about site usage patterns. You can choose to disable cookies through your browser settings; however, please note that this might limit some functionalities on our website."
+  },
+  "Third-party Links": {
+    "content": "Our website may contain links to third-party websites that are not under Hareta workshop's control. We are not responsible for the privacy practices or content of these websites. We encourage you to review their respective privacy policies."
+  },
+  "Children's Privacy": {
+    "content": "Our services are not intended for individuals under the age of 13. We do not knowingly collect personal information from children. If we become aware that we have inadvertently collected data from a child, we will promptly delete it."
+  },
+  "Changes to the Privacy Policy": {
+    "content": "We reserve the right to update or modify this Privacy Policy at any time without prior notice. Any changes will be effective immediately upon posting on our website."
+  },
+  "Terms and Conditions": {
+    "content": "In addition to our Privacy Policy, please also review our Terms and Conditions which govern your use of our website and purchase of products."
+  },
+  "contact": {
+    "Contact us:": "Contact us:",
+    "If you have any questions or concerns about our privacy practices, please contact us via email: ": "If you have any questions or concerns about our privacy practices, please contact us via email: ",
+    "hareta.manage@gmail.com": "hareta.manage@gmail.com"
+  }
+}

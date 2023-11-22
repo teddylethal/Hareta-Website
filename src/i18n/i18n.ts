@@ -15,6 +15,7 @@ import cart_en from 'src/locales/en/cart.json'
 import yuperrors_en from 'src/locales/en/yuperrors.json'
 import utils_en from 'src/locales/en/utils.json'
 import order_en from 'src/locales/en/order.json'
+import privacyAndTerms_en from 'src/locales/en/privacyAndTerms.json'
 
 //! VIETNAMESE
 import header_vi from 'src/locales/vi/header.json'
@@ -29,6 +30,7 @@ import cart_vi from 'src/locales/vi/cart.json'
 import yuperrors_vi from 'src/locales/vi/yuperrors.json'
 import utils_vi from 'src/locales/vi/utils.json'
 import order_vi from 'src/locales/vi/order.json'
+import privacyAndTerms_vi from 'src/locales/vi/privacyAndTerms.json'
 
 export const locales = {
   en: 'English',
@@ -50,6 +52,7 @@ export const resources = {
     login: login_en,
     cart: cart_en,
     order: order_en,
+    privacyAndTerms: privacyAndTerms_en,
     yuperrors: yuperrors_en,
     utils: utils_en
   },
@@ -64,6 +67,7 @@ export const resources = {
     login: login_vi,
     cart: cart_vi,
     order: order_vi,
+    privacyAndTerms: privacyAndTerms_vi,
     yuperrors: yuperrors_vi,
     utils: utils_vi
   }
@@ -71,7 +75,21 @@ export const resources = {
 
 export const defaultNS = 'header'
 
-const ns = ['header', 'footer', 'home', 'store', 'support', 'user', 'productdetail', 'login', 'yuperrors']
+const ns = [
+  'header',
+  'footer',
+  'home',
+  'store',
+  'support',
+  'user',
+  'productdetail',
+  'login',
+  'cart',
+  'order',
+  'privacyAndTerms',
+  'login',
+  'yuperrors'
+]
 
 // eslint-disable-next-line import/no-named-as-default-member
 i18n.use(initReactI18next).init({
