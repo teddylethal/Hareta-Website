@@ -1,4 +1,5 @@
 import { ItemGroup, ItemGroupList } from 'src/types/admin.type'
+import { OrderList } from 'src/types/order.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
@@ -88,5 +89,20 @@ export const adminItemImageApi = {
   },
   deleteImage(body: { id: string }) {
     return http.delete(`/item-image/`, { data: body })
+  }
+}
+
+interface OrderListConfig {
+  status: number
+  page: number
+  limit: number
+}
+
+export const adminOrderApi = {
+  getOrderList(params: OrderListConfig) {
+    return http.get<OrderList>(`${URL}/order/admin`, { params })
+  },
+  updateOrder(body: { id: string; status: number }) {
+    return http.put<SuccessRespone<string>>(`${URL}/order/`, body)
   }
 }

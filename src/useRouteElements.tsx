@@ -18,6 +18,7 @@ import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 import UserLayout from './pages/User/layouts/UserLayout'
+
 const Cart = lazy(() => import('./pages/Cart'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
 const OrderItemInformation = lazy(() => import('./pages/Support/components/OrderItemInformation'))
@@ -46,16 +47,15 @@ const Payment = lazy(() => import('./pages/Order/pages/Payment'))
 const AdminCreateItem = lazy(() => import('./pages/Admin/pages/AdminCreateItem'))
 const AdminAddItemColor = lazy(() => import('./pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('./pages/Admin/pages/AdminMainPage'))
-const AdminCreatingPage = lazy(() => import('./pages/Admin/pages/AdminCreatingPage'))
 const AdminUploadItemAvatar = lazy(() => import('./pages/Admin/pages/AdminUploadItemAvatar'))
-const AdminUpdatingPage = lazy(() => import('./pages/Admin/pages/AdminUpdatingPage'))
 const AdminSetDefaultItem = lazy(() => import('./pages/Admin/pages/AdminSetDefaultItem'))
 const AdminAddItemImage = lazy(() => import('./pages/Admin/pages/AdminAddItemImage'))
 const AdminUpdateItem = lazy(() => import('./pages/Admin/pages/AdminUpdateItem'))
-const AdminImagesPage = lazy(() => import('./pages/Admin/pages/AdminImagesPage'))
 const AdminDeleteItemImage = lazy(() => import('./pages/Admin/pages/AdminDeleteItemImage'))
 const AdminDeleteItem = lazy(() => import('./pages/Admin/pages/AdminDeleteItem'))
 const AdminDeleteGroup = lazy(() => import('./pages/Admin/pages/AdminDeleteGroup'))
+const AdminItem = lazy(() => import('./pages/Admin/pages/AdminItem'))
+const AdminOrder = lazy(() => import('./pages/Admin/pages/AdminOrder'))
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -195,52 +195,50 @@ export default function useRouteElements() {
           element: <AdminMainPage />
         },
         {
-          path: adminPath.creatingPage,
-          element: <AdminCreatingPage />
+          path: adminPath.itemManagement,
+          element: <AdminItem />,
+          children: [
+            {
+              path: adminPath.createItem,
+              element: <AdminCreateItem />
+            },
+            {
+              path: adminPath.addItemColor,
+              element: <AdminAddItemColor />
+            },
+            {
+              path: adminPath.setDefaultItem,
+              element: <AdminSetDefaultItem />
+            },
+            {
+              path: adminPath.uploadItemAvatar,
+              element: <AdminUploadItemAvatar />
+            },
+            {
+              path: adminPath.updateItem,
+              element: <AdminUpdateItem />
+            },
+            {
+              path: adminPath.addItemImage,
+              element: <AdminAddItemImage />
+            },
+            {
+              path: adminPath.deleteItemImage,
+              element: <AdminDeleteItemImage />
+            },
+            {
+              path: adminPath.deleteItem,
+              element: <AdminDeleteItem />
+            },
+            {
+              path: adminPath.deleteGroup,
+              element: <AdminDeleteGroup />
+            }
+          ]
         },
         {
-          path: adminPath.createItem,
-          element: <AdminCreateItem />
-        },
-        {
-          path: adminPath.addItemColor,
-          element: <AdminAddItemColor />
-        },
-        {
-          path: adminPath.updatingPage,
-          element: <AdminUpdatingPage />
-        },
-        {
-          path: adminPath.setDefaultItem,
-          element: <AdminSetDefaultItem />
-        },
-        {
-          path: adminPath.uploadItemAvatar,
-          element: <AdminUploadItemAvatar />
-        },
-        {
-          path: adminPath.updateItem,
-          element: <AdminUpdateItem />
-        },
-        {
-          path: adminPath.images,
-          element: <AdminImagesPage />
-        },
-        {
-          path: adminPath.addItemImage,
-          element: <AdminAddItemImage />
-        },
-        {
-          path: adminPath.deleteItemImage,
-          element: <AdminDeleteItemImage />
-        },
-        {
-          path: adminPath.deleteItem,
-          element: <AdminDeleteItem />
-        },
-        {
-          path: adminPath.deleteGroup,
-          element: <AdminDeleteGroup />
+          path: adminPath.orderManagemnet,
+          element: <AdminOrder />
         }
       ]
     },

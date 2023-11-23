@@ -24,19 +24,17 @@ export default path
 
 export const adminPath = {
   mainPage: '/admin',
-  creatingPage: '/admin/create',
-  createItem: '/admin/create/item',
-  addItemColor: '/admin/create/add-color',
-  updatingPage: '/admin/update',
-  uploadItemAvatar: '/admin/update/item-avatar',
-  updateItem: '/admin/update/item',
-  setDefaultItem: '/admin/update/default-item',
-  images: '/admin/item-image',
-  addItemImage: '/admin/item-image/add',
-  deleteItemImage: '/admin/item-image/delete',
-  deletingPage: '/admin/delete',
-  deleteGroup: '/admin/delete/group',
-  deleteItem: '/admin/delete/item'
+  itemManagement: '/admin/item',
+  createItem: '/admin/item/create-item',
+  addItemColor: '/admin/item/create-color',
+  uploadItemAvatar: '/admin/item/update/item-avatar',
+  updateItem: '/admin/item/update/item',
+  setDefaultItem: '/admin/item/update/set-default-item',
+  addItemImage: '/admin/item/item-image/add',
+  deleteItemImage: '/admin/item/item-image/delete',
+  deleteGroup: '/admin/item/delete-group',
+  deleteItem: '/admin/item/delete-item',
+  orderManagemnet: '/admin/order'
 } as const
 
 export const privacyPath = {
