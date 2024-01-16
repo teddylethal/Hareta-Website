@@ -5,7 +5,7 @@ import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
 
-export const ApiURL = 'http://146.190.193.176:3000/'
+export const ApiURL = 'https://api.hareta.me/'
 class Http {
   instance: AxiosInstance
   private accessToken: string
