@@ -9,7 +9,7 @@ export default function UserSideNav() {
   //? translation
   const { t } = useTranslation('user')
   return (
-    <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-textDark/70  duration-500 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
+    <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-textDark/70  duration-300 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
       <div className=''>
         <NavLink
           to={path.profile}

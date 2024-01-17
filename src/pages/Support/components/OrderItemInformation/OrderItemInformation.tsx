@@ -54,7 +54,7 @@ export default function OrderItemInformation() {
   return (
     <div className='bg-lightBg py-2 text-textDark duration-300 dark:bg-darkBg dark:text-textLight md:py-3 xl:py-4'>
       <div className='container'>
-        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg border border-black/20 bg-[#f8f8f8] px-2 py-1 text-xs font-medium text-textDark duration-500 dark:border-white/20 dark:bg-[#000] dark:text-textLight sm:space-x-2 sm:px-3 lg:mb-3  lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
+        <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg border border-black/20 bg-[#f8f8f8] px-2 py-1 text-xs font-medium text-textDark duration-300 dark:border-white/20 dark:bg-[#000] dark:text-textLight sm:space-x-2 sm:px-3 lg:mb-3  lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>

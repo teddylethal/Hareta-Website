@@ -9,8 +9,8 @@ export default function MobileFooter() {
   const { t } = useTranslation('footer')
 
   return (
-    <div className='w-full bg-[#efefef] pb-14 duration-500 dark:bg-[#303030] sm:pb-16'>
-      <div className='flex flex-col text-textDark/80 duration-500 dark:text-textLight/80'>
+    <div className='w-full bg-[#efefef] pb-14 duration-300 dark:bg-[#303030] sm:pb-16'>
+      <div className='flex flex-col text-textDark/80 duration-300 dark:text-textLight/80'>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>

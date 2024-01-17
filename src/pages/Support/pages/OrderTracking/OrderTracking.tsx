@@ -44,7 +44,7 @@ export default function OrderTracking() {
         <PathBar
           pathList={[
             { pathName: t('path.home'), url: '/' },
-            { pathName: isMobile ? t('path.order tracking--mobile') : t('path.order tracking'), url: '/orderTracking' }
+            { pathName: isMobile ? t('path.order tracking--mobile') : t('path.order tracking'), url: '/order-tracking' }
           ]}
         />
 

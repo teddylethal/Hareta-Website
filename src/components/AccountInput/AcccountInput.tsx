@@ -100,7 +100,7 @@ export default function AccountInput({
     <div className={className}>
       <div
         className={
-          'relative mx-0 mt-6 h-12 w-full border-b-2 duration-500 ' +
+          'relative mx-0 mt-6 h-12 w-full border-b-2 duration-300 ' +
           (errorMessage ? 'border-red-500 dark:border-red-600' : 'border-haretaColor dark:border-haretaColor')
         }
       >

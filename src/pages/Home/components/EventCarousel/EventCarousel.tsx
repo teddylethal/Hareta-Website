@@ -1,7 +1,7 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Carousel from 'react-multi-carousel'
-import { DotProps } from 'react-multi-carousel/lib/types'
+import { DotProps, CarouselProps } from 'react-multi-carousel/lib/types'
 import EventCarouselItem from '../EventCarouselItem'
 import CustomDotsCarousel from '../CustomeDotsCarousel'
 // import { useQuery } from '@tanstack/react-query'
@@ -67,9 +67,10 @@ export default function EventCarousel() {
         customDot={<CustomDots />}
         responsive={responsive}
         autoPlaySpeed={5000}
-        infinite={true}
         autoPlay={true}
         transitionDuration={500}
+        infinite
+        draggable={false}
         customLeftArrow={
           <ArrowFix>
             <FontAwesomeIcon

@@ -91,7 +91,7 @@ export default function ChangePasswordRecovery() {
             <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
               <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
                 <form
-                  className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-500 dark:bg-[#222222] md:p-10'
+                  className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-300 dark:bg-[#222222] md:p-10'
                   onSubmit={onSubmit}
                   noValidate
                 >

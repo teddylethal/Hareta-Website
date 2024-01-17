@@ -73,24 +73,26 @@ export default function AsideSorter() {
 
   //? TRANSLATION
   const { t } = useTranslation('store')
+  const classNameForItem =
+    'flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/20 px-1 py-0.5 capitalize dark:border-white/20 lg:px-2'
 
   return (
     <div
       className={classNames(
-        'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-[#f8f8f8] px-3 py-2 text-base font-medium duration-500 dark:bg-[#202020] lg:text-lg'
+        'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-sidebarItemLight px-3 py-2 text-base font-medium duration-300 dark:bg-sidebarItemDark lg:text-lg'
       )}
     >
-      <p className='col-span-5 flex h-6 items-center text-left text-xs font-medium uppercase text-textDark duration-500 dark:text-textLight lg:h-7 lg:text-base xl:text-lg'>
+      <p className='col-span-5 flex h-6 items-center text-left text-xs font-medium uppercase text-textDark duration-300 dark:text-textLight lg:h-7 lg:text-base xl:text-lg'>
         {t('aside filter.sort by')}
       </p>
       <div className='col-span-7 items-center' ref={ref}>
         <button
           className={classNames(
-            'flex w-full items-center justify-center rounded-xl bg-[#ddd] py-0.5 text-sm font-medium capitalize text-textDark duration-300 dark:bg-[#202020] lg:px-3  lg:text-base',
+            'flex w-full items-center justify-center rounded-xl py-0.5 text-sm font-medium capitalize text-textDark duration-300 lg:px-3 lg:text-base',
             {
-              'rounded-b-none border-x border-t border-black/20 text-textDark duration-500 dark:border-white/10 dark:text-textLight':
+              'rounded-b-none border-x border-t border-black/20 text-textDark duration-300 dark:border-white/20 dark:text-textLight':
                 visible,
-              ' bg-vintageColor hover:bg-vintageColor/80  dark:bg-haretaColor/80 dark:hover:bg-haretaColor': !visible
+              'bg-haretaColor hover:bg-primaryColor': !visible
             }
           )}
           onClick={toggleOpenClose}
@@ -103,28 +105,24 @@ export default function AsideSorter() {
         <AnimateChangeInHeight>
           {visible && isOpening && (
             <motion.div
-              className='gap-2 rounded-xl rounded-t-none border-x border-b border-black/20 px-1 py-4 dark:border-white/10 lg:px-2 xl:px-3'
-              initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
+              className='gap-2 rounded-xl rounded-t-none border-x border-b border-black/20 px-1 py-4 dark:border-white/20 lg:px-2 xl:px-3'
+              initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#1d1d22' : '#e9e9e8' }}
               animate={{
                 opacity: 1,
                 y: 0,
-                backgroundColor: theme === 'dark' ? '#272727' : '#fff'
+                backgroundColor: theme === 'dark' ? '#1d1d22' : '#e9e9e8'
               }}
-              exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
+              exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#1d1d22' : '#e9e9e8' }}
               transition={{ duration: 0.2 }}
             >
-              <ul className='flex grow flex-col space-y-2 text-xs text-textDark/80 dark:text-textLight/80 lg:text-base'>
+              <ul className='flex grow flex-col space-y-2 text-xs lg:text-base'>
                 <li className='w-full'>
                   <button
                     onClick={handleChange(0)}
-                    className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
-                      {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum !== 0,
-                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 0
-                      }
-                    )}
+                    className={classNames(classNameForItem, {
+                      'text-textDark hover:bg-[#d6d6d5] dark:text-textLight dark:hover:bg-[#2c2c32]': tagEnum !== 0,
+                      'bg-primaryColor text-textDark': tagEnum === 0
+                    })}
                   >
                     {t('aside filter.newest')}
                   </button>
@@ -132,14 +130,10 @@ export default function AsideSorter() {
                 <li className='w-full'>
                   <button
                     onClick={handleChange(1)}
-                    className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
-                      {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum !== 1,
-                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 1
-                      }
-                    )}
+                    className={classNames(classNameForItem, {
+                      'text-textDark hover:bg-[#d6d6d5] dark:text-textLight dark:hover:bg-[#2c2c32]': tagEnum !== 1,
+                      'bg-primaryColor text-textDark': tagEnum === 1
+                    })}
                   >
                     {t('aside filter.top seller')}
                   </button>
@@ -147,14 +141,10 @@ export default function AsideSorter() {
                 <li className='w-full'>
                   <button
                     onClick={handleChange(2)}
-                    className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
-                      {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum !== 2,
-                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 2
-                      }
-                    )}
+                    className={classNames(classNameForItem, {
+                      'text-textDark hover:bg-[#d6d6d5] dark:text-textLight dark:hover:bg-[#2c2c32]': tagEnum !== 2,
+                      'bg-primaryColor text-textDark': tagEnum === 2
+                    })}
                   >
                     {t('aside filter.signature')}
                   </button>
@@ -162,14 +152,10 @@ export default function AsideSorter() {
                 <li className='w-full'>
                   <button
                     onClick={handleChange(3)}
-                    className={classNames(
-                      ' flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/40 px-1 py-0.5 capitalize dark:border-white/40 lg:px-2 ',
-                      {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum !== 3,
-                        'bg-vintageColor  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum === 3
-                      }
-                    )}
+                    className={classNames(classNameForItem, {
+                      'text-textDark hover:bg-[#d6d6d5] dark:text-textLight dark:hover:bg-[#2c2c32]': tagEnum !== 3,
+                      'bg-primaryColor text-textDark': tagEnum === 3
+                    })}
                   >
                     {t('aside filter.favourite')}
                   </button>

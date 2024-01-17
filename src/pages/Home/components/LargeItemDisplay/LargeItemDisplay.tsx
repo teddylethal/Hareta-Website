@@ -118,11 +118,11 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
 
   return (
     <div
-      className='flex h-full w-full items-center justify-center pb-0 pt-2 duration-500 md:hover:pb-2 md:hover:pt-0'
+      className='flex h-full w-full items-center justify-center pb-0 pt-2 duration-300 md:hover:pb-2 md:hover:pt-0'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
-      <div className='relative h-full w-full overflow-hidden rounded-xl bg-[#f8f8f8] pb-4 duration-500  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
+      <div className='relative h-full w-full overflow-hidden rounded-xl bg-[#f8f8f8] pb-4 duration-300  hover:bg-[#efefef] dark:bg-[#303030] dark:hover:bg-[#383838]'>
         {hoveringImage && (
           <div className='relative h-min w-full bg-[#dfdfdf] dark:bg-[#282828]'>
             <div className='absolute left-0 top-0 h-full w-full'>
@@ -155,7 +155,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
         )}
         {/* <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
           <button
-            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-300 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
             onClick={handleClickItem}
           >
             {product.name}

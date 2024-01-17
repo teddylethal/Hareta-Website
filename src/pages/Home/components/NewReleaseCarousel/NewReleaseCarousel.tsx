@@ -73,7 +73,7 @@ export default function NewReleaseCarousel({ setPageIsLoading }: Props) {
         className='py-2'
       >
         <div
-          className={classNames('mx-0.5 h-1 w-8 rounded-md  duration-500', {
+          className={classNames('mx-0.5 h-1 w-8 rounded-md  duration-300', {
             ' bg-haretaColor': active,
             ' bg-haretaColor/40': !active
           })}
@@ -89,7 +89,7 @@ export default function NewReleaseCarousel({ setPageIsLoading }: Props) {
 
   return (
     <div className='container'>
-      <div className='text-textDark duration-500 dark:text-textLight'>
+      <div className='text-textDark duration-300 dark:text-textLight'>
         <div className='w-full text-center'>
           <p className='text-2xl font-bold uppercase text-haretaColor/80 dark:text-sunYellow lg:text-4xl xl:text-5xl'>
             {t('new release')}

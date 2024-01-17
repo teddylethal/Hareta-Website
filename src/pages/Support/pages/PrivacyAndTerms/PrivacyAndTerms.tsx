@@ -71,7 +71,7 @@ export default function PrivacyAndTerms() {
         >
           {!isMobile && (
             <div className='col-span-3'>
-              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto border-r border-black/20 duration-500 dark:border-white/20 md:top-14 lg:top-20'>
+              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto border-r border-black/20 duration-300 dark:border-white/20 md:top-14 lg:top-20'>
                 <PrivacyAndTermsSideNav />
               </div>
             </div>

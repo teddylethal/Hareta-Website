@@ -88,13 +88,13 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
 
   return (
     <div
-      className='overflow-hidden rounded-md bg-[#e8e8e8] p-2 outline outline-1 outline-black/20 duration-500 dark:bg-[#101010] dark:outline-white/20'
+      className='overflow-hidden rounded-md bg-barLightBg p-2 outline outline-1 outline-black/20 duration-300 dark:bg-barDarkBg dark:outline-white/20'
       ref={ref}
     >
       <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>
         <div
           className={classNames(
-            'flex items-center capitalize text-textDark/80 hover:text-brownColor dark:text-textLight/80 dark:hover:text-haretaColor',
+            'flex items-center capitalize text-textDark/80 hover:text-primaryColor dark:text-textLight/80 dark:hover:text-primaryColor',
             {
               'mb-2': visible || collection
             }
@@ -133,7 +133,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
         {collection && (
           <div
             className={classNames(
-              'flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-[#f8f8f8] px-2 py-1 text-sm capitalize text-textDark duration-500 dark:border-white/20 dark:bg-[#303030] dark:text-textLight sm:text-base lg:text-lg',
+              'flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-sidebarItemLight px-2 py-1 text-sm capitalize text-textDark duration-300 dark:border-white/20 dark:bg-sidebarItemDark dark:text-textLight sm:text-base lg:text-lg',
               {
                 'rounded-b-md': !isOpening || !visible
               }
@@ -156,14 +156,14 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
             animate={{
               opacity: 1,
               y: 0,
-              backgroundColor: theme === 'dark' ? '#303030' : '#f8f8f8'
+              backgroundColor: theme === 'dark' ? '#2c2c32' : '#fbfbff'
             }}
             exit={{ opacity: 0, y: '-40%' }}
             transition={{ duration: 0.2 }}
           >
             <div className='flex flex-col'>
               <button
-                className='flex items-center justify-start px-2 py-1 capitalize hover:text-brownColor dark:hover:text-haretaColor'
+                className='flex items-center justify-start px-2 py-1 capitalize hover:text-primaryColor dark:hover:text-primaryColor'
                 onClick={handleChange}
               >
                 {t('aside filter.all')}
@@ -172,7 +172,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
                 data.data.data.map((name, index) => (
                   <button
                     className={classNames(
-                      'flex items-center justify-start px-2 py-1 capitalize hover:text-brownColor dark:hover:text-haretaColor'
+                      'flex items-center justify-start px-2 py-1 capitalize hover:text-primaryColor dark:hover:text-primaryColor'
                     )}
                     key={index}
                     onClick={handleChange}

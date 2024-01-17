@@ -84,7 +84,7 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
         className='py-2'
       >
         <div
-          className={classNames('mx-0.5 h-1 w-8 rounded-md  duration-500', {
+          className={classNames('mx-0.5 h-1 w-8 rounded-md  duration-300', {
             ' bg-haretaColor': active,
             ' bg-haretaColor/40': !active
           })}
@@ -123,7 +123,7 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
   const { t } = useTranslation('home')
 
   return (
-    <div className='bg-[#f8f8f8] text-textDark duration-500 dark:bg-[#282828] dark:text-textLight'>
+    <div className='bg-[#f8f8f8] text-textDark duration-300 dark:bg-[#282828] dark:text-textLight'>
       <div className='container'>
         <div className='py-4 md:py-8 lg:py-10 xl:py-12'>
           <div className='flex items-center justify-between'>

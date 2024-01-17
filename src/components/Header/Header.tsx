@@ -28,22 +28,25 @@ export const MenuContext = createContext<MenuContextInterface>(initialMenuContex
 export default function Header() {
   //? Use translation
   const { t } = useTranslation('header')
-
   const { isAuthenticated } = useContext(AppContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
   return (
-    <div className='top-0 z-10 flex h-10 w-full items-center bg-white duration-300 dark:bg-black md:h-12 lg:h-16'>
+    <div
+      className={classNames(
+        'top-0 z-10 flex h-10 w-full items-center bg-lightHeader shadow-md duration-300 dark:bg-darkHeader md:h-12 lg:h-16'
+      )}
+    >
       {!isMobile && (
         <div className='container grid w-full grid-cols-3 items-center text-black duration-300  dark:text-white'>
           <nav className='col-span-2 flex items-center justify-start space-x-2 text-base font-medium uppercase md:font-semibold lg:space-x-4 lg:text-lg'>
             <NavLink
               to={path.home}
               className={({ isActive }) =>
-                classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                  'text-brownColor dark:text-haretaColor': isActive
+                classNames('rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor', {
+                  'text-primaryColor dark:text-primaryColor': isActive
                 })
               }
             >
@@ -53,8 +56,8 @@ export default function Header() {
             <NavLink
               to={path.store}
               className={({ isActive }) =>
-                classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                  'text-brownColor dark:text-haretaColor': isActive
+                classNames('rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor', {
+                  'text-primaryColor dark:text-primaryColor': isActive
                 })
               }
             >
@@ -63,7 +66,7 @@ export default function Header() {
 
             <NavLink
               to='/'
-              className='rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor'
+              className='rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor'
             >
               <div>{t('navbar.event')}</div>
             </NavLink>
@@ -71,7 +74,7 @@ export default function Header() {
             <SupportNav />
           </nav>
 
-          {/* <div className='col-span-1 flex grow select-none justify-center text-xs text-haretaColor md:text-sm md:font-semibold lg:text-base'>
+          {/* <div className='col-span-1 flex grow select-none justify-center text-xs text-primaryColor md:text-sm md:font-semibold lg:text-base'>
             <h2>Decor your life with us</h2>
           </div> */}
 
@@ -79,7 +82,7 @@ export default function Header() {
             {!isAuthenticated && (
               <Link
                 to={path.login}
-                className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-brownColor dark:hover:text-haretaColor md:font-semibold lg:space-x-2'
+                className='flex items-center space-x-1 rounded-lg px-3 py-1 hover:text-primaryColor dark:hover:text-primaryColor md:font-semibold lg:space-x-2'
               >
                 <FontAwesomeIcon icon={faUser} />
 

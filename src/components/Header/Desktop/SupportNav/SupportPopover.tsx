@@ -12,6 +12,9 @@ export default function SupportPopover({ closePopover }: Props) {
   //? Use translation
   const { t } = useTranslation('header')
 
+  const className =
+    'rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
+
   return (
     <div className='relative flex w-64 select-none flex-col rounded-lg bg-[#efefef] p-2 text-base font-medium text-textDark/90 shadow-lg dark:bg-[#202020] dark:text-textLight/90 md:font-medium lg:w-72 lg:text-lg'>
       {/* <Link
@@ -21,10 +24,7 @@ export default function SupportPopover({ closePopover }: Props) {
         {t('support.about us')}
       </Link> */}
 
-      <Link
-        to={path.privacyAndTerms}
-        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
-      >
+      <Link to={path.privacyAndTerms} className={className} onClick={closePopover}>
         {t('support.privacy & terms')}
       </Link>
 
@@ -42,14 +42,11 @@ export default function SupportPopover({ closePopover }: Props) {
         {t('support.contact us')}
       </Link> */}
 
-      <Link
-        to={path.orderTracking}
-        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
-      >
+      <Link to={path.orderTracking} className={className} onClick={closePopover}>
         {t('support.order tracking')}
       </Link>
 
-      <div className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'>
+      <div className={className}>
         <ChangeLanguage closePopover={closePopover} />
       </div>
 

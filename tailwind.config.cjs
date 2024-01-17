@@ -26,17 +26,37 @@ module.exports = {
     },
     extend: {
       colors: {
-        haretaColor: '#ff6a00',
-        textVintage: '#FFFBF5',
-        textDark: '#222222',
-        vintageColor: '#A27B5C',
+        //? Header
+        darkHeader: '#1d1d22',
+        lightHeader: '#ebebee',
+
+        //? Main interface
+        darkBg: '#0e0e12',
+        lightBg: '#ffffff',
+
+        //? Text
         textLight: '#EEEEEE',
-        darkBg: '#181818',
-        lightBg: '#e8e8e8',
+        textDark: '#111111',
+        haretaColor: '#ff8800',
+        primaryColor: '#ff7700',
+        textVintage: '#FFFBF5',
+        vintageColor: '#A27B5C',
+
+        //? Store sidebar
+        barLightBg: '#e9e9e8',
+        barDarkBg: '#1d1d22',
+        sidebarItemLight: '#fbfbff',
+        sidebarItemDark: '#2c2c32',
+
+        //? States and badges
         success: '#4bb543',
         brownColor: '#B77729',
         orangeColor: '#ff6a00',
-        sunYellow: '#ffc107'
+        sunYellow: '#ffc107',
+
+        //? Cards
+        productDarkBg: '#2c2c32',
+        productLightBg: '#e6e6e5'
       }
     }
   },

@@ -47,16 +47,16 @@ export default function SearchBar() {
   return (
     <div className='w-full'>
       <form
-        className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-500 dark:bg-[#202020]'
+        className='relative flex w-full items-center rounded-lg bg-sidebarItemLight shadow-sm duration-300 dark:bg-sidebarItemDark'
         onSubmit={handleSearch}
       >
         <input
           autoComplete='off'
-          className='w-full rounded-md bg-transparent px-4 py-1 text-base text-textDark outline-none ring-1 ring-vintageColor/80 duration-500 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:text-textLight dark:caret-white dark:ring-haretaColor/80 dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg'
+          className='focus:ring-primaryColordark:text-textLight w-full rounded-md bg-transparent px-4 py-1 text-base text-textDark outline-none ring-1 ring-haretaColor duration-300 autofill:text-textDark focus:ring-2 dark:caret-white dark:ring-haretaColor dark:autofill:text-textLight dark:focus:ring-primaryColor lg:py-2 lg:text-lg'
           placeholder={t('aside filter.search')}
           {...register('name')}
         />
-        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 duration-500 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>
+        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-haretaColor px-3 py-1 duration-300 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor lg:right-4 lg:px-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'

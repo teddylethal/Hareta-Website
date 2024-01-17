@@ -142,12 +142,12 @@ export default function PriceRange({ queryConfig }: Props) {
   const { t } = useTranslation('store')
 
   return (
-    <div className='relative w-full rounded-lg bg-[#f8f8f8] px-3 py-2 text-center duration-500 dark:bg-[#202020]'>
+    <div className='relative w-full rounded-lg bg-sidebarItemLight px-3 py-2 text-center duration-300 dark:bg-sidebarItemDark'>
       <PriceSample handleChoosePrice={handleChoosePrice} />
       {active && (
         <button
           className={classNames(
-            'absolute right-0 top-0  mt-1 rounded-md px-4 py-1 text-xs text-red-500/80 duration-500 hover:text-red-500 hover:underline dark:hover:outline-red-400 lg:text-sm xl:text-base'
+            'absolute right-0 top-0 mt-1 rounded-md px-4 py-1 text-xs text-red-500 duration-300 hover:underline dark:hover:outline-red-500 lg:text-sm xl:text-base'
           )}
           onClick={handleReset}
           type='button'
@@ -159,7 +159,7 @@ export default function PriceRange({ queryConfig }: Props) {
         <div className='flex items-center justify-center'>
           <div className='flex items-center'>
             <input
-              className='w-full rounded-md bg-white p-1 text-center text-xs capitalize text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
+              className='w-full rounded-md bg-white p-1 text-center text-xs capitalize text-textDark outline outline-1 outline-black/40 duration-300 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
               placeholder={`$ ${t('aside filter.from')}`}
               value={lowerPrice}
               {...register('lower_price')}
@@ -167,11 +167,11 @@ export default function PriceRange({ queryConfig }: Props) {
             />
           </div>
 
-          <div className='m-2 text-textDark duration-500 dark:text-textLight'>-</div>
+          <div className='m-2 text-textDark duration-300 dark:text-textLight'>-</div>
 
           <div className='flex items-center'>
             <input
-              className='w-full rounded-md bg-white p-1 text-center text-xs capitalize text-textDark outline outline-1 outline-black/40 duration-500 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
+              className='w-full rounded-md bg-white p-1 text-center text-xs capitalize text-textDark outline outline-1 outline-black/40 duration-300 focus:shadow-sm dark:bg-black dark:text-textLight dark:outline-white/40 sm:text-sm lg:w-14 lg:text-sm xl:w-20'
               placeholder={`$ ${t('aside filter.to')}`}
               value={upperPrice}
               {...register('upper_price')}
@@ -185,9 +185,9 @@ export default function PriceRange({ queryConfig }: Props) {
           <button
             disabled={notAllowApply}
             className={classNames(
-              'mt-1 flex items-center justify-center rounded-md bg-white px-8 py-1 text-xs font-medium capitalize text-textDark outline outline-1 duration-500 dark:bg-[#101010] dark:text-textLight sm:text-sm lg:text-sm xl:text-base',
+              'mt-1 flex items-center justify-center rounded-md bg-white px-8 py-1 text-xs font-medium capitalize text-textDark outline outline-1 duration-300 dark:bg-[#101010] dark:text-textLight sm:text-sm lg:text-sm xl:text-base',
               {
-                'hover:text-brownColor hover:outline-brownColor dark:hover:text-haretaColor dark:hover:outline-haretaColor':
+                'hover:text-primaryColor hover:outline-primaryColor dark:hover:text-primaryColor dark:hover:outline-primaryColor':
                   !notAllowApply,
                 'cursor-not-allowed bg-opacity-30 text-opacity-30 dark:bg-opacity-50 dark:text-opacity-30':
                   notAllowApply

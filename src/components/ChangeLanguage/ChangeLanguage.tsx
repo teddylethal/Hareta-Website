@@ -62,13 +62,13 @@ export default function ChangeLanguage({ closePopover }: Props) {
               // transition={{ duration: 0.3 }}
             >
               <button
-                className='px-2 py-1 text-sm hover:text-haretaColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
+                className='px-2 py-1 text-sm hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
                 onClick={() => changeLanguage('en')}
               >
                 English
               </button>
               <button
-                className='px-2 py-1 text-sm hover:text-haretaColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
+                className='px-2 py-1 text-sm hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
                 onClick={() => changeLanguage('vi')}
               >
                 Tiếng Việt

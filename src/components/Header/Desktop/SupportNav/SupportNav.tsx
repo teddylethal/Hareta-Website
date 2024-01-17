@@ -17,15 +17,15 @@ export default function SupportNav() {
   const { t } = useTranslation('header')
 
   return (
-    <div className='group '>
+    <div className='group'>
       <FloatingOnClick
         renderPopover={<SupportPopover closePopover={closePopover} />}
-        className='flex cursor-default select-none items-center space-x-0.5 p-1 text-textDark duration-500  dark:text-textLight'
+        className='flex cursor-default select-none items-center space-x-0.5 p-1 text-textDark duration-300  dark:text-textLight'
         isOpen={isOpen}
         handleClick={handleClick}
         openChange={setIsOpen}
       >
-        <div className='z-10 flex items-center  group-hover:text-brownColor dark:group-hover:text-haretaColor '>
+        <div className='z-10 flex items-center  group-hover:text-primaryColor dark:group-hover:text-primaryColor '>
           <p>{t('navbar.support')}</p>
           {isOpen && (
             <svg

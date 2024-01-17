@@ -150,7 +150,7 @@ export default function ProductImageList(props: Props) {
 
             <div className='absolute right-2 top-2 rounded-lg bg-black/40'>
               <button
-                className='flex items-center justify-center p-2 text-textDark duration-500 dark:text-textLight '
+                className='flex items-center justify-center p-2 text-textDark duration-300 dark:text-textLight '
                 onClick={toggleZooming}
               >
                 {!zooming && (

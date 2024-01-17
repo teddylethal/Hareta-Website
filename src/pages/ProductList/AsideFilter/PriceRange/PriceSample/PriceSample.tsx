@@ -40,9 +40,9 @@ export default function PriceSample({ handleChoosePrice }: Props) {
   const { t } = useTranslation('store')
 
   return (
-    <div className='duration-500' ref={ref}>
+    <div className='duration-300' ref={ref}>
       <button
-        className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-500 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor lg:text-lg'
+        className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-300 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor lg:text-lg'
         onClick={toggleOpenClose}
       >
         <p className=' uppercase '>{t('aside filter.price')}</p>
@@ -53,20 +53,20 @@ export default function PriceSample({ handleChoosePrice }: Props) {
         {visible && isOpening && (
           <motion.div
             className=' flex max-h-32 flex-wrap gap-2 overflow-auto overscroll-contain rounded-md border border-black/40 px-3 py-4 dark:border-white/40'
-            initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
+            initial={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#1d1d22' : '#fbfbff' }}
             animate={{
               opacity: 1,
               y: 0,
-              backgroundColor: theme === 'dark' ? '#272727' : '#fff'
+              backgroundColor: theme === 'dark' ? '#1d1d22' : '#fbfbff'
             }}
-            exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#272727' : '#fff' }}
+            exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#1d1d22' : '#fbfbff' }}
             transition={{ duration: 0.2 }}
           >
             {priceRanges.map((range, index) => (
               <button
                 key={index}
                 onClick={handleSelect(index)}
-                className='md:texe-base rounded-xl bg-lightBg/60 px-2 py-1 text-xs text-textDark/70 outline outline-1 outline-black/20 hover:bg-lightBg hover:text-textDark dark:bg-darkBg/60 dark:text-textLight/70 dark:outline-white/20 dark:hover:bg-darkBg dark:hover:text-textLight sm:text-sm md:px-3 md:py-2'
+                className='rounded-xl bg-lightBg/60 px-2 py-1 text-xs text-textDark/80 outline outline-1 outline-black/20 hover:bg-lightBg hover:text-textDark dark:bg-darkBg/60 dark:text-textLight/80 dark:outline-white/20 dark:hover:bg-darkBg dark:hover:text-textLight sm:text-sm md:px-3 md:py-2 md:text-base'
               >
                 ${range.lowerPrice} - ${range.upperPrice}
               </button>

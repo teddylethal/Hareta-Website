@@ -9,9 +9,9 @@ export default function DesktopFooter() {
   const { t } = useTranslation('footer')
 
   return (
-    <div className='w-full bg-[#efefef] pb-12 pt-12 duration-500 dark:bg-[#303030]'>
+    <div className='w-full bg-[#efefef] pb-12 pt-12 duration-300 dark:bg-[#303030]'>
       <div className='container'>
-        <div className=' grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black duration-500 dark:text-white lg:gap-2 lg:text-xl xl:gap-4 xl:text-2xl'>
+        <div className=' grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black duration-300 dark:text-white lg:gap-2 lg:text-xl xl:gap-4 xl:text-2xl'>
           <div className='col-span-1 flex items-center justify-center'>{t('follow us on')}</div>
           <div className='col-span-1 flex items-center px-2 lg:px-4 xl:px-8'>Hareta</div>
           <div className='col-span-1 flex items-center px-0 text-sm lg:px-2 lg:text-xl xl:text-2xl'>
@@ -20,7 +20,7 @@ export default function DesktopFooter() {
           <div className='col-span-1 flex items-center px-6 xl:px-10'>{t('support')}</div>
           <div className='col-span-1 flex items-center px-2 lg:px-4 xl:px-8'>{t('contact')}</div>
         </div>
-        <div className='mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-textDark/80 duration-500 dark:text-textLight/80 lg:gap-2 lg:text-base xl:gap-4'>
+        <div className='mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-textDark/80 duration-300 dark:text-textLight/80 lg:gap-2 lg:text-base xl:gap-4'>
           <div className='col-span-1'>
             <div className='flex items-center justify-center space-x-1 text-lg lg:space-x-2 lg:text-xl xl:text-2xl'>
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
@@ -74,12 +74,12 @@ export default function DesktopFooter() {
                 className='absolute left-0 top-0 h-full w-full object-scale-down'
               />
             </div>
-            <div className='uppercase text-textDark/80 duration-500 dark:text-textLight/80'>
+            <div className='uppercase text-textDark/80 duration-300 dark:text-textLight/80'>
               <p className='text-lg lg:text-xl xl:text-2xl'>hareta</p>
               <p className='pl-4  text-sm lg:text-base xl:text-lg'>workshop</p>
             </div>
           </div>
-          <div className='absolute bottom-0 flex w-full items-center justify-center text-xs text-textDark/60 duration-500 dark:text-textLight/60 lg:text-sm'>
+          <div className='absolute bottom-0 flex w-full items-center justify-center text-xs text-textDark/60 duration-300 dark:text-textLight/60 lg:text-sm'>
             {t('coppyright')}
           </div>
         </div>
