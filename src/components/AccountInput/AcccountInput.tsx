@@ -125,7 +125,7 @@ export default function AccountInput({
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-4 w-4 fill-haretaColor/60 dark:fill-haretaColor md:h-6 md:w-6'
+                className='h-4 w-4 fill-haretaColor dark:fill-haretaColor md:h-6 md:w-6'
               >
                 <path d='M12 15a3 3 0 100-6 3 3 0 000 6z' />
                 <path

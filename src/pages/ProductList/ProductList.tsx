@@ -8,7 +8,7 @@ import { useViewport } from 'src/hooks/useViewport'
 import MobileBottomBar from './Mobile/MobileBottomBar'
 import UsePagination from 'src/components/UsePagination'
 import { ProductListConfig } from 'src/types/product.type'
-import useQueryConfig from 'src/hooks/useQueryConfig'
+import useQueryConfig, { ITEM_LIMIT } from 'src/hooks/useQueryConfig'
 import ceil from 'lodash/ceil'
 import PriceRange from './AsideFilter/PriceRange'
 import likeItemAPi from 'src/apis/userLikeItem.api'
@@ -106,7 +106,7 @@ export default function ProductList() {
                         </div>
                       ))}
                   </div>
-                  <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 24)} />
+                  <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / ITEM_LIMIT)} />
                 </div>
               )}
             </div>
@@ -129,7 +129,11 @@ export default function ProductList() {
                       </div>
                     ))}
                 </div>
-                <UsePagination queryConfig={queryConfig} totalPage={ceil(storeData.data.paging.total / 12)} isMobile />
+                <UsePagination
+                  queryConfig={queryConfig}
+                  totalPage={ceil(storeData.data.paging.total / ITEM_LIMIT)}
+                  isMobile
+                />
               </Fragment>
             )}
           </Fragment>

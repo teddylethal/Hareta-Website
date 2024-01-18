@@ -39,13 +39,13 @@ export default function PurchaseListForGuest() {
       <div className=' space-y-2 text-lg font-semibold xl:text-xl'>
         <div className='grid grid-cols-3 gap-2'>
           <div className='col-span-2 text-textDark/80 dark:text-textLight/80'>{t('layout.Bill')}</div>
-          <div className='col-span-1 text-right text-brownColor dark:text-haretaColor'>
+          <div className='col-span-1 text-right text-haretaColor dark:text-haretaColor'>
             ${formatCurrency(totalPrice)}
           </div>
         </div>
         <div className='grid grid-cols-3 gap-2'>
           <div className='col-span-2 text-textDark/80 dark:text-textLight/80'>{t('layout.Discount')}</div>
-          <div className='col-span-1 text-right text-brownColor dark:text-haretaColor'>
+          <div className='col-span-1 text-right text-haretaColor dark:text-haretaColor'>
             ${formatCurrency(totalDiscount)}
           </div>
         </div>
@@ -53,7 +53,7 @@ export default function PurchaseListForGuest() {
       <div className='my-4 w-full border border-dashed border-black/80 dark:border-white/80'></div>
       <div className='grid grid-cols-3 gap-2 text-xl font-bold uppercase xl:text-2xl'>
         <div className='col-span-2 text-textDark/80 dark:text-textLight/80'>{t('layout.Total')}</div>
-        <div className='col-span-1 text-right text-brownColor dark:text-haretaColor'>
+        <div className='col-span-1 text-right text-haretaColor dark:text-haretaColor'>
           ${formatCurrency(totalPrice - totalDiscount)}
         </div>
       </div>

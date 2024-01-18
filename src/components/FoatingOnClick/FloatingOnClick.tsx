@@ -102,7 +102,7 @@ export default function FloatingOnClick({
               context={context}
               width={30}
               height={10}
-              className={classNames({ 'z-[5] fill-[#202020]': theme === 'dark', 'fill-[#efefef]': theme === 'light' })}
+              className={classNames({ 'z-[5] fill-[#2c2c32]': theme === 'dark', 'fill-[#e9e9e8]': theme === 'light' })}
             />
           </motion.div>
         )}

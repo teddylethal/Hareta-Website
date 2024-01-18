@@ -10,12 +10,13 @@ export default function Button(props: ButtonProps) {
   const newClassName = classNames(className, disabled ? ' cursor-not-allowed' : '')
   return (
     <div
-      className={
-        'w-full rounded-md bg-haretaColor text-center uppercase text-textVintage duration-300 dark:bg-haretaColor ' +
-        (isLoading
-          ? ' bg-opacity-70 dark:bg-opacity-40 dark:text-gray-400 '
-          : ' hover:bg-opacity-100 dark:bg-opacity-80 dark:hover:bg-opacity-100')
-      }
+      className={classNames(
+        'w-full rounded-md bg-haretaColor text-center font-medium uppercase text-textDark duration-300',
+        {
+          'bg-opacity-50 text-opacity-50': isLoading,
+          'hover:bg-primaryColor': !isLoading
+        }
+      )}
     >
       <button type='submit' className={newClassName} disabled={disabled} {...rest}>
         {isLoading && (

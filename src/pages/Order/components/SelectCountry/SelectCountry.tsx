@@ -26,9 +26,7 @@ export default function SelectCountry() {
                 key={countryIdx}
                 className={({ active }) =>
                   `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                    active
-                      ? 'bg-vintageColor/60 text-textLight dark:bg-haretaColor/60'
-                      : 'text-textDark dark:text-textLight'
+                    active ? 'bg-haretaColor text-textDark' : 'text-textDark dark:text-textLight'
                   }`
                 }
                 value={country}
@@ -39,7 +37,7 @@ export default function SelectCountry() {
                       {country.name}
                     </span>
                     {selected ? (
-                      <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-brownColor dark:text-haretaColor'>
+                      <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-primaryColor'>
                         <FontAwesomeIcon icon={faCheck} className='h-5 w-5' />
                       </span>
                     ) : null}

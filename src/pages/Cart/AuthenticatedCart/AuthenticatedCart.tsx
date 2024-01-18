@@ -91,12 +91,12 @@ export default function AuthenticatedCart() {
                   </div>
                 </div>
               </div>
-              <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-[#f8f8f8] shadow outline outline-1 outline-black/20 dark:bg-[#202020] dark:outline-white/20 '>
+              <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-lightWhite700 shadow outline outline-1 outline-black/20 dark:bg-darkGray700 dark:outline-white/20'>
                 {extendedPurchases.length > 0 ? (
                   extendedPurchases?.map((purchase, index) => (
                     <div
                       key={purchase.id}
-                      className='border-b last:border-none hover:bg-[#efefef]  dark:hover:bg-[#101010]'
+                      className='border-b last:border-none hover:bg-lightWhite900 dark:hover:bg-darkGray900'
                     >
                       <ItemInCart
                         handleChecking={handleChecking}
@@ -125,7 +125,7 @@ export default function AuthenticatedCart() {
                       <input
                         name='all_are_selected'
                         type='checkbox'
-                        className='h-5 w-5 accent-haretaColor'
+                        className='h-5 w-5 accent-primaryColor'
                         checked={isAllChecked}
                         onChange={handleSelectAll}
                       />
@@ -141,8 +141,8 @@ export default function AuthenticatedCart() {
                 </div>
                 <div className='col-span-1 flex items-center text-center text-textDark dark:text-textLight'>
                   {checkedPurchasesCount < 2
-                    ? `${checkedPurchasesCount} ${t('content.item was selected')}`
-                    : `${checkedPurchasesCount} ${t('content.items were selected')}`}
+                    ? `${checkedPurchasesCount} ${t('content.item is selected')}`
+                    : `${checkedPurchasesCount} ${t('content.items are selected')}`}
                 </div>
               </div>
               <div className='col-span-6 grid grid-cols-4 items-center'>
@@ -151,13 +151,13 @@ export default function AuthenticatedCart() {
                 <div className='col-span-1 items-center text-right font-medium uppercase text-textDark dark:text-textLight'>
                   {t('content.total')}:
                 </div>
-                <span className='col-span-1 text-center text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg'>
+                <span className='col-span-1 text-center text-base font-medium text-haretaColor dark:text-haretaColor lg:text-lg'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
                 {checkedPurchasesCount === 0 && (
                   <div
                     className={classNames(
-                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/50 text-black text-opacity-60 dark:bg-haretaColor/50 dark:text-white dark:text-opacity-60'
+                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor/60 font-medium text-black text-opacity-60'
                     )}
                   >
                     {t('content.check out')}
@@ -168,7 +168,7 @@ export default function AuthenticatedCart() {
                     onClick={handleCheckout}
                     to={path.shippingInfor}
                     className={classNames(
-                      'font-mediums col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-vintageColor text-black hover:bg-vintageColor/90 dark:bg-haretaColor dark:text-white dark:hover:bg-haretaColor/90'
+                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor font-medium text-black  hover:bg-primaryColor'
                     )}
                   >
                     {t('content.check out')}

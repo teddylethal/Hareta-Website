@@ -27,15 +27,15 @@ export default function RegisterLanguage() {
     <div className='group'>
       <FloatingOnClick
         renderPopover={
-          <div className='relative flex w-28 select-none flex-col rounded-lg bg-[#efefef] p-2 text-base text-textDark/90 shadow-lg dark:bg-[#202020] dark:text-textLight/90 md:w-40 lg:text-lg'>
+          <div className='bg-lightWhite700 relative flex w-28 select-none flex-col rounded-lg p-2 text-base text-textDark/90 shadow-lg dark:bg-darkGray700 dark:text-textLight/90 md:w-40 lg:text-lg'>
             <button
-              className='px-2 py-1 text-sm hover:font-medium hover:text-haretaColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
+              className='px-2 py-1 text-sm hover:font-medium hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
               onClick={() => changeLanguage('en')}
             >
               English
             </button>
             <button
-              className='px-2 py-1 text-sm hover:font-medium hover:text-haretaColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
+              className='px-2 py-1 text-sm hover:font-medium hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl'
               onClick={() => changeLanguage('vi')}
             >
               Tiếng Việt

@@ -13,10 +13,10 @@ export default function SupportPopover({ closePopover }: Props) {
   const { t } = useTranslation('header')
 
   const className =
-    'rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
+    'rounded-md px-3 py-2 hover:bg-lightWhite900 hover:font-semibold hover:text-textDark dark:hover:bg-darkGray900 dark:hover:text-textLight'
 
   return (
-    <div className='relative flex w-64 select-none flex-col rounded-lg bg-[#efefef] p-2 text-base font-medium text-textDark/90 shadow-lg dark:bg-[#202020] dark:text-textLight/90 md:font-medium lg:w-72 lg:text-lg'>
+    <div className='bg-lightWhite700 relative flex w-64 select-none flex-col rounded-lg p-2 text-base font-medium text-textDark/90 shadow-lg dark:bg-darkGray700 dark:text-textLight/90 md:font-medium lg:w-72 lg:text-lg'>
       {/* <Link
         to='/'
         className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
@@ -50,7 +50,7 @@ export default function SupportPopover({ closePopover }: Props) {
         <ChangeLanguage closePopover={closePopover} />
       </div>
 
-      <div className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'>
+      <div className={className}>
         <ToggleTheme className='h-6 w-6 lg:h-7 lg:w-7 xl:h-8 xl:w-8' />
       </div>
     </div>

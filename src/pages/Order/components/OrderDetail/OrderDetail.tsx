@@ -74,7 +74,7 @@ export default function OrderDetail() {
         <input
           name='confirm'
           type='checkbox'
-          className={classNames('h-5 w-5 rounded-md accent-vintageColor dark:accent-haretaColor', {
+          className={classNames('h-5 w-5 rounded-md accent-primaryColor dark:accent-primaryColor', {
             ' outline outline-red-600': confirmError
           })}
           checked={confirmPayment}
@@ -90,7 +90,7 @@ export default function OrderDetail() {
           <Link
             state={{ from: 'order' }}
             to={path.privacyAndTerms}
-            className='font-medium text-brownColor hover:text-brownColor/90 dark:text-haretaColor dark:hover:text-haretaColor/90'
+            className='font-medium text-haretaColor hover:text-primaryColor'
           >
             {t('layout.payment policy')}
           </Link>{' '}
@@ -100,7 +100,7 @@ export default function OrderDetail() {
       {!validForm() && (
         <button
           type={confirmPayment ? 'submit' : 'button'}
-          className='mt-4 flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-vintageColor/80 py-3 text-xl font-bold  uppercase text-black opacity-20 dark:bg-haretaColor/80 dark:text-white xl:py-4 xl:text-2xl'
+          className='mt-4 flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-haretaColor py-3 text-xl font-bold  uppercase text-black opacity-20 xl:py-4 xl:text-2xl'
           onClick={invalidButton}
         >
           {t('layout.Confirm order')}
@@ -112,7 +112,7 @@ export default function OrderDetail() {
           className={classNames({
             // 'mt-4 flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-vintageColor/80 py-3 text-xl font-bold  uppercase text-black opacity-20 dark:bg-haretaColor/80 dark:text-white xl:py-4 xl:text-2xl':
             //   lackingInformation,
-            'mt-4 flex w-full items-center justify-center rounded-xl bg-vintageColor py-3 text-xl font-bold uppercase hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90 xl:py-4 xl:text-2xl':
+            'mt-4 flex w-full cursor-pointer items-center justify-center rounded-xl bg-haretaColor py-3 text-xl font-bold uppercase text-textDark hover:bg-primaryColor xl:py-4 xl:text-2xl':
               !lackingInformation
           })}
           type='submit'

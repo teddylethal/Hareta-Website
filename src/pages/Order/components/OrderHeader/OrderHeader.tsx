@@ -16,8 +16,8 @@ export default function OrderHeader() {
             to={path.shippingInfor}
             className={({ isActive }) =>
               classNames('flex items-center justify-center py-2 font-medium uppercase', {
-                'text-brownColor dark:text-haretaColor': isActive,
-                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+                'text-haretaColor dark:text-haretaColor': isActive,
+                'hover:text-primaryColor dark:hover:text-primaryColor': !isActive
               })
             }
           >
@@ -29,8 +29,8 @@ export default function OrderHeader() {
             to={path.payment}
             className={({ isActive }) =>
               classNames('flex items-center justify-center py-2 font-medium uppercase', {
-                'text-brownColor dark:text-haretaColor': isActive,
-                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+                'text-haretaColor dark:text-haretaColor': isActive,
+                'hover:text-primaryColor dark:hover:text-primaryColor': !isActive
               })
             }
           >

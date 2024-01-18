@@ -19,12 +19,9 @@ export default function Payment() {
         <div className=''>
           <p className=''>
             {t('payment.At the moment we only accept')}{' '}
-            <span className='font-medium text-brownColor dark:text-haretaColor'>{t('payment.Online payment')}</span>{' '}
+            <span className='font-medium text-haretaColor'>{t('payment.Online payment')}</span>{' '}
             {t('payment.due to our')}{' '}
-            <Link
-              to={path.home}
-              className='font-medium text-brownColor hover:text-brownColor/90 dark:text-haretaColor dark:hover:text-haretaColor/90'
-            >
+            <Link to={path.home} className='font-medium text-haretaColor hover:text-primaryColor'>
               {t('layout.payment policy')}
             </Link>
           </p>
@@ -66,7 +63,7 @@ export default function Payment() {
           {isMobile && (
             <div className='mt-6 flex flex-col items-center space-y-8 text-base lg:gap-12 xl:text-lg'>
               <div className='flex w-full flex-col items-center space-y-2'>
-                <div className='w-full text-center text-lg font-bold text-brownColor dark:text-haretaColor xl:text-xl'>
+                <div className='w-full text-center text-lg font-bold text-haretaColor dark:text-haretaColor xl:text-xl'>
                   {t('payment.NATIONAL PAYMENT')}
                 </div>
                 <div className='w-full text-center text-lg font-bold xl:text-xl'>(Vietnam)</div>
@@ -82,7 +79,7 @@ export default function Payment() {
                 </div>
               </div>
               <div className='flex w-full flex-col items-center space-y-2'>
-                <div className='w-full text-center text-lg font-bold text-brownColor dark:text-haretaColor xl:text-xl'>
+                <div className='w-full text-center text-lg font-bold text-haretaColor dark:text-haretaColor xl:text-xl'>
                   {t('payment.INTERNATIONAL PAYMENT')}
                 </div>
                 <div className='w-full text-center text-lg font-bold xl:text-xl'>(paypal)</div>
@@ -100,7 +97,7 @@ export default function Payment() {
       <div className='mt-4 text-lg font-semibold xl:text-xl'>
         <p className=''>
           {t('payment.Any transactions made before placing an order will')}{' '}
-          <span className='text-brownColor dark:text-haretaColor'>{t('payment.NOT BE ACCEPTED')}</span>
+          <span className='text-haretaColor dark:text-haretaColor'>{t('payment.NOT BE ACCEPTED')}</span>
         </p>
       </div>
       {!isMobile && (
@@ -108,7 +105,7 @@ export default function Payment() {
           <Link
             to={path.shippingInfor}
             type='button'
-            className='flex items-center justify-center rounded-lg bg-vintageColor px-4 py-2 text-base capitalize text-textLight hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90 xl:text-lg'
+            className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-textDark hover:bg-primaryColor xl:text-lg'
           >
             {t('layout.Back to shipping information')}
           </Link>

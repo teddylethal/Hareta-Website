@@ -143,13 +143,13 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     >
       <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-300 dark:bg-productDarkBg'>
         {hoveringImage && (
-          <div className='relative bg-[#dfdfdf] dark:bg-[#282828]'>
+          <div className='relative bg-productLightBg dark:bg-productDarkBg'>
             <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
             <button className='absolute inset-0' onClick={handleClickItem}></button>
           </div>
         )}
         {!hoveringImage && (
-          <div className='relative w-full bg-[#dfdfdf] pt-[75%] dark:bg-[#282828]'>
+          <div className='relative w-full bg-productLightBg pt-[75%] dark:bg-productDarkBg'>
             <div className='absolute left-0 top-0 h-full w-full'>
               {avatarUrl ? (
                 <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
@@ -163,24 +163,24 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
         )}
         <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
           <button
-            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-300 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-300 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor sm:text-base lg:text-lg'
             onClick={handleClickItem}
           >
             {product.name}
           </button>
 
-          <span className='text-xs font-semibold text-brownColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
+          <span className='text-xs font-semibold text-haretaColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
             ${formatCurrency(product.price)}
           </span>
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textDark lg:h-6 lg:w-20  lg:text-sm'>
+            <span className=' flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-textDark lg:h-6 lg:w-20  lg:text-sm'>
               {tag == 1 && t('tag.top seller')}
               {tag == 2 && t('tag.signature')}
               {tag == 3 && t('tag.favourite')}
             </span>
-            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
+            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent lg:left-20 lg:border-[12px]' />
           </div>
         )}
         {isAuthenticated && (
@@ -189,7 +189,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
               <FontAwesomeIcon
                 icon={faHeart}
                 className={classNames('h-auto w-4 md:w-5  xl:w-6', {
-                  'text-red-500': isLikedByUser,
+                  'text-favouriteRed': isLikedByUser,
                   ' text-textLight': !isLikedByUser
                 })}
               />

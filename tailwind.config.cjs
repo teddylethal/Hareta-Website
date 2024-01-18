@@ -28,17 +28,24 @@ module.exports = {
       colors: {
         //? Header
         darkHeader: '#1d1d22',
-        lightHeader: '#ebebee',
+        lightHeader: '#fbfbff',
 
         //? Main interface
-        darkBg: '#0e0e12',
         lightBg: '#ffffff',
+        darkBg: '#0e0e12',
+        lightWhite900: '#fbfbff',
+        lightWhite700: '#e9e9e8',
+        lightWhite500: '#d6d6d5',
+        darkGray900: '#1d1d22',
+        darkGray700: '#2c2c32',
+        darkGray500: '#59595f',
+        darkGray300: '#a7a7ab',
 
         //? Text
         textLight: '#EEEEEE',
         textDark: '#111111',
         haretaColor: '#ff8800',
-        primaryColor: '#ff7700',
+        primaryColor: '#ff6600',
         textVintage: '#FFFBF5',
         vintageColor: '#A27B5C',
 
@@ -54,9 +61,13 @@ module.exports = {
         orangeColor: '#ff6a00',
         sunYellow: '#ffc107',
 
-        //? Cards
-        productDarkBg: '#2c2c32',
-        productLightBg: '#e6e6e5'
+        //? Products
+        productDarkBg: '#1d1d22',
+        productLightBg: '#F4F4F5',
+        tagColor: '#ff3333',
+        favouriteRed: '#ff2800',
+
+        whiteColor: '#ffffff'
       }
     }
   },

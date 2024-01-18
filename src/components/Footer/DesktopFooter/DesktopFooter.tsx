@@ -9,7 +9,7 @@ export default function DesktopFooter() {
   const { t } = useTranslation('footer')
 
   return (
-    <div className='w-full bg-[#efefef] pb-12 pt-12 duration-300 dark:bg-[#303030]'>
+    <div className='bg-lightWhite700 w-full pb-12 pt-12 duration-300 dark:bg-darkGray700'>
       <div className='container'>
         <div className=' grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black duration-300 dark:text-white lg:gap-2 lg:text-xl xl:gap-4 xl:text-2xl'>
           <div className='col-span-1 flex items-center justify-center'>{t('follow us on')}</div>
@@ -26,31 +26,31 @@ export default function DesktopFooter() {
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
                 <FontAwesomeIcon
                   icon={faFacebook}
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                 />
               </Link>
               <Link to='https://www.instagram.com/hareta.workshop/' target='_blank'>
                 <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                   icon={faInstagram}
                 />
               </Link>
               <Link to='' target='_blank'>
                 <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                   icon={faDiscord}
                 />
               </Link>
               <Link to='' target='_blank'>
                 <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                   icon={faYoutube}
                 />
               </Link>
             </div>
           </div>
           <div className='col-span-1 flex flex-col space-y-2 px-2 lg:px-4 xl:px-8'>
-            <Link to='hareta.me' className='hover:text-brownColor dark:hover:text-haretaColor'>
+            <Link to='hareta.me' className='hover:text-primaryColor dark:hover:text-primaryColor'>
               Hareta workshop
             </Link>
           </div>

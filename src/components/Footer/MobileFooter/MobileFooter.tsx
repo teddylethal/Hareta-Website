@@ -23,24 +23,24 @@ export default function MobileFooter() {
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
                 <FontAwesomeIcon
                   icon={faFacebook}
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                 />
               </Link>
               <Link to='https://www.instagram.com/hareta.workshop/' target='_blank'>
                 <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                   icon={faInstagram}
                 />
               </Link>
               <Link to='' target='_blank'>
                 <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                   icon={faDiscord}
                 />
               </Link>
               <Link to='' target='_blank'>
                 <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-brownColor dark:hover:text-haretaColor'
+                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
                   icon={faYoutube}
                 />
               </Link>
@@ -56,7 +56,7 @@ export default function MobileFooter() {
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs sm:px-4 sm:text-sm'>
-              <Link to='hareta.me' className='hover:text-brownColor dark:hover:text-haretaColor'>
+              <Link to='hareta.me' className='hover:text-primaryColor dark:hover:text-primaryColor'>
                 Hareta workshop
               </Link>
             </div>

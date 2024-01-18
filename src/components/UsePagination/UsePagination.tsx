@@ -74,11 +74,10 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               }).toString()
             }}
             className={classNames(
-              'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-textDark px-2 py-2 text-sm text-textDark shadow-sm hover:border-brownColor dark:border-textLight dark:hover:border-haretaColor lg:mx-2 lg:h-8 lg:w-8 lg:text-base ',
+              'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border px-2 py-2 text-sm shadow-sm hover:border-primaryColor dark:hover:border-primaryColor lg:mx-2 lg:h-8 lg:w-8 lg:text-base',
               {
-                'border-transparent bg-vintageColor text-textDark dark:bg-haretaColor dark:text-textDark':
-                  pageNumber === currentPage,
-                'border-textDark dark:border-textLight': pageNumber !== currentPage
+                'border-transparent bg-haretaColor text-textDark dark:text-textDark': pageNumber === currentPage,
+                'border-textDark text-textDark dark:border-textLight dark:text-textLight ': pageNumber !== currentPage
               }
             )}
             key={index}
@@ -101,11 +100,11 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               page: (currentPage - 1).toString()
             }).toString()
           }}
-          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-brownColor  hover:text-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base'
+          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-primaryColor hover:text-primaryColor dark:border-textLight dark:text-textLight dark:hover:border-primaryColor dark:hover:text-primaryColor lg:text-base'
         >
           <FontAwesomeIcon
             icon={faAngleLeft}
-            className='py-1 text-textDark group-hover:text-brownColor dark:text-textLight dark:group-hover:text-haretaColor'
+            className='py-1 text-textDark group-hover:text-primaryColor dark:text-textLight dark:group-hover:text-primaryColor'
           />
           {!isMobile && <p>{t('pagination.prev')}</p>}
         </Link>
@@ -127,12 +126,12 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               page: (currentPage + 1).toString()
             }).toString()
           }}
-          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-brownColor  hover:text-brownColor dark:border-textLight dark:text-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor lg:text-base'
+          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-primaryColor  hover:text-primaryColor dark:border-textLight dark:text-textLight dark:hover:border-primaryColor dark:hover:text-primaryColor lg:text-base'
         >
           {!isMobile && <p>{t('pagination.next')}</p>}
           <FontAwesomeIcon
             icon={faAngleRight}
-            className='py-1 text-textDark group-hover:text-brownColor dark:text-textLight dark:group-hover:text-haretaColor'
+            className='py-1 text-textDark group-hover:text-primaryColor dark:text-textLight dark:group-hover:text-primaryColor'
           />
         </Link>
       ) : (

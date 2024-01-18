@@ -217,7 +217,7 @@ export default function OrderLayout() {
           </div>
           <div className='mt-4 flex w-full items-center justify-center'>
             <button
-              className='rounded-lg bg-vintageColor px-4 py-1 hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'
+              className='rounded-lg bg-haretaColor px-4 py-2 font-medium hover:bg-primaryColor'
               onClick={isAuthenticated ? handleConfirm : guestConfirm}
             >
               {t('layout.Confirm')}
@@ -255,7 +255,7 @@ export default function OrderLayout() {
                 ariaLabel='blocks-loading'
                 wrapperStyle={{}}
                 wrapperClass='blocks-wrapper'
-                colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
+                colors={['#ff8800', '#ff8800', '#ff8800', '#ff8800', '#ff8800']}
               />
               <div className='mt-2 text-lg font-semibold uppercase text-textDark dark:text-textLight md:text-xl xl:text-2xl'>
                 Processing...
@@ -308,7 +308,7 @@ export default function OrderLayout() {
           <div className='mt-4 flex w-full items-center justify-center'>
             <Link
               to={path.cart}
-              className='rounded-lg bg-vintageColor px-4 py-1 hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90'
+              className='rounded-lg bg-haretaColor px-4 py-2 font-medium hover:bg-primaryColor'
               onClick={isAuthenticated ? handleConfirm : guestConfirm}
             >
               {t('denided order.Return to cart')}

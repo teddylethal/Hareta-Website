@@ -17,7 +17,7 @@ export default function RegisterHeader() {
   const { t } = useTranslation('login')
 
   return (
-    <header className='top-0 z-10 flex h-10 w-full items-center bg-white text-textDark duration-300 dark:bg-black dark:text-textLight md:h-12 lg:h-16'>
+    <header className='top-0 z-10 flex h-10 w-full items-center bg-lightHeader text-textDark duration-300 dark:bg-darkHeader dark:text-textLight md:h-12 lg:h-16'>
       <div className='container'>
         <div className='flex items-center justify-between'>
           <nav className='flex items-center space-x-2 text-sm font-medium uppercase sm:space-x-3 md:space-x-4 md:text-base md:font-semibold lg:text-lg'>
@@ -26,9 +26,12 @@ export default function RegisterHeader() {
                 <NavLink
                   to={path.home}
                   className={({ isActive }) =>
-                    classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                      'text-brownColor dark:text-haretaColor ': isActive
-                    })
+                    classNames(
+                      'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
+                      {
+                        'text-haretaColor dark:text-haretaColor ': isActive
+                      }
+                    )
                   }
                 >
                   <FontAwesomeIcon icon={faHouse} className='h-5 w-auto' />
@@ -38,9 +41,12 @@ export default function RegisterHeader() {
                 <NavLink
                   to={path.home}
                   className={({ isActive }) =>
-                    classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                      'text-brownColor dark:text-haretaColor ': isActive
-                    })
+                    classNames(
+                      'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
+                      {
+                        'text-haretaColor dark:text-haretaColor ': isActive
+                      }
+                    )
                   }
                 >
                   <p>{t('login.home')}</p>
@@ -53,9 +59,12 @@ export default function RegisterHeader() {
                 <NavLink
                   to={path.login}
                   className={({ isActive }) =>
-                    classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                      'text-brownColor dark:text-haretaColor ': isActive
-                    })
+                    classNames(
+                      'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
+                      {
+                        'text-haretaColor dark:text-haretaColor ': isActive
+                      }
+                    )
                   }
                 >
                   <FontAwesomeIcon icon={faUser} className='h-5 w-auto' />
@@ -65,9 +74,12 @@ export default function RegisterHeader() {
                 <NavLink
                   to={path.login}
                   className={({ isActive }) =>
-                    classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                      'text-brownColor dark:text-haretaColor ': isActive
-                    })
+                    classNames(
+                      'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
+                      {
+                        'text-haretaColor dark:text-haretaColor ': isActive
+                      }
+                    )
                   }
                 >
                   <p>{t('login.login')}</p>
@@ -80,9 +92,12 @@ export default function RegisterHeader() {
                 <NavLink
                   to={path.register}
                   className={({ isActive }) =>
-                    classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                      'text-brownColor dark:text-haretaColor ': isActive
-                    })
+                    classNames(
+                      'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
+                      {
+                        'text-haretaColor dark:text-haretaColor ': isActive
+                      }
+                    )
                   }
                 >
                   <FontAwesomeIcon icon={faUserPlus} className='h-5 w-auto' />
@@ -92,9 +107,12 @@ export default function RegisterHeader() {
                 <NavLink
                   to={path.register}
                   className={({ isActive }) =>
-                    classNames('rounded-md border border-none p-1 hover:text-brownColor dark:hover:text-haretaColor', {
-                      'text-brownColor dark:text-haretaColor ': isActive
-                    })
+                    classNames(
+                      'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
+                      {
+                        'text-haretaColor dark:text-haretaColor ': isActive
+                      }
+                    )
                   }
                 >
                   <p>{t('login.sign up')}</p>

@@ -64,7 +64,7 @@ export default function Register() {
               onSubmit={onSubmit}
               noValidate
             >
-              <div className='text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
+              <div className='text-center text-2xl font-semibold uppercase text-haretaColor'>
                 {t('register.register')}
               </div>
 
@@ -176,7 +176,7 @@ export default function Register() {
                 <span className='text-textDark/60 dark:text-textLight/60'>
                   {t('register.Already have an account?')}
                 </span>
-                <Link className='ml-2 text-haretaColor/70 duration-300 hover:text-haretaColor' to={path.login}>
+                <Link className='ml-2 text-haretaColor/80 duration-300 hover:text-primaryColor' to={path.login}>
                   {t('login.login')}
                 </Link>
               </div>

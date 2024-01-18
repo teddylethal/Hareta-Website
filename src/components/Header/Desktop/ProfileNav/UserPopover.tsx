@@ -29,25 +29,19 @@ export default function UserPopover() {
   //? TRANSLATION
   const { t } = useTranslation('header')
 
+  const className =
+    'flex items-center rounded-md px-4 py-2 hover:bg-lightWhite900 hover:font-semibold hover:text-textDark dark:hover:bg-darkGray900 dark:hover:text-textLight font-medium'
+
   return (
-    <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-[#efefef] px-2 py-3 text-base font-medium capitalize text-textDark/90 shadow-lg dark:bg-[#202020] dark:text-textLight/90 md:w-56 lg:top-0 lg:w-72 lg:text-xl'>
-      <Link
-        to={path.profile}
-        className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
-      >
+    <div className='bg-lightWhite700 relative -top-1 flex w-40 flex-col rounded-lg px-2 py-3 text-base font-medium capitalize text-textDark/90 shadow-lg dark:bg-darkGray700 dark:text-textLight/90 md:w-56 lg:top-0 lg:w-72 lg:text-xl'>
+      <Link to={path.profile} className={className}>
         <p>{t('user.profile')}</p>
       </Link>
 
-      <Link
-        to={path.inventory}
-        className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
-      >
+      <Link to={path.inventory} className={className}>
         <p>{t('user.inventory')}</p>
       </Link>
-      <Link
-        to={path.wishList}
-        className='flex items-center rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
-      >
+      <Link to={path.wishList} className={className}>
         <p>{t('user.wishlist')}</p>
       </Link>
 
@@ -55,7 +49,7 @@ export default function UserPopover() {
 
       <button
         onClick={handleLogout}
-        className='flex items-center space-x-2 rounded-md px-4 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
+        className='hover:bg-lightWhite900 flex items-center space-x-2 rounded-md px-4 py-2 hover:font-semibold hover:text-textDark dark:hover:bg-darkGray900 dark:hover:text-textLight'
       >
         <FontAwesomeIcon icon={faRightFromBracket} />
         <p>{t('user.log out')}</p>

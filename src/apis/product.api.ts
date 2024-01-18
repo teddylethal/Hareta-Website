@@ -12,7 +12,7 @@ const productApi = {
     return http.get<ProductList>(`${URL}/group`, { params })
   },
   getProductDetail(id: string) {
-    return http.get<ProductRespone>(`${URL}/?id=${id}`)
+    return http.get<ProductRespone>(`${URL}/${id}`)
   },
   getFilteringList(name: string, category?: string, collection?: string, type?: string) {
     const url = `${URL}/filter?field=${name}`
