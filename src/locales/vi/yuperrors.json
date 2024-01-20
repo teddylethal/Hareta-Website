@@ -1,6 +1,10 @@
 {
   "": {},
   "sample": "sample",
+  "undefined error": "Lỗi không xác định",
+  "login": {
+    "email or password is invalid": "Tài khoản hoặc mật khẩu của bạn không đúng"
+  },
   "email": {
     "Email address is required": "Bạn cần phải điền địa chỉ email",
     "Incorrect email format": "Địa chỉ email sai định dạng",

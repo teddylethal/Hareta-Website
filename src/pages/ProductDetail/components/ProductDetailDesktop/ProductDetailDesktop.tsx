@@ -110,14 +110,14 @@ export default function ProductDetailDesktop(props: Props) {
   return (
     <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
       <div className='col-span-4'>
-        <div className='sticky left-0 top-14 flex-col rounded-xl bg-[#f8f8f8] p-2 text-textDark dark:bg-[#202020] dark:text-textLight lg:top-20 lg:p-4 xl:p-6'>
+        <div className='sticky left-0 top-14 flex-col rounded-xl bg-lightWhite700 p-2 text-textDark shadow-md dark:bg-darkGray700 dark:text-textLight lg:top-20 lg:p-4 xl:p-6'>
           <div className='relative flex items-center justify-between'>
             <p className='line-clamp-2 text-xl font-semibold lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
             {isAuthenticated && (
               <button onClick={toggleLikeItem} className=''>
                 <FontAwesomeIcon
-                  className={classNames('h-auto w-5 hover:text-red-500 lg:w-6 xl:w-7', {
-                    'text-red-500': isLikedByUser,
+                  className={classNames('h-auto w-5 hover:text-favouriteRed lg:w-6 xl:w-7', {
+                    'text-favouriteRed': isLikedByUser,
                     'text-black/40 dark:text-white/40': !isLikedByUser
                   })}
                   icon={faHeart}
@@ -127,21 +127,21 @@ export default function ProductDetailDesktop(props: Props) {
           </div>
           {defaultItem.tag !== 0 && (
             <div className='relative mt-2'>
-              <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+              <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-textDark'>
                 {tag == 1 && t('tag.top seller')}
                 {tag == 2 && t('tag.signature')}
                 {tag == 3 && t('tag.favourite')}
               </span>
-              <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+              <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent' />
             </div>
           )}
           <div className='mt-2'>
-            <span className='text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg xl:text-xl'>
+            <span className='text-base font-medium text-haretaColor lg:text-lg xl:text-xl'>
               ${formatCurrency(defaultItem.price)}
             </span>
           </div>
 
-          <div className='mt-8 w-full rounded-lg border border-black/60 p-2 dark:border-white/60'>
+          <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightWhite900 p-2 dark:border-white/60 dark:bg-darkGray900'>
             <div className='flex items-center justify-between'>
               <p className='text-base font-medium lg:text-lg xl:text-xl'>{t('sidebar.variant')}</p>
               <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
@@ -157,7 +157,7 @@ export default function ProductDetailDesktop(props: Props) {
                     <div
                       key={index}
                       className={classNames('col-span-1 rounded-xl border', {
-                        ' border-brownColor dark:border-haretaColor': isActive,
+                        ' border-haretaColor dark:border-haretaColor': isActive,
                         ' border-black/20 dark:border-white/20': !isActive
                       })}
                     >
@@ -198,9 +198,9 @@ export default function ProductDetailDesktop(props: Props) {
                 </p>
               </div>
 
-              <div className='mt-4 flex justify-between text-black dark:text-white'>
+              <div className='mt-4 flex justify-between text-textDark'>
                 <button
-                  className='flex items-center rounded-md bg-vintageColor px-6 py-1 text-sm hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90 lg:py-1.5 lg:text-base xl:text-lg'
+                  className='flex items-center rounded-md bg-haretaColor px-6 py-1 text-sm hover:bg-primaryColor lg:py-1.5 lg:text-base xl:text-lg'
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
@@ -213,7 +213,7 @@ export default function ProductDetailDesktop(props: Props) {
                 >
                   <FontAwesomeIcon icon={faCartPlus} />
                 </button>
-                <button className='flex items-center space-x-2 rounded-md bg-vintageColor px-6 py-1 text-sm font-medium hover:bg-vintageColor/90 dark:bg-haretaColor dark:hover:bg-haretaColor/90 lg:py-1.5 lg:text-base xl:text-lg'>
+                <button className='flex items-center space-x-2 rounded-md bg-haretaColor px-6 py-1 text-sm font-medium hover:bg-primaryColor lg:py-1.5 lg:text-base xl:text-lg'>
                   {t('sidebar.buy')}
                 </button>
               </div>
@@ -236,13 +236,14 @@ export default function ProductDetailDesktop(props: Props) {
         </div>
       </div>
 
+      {/* //? CREATE TEMP CART DIALOG */}
       <DialogPopup
         closeButton={false}
         isOpen={createTempCart}
         handleClose={() => setCreateTempCart(false)}
         classNameWrapper='relative w-md max-w-md transform overflow-hidden rounded-2xl p-8 align-middle shadow-xl transition-all  '
       >
-        <p className='text-center text-xl font-semibold uppercase leading-6 text-red-700'>
+        <p className='text-center text-xl font-semibold uppercase leading-6 text-alertRed'>
           {t('message.Cart expires soon')}
         </p>
         <div className='mt-4 space-y-2 text-center'>
@@ -262,25 +263,13 @@ export default function ProductDetailDesktop(props: Props) {
           <Link
             to={path.login}
             type='button'
-            className={classNames(
-              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
-              {
-                'bg-vintageColor text-black hover:bg-vintageColor/90': theme === 'light',
-                'bg-haretaColor text-white hover:bg-haretaColor/90': theme === 'dark'
-              }
-            )}
+            className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark hover:bg-primaryColor lg:px-6 lg:py-2'
           >
             {t('message.login')}
           </Link>
           <button
             type='button'
-            className={classNames(
-              'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
-              {
-                'bg-vintageColor text-black hover:bg-vintageColor/90': theme === 'light',
-                'bg-haretaColor text-white hover:bg-haretaColor/90': theme === 'dark'
-              }
-            )}
+            className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark hover:bg-primaryColor lg:px-6 lg:py-2'
             onClick={createTemporaryCart}
           >
             {t('message.Continue')}
@@ -288,6 +277,7 @@ export default function ProductDetailDesktop(props: Props) {
         </div>
       </DialogPopup>
 
+      {/* //? SUCCESS DIALOG */}
       <DialogPopup
         isOpen={dialogIsOpen}
         handleClose={() => setDialogIsOpen(false)}
@@ -306,13 +296,14 @@ export default function ProductDetailDesktop(props: Props) {
         <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Added successfully')}</p>
       </DialogPopup>
 
+      {/* //? ERROR DIALOG */}
       <DialogPopup
         isOpen={errorDialog}
         handleClose={() => setErrorDialog(false)}
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
         <div className='text-center'>
-          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-red-700 md:w-10 lg:w-12 xl:w-16')} />
+          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-alertRed md:w-10 lg:w-12 xl:w-16')} />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           {t('message.The quantity of the current item you are trying to add exceed our store')}

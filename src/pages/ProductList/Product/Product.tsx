@@ -143,13 +143,13 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     >
       <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-300 dark:bg-productDarkBg'>
         {hoveringImage && (
-          <div className='relative bg-productLightBg dark:bg-productDarkBg'>
+          <div className='relative'>
             <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
             <button className='absolute inset-0' onClick={handleClickItem}></button>
           </div>
         )}
         {!hoveringImage && (
-          <div className='relative w-full bg-productLightBg pt-[75%] dark:bg-productDarkBg'>
+          <div className='relative w-full pt-[75%]'>
             <div className='absolute left-0 top-0 h-full w-full'>
               {avatarUrl ? (
                 <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />

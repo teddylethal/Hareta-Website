@@ -49,10 +49,10 @@ export default function ProductDetailMobile(props: Props) {
 
   return (
     <Fragment>
-      <div className={classNames('bg-lightBg dark:bg-darkBg')}>
-        <div className=' rounded-lg bg-[#f8f8f8] px-3 py-2 dark:bg-[#202020]'>
+      <div className='bg-lightBg pb-10 dark:bg-darkBg'>
+        <div className=' overflow-hidden rounded-lg bg-lightWhite700 dark:bg-darkGray700'>
           <MobileProductImageList item={defaultItem} itemID={activeItem.id} />
-          <div className='relative flex flex-col bg-[#f8f8f8] py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
+          <div className='relative flex flex-col bg-lightWhite700 px-3 py-3 text-textDark dark:bg-darkGray700 dark:text-textLight'>
             <span className='text-2xl text-haretaColor'>${formatCurrency(defaultItem.price)}</span>
             <div className='mt-4 flex items-center justify-between'>
               <p className='text-2xl'>{defaultItem.name}</p>
@@ -61,9 +61,9 @@ export default function ProductDetailMobile(props: Props) {
                   <FontAwesomeIcon
                     icon={faHeart}
                     onClick={toggleLikeItem}
-                    className={classNames('h-6 hover:text-red-500', {
+                    className={classNames('h-6', {
                       'text-textDark/40 dark:text-textLight/40': !isLikedByUser,
-                      'text-red-500': isLikedByUser
+                      'text-favouriteRed': isLikedByUser
                     })}
                   />
                 </button>
@@ -72,16 +72,16 @@ export default function ProductDetailMobile(props: Props) {
 
             {defaultItem.tag !== 0 && (
               <div className='relative mt-2'>
-                <span className='flex h-6 w-20 items-center justify-center bg-red-600 text-center text-sm text-textDark'>
+                <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-textDark'>
                   {tag == 1 && t('tag.top seller')}
                   {tag == 2 && t('tag.signature')}
                   {tag == 3 && t('tag.favourite')}
                 </span>
-                <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-red-600 border-l-red-600 border-r-transparent' />
+                <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent' />
               </div>
             )}
 
-            <div className='mt-8 w-full rounded-lg border border-black/60 p-4 dark:border-white/60'>
+            <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightWhite900 p-4 dark:border-white/60 dark:bg-darkGray900'>
               <div className='flex items-center justify-between'>
                 <p className='text-base font-medium sm:text-lg'>{t('sidebar.variant')}</p>
                 <p className='text-sm text-textDark/60 dark:text-textLight/60 sm:text-base '>
@@ -97,7 +97,7 @@ export default function ProductDetailMobile(props: Props) {
                       <div
                         key={index}
                         className={classNames('col-span-1 rounded-xl border', {
-                          'border-brownColor dark:border-haretaColor': isActive,
+                          'border-haretaColor dark:border-haretaColor': isActive,
                           'border-black/20 dark:border-white/20': !isActive
                         })}
                       >
@@ -121,7 +121,7 @@ export default function ProductDetailMobile(props: Props) {
           </div>
         </div>
 
-        <div className='mt-8 space-y-4 rounded-lg bg-[#f8f8f8] p-3 dark:bg-[#202020]'>
+        <div className='mt-8 space-y-6 rounded-lg sm:space-y-8'>
           <OtherItemsInCollection collectionName={defaultItem.collection} />
           <OtherItemsInType type={defaultItem.type} />
         </div>
@@ -132,10 +132,8 @@ export default function ProductDetailMobile(props: Props) {
           </button>
           <button
             disabled={visible}
-            className={classNames('col-span-1 rounded-sm ', {
-              'bg-vintageColor/80  hover:bg-vintageColor hover:text-textDark dark:bg-haretaColor/80 dark:hover:bg-haretaColor':
-                !visible,
-              'bg-vintageColor/40 text-textDark/60 dark:bg-haretaColor/40 dark:text-textLight/60': visible
+            className={classNames('col-span-1 rounded-sm bg-haretaColor text-textDark ', {
+              'opacity-40': visible
             })}
           >
             {t('sidebar.buy')}
@@ -180,7 +178,7 @@ export default function ProductDetailMobile(props: Props) {
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
         <div className='text-center'>
-          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-red-700 md:w-10 lg:w-12 xl:w-16')} />
+          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-alertRed md:w-10 lg:w-12 xl:w-16')} />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           {t('message.The quantity of the current item you are trying to add exceed our store')}

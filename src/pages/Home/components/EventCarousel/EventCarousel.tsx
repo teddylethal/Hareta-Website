@@ -66,8 +66,8 @@ export default function EventCarousel() {
         dotListClass='custom-dot-list-style'
         customDot={<CustomDots />}
         responsive={responsive}
-        autoPlaySpeed={5000}
         autoPlay={true}
+        autoPlaySpeed={5000}
         transitionDuration={500}
         infinite
         draggable={false}

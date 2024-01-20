@@ -116,7 +116,7 @@ export default function ProductImageList(props: Props) {
   }
 
   return (
-    <div className='relative w-full overflow-auto rounded-xl bg-[#dfdfdf] pt-[75%] dark:bg-[#202020]'>
+    <div className='relative w-full overflow-auto rounded-xl bg-lightWhite700 pt-[75%] dark:bg-darkGray700'>
       {(isLoading || isFetching) && (
         <div className='absolute inset-0 z-10 flex h-full w-full items-center justify-center rounded-lg bg-black/50'>
           <ColorRing
@@ -126,7 +126,7 @@ export default function ProductImageList(props: Props) {
             ariaLabel='blocks-loading'
             wrapperStyle={{}}
             wrapperClass='blocks-wrapper'
-            colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
+            colors={['#ff6600', '#ff6600', '#ff6600', '#ff6600', '#ff6600']}
           />
         </div>
       )}
@@ -148,9 +148,9 @@ export default function ProductImageList(props: Props) {
               ref={imageRef}
             />
 
-            <div className='absolute right-2 top-2 rounded-lg bg-black/40'>
+            <div className='absolute right-2 top-2 rounded-lg bg-black/20'>
               <button
-                className='flex items-center justify-center p-2 text-textDark duration-300 dark:text-textLight '
+                className='flex items-center justify-center p-2 text-textDark/60 duration-300 dark:text-textLight/60'
                 onClick={toggleZooming}
               >
                 {!zooming && (
@@ -159,12 +159,12 @@ export default function ProductImageList(props: Props) {
                     className='h-auto w-6 hover:text-haretaColor lg:w-7 xl:w-8'
                   />
                 )}
-                {zooming && <FontAwesomeIcon icon={faBan} className='h-auto w-6 hover:text-red-600 lg:w-7 xl:w-8' />}
+                {zooming && <FontAwesomeIcon icon={faBan} className='h-auto w-6 hover:text-alertRed lg:w-7 xl:w-8' />}
               </button>
             </div>
           </div>
         ) : (
-          <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[75%] dark:bg-[#202020]'>
+          <div className='relative w-full overflow-hidden bg-lightWhite700 pt-[75%] dark:bg-darkGray700'>
             <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
               <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
             </div>
@@ -202,9 +202,7 @@ export default function ProductImageList(props: Props) {
                     alt={item.name}
                     className='absolute left-0 top-0 h-full w-full object-scale-down'
                   />
-                  {isActive && (
-                    <div className='absolute inset-0 rounded-lg border-2 border-vintageColor dark:border-haretaColor' />
-                  )}
+                  {isActive && <div className='absolute inset-0 rounded-lg border-2 border-haretaColor' />}
                 </button>
               )
             })}

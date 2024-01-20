@@ -70,7 +70,7 @@ export default function MobileProductImageList(props: Props) {
 
   return (
     <div className='relative'>
-      <div className='relative w-full overflow-hidden bg-[#dfdfdf] pt-[75%] dark:bg-[#101010]'>
+      <div className='relative w-full overflow-hidden pt-[75%]'>
         {activeImage?.image ? (
           <img
             src={activeImage.image.url}
@@ -83,43 +83,45 @@ export default function MobileProductImageList(props: Props) {
           </div>
         )}
       </div>
-      <div className='relative mt-3 flex select-none justify-center'>
-        <div className='flex w-full px-4'>
-          {currentImageList.map((image) => {
-            const isActive = image === activeImage
-            return (
-              <div className='w-full px-1' key={image.id}>
-                <button onClick={handleChoosingImage(image)} className='relative w-full pt-[75%]'>
-                  <img
-                    src={image.image ? image.image.url : ''}
-                    alt={item.name}
-                    className='absolute left-0 top-0 h-full w-full object-scale-down'
-                  />
-                  {isActive && (
-                    <div className='absolute inset-0 rounded-lg border-2 border-vintageColor dark:border-haretaColor' />
-                  )}
-                </button>
-              </div>
-            )
-          })}
-        </div>
-        {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
-          <button
-            className='absolute left-0 top-1/2 -translate-y-1/2 justify-start rounded-md bg-black/60 px-1 py-2 text-textLight'
-            onClick={previousImageList}
-          >
-            <FontAwesomeIcon icon={faChevronLeft} className='h-auto w-3 sm:w-4' />
-          </button>
-        )}
+      <div className='mt-3 w-full px-2'>
+        <div className='relative flex select-none justify-center rounded-md bg-black/40'>
+          <div className='grid w-full grid-cols-4 gap-2 px-4 py-1'>
+            {currentImageList.map((image) => {
+              const isActive = image === activeImage
+              return (
+                <div className='col-span-1' key={image.id}>
+                  <button onClick={handleChoosingImage(image)} className='relative w-full pt-[75%]'>
+                    <img
+                      src={image.image ? image.image.url : ''}
+                      alt={item.name}
+                      className='absolute left-0 top-0 h-full w-full object-scale-down'
+                    />
+                    {isActive && (
+                      <div className='absolute inset-0 rounded-lg border-2 border-haretaColor dark:border-haretaColor' />
+                    )}
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+          {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
+            <button
+              className='absolute left-0 top-1/2 -translate-y-1/2 justify-start rounded-md bg-black/60 px-1 py-2 text-textLight'
+              onClick={previousImageList}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} className='h-auto w-3 sm:w-4' />
+            </button>
+          )}
 
-        {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
-          <button
-            className='absolute right-0 top-1/2 -translate-y-1/2 rounded-md bg-black/60 px-1 py-2 text-textLight'
-            onClick={nextImageList}
-          >
-            <FontAwesomeIcon icon={faChevronRight} className='h-auto w-3 sm:w-4' />
-          </button>
-        )}
+          {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
+            <button
+              className='absolute right-0 top-1/2 -translate-y-1/2 rounded-md bg-black/60 px-1 py-2 text-textLight'
+              onClick={nextImageList}
+            >
+              <FontAwesomeIcon icon={faChevronRight} className='h-auto w-3 sm:w-4' />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )

@@ -25,17 +25,17 @@ export default function CartPopoverWithoutLogin() {
       <Popover
         className='flex border border-none px-1.5 py-1 lg:px-2'
         renderPopover={
-          <div className='bg-lightWhite700 relative -top-1 w-[360px] rounded-md py-2 text-sm text-textDark shadow-md dark:bg-darkGray700 dark:text-textLight lg:top-0'>
+          <div className='relative -top-1 w-[360px] rounded-md bg-lightWhite700 py-2 text-sm text-textDark shadow-md dark:bg-darkGray700 dark:text-textLight lg:top-0'>
             <Fragment>
               <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
                 {tempExtendedPurchase.length} {t('cart button.items in cart')}
               </div>
-              <div className='bg-lightWhite900 m-2 overflow-auto rounded-md outline outline-1 outline-black/10 dark:bg-darkGray900 dark:outline-white/10'>
+              <div className='m-2 overflow-auto rounded-md bg-lightWhite900 outline outline-1 outline-black/10 dark:bg-darkGray900 dark:outline-white/10'>
                 {tempExtendedPurchase.length > 0 ? (
                   <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
                     {tempExtendedPurchase.map((purchase, index) => (
                       <div
-                        className='hover:bg-lightWhite700/50 flex items-center p-3 dark:hover:bg-darkGray700/50'
+                        className='flex items-center p-3 hover:bg-lightWhite700/60 dark:hover:bg-darkGray700/60'
                         key={purchase.id}
                       >
                         <div className='h-14 w-14'>
@@ -77,7 +77,7 @@ export default function CartPopoverWithoutLogin() {
                                 Buy
                               </button> */}
                               <button
-                                className='text-sm text-textDark/60  hover:text-red-700 dark:text-textLight/60 dark:hover:text-red-500'
+                                className='text-sm text-textDark/60  hover:text-alertRed dark:text-textLight/60 dark:hover:text-alertRed'
                                 onClick={handleRemove(index)}
                               >
                                 {t('cart button.remove')}

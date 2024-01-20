@@ -16,15 +16,15 @@ export default function Home() {
   return (
     <Fragment>
       {pageIsLoading && <LoadingWithEmptyContent />}
-      <div className='bg-lightBg duration-300 dark:bg-darkBg'>
+      <div className='bg-lightBg text-textDark duration-300 dark:bg-darkBg dark:text-textLight'>
         <EventCarousel />
-        <div className='my-10 xl:my-14'>
+        <div className='py-4 md:py-6 lg:py-8 xl:py-10'>
           <NewReleaseCarousel setPageIsLoading={setPageIsLoading} />
         </div>
-        <div className='my-10 xl:my-14'>
+        <div className='bg-lightWhite700 py-4 dark:bg-darkGray700 md:py-6 lg:py-8 xl:py-10'>
           <TopSellerCarousel setPageIsLoading={setPageIsLoading} />
         </div>
-        <div className='my-10 xl:my-16'>
+        <div className='py-4 md:py-6 lg:py-8 xl:py-10'>
           <MostFavouriteList setPageIsLoading={setPageIsLoading} />
         </div>
       </div>

@@ -69,6 +69,7 @@ export default function Login() {
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
+          console.log(error)
           const formError = error.response?.data
           if (formError) {
             if (formError.error_key == 'ErrEmailNotVerified') {
@@ -79,12 +80,13 @@ export default function Login() {
 
             const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
             if (errorRespone) {
+              console.log(errorRespone.error_message)
               setError('email', {
                 message: errorRespone.error_message,
                 type: 'Server'
               })
               setError('password', {
-                message: ' ',
+                message: '',
                 type: 'Server'
               })
             }
@@ -114,7 +116,7 @@ export default function Login() {
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
             <form
-              className='bg-lightWhite900 rounded-xl p-5 shadow-sm duration-300 dark:bg-darkGray900 md:p-10'
+              className='rounded-xl bg-lightWhite900 p-5 shadow-sm duration-300 dark:bg-darkGray900 md:p-10'
               onSubmit={onSubmit}
               noValidate
             >

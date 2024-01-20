@@ -8,7 +8,7 @@ import Carousel from 'react-multi-carousel'
 import classNames from 'classnames'
 import { DotProps } from 'react-multi-carousel/lib/types'
 import toArray from 'lodash/toArray'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
 import likeItemAPi from 'src/apis/userLikeItem.api'
@@ -23,7 +23,6 @@ interface Props {
 }
 
 export default function TopSellerCarousel({ setPageIsLoading }: Props) {
-  const [disableClick, setDisableClick] = useState<boolean>(false)
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
@@ -84,9 +83,9 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
         className='py-2'
       >
         <div
-          className={classNames('mx-0.5 h-1 w-8 rounded-md  duration-300', {
-            ' bg-haretaColor': active,
-            ' bg-haretaColor/40': !active
+          className={classNames('mx-0.5 h-1 w-8 rounded-md duration-300', {
+            ' bg-primaryColor': active,
+            ' bg-haretaColor/60': !active
           })}
         >
           {toArray(dots)[index as number]}
@@ -123,71 +122,67 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
   const { t } = useTranslation('home')
 
   return (
-    <div className='bg-[#f8f8f8] text-textDark duration-300 dark:bg-[#282828] dark:text-textLight'>
-      <div className='container'>
-        <div className='py-4 md:py-8 lg:py-10 xl:py-12'>
-          <div className='flex items-center justify-between'>
-            <p className='w-full select-none py-2 text-left text-2xl font-bold uppercase lg:text-4xl xl:text-5xl'>
-              {t('top seller')}
-            </p>
-            {displayedItems.length >= 3 && (
-              <button
-                className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-haretaColor hover:font-medium hover:text-textDark dark:border-white/60 dark:hover:border-transparent md:gap-3 md:text-base xl:text-lg'
-                onClick={handleNavigate}
-              >
-                <p className='truncate uppercase'>{t('explore')}</p>
-                <FontAwesomeIcon icon={faAnglesRight} />
-              </button>
-            )}
-          </div>
+    <div className='container'>
+      <div className='flex items-center justify-between'>
+        <p className='w-full select-none py-2 text-left text-2xl font-bold uppercase lg:text-4xl xl:text-5xl'>
+          {t('top seller')}
+        </p>
+        {displayedItems.length >= 3 && (
+          <button
+            className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium hover:text-textDark dark:border-white/60 dark:hover:border-transparent md:gap-3 md:text-base xl:text-lg'
+            onClick={handleNavigate}
+          >
+            <p className='truncate uppercase'>{t('explore')}</p>
+            <FontAwesomeIcon icon={faAnglesRight} />
+          </button>
+        )}
+      </div>
 
-          <div className='p-2 md:p-4 lg:p-8 xl:p-12'>
-            {length <= 3 && (
-              <div
-                className={classNames('grid grid-cols-1 gap-4', {
-                  'md:grid-cols-3': length == 1 || length == 3,
-                  'md:grid-cols-2 lg:gap-12 xl:gap-24': length == 2
-                })}
-              >
-                {length == 1 && <div className='col-span-1'></div>}
-                {displayedItems.map((product) => (
-                  <div className='col-span-1' key={product.id}>
-                    <Product product={product} />
-                  </div>
-                ))}
+      <div className='p-2 md:p-4 lg:p-8 xl:p-12'>
+        {length <= 3 && (
+          <div
+            className={classNames('grid grid-cols-1 gap-4', {
+              'md:grid-cols-3': length == 1 || length == 3,
+              'md:grid-cols-2 lg:gap-12 xl:gap-24': length == 2
+            })}
+          >
+            {length == 1 && <div className='col-span-1'></div>}
+            {displayedItems.map((product) => (
+              <div className='col-span-1' key={product.id}>
+                <Product product={product} />
               </div>
-            )}
-
-            {displayedItems.length > 3 && (
-              <div className='relative pb-8'>
-                <Carousel
-                  beforeChange={() => setDisableClick(true)}
-                  afterChange={() => setDisableClick(false)}
-                  className='overflow-hidden'
-                  showDots
-                  renderDotsOutside
-                  autoPlay
-                  draggable={false}
-                  arrows={false}
-                  autoPlaySpeed={5000}
-                  responsive={responsive}
-                  transitionDuration={500}
-                  slidesToSlide={1}
-                  partialVisible
-                  infinite
-                  pauseOnHover={false}
-                  customDot={<CustomDot />}
-                >
-                  {displayedItems.map((item) => (
-                    <div key={item.id} className='mx-4 select-none'>
-                      <Product product={item} disableClick={disableClick} initialLoading={isInitialLoading} />
-                    </div>
-                  ))}
-                </Carousel>
-              </div>
-            )}
+            ))}
           </div>
-        </div>
+        )}
+
+        {displayedItems.length > 3 && (
+          <div className='relative pb-8'>
+            <Carousel
+              // beforeChange={() => setDisableClick(true)}
+              // afterChange={() => setDisableClick(false)}
+              className='overflow-hidden'
+              showDots
+              renderDotsOutside
+              autoPlay
+              draggable={false}
+              arrows={false}
+              autoPlaySpeed={5000}
+              responsive={responsive}
+              transitionDuration={500}
+              slidesToSlide={1}
+              partialVisible
+              infinite
+              pauseOnHover={false}
+              customDot={<CustomDot />}
+            >
+              {displayedItems.map((item) => (
+                <div key={item.id} className='mx-4 select-none'>
+                  <Product product={item} initialLoading={isInitialLoading} />
+                </div>
+              ))}
+            </Carousel>
+          </div>
+        )}
       </div>
     </div>
   )

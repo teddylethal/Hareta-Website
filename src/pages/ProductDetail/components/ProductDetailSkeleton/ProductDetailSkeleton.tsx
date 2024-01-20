@@ -10,7 +10,7 @@ export default function ProductDetailSkeleton() {
       {!isMobile && (
         <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
           <div className='col-span-4'>
-            <div className='sticky left-0 top-12 flex-col rounded-xl bg-[#f8f8f8] p-6 text-textDark dark:bg-[#202020] dark:text-textLight md:top-14 lg:top-20'>
+            <div className='sticky left-0 top-12 flex-col rounded-xl bg-lightWhite700 p-6 text-textDark dark:bg-darkGray700 dark:text-textLight md:top-14 lg:top-20'>
               <div className='flex items-center justify-between'>
                 <p className='w-full text-xl font-medium lg:text-2xl xl:text-3xl'>
                   <Skeleton variant='rounded' className=' dark:bg-white/10' width={'60%'} />
@@ -18,7 +18,7 @@ export default function ProductDetailSkeleton() {
               </div>
 
               <div className='mt-2'>
-                <span className='text-base font-medium text-brownColor dark:text-haretaColor lg:text-lg xl:text-xl'>
+                <span className='text-base font-medium lg:text-lg xl:text-xl'>
                   <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                 </span>
               </div>

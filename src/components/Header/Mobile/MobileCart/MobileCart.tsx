@@ -71,7 +71,7 @@ export default function MobileCart({ className }: Props) {
       <button onClick={openCart} className='relative flex items-end text-textDark dark:text-textLight'>
         <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-textDark dark:text-textLight' />
         {extendedPurchases.length > 0 && (
-          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-vintageColor text-xs text-textDark dark:bg-haretaColor'>
+          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs text-textDark'>
             {extendedPurchases.length}
           </span>
         )}
@@ -94,8 +94,8 @@ export default function MobileCart({ className }: Props) {
               animate={{
                 opacity: 1,
                 y: 0,
-                backgroundColor: theme === 'dark' ? '#333333' : '#dddddd',
-                color: theme === 'dark' ? '#eeeeee' : '#222222'
+                backgroundColor: theme === 'dark' ? '#1d1d22' : '#fbfbff',
+                color: theme === 'dark' ? '#eeeeee' : '#111111'
               }}
               exit={{ opacity: 0, y: '-20%' }}
               transition={{ duration: 0.3 }}
@@ -118,16 +118,19 @@ export default function MobileCart({ className }: Props) {
 
               <div className='mx-3 my-2 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
-              <div className=''>
+              <Fragment>
                 <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
                   {extendedPurchases.length} {t('cart button.items in cart')}
                 </div>
-                <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#202020]'>
+                <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-lightWhite700 dark:border-white/20 dark:bg-darkGray700'>
                   {extendedPurchases.length > 0 ? (
                     extendedPurchases.map((purchase, index) => (
-                      <div className=' flex space-x-3 p-3 hover:bg-[#e8e8e8] dark:hover:bg-[#272727]' key={purchase.id}>
+                      <div
+                        className=' flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightWhite900/60 dark:border-white/20 dark:hover:bg-darkGray900/60'
+                        key={purchase.id}
+                      >
                         <div className='h-12 w-12'>
-                          <div className='relative w-full bg-[#dfdfdf] pt-[100%] dark:bg-[#101010]'>
+                          <div className='relative w-full pt-[100%]'>
                             <img
                               src={
                                 purchase?.item.avatar
@@ -146,11 +149,11 @@ export default function MobileCart({ className }: Props) {
                               className='flex'
                               onClick={closeCart}
                             >
-                              <p className='truncate px-2 py-1 font-semibold hover:text-vintageColor dark:hover:text-haretaColor'>
+                              <p className='truncate px-2 py-1 font-semibold hover:text-primaryColor dark:hover:text-primaryColor'>
                                 {purchase.item.name}
                               </p>
                             </Link>
-                            <span className='flex-shrink-0 font-medium text-orange-600'>
+                            <span className='flex-shrink-0 font-medium text-haretaColor'>
                               ${formatCurrency(purchase.item.price)}
                             </span>
                           </div>
@@ -159,7 +162,7 @@ export default function MobileCart({ className }: Props) {
 
                             <div className='flex space-x-3'>
                               <button
-                                className='text-sm capitalize text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-600'
+                                className='text-sm capitalize text-alertRed hover:underline'
                                 onClick={handleRemove(index)}
                               >
                                 {t('cart button.remove')}
@@ -175,13 +178,13 @@ export default function MobileCart({ className }: Props) {
                     </div>
                   )}
                 </div>
-              </div>
+              </Fragment>
 
               <div className='mx-3 mt-2 flex items-center justify-between text-xs sm:text-sm'>
                 <div className='flex space-x-2'>
                   <Link
                     to={path.store}
-                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 capitalize hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-haretaColor px-4 py-1 capitalize text-textDark hover:bg-primaryColor'
                     onClick={closeCart}
                   >
                     {t('cart button.store')}
@@ -190,7 +193,7 @@ export default function MobileCart({ className }: Props) {
                 <div>
                   <Link
                     to={path.cart}
-                    className='flex items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 capitalize hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor/60'
+                    className='flex items-center justify-center rounded-md bg-haretaColor px-4 py-1 capitalize text-textDark hover:bg-primaryColor'
                     onClick={closeCart}
                   >
                     {t('cart button.enter cart')}

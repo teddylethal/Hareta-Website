@@ -70,7 +70,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
   const unavailable = unavailablePurchaseIds.includes(purchase.id)
 
   return (
-    <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none   dark:text-textLight'>
+    <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none dark:text-textLight'>
       <div className='col-span-6'>
         <div className='flex'>
           <div className='flex flex-shrink-0 items-center justify-center pr-3'>
@@ -102,7 +102,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
             <div className='ml-4 flex-grow px-2 text-left'>
               <div
                 className={classNames('truncate text-base lg:text-lg', {
-                  'text-red-600': unavailable
+                  'text-alertRed': unavailable
                 })}
               >
                 {purchase.item.name}

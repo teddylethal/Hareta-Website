@@ -103,7 +103,7 @@ export default function ProductDescription({ item }: Props) {
             </div>
             <div className='col-span-2'>
               <button
-                className='text-base capitalize hover:text-brownColor dark:hover:text-haretaColor lg:text-lg xl:text-xl'
+                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor lg:text-lg xl:text-xl'
                 onClick={handleChooseFilter('category', item.category)}
               >
                 {item.category}
@@ -116,7 +116,7 @@ export default function ProductDescription({ item }: Props) {
             </div>
             <div className='col-span-2'>
               <button
-                className='text-base capitalize hover:text-brownColor dark:hover:text-haretaColor lg:text-lg xl:text-xl'
+                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor lg:text-lg xl:text-xl'
                 onClick={handleChooseFilter('collection', item.collection)}
               >
                 {item.collection}
@@ -129,7 +129,7 @@ export default function ProductDescription({ item }: Props) {
             </div>
             <div className='col-span-2'>
               <button
-                className='text-base capitalize hover:text-brownColor dark:hover:text-haretaColor lg:text-lg xl:text-xl'
+                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor lg:text-lg xl:text-xl'
                 onClick={handleChooseFilter('type', item.type)}
               >
                 {item.type}

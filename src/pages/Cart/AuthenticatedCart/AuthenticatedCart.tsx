@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import classNames from 'classnames'
 import { produce } from 'immer'
 import React, { Fragment, useContext } from 'react'
 
@@ -74,7 +73,7 @@ export default function AuthenticatedCart() {
     <Fragment>
       {!isMobile && (
         <Fragment>
-          <div className='mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
+          <div className='mt-2 rounded-md border border-black/20 bg-lightWhite900 dark:border-white/20 dark:bg-darkGray900'>
             <div className=''>
               <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-textDark  dark:text-textLight lg:text-lg'>
                 <div className='col-span-6'>
@@ -96,7 +95,7 @@ export default function AuthenticatedCart() {
                   extendedPurchases?.map((purchase, index) => (
                     <div
                       key={purchase.id}
-                      className='border-b last:border-none hover:bg-lightWhite900 dark:hover:bg-darkGray900'
+                      className='border-b border-black/60 last:border-none hover:bg-lightWhite900/60 dark:border-white/60 dark:hover:bg-darkGray900/60'
                     >
                       <ItemInCart
                         handleChecking={handleChecking}
@@ -155,11 +154,7 @@ export default function AuthenticatedCart() {
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
                 {checkedPurchasesCount === 0 && (
-                  <div
-                    className={classNames(
-                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor/60 font-medium text-black text-opacity-60'
-                    )}
-                  >
+                  <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 lg:text-base'>
                     {t('content.check out')}
                   </div>
                 )}
@@ -167,9 +162,7 @@ export default function AuthenticatedCart() {
                   <Link
                     onClick={handleCheckout}
                     to={path.shippingInfor}
-                    className={classNames(
-                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor font-medium text-black  hover:bg-primaryColor'
-                    )}
+                    className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor font-medium text-black  hover:bg-primaryColor'
                   >
                     {t('content.check out')}
                   </Link>

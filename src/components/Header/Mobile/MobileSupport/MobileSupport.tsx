@@ -65,7 +65,7 @@ export default function MobileSupport() {
                 {t('support.about us')}
               </Link> */}
 
-              <Link to='/' className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+              <Link to='/' className='py-1'>
                 {t('support.privacy & terms')}
               </Link>
 
@@ -77,15 +77,15 @@ export default function MobileSupport() {
                 {t('support.contact us')}
               </Link> */}
 
-              <Link to={path.orderTracking} className='py-1 hover:text-haretaColor dark:hover:text-haretaColor'>
+              <Link to={path.orderTracking} className='py-1'>
                 {t('support.order tracking')}
               </Link>
 
-              <div className='hover:text-haretaColor dark:hover:text-haretaColor'>
+              <div className=''>
                 <ChangeLanguage closePopover={closeExtend} />
               </div>
 
-              <div className='hover:text-haretaColor dark:hover:text-haretaColor'>
+              <div className=''>
                 <ToggleTheme className='h-5 w-5 sm:h-6 sm:w-6' />
               </div>
             </motion.div>

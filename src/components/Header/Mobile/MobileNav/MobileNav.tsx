@@ -55,8 +55,8 @@ export default function MobileNav({ className }: Props) {
               animate={{
                 opacity: 1,
                 x: 0,
-                backgroundColor: theme === 'dark' ? '#202020' : '#efefef',
-                color: theme === 'dark' ? '#eeeeee' : '#222222'
+                backgroundColor: theme === 'dark' ? '#1d1d22' : '#fbfbff',
+                color: theme === 'dark' ? '#eeeeee' : '#111111'
               }}
               exit={{ opacity: 0, x: '20%' }}
               transition={{ duration: 0.3 }}

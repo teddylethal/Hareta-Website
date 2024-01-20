@@ -165,8 +165,8 @@ export default function AddTocartPopover({
                 )}
               </div>
               <div className='col-span-2 ml-4 flex min-h-full flex-col justify-between truncate'>
-                <p className=''>{item.name}</p>
-                <span className=' text-haretaColor'>${item.price}</span>
+                <p className='font-semibold'>{item.name}</p>
+                <span className='font-medium text-haretaColor'>${item.price}</span>
 
                 <div className='flex space-x-1'>
                   <p className=''>{item.quantity <= 10 && t('sidebar.only')} </p>
@@ -202,7 +202,7 @@ export default function AddTocartPopover({
                     <div
                       key={index}
                       className={classNames('col-span-1 rounded-xl', {
-                        'border border-brownColor dark:border-haretaColor': isActive
+                        'border border-haretaColor dark:border-haretaColor': isActive
                       })}
                     >
                       <button className='relative w-full pt-[75%]' onClick={handleChooseVariant(item)}>
@@ -235,15 +235,21 @@ export default function AddTocartPopover({
               {t('message.Add to cart')}
             </Button>
           </div>
-          {createTempCart && <div className='absolute inset-0  bg-black/50 ' ref={elementRef}></div>}
+          {createTempCart && <div className='absolute inset-0 bg-black/50' ref={elementRef}></div>}
 
           {createTempCart && (
             <div ref={elementRef}>
               <div
-                className='fixed left-1/2 top-1/2 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border border-white/60 bg-black p-8 align-middle'
+                className={classNames(
+                  'fixed left-1/2 top-1/2 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border p-8 align-middle ',
+                  {
+                    'border-white/60 bg-darkGray900 text-textLight': theme == 'dark',
+                    'border-black/60 bg-lightWhite900 text-textDark': theme == 'light'
+                  }
+                )}
                 ref={createDialogRef}
               >
-                <p className='text-center text-xl font-medium uppercase leading-6 text-red-700'>
+                <p className='text-center text-xl font-medium uppercase leading-6 text-alertRed'>
                   {t('message.Cart expires soon')}
                 </p>
                 <div className='mt-4 space-y-2 text-center'>
@@ -263,25 +269,13 @@ export default function AddTocartPopover({
                   <Link
                     to={path.login}
                     type='button'
-                    className={classNames(
-                      'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
-                      {
-                        'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
-                        'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-                      }
-                    )}
+                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark lg:px-6 lg:py-2'
                   >
                     {t('message.login')}
                   </Link>
                   <button
                     type='button'
-                    className={classNames(
-                      'justify-center rounded-md border border-transparent px-4 py-1 text-sm font-medium capitalize lg:px-6 lg:py-2',
-                      {
-                        'bg-vintageColor/90 hover:bg-vintageColor': theme === 'light',
-                        'bg-haretaColor/80 hover:bg-haretaColor/60': theme === 'dark'
-                      }
-                    )}
+                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark lg:px-6 lg:py-2'
                     onClick={createTemporaryCart}
                   >
                     {t('message.Continue')}

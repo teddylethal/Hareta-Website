@@ -109,7 +109,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
           {!isMobile && <p>{t('pagination.prev')}</p>}
         </Link>
       ) : (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-40 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
           <FontAwesomeIcon icon={faAngleLeft} className='py-1 text-textDark dark:text-textLight' />
           {!isMobile && <p>{t('pagination.prev')}</p>}
         </span>
@@ -135,7 +135,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
           />
         </Link>
       ) : (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-60 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
+        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-40  shadow-sm dark:border-textLight dark:text-textLight lg:text-base'>
           {!isMobile && <p>{t('pagination.next')}</p>}
           <FontAwesomeIcon icon={faAngleRight} className='py-1 text-textDark dark:text-textLight' />
         </span>

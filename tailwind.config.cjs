@@ -32,10 +32,10 @@ module.exports = {
 
         //? Main interface
         lightBg: '#ffffff',
-        darkBg: '#0e0e12',
         lightWhite900: '#fbfbff',
         lightWhite700: '#e9e9e8',
         lightWhite500: '#d6d6d5',
+        darkBg: '#0e0e12',
         darkGray900: '#1d1d22',
         darkGray700: '#2c2c32',
         darkGray500: '#59595f',
@@ -60,6 +60,7 @@ module.exports = {
         brownColor: '#B77729',
         orangeColor: '#ff6a00',
         sunYellow: '#ffc107',
+        alertRed: '#ff0f0f',
 
         //? Products
         productDarkBg: '#1d1d22',

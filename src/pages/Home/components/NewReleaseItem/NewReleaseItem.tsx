@@ -2,9 +2,9 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Skeleton } from '@mui/material'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import producImageApi from 'src/apis/productImage.api'
-import ItemTag from 'src/constants/itemTag'
 import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import { Product as ProductType } from 'src/types/product.type'
@@ -42,9 +42,13 @@ export default function NewReleaseItem({ product, dragging }: Props) {
     queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
   }
 
+  //? use translation
+  const { t } = useTranslation('productdetail')
+  const tag = product.tag
+
   return (
     <button
-      className='w-full cursor-grab items-start rounded-lg text-left hover:bg-black/5 dark:hover:bg-white/5'
+      className='w-full cursor-grab items-start rounded-lg text-left duration-300 hover:bg-lightWhite700/60 dark:hover:bg-darkGray700/60'
       onClick={(e) => {
         if (dragging) e.preventDefault()
         else handleClickItem()
@@ -76,14 +80,16 @@ export default function NewReleaseItem({ product, dragging }: Props) {
               </p>
               {product.tag !== 0 && (
                 <div className='relative'>
-                  <span className='flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
-                    {ItemTag[product.tag]}
+                  <span className='flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
+                    {tag == 1 && t('tag.top seller')}
+                    {tag == 2 && t('tag.signature')}
+                    {tag == 3 && t('tag.favourite')}
                   </span>
-                  <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
+                  <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent lg:left-20 lg:border-[12px]' />
                 </div>
               )}
 
-              <span className='text-sm font-medium text-brownColor dark:text-haretaColor sm:text-base lg:text-lg xl:text-xl'>
+              <span className='text-sm font-medium text-haretaColor dark:text-haretaColor sm:text-base lg:text-lg xl:text-xl'>
                 ${formatCurrency(product.price)}
               </span>
             </div>

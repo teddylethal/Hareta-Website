@@ -65,7 +65,7 @@ export default function MobileSorter() {
     <Fragment>
       <button
         onClick={open}
-        className='flex w-[60%] items-center justify-center rounded-md bg-vintageColor/90 px-4 py-1 text-sm text-textDark dark:bg-haretaColor/80 dark:text-textLight sm:text-base'
+        className='flex w-[60%] items-center justify-center rounded-md bg-haretaColor px-4 py-1 text-sm font-medium text-textDark sm:text-base'
       >
         {tagEnum === 0 ? 'Newest' : ItemTag[tagEnum]}
       </button>
@@ -87,8 +87,8 @@ export default function MobileSorter() {
               animate={{
                 opacity: 1,
                 x: 0,
-                backgroundColor: theme === 'dark' ? '#303030' : '#f8f8f8',
-                color: theme === 'dark' ? '#eeeeee' : '#222222'
+                backgroundColor: theme === 'dark' ? '#1d1d22' : '#fbfbff',
+                color: theme === 'dark' ? '#eeeeee' : '#111111'
               }}
               exit={{ opacity: 0, x: '-20%' }}
               transition={{ duration: 0.3 }}
@@ -100,11 +100,10 @@ export default function MobileSorter() {
                   <button
                     onClick={handleChange(0)}
                     className={classNames(
-                      ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-textDark dark:border-white/40',
                       {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum === 0,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 0
+                        'bg-primaryColor': tagEnum === 0,
+                        'bg-haretaColor/80': tagEnum !== 0
                       }
                     )}
                   >
@@ -115,11 +114,10 @@ export default function MobileSorter() {
                   <button
                     onClick={handleChange(1)}
                     className={classNames(
-                      ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-textDark dark:border-white/40',
                       {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum === 1,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 1
+                        'bg-primaryColor': tagEnum === 1,
+                        'bg-haretaColor/80': tagEnum !== 1
                       }
                     )}
                   >
@@ -130,11 +128,10 @@ export default function MobileSorter() {
                   <button
                     onClick={handleChange(2)}
                     className={classNames(
-                      ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-textDark dark:border-white/40',
                       {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum === 2,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 2
+                        'bg-primaryColor': tagEnum === 2,
+                        'bg-haretaColor/80': tagEnum !== 2
                       }
                     )}
                   >
@@ -145,11 +142,10 @@ export default function MobileSorter() {
                   <button
                     onClick={handleChange(3)}
                     className={classNames(
-                      ' flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 dark:border-white/40 ',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-textDark dark:border-white/40',
                       {
-                        'hover:bg-[#eee] hover:text-textDark dark:hover:bg-[#222] dark:hover:text-textLight':
-                          tagEnum === 3,
-                        'bg-vintageColor/90  text-textDark dark:bg-haretaColor/80 dark:text-textLight': tagEnum !== 3
+                        'bg-primaryColor': tagEnum === 3,
+                        'bg-haretaColor/80': tagEnum !== 3
                       }
                     )}
                   >

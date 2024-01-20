@@ -182,8 +182,8 @@ export default function ProductDetail() {
             to={path.home}
             className={({ isActive }) =>
               classNames({
-                'text-brownColor dark:text-haretaColor': isActive,
-                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+                'text-haretaColor': isActive,
+                'hover:text-primaryColor': !isActive
               })
             }
           >
@@ -194,15 +194,15 @@ export default function ProductDetail() {
             to={path.store}
             className={({ isActive }) =>
               classNames({
-                'text-brownColor dark:text-haretaColor': isActive,
-                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+                'text-haretaColor': isActive,
+                'hover:text-primaryColor': !isActive
               })
             }
           >
             {t('path.store')}
           </NavLink>
           <FontAwesomeIcon icon={faAngleRight} />
-          <div className={'text-brownColor dark:text-haretaColor'}>{defaltItem.name}</div>
+          <div className={'text-primaryColor'}>{defaltItem.name}</div>
         </div>
 
         {!isMobile && (
@@ -238,6 +238,7 @@ export default function ProductDetail() {
           </Fragment>
         )}
       </div>
+
       <DialogPopup
         isOpen={dialogIsOpen}
         handleClose={closeDialog}
@@ -255,6 +256,7 @@ export default function ProductDetail() {
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
       </DialogPopup>
+
       <DialogPopup
         isOpen={likeItemDialog}
         handleClose={() => setLikeItemDialog(false)}
@@ -272,6 +274,7 @@ export default function ProductDetail() {
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to your Wishlist</p>
       </DialogPopup>
+
       <DialogPopup
         isOpen={errorDialog}
         handleClose={() => setErrorDialog(false)}

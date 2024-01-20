@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import React, { Fragment, useContext } from 'react'
 
 import { CartContext } from 'src/contexts/cart.context'
@@ -28,18 +27,18 @@ export default function AuthenticatedCartMobile(props: Props) {
   return (
     <Fragment>
       <div className='relative'>
-        <div className='grid grid-cols-12 rounded-md border border-black/20 bg-[#f8f8f8] px-4 py-2 text-base font-medium uppercase text-textDark dark:border-white/20 dark:bg-[#202020] dark:text-textLight lg:text-lg'>
+        <div className='grid grid-cols-12 rounded-md border border-black/20 bg-lightWhite900 px-4 py-2 text-base font-medium uppercase text-textDark dark:border-white/20 dark:bg-darkGray900 dark:text-textLight lg:text-lg'>
           <div className='col-span-1'></div>
           <div className='col-span-6 text-center'>Product</div>
           <div className='col-span-4 text-center'>Price</div>
           <div className='col-span-1'></div>
         </div>
-        <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-[#f8f8f8] p-2 dark:border-white/20 dark:bg-[#202020]'>
+        <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightWhite900 p-2 dark:border-white/20 dark:bg-darkGray900'>
           {extendedPurchases.length > 0 ? (
             extendedPurchases?.map((purchase, index) => (
               <div
                 key={purchase.id}
-                className='mt-2 flex items-center rounded-lg border border-black/10 bg-[#efefef] p-2 text-center text-textDark first:mt-0 dark:border-white/10 dark:bg-[#101010] dark:text-textLight'
+                className='mt-2 flex items-center rounded-lg border border-black/10 bg-lightWhite700 p-2 text-center text-textDark first:mt-0 dark:border-white/10 dark:bg-darkGray700 dark:text-textLight'
               >
                 <MobileItemInCart
                   handleChecking={handleChecking}
@@ -65,7 +64,7 @@ export default function AuthenticatedCartMobile(props: Props) {
               <input
                 name='all_are_selected'
                 type='checkbox'
-                className='h-5 w-5 accent-vintageColor dark:accent-haretaColor'
+                className='h-5 w-5 accent-primaryColor'
                 checked={isAllChecked}
                 onChange={handleSelectAll}
               />
@@ -76,16 +75,12 @@ export default function AuthenticatedCartMobile(props: Props) {
           </div>
           <div className='col-span-7 flex items-center justify-center space-x-2 text-sm font-medium sm:text-base'>
             <div className='col-span-1 items-center text-right uppercase text-textDark dark:text-textLight'>Total:</div>
-            <span className='col-span-1 text-center text-haretaColor'>
+            <span className='col-span-1 text-center font-medium text-primaryColor'>
               ${formatCurrency(totalCheckedPurchasesPrice)}
             </span>
           </div>
           {checkedPurchasesCount === 0 && (
-            <div
-              className={classNames(
-                'col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-vintageColor/80 text-center text-xs font-medium uppercase text-textDark opacity-40 dark:bg-haretaColor/80 dark:text-textLight sm:text-sm'
-              )}
-            >
+            <div className='col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-textDark opacity-40 sm:text-sm'>
               Check out
             </div>
           )}
@@ -93,9 +88,7 @@ export default function AuthenticatedCartMobile(props: Props) {
             <Link
               to={path.shippingInfor}
               onClick={handleCheckout}
-              className={classNames(
-                'col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-vintageColor/80 text-center text-xs font-medium uppercase text-textDark hover:bg-vintageColor dark:bg-haretaColor/80 dark:text-textLight dark:hover:bg-haretaColor/60  sm:text-sm'
-              )}
+              className='col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-textDark hover:bg-primaryColor sm:text-sm'
             >
               Check out
             </Link>

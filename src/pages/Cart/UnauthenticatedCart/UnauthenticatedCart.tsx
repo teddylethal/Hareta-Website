@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
@@ -103,19 +102,19 @@ export default function UnauthenticatedCart() {
     <Fragment>
       {!isMobile && (
         <Fragment>
-          <div className=' mt-2 rounded-md border border-black/20 bg-white dark:border-white/20 dark:bg-black'>
+          <div className=' mt-2 rounded-md border border-black/20 bg-lightWhite900 dark:border-white/20 dark:bg-darkGray900'>
             <div className=''>
               <div className='grid grid-cols-12 rounded-sm px-8 py-4 text-sm uppercase text-textDark  dark:text-textLight lg:text-lg'>
                 <div className='col-span-6'>
                   {/* <div className='flex flex-shrink-0 items-center justify-start pr-3'>
                     <input type='checkbox' className='h-4 w-4 accent-haretaColor' />
                   </div> */}
-                  <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>
+                  <p className='flex-grow items-center justify-center text-center font-semibold'>
                     {t('content.product')}
                   </p>
                 </div>
                 <div className='col-span-6'>
-                  <div className='grid grid-cols-4 text-center'>
+                  <div className='grid grid-cols-4 text-center font-semibold'>
                     <div className='col-span-1'>{t('content.unit price')}</div>
                     <div className='col-span-1'>{t('content.quantity')}</div>
                     <div className='col-span-1'>{t('content.subtotal')}</div>
@@ -128,7 +127,7 @@ export default function UnauthenticatedCart() {
                   extendedTempPurchases?.map((purchase, index) => (
                     <div
                       key={purchase.id}
-                      className='border-b last:border-none hover:bg-lightWhite900 dark:hover:bg-darkGray900'
+                      className='border-b border-black/60 last:border-none hover:bg-lightWhite900/60 dark:border-white/60 dark:hover:bg-darkGray900/60'
                     >
                       <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none dark:text-textLight'>
                         <div className='col-span-6'>
@@ -195,7 +194,7 @@ export default function UnauthenticatedCart() {
                             </div>
                             <div className='col-span-1'>
                               <button
-                                className='bg-none text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'
+                                className='bg-none text-xs text-alertRed/80 hover:text-alertRed hover:underline lg:text-sm'
                                 onClick={handleRemove(index)}
                               >
                                 {t('content.remove')}
@@ -255,11 +254,7 @@ export default function UnauthenticatedCart() {
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
                 {checkedPurchasesCount === 0 && (
-                  <div
-                    className={classNames(
-                      'col-span-1 flex h-10 cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor/60 font-medium text-black text-opacity-60'
-                    )}
-                  >
+                  <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 lg:text-base'>
                     {t('content.check out')}
                   </div>
                 )}
@@ -267,9 +262,7 @@ export default function UnauthenticatedCart() {
                   <Link
                     to={path.shippingInfor}
                     onClick={handleCheckout}
-                    className={classNames(
-                      'col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor font-medium text-black  hover:bg-primaryColor'
-                    )}
+                    className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor text-sm font-medium text-black hover:bg-primaryColor  lg:text-base'
                   >
                     {t('content.check out')}
                   </Link>

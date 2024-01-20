@@ -42,6 +42,9 @@ export default function AccountInput({
   const { t } = useTranslation('yuperrors')
   let message = ''
   switch (errorMessage) {
+    case 'email or password is invalid':
+      message = t('login.email or password is invalid')
+      break
     case 'Email address is required':
       message = t('email.Email address is required')
       break
@@ -93,6 +96,7 @@ export default function AccountInput({
     case 'Address is required':
       message = t('order.Address is required')
       break
+
     default:
       break
   }

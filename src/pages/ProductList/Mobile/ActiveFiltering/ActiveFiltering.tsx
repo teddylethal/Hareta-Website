@@ -30,10 +30,10 @@ export default function ActiveFiltering() {
     <div className='grid grid-cols-3 gap-1.5 py-2 text-textDark/80 dark:text-textLight/80'>
       {category && (
         <div className='col-span-1'>
-          <div className='flex items-center justify-between rounded-lg border border-black/20 px-2 py-1 dark:border-white/20'>
-            <div className='truncate px-0.5 text-sm sm:text-base'>{category}</div>
+          <div className='flex items-center justify-between rounded-lg border border-black/40 px-2 py-1 dark:border-white/40'>
+            <div className='truncate px-0.5 text-sm text-haretaColor sm:text-base'>{category}</div>
             <button
-              className='flex items-center justify-center font-light text-textDark/80 dark:text-textLight/20'
+              className='flex items-center justify-center font-light text-textDark/40 dark:text-textLight/40'
               onClick={handleClick('category')}
             >
               <FontAwesomeIcon icon={faXmark} />
@@ -43,10 +43,10 @@ export default function ActiveFiltering() {
       )}
       {collection && (
         <div className='col-span-1'>
-          <div className='flex items-center justify-between rounded-lg border border-black/20 px-2 py-1 dark:border-white/20'>
-            <div className='truncate px-0.5 text-sm sm:text-base'>{collection}</div>
+          <div className='flex items-center justify-between rounded-lg border border-black/40 px-2 py-1 dark:border-white/40'>
+            <div className='truncate px-0.5 text-sm text-haretaColor sm:text-base'>{collection}</div>
             <button
-              className='flex items-center justify-center font-light text-textDark/80 dark:text-textLight/20'
+              className='flex items-center justify-center font-light text-textDark/40 dark:text-textLight/40'
               onClick={handleClick('collection')}
             >
               <FontAwesomeIcon icon={faXmark} />
@@ -56,10 +56,10 @@ export default function ActiveFiltering() {
       )}
       {type && (
         <div className='col-span-1'>
-          <div className='flex items-center justify-between rounded-lg border border-black/20 px-2 py-1 dark:border-white/20'>
-            <div className='truncate px-0.5 text-sm sm:text-base'>{type}</div>
+          <div className='flex items-center justify-between rounded-lg border border-black/40 px-2 py-1 dark:border-white/40'>
+            <div className='truncate px-0.5 text-sm text-haretaColor sm:text-base'>{type}</div>
             <button
-              className='flex items-center justify-center font-light text-textDark/80 dark:text-textLight/20'
+              className='flex items-center justify-center font-light text-textDark/40 dark:text-textLight/40'
               onClick={handleClick('type')}
             >
               <FontAwesomeIcon icon={faXmark} />

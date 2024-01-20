@@ -75,12 +75,16 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
           <input
             name='is_selected'
             type='checkbox'
-            className='h-4 w-4 accent-vintageColor dark:accent-haretaColor'
+            className='h-4 w-4 accent-primaryColor'
             checked={purchase.checked}
             onChange={handleChecking(index)}
           />
         </div>
-        <p className={classNames('col-span-6 truncate  text-center text-base', { 'text-red-600': unavailable })}>
+        <p
+          className={classNames('col-span-6 truncate text-center text-base font-semibold', {
+            'text-alertRed': unavailable
+          })}
+        >
           {purchase.item.name}
         </p>
         <span className='col-span-4 flex items-center justify-center text-xs'>
@@ -90,7 +94,7 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
           className='col-span-1 flex items-center bg-none p-1 text-textDark dark:text-textLight'
           onClick={handleRemove(index)}
         >
-          <FontAwesomeIcon icon={faTrash} className='h-4 text-red-600' />
+          <FontAwesomeIcon icon={faTrash} className='h-4 text-alertRed' />
         </button>
       </div>
       <div className='grid grid-cols-12 items-center'>

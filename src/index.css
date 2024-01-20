@@ -31,5 +31,5 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition-delay: 9999s;
-  -webkit-text-fill-color: #ff6a00;
+  -webkit-text-fill-color: #ff8800;
 }

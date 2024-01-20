@@ -77,8 +77,8 @@ export default function MobileBottomBar({ queryConfig }: Props) {
               animate={{
                 opacity: 1,
                 x: 0,
-                backgroundColor: theme === 'dark' ? '#303030' : '#f8f8f8',
-                color: theme === 'dark' ? '#eeeeee' : '#222222'
+                backgroundColor: theme === 'dark' ? '#1d1d22' : '#fbfbff',
+                color: theme === 'dark' ? '#eeeeee' : '#111111'
               }}
               exit={{ opacity: 0, x: '20%' }}
               transition={{ duration: 0.3 }}
@@ -99,10 +99,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
                     disabled={isFiltering ? false : true}
                     className={classNames(
                       'mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-300 sm:text-base ',
-                      { 'border-opacity-40 text-opacity-40 ': !isFiltering },
-                      {
-                        'hover:border-red-500 hover:text-vintageColor dark:hover:border-red-500': isFiltering
-                      }
+                      { 'opacity-60': !isFiltering }
                     )}
                   >
                     {t('aside filter.clear')}
