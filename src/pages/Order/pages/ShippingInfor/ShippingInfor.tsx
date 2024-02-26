@@ -41,7 +41,7 @@ export default function ShippingInfor() {
           <p className='uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Name')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 caret-haretaColor text-haretaColor font-medium'
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
               classNameError='mt-1 min-h-[1.25rem] lg:min-h-[1.5rem] text-sm lg:text-base text-red-600'
               register={register}
               name='name'
@@ -60,7 +60,7 @@ export default function ShippingInfor() {
           <p className=' uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Phone')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 caret-haretaColor text-haretaColor font-medium'
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
               register={register}
               name='phone'
               errorMessage={errors?.phone?.message}
@@ -78,7 +78,7 @@ export default function ShippingInfor() {
           <p className='uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Email address')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 caret-haretaColor text-haretaColor font-medium'
+              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
               register={register}
               name='email'
               errorMessage={errors?.email?.message}
@@ -99,7 +99,7 @@ export default function ShippingInfor() {
             </p>
             <div className='relative'>
               <Input
-                classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-300 caret-haretaColor text-haretaColor font-medium'
+                classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
                 register={register}
                 name='address'
                 errorMessage={errors?.address?.message}

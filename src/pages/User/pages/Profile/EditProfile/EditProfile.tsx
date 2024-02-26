@@ -28,7 +28,7 @@ export default function EditProfile() {
         </div>
         <div className='relative'>
           <Input
-            classNameInput='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+            classNameInput='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-200 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
             register={register}
             name='name'
             errorMessage={errors?.name?.message}
@@ -50,7 +50,7 @@ export default function EditProfile() {
             name='phone'
             render={({ field }) => (
               <InputNumber
-                classNameInput='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage'
+                classNameInput='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-200 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage'
                 errorMessage={errors.phone?.message}
                 autoComplete='false'
                 {...field}

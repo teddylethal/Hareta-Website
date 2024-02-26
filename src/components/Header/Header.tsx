@@ -36,11 +36,11 @@ export default function Header() {
   return (
     <div
       className={classNames(
-        'top-0 z-10 flex h-10 w-full items-center bg-lightHeader shadow-md duration-300 dark:bg-darkHeader md:h-12 lg:h-16'
+        'top-0 z-10 flex h-10 w-full items-center bg-lightHeader shadow-md duration-200 dark:bg-darkHeader md:h-12 lg:h-16'
       )}
     >
       {!isMobile && (
-        <div className='container grid w-full grid-cols-3 items-center text-black duration-300  dark:text-white'>
+        <div className='container grid w-full grid-cols-3 items-center text-black duration-200  dark:text-white'>
           <nav className='col-span-2 flex items-center justify-start space-x-2 text-base font-medium uppercase md:font-semibold lg:space-x-4 lg:text-lg'>
             <NavLink
               to={path.home}
@@ -99,7 +99,7 @@ export default function Header() {
             {isAuthenticated ? <CartPopoverWithLogin /> : <CartPopoverWithoutLogin />}
 
             {/* <div className='flex items-center justify-center px-1'>
-              <ToggleTheme className='h-6 w-6 rounded-full duration-300 hover:bg-black/20 dark:hover:bg-white/50 lg:h-8 lg:w-8' />
+              <ToggleTheme className='h-6 w-6 rounded-full duration-200 hover:bg-black/20 dark:hover:bg-white/50 lg:h-8 lg:w-8' />
             </div> */}
           </nav>
         </div>

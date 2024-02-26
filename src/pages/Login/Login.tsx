@@ -116,7 +116,7 @@ export default function Login() {
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
             <form
-              className='rounded-xl bg-lightWhite900 p-5 shadow-sm duration-300 dark:bg-darkGray900 md:p-10'
+              className='rounded-xl bg-lightWhite900 p-5 shadow-sm duration-200 dark:bg-darkGray900 md:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -171,7 +171,7 @@ export default function Login() {
               <div className='md:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs sm:text-sm md:mt-12 md:flex-row'>
                 <div className=''>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
-                    <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-300 hover:opacity-100 dark:text-blue-400'>
+                    <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-200 hover:opacity-100 dark:text-blue-400'>
                       {t('login.Forgot Password?')}
                     </p>
                   </Link>
@@ -179,7 +179,7 @@ export default function Login() {
                 {!isSmall && (
                   <div className='flex items-center text-center'>
                     <span className='text-textDark/60 dark:text-textLight/60'>{t("login.Don't have an account?")}</span>
-                    <Link className='ml-2 text-haretaColor/80 duration-300 hover:text-primaryColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>
                       {t('login.sign up')}
                     </Link>
                   </div>
@@ -190,7 +190,7 @@ export default function Login() {
                     <span className='line-clamp-2 text-textDark/60 dark:text-textLight/60'>
                       {t("login.Don't have an account?")}
                     </span>
-                    <Link className='ml-2 text-haretaColor/80 duration-300 hover:text-primaryColor' to={path.register}>
+                    <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>
                       {t('login.sign up')}
                     </Link>
                   </div>

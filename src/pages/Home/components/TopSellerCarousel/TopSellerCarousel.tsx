@@ -83,7 +83,7 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
         className='py-2'
       >
         <div
-          className={classNames('mx-0.5 h-1 w-8 rounded-md duration-300', {
+          className={classNames('mx-0.5 h-1 w-8 rounded-md duration-200', {
             ' bg-primaryColor': active,
             ' bg-haretaColor/60': !active
           })}

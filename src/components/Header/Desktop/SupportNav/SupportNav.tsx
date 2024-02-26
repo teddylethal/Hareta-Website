@@ -20,7 +20,7 @@ export default function SupportNav() {
     <div className='group'>
       <FloatingOnClick
         renderPopover={<SupportPopover closePopover={closePopover} />}
-        className='flex cursor-default select-none items-center space-x-0.5 p-1 text-textDark duration-300  dark:text-textLight'
+        className='flex cursor-default select-none items-center space-x-0.5 p-1 text-textDark duration-200  dark:text-textLight'
         isOpen={isOpen}
         handleClick={handleClick}
         openChange={setIsOpen}

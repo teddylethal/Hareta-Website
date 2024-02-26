@@ -48,7 +48,7 @@ export default function NewReleaseItem({ product, dragging }: Props) {
 
   return (
     <button
-      className='w-full cursor-grab items-start rounded-lg text-left duration-300 hover:bg-lightWhite700/60 dark:hover:bg-darkGray700/60'
+      className='w-full cursor-grab items-start rounded-lg text-left duration-200 hover:bg-lightWhite700/60 dark:hover:bg-darkGray700/60'
       onClick={(e) => {
         if (dragging) e.preventDefault()
         else handleClickItem()
@@ -75,7 +75,7 @@ export default function NewReleaseItem({ product, dragging }: Props) {
         <div className='col-span-1 md:col-span-2'>
           <div className='flex h-full flex-col justify-between pl-2 sm:pl-8 lg:pl-10 xl:pl-14'>
             <div className='flex flex-col justify-between space-y-2 overflow-hidden'>
-              <p className='h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-textDark duration-300 dark:text-textLight lg:text-xl xl:text-3xl'>
+              <p className='h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-textDark duration-200 dark:text-textLight lg:text-xl xl:text-3xl'>
                 {product.name}
               </p>
               {product.tag !== 0 && (

@@ -60,7 +60,7 @@ export default function Register() {
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-4 lg:col-end-7'>
             <form
-              className='rounded-xl bg-[#F5F5F5] p-5 shadow-sm duration-300 dark:bg-darkBg md:p-10'
+              className='rounded-xl bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-darkBg md:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -176,7 +176,7 @@ export default function Register() {
                 <span className='text-textDark/60 dark:text-textLight/60'>
                   {t('register.Already have an account?')}
                 </span>
-                <Link className='ml-2 text-haretaColor/80 duration-300 hover:text-primaryColor' to={path.login}>
+                <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.login}>
                   {t('login.login')}
                 </Link>
               </div>

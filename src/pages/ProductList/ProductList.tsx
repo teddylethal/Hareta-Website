@@ -66,7 +66,7 @@ export default function ProductList() {
   const { t } = useTranslation('store')
 
   return (
-    <div className='bg-lightBg py-2 duration-300 dark:bg-darkBg md:py-3 xl:py-4'>
+    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg md:py-3 xl:py-4'>
       <div className='container'>
         <PathBar
           pathList={[
@@ -78,7 +78,7 @@ export default function ProductList() {
         {!isMobile && (
           <div className='relative grid grid-cols-12 gap-2 lg:gap-4 xl:gap-6'>
             <div className='col-span-3'>
-              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/20 bg-barLightBg px-2 py-4 duration-300 dark:border-white/20 dark:bg-barDarkBg md:top-14 lg:top-20'>
+              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/20 bg-barLightBg px-2 py-4 duration-200 dark:border-white/20 dark:bg-barDarkBg md:top-14 lg:top-20'>
                 <SearchBar />
                 <AsideSorter />
                 <PriceRange queryConfig={queryConfig} />

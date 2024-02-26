@@ -30,11 +30,11 @@ export default function OrderSearchInput({ name, register, errorMessage, rules, 
 
   return (
     <Fragment>
-      <div className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-300 dark:bg-[#101010]'>
+      <div className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-200 dark:bg-[#101010]'>
         <input
           autoComplete='off'
           className={classNames(
-            'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-300 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:caret-white  dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg',
+            'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-200 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:caret-white  dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg',
             {
               'ring-red-600': errorMessage,
               'ring-vintageColor/80 dark:ring-haretaColor/80': !errorMessage

@@ -101,7 +101,7 @@ export default function ChangePassword() {
             <p className='text-sm font-medium uppercase lg:text-lg'>{t('password.current password')}</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage '
+              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-200 autofill:text-textDark dark:caret-white autofill:dark:text-textVintage '
               register={register}
               name='old_password'
               errorMessage={errors.old_password?.message}
@@ -111,7 +111,7 @@ export default function ChangePassword() {
             <p className='text-sm font-medium uppercase lg:text-lg'>{t('password.new password')}</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
+              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-200 autofill:text-textDark  dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='new_password'
               errorMessage={errors.new_password?.message}
@@ -121,7 +121,7 @@ export default function ChangePassword() {
             <p className='text-sm font-medium uppercase lg:text-lg'>{t('password.confirm new password')}</p>
             <Input
               type='password'
-              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-300 autofill:text-textDark peer dark:caret-white autofill:dark:text-textVintage'
+              classNameInput='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-200 autofill:text-textDark peer dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='confirm_new_password'
               errorMessage={errors.confirm_new_password?.message}

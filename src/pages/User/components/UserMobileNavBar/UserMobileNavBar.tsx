@@ -6,7 +6,7 @@ import path from 'src/constants/path'
 
 export default function UserMobileNavBar() {
   return (
-    <div className='grid grid-cols-4 rounded-md border border-black/10 bg-[#f8f8f8] text-textDark/70 duration-300 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
+    <div className='grid grid-cols-4 rounded-md border border-black/10 bg-[#f8f8f8] text-textDark/70 duration-200 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
       <div className='col-span-1 flex items-center justify-center'>
         <NavLink
           to={path.account}

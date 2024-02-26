@@ -88,7 +88,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
 
   return (
     <div
-      className='overflow-hidden rounded-md bg-barLightBg p-2 outline outline-1 outline-black/20 duration-300 dark:bg-barDarkBg dark:outline-white/20'
+      className='overflow-hidden rounded-md bg-barLightBg p-2 outline outline-1 outline-black/20 duration-200 dark:bg-barDarkBg dark:outline-white/20'
       ref={ref}
     >
       <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>
@@ -134,7 +134,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
         {type && (
           <div
             className={classNames(
-              'flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-sidebarItemLight px-2 py-1 text-sm capitalize text-textDark duration-300 dark:border-white/20 dark:bg-sidebarItemDark dark:text-textLight sm:text-base lg:text-lg',
+              'flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-sidebarItemLight px-2 py-1 text-sm capitalize text-textDark duration-200 dark:border-white/20 dark:bg-sidebarItemDark dark:text-textLight sm:text-base lg:text-lg',
               {
                 'rounded-b-md': !isOpening || !visible
               }

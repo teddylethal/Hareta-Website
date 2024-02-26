@@ -137,11 +137,11 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
 
   return (
     <div
-      className='flex w-full items-center justify-center pb-0 pt-2 duration-300 md:hover:pb-2 md:hover:pt-0'
+      className='flex w-full items-center justify-center pb-0 pt-2 duration-200 md:hover:pb-2 md:hover:pt-0'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
-      <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-300 dark:bg-productDarkBg'>
+      <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-200 dark:bg-productDarkBg'>
         {hoveringImage && (
           <div className='relative'>
             <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
@@ -163,7 +163,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
         )}
         <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
           <button
-            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-300 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor sm:text-base lg:text-lg'
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-200 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor sm:text-base lg:text-lg'
             onClick={handleClickItem}
           >
             {product.name}

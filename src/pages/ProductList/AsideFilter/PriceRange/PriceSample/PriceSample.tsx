@@ -40,9 +40,9 @@ export default function PriceSample({ handleChoosePrice }: Props) {
   const { t } = useTranslation('store')
 
   return (
-    <div className='duration-300' ref={ref}>
+    <div className='duration-200' ref={ref}>
       <button
-        className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-300 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor lg:text-lg'
+        className='flex items-center space-x-2 text-left text-base font-medium text-textDark duration-200 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor lg:text-lg'
         onClick={toggleOpenClose}
       >
         <p className=' uppercase '>{t('aside filter.price')}</p>

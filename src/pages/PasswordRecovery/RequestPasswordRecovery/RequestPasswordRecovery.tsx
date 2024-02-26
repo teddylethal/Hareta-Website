@@ -89,7 +89,7 @@ export default function RequestPasswordRecovery() {
           <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
             <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
               <form
-                className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-300 dark:bg-[#222222] md:p-10'
+                className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-[#222222] md:p-10'
                 onSubmit={onSubmit}
                 noValidate
               >
@@ -98,7 +98,7 @@ export default function RequestPasswordRecovery() {
                     <FontAwesomeIcon
                       icon={faArrowLeft}
                       fontSize={32}
-                      className='hidden pr-4 text-vintageColor/80 opacity-70 duration-300 hover:opacity-100 dark:text-haretaColor md:block'
+                      className='hidden pr-4 text-vintageColor/80 opacity-70 duration-200 hover:opacity-100 dark:text-haretaColor md:block'
                     />
                   </Link>
                   <div className=' text-center text-base uppercase text-vintageColor dark:text-haretaColor sm:text-xl xl:text-2xl'>

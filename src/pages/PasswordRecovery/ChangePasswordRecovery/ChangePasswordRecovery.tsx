@@ -91,7 +91,7 @@ export default function ChangePasswordRecovery() {
             <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
               <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
                 <form
-                  className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-300 dark:bg-[#222222] md:p-10'
+                  className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-[#222222] md:p-10'
                   onSubmit={onSubmit}
                   noValidate
                 >
@@ -100,7 +100,7 @@ export default function ChangePasswordRecovery() {
                       <FontAwesomeIcon
                         icon={faArrowLeft}
                         fontSize={40}
-                        className='hidden pr-4 text-vintageColor/80 opacity-70 duration-300 hover:opacity-100 dark:text-haretaColor md:block'
+                        className='hidden pr-4 text-vintageColor/80 opacity-70 duration-200 hover:opacity-100 dark:text-haretaColor md:block'
                       />
                     </Link>
                     <div className='py-1 text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
@@ -113,7 +113,7 @@ export default function ChangePasswordRecovery() {
                         xmlns='http://www.w3.org/2000/svg'
                         viewBox='0 0 24 24'
                         fill='currentColor'
-                        className='h-6 w-6 fill-black duration-300 dark:fill-vintageColor md:h-8 md:w-8'
+                        className='h-6 w-6 fill-black duration-200 dark:fill-vintageColor md:h-8 md:w-8'
                       >
                         <>
                           <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />

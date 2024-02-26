@@ -98,7 +98,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
                     onClick={handleClear}
                     disabled={isFiltering ? false : true}
                     className={classNames(
-                      'mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-300 sm:text-base ',
+                      'mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-200 sm:text-base ',
                       { 'opacity-60': !isFiltering }
                     )}
                   >

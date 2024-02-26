@@ -79,18 +79,18 @@ export default function AsideSorter() {
   return (
     <div
       className={classNames(
-        'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-sidebarItemLight px-3 py-2 text-base font-medium duration-300 dark:bg-sidebarItemDark lg:text-lg'
+        'grid h-full grid-cols-12 space-x-2 overflow-hidden rounded-lg bg-sidebarItemLight px-3 py-2 text-base font-medium duration-200 dark:bg-sidebarItemDark lg:text-lg'
       )}
     >
-      <p className='col-span-5 flex h-6 items-center text-left text-xs font-medium uppercase text-textDark duration-300 dark:text-textLight lg:h-7 lg:text-base xl:text-lg'>
+      <p className='col-span-5 flex h-6 items-center text-left text-xs font-medium uppercase text-textDark duration-200 dark:text-textLight lg:h-7 lg:text-base xl:text-lg'>
         {t('aside filter.sort by')}
       </p>
       <div className='col-span-7 items-center' ref={ref}>
         <button
           className={classNames(
-            'flex w-full items-center justify-center rounded-xl py-0.5 text-sm font-medium capitalize text-textDark duration-300 lg:px-3 lg:text-base',
+            'flex w-full items-center justify-center rounded-xl py-0.5 text-sm font-medium capitalize text-textDark duration-200 lg:px-3 lg:text-base',
             {
-              'rounded-b-none border-x border-t border-black/20 text-textDark duration-300 dark:border-white/20 dark:text-textLight':
+              'rounded-b-none border-x border-t border-black/20 text-textDark duration-200 dark:border-white/20 dark:text-textLight':
                 visible,
               'bg-haretaColor hover:bg-primaryColor': !visible
             }

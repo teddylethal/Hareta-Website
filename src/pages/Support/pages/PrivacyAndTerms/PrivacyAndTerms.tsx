@@ -49,11 +49,11 @@ export default function PrivacyAndTerms() {
   const scrollDirection = useScrollDirection()
 
   return (
-    <div className='relative bg-lightBg py-2 text-textDark duration-300 dark:bg-darkBg dark:text-textLight md:py-3 xl:py-4'>
+    <div className='relative bg-lightBg py-2 text-textDark duration-200 dark:bg-darkBg dark:text-textLight md:py-3 xl:py-4'>
       {isMobile && (
         <AnimatePresence>
           <button
-            className={classNames('sticky left-1 rounded-md bg-white p-2 duration-300 dark:bg-black', {
+            className={classNames('sticky left-1 rounded-md bg-white p-2 duration-200 dark:bg-black', {
               'top-12': scrollDirection == 'up',
               ' top-1': !(scrollDirection == 'up')
             })}
@@ -71,7 +71,7 @@ export default function PrivacyAndTerms() {
         >
           {!isMobile && (
             <div className='col-span-3'>
-              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto border-r border-black/20 duration-300 dark:border-white/20 md:top-14 lg:top-20'>
+              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto border-r border-black/20 duration-200 dark:border-white/20 md:top-14 lg:top-20'>
                 <PrivacyAndTermsSideNav />
               </div>
             </div>

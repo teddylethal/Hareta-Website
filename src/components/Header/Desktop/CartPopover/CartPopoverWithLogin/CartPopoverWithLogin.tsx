@@ -57,7 +57,7 @@ export default function CartPopoverWithLogin() {
   const { t } = useTranslation('header')
 
   return (
-    <div className='rounded-lg bg-haretaColor duration-300 dark:bg-haretaColor'>
+    <div className='rounded-lg bg-haretaColor duration-200 dark:bg-haretaColor'>
       <Popover
         className='flex border border-none px-1.5 py-1 lg:px-2'
         renderPopover={

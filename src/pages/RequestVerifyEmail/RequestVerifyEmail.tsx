@@ -66,7 +66,7 @@ export default function RequestVerifyEmail() {
       <div className='container'>
         <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
-            <div className='rounded-2xl bg-[#F5F5F5] pb-2 pt-7 font-newfont shadow-sm duration-300 dark:bg-[#222222]'>
+            <div className='rounded-2xl bg-[#F5F5F5] pb-2 pt-7 font-newfont shadow-sm duration-200 dark:bg-[#222222]'>
               <div className='text-center text-lg font-semibold text-orangeColor sm:text-3xl'>
                 Please verify your email
               </div>
@@ -83,7 +83,7 @@ export default function RequestVerifyEmail() {
                     disabled={counter > 0 || click}
                     onClick={onSubmit}
                     className={
-                      'flex h-full w-full items-center justify-center rounded-xl bg-orangeColor text-sm font-semibold text-black duration-300 dark:text-white sm:text-base  ' +
+                      'flex h-full w-full items-center justify-center rounded-xl bg-orangeColor text-sm font-semibold text-black duration-200 dark:text-white sm:text-base  ' +
                       (counter > 0 || click
                         ? 'cursor-not-allowed bg-opacity-80 dark:bg-opacity-50'
                         : 'hover:bg-opacity-80')
@@ -114,7 +114,7 @@ export default function RequestVerifyEmail() {
                   <p className='text-gray-700 dark:text-gray-400'>Wrong email address?</p>
                   <Link
                     to={path.login}
-                    className='ml-1 font-normal text-brownColor/70 duration-300 hover:text-brownColor/100 dark:text-haretaColor/70 dark:hover:text-haretaColor/100'
+                    className='ml-1 font-normal text-brownColor/70 duration-200 hover:text-brownColor/100 dark:text-haretaColor/70 dark:hover:text-haretaColor/100'
                   >
                     Go back
                   </Link>

@@ -39,7 +39,7 @@ export default function OrderTracking() {
   const isMobile = useViewport().width < 768
 
   return (
-    <div className='bg-lightBg py-2 text-textDark duration-300 dark:bg-darkBg dark:text-textLight md:py-3 xl:py-4'>
+    <div className='bg-lightBg py-2 text-textDark duration-200 dark:bg-darkBg dark:text-textLight md:py-3 xl:py-4'>
       <div className='container'>
         <PathBar
           pathList={[

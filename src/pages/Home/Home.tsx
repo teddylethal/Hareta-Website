@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <Fragment>
       {pageIsLoading && <LoadingWithEmptyContent />}
-      <div className='bg-lightBg text-textDark duration-300 dark:bg-darkBg dark:text-textLight'>
+      <div className='bg-lightBg text-textDark duration-200 dark:bg-darkBg dark:text-textLight'>
         <EventCarousel />
         <div className='py-4 md:py-6 lg:py-8 xl:py-10'>
           <NewReleaseCarousel setPageIsLoading={setPageIsLoading} />
