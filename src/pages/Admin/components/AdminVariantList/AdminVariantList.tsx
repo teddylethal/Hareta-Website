@@ -5,11 +5,9 @@ import productApi from 'src/apis/product.api'
 import classNames from 'classnames'
 import LoadingRing from 'src/components/LoadingRing'
 
-interface Props {
-  groupId: string
-}
+export default function AdminVariantList() {
+  const { productGroupId } = useContext(AdminContext)
 
-export default function AdminVariantList({ groupId }: Props) {
   //! GET PRODUCT IN GROUP
   const {
     data: itemsInGroupData,
@@ -20,24 +18,25 @@ export default function AdminVariantList({ groupId }: Props) {
     queryKey: ['admin_variant_list'],
     queryFn: () =>
       productApi.getItemsInGroup({
-        id: groupId,
+        id: productGroupId as string,
         page: '1',
         limit: '50'
-      })
+      }),
+    enabled: productGroupId != null
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 
-  // useEffect(() => {
-  //   if (ProductGroup) {
-  //     refetch()
-  //   }
-  // }, [ProductGroup, refetch])
+  useEffect(() => {
+    if (productGroupId) {
+      refetch()
+    }
+  }, [productGroupId, refetch])
 
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
         <p className='lg:text-xl text-lg font-semibold uppercase'>variant list</p>
-        <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
+        <div className='h-80 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {/* {!ProductGroup && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
               select a group

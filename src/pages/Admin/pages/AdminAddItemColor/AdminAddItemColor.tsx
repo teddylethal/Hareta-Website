@@ -18,7 +18,7 @@ import AdminCreatingPage from '../AdminCreatingPage'
 type FormData = CreatingItemSchema
 
 export default function AdminAddItemColor() {
-  const { ProductGroup, setCurrentItem } = useContext(AdminContext)
+  const { ProductGroup, setCurrentProduct } = useContext(AdminContext)
 
   //? GET DEFAULT ITEM
   const itemInGroupQuery: ProductsInGroupConfig = {
@@ -83,7 +83,7 @@ export default function AdminAddItemColor() {
     try {
       const newItemRespone = await addColorMutation.mutateAsync({ ...data })
       const newItem = newItemRespone.data.data
-      setCurrentItem(newItem)
+      setCurrentProduct(newItem)
       navigate({ pathname: adminPath.uploadProductAvatar })
     } catch (error) {
       console.log(error)

@@ -10,7 +10,7 @@ const AdminItemLayout = lazy(() => import('src/pages/Admin/layouts/AdminItemLayo
 
 //? IMPORT ADMIN COMPONENTS
 const AdminDefaultProductList = lazy(() => import('src/pages/Admin/pages/AdminDefaultProductList'))
-const AdminProductDetail = lazy(() => import('src/pages/Admin/pages/AdminProductDetail'))
+const AdminProductPage = lazy(() => import('src/pages/Admin/pages/AdminProductPage'))
 const AdminCreateItem = lazy(() => import('src/pages/Admin/pages/AdminCreateItem'))
 const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
@@ -63,7 +63,7 @@ const AdminRoute = {
         },
         {
           path: adminPath.productDetail,
-          element: <AdminProductDetail />
+          element: <AdminProductPage />
         },
         {
           path: adminPath.createItem,

@@ -1,12 +1,12 @@
 import React, { createContext, useState } from 'react'
-import { Product, ProductGroup } from 'src/types/product.type'
+import { Product } from 'src/types/product.type'
 import { ProductImage } from 'src/types/productImage.type'
 
 interface AdminContextInterface {
-  ProductGroup: ProductGroup | null
-  setProductGroup: React.Dispatch<React.SetStateAction<ProductGroup | null>>
-  currentItem: Product | null
-  setCurrentItem: React.Dispatch<React.SetStateAction<Product | null>>
+  productGroupId: string | null
+  setProductGroupId: React.Dispatch<React.SetStateAction<string | null>>
+  currentProduct: Product | null
+  setCurrentProduct: React.Dispatch<React.SetStateAction<Product | null>>
   currentImage: ProductImage | null
   setCurrentImage: React.Dispatch<React.SetStateAction<ProductImage | null>>
   orderID: string
@@ -14,10 +14,10 @@ interface AdminContextInterface {
 }
 
 const initialAdminContext: AdminContextInterface = {
-  ProductGroup: null,
-  setProductGroup: () => null,
-  currentItem: null,
-  setCurrentItem: () => null,
+  productGroupId: null,
+  setProductGroupId: () => null,
+  currentProduct: null,
+  setCurrentProduct: () => null,
   currentImage: null,
   setCurrentImage: () => null,
   orderID: '',
@@ -27,18 +27,18 @@ const initialAdminContext: AdminContextInterface = {
 export const AdminContext = createContext<AdminContextInterface>(initialAdminContext)
 
 export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
-  const [ProductGroup, setProductGroup] = useState<ProductGroup | null>(initialAdminContext.ProductGroup)
-  const [currentItem, setCurrentItem] = useState<Product | null>(initialAdminContext.currentItem)
+  const [productGroupId, setProductGroupId] = useState<string | null>(initialAdminContext.productGroupId)
+  const [currentProduct, setCurrentProduct] = useState<Product | null>(initialAdminContext.currentProduct)
   const [currentImage, setCurrentImage] = useState<ProductImage | null>(initialAdminContext.currentImage)
   const [orderID, setOrderID] = useState<string>(initialAdminContext.orderID)
 
   return (
     <AdminContext.Provider
       value={{
-        ProductGroup,
-        setProductGroup,
-        currentItem,
-        setCurrentItem,
+        productGroupId,
+        setProductGroupId,
+        currentProduct,
+        setCurrentProduct,
         currentImage,
         setCurrentImage,
         orderID,

@@ -18,7 +18,7 @@ import AdminCreatingPage from '../AdminCreatingPage'
 type FormData = CreatingItemSchema
 
 export default function AdminCreateItem() {
-  const { ProductGroup, setCurrentItem } = useContext(AdminContext)
+  const { ProductGroup, setCurrentProduct } = useContext(AdminContext)
   //? CREATE NEW ITEM
   const methods = useForm<FormData>({
     defaultValues: {
@@ -52,7 +52,7 @@ export default function AdminCreateItem() {
     try {
       const newItemRespone = await createNewItem.mutateAsync({ ...data })
       const newItem: Product = newItemRespone.data.data
-      setCurrentItem(newItem)
+      setCurrentProduct(newItem)
       await setDefaultItemMutation.mutateAsync({ id: newItem.id })
       navigate({ pathname: adminPath.uploadProductAvatar })
     } catch (error) {

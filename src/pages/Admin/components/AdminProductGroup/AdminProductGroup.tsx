@@ -8,7 +8,7 @@ import { ProductGroup, ProductListConfig } from 'src/types/product.type'
 import { ColorRing } from 'react-loader-spinner'
 
 export default function AdminProductGroup() {
-  const { setProductGroup, ProductGroup, setCurrentItem } = useContext(AdminContext)
+  const { setProductGroup, ProductGroup, setCurrentProduct } = useContext(AdminContext)
 
   //? GET ITEM LIST
   const queryConfig = {}
@@ -29,7 +29,7 @@ export default function AdminProductGroup() {
   //? SELECT GROUP
   const queryClient = useQueryClient()
   const handleChooseGroup = (group: ProductGroup) => () => {
-    setCurrentItem(null)
+    setCurrentProduct(null)
     setProductGroup(group)
     queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
   }

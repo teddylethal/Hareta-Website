@@ -11,10 +11,10 @@ import ImageInput from '../../components/ImageInput'
 import AdminUpdatingPage from '../AdminUpdatingPage'
 import producImageApi from 'src/apis/productImage.api'
 import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminProductsInGroup from '../../components/AdminProductsInGroup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 
 export default function AdminUploadProductAvatar() {
-  const { currentItem } = useContext(AdminContext)
+  const { currentProduct } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
@@ -23,21 +23,21 @@ export default function AdminUploadProductAvatar() {
     return avatarFile ? URL.createObjectURL(avatarFile) : ''
   }, [avatarFile])
 
-  const avatar = currentItem?.avatar?.url || ''
+  const avatar = currentProduct?.avatar?.url || ''
 
   //? GET IMAGE LIST
   const { data: itemImageListData, refetch } = useQuery({
     queryKey: ['item_image_list'],
-    queryFn: () => producImageApi.getImageList(currentItem?.id as string),
+    queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
-    enabled: Boolean(currentItem)
+    enabled: Boolean(currentProduct)
   })
   const imageList = itemImageListData?.data.data
   useEffect(() => {
-    if (currentItem) {
+    if (currentProduct) {
       refetch()
     }
-  }, [currentItem, refetch])
+  }, [currentProduct, refetch])
 
   //? AUTO ADD FIRST IMAGE
   const addItemImage = useMutation({ mutationFn: producImageApi.addImage })
@@ -47,15 +47,15 @@ export default function AdminUploadProductAvatar() {
   const uploadAvatarMutation = useMutation({ mutationFn: adminItemApi.uploadProductAvatar })
   const handleSubmit = () => {
     try {
-      if (avatarFile && currentItem) {
+      if (avatarFile && currentProduct) {
         const body = {
-          id: currentItem.id as string,
+          id: currentProduct.id as string,
           file: avatarFile
         }
         if (imageList?.length === 0) {
           const addImageBody = {
-            item_id: currentItem.id,
-            color: currentItem.color,
+            item_id: currentProduct.id,
+            color: currentProduct.color,
             file: avatarFile
           }
           addItemImage.mutate(addImageBody, {
@@ -88,11 +88,11 @@ export default function AdminUploadProductAvatar() {
         <div className='col-span-6'>
           <div className='relative z-10 rounded-lg border border-white/40 p-4'>
             <div className='relative w-full pt-[75%]'>
-              {currentItem && (
+              {currentProduct && (
                 <Fragment>
                   <img
                     src={previewImage || avatar}
-                    alt={currentItem?.name}
+                    alt={currentProduct?.name}
                     className='absolute left-0 top-0 h-full w-full object-scale-down'
                   />
                   <div className='absolute bottom-1 left-1/2 w-1/4 -translate-x-1/2 rounded-lg border border-white/20 bg-black px-2 py-1'>
@@ -107,7 +107,7 @@ export default function AdminUploadProductAvatar() {
                   <p className='lg:text-lg text-base font-medium uppercase text-white/60'>name</p>
                 </div>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase'>{currentItem?.name}</p>
+                  <p className='lg:text-lg text-base font-medium uppercase'>{currentProduct?.name}</p>
                 </div>
               </div>
               <div className='grid grid-cols-2'>
@@ -115,10 +115,10 @@ export default function AdminUploadProductAvatar() {
                   <p className='lg:text-lg text-base font-medium uppercase text-white/60'>color</p>
                 </div>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase'>{currentItem?.color}</p>
+                  <p className='lg:text-lg text-base font-medium uppercase'>{currentProduct?.color}</p>
                 </div>
               </div>
-              {currentItem && (
+              {currentProduct && (
                 <div className='flex w-full justify-end'>
                   <button
                     className='rounded-lg border border-white/40 bg-black px-4 py-2 hover:border-haretaColor'
@@ -134,7 +134,7 @@ export default function AdminUploadProductAvatar() {
 
         <div className='col-span-6 space-y-6'>
           <AdminProductGroup />
-          <AdminProductsInGroup />
+          <AdminSelectsVariant />
         </div>
       </div>
       <DialogPopup

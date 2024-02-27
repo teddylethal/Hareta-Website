@@ -3,7 +3,7 @@ import AdminDialog from '../../components/AdminDialog'
 import AdminImagesPage from '../AdminImagesPage'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminProductsInGroup from '../../components/AdminProductsInGroup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 import AdminItemImages from '../../components/AdminItemImages'
 import { AdminContext } from 'src/contexts/admin.context'
 import DialogPopup from 'src/components/DialogPopup'
@@ -12,7 +12,7 @@ import { adminItemImageApi } from 'src/apis/admin.api'
 import { AppContext } from 'src/contexts/app.context'
 
 export default function AdminDeleteItemImage() {
-  const { currentItem, currentImage, setCurrentImage } = useContext(AdminContext)
+  const { currentProduct, currentImage, setCurrentImage } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
@@ -47,7 +47,7 @@ export default function AdminDeleteItemImage() {
         <div className='col-span-1'>
           <div className='space-y-8'>
             <AdminProductGroup />
-            <AdminProductsInGroup />
+            <AdminSelectsVariant />
           </div>
         </div>
         <div className='col-span-1'>
@@ -56,11 +56,11 @@ export default function AdminDeleteItemImage() {
             <div className='space-y-4 rounded-lg border border-white/40 bg-black p-4'>
               <div className='grid grid-cols-3 gap-4'>
                 <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Item name</p>
-                <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.name}</p>
+                <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.name}</p>
               </div>
               <div className='grid grid-cols-3 gap-4'>
                 <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Color</p>
-                <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.color}</p>
+                <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.color}</p>
               </div>
               <div className='grid grid-cols-3 gap-4'>
                 <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Image ID</p>

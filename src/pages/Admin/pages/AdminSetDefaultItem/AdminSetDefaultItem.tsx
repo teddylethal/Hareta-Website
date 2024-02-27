@@ -10,7 +10,7 @@ import { Fragment, useContext, useEffect } from 'react'
 import AdminUpdatingPage from '../AdminUpdatingPage'
 import { AdminContext } from 'src/contexts/admin.context'
 import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminProductsInGroup from '../../components/AdminProductsInGroup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 
 interface FormData {
   id: string
@@ -21,7 +21,7 @@ const defaultItemSchema = yup.object({
 })
 
 export default function AdminSetDefaultItem() {
-  const { currentItem } = useContext(AdminContext)
+  const { currentProduct } = useContext(AdminContext)
 
   //? SET DEFAULT ITEM
   const {
@@ -40,10 +40,10 @@ export default function AdminSetDefaultItem() {
   })
 
   useEffect(() => {
-    if (currentItem) {
-      setValue('id', currentItem?.id)
+    if (currentProduct) {
+      setValue('id', currentProduct?.id)
     }
-  }, [currentItem, setValue])
+  }, [currentProduct, setValue])
 
   const queryClient = useQueryClient()
   const setDefaultItemMutation = useMutation(adminItemApi.setDefaultItem)
@@ -92,12 +92,12 @@ export default function AdminSetDefaultItem() {
                 </button>
               </div>
             </form>
-            {!currentItem && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+            {!currentProduct && <div className='absolute inset-0 z-10 bg-black/50'></div>}
           </div>
         </div>
         <div className='col-span-7 space-y-4'>
           <AdminProductGroup />
-          <AdminProductsInGroup />
+          <AdminSelectsVariant />
         </div>
       </div>
     </Fragment>

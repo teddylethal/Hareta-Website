@@ -1,6 +1,6 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminProductsInGroup from '../../components/AdminProductsInGroup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 import AdminImagesPage from '../AdminImagesPage'
 import { AdminContext } from 'src/contexts/admin.context'
 import ImageInput from '../../components/ImageInput'
@@ -13,7 +13,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 
 export default function AdminAddItemImage() {
-  const { currentItem, ProductGroup } = useContext(AdminContext)
+  const { currentProduct, ProductGroup } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
@@ -35,26 +35,26 @@ export default function AdminAddItemImage() {
     refetch
   } = useQuery({
     queryKey: ['item_image_list'],
-    queryFn: () => producImageApi.getImageList(currentItem?.id as string),
+    queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
-    enabled: Boolean(currentItem)
+    enabled: Boolean(currentProduct)
   })
   const imageList = itemImageListData?.data.data
   // const imageList = useMemo(() => itemImageListData?.data.data, [itemImageListData?.data.data])
   useEffect(() => {
-    if (currentItem) {
+    if (currentProduct) {
       refetch()
     }
-  }, [currentItem, refetch])
+  }, [currentProduct, refetch])
 
   //? HANDLE ADD IMAGE
   const addItemImage = useMutation(producImageApi.addImage)
   const handleSubmit = () => {
     try {
-      if (avatarFile && currentItem) {
+      if (avatarFile && currentProduct) {
         const body = {
-          item_id: currentItem.id,
-          color: currentItem.color,
+          item_id: currentProduct.id,
+          color: currentProduct.color,
           file: avatarFile
         }
         addItemImage.mutate(body, {
@@ -79,12 +79,12 @@ export default function AdminAddItemImage() {
             <div className='grid grid-cols-2 gap-6 p-2'>
               <div className='col-span-1'>
                 <div className='relative w-full overflow-hidden rounded-md pt-[75%]'>
-                  {currentItem && (
+                  {currentProduct && (
                     <Fragment>
                       {avatarFile && (
                         <img
                           src={previewImage}
-                          alt={currentItem?.name}
+                          alt={currentProduct?.name}
                           className='absolute left-0 top-0 h-full w-full object-scale-down'
                         />
                       )}
@@ -100,7 +100,7 @@ export default function AdminAddItemImage() {
                 <div className='flex h-full flex-col justify-around'>
                   <div className='grid grid-cols-3 gap-4'>
                     <p className='col-span-1 font-medium uppercase text-textLight/60'>Item ID</p>
-                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentItem?.id}</p>
+                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentProduct?.id}</p>
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
                     <p className='col-span-1 font-medium uppercase text-textLight/60'>Name</p>
@@ -108,7 +108,7 @@ export default function AdminAddItemImage() {
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
                     <p className='col-span-1 font-medium uppercase text-textLight/60'>Color</p>
-                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentItem?.color}</p>
+                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentProduct?.color}</p>
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export default function AdminAddItemImage() {
         <div className='col-span-1'>
           <div className='flex min-h-full flex-col justify-between'>
             <AdminProductGroup />
-            <AdminProductsInGroup />
+            <AdminSelectsVariant />
           </div>
         </div>
       </div>

@@ -14,21 +14,21 @@ import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminDialog from '../../components/AdminDialog'
 import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminProductsInGroup from '../../components/AdminProductsInGroup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 
 type FormData = NoUndefinedField<UpdateItemSchema>
 
 export default function AdminUpdateItem() {
-  const { currentItem, ProductGroup, setCurrentItem } = useContext(AdminContext)
+  const { currentProduct, ProductGroup, setCurrentProduct } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
 
   //? GET ITEM DETAIL
-  const defaultItemID = currentItem?.id
+  const defaultItemID = currentProduct?.id
   const { data: itemDetailData } = useQuery({
     queryKey: ['item_detail_for_admin', defaultItemID],
     queryFn: () => productApi.getProductDetail(defaultItemID as string),
-    enabled: Boolean(currentItem)
+    enabled: Boolean(currentProduct)
   })
   const itemDetail = itemDetailData?.data.data
 
@@ -88,7 +88,7 @@ export default function AdminUpdateItem() {
       setLoadingPage(true)
       await updateItemMutation.mutateAsync({ ...data })
       setLoadingPage(false)
-      setCurrentItem(null)
+      setCurrentProduct(null)
       showSuccessDialog(setSuccessDialogOpen, 2000)
     } catch (error) {
       console.log(error)
@@ -109,9 +109,9 @@ export default function AdminUpdateItem() {
 
   //? HANDLE CHOOSE GROUP
   useEffect(() => {
-    setCurrentItem(null)
+    setCurrentProduct(null)
     reset()
-  }, [ProductGroup, setCurrentItem, reset, setValue])
+  }, [ProductGroup, setCurrentProduct, reset, setValue])
 
   return (
     <div>
@@ -121,7 +121,7 @@ export default function AdminUpdateItem() {
           <div className='col-span-1'>
             <div className='sticky top-6 space-y-4'>
               <AdminProductGroup />
-              <AdminProductsInGroup />
+              <AdminSelectsVariant />
             </div>
           </div>
           <div className='col-span-1'>
@@ -130,7 +130,7 @@ export default function AdminUpdateItem() {
                 className='relative overflow-hidden rounded-lg border border-white/40 p-4'
                 onSubmit={handleSubmit(onSubmit, onInvalid)}
               >
-                {(!itemDetail || !currentItem) && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+                {(!itemDetail || !currentProduct) && <div className='absolute inset-0 z-10 bg-black/50'></div>}
 
                 <AdminUpdateItemForm />
                 <div className='col-span-1 mt-8 flex items-center justify-end'>

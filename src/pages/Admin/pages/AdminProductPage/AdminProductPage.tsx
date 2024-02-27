@@ -1,14 +1,15 @@
 import { useParams } from 'react-router-dom'
 import { getIdFromNameId } from 'src/utils/utils'
-import AdminVariantList from '../../components/AdminVariantList'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import productApi from 'src/apis/product.api'
 import { useQuery } from '@tanstack/react-query'
 import LoadingSection from 'src/components/LoadingSection'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
+import AdminProductInfor from '../../components/AdminProductInfor'
 
-export default function AdminProductDetail() {
-  const { setCurrentItem } = useContext(AdminContext)
+export default function AdminProductPage() {
+  const { setProductGroupId } = useContext(AdminContext)
 
   //! GET PRODUCT DETAIL
   const { nameId } = useParams()
@@ -19,12 +20,20 @@ export default function AdminProductDetail() {
   })
   const defaultProduct = productDetailData?.data.data
 
+  useEffect(() => {
+    if (defaultProduct) {
+      setProductGroupId(defaultProduct.group.id)
+    }
+  }, [defaultProduct, setProductGroupId])
+
   return (
     <div>
       {!defaultProduct && <LoadingSection />}
       {defaultProduct && (
         <div className=''>
-          <AdminVariantList groupId={defaultProduct.group.id} />
+          <AdminSelectsVariant />
+
+          <AdminProductInfor />
         </div>
       )}
     </div>

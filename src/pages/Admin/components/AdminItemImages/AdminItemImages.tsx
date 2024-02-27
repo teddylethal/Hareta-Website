@@ -9,7 +9,7 @@ import { ProductImage } from 'src/types/productImage.type'
 import classNames from 'classnames'
 
 export default function AdminItemImages() {
-  const { currentItem, setCurrentImage, currentImage } = useContext(AdminContext)
+  const { currentProduct, setCurrentImage, currentImage } = useContext(AdminContext)
 
   //? GET IMAGE LIST
   const {
@@ -19,17 +19,17 @@ export default function AdminItemImages() {
     refetch
   } = useQuery({
     queryKey: ['item_image_list'],
-    queryFn: () => producImageApi.getImageList(currentItem?.id as string),
+    queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
-    enabled: Boolean(currentItem)
+    enabled: Boolean(currentProduct)
   })
   const imageList = itemImageListData?.data.data
   // const imageList = useMemo(() => itemImageListData?.data.data, [itemImageListData?.data.data])
   useEffect(() => {
-    if (currentItem) {
+    if (currentProduct) {
       refetch()
     }
-  }, [currentItem, refetch])
+  }, [currentProduct, refetch])
 
   //? HANDLE CHOOSE IMAGE
   const handleSelectImage = (image: ProductImage) => () => {
@@ -41,7 +41,7 @@ export default function AdminItemImages() {
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
         <p className=' lg:text-xl text-center text-lg font-semibold uppercase text-white'>Image list</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
-          {!currentItem && (
+          {!currentProduct && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
               select a variant
             </div>

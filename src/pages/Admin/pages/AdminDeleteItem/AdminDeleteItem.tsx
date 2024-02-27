@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import AdminDeletePageHeader from '../../components/AdminDeletePageHeader'
 import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminProductsInGroup from '../../components/AdminProductsInGroup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 import { AdminContext } from 'src/contexts/admin.context'
 import ItemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
@@ -12,7 +12,7 @@ import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminDialog from '../../components/AdminDialog'
 
 export default function AdminDeleteItem() {
-  const { currentItem, setCurrentItem } = useContext(AdminContext)
+  const { currentProduct, setCurrentProduct } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
@@ -28,13 +28,13 @@ export default function AdminDeleteItem() {
     setConfirmDialog(false)
     setLoadingPage(true)
     deleteItemMutation.mutate(
-      { id: currentItem?.id as string },
+      { id: currentProduct?.id as string },
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
           queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
           queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
-          setCurrentItem(null)
+          setCurrentProduct(null)
         }
       }
     )
@@ -48,7 +48,7 @@ export default function AdminDeleteItem() {
         <div className='col-span-1'>
           <div className='sticky top-6 space-y-8'>
             <AdminProductGroup />
-            <AdminProductsInGroup />
+            <AdminSelectsVariant />
           </div>
         </div>
         <div className='col-span-1'>
@@ -58,8 +58,8 @@ export default function AdminDeleteItem() {
               <div className='col-span-2'>
                 <div className='relative w-full pt-[75%]'>
                   <img
-                    src={currentItem?.avatar?.url || ''}
-                    alt={`${currentItem?.name} ${currentItem?.color}`}
+                    src={currentProduct?.avatar?.url || ''}
+                    alt={`${currentProduct?.name} ${currentProduct?.color}`}
                     className='absolute left-0 top-0 h-full w-full object-scale-down'
                   />
                 </div>
@@ -67,47 +67,47 @@ export default function AdminDeleteItem() {
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>group name</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.group?.name}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.group?.name}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Item name</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.name}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.name}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>price</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.price}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.price}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Color</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.color}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.color}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>category</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.category}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.category}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>collection</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.collection}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.collection}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>type</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.type}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.type}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>product line</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.product_line}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.product_line}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>quantity</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentItem?.quantity}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.quantity}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>tag</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{ItemTag[currentItem?.tag || 0]}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{ItemTag[currentProduct?.tag || 0]}</p>
             </div>
-            {!currentItem && <div className='absolute inset-0 bg-black'></div>}
+            {!currentProduct && <div className='absolute inset-0 bg-black'></div>}
           </div>
-          {currentItem && (
+          {currentProduct && (
             <div className='mt-4 flex w-full items-center justify-end'>
               <button
                 className='lg:text-sm rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600'
