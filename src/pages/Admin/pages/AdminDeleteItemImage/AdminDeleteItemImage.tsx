@@ -13,7 +13,7 @@ import { AppContext } from 'src/contexts/app.context'
 
 export default function AdminDeleteItemImage() {
   const { currentItem, currentImage, setCurrentImage } = useContext(AdminContext)
-  const { setPageIsLoading } = useContext(AppContext)
+  const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
 
@@ -26,7 +26,7 @@ export default function AdminDeleteItemImage() {
   const deleteItemImageMutation = useMutation(adminItemImageApi.deleteImage)
   const handleDelete = () => {
     setConfirmDialog(false)
-    setPageIsLoading(true)
+    setLoadingPage(true)
     deleteItemImageMutation.mutate(
       { id: currentImage?.id as string },
       {
@@ -37,7 +37,7 @@ export default function AdminDeleteItemImage() {
         }
       }
     )
-    setPageIsLoading(false)
+    setLoadingPage(false)
   }
 
   return (

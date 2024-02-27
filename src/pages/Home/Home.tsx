@@ -6,7 +6,7 @@ import MostFavouriteList from './components/MostFavouriteList/MostFavouriteList'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 
 export default function Home() {
-  const [pageIsLoading, setPageIsLoading] = useState<boolean>(true)
+  const [LoadingPage, setLoadingPage] = useState<boolean>(true)
 
   //? CHANGE TITLE
   useEffect(() => {
@@ -15,17 +15,17 @@ export default function Home() {
 
   return (
     <Fragment>
-      {pageIsLoading && <LoadingWithEmptyContent />}
+      {LoadingPage && <LoadingWithEmptyContent />}
       <div className='bg-lightBg text-textDark duration-200 dark:bg-darkBg dark:text-textLight'>
         <EventCarousel />
         <div className='py-4 md:py-6 lg:py-8 xl:py-10'>
-          <NewReleaseCarousel setPageIsLoading={setPageIsLoading} />
+          <NewReleaseCarousel setLoadingPage={setLoadingPage} />
         </div>
         <div className='bg-lightWhite700 py-4 dark:bg-darkGray700 md:py-6 lg:py-8 xl:py-10'>
-          <TopSellerCarousel setPageIsLoading={setPageIsLoading} />
+          <TopSellerCarousel setLoadingPage={setLoadingPage} />
         </div>
         <div className='py-4 md:py-6 lg:py-8 xl:py-10'>
-          <MostFavouriteList setPageIsLoading={setPageIsLoading} />
+          <MostFavouriteList setLoadingPage={setLoadingPage} />
         </div>
       </div>
     </Fragment>

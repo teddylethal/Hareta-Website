@@ -13,7 +13,7 @@ import AdminDialog from '../../components/AdminDialog'
 
 export default function AdminDeleteItem() {
   const { currentItem, setCurrentItem } = useContext(AdminContext)
-  const { setPageIsLoading } = useContext(AppContext)
+  const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
 
@@ -26,7 +26,7 @@ export default function AdminDeleteItem() {
   const deleteItemMutation = useMutation(adminItemApi.deleteItem)
   const handleDelete = () => {
     setConfirmDialog(false)
-    setPageIsLoading(true)
+    setLoadingPage(true)
     deleteItemMutation.mutate(
       { id: currentItem?.id as string },
       {
@@ -38,7 +38,7 @@ export default function AdminDeleteItem() {
         }
       }
     )
-    setPageIsLoading(false)
+    setLoadingPage(false)
   }
 
   return (

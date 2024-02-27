@@ -16,7 +16,7 @@ import DOMPurify from 'dompurify'
 
 export default function AdminDeleteGroup() {
   const { itemGroup, setItemGroup } = useContext(AdminContext)
-  const { setPageIsLoading } = useContext(AppContext)
+  const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
 
@@ -54,7 +54,7 @@ export default function AdminDeleteGroup() {
   const deleteItemMutation = useMutation(adminItemGroupApi.deleteItemGroup)
   const handleDelete = () => {
     setConfirmDialog(false)
-    setPageIsLoading(true)
+    setLoadingPage(true)
     deleteItemMutation.mutate(
       { id: itemGroup?.id as string },
       {
@@ -66,7 +66,7 @@ export default function AdminDeleteGroup() {
         }
       }
     )
-    setPageIsLoading(false)
+    setLoadingPage(false)
   }
 
   return (

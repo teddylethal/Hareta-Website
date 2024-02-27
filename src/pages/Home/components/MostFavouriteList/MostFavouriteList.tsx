@@ -18,10 +18,10 @@ const DESKTOP_LIMIT = 8
 const MOBILE_LIMIT = 4
 
 interface Props {
-  setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function MostFavouriteList({ setPageIsLoading }: Props) {
+export default function MostFavouriteList({ setLoadingPage }: Props) {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
@@ -63,7 +63,7 @@ export default function MostFavouriteList({ setPageIsLoading }: Props) {
     : itemList.slice(DESKTOP_LIMIT / 2, DESKTOP_LIMIT)
 
   //? SET LOADING PAGE
-  useEffect(() => setPageIsLoading(isLoading), [isLoading, setPageIsLoading])
+  useEffect(() => setLoadingPage(isLoading), [isLoading, setLoadingPage])
 
   //? HANDLE NAVIGATE
   const navigate = useNavigate()

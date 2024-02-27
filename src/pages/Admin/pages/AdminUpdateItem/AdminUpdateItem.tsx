@@ -20,7 +20,7 @@ type FormData = NoUndefinedField<UpdateItemSchema>
 
 export default function AdminUpdateItem() {
   const { currentItem, itemGroup, setCurrentItem } = useContext(AdminContext)
-  const { setPageIsLoading } = useContext(AppContext)
+  const { setLoadingPage } = useContext(AppContext)
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
 
   //? GET ITEM DETAIL
@@ -85,9 +85,9 @@ export default function AdminUpdateItem() {
   const onInvalid = (errors: any) => console.error(errors)
   const onSubmit = async (data: FormData) => {
     try {
-      setPageIsLoading(true)
+      setLoadingPage(true)
       await updateItemMutation.mutateAsync({ ...data })
-      setPageIsLoading(false)
+      setLoadingPage(false)
       setCurrentItem(null)
       showSuccessDialog(setSuccessDialogOpen, 2000)
     } catch (error) {

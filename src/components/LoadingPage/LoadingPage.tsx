@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import { ColorRing } from 'react-loader-spinner'
 
-export default function PageIsLoading() {
+export default function LoadingPage() {
   return (
     <FloatingOverlay lockScroll>
       <Fragment>

@@ -27,7 +27,7 @@ type UpdateOrderSchema = yup.InferType<typeof updateOrderSchema>
 
 export default function AdminOrderDetail() {
   const { orderID } = useContext(AdminContext)
-  const { setPageIsLoading } = useContext(AppContext)
+  const { setLoadingPage } = useContext(AppContext)
 
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
 
@@ -71,14 +71,14 @@ export default function AdminOrderDetail() {
   const queryClient = useQueryClient()
   const updateOrderMutation = useMutation(adminOrderApi.updateOrder)
   const onSubmit = handleSubmit(async (data) => {
-    setPageIsLoading(true)
+    setLoadingPage(true)
     try {
       await updateOrderMutation.mutateAsync({ id: orderID, status: data.status })
-      setPageIsLoading(false)
+      setLoadingPage(false)
       setSuccessDialogOpen(true)
       queryClient.invalidateQueries({ queryKey: ['order_list_for_admin'] })
     } catch (error) {
-      setPageIsLoading(false)
+      setLoadingPage(false)
       console.log(error)
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
         const formError = error.response?.data

@@ -19,10 +19,10 @@ import { useTranslation } from 'react-i18next'
 const LIMIT = 10
 
 interface Props {
-  setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function TopSellerCarousel({ setPageIsLoading }: Props) {
+export default function TopSellerCarousel({ setLoadingPage }: Props) {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
@@ -47,7 +47,7 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
   }, [setWishlistIDs, wishlistData])
 
   //? SET LOADING PAGE
-  useEffect(() => setPageIsLoading(isLoading), [isLoading, setPageIsLoading])
+  useEffect(() => setLoadingPage(isLoading), [isLoading, setLoadingPage])
 
   //? GET TOP SELLER ITEMS
   const itemsConfig: QueryConfig = { tag: '1', limit: String(LIMIT) }

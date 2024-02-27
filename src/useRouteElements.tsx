@@ -5,12 +5,10 @@ import path, { adminPath } from './constants/path'
 import { OrderContext } from './contexts/order.context'
 
 import NotFound from './pages/NotFound'
-import PageIsLoading from './components/PageIsLoading'
 
 //? IMPORT LAYOUTS
 import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
-import AdminLayout from './pages/Admin/layouts/AdminLayout'
 
 //? IMPORT PAGES
 import ProductList from './pages/ProductList'
@@ -18,6 +16,8 @@ import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 import UserLayout from './pages/User/layouts/UserLayout'
+import AdminRoute from './routes/adminRoute'
+import LoadingPage from './components/LoadingPage'
 
 const Cart = lazy(() => import('./pages/Cart'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
@@ -43,40 +43,12 @@ const OrderLayout = lazy(() => import('./pages/Order/layouts/OrderLayout'))
 const ShippingInfor = lazy(() => import('./pages/Order/pages/ShippingInfor'))
 const Payment = lazy(() => import('./pages/Order/pages/Payment'))
 
-//? IMPORT ADMIN COMPONENTS
-const AdminCreateItem = lazy(() => import('./pages/Admin/pages/AdminCreateItem'))
-const AdminAddItemColor = lazy(() => import('./pages/Admin/pages/AdminAddItemColor'))
-const AdminMainPage = lazy(() => import('./pages/Admin/pages/AdminMainPage'))
-const AdminUploadItemAvatar = lazy(() => import('./pages/Admin/pages/AdminUploadItemAvatar'))
-const AdminSetDefaultItem = lazy(() => import('./pages/Admin/pages/AdminSetDefaultItem'))
-const AdminAddItemImage = lazy(() => import('./pages/Admin/pages/AdminAddItemImage'))
-const AdminUpdateItem = lazy(() => import('./pages/Admin/pages/AdminUpdateItem'))
-const AdminDeleteItemImage = lazy(() => import('./pages/Admin/pages/AdminDeleteItemImage'))
-const AdminDeleteItem = lazy(() => import('./pages/Admin/pages/AdminDeleteItem'))
-const AdminDeleteGroup = lazy(() => import('./pages/Admin/pages/AdminDeleteGroup'))
-const AdminItem = lazy(() => import('./pages/Admin/pages/AdminItem'))
-const AdminOrder = lazy(() => import('./pages/Admin/pages/AdminOrder'))
-
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
   return isAuthenticated ? (
     <Outlet />
   ) : (
     <Navigate to='/login' state={{ context: 'AccessProtectedRouteDenied', from: 'user' }} />
-  )
-}
-
-function AdminRoute() {
-  const { isAuthenticated, profile } = useContext(AppContext)
-  const isAdmin = profile?.role === 'admin'
-  return isAuthenticated && isAdmin ? (
-    <AdminLayout>
-      <Suspense fallback={<LoadingWithEmptyContent />}>
-        <Outlet />
-      </Suspense>
-    </AdminLayout>
-  ) : (
-    <Navigate to={path.home} />
   )
 }
 
@@ -96,7 +68,7 @@ function RejectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? (
     <RegisterLayout>
-      <Suspense fallback={<PageIsLoading />}>
+      <Suspense fallback={<LoadingPage />}>
         <Outlet />
       </Suspense>
     </RegisterLayout>
@@ -187,60 +159,8 @@ export default function useRouteElements() {
       ]
     },
     {
-      path: '',
-      element: <AdminRoute />,
-      children: [
-        {
-          path: adminPath.mainPage,
-          element: <AdminMainPage />
-        },
-        {
-          path: adminPath.itemManagement,
-          element: <AdminItem />,
-          children: [
-            {
-              path: adminPath.createItem,
-              element: <AdminCreateItem />
-            },
-            {
-              path: adminPath.addItemColor,
-              element: <AdminAddItemColor />
-            },
-            {
-              path: adminPath.setDefaultItem,
-              element: <AdminSetDefaultItem />
-            },
-            {
-              path: adminPath.uploadItemAvatar,
-              element: <AdminUploadItemAvatar />
-            },
-            {
-              path: adminPath.updateItem,
-              element: <AdminUpdateItem />
-            },
-            {
-              path: adminPath.addItemImage,
-              element: <AdminAddItemImage />
-            },
-            {
-              path: adminPath.deleteItemImage,
-              element: <AdminDeleteItemImage />
-            },
-            {
-              path: adminPath.deleteItem,
-              element: <AdminDeleteItem />
-            },
-            {
-              path: adminPath.deleteGroup,
-              element: <AdminDeleteGroup />
-            }
-          ]
-        },
-        {
-          path: adminPath.orderManagemnet,
-          element: <AdminOrder />
-        }
-      ]
+      path: adminPath.mainPage,
+      children: [AdminRoute]
     },
     {
       path: '',

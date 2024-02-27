@@ -24,7 +24,9 @@ export default path
 
 export const adminPath = {
   mainPage: '/admin',
-  itemManagement: '/admin/item',
+
+  //? Item
+  items: '/admin/item',
   createItem: '/admin/item/create-item',
   addItemColor: '/admin/item/create-color',
   uploadItemAvatar: '/admin/item/update/item-avatar',
@@ -34,6 +36,9 @@ export const adminPath = {
   deleteItemImage: '/admin/item/item-image/delete',
   deleteGroup: '/admin/item/delete-group',
   deleteItem: '/admin/item/delete-item',
+
+  //? Image
+  image: '/admin/images',
   orderManagemnet: '/admin/order'
 } as const
 

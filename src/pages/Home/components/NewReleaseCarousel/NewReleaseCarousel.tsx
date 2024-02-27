@@ -11,7 +11,7 @@ import toArray from 'lodash/toArray'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const IsNewReleased = 86400 * 1000 * 90
@@ -43,7 +43,7 @@ const ArrowFix = (arrowProps: any) => {
   return <span {...restArrowProps}>{children}</span>
 }
 
-export default function NewReleaseCarousel({ setPageIsLoading }: Props) {
+export default function NewReleaseCarousel({ setLoadingPage }: Props) {
   const [dragging, setDragging] = useState<boolean>(false)
 
   //? GET ITEMS
@@ -59,7 +59,7 @@ export default function NewReleaseCarousel({ setPageIsLoading }: Props) {
   const newRelaseList = itemList.filter((item) => date.getTime() - new Date(item.created_at).getTime() <= IsNewReleased)
 
   //? SET LOADING PAGE
-  useEffect(() => setPageIsLoading(isLoading), [isLoading, setPageIsLoading])
+  useEffect(() => setLoadingPage(isLoading), [isLoading, setLoadingPage])
 
   //? CUSTOM DOTS
   const dots = newRelaseList.map((item) => <div className='' key={item.id}></div>)
