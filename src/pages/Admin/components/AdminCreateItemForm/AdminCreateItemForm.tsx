@@ -4,7 +4,7 @@ import { CreatingItemSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import Input from 'src/components/Input'
 import classNames from 'classnames'
-import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import 'react-quill/dist/quill.snow.css'
 import QuillEditor from 'src/components/QuillEditor'
 

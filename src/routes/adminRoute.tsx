@@ -3,7 +3,10 @@ import { Navigate, Outlet } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
-import AdminLayout from 'src/pages/Admin/layouts/AdminLayout'
+import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
+
+//? IMPORT ADMIN LAYOUTS
+const AdminItemLayout = lazy(() => import('src/pages/Admin/layouts/AdminItemLayout'))
 
 //? IMPORT ADMIN COMPONENTS
 const AdminCreateItem = lazy(() => import('src/pages/Admin/pages/AdminCreateItem'))
@@ -19,23 +22,31 @@ const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGro
 const AdminItem = lazy(() => import('src/pages/Admin/pages/AdminItem'))
 const AdminOrder = lazy(() => import('src/pages/Admin/pages/AdminOrder'))
 
-function ProtectedAdminRoute() {
+function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
   const isAdmin = profile?.role === 'admin'
   return isAuthenticated && isAdmin ? (
-    <AdminLayout>
+    <AdminMainLayout>
       <Suspense fallback={<LoadingWithEmptyContent />}>
         <Outlet />
       </Suspense>
-    </AdminLayout>
+    </AdminMainLayout>
   ) : (
     <Navigate to={path.home} />
   )
 }
 
+function AdminItemRoute() {
+  return (
+    <AdminItemLayout>
+      <Outlet />
+    </AdminItemLayout>
+  )
+}
+
 const AdminRoute = {
   path: '',
-  element: <ProtectedAdminRoute />,
+  element: <AdminMainRoute />,
   children: [
     {
       path: '',
@@ -43,7 +54,7 @@ const AdminRoute = {
     },
     {
       path: adminPath.items,
-      element: <AdminItem />,
+      element: <AdminItemRoute />,
       children: [
         {
           path: adminPath.createItem,
@@ -83,6 +94,14 @@ const AdminRoute = {
         }
       ]
     },
+    // {
+    //   path: adminPath.createItem,
+    //   element: (
+    //     <AdminItemLayout>
+    //       <AdminCreateItem />
+    //     </AdminItemLayout>
+    //   )
+    // },
     {
       path: adminPath.orderManagemnet,
       element: <AdminOrder />

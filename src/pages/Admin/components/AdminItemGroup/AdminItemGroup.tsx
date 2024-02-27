@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useContext } from 'react'
-import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import classNames from 'classnames'
 import productApi from 'src/apis/product.api'
 import { ProductListConfig } from 'src/types/product.type'

@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
-import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminItemApi } from 'src/apis/admin.api'
 import DialogPopup from 'src/components/DialogPopup'

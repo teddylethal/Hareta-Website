@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
 import { ColorRing } from 'react-loader-spinner'
-import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import producImageApi from 'src/apis/productImage.api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'

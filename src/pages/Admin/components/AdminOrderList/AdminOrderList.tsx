@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Order } from 'src/types/order.type'
-import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 
 interface Props {
   orderList: Order[]
