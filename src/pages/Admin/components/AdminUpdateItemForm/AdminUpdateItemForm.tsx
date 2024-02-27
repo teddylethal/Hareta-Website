@@ -4,7 +4,7 @@ import { UpdateItemSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import Input from 'src/components/Input'
 import classNames from 'classnames'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import QuillEditor from 'src/components/QuillEditor'
 
 type FormData = UpdateItemSchema

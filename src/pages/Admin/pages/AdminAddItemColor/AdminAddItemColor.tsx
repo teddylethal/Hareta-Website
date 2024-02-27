@@ -12,7 +12,7 @@ import { ErrorRespone } from 'src/types/utils.type'
 import AdminAddItemColorForm from './AdminAddItemColorForm'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import AdminCreatingPage from '../AdminCreatingPage'
 
 type FormData = CreatingItemSchema

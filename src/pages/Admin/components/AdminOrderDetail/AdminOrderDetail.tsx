@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { orderApi } from 'src/apis/order.api'
 import { formatDate, isAxiosBadRequestError } from 'src/utils/utils'

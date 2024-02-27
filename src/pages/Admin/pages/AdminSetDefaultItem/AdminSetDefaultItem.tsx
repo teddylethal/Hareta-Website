@@ -8,7 +8,7 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { Fragment, useContext, useEffect } from 'react'
 import AdminUpdatingPage from '../AdminUpdatingPage'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import AdminProductGroup from '../../components/AdminProductGroup'
 import AdminProductsInGroup from '../../components/AdminProductsInGroup'
 

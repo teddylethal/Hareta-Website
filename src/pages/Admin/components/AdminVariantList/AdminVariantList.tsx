@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import classNames from 'classnames'

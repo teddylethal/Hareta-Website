@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import AdminDeletePageHeader from '../../components/AdminDeletePageHeader'
 import AdminProductGroup from '../../components/AdminProductGroup'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import { AppContext } from 'src/contexts/app.context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'

@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import { adminProductGroupApi } from 'src/apis/admin.api'
 import { useQuery } from '@tanstack/react-query'
 import { ProductGroup } from 'src/types/admin.type'

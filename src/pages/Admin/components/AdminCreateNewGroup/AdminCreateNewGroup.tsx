@@ -8,7 +8,7 @@ import { ErrorRespone } from 'src/types/utils.type'
 import { adminProductGroupApi } from 'src/apis/admin.api'
 import { ProductGroup } from 'src/types/admin.type'
 import { useContext } from 'react'
-import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 
 interface FormData {
   name: string
