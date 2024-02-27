@@ -10,8 +10,8 @@ import productApi from 'src/apis/product.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone, NoUndefinedField } from 'src/types/utils.type'
 import AdminUpdateItemForm from '../../components/AdminUpdateItemForm'
-import AdminItemGroup from '../../components/AdminItemGroup'
-import AdminItemsInGroup from '../../components/AdminItemsInGroup'
+import AdminProductGroup from '../../components/AdminProductGroup'
+import AdminProductsInGroup from '../../components/AdminProductsInGroup'
 import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminDialog from '../../components/AdminDialog'
@@ -19,7 +19,7 @@ import AdminDialog from '../../components/AdminDialog'
 type FormData = NoUndefinedField<UpdateItemSchema>
 
 export default function AdminUpdateItem() {
-  const { currentItem, itemGroup, setCurrentItem } = useContext(AdminContext)
+  const { currentItem, ProductGroup, setCurrentItem } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
 
@@ -111,7 +111,7 @@ export default function AdminUpdateItem() {
   useEffect(() => {
     setCurrentItem(null)
     reset()
-  }, [itemGroup, setCurrentItem, reset, setValue])
+  }, [ProductGroup, setCurrentItem, reset, setValue])
 
   return (
     <div>
@@ -120,8 +120,8 @@ export default function AdminUpdateItem() {
         <div className='grid grid-cols-2 gap-12'>
           <div className='col-span-1'>
             <div className='sticky top-6 space-y-4'>
-              <AdminItemGroup />
-              <AdminItemsInGroup />
+              <AdminProductGroup />
+              <AdminProductsInGroup />
             </div>
           </div>
           <div className='col-span-1'>
@@ -135,7 +135,7 @@ export default function AdminUpdateItem() {
                 <AdminUpdateItemForm />
                 <div className='col-span-1 mt-8 flex items-center justify-end'>
                   <button
-                    className='rounded-lg bg-haretaColor/80 px-4 py-1 text-sm hover:bg-haretaColor/60 lg:text-base'
+                    className='lg:text-base rounded-lg bg-haretaColor/80 px-4 py-1 text-sm hover:bg-haretaColor/60'
                     type='submit'
                   >
                     Update

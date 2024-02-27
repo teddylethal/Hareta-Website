@@ -1,4 +1,4 @@
-import { ItemGroup, ItemGroupList } from 'src/types/admin.type'
+import { ProductGroup, ProductGroupList } from 'src/types/admin.type'
 import { OrderList } from 'src/types/order.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
@@ -36,23 +36,23 @@ interface UpdateItemForm {
   cron_status?: number
 }
 
-interface UpdateItemAvatarForm {
+interface UpdateProductAvatarForm {
   item_id: string
   file: FormData
   color: string
 }
 
-export const adminItemGroupApi = {
-  getItemGroups() {
-    return http.get<ItemGroupList>(`${URL}/group-item/`)
+export const adminProductGroupApi = {
+  getProductGroups() {
+    return http.get<ProductGroupList>(`${URL}/group-item/`)
   },
-  createItemGroup(body: { name: string }) {
-    return http.post<SuccessRespone<ItemGroup>>(`${URL}/group-item/`, body)
+  createProductGroup(body: { name: string }) {
+    return http.post<SuccessRespone<ProductGroup>>(`${URL}/group-item/`, body)
   },
-  updateItemGroup(id: string, name: string) {
+  updateProductGroup(id: string, name: string) {
     return http.put<SuccessRespone<string>>(`${URL}/group-item`, { id: id, name: name })
   },
-  deleteItemGroup(body: { id: string }) {
+  deleteProductGroup(body: { id: string }) {
     return http.delete(`${URL}/group-item/`, { data: body })
   }
 }
@@ -67,7 +67,7 @@ export const adminItemApi = {
   setDefaultItem(body: { id: string }) {
     return http.put<SuccessRespone<string>>(`${URL}/item/default`, body)
   },
-  uploadItemAvatar(body: { id: string; file: File }) {
+  uploadProductAvatar(body: { id: string; file: File }) {
     return http.put<SuccessRespone<string>>(`${URL}/item/avatar`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -80,7 +80,7 @@ export const adminItemApi = {
 }
 
 export const adminItemImageApi = {
-  addImage(body: UpdateItemAvatarForm) {
+  addImage(body: UpdateProductAvatarForm) {
     return http.post<SuccessRespone<string>>(`/item-image/`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'

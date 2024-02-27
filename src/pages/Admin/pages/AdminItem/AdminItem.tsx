@@ -6,7 +6,7 @@ import { adminPath } from 'src/constants/path'
 export default function AdminItem() {
   return (
     <Fragment>
-      <div className='relative flex items-center justify-around rounded-xl  border border-haretaColor py-2 text-base font-semibold text-textLight/80 lg:text-xl'>
+      <div className='lg:text-xl relative flex items-center justify-around  rounded-xl border border-haretaColor py-2 text-base font-semibold text-textLight/80'>
         {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
         <NavLink
           to={adminPath.createItem}
@@ -20,7 +20,7 @@ export default function AdminItem() {
           Create
         </NavLink>
         <NavLink
-          to={adminPath.uploadItemAvatar}
+          to={adminPath.uploadProductAvatar}
           className={({ isActive }) =>
             classNames('px-4 py-1 uppercase ', {
               'text-haretaColor': isActive,

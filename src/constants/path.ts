@@ -26,16 +26,17 @@ export const adminPath = {
   mainPage: '/admin',
 
   //? Item
-  items: '/admin/item',
-  createItem: '/admin/item/create-item',
-  addItemColor: '/admin/item/create-color',
-  uploadItemAvatar: '/admin/item/update/item-avatar',
-  updateItem: '/admin/item/update/item',
-  setDefaultItem: '/admin/item/update/set-default-item',
-  addItemImage: '/admin/item/item-image/add',
-  deleteItemImage: '/admin/item/item-image/delete',
-  deleteGroup: '/admin/item/delete-group',
-  deleteItem: '/admin/item/delete-item',
+  products: '/admin/products',
+  productDetail: '/admin/products/:productId',
+  createItem: '/admin/products/create-item',
+  addItemColor: '/admin/products/create-color',
+  uploadProductAvatar: '/admin/products/update/item-avatar',
+  updateItem: '/admin/products/update/item',
+  setDefaultItem: '/admin/products/update/set-default-item',
+  addItemImage: '/admin/products/item-image/add',
+  deleteItemImage: '/admin/products/item-image/delete',
+  deleteGroup: '/admin/products/delete-group',
+  deleteItem: '/admin/products/delete-item',
 
   //? Image
   image: '/admin/images',

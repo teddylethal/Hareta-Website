@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react'
 import AdminDeletePageHeader from '../../components/AdminDeletePageHeader'
-import AdminItemGroup from '../../components/AdminItemGroup'
+import AdminProductGroup from '../../components/AdminProductGroup'
 import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import { AppContext } from 'src/contexts/app.context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
-import { adminItemGroupApi } from 'src/apis/admin.api'
+import { adminProductGroupApi } from 'src/apis/admin.api'
 import productApi from 'src/apis/product.api'
-import { ItemInGroupConfig } from 'src/types/product.type'
+import { ProductsInGroupConfig } from 'src/types/product.type'
 import DialogPopup from 'src/components/DialogPopup'
 import AdminDialog from '../../components/AdminDialog'
 import ItemTag from 'src/constants/itemTag'
@@ -15,14 +15,14 @@ import AdminVariantList from '../../components/AdminVariantList'
 import DOMPurify from 'dompurify'
 
 export default function AdminDeleteGroup() {
-  const { itemGroup, setItemGroup } = useContext(AdminContext)
+  const { ProductGroup, setProductGroup } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
 
   //? GET DEFAULT ITEM
-  const itemInGroupQuery: ItemInGroupConfig = {
-    id: itemGroup?.id as string,
+  const itemInGroupQuery: ProductsInGroupConfig = {
+    id: ProductGroup?.id as string,
     page: '1',
     limit: '50'
   }
@@ -30,7 +30,7 @@ export default function AdminDeleteGroup() {
     queryKey: ['items_in_group_for_detail', itemInGroupQuery],
     queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
     keepPreviousData: true,
-    enabled: Boolean(itemGroup)
+    enabled: Boolean(ProductGroup)
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
   const defaultItem = itemsInGroup.find((item) => item.default === true)
@@ -51,18 +51,18 @@ export default function AdminDeleteGroup() {
     setConfirmDialog(true)
   }
 
-  const deleteItemMutation = useMutation(adminItemGroupApi.deleteItemGroup)
+  const deleteItemMutation = useMutation(adminProductGroupApi.deleteProductGroup)
   const handleDelete = () => {
     setConfirmDialog(false)
     setLoadingPage(true)
     deleteItemMutation.mutate(
-      { id: itemGroup?.id as string },
+      { id: ProductGroup?.id as string },
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
-          queryClient.invalidateQueries({ queryKey: ['item_groups'] })
+          queryClient.invalidateQueries({ queryKey: ['adminDefaultItemList'] })
           queryClient.invalidateQueries({ queryKey: ['variant_list'] })
-          setItemGroup(null)
+          setProductGroup(null)
         }
       }
     )
@@ -75,7 +75,7 @@ export default function AdminDeleteGroup() {
       <div className='mt-8 grid grid-cols-2 gap-8'>
         <div className='col-span-1'>
           <div className='sticky top-6 space-y-8'>
-            <AdminItemGroup />
+            <AdminProductGroup />
             <AdminVariantList />
           </div>
         </div>
@@ -95,7 +95,7 @@ export default function AdminDeleteGroup() {
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>group name</p>
-              <p className='col-span-2 text-lg capitalize text-haretaColor'>{itemGroup?.name}</p>
+              <p className='col-span-2 text-lg capitalize text-haretaColor'>{ProductGroup?.name}</p>
             </div>
             <div className='grid grid-cols-3 gap-4'>
               <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Variants</p>
@@ -142,12 +142,12 @@ export default function AdminDeleteGroup() {
                 }}
               />
             </div>
-            {!itemGroup && <div className='absolute inset-0 bg-black'></div>}
+            {!ProductGroup && <div className='absolute inset-0 bg-black'></div>}
           </div>
-          {itemGroup && (
+          {ProductGroup && (
             <div className='mt-4 flex w-full items-center justify-end'>
               <button
-                className='rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600 lg:text-sm'
+                className='lg:text-sm rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600'
                 onClick={onClickDelete}
               >
                 delete

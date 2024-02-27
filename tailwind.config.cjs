@@ -70,6 +70,15 @@ module.exports = {
 
         whiteColor: '#ffffff'
       }
+    },
+    screens: {
+      mobileSmall: '320px',
+      mobileLarge: '425px',
+      tabletSmall: '640px',
+      tablet: '768px',
+      tabletLarge: '962px',
+      desktop: '1024px',
+      desktopLarge: '1440px'
     }
   },
   darkMode: 'class',

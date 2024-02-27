@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import AdminDeletePageHeader from '../../components/AdminDeletePageHeader'
-import AdminItemGroup from '../../components/AdminItemGroup'
-import AdminItemsInGroup from '../../components/AdminItemsInGroup'
+import AdminProductGroup from '../../components/AdminProductGroup'
+import AdminProductsInGroup from '../../components/AdminProductsInGroup'
 import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import ItemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
@@ -33,7 +33,7 @@ export default function AdminDeleteItem() {
         onSuccess: () => {
           showSuccessDialog(setDialog)
           queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
-          queryClient.invalidateQueries({ queryKey: ['item_groups'] })
+          queryClient.invalidateQueries({ queryKey: ['adminDefaultItemList'] })
           setCurrentItem(null)
         }
       }
@@ -47,8 +47,8 @@ export default function AdminDeleteItem() {
       <div className='mt-8 grid grid-cols-2 gap-8'>
         <div className='col-span-1'>
           <div className='sticky top-6 space-y-8'>
-            <AdminItemGroup />
-            <AdminItemsInGroup />
+            <AdminProductGroup />
+            <AdminProductsInGroup />
           </div>
         </div>
         <div className='col-span-1'>
@@ -110,7 +110,7 @@ export default function AdminDeleteItem() {
           {currentItem && (
             <div className='mt-4 flex w-full items-center justify-end'>
               <button
-                className='rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600 lg:text-sm'
+                className='lg:text-sm rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600'
                 onClick={onClickDelete}
               >
                 delete

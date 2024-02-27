@@ -2,13 +2,12 @@ import classNames from 'classnames'
 import { createContext, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
-import { ItemGroup } from 'src/types/admin.type'
-import { Product } from 'src/types/product.type'
+import { ProductGroup, Product } from 'src/types/product.type'
 import { ProductImage } from 'src/types/productImage.type'
 
 interface AdminContextInterface {
-  itemGroup: ItemGroup | null
-  setItemGroup: React.Dispatch<React.SetStateAction<ItemGroup | null>>
+  ProductGroup: ProductGroup | null
+  setProductGroup: React.Dispatch<React.SetStateAction<ProductGroup | null>>
   currentItem: Product | null
   setCurrentItem: React.Dispatch<React.SetStateAction<Product | null>>
   currentImage: ProductImage | null
@@ -18,8 +17,8 @@ interface AdminContextInterface {
 }
 
 const initialAdminContext: AdminContextInterface = {
-  itemGroup: null,
-  setItemGroup: () => null,
+  ProductGroup: null,
+  setProductGroup: () => null,
   currentItem: null,
   setCurrentItem: () => null,
   currentImage: null,
@@ -35,7 +34,7 @@ export const AdminContext = createContext<AdminContextInterface>(initialAdminCon
 
 export default function AdminLayout({ children }: Props) {
   //? DECLARE STATES
-  const [itemGroup, setItemGroup] = useState<ItemGroup | null>(initialAdminContext.itemGroup)
+  const [ProductGroup, setProductGroup] = useState<ProductGroup | null>(initialAdminContext.ProductGroup)
   const [currentItem, setCurrentItem] = useState<Product | null>(initialAdminContext.currentItem)
   const [currentImage, setCurrentImage] = useState<ProductImage | null>(initialAdminContext.currentImage)
   const [orderID, setOrderID] = useState<string>(initialAdminContext.orderID)
@@ -43,8 +42,8 @@ export default function AdminLayout({ children }: Props) {
   return (
     <AdminContext.Provider
       value={{
-        itemGroup,
-        setItemGroup,
+        ProductGroup,
+        setProductGroup,
         currentItem,
         setCurrentItem,
         currentImage,
@@ -69,7 +68,7 @@ export default function AdminLayout({ children }: Props) {
                 Create
               </NavLink>
               <NavLink
-                to={adminPath.uploadItemAvatar}
+                to={adminPath.uploadProductAvatar}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -102,10 +101,10 @@ export default function AdminLayout({ children }: Props) {
                 Delete
               </NavLink>
             </div> */}
-            <div className='relative flex items-center justify-around rounded-xl  border border-haretaColor py-2 text-base font-semibold text-textLight/80 lg:text-xl'>
+            <div className='lg:text-xl relative flex items-center justify-around  rounded-xl border border-haretaColor py-2 text-base font-semibold text-textLight/80'>
               {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
               <NavLink
-                to={adminPath.items}
+                to={adminPath.products}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,

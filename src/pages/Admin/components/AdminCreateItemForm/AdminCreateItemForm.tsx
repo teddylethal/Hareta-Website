@@ -11,7 +11,7 @@ import QuillEditor from 'src/components/QuillEditor'
 type FormData = CreatingItemSchema
 
 export default function AdminCreateItemForm() {
-  const { itemGroup } = useContext(AdminContext)
+  const { ProductGroup } = useContext(AdminContext)
   const {
     register,
     control,
@@ -32,17 +32,17 @@ export default function AdminCreateItemForm() {
     <Fragment>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>group name</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>group name</p>
         </div>
         <div className='col-span-2'>
-          <div className='cursor-not-allowed rounded-lg bg-[#101010] px-2 py-1 text-base capitalize text-haretaColor outline-none lg:text-lg'>
-            {itemGroup?.name}
+          <div className='lg:text-lg cursor-not-allowed rounded-lg bg-[#101010] px-2 py-1 text-base capitalize text-haretaColor outline-none'>
+            {ProductGroup?.name}
           </div>
         </div>
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>group id</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>group id</p>
         </div>
         <div className='col-span-2'>
           <Input
@@ -57,7 +57,7 @@ export default function AdminCreateItemForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>name</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>name</p>
         </div>
         <div className='col-span-2'>
           <Input
@@ -77,7 +77,7 @@ export default function AdminCreateItemForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>Color</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Color</p>
         </div>
         <div className='col-span-2'>
           <Input
@@ -96,7 +96,7 @@ export default function AdminCreateItemForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>price</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>price</p>
         </div>
         <div className='col-span-1'>
           <Controller
@@ -122,7 +122,7 @@ export default function AdminCreateItemForm() {
       </div>
       <div className='relative grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>quantity</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>quantity</p>
         </div>
         <div className='col-span-1'>
           <Controller
@@ -149,7 +149,7 @@ export default function AdminCreateItemForm() {
 
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>Category</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Category</p>
         </div>
         <div className='col-span-2'>
           <Input
@@ -168,7 +168,7 @@ export default function AdminCreateItemForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>collection</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>collection</p>
         </div>
         <div className='col-span-2'>
           <Input
@@ -187,7 +187,7 @@ export default function AdminCreateItemForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>type</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>type</p>
         </div>
         <div className='col-span-2'>
           <Input
@@ -206,7 +206,7 @@ export default function AdminCreateItemForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>product line</p>
+          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>product line</p>
         </div>
         <div className='col-span-2'>
           <Input
@@ -225,7 +225,7 @@ export default function AdminCreateItemForm() {
       </div>
 
       <div className=' items-center space-y-2 bg-slate-900'>
-        <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>description</p>
+        <p className='lg:text-lg text-base font-medium uppercase text-white/60'>description</p>
         {/* <textarea
           className='h-96 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium text-haretaColor outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg '
           {...register('description')}

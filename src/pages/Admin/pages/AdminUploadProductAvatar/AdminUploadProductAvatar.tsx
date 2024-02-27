@@ -7,13 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
-import AdminItemGroup from '../../components/AdminItemGroup'
-import AdminItemsInGroup from '../../components/AdminItemsInGroup'
 import ImageInput from '../../components/ImageInput'
 import AdminUpdatingPage from '../AdminUpdatingPage'
 import producImageApi from 'src/apis/productImage.api'
+import AdminProductGroup from '../../components/AdminProductGroup'
+import AdminProductsInGroup from '../../components/AdminProductsInGroup'
 
-export default function AdminUploadItemAvatar() {
+export default function AdminUploadProductAvatar() {
   const { currentItem } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
@@ -44,7 +44,7 @@ export default function AdminUploadItemAvatar() {
 
   //? UPLOAD AVATAR
   const queryClient = useQueryClient()
-  const uploadAvatarMutation = useMutation(adminItemApi.uploadItemAvatar)
+  const uploadAvatarMutation = useMutation(adminItemApi.uploadProductAvatar)
   const handleSubmit = () => {
     try {
       if (avatarFile && currentItem) {
@@ -68,7 +68,7 @@ export default function AdminUploadItemAvatar() {
           onSuccess: () => {
             showSuccessDialog(setSuccessDialogOpen)
             queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
-            queryClient.invalidateQueries({ queryKey: ['item_groups'] })
+            queryClient.invalidateQueries({ queryKey: ['adminDefaultItemList'] })
           }
         })
       }
@@ -104,18 +104,18 @@ export default function AdminUploadItemAvatar() {
             <div className='mt-10 space-y-4'>
               <div className='grid grid-cols-2'>
                 <div className='col-span-1'>
-                  <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>name</p>
+                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>name</p>
                 </div>
                 <div className='col-span-1'>
-                  <p className='text-base font-medium uppercase lg:text-lg'>{currentItem?.name}</p>
+                  <p className='lg:text-lg text-base font-medium uppercase'>{currentItem?.name}</p>
                 </div>
               </div>
               <div className='grid grid-cols-2'>
                 <div className='col-span-1'>
-                  <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>color</p>
+                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>color</p>
                 </div>
                 <div className='col-span-1'>
-                  <p className='text-base font-medium uppercase lg:text-lg'>{currentItem?.color}</p>
+                  <p className='lg:text-lg text-base font-medium uppercase'>{currentItem?.color}</p>
                 </div>
               </div>
               {currentItem && (
@@ -133,8 +133,8 @@ export default function AdminUploadItemAvatar() {
         </div>
 
         <div className='col-span-6 space-y-6'>
-          <AdminItemGroup />
-          <AdminItemsInGroup />
+          <AdminProductGroup />
+          <AdminProductsInGroup />
         </div>
       </div>
       <DialogPopup

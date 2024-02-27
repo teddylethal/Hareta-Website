@@ -18,7 +18,7 @@ import AdminCreatingPage from '../AdminCreatingPage'
 type FormData = CreatingItemSchema
 
 export default function AdminCreateItem() {
-  const { itemGroup, setCurrentItem } = useContext(AdminContext)
+  const { ProductGroup, setCurrentItem } = useContext(AdminContext)
   //? CREATE NEW ITEM
   const methods = useForm<FormData>({
     defaultValues: {
@@ -38,9 +38,9 @@ export default function AdminCreateItem() {
   const { handleSubmit, setValue } = methods
 
   useEffect(() => {
-    setValue('name', itemGroup?.name || '')
-    setValue('group_id', itemGroup?.id || '')
-  }, [itemGroup, setValue])
+    setValue('name', ProductGroup?.name || '')
+    setValue('group_id', ProductGroup?.id || '')
+  }, [ProductGroup, setValue])
 
   const createNewItem = useMutation(adminItemApi.createNewItem)
   const setDefaultItemMutation = useMutation(adminItemApi.setDefaultItem)
@@ -54,7 +54,7 @@ export default function AdminCreateItem() {
       const newItem: Product = newItemRespone.data.data
       setCurrentItem(newItem)
       await setDefaultItemMutation.mutateAsync({ id: newItem.id })
-      navigate({ pathname: adminPath.uploadItemAvatar })
+      navigate({ pathname: adminPath.uploadProductAvatar })
     } catch (error) {
       console.log(error)
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -83,12 +83,12 @@ export default function AdminCreateItem() {
             className='relative space-y-4 overflow-hidden rounded-lg border border-white/40 p-4'
             onSubmit={handleSubmit(onSubmit, onInvalid)}
           >
-            {!itemGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+            {!ProductGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
 
             <AdminCreateItemForm />
             <div className='col-span-1 mt-2 flex items-center justify-end'>
               <button
-                className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 lg:text-lg'
+                className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60'
                 type='submit'
               >
                 Create

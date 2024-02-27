@@ -4,22 +4,23 @@ import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
+import AdminProductGroups from 'src/pages/Admin/pages/AdminProductGroups'
 
 //? IMPORT ADMIN LAYOUTS
 const AdminItemLayout = lazy(() => import('src/pages/Admin/layouts/AdminItemLayout'))
 
 //? IMPORT ADMIN COMPONENTS
+const AdminProductDetail = lazy(() => import('src/pages/Admin/pages/AdminProductDetail'))
 const AdminCreateItem = lazy(() => import('src/pages/Admin/pages/AdminCreateItem'))
 const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
-const AdminUploadItemAvatar = lazy(() => import('src/pages/Admin/pages/AdminUploadItemAvatar'))
+const AdminUploadProductAvatar = lazy(() => import('src/pages/Admin/pages/AdminUploadProductAvatar'))
 const AdminSetDefaultItem = lazy(() => import('src/pages/Admin/pages/AdminSetDefaultItem'))
 const AdminAddItemImage = lazy(() => import('src/pages/Admin/pages/AdminAddItemImage'))
 const AdminUpdateItem = lazy(() => import('src/pages/Admin/pages/AdminUpdateItem'))
 const AdminDeleteItemImage = lazy(() => import('src/pages/Admin/pages/AdminDeleteItemImage'))
 const AdminDeleteItem = lazy(() => import('src/pages/Admin/pages/AdminDeleteItem'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGroup'))
-const AdminItem = lazy(() => import('src/pages/Admin/pages/AdminItem'))
 const AdminOrder = lazy(() => import('src/pages/Admin/pages/AdminOrder'))
 
 function AdminMainRoute() {
@@ -36,7 +37,7 @@ function AdminMainRoute() {
   )
 }
 
-function AdminItemRoute() {
+function AdminProductRoute() {
   return (
     <AdminItemLayout>
       <Outlet />
@@ -53,9 +54,17 @@ const AdminRoute = {
       element: <AdminMainPage />
     },
     {
-      path: adminPath.items,
-      element: <AdminItemRoute />,
+      path: adminPath.products,
+      element: <AdminProductRoute />,
       children: [
+        {
+          path: '',
+          element: <AdminProductGroups />
+        },
+        {
+          path: adminPath.productDetail,
+          element: <AdminProductDetail />
+        },
         {
           path: adminPath.createItem,
           element: <AdminCreateItem />
@@ -69,8 +78,8 @@ const AdminRoute = {
           element: <AdminSetDefaultItem />
         },
         {
-          path: adminPath.uploadItemAvatar,
-          element: <AdminUploadItemAvatar />
+          path: adminPath.uploadProductAvatar,
+          element: <AdminUploadProductAvatar />
         },
         {
           path: adminPath.updateItem,

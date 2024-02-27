@@ -5,8 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
-import { adminItemGroupApi } from 'src/apis/admin.api'
-import { ItemGroup } from 'src/types/admin.type'
+import { adminProductGroupApi } from 'src/apis/admin.api'
+import { ProductGroup } from 'src/types/admin.type'
 import { useContext } from 'react'
 import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 
@@ -14,12 +14,12 @@ interface FormData {
   name: string
 }
 
-const itemGroupSchema = yup.object({
+const ProductGroupSchema = yup.object({
   name: yup.string().required('Name is required')
 })
 
 export default function AdminCreateNewGroup() {
-  const { setItemGroup } = useContext(AdminContext)
+  const { setProductGroup } = useContext(AdminContext)
 
   //? CREATE NEW GROUP
   const {
@@ -33,16 +33,16 @@ export default function AdminCreateNewGroup() {
     defaultValues: {
       name: ''
     },
-    resolver: yupResolver(itemGroupSchema)
+    resolver: yupResolver(ProductGroupSchema)
   })
 
   const queryClient = useQueryClient()
-  const createGroupMutation = useMutation(adminItemGroupApi.createItemGroup)
+  const createGroupMutation = useMutation(adminProductGroupApi.createProductGroup)
   const onSubmit = handleSubmit(async (data) => {
     try {
       const newGroupRespone = await createGroupMutation.mutateAsync({ ...data })
-      const newGroup: ItemGroup = newGroupRespone.data.data
-      setItemGroup(newGroup)
+      const newGroup: ProductGroup = newGroupRespone.data.data
+      setProductGroup(newGroup)
       reset()
       clearErrors()
       queryClient.invalidateQueries({ queryKey: ['group_name_list'] })
@@ -65,7 +65,7 @@ export default function AdminCreateNewGroup() {
   return (
     <div className='rounded-lg border border-white/40 p-4'>
       <div className='flex flex-col items-center justify-center'>
-        <p className='text-lg font-semibold uppercase lg:text-lg'>Create Item Group</p>
+        <p className='lg:text-lg text-lg font-semibold uppercase'>Create Item Group</p>
         <form className='mt-2' onSubmit={onSubmit}>
           <Input
             classNameInput='text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
@@ -75,7 +75,7 @@ export default function AdminCreateNewGroup() {
             autoComplete='false'
           />
           <div className='flex w-full items-center justify-end'>
-            <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 lg:text-lg'>
+            <button className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60'>
               Create
             </button>
           </div>

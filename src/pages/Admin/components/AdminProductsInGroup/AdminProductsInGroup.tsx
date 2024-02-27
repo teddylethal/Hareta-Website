@@ -6,8 +6,8 @@ import { Product } from 'src/types/product.type'
 import classNames from 'classnames'
 import { ColorRing } from 'react-loader-spinner'
 
-export default function AdminItemsInGroup() {
-  const { itemGroup, currentItem, setCurrentItem } = useContext(AdminContext)
+export default function AdminProductsInGroup() {
+  const { ProductGroup, currentItem, setCurrentItem } = useContext(AdminContext)
 
   //? ITEMS IN GROUP
   const {
@@ -19,21 +19,21 @@ export default function AdminItemsInGroup() {
     queryKey: ['items_in_group'],
     queryFn: () =>
       productApi.getItemsInGroup({
-        id: itemGroup?.id as string,
+        id: ProductGroup?.id as string,
         page: '1',
         limit: '50'
       }),
-    enabled: Boolean(itemGroup),
+    enabled: Boolean(ProductGroup),
     keepPreviousData: true,
     staleTime: 60000 * 3
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 
   useEffect(() => {
-    if (itemGroup) {
+    if (ProductGroup) {
       refetch()
     }
-  }, [itemGroup, refetch])
+  }, [ProductGroup, refetch])
 
   //? CHOOSE ITEM
   const handleChooseVariant = (item: Product) => () => {
@@ -43,9 +43,9 @@ export default function AdminItemsInGroup() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className='text-lg font-semibold uppercase lg:text-xl'>Choose variant</p>
+        <p className='lg:text-xl text-lg font-semibold uppercase'>Choose variant</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
-          {!itemGroup && (
+          {!ProductGroup && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
               select a group
             </div>

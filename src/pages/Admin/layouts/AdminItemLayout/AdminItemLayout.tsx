@@ -17,12 +17,12 @@ export default function AdminItemLayout({ children }: Props) {
     })
   return (
     <Fragment>
-      <div className='relative grid grid-cols-4 items-center justify-around overflow-hidden rounded-xl border border-haretaColor text-base font-semibold text-textLight/80 lg:text-xl'>
+      <div className='lg:text-xl relative grid grid-cols-4 items-center justify-around overflow-hidden rounded-xl border border-haretaColor text-base font-semibold text-textLight/80'>
         <NavLink to={adminPath.createItem} className={({ isActive }) => itemStyle(isActive)}>
           Create
         </NavLink>
 
-        <NavLink to={adminPath.uploadItemAvatar} className={({ isActive }) => itemStyle(isActive)}>
+        <NavLink to={adminPath.uploadProductAvatar} className={({ isActive }) => itemStyle(isActive)}>
           Update
         </NavLink>
 

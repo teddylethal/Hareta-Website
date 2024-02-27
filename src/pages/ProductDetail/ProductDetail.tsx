@@ -19,7 +19,7 @@ import ProductDetailLoading from './components/ProductDetailLoading'
 import ProductDetailSkeleton from './components/ProductDetailSkeleton/ProductDetailSkeleton'
 import ProductDetailDesktop from './components/ProductDetailDesktop'
 import ProductDetailMobile from './components/ProductDetailMobile'
-import { ItemInGroupConfig } from 'src/types/product.type'
+import { ProductsInGroupConfig } from 'src/types/product.type'
 import { AxiosError } from 'axios'
 import { ErrorRespone } from 'src/types/utils.type'
 import { errorResponeList } from 'src/constants/error'
@@ -55,7 +55,7 @@ export default function ProductDetail() {
   const defaltItem = productDetailData?.data.data
 
   //? ITEMS IN GROUP
-  const itemInGroupQuery: ItemInGroupConfig = {
+  const itemInGroupQuery: ProductsInGroupConfig = {
     id: defaltItem?.group.id as string,
     page: '1',
     limit: '50'
@@ -175,9 +175,9 @@ export default function ProductDetail() {
 
   if (!defaltItem) return <ProductDetailLoading />
   return (
-    <div className='bg-lightBg py-2 dark:bg-darkBg lg:py-3 xl:py-4'>
+    <div className='lg:py-3 xl:py-4 bg-lightBg py-2 dark:bg-darkBg'>
       <div className='container'>
-        <div className='relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-[#f8f8f8] px-3 py-1 text-xs font-medium uppercase text-textDark duration-200 dark:border-white/20 dark:bg-[#000] dark:text-textLight lg:mb-3  lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3'>
+        <div className='lg:mb-3 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3 relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-[#f8f8f8] px-3 py-1 text-xs font-medium  uppercase text-textDark duration-200 dark:border-white/20 dark:bg-[#000] dark:text-textLight'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>
@@ -281,7 +281,7 @@ export default function ProductDetail() {
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
         <div className='text-center'>
-          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-red-700 md:w-10 lg:w-12 xl:w-16')} />
+          <FontAwesomeIcon icon={faXmark} className={classNames('md:w-10 lg:w-12 xl:w-16 h-auto w-8 text-red-700')} />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           The quantity of the current item you are trying to add exceed our store

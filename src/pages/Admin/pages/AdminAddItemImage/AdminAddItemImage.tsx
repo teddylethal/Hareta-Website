@@ -1,6 +1,6 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
-import AdminItemGroup from '../../components/AdminItemGroup'
-import AdminItemsInGroup from '../../components/AdminItemsInGroup'
+import AdminProductGroup from '../../components/AdminProductGroup'
+import AdminProductsInGroup from '../../components/AdminProductsInGroup'
 import AdminImagesPage from '../AdminImagesPage'
 import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import ImageInput from '../../components/ImageInput'
@@ -13,7 +13,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 
 export default function AdminAddItemImage() {
-  const { currentItem, itemGroup } = useContext(AdminContext)
+  const { currentItem, ProductGroup } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
@@ -104,7 +104,7 @@ export default function AdminAddItemImage() {
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
                     <p className='col-span-1 font-medium uppercase text-textLight/60'>Name</p>
-                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{itemGroup?.name}</p>
+                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{ProductGroup?.name}</p>
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
                     <p className='col-span-1 font-medium uppercase text-textLight/60'>Color</p>
@@ -167,8 +167,8 @@ export default function AdminAddItemImage() {
         </div>
         <div className='col-span-1'>
           <div className='flex min-h-full flex-col justify-between'>
-            <AdminItemGroup />
-            <AdminItemsInGroup />
+            <AdminProductGroup />
+            <AdminProductsInGroup />
           </div>
         </div>
       </div>

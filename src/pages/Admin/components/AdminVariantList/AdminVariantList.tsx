@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { ColorRing } from 'react-loader-spinner'
 
 export default function AdminVariantList() {
-  const { itemGroup } = useContext(AdminContext)
+  const { ProductGroup } = useContext(AdminContext)
 
   //? ITEMS IN GROUP
   const {
@@ -18,27 +18,27 @@ export default function AdminVariantList() {
     queryKey: ['variant_list'],
     queryFn: () =>
       productApi.getItemsInGroup({
-        id: itemGroup?.id as string,
+        id: ProductGroup?.id as string,
         page: '1',
         limit: '50'
       }),
     keepPreviousData: true,
-    enabled: Boolean(itemGroup)
+    enabled: Boolean(ProductGroup)
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 
   useEffect(() => {
-    if (itemGroup) {
+    if (ProductGroup) {
       refetch()
     }
-  }, [itemGroup, refetch])
+  }, [ProductGroup, refetch])
 
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className='text-lg font-semibold uppercase lg:text-xl'> variant list</p>
+        <p className='lg:text-xl text-lg font-semibold uppercase'> variant list</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
-          {!itemGroup && (
+          {!ProductGroup && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
               select a group
             </div>
