@@ -17,11 +17,11 @@ export default function AdminProductGroup() {
     isFetching,
     isFetched
   } = useQuery({
-    queryKey: ['adminDefaultItemList'],
+    queryKey: ['adminDefaultProductList'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000
   })
   const ProductGroups = ProductGroupsData?.data.data

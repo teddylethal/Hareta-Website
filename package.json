@@ -28,8 +28,8 @@
     "@mui/material": "^5.14.7",
     "@mui/styled-engine-sc": "^5.12.0",
     "@mui/styles": "^5.14.1",
-    "@tanstack/react-query": "^4.29.15",
-    "@tanstack/react-query-devtools": "^4.29.15",
+    "@tanstack/react-query": "^5.24.1",
+    "@tanstack/react-query-devtools": "^5.24.1",
     "@types/react-headroom": "^3.2.0",
     "@types/react-scroll": "^1.8.10",
     "axios": "^1.4.0",
@@ -61,6 +61,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.20.1",
     "@types/dompurify": "^3.0.2",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.3.1",

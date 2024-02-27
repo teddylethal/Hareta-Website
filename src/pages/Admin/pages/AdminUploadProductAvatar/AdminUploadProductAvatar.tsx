@@ -29,7 +29,7 @@ export default function AdminUploadProductAvatar() {
   const { data: itemImageListData, refetch } = useQuery({
     queryKey: ['item_image_list'],
     queryFn: () => producImageApi.getImageList(currentItem?.id as string),
-    keepPreviousData: true,
+
     enabled: Boolean(currentItem)
   })
   const imageList = itemImageListData?.data.data
@@ -40,11 +40,11 @@ export default function AdminUploadProductAvatar() {
   }, [currentItem, refetch])
 
   //? AUTO ADD FIRST IMAGE
-  const addItemImage = useMutation(producImageApi.addImage)
+  const addItemImage = useMutation({ mutationFn: producImageApi.addImage })
 
   //? UPLOAD AVATAR
   const queryClient = useQueryClient()
-  const uploadAvatarMutation = useMutation(adminItemApi.uploadProductAvatar)
+  const uploadAvatarMutation = useMutation({ mutationFn: adminItemApi.uploadProductAvatar })
   const handleSubmit = () => {
     try {
       if (avatarFile && currentItem) {
@@ -68,7 +68,7 @@ export default function AdminUploadProductAvatar() {
           onSuccess: () => {
             showSuccessDialog(setSuccessDialogOpen)
             queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
-            queryClient.invalidateQueries({ queryKey: ['adminDefaultItemList'] })
+            queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
           }
         })
       }

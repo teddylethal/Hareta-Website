@@ -37,7 +37,7 @@ export default function ProductList() {
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000
   })
 
@@ -66,7 +66,7 @@ export default function ProductList() {
   const { t } = useTranslation('store')
 
   return (
-    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg md:py-3 xl:py-4'>
+    <div className='md:py-3 xl:py-4 bg-lightBg py-2 duration-200 dark:bg-darkBg'>
       <div className='container'>
         <PathBar
           pathList={[
@@ -76,9 +76,9 @@ export default function ProductList() {
         />
 
         {!isMobile && (
-          <div className='relative grid grid-cols-12 gap-2 lg:gap-4 xl:gap-6'>
+          <div className='lg:gap-4 xl:gap-6 relative grid grid-cols-12 gap-2'>
             <div className='col-span-3'>
-              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/20 bg-barLightBg px-2 py-4 duration-200 dark:border-white/20 dark:bg-barDarkBg md:top-14 lg:top-20'>
+              <div className='md:top-14 lg:top-20 sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/20 bg-barLightBg px-2 py-4 duration-200 dark:border-white/20 dark:bg-barDarkBg'>
                 <SearchBar />
                 <AsideSorter />
                 <PriceRange queryConfig={queryConfig} />
@@ -90,7 +90,7 @@ export default function ProductList() {
               {storeData?.data.paging.total == 0 && <EmptyProductList currentPage='store' />}
               {storeData && (
                 <div className=''>
-                  <div className='grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6'>
+                  <div className='lg:grid-cols-3 lg:gap-6 grid grid-cols-2 gap-4'>
                     {isFetching &&
                       Array(12)
                         .fill(0)

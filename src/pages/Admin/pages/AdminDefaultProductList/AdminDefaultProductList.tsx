@@ -4,7 +4,9 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import LoadingSection from 'src/components/LoadingSection'
+import { adminPath } from 'src/constants/path'
 import { ProductGroup, Product, ProductListConfig } from 'src/types/product.type'
+import { generateNameId } from 'src/utils/utils'
 
 interface ItemProps {
   product: Product
@@ -14,7 +16,10 @@ interface ItemProps {
 function ProductItem({ product, handleEnterProduct }: ItemProps) {
   const avatarUrl = product.avatar ? product.avatar.url : null
   return (
-    <button className='w-full space-y-2 border border-white/20 p-2 hover:text-haretaColor'>
+    <button
+      className='w-full space-y-2 border border-white/20 p-2 hover:text-haretaColor'
+      onClick={handleEnterProduct(product)}
+    >
       <div className='relative w-full overflow-hidden pt-[75%]'>
         {avatarUrl ? (
           <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
@@ -29,23 +34,22 @@ function ProductItem({ product, handleEnterProduct }: ItemProps) {
   )
 }
 
-export default function AdminProductGroups() {
+export default function AdminDefaultProductList() {
   //! GET ITEM GROUP LIST
   const queryConfig = {}
   const { data: ProductGroupListData } = useQuery({
-    queryKey: ['adminDefaultItemList'],
+    queryKey: ['adminDefaultProductList'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-    keepPreviousData: true,
     staleTime: 3 * 60 * 1000
   })
   const ProductGroupList = ProductGroupListData?.data.data
 
   //! HANDLE ENTER ITEM
   const navigate = useNavigate()
-  const handleEnterProduct = (ProductGroup: ProductGroup) => () => {
-    return
+  const handleEnterProduct = (product: ProductGroup) => () => {
+    navigate({ pathname: `${adminPath.products}/${generateNameId({ name: product.name, id: product.id })}` })
   }
 
   return (

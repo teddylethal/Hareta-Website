@@ -24,7 +24,7 @@ export default function AdminProductsInGroup() {
         limit: '50'
       }),
     enabled: Boolean(ProductGroup),
-    keepPreviousData: true,
+
     staleTime: 60000 * 3
   })
   const itemsInGroup = itemsInGroupData?.data.data || []

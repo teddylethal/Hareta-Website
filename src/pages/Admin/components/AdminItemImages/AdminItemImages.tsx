@@ -20,7 +20,7 @@ export default function AdminItemImages() {
   } = useQuery({
     queryKey: ['item_image_list'],
     queryFn: () => producImageApi.getImageList(currentItem?.id as string),
-    keepPreviousData: true,
+
     enabled: Boolean(currentItem)
   })
   const imageList = itemImageListData?.data.data
@@ -39,7 +39,7 @@ export default function AdminItemImages() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className=' text-center text-lg font-semibold uppercase text-white lg:text-xl'>Image list</p>
+        <p className=' lg:text-xl text-center text-lg font-semibold uppercase text-white'>Image list</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {!currentItem && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>

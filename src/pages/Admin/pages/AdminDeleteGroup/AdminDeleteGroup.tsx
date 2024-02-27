@@ -29,7 +29,7 @@ export default function AdminDeleteGroup() {
   const { data: itemsInGroupData } = useQuery({
     queryKey: ['items_in_group_for_detail', itemInGroupQuery],
     queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
-    keepPreviousData: true,
+
     enabled: Boolean(ProductGroup)
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
@@ -39,7 +39,7 @@ export default function AdminDeleteGroup() {
   const { data: itemDetailData } = useQuery({
     queryKey: ['item', defaultItemID],
     queryFn: () => productApi.getProductDetail(defaultItemID as string),
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000,
     enabled: Boolean(defaultItem)
   })
@@ -60,7 +60,7 @@ export default function AdminDeleteGroup() {
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
-          queryClient.invalidateQueries({ queryKey: ['adminDefaultItemList'] })
+          queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
           queryClient.invalidateQueries({ queryKey: ['variant_list'] })
           setProductGroup(null)
         }

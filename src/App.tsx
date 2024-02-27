@@ -5,8 +5,8 @@ import { createContext, useContext, useEffect } from 'react'
 import { LocalStorageEventTarget } from './utils/auth'
 import { AppContext } from './contexts/app.context'
 import { CartContext } from './contexts/cart.context'
-import LoadingPage from './components/LoadingPage'
 import { OrderContext } from './contexts/order.context'
+import LoadingPage from './components/LoadingPage'
 
 export type ThemeContextType = 'light' | 'dark'
 export const ThemeContext = createContext({
@@ -16,7 +16,7 @@ export const ThemeContext = createContext({
 })
 
 function App() {
-  const { reset, LoadingPage, theme } = useContext(AppContext)
+  const { reset, loadingPage, theme } = useContext(AppContext)
   const { setExtendedPurchases } = useContext(CartContext)
   const { setOrderList, setTempOrderList } = useContext(OrderContext)
 
@@ -44,7 +44,7 @@ function App() {
     <div className={theme === 'dark' ? 'dark' : 'light'}>
       {routeElements}
       <ToastContainer limit={5} />
-      {LoadingPage && <LoadingPage />}
+      {loadingPage && <LoadingPage />}
     </div>
   )
 }

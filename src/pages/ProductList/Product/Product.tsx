@@ -1,5 +1,4 @@
 import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import {} from '@fortawesome/free-regular-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { memo, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -60,7 +59,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
   const { data: imageListData, isLoading } = useQuery({
     queryKey: ['default_item_images', itemID],
     queryFn: () => producImageApi.getImageList(itemID as string),
-    keepPreviousData: true,
+
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data
@@ -116,8 +115,8 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     !isLikedByUser && likeItem()
   }
 
-  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
-  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
+  const likeItemMutation = useMutation({ mutationFn: likeItemAPi.likeItem })
   useEffect(() => {
     const updateLikeItem = setTimeout(() => {
       if (isLikedByUser && initialInWishlist === false) {

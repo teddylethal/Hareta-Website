@@ -51,7 +51,7 @@ export default function AddTocartPopover({
   const { data: productDetailData, isLoading } = useQuery({
     queryKey: ['previewing_item', activeItemID],
     queryFn: () => productApi.getProductDetail(activeItemID),
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000
   })
   const item = productDetailData?.data.data
@@ -138,7 +138,7 @@ export default function AddTocartPopover({
         <div
           ref={elementRef}
           className={classNames(
-            'fixed left-1/2 top-1/2 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-black/40 px-2 py-4 shadow-sm dark:border-white/40 sm:w-[60%] ',
+            'sm:w-[60%] fixed left-1/2 top-1/2 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-black/40 px-2 py-4 shadow-sm dark:border-white/40 ',
             {
               'bg-white text-textDark ': theme === 'light',
               'bg-black text-textLight': theme === 'dark'
@@ -269,13 +269,13 @@ export default function AddTocartPopover({
                   <Link
                     to={path.login}
                     type='button'
-                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark lg:px-6 lg:py-2'
+                    className='lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark'
                   >
                     {t('message.login')}
                   </Link>
                   <button
                     type='button'
-                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark lg:px-6 lg:py-2'
+                    className='lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark'
                     onClick={createTemporaryCart}
                   >
                     {t('message.Continue')}

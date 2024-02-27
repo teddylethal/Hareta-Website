@@ -45,12 +45,11 @@ export default function ProductDetail() {
   const queryClient = useQueryClient()
   const { nameId } = useParams()
 
-  //? GET ITEM DATA
+  //! GET ITEM DATA
   const id = getIdFromNameId(nameId as string)
   const { data: productDetailData, isFetching } = useQuery({
-    queryKey: ['item', id],
-    queryFn: () => productApi.getProductDetail(id as string),
-    keepPreviousData: true
+    queryKey: ['product_detail', id],
+    queryFn: () => productApi.getProductDetail(id as string)
   })
   const defaltItem = productDetailData?.data.data
 
@@ -63,12 +62,12 @@ export default function ProductDetail() {
   const { data: itemsInGroupData } = useQuery({
     queryKey: ['items_in_group', itemInGroupQuery],
     queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
-    keepPreviousData: true,
+
     enabled: Boolean(defaltItem)
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 
-  //? GET WISHLIST
+  //! GET WISHLIST
   const { data: wishlistData } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
@@ -89,8 +88,8 @@ export default function ProductDetail() {
     setIsLikedByUser(wishlistIDs.includes(id))
   }, [wishlistIDs, id])
 
-  //? ADD TO CART
-  const addToCartMutation = useMutation(purchaseApi.addToCart)
+  //! HANDLE ADD TO CART
+  const addToCartMutation = useMutation({ mutationFn: purchaseApi.addToCart })
   const addToCart = (itemID: string, quantity: number) => {
     addToCartMutation.mutate(
       { item_id: itemID, quantity: quantity },
@@ -113,7 +112,7 @@ export default function ProductDetail() {
   }
 
   //? LIKE ITEM
-  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  const likeItemMutation = useMutation({ mutationFn: likeItemAPi.likeItem })
   const likeItem = () => {
     setIsLikedByUser(true)
     likeItemMutation.mutate(
@@ -131,7 +130,7 @@ export default function ProductDetail() {
     )
   }
 
-  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
+  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
   const unlikeItem = () => {
     setIsLikedByUser(false)
     unlikeItemMutation.mutate(

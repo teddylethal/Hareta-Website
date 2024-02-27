@@ -33,7 +33,7 @@ export default function AdminDeleteItem() {
         onSuccess: () => {
           showSuccessDialog(setDialog)
           queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
-          queryClient.invalidateQueries({ queryKey: ['adminDefaultItemList'] })
+          queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
           setCurrentItem(null)
         }
       }

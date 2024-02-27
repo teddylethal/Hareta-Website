@@ -5,7 +5,7 @@ import { getAccessTokenFromLS, getProfileFromLS, getThemeFromLS, setThemeToLS } 
 interface AppContextInterface {
   isAuthenticated: boolean
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  LoadingPage: boolean
+  loadingPage: boolean
   setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
   profile: User | null
   setProfile: React.Dispatch<React.SetStateAction<User | null>>
@@ -23,7 +23,7 @@ const initialAppContext: AppContextInterface = {
   profile: getProfileFromLS(),
   setProfile: () => null,
   reset: () => null,
-  LoadingPage: false,
+  loadingPage: false,
   setLoadingPage: () => null,
   theme: getThemeFromLS(),
   toggleTheme: () => null
@@ -34,7 +34,7 @@ export const AppContext = createContext<AppContextInterface>(initialAppContext)
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAppContext.isAuthenticated)
-  const [LoadingPage, setLoadingPage] = useState<boolean>(initialAppContext.LoadingPage)
+  const [loadingPage, setLoadingPage] = useState<boolean>(initialAppContext.loadingPage)
   const [theme, setTheme] = useState<string>(initialAppContext.theme)
   const [profile, setProfile] = useState<User | null>(initialAppContext.profile)
   const toggleTheme = () => {
@@ -56,7 +56,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         profile,
         setProfile,
         reset,
-        LoadingPage,
+        loadingPage,
         setLoadingPage,
         theme,
         toggleTheme

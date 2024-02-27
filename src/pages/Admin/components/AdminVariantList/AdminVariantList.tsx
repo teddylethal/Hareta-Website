@@ -3,57 +3,49 @@ import { AdminContext } from '../../layouts/AdminMainLayout/AdminMainLayout'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import classNames from 'classnames'
-import { ColorRing } from 'react-loader-spinner'
+import LoadingRing from 'src/components/LoadingRing'
 
-export default function AdminVariantList() {
-  const { ProductGroup } = useContext(AdminContext)
+interface Props {
+  groupId: string
+}
 
-  //? ITEMS IN GROUP
+export default function AdminVariantList({ groupId }: Props) {
+  //! GET PRODUCT IN GROUP
   const {
     data: itemsInGroupData,
     refetch,
     isFetching,
     isFetched
   } = useQuery({
-    queryKey: ['variant_list'],
+    queryKey: ['admin_variant_list'],
     queryFn: () =>
       productApi.getItemsInGroup({
-        id: ProductGroup?.id as string,
+        id: groupId,
         page: '1',
         limit: '50'
-      }),
-    keepPreviousData: true,
-    enabled: Boolean(ProductGroup)
+      })
   })
   const itemsInGroup = itemsInGroupData?.data.data || []
 
-  useEffect(() => {
-    if (ProductGroup) {
-      refetch()
-    }
-  }, [ProductGroup, refetch])
+  // useEffect(() => {
+  //   if (ProductGroup) {
+  //     refetch()
+  //   }
+  // }, [ProductGroup, refetch])
 
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className='lg:text-xl text-lg font-semibold uppercase'> variant list</p>
+        <p className='lg:text-xl text-lg font-semibold uppercase'>variant list</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
-          {!ProductGroup && (
+          {/* {!ProductGroup && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
               select a group
             </div>
-          )}
+          )} */}
           {isFetching && (
             <div className='inset-0 flex h-full w-full items-center justify-center bg-black/50'>
-              <ColorRing
-                visible={true}
-                height='60'
-                width='60'
-                ariaLabel='blocks-loading'
-                wrapperStyle={{}}
-                wrapperClass='blocks-wrapper'
-                colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
-              />
+              <LoadingRing />
             </div>
           )}
           {isFetched && (

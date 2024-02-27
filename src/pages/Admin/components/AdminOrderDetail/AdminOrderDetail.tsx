@@ -38,7 +38,7 @@ export default function AdminOrderDetail() {
     queryFn: () => {
       return orderApi.getOrderById(orderID)
     },
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000,
     enabled: choosingOrder
   })
@@ -92,7 +92,7 @@ export default function AdminOrderDetail() {
   return (
     <div className='min-h-40'>
       {!choosingOrder && (
-        <div className='flex h-40 w-full items-center justify-center text-center font-semibold uppercase md:text-lg xl:text-xl'>
+        <div className='md:text-lg xl:text-xl flex h-40 w-full items-center justify-center text-center font-semibold uppercase'>
           Choose an order
         </div>
       )}

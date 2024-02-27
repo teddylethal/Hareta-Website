@@ -80,7 +80,7 @@ export default function OrderLayout() {
   const { data: cartData, refetch: refetchCartData } = useQuery({
     queryKey: ['purchases_for_checking'],
     queryFn: () => purchaseApi.getPurchases(),
-    keepPreviousData: true,
+
     enabled: isAuthenticated
   })
   const cartItemList = cartData?.data.data || []
@@ -176,7 +176,7 @@ export default function OrderLayout() {
   const { t } = useTranslation('order')
 
   return (
-    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg lg:py-3 xl:py-4'>
+    <div className='lg:py-3 xl:py-4 bg-lightBg py-2 duration-200 dark:bg-darkBg'>
       <div className='container'>
         <PathBar
           pathList={[
@@ -204,16 +204,16 @@ export default function OrderLayout() {
           <div className='mb-4 text-center'>
             <FontAwesomeIcon
               icon={faCheck}
-              className='text- h-auto w-8 rounded-full text-center text-success md:w-10 lg:w-12 xl:w-16'
+              className='text- md:w-10 lg:w-12 xl:w-16 h-auto w-8 rounded-full text-center text-success'
             />
           </div>
-          <p className='mt-6 text-center text-base font-bold uppercase leading-6 md:text-lg xl:text-xl'>
+          <p className='md:text-lg xl:text-xl mt-6 text-center text-base font-bold uppercase leading-6'>
             {t('layout.Your order was created successfully')}
           </p>
-          <div className='mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium md:text-base xl:text-lg'>
+          <div className='md:text-base xl:text-lg mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium'>
             <p className='text-center'>{t('layout.A payment instruction email was sent to your email address')}</p>
             <p className='text-center'>{t('layout.Please complete transaction in 48 hours to complete your order')}</p>
-            <p className='text-center text-base font-semibold md:text-lg xl:text-xl'>{t('layout.Sincerely thanks!')}</p>
+            <p className='md:text-lg xl:text-xl text-center text-base font-semibold'>{t('layout.Sincerely thanks!')}</p>
           </div>
           <div className='mt-4 flex w-full items-center justify-center'>
             <button
@@ -257,7 +257,7 @@ export default function OrderLayout() {
                 wrapperClass='blocks-wrapper'
                 colors={['#ff8800', '#ff8800', '#ff8800', '#ff8800', '#ff8800']}
               />
-              <div className='mt-2 text-lg font-semibold uppercase text-textDark dark:text-textLight md:text-xl xl:text-2xl'>
+              <div className='md:text-xl xl:text-2xl mt-2 text-lg font-semibold uppercase text-textDark dark:text-textLight'>
                 Processing...
               </div>
             </motion.div>
@@ -276,13 +276,13 @@ export default function OrderLayout() {
           <div className='mb-4 text-center'>
             <FontAwesomeIcon
               icon={faXmark}
-              className='text- h-auto w-8 rounded-full text-center text-red-600 md:w-10 lg:w-12 xl:w-16'
+              className='text- md:w-10 lg:w-12 xl:w-16 h-auto w-8 rounded-full text-center text-red-600'
             />
           </div>
-          <p className='mt-6 text-center text-base font-bold uppercase leading-6 sm:text-lg md:text-xl xl:text-2xl'>
+          <p className='sm:text-lg md:text-xl xl:text-2xl mt-6 text-center text-base font-bold uppercase leading-6'>
             {t('layout.YOUR ORDER WAS DENIDED')}
           </p>
-          <div className='mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium md:text-base xl:text-lg'>
+          <div className='md:text-base xl:text-lg mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium'>
             <p className='w-full text-left'>
               {t('denided order.Your order was denied due to ')}
               <span className='text-haretaColor'>{t('denided order.unavailable quantity')}</span>
@@ -301,7 +301,7 @@ export default function OrderLayout() {
               {t('denided order. the unavailable items and ')}
               <span className='text-haretaColor'>{t('denided order.adjust the quantity.')}</span>
             </p>
-            <p className='text-center text-base font-semibold md:text-lg xl:text-xl'>
+            <p className='md:text-lg xl:text-xl text-center text-base font-semibold'>
               {t('denided order.Sincerely apologies for this accident!')}
             </p>
           </div>

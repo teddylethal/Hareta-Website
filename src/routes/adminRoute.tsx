@@ -4,17 +4,16 @@ import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
-import AdminProductGroups from 'src/pages/Admin/pages/AdminProductGroups'
 
 //? IMPORT ADMIN LAYOUTS
 const AdminItemLayout = lazy(() => import('src/pages/Admin/layouts/AdminItemLayout'))
 
 //? IMPORT ADMIN COMPONENTS
+const AdminDefaultProductList = lazy(() => import('src/pages/Admin/pages/AdminDefaultProductList'))
 const AdminProductDetail = lazy(() => import('src/pages/Admin/pages/AdminProductDetail'))
 const AdminCreateItem = lazy(() => import('src/pages/Admin/pages/AdminCreateItem'))
 const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
-const AdminUploadProductAvatar = lazy(() => import('src/pages/Admin/pages/AdminUploadProductAvatar'))
 const AdminSetDefaultItem = lazy(() => import('src/pages/Admin/pages/AdminSetDefaultItem'))
 const AdminAddItemImage = lazy(() => import('src/pages/Admin/pages/AdminAddItemImage'))
 const AdminUpdateItem = lazy(() => import('src/pages/Admin/pages/AdminUpdateItem'))
@@ -22,6 +21,7 @@ const AdminDeleteItemImage = lazy(() => import('src/pages/Admin/pages/AdminDelet
 const AdminDeleteItem = lazy(() => import('src/pages/Admin/pages/AdminDeleteItem'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGroup'))
 const AdminOrder = lazy(() => import('src/pages/Admin/pages/AdminOrder'))
+const AdminUploadProductAvatar = lazy(() => import('src/pages/Admin/pages/AdminUploadProductAvatar'))
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
@@ -59,7 +59,7 @@ const AdminRoute = {
       children: [
         {
           path: '',
-          element: <AdminProductGroups />
+          element: <AdminDefaultProductList />
         },
         {
           path: adminPath.productDetail,

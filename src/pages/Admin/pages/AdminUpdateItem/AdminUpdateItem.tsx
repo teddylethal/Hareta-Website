@@ -10,11 +10,11 @@ import productApi from 'src/apis/product.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone, NoUndefinedField } from 'src/types/utils.type'
 import AdminUpdateItemForm from '../../components/AdminUpdateItemForm'
-import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminProductsInGroup from '../../components/AdminProductsInGroup'
 import { AppContext } from 'src/contexts/app.context'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminDialog from '../../components/AdminDialog'
+import AdminProductGroup from '../../components/AdminProductGroup'
+import AdminProductsInGroup from '../../components/AdminProductsInGroup'
 
 type FormData = NoUndefinedField<UpdateItemSchema>
 
@@ -79,7 +79,7 @@ export default function AdminUpdateItem() {
     }
   }, [itemDetail, setValue])
 
-  const updateItemMutation = useMutation(adminItemApi.updateItem)
+  const updateItemMutation = useMutation({ mutationFn: adminItemApi.updateItem })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInvalid = (errors: any) => console.error(errors)

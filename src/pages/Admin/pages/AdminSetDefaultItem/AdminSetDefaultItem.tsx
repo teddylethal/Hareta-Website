@@ -53,7 +53,7 @@ export default function AdminSetDefaultItem() {
       reset()
       clearErrors()
       queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
-      queryClient.invalidateQueries({ queryKey: ['adminDefaultItemList'] })
+      queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
     } catch (error) {
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
         const formError = error.response?.data

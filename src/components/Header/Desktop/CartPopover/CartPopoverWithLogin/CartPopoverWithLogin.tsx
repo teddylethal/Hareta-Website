@@ -19,7 +19,7 @@ export default function CartPopoverWithLogin() {
   const { data: cartData, refetch } = useQuery({
     queryKey: ['purchases'],
     queryFn: () => purchaseApi.getPurchases(),
-    keepPreviousData: true,
+
     staleTime: 1000 * 60 * 3,
     enabled: isAuthenticated
   })
@@ -59,11 +59,11 @@ export default function CartPopoverWithLogin() {
   return (
     <div className='rounded-lg bg-haretaColor duration-200 dark:bg-haretaColor'>
       <Popover
-        className='flex border border-none px-1.5 py-1 lg:px-2'
+        className='lg:px-2 flex border border-none px-1.5 py-1'
         renderPopover={
-          <div className='relative -top-1 w-[360px] rounded-md bg-lightWhite700 py-2 text-sm text-textDark shadow-md dark:bg-darkGray700 dark:text-textLight lg:top-0'>
+          <div className='lg:top-0 relative -top-1 w-[360px] rounded-md bg-lightWhite700 py-2 text-sm text-textDark shadow-md dark:bg-darkGray700 dark:text-textLight'>
             <Fragment>
-              <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 lg:text-lg'>
+              <div className='lg:text-lg px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300'>
                 {cartData ? cartData?.data.paging.total : 0} {t('cart button.items in cart')}
               </div>
               <div className='m-2 overflow-auto rounded-md bg-lightWhite900 outline outline-1 outline-black/10 dark:bg-darkGray900 dark:outline-white/10'>
@@ -94,7 +94,7 @@ export default function CartPopoverWithLogin() {
                               to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
                               className='flex'
                             >
-                              <p className='truncate px-2 font-semibold capitalize hover:text-primaryColor dark:hover:text-primaryColor lg:text-base'>
+                              <p className='lg:text-base truncate px-2 font-semibold capitalize hover:text-primaryColor dark:hover:text-primaryColor'>
                                 {purchase.item.name}
                               </p>
                             </Link>
@@ -103,7 +103,7 @@ export default function CartPopoverWithLogin() {
                             </span>
                           </div>
                           <div className='ml-2 flex justify-between'>
-                            <span className='text-xs capitalize text-textDark/60 dark:text-textLight/60 lg:text-sm'>{`(${purchase.item.color})`}</span>
+                            <span className='lg:text-sm text-xs capitalize text-textDark/60 dark:text-textLight/60'>{`(${purchase.item.color})`}</span>
 
                             <div className='flex space-x-3'>
                               {/* <button
@@ -156,7 +156,7 @@ export default function CartPopoverWithLogin() {
         <div className='flex items-center space-x-2 px-2 py-0.5  text-black'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
           {extendedPurchases.length > 0 && (
-            <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-textDark lg:text-sm xl:text-base'>
+            <div className='lg:text-sm xl:text-base flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-textDark'>
               {extendedPurchases.length}
             </div>
           )}

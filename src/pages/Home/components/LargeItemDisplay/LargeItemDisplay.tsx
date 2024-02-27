@@ -49,7 +49,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
   // const { data: imageListData, isLoading } = useQuery({
   //   queryKey: ['default_item_images', itemID],
   //   queryFn: () => producImageApi.getImageList(itemID as string),
-  //   keepPreviousData: true,
+  //
   //   staleTime: 1000 * 60 * 3
   // })
   // const imageList = imageListData?.data.data
@@ -118,7 +118,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
 
   return (
     <div
-      className='flex h-full w-full items-center justify-center pb-0 pt-2 duration-200 md:hover:pb-2 md:hover:pt-0'
+      className='md:hover:pb-2 md:hover:pt-0 flex h-full w-full items-center justify-center pb-0 pt-2 duration-200'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
@@ -167,10 +167,10 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
         </div> */}
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
+            <span className=' lg:h-6 lg:w-20 lg:text-sm flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs  text-textLight'>
               {itemTag[product.tag]}
             </span>
-            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
+            <div className='lg:left-20 lg:border-[12px] absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent' />
           </div>
         )}
         {isAuthenticated && (
@@ -178,7 +178,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
             <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
               <FontAwesomeIcon
                 icon={faHeart}
-                className={classNames('h-auto w-4 md:w-5  xl:w-6', {
+                className={classNames('md:w-5 xl:w-6 h-auto  w-4', {
                   'text-red-500': isLikedByUser,
                   ' text-textLight': !isLikedByUser
                 })}

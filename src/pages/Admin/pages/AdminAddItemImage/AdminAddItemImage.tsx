@@ -36,7 +36,7 @@ export default function AdminAddItemImage() {
   } = useQuery({
     queryKey: ['item_image_list'],
     queryFn: () => producImageApi.getImageList(currentItem?.id as string),
-    keepPreviousData: true,
+
     enabled: Boolean(currentItem)
   })
   const imageList = itemImageListData?.data.data
