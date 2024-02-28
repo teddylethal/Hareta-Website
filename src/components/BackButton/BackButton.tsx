@@ -6,7 +6,7 @@ export default function BackButton() {
   const navigate = useNavigate()
   return (
     <button
-      className='flex items-center justify-center text-textDark dark:text-textLight '
+      className='text-darkText dark:text-lightText flex items-center justify-center '
       onClick={() => {
         navigate(-1)
       }}

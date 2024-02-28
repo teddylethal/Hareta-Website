@@ -61,7 +61,7 @@ export default function CartPopoverWithLogin() {
       <Popover
         className='lg:px-2 flex border border-none px-1.5 py-1'
         renderPopover={
-          <div className='lg:top-0 relative -top-1 w-[360px] rounded-md bg-lightWhite700 py-2 text-sm text-textDark shadow-md dark:bg-darkGray700 dark:text-textLight'>
+          <div className='lg:top-0 text-darkText dark:text-lightText relative -top-1 w-[360px] rounded-md bg-lightWhite700 py-2 text-sm shadow-md dark:bg-darkGray700'>
             <Fragment>
               <div className='lg:text-lg px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300'>
                 {cartData ? cartData?.data.paging.total : 0} {t('cart button.items in cart')}
@@ -103,18 +103,18 @@ export default function CartPopoverWithLogin() {
                             </span>
                           </div>
                           <div className='ml-2 flex justify-between'>
-                            <span className='lg:text-sm text-xs capitalize text-textDark/60 dark:text-textLight/60'>{`(${purchase.item.color})`}</span>
+                            <span className='lg:text-sm text-darkText/60 dark:text-lightText/60 text-xs capitalize'>{`(${purchase.item.color})`}</span>
 
                             <div className='flex space-x-3'>
                               {/* <button
-                                className='text-sm capitalize text-textDark/60 hover:text-brownColor dark:text-textLight/60 dark:hover:text-haretaColor'
+                                className='text-sm capitalize text-darkText/60 hover:text-brownColor dark:text-lightText/60 dark:hover:text-haretaColor'
                                 onClick={handleBuyItem}
                               >
                                 {t('cart button.buy')}
                               </button> */}
                               <button
                                 disabled={removePurchasesMutation.isLoading}
-                                className={classNames('text-sm capitalize text-textDark/60 dark:text-textLight/60 ', {
+                                className={classNames('text-darkText/60 dark:text-lightText/60 text-sm capitalize ', {
                                   'hover:text-alertRed dark:hover:text-alertRed': !removePurchasesMutation.isLoading,
                                   'cursor-not-allowed': removePurchasesMutation.isLoading
                                 })}
@@ -156,7 +156,7 @@ export default function CartPopoverWithLogin() {
         <div className='flex items-center space-x-2 px-2 py-0.5  text-black'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
           {extendedPurchases.length > 0 && (
-            <div className='lg:text-sm xl:text-base flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-textDark'>
+            <div className='lg:text-sm xl:text-base text-darkText flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium'>
               {extendedPurchases.length}
             </div>
           )}

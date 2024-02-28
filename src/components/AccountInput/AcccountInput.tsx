@@ -113,7 +113,7 @@ export default function AccountInput({
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
             fill='currentColor'
-            className='h-4 w-4 fill-haretaColor duration-200 dark:fill-haretaColor md:h-6 md:w-6'
+            className='md:h-6 md:w-6 h-4 w-4 fill-haretaColor duration-200 dark:fill-haretaColor'
           >
             {svgData}
           </svg>
@@ -121,7 +121,7 @@ export default function AccountInput({
         {isPasswordInput && (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
           <div
-            className='absolute right-8 top-1/2 translate-y-[-40%] hover:cursor-pointer md:right-10'
+            className='md:right-10 absolute right-8 top-1/2 translate-y-[-40%] hover:cursor-pointer'
             onClick={() => setVisible(!visible)}
           >
             {visible && (
@@ -129,7 +129,7 @@ export default function AccountInput({
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-4 w-4 fill-haretaColor dark:fill-haretaColor md:h-6 md:w-6'
+                className='md:h-6 md:w-6 h-4 w-4 fill-haretaColor dark:fill-haretaColor'
               >
                 <path d='M12 15a3 3 0 100-6 3 3 0 000 6z' />
                 <path
@@ -144,7 +144,7 @@ export default function AccountInput({
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 24 24'
                 fill='currentColor'
-                className='h-4 w-4 fill-haretaColor/60 hover:fill-haretaColor md:h-6 md:w-6'
+                className='md:h-6 md:w-6 h-4 w-4 fill-haretaColor/60 hover:fill-haretaColor'
               >
                 <path d='M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.676 12.553a11.249 11.249 0 01-2.631 4.31l-3.099-3.099a5.25 5.25 0 00-6.71-6.71L7.759 4.577a11.217 11.217 0 014.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113z' />
                 <path d='M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0115.75 12zM12.53 15.713l-4.243-4.244a3.75 3.75 0 004.243 4.243z' />
@@ -157,8 +157,8 @@ export default function AccountInput({
           type={visible ? 'text' : `${type}`}
           id={inputId}
           className={
-            'peer h-full w-full border-none bg-transparent text-lg text-haretaColor outline-none duration-200 autofill:text-textDark disabled:text-brownColor dark:text-haretaColor dark:caret-haretaColor autofill:dark:text-haretaColor dark:disabled:text-haretaColor ' +
-            (isPasswordInput ? 'pr-14 md:pr-20' : 'pr-9 md:pr-12')
+            'autofill:text-darkText peer h-full w-full border-none bg-transparent text-lg text-haretaColor outline-none duration-200 disabled:text-brownColor dark:text-haretaColor dark:caret-haretaColor autofill:dark:text-haretaColor dark:disabled:text-haretaColor ' +
+            (isPasswordInput ? 'md:pr-20 pr-14' : 'md:pr-12 pr-9')
           }
           disabled={disabled}
           autoComplete={autoComplete}

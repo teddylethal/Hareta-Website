@@ -6,6 +6,17 @@ export interface ProductGroup {
   name: string
 }
 
+export interface ProductGroupList {
+  data: ProductGroup[]
+  paging: {
+    page: number
+    limit: number
+    total: number
+    cursor: string
+    next_cursor: string
+  }
+}
+
 export interface ProductAvatar {
   id: string
   status: number

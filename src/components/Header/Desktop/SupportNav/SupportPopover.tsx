@@ -15,10 +15,10 @@ export default function SupportPopover({ closePopover }: Props) {
   const className = 'rounded-md px-3 py-2 hover:bg-lightWhite900/80 hover:font-semibold dark:hover:bg-darkGray900/80'
 
   return (
-    <div className='relative flex w-64 select-none flex-col space-y-1 rounded-lg bg-lightWhite700 p-2 text-base font-medium text-textDark shadow-lg dark:bg-darkGray700 dark:text-textLight md:font-medium lg:w-72 lg:text-lg'>
+    <div className='text-darkText md:font-medium lg:w-72 lg:text-lg dark:text-lightText relative flex w-64 select-none flex-col space-y-1 rounded-lg bg-lightWhite700 p-2 text-base font-medium shadow-lg dark:bg-darkGray700'>
       {/* <Link
         to='/'
-        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
+        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-darkText dark:hover:bg-[#101010] dark:hover:text-lightText'
       >
         {t('support.about us')}
       </Link> */}
@@ -29,14 +29,14 @@ export default function SupportPopover({ closePopover }: Props) {
 
       {/* <Link
         to='/'
-        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
+        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-darkText dark:hover:bg-[#101010] dark:hover:text-lightText'
       >
         {t('support.faq')}
       </Link> */}
 
       {/* <Link
         to='/'
-        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-textDark dark:hover:bg-[#101010] dark:hover:text-textLight'
+        className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-darkText dark:hover:bg-[#101010] dark:hover:text-lightText'
       >
         {t('support.contact us')}
       </Link> */}
@@ -47,7 +47,7 @@ export default function SupportPopover({ closePopover }: Props) {
 
       <ChangeLanguage closePopover={closePopover} />
 
-      <ToggleTheme className='h-6 w-6 lg:h-7 lg:w-7 xl:h-8 xl:w-8' classNameWrapper={className} />
+      <ToggleTheme className='lg:h-7 lg:w-7 xl:h-8 xl:w-8 h-6 w-6' classNameWrapper={className} />
     </div>
   )
 }

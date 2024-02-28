@@ -12,7 +12,7 @@ interface Props extends InputNumberProps {
   onFocusOut?: (value: number) => void
   setQuantity?: React.Dispatch<React.SetStateAction<number>>
   classNameWrapper?: string
-  classNameInput?: string
+  inputClassName?: string
   classNameButton?: string
   classNameIcon?: string
 }
@@ -25,8 +25,8 @@ export default function QuantityController({
   onFocusOut,
   setQuantity,
   classNameWrapper,
-  classNameInput = 'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none text-haretaColor dark:bg-black bg-white border border-black/20 dark:border-white/20',
-  classNameButton = 'round flex items-center justify-center rounded-full bg-white p-1 text-textDark dark:bg-black dark:text-textLight border border-black/20 dark:border-white/20',
+  inputClassName = 'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none text-haretaColor dark:bg-black bg-white border border-black/20 dark:border-white/20',
+  classNameButton = 'round flex items-center justify-center rounded-full bg-white p-1 text-darkText dark:bg-black dark:text-lightText border border-black/20 dark:border-white/20',
   classNameIcon = 'text-xs lg:text-base',
   value,
   ...rest
@@ -77,8 +77,8 @@ export default function QuantityController({
         autoComplete='off'
         name='quantity'
         className=''
-        classNameError='hidden'
-        classNameInput={classNameInput}
+        errorClassName='hidden'
+        inputClassName={inputClassName}
         onChange={handleChange}
         onBlur={handleBlur}
         value={value || localValue}

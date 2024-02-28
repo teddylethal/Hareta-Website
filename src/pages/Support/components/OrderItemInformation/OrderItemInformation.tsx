@@ -52,9 +52,9 @@ export default function OrderItemInformation() {
   //? translation
   const { t } = useTranslation('support')
   return (
-    <div className='md:py-3 xl:py-4 bg-lightBg py-2 text-textDark duration-200 dark:bg-darkBg dark:text-textLight'>
+    <div className='md:py-3 xl:py-4 text-darkText dark:text-lightText bg-lightBg py-2 duration-200 dark:bg-darkBg'>
       <div className='container'>
-        <div className='sm:space-x-2 sm:px-3 lg:mb-3 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3 relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg border border-black/20 bg-[#f8f8f8] px-2 py-1 text-xs  font-medium text-textDark duration-200 dark:border-white/20 dark:bg-[#000] dark:text-textLight'>
+        <div className='sm:space-x-2 sm:px-3 lg:mb-3 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3 text-darkText dark:text-lightText relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg border border-black/20 bg-[#f8f8f8] px-2  py-1 text-xs font-medium duration-200 dark:border-white/20 dark:bg-[#000]'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>
@@ -107,25 +107,25 @@ export default function OrderItemInformation() {
                     {t('order information.customer information')}
                   </p>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.name')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium'>{orderInformation?.name}</p>
                   </div>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.email')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium'>{orderInformation?.email}</p>
                   </div>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.phone')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium'>{orderInformation?.phone}</p>
                   </div>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.address')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium'>
@@ -142,7 +142,7 @@ export default function OrderItemInformation() {
                     {t('order information.order state')}
                   </p>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.total')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium capitalize'>
@@ -150,7 +150,7 @@ export default function OrderItemInformation() {
                     </p>
                   </div>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.created at')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium capitalize'>
@@ -158,7 +158,7 @@ export default function OrderItemInformation() {
                     </p>
                   </div>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.status')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium capitalize text-haretaColor'>
@@ -166,7 +166,7 @@ export default function OrderItemInformation() {
                     </p>
                   </div>
                   <div className='md:grid-cols-2 md:gap-4 xl:gap-6 grid w-full grid-cols-1 gap-2'>
-                    <p className='md:text-base xl:text-lg col-span-1 text-xs text-textDark/80 dark:text-textLight/80'>
+                    <p className='md:text-base xl:text-lg text-darkText/80 dark:text-lightText/80 col-span-1 text-xs'>
                       {t('order information.updated at')}
                     </p>
                     <p className='md:text-base xl:text-lg col-span-1 text-xs font-medium capitalize text-haretaColor'>
@@ -197,9 +197,9 @@ export default function OrderItemInformation() {
                     )}
                     {purchasesData && (
                       <Fragment>
-                        <div className='md:px-4 md:text-base lg:text-lg xl:px-8 xl:text-lg mt-2 grid grid-cols-3 px-1 py-4 text-sm font-semibold uppercase text-textDark dark:text-textLight'>
+                        <div className='md:px-4 md:text-base lg:text-lg xl:px-8 xl:text-lg text-darkText dark:text-lightText mt-2 grid grid-cols-3 px-1 py-4 text-sm font-semibold uppercase'>
                           <div className='col-span-1'>
-                            <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>
+                            <p className='text-darkText dark:text-lightText flex-grow items-center justify-center text-center'>
                               {t('order information.Product')}
                             </p>
                           </div>

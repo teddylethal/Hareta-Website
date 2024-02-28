@@ -9,14 +9,14 @@ export default function AsideFavouriteList() {
   return (
     <div
       className={classNames(
-        'm-4 rounded-lg px-2 py-2 text-base outline-none outline duration-200 hover:outline-haretaColor lg:text-lg ',
+        'lg:text-lg m-4 rounded-lg px-2 py-2 text-base outline-none outline duration-200 hover:outline-haretaColor ',
         isActive ? 'bg-vintageColor' : ' bg-[#f8f8f8]  dark:bg-[#444] '
       )}
     >
       <button
         className={classNames(
           'w-full overflow-hidden text-center   duration-200 ',
-          isActive ? 'text-textVintage' : 'text-textDark dark:text-textLight '
+          isActive ? 'text-textVintage' : 'text-darkText dark:text-lightText '
         )}
         onClick={handleClick}
       >

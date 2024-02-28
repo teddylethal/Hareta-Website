@@ -43,11 +43,11 @@ export default function AdminSelectsVariant() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className='lg:text-xl text-lg font-semibold uppercase'>Choose variant</p>
+        <p className='lg:text-xl text-lg font-semibold uppercase'>Chọn sản phẩm</p>
         <div className='h-80 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {!productGroupId && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
-              select a group
+              Chọn một nhóm sản phẩm trước
             </div>
           )}
           {isFetching && (

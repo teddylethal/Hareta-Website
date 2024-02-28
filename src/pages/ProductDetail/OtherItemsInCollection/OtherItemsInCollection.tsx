@@ -66,10 +66,10 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
 
   if (!productsInCollection) return null
   return (
-    <div className='rounded-lg border border-black/40 px-2 py-4 text-textDark dark:border-white/40 dark:text-textLight lg:px-4 xl:px-6'>
+    <div className='text-darkText lg:px-4 xl:px-6 dark:text-lightText rounded-lg border border-black/40 px-2 py-4 dark:border-white/40'>
       <button
         onClick={handleClick}
-        className='mx-2 text-lg font-bold uppercase hover:text-primaryColor dark:hover:text-primaryColor lg:mx-4 lg:text-2xl xl:mx-6'
+        className='lg:mx-4 lg:text-2xl xl:mx-6 mx-2 text-lg font-bold uppercase hover:text-primaryColor dark:hover:text-primaryColor'
       >
         {collectionName}
       </button>
@@ -97,7 +97,7 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronLeft}
-                  className='text-primary-400 absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 text-textDark/60 hover:bg-white hover:text-textDark/80 dark:bg-black/40 dark:text-textLight/60 dark:hover:bg-black dark:hover:text-textLight/80 lg:h-5 lg:w-5 xl:h-6 xl:w-6 xl:p-4'
+                  className='text-primary-400 text-darkText/60 hover:text-darkText/80 lg:h-5 lg:w-5 xl:h-6 xl:w-6 xl:p-4 dark:text-lightText/60 dark:hover:text-lightText/80 absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 hover:bg-white dark:bg-black/40 dark:hover:bg-black'
                 />
               </ArrowFix>
             }
@@ -105,13 +105,13 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronRight}
-                  className='text-primary-400 absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 text-textDark/60 hover:bg-white hover:text-textDark/80 dark:bg-black/40 dark:text-textLight/60 dark:hover:bg-black dark:hover:text-textLight/80 lg:h-5 lg:w-5 xl:h-6 xl:w-6 xl:p-4'
+                  className='text-primary-400 text-darkText/60 hover:text-darkText/80 lg:h-5 lg:w-5 xl:h-6 xl:w-6 xl:p-4 dark:text-lightText/60 dark:hover:text-lightText/80 absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 hover:bg-white dark:bg-black/40 dark:hover:bg-black'
                 />
               </ArrowFix>
             }
           >
             {productsInCollection.map((product) => (
-              <div className='mx-2 lg:mx-4 xl:mx-6' key={product.id}>
+              <div className='lg:mx-4 xl:mx-6 mx-2' key={product.id}>
                 <Product product={product} />
               </div>
             ))}

@@ -155,7 +155,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
         )}
         {/* <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
           <button
-            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-200 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 hover:text-brownColor dark:text-lightText dark:hover:text-haretaColor sm:text-base lg:text-lg'
             onClick={handleClickItem}
           >
             {product.name}
@@ -167,7 +167,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
         </div> */}
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' lg:h-6 lg:w-20 lg:text-sm flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs  text-textLight'>
+            <span className=' lg:h-6 lg:w-20 lg:text-sm text-lightText flex h-4 w-16 items-center justify-center bg-red-600 text-center  text-xs'>
               {itemTag[product.tag]}
             </span>
             <div className='lg:left-20 lg:border-[12px] absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent' />
@@ -180,7 +180,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
                 icon={faHeart}
                 className={classNames('md:w-5 xl:w-6 h-auto  w-4', {
                   'text-red-500': isLikedByUser,
-                  ' text-textLight': !isLikedByUser
+                  ' text-lightText': !isLikedByUser
                 })}
               />
             </button>

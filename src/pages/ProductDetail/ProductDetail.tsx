@@ -176,7 +176,7 @@ export default function ProductDetail() {
   return (
     <div className='lg:py-3 xl:py-4 bg-lightBg py-2 dark:bg-darkBg'>
       <div className='container'>
-        <div className='lg:mb-3 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3 relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-[#f8f8f8] px-3 py-1 text-xs font-medium  uppercase text-textDark duration-200 dark:border-white/20 dark:bg-[#000] dark:text-textLight'>
+        <div className='lg:mb-3 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3 text-darkText dark:text-lightText relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-[#f8f8f8] px-3 py-1  text-xs font-medium uppercase duration-200 dark:border-white/20 dark:bg-[#000]'>
           <NavLink
             to={path.home}
             className={({ isActive }) =>

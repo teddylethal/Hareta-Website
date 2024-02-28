@@ -68,7 +68,7 @@ export default function AdminCreateNewGroup() {
         <p className='lg:text-lg text-lg font-semibold uppercase'>Create Item Group</p>
         <form className='mt-2' onSubmit={onSubmit}>
           <Input
-            classNameInput='text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
+            inputClassName='text-darkText bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
             register={register}
             name='name'
             errorMessage={errors?.name?.message}

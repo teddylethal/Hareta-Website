@@ -5,6 +5,8 @@ import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
 
+import AdminSetDefaultProduct from 'src/pages/Admin/pages/AdminSetDefaultItem/AdminSetDefaultItem'
+
 //? IMPORT ADMIN LAYOUTS
 const AdminItemLayout = lazy(() => import('src/pages/Admin/layouts/AdminItemLayout'))
 
@@ -14,9 +16,7 @@ const AdminProductPage = lazy(() => import('src/pages/Admin/pages/AdminProductPa
 const AdminCreateItem = lazy(() => import('src/pages/Admin/pages/AdminCreateItem'))
 const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
-const AdminSetDefaultItem = lazy(() => import('src/pages/Admin/pages/AdminSetDefaultItem'))
 const AdminAddItemImage = lazy(() => import('src/pages/Admin/pages/AdminAddItemImage'))
-const AdminUpdateItem = lazy(() => import('src/pages/Admin/pages/AdminUpdateItem'))
 const AdminDeleteItemImage = lazy(() => import('src/pages/Admin/pages/AdminDeleteItemImage'))
 const AdminDeleteItem = lazy(() => import('src/pages/Admin/pages/AdminDeleteItem'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGroup'))
@@ -74,17 +74,14 @@ const AdminRoute = {
           element: <AdminAddItemColor />
         },
         {
-          path: adminPath.setDefaultItem,
-          element: <AdminSetDefaultItem />
+          path: adminPath.setDefaultProduct,
+          element: <AdminSetDefaultProduct />
         },
         {
           path: adminPath.uploadProductAvatar,
           element: <AdminUploadProductAvatar />
         },
-        {
-          path: adminPath.updateItem,
-          element: <AdminUpdateItem />
-        },
+
         {
           path: adminPath.addItemImage,
           element: <AdminAddItemImage />

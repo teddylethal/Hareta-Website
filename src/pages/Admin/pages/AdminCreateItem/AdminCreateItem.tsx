@@ -1,11 +1,11 @@
 import AdminCreateNewGroup from '../../components/AdminCreateNewGroup'
 import { useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { CreatingItemSchema, creatingItemSchema } from '../../utils/rules'
+import { AddProductSchema, AddProductSchema } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import AdminCreateItemForm from '../../components/AdminCreateItemForm'
 import { useMutation } from '@tanstack/react-query'
-import { adminItemApi } from 'src/apis/admin.api'
+import { adminProductApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { AdminContext } from 'src/contexts/admin.context'
@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
 import AdminCreatingPage from '../AdminCreatingPage'
 
-type FormData = CreatingItemSchema
+type FormData = AddProductSchema
 
 export default function AdminCreateItem() {
   const { ProductGroup, setCurrentProduct } = useContext(AdminContext)
@@ -33,7 +33,7 @@ export default function AdminCreateItem() {
       product_line: '',
       color: ''
     },
-    resolver: yupResolver(creatingItemSchema)
+    resolver: yupResolver(AddProductSchema)
   })
   const { handleSubmit, setValue } = methods
 
@@ -42,18 +42,18 @@ export default function AdminCreateItem() {
     setValue('group_id', ProductGroup?.id || '')
   }, [ProductGroup, setValue])
 
-  const createNewItem = useMutation(adminItemApi.createNewItem)
-  const setDefaultItemMutation = useMutation(adminItemApi.setDefaultItem)
+  const createNewProduct = useMutation(adminProductApi.createNewProduct)
+  const setDefaultProductMutation = useMutation(adminProductApi.setDefaultProduct)
   const navigate = useNavigate()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInvalid = (errors: any) => console.error(errors)
   const onSubmit = async (data: FormData) => {
     try {
-      const newItemRespone = await createNewItem.mutateAsync({ ...data })
+      const newItemRespone = await createNewProduct.mutateAsync({ ...data })
       const newItem: Product = newItemRespone.data.data
       setCurrentProduct(newItem)
-      await setDefaultItemMutation.mutateAsync({ id: newItem.id })
+      await setDefaultProductMutation.mutateAsync({ id: newItem.id })
       navigate({ pathname: adminPath.uploadProductAvatar })
     } catch (error) {
       console.log(error)

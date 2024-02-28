@@ -8,7 +8,7 @@ import { ProductGroup, ProductListConfig } from 'src/types/product.type'
 import { ColorRing } from 'react-loader-spinner'
 
 export default function AdminProductGroup() {
-  const { setProductGroup, ProductGroup, setCurrentProduct } = useContext(AdminContext)
+  const { setProductGroupId, productGroupId, setCurrentProduct } = useContext(AdminContext)
 
   //? GET ITEM LIST
   const queryConfig = {}
@@ -30,7 +30,7 @@ export default function AdminProductGroup() {
   const queryClient = useQueryClient()
   const handleChooseGroup = (group: ProductGroup) => () => {
     setCurrentProduct(null)
-    setProductGroup(group)
+    setProductGroupId(group.id)
     queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
   }
 
@@ -55,7 +55,7 @@ export default function AdminProductGroup() {
           {isFetched && (
             <div className='m-2 grid grid-cols-4 gap-4'>
               {ProductGroups?.map((item) => {
-                const isActive = item.group.id === ProductGroup?.id
+                const isActive = item.group.id === productGroupId
                 const avatarURL = item.avatar ? item.avatar.url : null
                 return (
                   <div

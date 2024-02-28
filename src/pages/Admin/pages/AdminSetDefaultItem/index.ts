@@ -1,3 +1,3 @@
-import AdminSetDefaultItem from './AdminSetDefaultItem'
+import AdminsetDefaultProduct from './AdminsetDefaultProduct'
 
-export default AdminSetDefaultItem
+export default AdminsetDefaultProduct

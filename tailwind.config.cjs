@@ -42,8 +42,8 @@ module.exports = {
         darkGray300: '#a7a7ab',
 
         //? Text
-        textLight: '#EEEEEE',
-        textDark: '#111111',
+        lightText: '#EEEEEE',
+        darkText: '#111111',
         haretaColor: '#ff8800',
         primaryColor: '#ff6600',
         textVintage: '#FFFBF5',
@@ -67,8 +67,9 @@ module.exports = {
         productLightBg: '#F4F4F5',
         tagColor: '#ff3333',
         favouriteRed: '#ff2800',
+        whiteColor: '#ffffff',
 
-        whiteColor: '#ffffff'
+        primaryBlue: '#00B4D8'
       }
     },
     screens: {

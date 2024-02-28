@@ -8,7 +8,7 @@ import AdminItemImages from '../../components/AdminItemImages'
 import { AdminContext } from 'src/contexts/admin.context'
 import DialogPopup from 'src/components/DialogPopup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { adminItemImageApi } from 'src/apis/admin.api'
+import { adminProductImageApi } from 'src/apis/admin.api'
 import { AppContext } from 'src/contexts/app.context'
 
 export default function AdminDeleteItemImage() {
@@ -23,7 +23,7 @@ export default function AdminDeleteItemImage() {
     setConfirmDialog(true)
   }
 
-  const deleteItemImageMutation = useMutation(adminItemImageApi.deleteImage)
+  const deleteItemImageMutation = useMutation(adminProductImageApi.deleteImage)
   const handleDelete = () => {
     setConfirmDialog(false)
     setLoadingPage(true)

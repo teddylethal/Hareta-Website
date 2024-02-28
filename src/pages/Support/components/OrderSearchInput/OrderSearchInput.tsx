@@ -34,7 +34,7 @@ export default function OrderSearchInput({ name, register, errorMessage, rules, 
         <input
           autoComplete='off'
           className={classNames(
-            'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-200 autofill:text-textDark focus:ring-2 focus:ring-vintageColor dark:caret-white  dark:autofill:text-textLight dark:focus:ring-haretaColor lg:py-2 lg:text-lg',
+            'autofill:text-darkText lg:py-2 lg:text-lg dark:autofill:text-lightText w-full rounded-md bg-transparent px-4  py-1 text-base outline-none ring-1 duration-200  focus:ring-2 focus:ring-vintageColor dark:caret-white dark:focus:ring-haretaColor',
             {
               'ring-red-600': errorMessage,
               'ring-vintageColor/80 dark:ring-haretaColor/80': !errorMessage
@@ -44,12 +44,12 @@ export default function OrderSearchInput({ name, register, errorMessage, rules, 
           required={required}
           {...register(name, rules)}
         />
-        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor lg:right-4 lg:px-3'>
+        <button className='lg:right-4 lg:px-3 absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
             fill='currentColor'
-            className='h-4 w-4 lg:h-5 lg:w-5'
+            className='lg:h-5 lg:w-5 h-4 w-4'
           >
             <path
               fillRule='evenodd'
@@ -59,7 +59,7 @@ export default function OrderSearchInput({ name, register, errorMessage, rules, 
           </svg>
         </button>
       </div>
-      <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 md:text-base '}>{message}</div>
+      <div className={'md:text-base mt-1 min-h-[1.25rem] text-sm text-red-600 '}>{message}</div>
     </Fragment>
   )
 }

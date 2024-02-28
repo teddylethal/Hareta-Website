@@ -113,10 +113,10 @@ export default function Login() {
   return (
     <AnimateTransition isDialog={state}>
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
+        <div className='md:grid-cols-6 md:px-6 md:py-24 grid grid-cols-1 py-12'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
             <form
-              className='rounded-xl bg-lightWhite900 p-5 shadow-sm duration-200 dark:bg-darkGray900 md:p-10'
+              className='md:p-10 rounded-xl bg-lightWhite900 p-5 shadow-sm duration-200 dark:bg-darkGray900'
               onSubmit={onSubmit}
               noValidate
             >
@@ -126,7 +126,7 @@ export default function Login() {
                 name='email'
                 register={register}
                 type='text'
-                className='mt-8 autofill:text-textDark autofill:dark:text-textLight'
+                className='autofill:text-darkText autofill:dark:text-lightText mt-8'
                 errorMessage={errors.email?.message}
                 labelName={t('login.email')}
                 required
@@ -157,9 +157,9 @@ export default function Login() {
                 }
               />
 
-              <div className='mt-2 text-base lg:text-lg'>
+              <div className='lg:text-lg mt-2 text-base'>
                 <Button
-                  className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                  className='lg:py-3 flex w-full items-center justify-center py-2 uppercase'
                   type='submit'
                   isLoading={loginAccountMutation.isLoading}
                   disabled={loginAccountMutation.isLoading}
@@ -168,7 +168,7 @@ export default function Login() {
                 </Button>
               </div>
 
-              <div className='md:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs sm:text-sm md:mt-12 md:flex-row'>
+              <div className='md:text-md sm:text-sm md:mt-12 md:flex-row mt-4 flex flex-col-reverse items-center justify-between text-xs'>
                 <div className=''>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
                     <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-200 hover:opacity-100 dark:text-blue-400'>
@@ -178,7 +178,7 @@ export default function Login() {
                 </div>
                 {!isSmall && (
                   <div className='flex items-center text-center'>
-                    <span className='text-textDark/60 dark:text-textLight/60'>{t("login.Don't have an account?")}</span>
+                    <span className='text-darkText/60 dark:text-lightText/60'>{t("login.Don't have an account?")}</span>
                     <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>
                       {t('login.sign up')}
                     </Link>
@@ -187,7 +187,7 @@ export default function Login() {
 
                 {isSmall && (
                   <div className='mb-2 flex flex-col text-center'>
-                    <span className='line-clamp-2 text-textDark/60 dark:text-textLight/60'>
+                    <span className='text-darkText/60 dark:text-lightText/60 line-clamp-2'>
                       {t("login.Don't have an account?")}
                     </span>
                     <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>

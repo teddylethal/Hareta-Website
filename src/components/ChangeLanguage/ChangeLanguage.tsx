@@ -59,7 +59,7 @@ export default function ChangeLanguage({ closePopover }: Props) {
         <AnimatePresence>
           {visible && (
             <motion.div
-              className='flex w-full flex-col items-start space-y-1 rounded-b-md px-6 text-xs font-normal text-textDark dark:text-textLight sm:text-sm'
+              className='text-darkText sm:text-sm dark:text-lightText flex w-full flex-col items-start space-y-1 rounded-b-md px-6 text-xs font-normal'
               // initial={{ opacity: 0, y: '-20%' }}
               // animate={{
               //   opacity: 1,
@@ -70,13 +70,13 @@ export default function ChangeLanguage({ closePopover }: Props) {
               // transition={{ duration: 0.3 }}
             >
               <button
-                className='px-2 py-1 text-sm hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:text-xl'
+                className='sm:text-base md:px-1 md:py-1 md:text-lg xl:text-xl px-2 py-1 text-sm hover:text-primaryColor'
                 onClick={() => changeLanguage('en')}
               >
                 English
               </button>
               <button
-                className='px-2 py-1 text-sm hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:text-xl'
+                className='sm:text-base md:px-1 md:py-1 md:text-lg xl:text-xl px-2 py-1 text-sm hover:text-primaryColor'
                 onClick={() => changeLanguage('vi')}
               >
                 Tiếng Việt

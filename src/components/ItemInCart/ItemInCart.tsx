@@ -70,7 +70,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
   const unavailable = unavailablePurchaseIds.includes(purchase.id)
 
   return (
-    <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none dark:text-textLight'>
+    <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-darkText first:mt-0 first:border-none dark:text-lightText'>
       <div className='col-span-6'>
         <div className='flex'>
           <div className='flex flex-shrink-0 items-center justify-center pr-3'>
@@ -101,7 +101,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
             </div>
             <div className='ml-4 flex-grow px-2 text-left'>
               <div
-                className={classNames('truncate text-base lg:text-lg', {
+                className={classNames('lg:text-lg truncate text-base', {
                   'text-alertRed': unavailable
                 })}
               >
@@ -115,7 +115,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
         <div className='grid grid-cols-4 items-center'>
           <div className='col-span-1'>
             <div className='flex items-center justify-center'>
-              <span className='text-textDark dark:text-textLight'>${formatCurrency(purchase.item.price)}</span>
+              <span className='text-darkText dark:text-lightText'>${formatCurrency(purchase.item.price)}</span>
             </div>
           </div>
           <div className='col-span-1'>
@@ -135,7 +135,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
                 )
               }
               disabled={purchase.disabled}
-              classNameInput={classNames(
+              inputClassName={classNames(
                 'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
                 {
                   'text-red-600 font-semibold': unavailable,
@@ -149,7 +149,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
           </div>
           <div className='col-span-1'>
             <button
-              className='bg-none text-xs text-textDark/80 hover:text-textDark hover:underline dark:text-textLight/80 dark:hover:text-textLight lg:text-sm'
+              className='lg:text-sm bg-none text-xs text-darkText/80 hover:text-darkText hover:underline dark:text-lightText/80 dark:hover:text-lightText'
               onClick={handleRemove(index)}
             >
               {t('content.remove')}

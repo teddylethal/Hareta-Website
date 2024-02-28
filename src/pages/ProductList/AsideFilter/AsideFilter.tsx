@@ -29,7 +29,7 @@ export default function AsideFilter({ queryConfig }: Props) {
 
   return (
     <div className='rounded-lg bg-sidebarItemLight px-3 py-2 duration-200 dark:bg-sidebarItemDark'>
-      <div className='flex items-center space-x-2 text-base font-medium uppercase text-textDark duration-200 dark:text-textLight lg:text-lg'>
+      <div className='text-darkText lg:text-lg dark:text-lightText flex items-center space-x-2 text-base font-medium uppercase duration-200'>
         <p className=''>{t('aside filter.filter')}</p>
       </div>
       <div className='mt-2 flex flex-col space-y-2'>

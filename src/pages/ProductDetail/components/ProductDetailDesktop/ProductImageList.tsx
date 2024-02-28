@@ -150,16 +150,16 @@ export default function ProductImageList(props: Props) {
 
             <div className='absolute right-2 top-2 rounded-lg bg-black/20'>
               <button
-                className='flex items-center justify-center p-2 text-textDark/60 duration-200 dark:text-textLight/60'
+                className='text-darkText/60 dark:text-lightText/60 flex items-center justify-center p-2 duration-200'
                 onClick={toggleZooming}
               >
                 {!zooming && (
                   <FontAwesomeIcon
                     icon={faMagnifyingGlassPlus}
-                    className='h-auto w-6 hover:text-haretaColor lg:w-7 xl:w-8'
+                    className='lg:w-7 xl:w-8 h-auto w-6 hover:text-haretaColor'
                   />
                 )}
-                {zooming && <FontAwesomeIcon icon={faBan} className='h-auto w-6 hover:text-alertRed lg:w-7 xl:w-8' />}
+                {zooming && <FontAwesomeIcon icon={faBan} className='lg:w-7 xl:w-8 h-auto w-6 hover:text-alertRed' />}
               </button>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function ProductImageList(props: Props) {
           <Fragment>
             {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
               <button
-                className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
+                className='text-lightText absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20'
                 onClick={previousImageList}
               >
                 <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
@@ -208,7 +208,7 @@ export default function ProductImageList(props: Props) {
             })}
             {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
               <button
-                className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-textLight'
+                className='text-lightText absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20'
                 onClick={nextImageList}
               >
                 <FontAwesomeIcon icon={faChevronRight} className='h-8' />

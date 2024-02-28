@@ -257,7 +257,7 @@ export default function OrderLayout() {
                 wrapperClass='blocks-wrapper'
                 colors={['#ff8800', '#ff8800', '#ff8800', '#ff8800', '#ff8800']}
               />
-              <div className='md:text-xl xl:text-2xl mt-2 text-lg font-semibold uppercase text-textDark dark:text-textLight'>
+              <div className='md:text-xl xl:text-2xl text-darkText dark:text-lightText mt-2 text-lg font-semibold uppercase'>
                 Processing...
               </div>
             </motion.div>

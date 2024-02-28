@@ -99,15 +99,15 @@ export default function AdminAddItemImage() {
               <div className='col-span-1'>
                 <div className='flex h-full flex-col justify-around'>
                   <div className='grid grid-cols-3 gap-4'>
-                    <p className='col-span-1 font-medium uppercase text-textLight/60'>Item ID</p>
+                    <p className='text-lightText/60 col-span-1 font-medium uppercase'>Item ID</p>
                     <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentProduct?.id}</p>
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
-                    <p className='col-span-1 font-medium uppercase text-textLight/60'>Name</p>
+                    <p className='text-lightText/60 col-span-1 font-medium uppercase'>Name</p>
                     <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{ProductGroup?.name}</p>
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
-                    <p className='col-span-1 font-medium uppercase text-textLight/60'>Color</p>
+                    <p className='text-lightText/60 col-span-1 font-medium uppercase'>Color</p>
                     <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentProduct?.color}</p>
                   </div>
                 </div>

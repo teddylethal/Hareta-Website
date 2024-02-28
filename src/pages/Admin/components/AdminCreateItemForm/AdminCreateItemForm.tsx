@@ -1,6 +1,6 @@
 import { Fragment, useContext } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { CreatingItemSchema } from '../../utils/rules'
+import { AddProductSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import Input from 'src/components/Input'
 import classNames from 'classnames'
@@ -8,7 +8,7 @@ import { AdminContext } from 'src/contexts/admin.context'
 import 'react-quill/dist/quill.snow.css'
 import QuillEditor from 'src/components/QuillEditor'
 
-type FormData = CreatingItemSchema
+type FormData = AddProductSchema
 
 export default function AdminCreateItemForm() {
   const { ProductGroup } = useContext(AdminContext)
@@ -47,8 +47,8 @@ export default function AdminCreateItemForm() {
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='group_id'
             autoComplete='false'
@@ -62,13 +62,13 @@ export default function AdminCreateItemForm() {
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput={classNames(
+            inputClassName={classNames(
               'text-haretaColor cursor-not-allowed bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
               {
                 'outline-red-600': Boolean(errors.name)
               }
             )}
-            classNameError='hidden'
+            errorClassName='hidden'
             register={register}
             name='name'
             autoComplete='false'
@@ -81,13 +81,13 @@ export default function AdminCreateItemForm() {
         </div>
         <div className='col-span-2'>
           <Input
-            classNameInput={classNames(
+            inputClassName={classNames(
               'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
               {
                 'outline-red-600': Boolean(errors.color)
               }
             )}
-            classNameError='hidden'
+            errorClassName='hidden'
             register={register}
             name='color'
             autoComplete='false'
@@ -104,14 +104,14 @@ export default function AdminCreateItemForm() {
             name='price'
             render={({ field }) => (
               <InputNumber
-                classNameInput={classNames(
+                inputClassName={classNames(
                   'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
                   {
                     'outline-red-600': Boolean(errors.quantity)
                   }
                 )}
                 errorMessage={errors?.name?.message}
-                classNameError='hidden'
+                errorClassName='hidden'
                 autoComplete='false'
                 {...field}
                 onChange={field.onChange}
@@ -130,14 +130,14 @@ export default function AdminCreateItemForm() {
             name='quantity'
             render={({ field }) => (
               <InputNumber
-                classNameInput={classNames(
+                inputClassName={classNames(
                   'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
                   {
                     'outline-red-600': Boolean(errors.quantity)
                   }
                 )}
                 errorMessage={errors?.name?.message}
-                classNameError='hidden'
+                errorClassName='hidden'
                 autoComplete='false'
                 {...field}
                 onChange={field.onChange}
@@ -153,13 +153,13 @@ export default function AdminCreateItemForm() {
         </div>
         <div className='col-span-2'>
           <Input
-            classNameInput={classNames(
+            inputClassName={classNames(
               'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
               {
                 'outline-red-600': Boolean(errors.category)
               }
             )}
-            classNameError='hidden'
+            errorClassName='hidden'
             register={register}
             name='category'
             autoComplete='false'
@@ -172,13 +172,13 @@ export default function AdminCreateItemForm() {
         </div>
         <div className='col-span-2'>
           <Input
-            classNameInput={classNames(
+            inputClassName={classNames(
               'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
               {
                 'outline-red-600': Boolean(errors.collection)
               }
             )}
-            classNameError='hidden'
+            errorClassName='hidden'
             register={register}
             name='collection'
             autoComplete='false'
@@ -191,13 +191,13 @@ export default function AdminCreateItemForm() {
         </div>
         <div className='col-span-2'>
           <Input
-            classNameInput={classNames(
+            inputClassName={classNames(
               'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
               {
                 'outline-red-600': Boolean(errors.type)
               }
             )}
-            classNameError='hidden'
+            errorClassName='hidden'
             register={register}
             name='type'
             autoComplete='false'
@@ -210,13 +210,13 @@ export default function AdminCreateItemForm() {
         </div>
         <div className='col-span-2'>
           <Input
-            classNameInput={classNames(
+            inputClassName={classNames(
               'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
               {
                 'outline-red-600': Boolean(errors.product_line)
               }
             )}
-            classNameError='hidden'
+            errorClassName='hidden'
             register={register}
             name='product_line'
             autoComplete='false'

@@ -20,7 +20,7 @@ export default function SupportNav() {
     <div className='group'>
       <FloatingOnClick
         renderPopover={<SupportPopover closePopover={closePopover} />}
-        className='flex cursor-default select-none items-center space-x-0.5 p-1 text-textDark duration-200  dark:text-textLight'
+        className='text-darkText dark:text-lightText flex cursor-default select-none items-center space-x-0.5 p-1  duration-200'
         isOpen={isOpen}
         handleClick={handleClick}
         openChange={setIsOpen}
@@ -32,7 +32,7 @@ export default function SupportNav() {
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 20 20'
               fill='currentColor'
-              className='h-5 w-5 lg:h-6 lg:w-6'
+              className='lg:h-6 lg:w-6 h-5 w-5'
             >
               <path
                 fillRule='evenodd'
@@ -46,7 +46,7 @@ export default function SupportNav() {
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 20 20'
               fill='currentColor'
-              className='h-5 w-5 lg:h-6 lg:w-6'
+              className='lg:h-6 lg:w-6 h-5 w-5'
             >
               <path
                 fillRule='evenodd'

@@ -75,9 +75,9 @@ export default function AuthenticatedCart() {
         <Fragment>
           <div className='mt-2 rounded-md border border-black/20 bg-lightWhite900 dark:border-white/20 dark:bg-darkGray900'>
             <div className=''>
-              <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-textDark  dark:text-textLight lg:text-lg'>
+              <div className='text-darkText lg:text-lg dark:text-lightText grid  grid-cols-12 rounded-sm px-8 py-4  text-base uppercase'>
                 <div className='col-span-6'>
-                  <p className='flex-grow items-center justify-center text-center text-textDark dark:text-textLight'>
+                  <p className='text-darkText dark:text-lightText flex-grow items-center justify-center text-center'>
                     {t('content.product')}
                   </p>
                 </div>
@@ -130,7 +130,7 @@ export default function AuthenticatedCart() {
                       />
 
                       <button
-                        className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
+                        className='text-darkText dark:text-lightText ml-2 appearance-none ring-0'
                         onClick={handleSelectAll}
                       >
                         {t('content.select all')}
@@ -138,7 +138,7 @@ export default function AuthenticatedCart() {
                     </Fragment>
                   )}
                 </div>
-                <div className='col-span-1 flex items-center text-center text-textDark dark:text-textLight'>
+                <div className='text-darkText dark:text-lightText col-span-1 flex items-center text-center'>
                   {checkedPurchasesCount < 2
                     ? `${checkedPurchasesCount} ${t('content.item is selected')}`
                     : `${checkedPurchasesCount} ${t('content.items are selected')}`}
@@ -147,14 +147,14 @@ export default function AuthenticatedCart() {
               <div className='col-span-6 grid grid-cols-4 items-center'>
                 <div className='col-span-1'></div>
 
-                <div className='col-span-1 items-center text-right font-medium uppercase text-textDark dark:text-textLight'>
+                <div className='text-darkText dark:text-lightText col-span-1 items-center text-right font-medium uppercase'>
                   {t('content.total')}:
                 </div>
-                <span className='col-span-1 text-center text-base font-medium text-haretaColor dark:text-haretaColor lg:text-lg'>
+                <span className='lg:text-lg col-span-1 text-center text-base font-medium text-haretaColor dark:text-haretaColor'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
                 {checkedPurchasesCount === 0 && (
-                  <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 lg:text-base'>
+                  <div className='lg:text-base col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40'>
                     {t('content.check out')}
                   </div>
                 )}

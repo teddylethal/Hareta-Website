@@ -30,10 +30,10 @@ export default function UserPopover() {
   const { t } = useTranslation('header')
 
   const className =
-    'flex items-center rounded-md px-4 py-2 hover:bg-lightWhite900 hover:font-semibold hover:text-textDark dark:hover:bg-darkGray900 dark:hover:text-textLight font-medium'
+    'flex items-center rounded-md px-4 py-2 hover:bg-lightWhite900 hover:font-semibold hover:text-darkText dark:hover:bg-darkGray900 dark:hover:text-lightText font-medium'
 
   return (
-    <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-lightWhite700 px-2 py-3 text-base font-medium capitalize text-textDark/90 shadow-lg dark:bg-darkGray700 dark:text-textLight/90 md:w-56 lg:top-0 lg:w-72 lg:text-xl'>
+    <div className='text-darkText/90 md:w-56 lg:top-0 lg:w-72 lg:text-xl dark:text-lightText/90 relative -top-1 flex w-40 flex-col rounded-lg bg-lightWhite700 px-2 py-3 text-base font-medium capitalize shadow-lg dark:bg-darkGray700'>
       <Link to={path.profile} className={className}>
         <p>{t('user.profile')}</p>
       </Link>
@@ -49,7 +49,7 @@ export default function UserPopover() {
 
       <button
         onClick={handleLogout}
-        className='flex items-center space-x-2 rounded-md px-4 py-2 hover:bg-lightWhite900 hover:font-semibold hover:text-textDark dark:hover:bg-darkGray900 dark:hover:text-textLight'
+        className='hover:text-darkText dark:hover:text-lightText flex items-center space-x-2 rounded-md px-4 py-2 hover:bg-lightWhite900 hover:font-semibold dark:hover:bg-darkGray900'
       >
         <FontAwesomeIcon icon={faRightFromBracket} />
         <p>{t('user.log out')}</p>

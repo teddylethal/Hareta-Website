@@ -16,15 +16,15 @@ export default function Home() {
   return (
     <Fragment>
       {LoadingPage && <LoadingWithEmptyContent />}
-      <div className='bg-lightBg text-textDark duration-200 dark:bg-darkBg dark:text-textLight'>
+      <div className='text-darkText dark:text-lightText bg-lightBg duration-200 dark:bg-darkBg'>
         <EventCarousel />
-        <div className='py-4 md:py-6 lg:py-8 xl:py-10'>
+        <div className='md:py-6 lg:py-8 xl:py-10 py-4'>
           <NewReleaseCarousel setLoadingPage={setLoadingPage} />
         </div>
-        <div className='bg-lightWhite700 py-4 dark:bg-darkGray700 md:py-6 lg:py-8 xl:py-10'>
+        <div className='md:py-6 lg:py-8 xl:py-10 bg-lightWhite700 py-4 dark:bg-darkGray700'>
           <TopSellerCarousel setLoadingPage={setLoadingPage} />
         </div>
-        <div className='py-4 md:py-6 lg:py-8 xl:py-10'>
+        <div className='md:py-6 lg:py-8 xl:py-10 py-4'>
           <MostFavouriteList setLoadingPage={setLoadingPage} />
         </div>
       </div>

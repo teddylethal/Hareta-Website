@@ -91,10 +91,10 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
       className='overflow-hidden rounded-md bg-barLightBg p-2 outline outline-1 outline-black/20 duration-200 dark:bg-barDarkBg dark:outline-white/20'
       ref={ref}
     >
-      <button className='flex w-full flex-col items-start text-sm sm:text-base' onClick={toggleOpenClose}>
+      <button className='sm:text-base flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
         <div
           className={classNames(
-            'flex items-center capitalize text-textDark/80 hover:text-primaryColor dark:text-textLight/80 dark:hover:text-primaryColor',
+            'text-darkText/80 dark:text-lightText/80 flex items-center capitalize hover:text-primaryColor dark:hover:text-primaryColor',
             {
               'mb-2': visible || collection
             }
@@ -106,7 +106,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 24 24'
               fill='currentColor'
-              className='ml-1 h-3 w-3 lg:h-4 lg:w-4'
+              className='lg:h-4 lg:w-4 ml-1 h-3 w-3'
             >
               <path
                 fillRule='evenodd'
@@ -120,7 +120,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 24 24'
               fill='currentColor'
-              className='ml-1 h-3 w-3 lg:h-4 lg:w-4'
+              className='lg:h-4 lg:w-4 ml-1 h-3 w-3'
             >
               <path
                 fillRule='evenodd'
@@ -133,7 +133,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
         {collection && (
           <div
             className={classNames(
-              'flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-sidebarItemLight px-2 py-1 text-sm capitalize text-textDark duration-200 dark:border-white/20 dark:bg-sidebarItemDark dark:text-textLight sm:text-base lg:text-lg',
+              'text-darkText sm:text-base lg:text-lg dark:text-lightText flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-sidebarItemLight px-2 py-1 text-sm capitalize duration-200 dark:border-white/20 dark:bg-sidebarItemDark',
               {
                 'rounded-b-md': !isOpening || !visible
               }
@@ -147,7 +147,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
         {visible && isOpening && (
           <motion.div
             className={classNames(
-              'max-h-32 overflow-auto overscroll-contain rounded-b-md border-x border-b border-black/20 text-sm text-textDark dark:border-white/20 dark:text-textLight sm:text-base lg:text-lg',
+              'text-darkText sm:text-base lg:text-lg dark:text-lightText max-h-32 overflow-auto overscroll-contain rounded-b-md border-x border-b border-black/20 text-sm dark:border-white/20',
               {
                 'rounded-t-md border-t': !collection
               }

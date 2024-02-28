@@ -162,7 +162,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
         )}
         <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2'>
           <button
-            className='sm:text-base lg:text-lg h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-200 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor'
+            className='sm:text-base lg:text-lg text-darkText dark:text-lightText h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase duration-200 hover:text-primaryColor dark:hover:text-primaryColor'
             onClick={handleClickItem}
           >
             {product.name}
@@ -174,7 +174,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' lg:h-6 lg:w-20 lg:text-sm flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs  text-textDark'>
+            <span className=' lg:h-6 lg:w-20 lg:text-sm text-darkText flex h-4 w-16 items-center justify-center bg-tagColor text-center  text-xs'>
               {tag == 1 && t('tag.top seller')}
               {tag == 2 && t('tag.signature')}
               {tag == 3 && t('tag.favourite')}
@@ -189,7 +189,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
                 icon={faHeart}
                 className={classNames('md:w-5 xl:w-6 h-auto  w-4', {
                   'text-favouriteRed': isLikedByUser,
-                  ' text-textLight': !isLikedByUser
+                  ' text-lightText': !isLikedByUser
                 })}
               />
             </button>

@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { adminItemApi } from 'src/apis/admin.api'
+import { adminProductApi } from 'src/apis/admin.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
@@ -44,7 +44,7 @@ export default function AdminUploadProductAvatar() {
 
   //? UPLOAD AVATAR
   const queryClient = useQueryClient()
-  const uploadAvatarMutation = useMutation({ mutationFn: adminItemApi.uploadProductAvatar })
+  const uploadAvatarMutation = useMutation({ mutationFn: adminProductApi.uploadProductAvatar })
   const handleSubmit = () => {
     try {
       if (avatarFile && currentProduct) {

@@ -94,16 +94,16 @@ export default function ProductDescription({ item }: Props) {
 
   return (
     <div className={theme === 'dark' ? 'dark' : 'light'}>
-      <div className='text-textDark dark:text-textLight ' ref={detailRef}>
+      <div className='text-darkText dark:text-lightText ' ref={detailRef}>
         <div className='space-y-4'>
-          <p className='text-xl font-semibold uppercase lg:text-2xl xl:text-3xl'>{t('detail.Detail')}</p>
+          <p className='lg:text-2xl xl:text-3xl text-xl font-semibold uppercase'>{t('detail.Detail')}</p>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+            <div className='lg:text-lg xl:text-xl col-span-1 text-base text-black/60 dark:text-white/60'>
               {t('detail.Category')}
             </div>
             <div className='col-span-2'>
               <button
-                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor lg:text-lg xl:text-xl'
+                className='lg:text-lg xl:text-xl text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor'
                 onClick={handleChooseFilter('category', item.category)}
               >
                 {item.category}
@@ -111,12 +111,12 @@ export default function ProductDescription({ item }: Props) {
             </div>
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+            <div className='lg:text-lg xl:text-xl col-span-1 text-base text-black/60 dark:text-white/60'>
               {t('detail.Collection')}
             </div>
             <div className='col-span-2'>
               <button
-                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor lg:text-lg xl:text-xl'
+                className='lg:text-lg xl:text-xl text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor'
                 onClick={handleChooseFilter('collection', item.collection)}
               >
                 {item.collection}
@@ -124,12 +124,12 @@ export default function ProductDescription({ item }: Props) {
             </div>
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+            <div className='lg:text-lg xl:text-xl col-span-1 text-base text-black/60 dark:text-white/60'>
               {t('detail.Type')}
             </div>
             <div className='col-span-2'>
               <button
-                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor lg:text-lg xl:text-xl'
+                className='lg:text-lg xl:text-xl text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor'
                 onClick={handleChooseFilter('type', item.type)}
               >
                 {item.type}
@@ -137,16 +137,16 @@ export default function ProductDescription({ item }: Props) {
             </div>
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+            <div className='lg:text-lg xl:text-xl col-span-1 text-base text-black/60 dark:text-white/60'>
               {t('detail.Product line')}
             </div>
-            <div className='col-span-2 text-base capitalize lg:text-lg xl:text-xl'>{item.product_line}</div>
+            <div className='lg:text-lg xl:text-xl col-span-2 text-base capitalize'>{item.product_line}</div>
           </div>
           <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 lg:text-lg xl:text-xl'>
+            <div className='lg:text-lg xl:text-xl col-span-1 text-base text-black/60 dark:text-white/60'>
               {t('detail.In store')}
             </div>
-            <div className='col-span-2 text-base capitalize lg:text-lg xl:text-xl'>{item.quantity}</div>
+            <div className='lg:text-lg xl:text-xl col-span-2 text-base capitalize'>{item.quantity}</div>
           </div>
         </div>
         <div className='mt-10 '>
@@ -168,7 +168,7 @@ export default function ProductDescription({ item }: Props) {
               {extendButton && (
                 <div className='absolute bottom-0 left-1/2 -translate-x-1/2'>
                   <button
-                    className='flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/80 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
+                    className='lg:text-sm xl:text-base text-lightText flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/80 p-2 text-xs font-medium hover:text-haretaColor dark:border-white/20'
                     onClick={extend}
                   >
                     <p>{t('detail.Extend')}</p>
@@ -179,7 +179,7 @@ export default function ProductDescription({ item }: Props) {
               {extending && (
                 <div className='mt-4 flex w-full justify-center'>
                   <button
-                    className='flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/60 p-2 text-xs font-medium text-textLight hover:text-haretaColor dark:border-white/20 lg:text-sm xl:text-base'
+                    className='lg:text-sm xl:text-base text-lightText flex items-center justify-center space-x-1 rounded-lg border border-black/20 bg-black/60 p-2 text-xs font-medium hover:text-haretaColor dark:border-white/20'
                     onClick={collapse}
                   >
                     <p>{t('detail.Collapse')}</p>

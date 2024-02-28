@@ -91,7 +91,7 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
           ${formatCurrency(purchase.item.price)}
         </span>
         <button
-          className='col-span-1 flex items-center bg-none p-1 text-textDark dark:text-textLight'
+          className='col-span-1 flex items-center bg-none p-1 text-darkText dark:text-lightText'
           onClick={handleRemove(index)}
         >
           <FontAwesomeIcon icon={faTrash} className='h-4 text-alertRed' />
@@ -140,7 +140,7 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
               )
             }
             disabled={purchase.disabled}
-            classNameInput={classNames(
+            inputClassName={classNames(
               'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
               {
                 'text-red-600 font-semibold': unavailable,

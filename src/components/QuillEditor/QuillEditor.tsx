@@ -30,6 +30,6 @@ export default function QuillEditor({ value, setValue }: Props) {
     toolbar: toolbarOptions
   }
   return (
-    <ReactQuill theme='snow' modules={module} value={value} onChange={setValue} className='bg-lightBg text-textDark' />
+    <ReactQuill theme='snow' modules={module} value={value} onChange={setValue} className='text-darkText bg-lightBg' />
   )
 }

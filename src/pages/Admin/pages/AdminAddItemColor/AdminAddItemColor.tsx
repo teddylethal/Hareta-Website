@@ -1,12 +1,12 @@
 import AdminProductGroup from '../../components/AdminProductGroup'
 import { useContext, useEffect } from 'react'
-import { CreatingItemSchema, creatingItemSchema } from '../../utils/rules'
+import { AddProductSchema, AddProductSchema } from '../../utils/rules'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { ProductsInGroupConfig } from 'src/types/product.type'
-import { adminItemApi } from 'src/apis/admin.api'
+import { adminProductApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import AdminAddItemColorForm from './AdminAddItemColorForm'
@@ -15,7 +15,7 @@ import { adminPath } from 'src/constants/path'
 import { AdminContext } from 'src/contexts/admin.context'
 import AdminCreatingPage from '../AdminCreatingPage'
 
-type FormData = CreatingItemSchema
+type FormData = AddProductSchema
 
 export default function AdminAddItemColor() {
   const { ProductGroup, setCurrentProduct } = useContext(AdminContext)
@@ -59,7 +59,7 @@ export default function AdminAddItemColor() {
       product_line: '',
       color: ''
     },
-    resolver: yupResolver(creatingItemSchema)
+    resolver: yupResolver(AddProductSchema)
   })
 
   const { handleSubmit, setValue, setError } = methods
@@ -76,7 +76,7 @@ export default function AdminAddItemColor() {
   }, [defaultItem, description, setValue])
 
   const navigate = useNavigate()
-  const addColorMutation = useMutation(adminItemApi.createNewItem)
+  const addColorMutation = useMutation(adminProductApi.createNewProduct)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInvalid = (errors: any) => console.error(errors)
   const onSubmit = async (data: FormData) => {

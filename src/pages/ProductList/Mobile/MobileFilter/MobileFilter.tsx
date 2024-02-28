@@ -52,11 +52,11 @@ export default function MobileBottomBar({ queryConfig }: Props) {
     <Fragment>
       <button
         onClick={open}
-        className='group relative col-span-1 flex items-center text-textDark hover:text-haretaColor dark:text-textLight dark:hover:text-haretaColor '
+        className='text-darkText dark:text-lightText group relative col-span-1 flex items-center hover:text-haretaColor dark:hover:text-haretaColor '
       >
         <FontAwesomeIcon
           icon={faFilter}
-          className='mr-1 h-6 w-6 text-textDark group-hover:text-haretaColor dark:text-textLight dark:group-hover:text-haretaColor'
+          className='text-darkText dark:text-lightText mr-1 h-6 w-6 group-hover:text-haretaColor dark:group-hover:text-haretaColor'
         />
       </button>
       <AnimatePresence>
@@ -98,7 +98,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
                     onClick={handleClear}
                     disabled={isFiltering ? false : true}
                     className={classNames(
-                      'mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-200 sm:text-base ',
+                      'sm:text-base mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-200 ',
                       { 'opacity-60': !isFiltering }
                     )}
                   >
@@ -106,7 +106,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
                   </button>
                 </div>
               </div>
-              <button className='absolute left-2 top-2 text-textDark dark:text-textLight' onClick={close}>
+              <button className='text-darkText dark:text-lightText absolute left-2 top-2' onClick={close}>
                 <FontAwesomeIcon icon={faXmark} />
               </button>
             </motion.div>

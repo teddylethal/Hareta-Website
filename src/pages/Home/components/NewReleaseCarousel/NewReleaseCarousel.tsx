@@ -89,11 +89,11 @@ export default function NewReleaseCarousel({ setLoadingPage }: Props) {
 
   return (
     <div className='container'>
-      <div className='text-textDark duration-200 dark:text-textLight'>
+      <div className='text-darkText dark:text-lightText duration-200'>
         <div className='w-full text-center'>
-          <p className='text-2xl font-bold uppercase text-primaryColor lg:text-4xl xl:text-5xl'>{t('new release')}</p>
+          <p className='lg:text-4xl xl:text-5xl text-2xl font-bold uppercase text-primaryColor'>{t('new release')}</p>
         </div>
-        <div className='relative mt-4 pb-8 lg:mt-6 xl:mt-8'>
+        <div className='lg:mt-6 xl:mt-8 relative mt-4 pb-8'>
           <Carousel
             showDots
             renderDotsOutside
@@ -113,7 +113,7 @@ export default function NewReleaseCarousel({ setLoadingPage }: Props) {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronLeft}
-                  className='text-primary-400 absolute left-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/40 p-2 text-textLight/60 duration-200 hover:h-4 hover:w-4 hover:bg-black/60 hover:text-textLight/80 dark:bg-white/40 dark:text-textDark/60 dark:hover:bg-white/60 dark:hover:text-textDark md:left-4 md:h-5 md:w-5 md:p-2.5 md:hover:h-6 md:hover:w-6 xl:h-7 xl:w-7 xl:p-3 xl:hover:h-8 xl:hover:w-8'
+                  className='text-primary-400 dark:text-darkText/60 dark:hover:text-darkText md:left-4 md:h-5 md:w-5 md:p-2.5 md:hover:h-6 md:hover:w-6 xl:h-7 xl:w-7 xl:p-3 xl:hover:h-8 xl:hover:w-8 text-lightText/60 hover:text-lightText/80 absolute left-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/40 p-2 duration-200 hover:h-4 hover:w-4 hover:bg-black/60 dark:bg-white/40 dark:hover:bg-white/60'
                 />
               </ArrowFix>
             }
@@ -121,7 +121,7 @@ export default function NewReleaseCarousel({ setLoadingPage }: Props) {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronRight}
-                  className='text-primary-400 md:righr-4 absolute right-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/40 p-2 text-textLight/60 duration-200 hover:h-4 hover:w-4 hover:bg-black/60 hover:text-textLight/80 dark:bg-white/40 dark:text-textDark/60 dark:hover:bg-white/60 dark:hover:text-textDark md:h-5 md:w-5 md:p-2.5 md:hover:h-6 md:hover:w-6 xl:h-7 xl:w-7 xl:p-3 xl:hover:h-8 xl:hover:w-8'
+                  className='text-primary-400 md:righr-4 dark:text-darkText/60 dark:hover:text-darkText md:h-5 md:w-5 md:p-2.5 md:hover:h-6 md:hover:w-6 xl:h-7 xl:w-7 xl:p-3 xl:hover:h-8 xl:hover:w-8 text-lightText/60 hover:text-lightText/80 absolute right-1 top-1/2 h-3 w-3 -translate-y-1/2 cursor-pointer rounded-full bg-black/40 p-2 duration-200 hover:h-4 hover:w-4 hover:bg-black/60 dark:bg-white/40 dark:hover:bg-white/60'
                 />
               </ArrowFix>
             }

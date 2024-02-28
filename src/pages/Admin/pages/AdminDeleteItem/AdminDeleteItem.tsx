@@ -7,7 +7,7 @@ import ItemTag from 'src/constants/itemTag'
 import DialogPopup from 'src/components/DialogPopup'
 import { AppContext } from 'src/contexts/app.context'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { adminItemApi } from 'src/apis/admin.api'
+import { adminProductApi } from 'src/apis/admin.api'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminDialog from '../../components/AdminDialog'
 
@@ -23,7 +23,7 @@ export default function AdminDeleteItem() {
     setConfirmDialog(true)
   }
 
-  const deleteItemMutation = useMutation(adminItemApi.deleteItem)
+  const deleteItemMutation = useMutation(adminProductApi.deleteItem)
   const handleDelete = () => {
     setConfirmDialog(false)
     setLoadingPage(true)

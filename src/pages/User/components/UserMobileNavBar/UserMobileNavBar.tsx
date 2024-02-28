@@ -6,14 +6,14 @@ import path from 'src/constants/path'
 
 export default function UserMobileNavBar() {
   return (
-    <div className='grid grid-cols-4 rounded-md border border-black/10 bg-[#f8f8f8] text-textDark/70 duration-200 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
+    <div className='text-darkText/70 dark:text-lightText/70 grid grid-cols-4 rounded-md border border-black/10 bg-[#f8f8f8] duration-200 dark:border-white/20 dark:bg-[#181818]'>
       <div className='col-span-1 flex items-center justify-center'>
         <NavLink
           to={path.account}
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >
@@ -27,7 +27,7 @@ export default function UserMobileNavBar() {
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >
@@ -40,7 +40,7 @@ export default function UserMobileNavBar() {
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >
@@ -53,7 +53,7 @@ export default function UserMobileNavBar() {
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >

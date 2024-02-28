@@ -14,17 +14,17 @@ export default function MessagePopup({ dialog, closeDialog, title, children = <d
   return (
     <TransitionPopup isOpen={dialog} handleClose={closeDialog} classNameWrapper='rounded-2xl shadow-xl'>
       <div
-        className='flex max-w-[470px] flex-col items-center rounded-2xl px-3 py-4 font-newfont 
-      dark:bg-black dark:text-textDark sm:px-14 sm:py-5'
+        className='dark:text-darkText sm:px-14 sm:py-5 flex max-w-[470px] flex-col items-center rounded-2xl 
+      px-3 py-4 font-newfont dark:bg-black'
       >
-        <div className={'mb-3 text-xl font-semibold capitalize sm:text-3xl ' + orangeTextColor}>
+        <div className={'sm:text-3xl mb-3 text-xl font-semibold capitalize ' + orangeTextColor}>
           {title || customTitle}
         </div>
-        <div className='text-sm sm:text-xl'>{children}</div>
+        <div className='sm:text-xl text-sm'>{children}</div>
 
         <button
           className={
-            'mt-7 rounded-xl px-6 py-3 text-xl font-bold outline-none hover:bg-opacity-70 hover:text-white/90 dark:text-white md:rounded-2xl md:px-10 md:py-4 ' +
+            'md:rounded-2xl md:px-10 md:py-4 mt-7 rounded-xl px-6 py-3 text-xl font-bold outline-none hover:bg-opacity-70 hover:text-white/90 dark:text-white ' +
             orangeBgColor
           }
           onClick={closeDialog}

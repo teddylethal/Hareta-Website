@@ -49,8 +49,8 @@
 //                 className={({ active }) =>
 //                   `relative cursor-default select-none py-2 pl-10 pr-4 ${
 //                     active
-//                       ? 'bg-vintageColor/60 text-textLight dark:bg-haretaColor/60'
-//                       : 'text-textDark dark:text-textLight'
+//                       ? 'bg-vintageColor/60 text-lightText dark:bg-haretaColor/60'
+//                       : 'text-darkText dark:text-lightText'
 //                   }`
 //                 }
 //                 value={city}

@@ -3,7 +3,7 @@ import Input from 'src/components/Input'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { adminItemApi } from 'src/apis/admin.api'
+import { adminProductApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { Fragment, useContext, useEffect } from 'react'
@@ -16,11 +16,11 @@ interface FormData {
   id: string
 }
 
-const defaultItemSchema = yup.object({
+const defaultProductSchema = yup.object({
   id: yup.string().required('Id is required')
 })
 
-export default function AdminSetDefaultItem() {
+export default function AdminSetDefaultProduct() {
   const { currentProduct } = useContext(AdminContext)
 
   //? SET DEFAULT ITEM
@@ -36,7 +36,7 @@ export default function AdminSetDefaultItem() {
     defaultValues: {
       id: ''
     },
-    resolver: yupResolver(defaultItemSchema)
+    resolver: yupResolver(defaultProductSchema)
   })
 
   useEffect(() => {
@@ -46,10 +46,10 @@ export default function AdminSetDefaultItem() {
   }, [currentProduct, setValue])
 
   const queryClient = useQueryClient()
-  const setDefaultItemMutation = useMutation(adminItemApi.setDefaultItem)
+  const setDefaultProductMutation = useMutation(adminProductApi.setDefaultProduct)
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await setDefaultItemMutation.mutateAsync({ ...data })
+      await setDefaultProductMutation.mutateAsync({ ...data })
       reset()
       clearErrors()
       queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
@@ -80,7 +80,7 @@ export default function AdminSetDefaultItem() {
             <p className='lg:text-lg text-lg font-semibold uppercase'>Set default item</p>
             <form className='mt-4' onSubmit={onSubmit}>
               <Input
-                classNameInput='text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
+                inputClassName='text-darkText bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
                 register={register}
                 name='id'
                 errorMessage={errors?.id?.message}

@@ -51,16 +51,16 @@ export default function SearchBar() {
         onSubmit={handleSearch}
       >
         <input
-          className='focus:ring-primaryColordark:text-textLight w-full rounded-md bg-transparent px-4 py-1 text-base text-textDark caret-black outline-none ring-1 ring-haretaColor duration-200 autofill:text-textDark focus:ring-2 dark:text-textLight dark:caret-white dark:ring-haretaColor dark:autofill:text-textLight dark:focus:ring-primaryColor lg:py-2 lg:text-lg'
+          className='focus:ring-primaryColordark:text-lightText text-darkText autofill:text-darkText lg:py-2 lg:text-lg dark:text-lightText dark:autofill:text-lightText w-full rounded-md bg-transparent px-4 py-1 text-base caret-black outline-none ring-1 ring-haretaColor duration-200 focus:ring-2 dark:caret-white dark:ring-haretaColor dark:focus:ring-primaryColor'
           placeholder={t('aside filter.search')}
           {...register('name')}
         />
-        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-haretaColor px-3 py-1 duration-200 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor lg:right-4 lg:px-3'>
+        <button className='lg:right-4 lg:px-3 absolute right-1 flex items-center justify-center rounded-lg bg-haretaColor px-3 py-1 duration-200 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
             fill='currentColor'
-            className='h-4 w-4 lg:h-5 lg:w-5'
+            className='lg:h-5 lg:w-5 h-4 w-4'
           >
             <path
               fillRule='evenodd'

@@ -33,6 +33,7 @@ export default function AdminProductInfor() {
   const { data: productDetailData } = useQuery({
     queryKey: ['admin_product_detail', productId],
     queryFn: () => productApi.getProductDetail(productId as string),
+    staleTime: 1000 * 60 * 5,
     enabled: Boolean(currentProduct)
   })
   const productDetail = productDetailData?.data.data
@@ -47,7 +48,7 @@ export default function AdminProductInfor() {
 
   return (
     <div className='flex min-h-[200px] items-center justify-center rounded-lg border border-white/40 bg-black'>
-      {!currentProduct && <div className='h-full text-xl font-semibold uppercase'>Choose a variant</div>}
+      {!currentProduct && <div className='h-full text-xl font-semibold uppercase'>Hãy chọn một sản phẩm</div>}
       {currentProduct && (
         <Fragment>
           {!productDetail && <LoadingRing />}
@@ -56,7 +57,7 @@ export default function AdminProductInfor() {
             <div className='space-y-4 px-2 py-4'>
               <div className={wrapperClassname}>
                 <div className={titleWrapperClassname}>
-                  <p className={titleClassname}>Avatar</p>
+                  <p className={titleClassname}>Ảnh đại diện</p>
                 </div>
                 <div className={contentWrapperClassname}>
                   <div className=' w-6/12 desktop:w-8/12'>
@@ -71,24 +72,24 @@ export default function AdminProductInfor() {
                 </div>
               </div>
 
-              <InforSection title='group name' infor={productDetail.group.name} />
+              <InforSection title='Nhóm sản phẩm' infor={productDetail.group.name} />
               <InforSection title='ID' infor={productDetail.id} />
-              <InforSection title='variant name' infor={productDetail.name} />
-              <InforSection title='color' infor={productDetail.color} />
-              <InforSection title='category' infor={productDetail.category} />
-              <InforSection title='collection' infor={productDetail.collection} />
-              <InforSection title='type' infor={productDetail.type} />
-              <InforSection title='product line' infor={productDetail.product_line} />
-              <InforSection title='quantity' infor={productDetail.quantity} />
-              <InforSection title='price' infor={productDetail.price} />
-              <InforSection title='discount' infor={productDetail.discount} />
-              <InforSection title='tag' infor={productDetail.tag} />
-              <InforSection title='like count' infor={productDetail.like_count} />
-              <InforSection title='sold' infor={productDetail.sold} />
+              <InforSection title='Tên sản phẩm' infor={productDetail.name} />
+              <InforSection title='Màu' infor={productDetail.color} />
+              <InforSection title='Hạng mục' infor={productDetail.category} />
+              <InforSection title='Bộ sưu tập' infor={productDetail.collection} />
+              <InforSection title='Loại' infor={productDetail.type} />
+              <InforSection title='Dòng sản phẩm' infor={productDetail.product_line} />
+              <InforSection title='Số lượng' infor={productDetail.quantity} />
+              <InforSection title='Giá' infor={productDetail.price} />
+              <InforSection title='Giảm giá' infor={productDetail.discount} />
+              <InforSection title='Tag' infor={productDetail.tag} />
+              <InforSection title='Lượt thích' infor={productDetail.like_count} />
+              <InforSection title='Đã bán' infor={productDetail.sold} />
               <InforSection title='cron status' infor={productDetail.cron_status} />
 
               <div className='flex flex-col items-center space-y-2 text-lg'>
-                <p className={titleClassname}>Description</p>
+                <p className={titleClassname}>Mô tả</p>
                 <div className={contentClassname}>
                   <div
                     dangerouslySetInnerHTML={{

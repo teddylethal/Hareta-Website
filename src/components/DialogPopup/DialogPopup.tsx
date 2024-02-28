@@ -53,8 +53,8 @@ export default function DialogPopup({
               <Dialog.Panel
                 className={classNames(
                   {
-                    'bg-white/90 text-textDark': theme === 'light',
-                    'bg-black/90 text-textLight': theme === 'dark'
+                    'text-darkText bg-white/90': theme === 'light',
+                    'text-lightText bg-black/90': theme === 'dark'
                   },
                   classNameWrapper
                 )}
@@ -65,8 +65,8 @@ export default function DialogPopup({
                   className={classNames(
                     'absolute right-2 top-2 flex justify-center rounded-md p-2 text-sm font-medium  hover:text-red-600 ',
                     {
-                      'text-textDark/50': theme === 'light',
-                      'text-textLight/50': theme === 'dark',
+                      'text-darkText/50': theme === 'light',
+                      'text-lightText/50': theme === 'dark',
                       visible: closeButton,
                       invisible: !closeButton
                     }

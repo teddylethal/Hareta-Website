@@ -108,15 +108,15 @@ export default function ProductDetailDesktop(props: Props) {
   const { t } = useTranslation('productdetail')
 
   return (
-    <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
+    <div className='lg:gap-8 xl:gap-16 relative grid grid-cols-12 gap-4'>
       <div className='col-span-4'>
-        <div className='sticky left-0 top-14 flex-col rounded-xl bg-lightWhite700 p-2 text-textDark shadow-md dark:bg-darkGray700 dark:text-textLight lg:top-20 lg:p-4 xl:p-6'>
+        <div className='text-darkText lg:top-20 lg:p-4 xl:p-6 dark:text-lightText sticky left-0 top-14 flex-col rounded-xl bg-lightWhite700 p-2 shadow-md dark:bg-darkGray700'>
           <div className='relative flex items-center justify-between'>
-            <p className='line-clamp-2 text-xl font-semibold lg:text-2xl xl:text-3xl'>{defaultItem.name}</p>
+            <p className='lg:text-2xl xl:text-3xl line-clamp-2 text-xl font-semibold'>{defaultItem.name}</p>
             {isAuthenticated && (
               <button onClick={toggleLikeItem} className=''>
                 <FontAwesomeIcon
-                  className={classNames('h-auto w-5 hover:text-favouriteRed lg:w-6 xl:w-7', {
+                  className={classNames('lg:w-6 xl:w-7 h-auto w-5 hover:text-favouriteRed', {
                     'text-favouriteRed': isLikedByUser,
                     'text-black/40 dark:text-white/40': !isLikedByUser
                   })}
@@ -127,7 +127,7 @@ export default function ProductDetailDesktop(props: Props) {
           </div>
           {defaultItem.tag !== 0 && (
             <div className='relative mt-2'>
-              <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-textDark'>
+              <span className='text-darkText flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm'>
                 {tag == 1 && t('tag.top seller')}
                 {tag == 2 && t('tag.signature')}
                 {tag == 3 && t('tag.favourite')}
@@ -136,15 +136,15 @@ export default function ProductDetailDesktop(props: Props) {
             </div>
           )}
           <div className='mt-2'>
-            <span className='text-base font-medium text-haretaColor lg:text-lg xl:text-xl'>
+            <span className='lg:text-lg xl:text-xl text-base font-medium text-haretaColor'>
               ${formatCurrency(defaultItem.price)}
             </span>
           </div>
 
           <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightWhite900 p-2 dark:border-white/60 dark:bg-darkGray900'>
             <div className='flex items-center justify-between'>
-              <p className='text-base font-medium lg:text-lg xl:text-xl'>{t('sidebar.variant')}</p>
-              <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
+              <p className='lg:text-lg xl:text-xl text-base font-medium'>{t('sidebar.variant')}</p>
+              <p className='text-darkText/60 lg:text-base dark:text-lightText/60 text-sm '>
                 {itemsInGroup.length} {t('sidebar.variants')}
               </p>
             </div>
@@ -178,9 +178,9 @@ export default function ProductDetailDesktop(props: Props) {
 
           {inStock && (
             <div className='w-full'>
-              <div className='mt-6 items-center justify-between text-xs lg:flex lg:space-x-2 lg:text-sm xl:text-base'>
+              <div className='lg:flex lg:space-x-2 lg:text-sm xl:text-base mt-6 items-center justify-between text-xs'>
                 <div className='flex items-center space-x-2'>
-                  <p className='text-textDark dark:text-textLight'>{t('sidebar.quantity')}:</p>
+                  <p className='text-darkText dark:text-lightText'>{t('sidebar.quantity')}:</p>
                   <QuantityController
                     classNameWrapper=''
                     value={quantity}
@@ -190,7 +190,7 @@ export default function ProductDetailDesktop(props: Props) {
                     onType={handleQuantity}
                   />
                 </div>
-                <p className='items-center space-x-1 text-xs text-textDark/60 dark:text-textLight/60 lg:text-sm'>
+                <p className='text-darkText/60 lg:text-sm dark:text-lightText/60 items-center space-x-1 text-xs'>
                   {defaultItem.quantity <= 10 && <span>{t('sidebar.only')}</span>}
                   <span>
                     {defaultItem.quantity} {t('sidebar.available')}
@@ -198,9 +198,9 @@ export default function ProductDetailDesktop(props: Props) {
                 </p>
               </div>
 
-              <div className='mt-4 flex justify-between text-textDark'>
+              <div className='text-darkText mt-4 flex justify-between'>
                 <button
-                  className='flex items-center rounded-md bg-haretaColor px-6 py-1 text-sm hover:bg-primaryColor lg:py-1.5 lg:text-base xl:text-lg'
+                  className='lg:py-1.5 lg:text-base xl:text-lg flex items-center rounded-md bg-haretaColor px-6 py-1 text-sm hover:bg-primaryColor'
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
@@ -213,14 +213,14 @@ export default function ProductDetailDesktop(props: Props) {
                 >
                   <FontAwesomeIcon icon={faCartPlus} />
                 </button>
-                <button className='flex items-center space-x-2 rounded-md bg-haretaColor px-6 py-1 text-sm font-medium hover:bg-primaryColor lg:py-1.5 lg:text-base xl:text-lg'>
+                <button className='lg:py-1.5 lg:text-base xl:text-lg flex items-center space-x-2 rounded-md bg-haretaColor px-6 py-1 text-sm font-medium hover:bg-primaryColor'>
                   {t('sidebar.buy')}
                 </button>
               </div>
             </div>
           )}
           {!inStock && (
-            <div className='mt-2 flex w-full items-center justify-center text-lg font-semibold uppercase text-brownColor/80 dark:text-haretaColor/80 lg:mt-4 lg:text-xl xl:mt-6 xl:text-2xl'>
+            <div className='lg:mt-4 lg:text-xl xl:mt-6 xl:text-2xl mt-2 flex w-full items-center justify-center text-lg font-semibold uppercase text-brownColor/80 dark:text-haretaColor/80'>
               {t('sidebar.out of stock')}
             </div>
           )}
@@ -263,13 +263,13 @@ export default function ProductDetailDesktop(props: Props) {
           <Link
             to={path.login}
             type='button'
-            className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark hover:bg-primaryColor lg:px-6 lg:py-2'
+            className='text-darkText lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize hover:bg-primaryColor'
           >
             {t('message.login')}
           </Link>
           <button
             type='button'
-            className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark hover:bg-primaryColor lg:px-6 lg:py-2'
+            className='text-darkText lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize hover:bg-primaryColor'
             onClick={createTemporaryCart}
           >
             {t('message.Continue')}
@@ -303,7 +303,7 @@ export default function ProductDetailDesktop(props: Props) {
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
         <div className='text-center'>
-          <FontAwesomeIcon icon={faXmark} className={classNames('h-auto w-8 text-alertRed md:w-10 lg:w-12 xl:w-16')} />
+          <FontAwesomeIcon icon={faXmark} className={classNames('md:w-10 lg:w-12 xl:w-16 h-auto w-8 text-alertRed')} />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           {t('message.The quantity of the current item you are trying to add exceed our store')}

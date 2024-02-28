@@ -105,13 +105,13 @@ export default function AdminOrderDetail() {
                 <Input
                   readOnly
                   className=''
-                  classNameInput={classNames(
+                  inputClassName={classNames(
                     'text-haretaColor focus:outline-none bg-transparent cursor-not-allowed bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg lg:text-lg',
                     {
                       'outline-red-600': Boolean(errors.id)
                     }
                   )}
-                  classNameError='hidden'
+                  errorClassName='hidden'
                   register={register}
                   name='id'
                   autoComplete='false'
@@ -126,13 +126,13 @@ export default function AdminOrderDetail() {
                   name='status'
                   render={({ field }) => (
                     <InputNumber
-                      classNameInput={classNames(
+                      inputClassName={classNames(
                         'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
                         {
                           'outline-red-600': Boolean(errors.status)
                         }
                       )}
-                      classNameError='hidden'
+                      errorClassName='hidden'
                       autoComplete='false'
                       {...field}
                       onChange={field.onChange}
