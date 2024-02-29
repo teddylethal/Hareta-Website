@@ -37,13 +37,6 @@ export default function AdminCreateProduct() {
   })
   const { handleSubmit, setValue } = methods
 
-  useEffect(() => {
-    if (productGroup) {
-      setValue('name', productGroup.name)
-      setValue('group_id', productGroup.id)
-    }
-  }, [productGroup, setValue])
-
   const createNewProduct = useMutation({ mutationFn: adminProductApi.createNewProduct })
   const setDefaultProductMutation = useMutation({ mutationFn: adminProductApi.setDefaultProduct })
   const navigate = useNavigate()

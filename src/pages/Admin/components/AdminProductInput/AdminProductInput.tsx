@@ -10,7 +10,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   rules?: RegisterOptions
 }
 
-export default function AdminEditProductInput({
+export default function AdminProductInput({
   name,
   register,
   className = 'bg-transparent',

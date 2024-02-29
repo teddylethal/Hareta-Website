@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { createProductSchema, CreateProductSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
@@ -7,6 +7,9 @@ import classNames from 'classnames'
 import { AdminContext } from 'src/contexts/admin.context'
 import 'react-quill/dist/quill.snow.css'
 import QuillEditor from 'src/components/QuillEditor'
+import AdminProductInput from '../AdminProductInput'
+import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
+import CustomJoditEditor from 'src/components/CustomJoditEditor'
 
 type FormData = CreateProductSchema
 
@@ -28,115 +31,149 @@ export default function AdminCreateProductForm() {
 
   const editorContent = watch('description')
 
+  //! GET PRODUCT GROUP DATA
+  useEffect(() => {
+    setValue('name', productGroup?.name || '')
+    setValue('group_id', productGroup?.id || '')
+  }, [productGroup, setValue])
+
+  //! STYLES
+  const noSelectedInputStyle = 'text-lightText py-1 px-2 text-base font-medium lg:text-lg'
+  const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2'
+  const titleStyle = 'text-xs tablet:text-sm uppercase col-span-1 lg:text-base'
+  const inputStyle =
+    'bg-darkColor700 py-1 px-2 text-base lg:text-lg col-span-3 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/60 focus:outline-haretaColor text-haretaColor'
+
   return (
-    <Fragment>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>group name</p>
-        </div>
-        <div className='col-span-2'>
-          <div className='lg:text-lg cursor-not-allowed rounded-lg bg-[#101010] px-2 py-1 text-base capitalize text-haretaColor outline-none'>
-            {productGroup?.name}
-          </div>
-        </div>
-      </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>group id</p>
-        </div>
-        <div className='col-span-2'>
-          <Input
-            readOnly
-            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            errorClassName='hidden'
-            register={register}
-            name='group_id'
-            autoComplete='false'
-          />
-        </div>
-      </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>name</p>
-        </div>
-        <div className='col-span-2'>
-          <Input
-            readOnly
-            inputClassName={classNames(
-              'text-haretaColor cursor-not-allowed bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-              {
-                'outline-red-600': Boolean(errors.name)
-              }
-            )}
-            errorClassName='hidden'
-            register={register}
-            name='name'
-            autoComplete='false'
-          />
-        </div>
-      </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Color</p>
-        </div>
-        <div className='col-span-2'>
-          <Input
-            inputClassName={classNames(
-              'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-              {
-                'outline-red-600': Boolean(errors.color)
-              }
-            )}
-            errorClassName='hidden'
-            register={register}
-            name='color'
-            autoComplete='false'
-          />
-        </div>
-      </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>price</p>
-        </div>
+    <div className='w-full space-y-2'>
+      <div className={inputFieldStyle}>
         <div className='col-span-1'>
-          <Controller
-            control={control}
-            name='price'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(
-                  'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-                  {
-                    'outline-red-600': Boolean(errors.quantity)
-                  }
-                )}
-                errorMessage={errors?.name?.message}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
+          <p className={titleStyle}>Nhóm sản phẩm</p>
+        </div>
+        <div className='col-span-3'>
+          <p className={noSelectedInputStyle}>{productGroup?.name}</p>
         </div>
       </div>
-      <div className='relative grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>quantity</p>
-        </div>
+
+      <div className={inputFieldStyle}>
         <div className='col-span-1'>
+          <p className={titleStyle}>ID nhóm</p>
+        </div>
+        <div className='col-span-3'>
+          <p className={noSelectedInputStyle}>{productGroup?.id}</p>
+        </div>
+      </div>
+
+      <AdminProductInput
+        className={inputFieldStyle}
+        inputClassName={classNames(inputStyle, {
+          'outline-alertRed': Boolean(errors.name)
+        })}
+        register={register}
+        name='name'
+        autoComplete='false'
+        errorSection={<AdminInputErrorSection errorMessage={errors.name?.message} />}
+      >
+        <div className={titleStyle}>
+          <span className=''>Tên sản phẩm</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+      </AdminProductInput>
+
+      <AdminProductInput
+        className={inputFieldStyle}
+        inputClassName={classNames(inputStyle, {
+          'outline-alertRed': Boolean(errors.color)
+        })}
+        register={register}
+        name='color'
+        autoComplete='false'
+        errorSection={<AdminInputErrorSection errorMessage={errors.color?.message} />}
+      >
+        <div className={titleStyle}>
+          <span className=''>Màu</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+      </AdminProductInput>
+
+      <AdminProductInput
+        className={inputFieldStyle}
+        inputClassName={classNames(inputStyle, {
+          'outline-alertRed': Boolean(errors.category)
+        })}
+        register={register}
+        name='category'
+        autoComplete='false'
+        errorSection={<AdminInputErrorSection errorMessage={errors.category?.message} />}
+      >
+        <div className={titleStyle}>
+          <span className=''>Hạng mục</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+      </AdminProductInput>
+
+      <AdminProductInput
+        className={inputFieldStyle}
+        inputClassName={classNames(inputStyle, {
+          'outline-alertRed': Boolean(errors.collection)
+        })}
+        register={register}
+        name='collection'
+        autoComplete='false'
+        errorSection={<AdminInputErrorSection errorMessage={errors.collection?.message} />}
+      >
+        <div className={titleStyle}>
+          <span className=''>Bộ sưu tập</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+      </AdminProductInput>
+
+      <AdminProductInput
+        className={inputFieldStyle}
+        inputClassName={classNames(inputStyle, {
+          'outline-alertRed': Boolean(errors.type)
+        })}
+        register={register}
+        name='type'
+        autoComplete='false'
+        errorSection={<AdminInputErrorSection errorMessage={errors.type?.message} />}
+      >
+        <div className={titleStyle}>
+          <span className=''>Loại</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+      </AdminProductInput>
+
+      <AdminProductInput
+        className={inputFieldStyle}
+        inputClassName={classNames(inputStyle, {
+          'outline-alertRed': Boolean(errors.product_line)
+        })}
+        register={register}
+        name='product_line'
+        autoComplete='false'
+        errorSection={<AdminInputErrorSection errorMessage={errors.product_line?.message} />}
+      >
+        <div className={titleStyle}>
+          <span className=''>Dòng sản phẩm</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+      </AdminProductInput>
+
+      <div className={inputFieldStyle}>
+        <div className={titleStyle}>
+          <span className=''>Số lượng</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+        <div className={'col-span-3'}>
           <Controller
             control={control}
             name='quantity'
             render={({ field }) => (
               <InputNumber
-                inputClassName={classNames(
-                  'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-                  {
-                    'outline-red-600': Boolean(errors.quantity)
-                  }
-                )}
-                errorMessage={errors?.name?.message}
+                inputClassName={classNames(inputStyle, {
+                  'outline-alertRed': Boolean(errors.quantity)
+                })}
                 errorClassName='hidden'
                 autoComplete='false'
                 {...field}
@@ -145,95 +182,42 @@ export default function AdminCreateProductForm() {
             )}
           />
         </div>
+        <AdminInputErrorSection errorMessage={errors.quantity?.message} />
       </div>
 
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Category</p>
+      <div className={inputFieldStyle}>
+        <div className={titleStyle}>
+          <span className=''>Giá</span>
+          <span className='text-alertRed'>*</span>
         </div>
-        <div className='col-span-2'>
-          <Input
-            inputClassName={classNames(
-              'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-              {
-                'outline-red-600': Boolean(errors.category)
-              }
+        <div className={'col-span-3'}>
+          <Controller
+            control={control}
+            name='price'
+            render={({ field }) => (
+              <InputNumber
+                inputClassName={classNames(inputStyle, {
+                  'outline-alertRed': Boolean(errors.price)
+                })}
+                errorClassName='hidden'
+                autoComplete='false'
+                {...field}
+                onChange={field.onChange}
+              />
             )}
-            errorClassName='hidden'
-            register={register}
-            name='category'
-            autoComplete='false'
           />
         </div>
-      </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>collection</p>
-        </div>
-        <div className='col-span-2'>
-          <Input
-            inputClassName={classNames(
-              'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-              {
-                'outline-red-600': Boolean(errors.collection)
-              }
-            )}
-            errorClassName='hidden'
-            register={register}
-            name='collection'
-            autoComplete='false'
-          />
-        </div>
-      </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>type</p>
-        </div>
-        <div className='col-span-2'>
-          <Input
-            inputClassName={classNames(
-              'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-              {
-                'outline-red-600': Boolean(errors.type)
-              }
-            )}
-            errorClassName='hidden'
-            register={register}
-            name='type'
-            autoComplete='false'
-          />
-        </div>
-      </div>
-      <div className='grid grid-cols-4 items-center gap-2'>
-        <div className='col-span-2'>
-          <p className='lg:text-lg text-base font-medium uppercase text-white/60'>product line</p>
-        </div>
-        <div className='col-span-2'>
-          <Input
-            inputClassName={classNames(
-              'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
-              {
-                'outline-red-600': Boolean(errors.product_line)
-              }
-            )}
-            errorClassName='hidden'
-            register={register}
-            name='product_line'
-            autoComplete='false'
-          />
-        </div>
+        <AdminInputErrorSection errorMessage={errors.price?.message} />
       </div>
 
-      <div className=' items-center space-y-2 bg-slate-900'>
-        <p className='lg:text-lg text-base font-medium uppercase text-white/60'>description</p>
-        {/* <textarea
-          className='h-96 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium text-haretaColor outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg '
-          {...register('description')}
-          autoComplete='false'
-        /> */}
-        {/* <div className='h-96 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium text-haretaColor outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg ' /> */}
-        <QuillEditor value={editorContent} setValue={onEditorStateChange} />
+      <div className='space-y-2 px-2 py-1 '>
+        <div className={titleStyle}>
+          <span className='text-lg'>Mô tả</span>
+          <span className='text-alertRed'>*</span>
+        </div>
+
+        <CustomJoditEditor content={editorContent} setContent={onEditorStateChange} />
       </div>
-    </Fragment>
+    </div>
   )
 }

@@ -3,22 +3,15 @@ import { EditProductSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import classNames from 'classnames'
 import { Product } from 'src/types/product.type'
-import AdminEditProductInput from '../AdminEditProductInput'
 import { formatDate } from 'src/utils/utils'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
+import AdminProductInput from '../AdminProductInput'
+import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 
 type FormData = EditProductSchema
 
 interface Props {
   productDetail: Product
-}
-
-function ErrorSection({ errorMessage }: { errorMessage?: string }) {
-  return (
-    <div className='col-span-4 grid grid-cols-4 gap-1'>
-      <div className='col-start-2 col-end-5 mt-0.5 min-h-[1.25rem] text-sm text-alertRed'>{errorMessage}</div>
-    </div>
-  )
 }
 
 export default function AdminEditProductForm({ productDetail }: Props) {
@@ -83,7 +76,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         </div>
       </div>
 
-      <AdminEditProductInput
+      <AdminProductInput
         className={inputFieldStyle}
         inputClassName={classNames(inputStyle, {
           'outline-alertRed': Boolean(errors.name)
@@ -91,15 +84,15 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         register={register}
         name='name'
         autoComplete='false'
-        errorSection={<ErrorSection errorMessage={errors.name?.message} />}
+        errorSection={<AdminInputErrorSection errorMessage={errors.name?.message} />}
       >
         <div className={titleStyle}>
           <span className=''>Tên sản phẩm</span>
           <span className='text-alertRed'>*</span>
         </div>
-      </AdminEditProductInput>
+      </AdminProductInput>
 
-      <AdminEditProductInput
+      <AdminProductInput
         className={inputFieldStyle}
         inputClassName={classNames(inputStyle, {
           'outline-alertRed': Boolean(errors.color)
@@ -107,15 +100,15 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         register={register}
         name='color'
         autoComplete='false'
-        errorSection={<ErrorSection errorMessage={errors.color?.message} />}
+        errorSection={<AdminInputErrorSection errorMessage={errors.color?.message} />}
       >
         <div className={titleStyle}>
           <span className=''>Màu</span>
           <span className='text-alertRed'>*</span>
         </div>
-      </AdminEditProductInput>
+      </AdminProductInput>
 
-      <AdminEditProductInput
+      <AdminProductInput
         className={inputFieldStyle}
         inputClassName={classNames(inputStyle, {
           'outline-alertRed': Boolean(errors.category)
@@ -123,15 +116,15 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         register={register}
         name='category'
         autoComplete='false'
-        errorSection={<ErrorSection errorMessage={errors.category?.message} />}
+        errorSection={<AdminInputErrorSection errorMessage={errors.category?.message} />}
       >
         <div className={titleStyle}>
           <span className=''>Hạng mục</span>
           <span className='text-alertRed'>*</span>
         </div>
-      </AdminEditProductInput>
+      </AdminProductInput>
 
-      <AdminEditProductInput
+      <AdminProductInput
         className={inputFieldStyle}
         inputClassName={classNames(inputStyle, {
           'outline-alertRed': Boolean(errors.collection)
@@ -139,15 +132,15 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         register={register}
         name='collection'
         autoComplete='false'
-        errorSection={<ErrorSection errorMessage={errors.collection?.message} />}
+        errorSection={<AdminInputErrorSection errorMessage={errors.collection?.message} />}
       >
         <div className={titleStyle}>
           <span className=''>Bộ sưu tập</span>
           <span className='text-alertRed'>*</span>
         </div>
-      </AdminEditProductInput>
+      </AdminProductInput>
 
-      <AdminEditProductInput
+      <AdminProductInput
         className={inputFieldStyle}
         inputClassName={classNames(inputStyle, {
           'outline-alertRed': Boolean(errors.type)
@@ -155,15 +148,15 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         register={register}
         name='type'
         autoComplete='false'
-        errorSection={<ErrorSection errorMessage={errors.type?.message} />}
+        errorSection={<AdminInputErrorSection errorMessage={errors.type?.message} />}
       >
         <div className={titleStyle}>
           <span className=''>Loại</span>
           <span className='text-alertRed'>*</span>
         </div>
-      </AdminEditProductInput>
+      </AdminProductInput>
 
-      <AdminEditProductInput
+      <AdminProductInput
         className={inputFieldStyle}
         inputClassName={classNames(inputStyle, {
           'outline-alertRed': Boolean(errors.product_line)
@@ -171,13 +164,13 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         register={register}
         name='product_line'
         autoComplete='false'
-        errorSection={<ErrorSection errorMessage={errors.product_line?.message} />}
+        errorSection={<AdminInputErrorSection errorMessage={errors.product_line?.message} />}
       >
         <div className={titleStyle}>
           <span className=''>Dòng sản phẩm</span>
           <span className='text-alertRed'>*</span>
         </div>
-      </AdminEditProductInput>
+      </AdminProductInput>
 
       <div className={inputFieldStyle}>
         <div className={titleStyle}>
@@ -201,7 +194,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
             )}
           />
         </div>
-        <ErrorSection errorMessage={errors.quantity?.message} />
+        <AdminInputErrorSection errorMessage={errors.quantity?.message} />
       </div>
 
       <div className={inputFieldStyle}>
@@ -226,7 +219,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
             )}
           />
         </div>
-        <ErrorSection errorMessage={errors.price?.message} />
+        <AdminInputErrorSection errorMessage={errors.price?.message} />
       </div>
 
       <div className={inputFieldStyle}>
@@ -251,7 +244,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
             )}
           />
         </div>
-        <ErrorSection errorMessage={errors.discount?.message} />
+        <AdminInputErrorSection errorMessage={errors.discount?.message} />
       </div>
 
       <div className={inputFieldStyle}>
@@ -276,7 +269,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
             )}
           />
         </div>
-        <ErrorSection errorMessage={errors.tag?.message} />
+        <AdminInputErrorSection errorMessage={errors.tag?.message} />
       </div>
 
       <div className={inputFieldStyle}>
@@ -301,7 +294,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
             )}
           />
         </div>
-        <ErrorSection errorMessage={errors.like_count?.message} />
+        <AdminInputErrorSection errorMessage={errors.like_count?.message} />
       </div>
 
       <div className={inputFieldStyle}>
@@ -326,7 +319,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
             )}
           />
         </div>
-        <ErrorSection errorMessage={errors.sold?.message} />
+        <AdminInputErrorSection errorMessage={errors.sold?.message} />
       </div>
 
       <div className={inputFieldStyle}>
@@ -351,7 +344,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
             )}
           />
         </div>
-        <ErrorSection errorMessage={errors.cron_status?.message} />
+        <AdminInputErrorSection errorMessage={errors.cron_status?.message} />
       </div>
 
       <div className='space-y-2 px-2 py-1 '>
@@ -359,11 +352,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
           <span className='text-lg'>Mô tả</span>
           <span className='text-alertRed'>*</span>
         </div>
-        {/* <textarea
-          className='h-96 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium text-haretaColor outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg '
-          {...register('description')}
-          autoComplete='false'
-        /> */}
+
         <CustomJoditEditor content={editorContent} setContent={onEditorStateChange} />
       </div>
     </div>
