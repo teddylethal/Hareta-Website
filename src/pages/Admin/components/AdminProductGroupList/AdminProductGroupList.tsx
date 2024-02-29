@@ -10,7 +10,7 @@ export default function AdminProductGroupList() {
 
   //? GET GROUP LIST
   const { data: itemsInGroupData } = useQuery({
-    queryKey: ['group_name_list'],
+    queryKey: ['admin_product_group_list'],
     queryFn: () => adminProductGroupApi.getProductGroups()
   })
   const groupList = itemsInGroupData?.data.data || []

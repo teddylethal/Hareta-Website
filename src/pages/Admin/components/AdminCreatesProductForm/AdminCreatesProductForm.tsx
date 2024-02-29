@@ -1,19 +1,17 @@
-import { Fragment, useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { createProductSchema, CreateProductSchema } from '../../utils/rules'
+import { CreateProductSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
-import Input from 'src/components/Input'
 import classNames from 'classnames'
 import { AdminContext } from 'src/contexts/admin.context'
 import 'react-quill/dist/quill.snow.css'
-import QuillEditor from 'src/components/QuillEditor'
 import AdminProductInput from '../AdminProductInput'
 import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
 
 type FormData = CreateProductSchema
 
-export default function AdminCreateProductForm() {
+export default function AdminCreatesProductForm() {
   const { productGroup } = useContext(AdminContext)
   const {
     register,

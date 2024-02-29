@@ -25,18 +25,19 @@ export default path
 export const adminPath = {
   mainPage: '/admin',
 
-  //? Item
-  products: '/admin/products',
-  productDetail: '/admin/products/:nameId',
-  createProductGroup: '/admin/products/create-item',
-  addProduct: '/admin/products/create-color',
-  uploadProductAvatar: '/admin/products/update/item-avatar',
-  updateProduct: '/admin/products/update/item',
-  setDefaultProduct: '/admin/products/update/set-default-item',
-  addItemImage: '/admin/products/item-image/add',
-  deleteItemImage: '/admin/products/item-image/delete',
-  deleteGroup: '/admin/products/delete-group',
-  deleteItem: '/admin/products/delete-item',
+  //? Product
+  products: '/admin/product',
+  productList: '/admin/product/list',
+  productDetail: '/admin/product/:nameId',
+  createProductGroup: '/admin/product/create-group',
+  createProduct: '/admin/product/create-product',
+  uploadProductAvatar: '/admin/product/update/item-avatar',
+  updateProduct: '/admin/product/update/item',
+  setDefaultProduct: '/admin/product/update/set-default-item',
+  addItemImage: '/admin/product/item-image/add',
+  deleteItemImage: '/admin/product/item-image/delete',
+  deleteGroup: '/admin/product/delete-group',
+  deleteItem: '/admin/product/delete-item',
 
   //? Image
   image: '/admin/images',

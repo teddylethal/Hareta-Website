@@ -4,12 +4,14 @@ import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
-import AdminCreateProduct from 'src/pages/Admin/pages/AdminCreateProduct'
+import AdminProductLayout from 'src/pages/Admin/layouts/AdminProductLayout'
+import AdminCreatingProductPage from 'src/pages/Admin/pages/AdminCreatingProductPage'
+import AdminCreatesProduct from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProduct'
+import AdminCreatesProductGroup from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProductGroup'
 
 import AdminSetDefaultProduct from 'src/pages/Admin/pages/AdminSetDefaultItem/AdminSetDefaultItem'
 
 //? IMPORT ADMIN LAYOUTS
-const AdminItemLayout = lazy(() => import('src/pages/Admin/layouts/AdminItemLayout'))
 
 //? IMPORT ADMIN COMPONENTS
 const AdminDefaultProductList = lazy(() => import('src/pages/Admin/pages/AdminDefaultProductList'))
@@ -39,9 +41,9 @@ function AdminMainRoute() {
 
 function AdminProductRoute() {
   return (
-    <AdminItemLayout>
+    <AdminProductLayout>
       <Outlet />
-    </AdminItemLayout>
+    </AdminProductLayout>
   )
 }
 
@@ -58,7 +60,7 @@ const AdminRoute = {
       element: <AdminProductRoute />,
       children: [
         {
-          path: '',
+          path: adminPath.productList,
           element: <AdminDefaultProductList />
         },
         {
@@ -67,11 +69,11 @@ const AdminRoute = {
         },
         {
           path: adminPath.createProductGroup,
-          element: <AdminCreateProduct />
+          element: <AdminCreatesProductGroup />
         },
         {
-          path: adminPath.addProduct,
-          element: <AdminAddItemColor />
+          path: adminPath.createProduct,
+          element: <AdminCreatesProduct />
         },
         {
           path: adminPath.setDefaultProduct,
@@ -103,9 +105,9 @@ const AdminRoute = {
     // {
     //   path: adminPath.createItem,
     //   element: (
-    //     <AdminItemLayout>
-    //       <AdminCreateProduct />
-    //     </AdminItemLayout>
+    //     <AdminProductLayout>
+    //       <AdminCreatingProductPage />
+    //     </AdminProductLayout>
     //   )
     // },
     {

@@ -1,6 +1,5 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { CreateProductSchema, createProductSchema } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
 import { adminProductApi } from 'src/apis/admin.api'
@@ -10,26 +9,27 @@ import { AdminContext } from 'src/contexts/admin.context'
 import { Product } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
-import AdminCreatingPage from '../AdminCreatingPage'
-import AdminCreateProductForm from '../../components/AdminCreateProductForm/AdminCreateProductForm'
-import AdminCreateProductGroup from '../../components/AdminCreateProductGroup'
-import AdminProductGroupList from '../../components/AdminProductGroupList'
+import AdminCreatesProductForm from 'src/pages/Admin/components/AdminCreatesProductForm'
+import { CreateProductSchema, createProductSchema } from 'src/pages/Admin/utils/rules'
+import AdminCreatingProductHeader from 'src/pages/Admin/components/AdminCreatingProductHeader'
+import AdminProductGroupList from 'src/pages/Admin/components/AdminProductGroupList'
 
 type FormData = CreateProductSchema
 
-export default function AdminCreateProduct() {
+export default function AdminCreatesProduct() {
   const { productGroup, setCurrentProduct } = useContext(AdminContext)
-  //? CREATE NEW ITEM
+
+  //! CREATE NEW ITEM
   const methods = useForm<FormData>({
     defaultValues: {
       name: '',
       group_id: '',
       category: '',
-      price: 10,
+      price: 0,
       description: '',
       collection: '',
       type: '',
-      quantity: 1,
+      quantity: 0,
       product_line: '',
       color: ''
     },
@@ -62,36 +62,29 @@ export default function AdminCreateProduct() {
   }
 
   return (
-    <div>
-      <AdminCreatingPage />
-      <div className='mt-4 space-y-8'>
-        <div className='grid grid-cols-2 items-center gap-12'>
-          <div className='col-span-1 space-y-4'>
-            <AdminCreateProductGroup />
-          </div>
-          <div className='col-span-1'>
-            <AdminProductGroupList />
-          </div>
-        </div>
-        <FormProvider {...methods}>
-          <form
-            className='relative space-y-4 overflow-hidden rounded-lg border border-white/40 p-4'
-            onSubmit={handleSubmit(onSubmit, onInvalid)}
-          >
-            {!productGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+    <div className='space-y-4'>
+      <AdminCreatingProductHeader />
 
-            <AdminCreateProductForm />
-            <div className='col-span-1 mt-2 flex items-center justify-end'>
-              <button
-                className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor'
-                type='submit'
-              >
-                Tạo sản phẩm
-              </button>
-            </div>
-          </form>
-        </FormProvider>
-      </div>
+      <AdminProductGroupList />
+
+      <FormProvider {...methods}>
+        <form
+          className='relative space-y-4 overflow-hidden rounded-lg border border-white/40 p-4'
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+        >
+          {!productGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+
+          <AdminCreatesProductForm />
+          <div className='col-span-1 mt-2 flex items-center justify-end'>
+            <button
+              className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor'
+              type='submit'
+            >
+              Tạo sản phẩm
+            </button>
+          </div>
+        </form>
+      </FormProvider>
     </div>
   )
 }

@@ -13,10 +13,10 @@ export default function AdminLayout({ children }: Props) {
       <div className='bg-darkBg'>
         <div className='container'>
           <div className='py-8'>
-            <div className='lg:text-xl text-lightText/80 relative flex items-center  justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold'>
+            <div className='lg:text-xl relative flex items-center justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold text-lightText/80'>
               {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
               <NavLink
-                to={adminPath.products}
+                to={adminPath.productList}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,
@@ -24,7 +24,7 @@ export default function AdminLayout({ children }: Props) {
                   })
                 }
               >
-                Item
+                Sản phẩm
               </NavLink>
 
               <NavLink
@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: Props) {
                   })
                 }
               >
-                Image
+                Hình ảnh
               </NavLink>
 
               <NavLink
@@ -48,10 +48,10 @@ export default function AdminLayout({ children }: Props) {
                   })
                 }
               >
-                Order
+                Đơn hàng
               </NavLink>
             </div>
-            <div className='text-lightText py-4'>{children}</div>
+            <div className='py-4 text-lightText'>{children}</div>
           </div>
         </div>
       </div>

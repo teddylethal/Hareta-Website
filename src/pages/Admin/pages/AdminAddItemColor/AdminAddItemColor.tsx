@@ -13,7 +13,7 @@ import AdminAddItemColorForm from './AdminAddItemColorForm'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
 import { AdminContext } from 'src/contexts/admin.context'
-import AdminCreatingPage from '../AdminCreatingPage'
+import AdminCreatingProductHeader from '../../components/AdminCreatingProductHeader'
 
 type FormData = AddProductSchema
 
@@ -116,7 +116,7 @@ export default function AdminAddItemColor() {
 
   return (
     <div className='relative'>
-      <AdminCreatingPage />
+      <AdminCreatingProductHeader />
 
       <div className='grid grid-cols-12 gap-4'>
         <div className='col-span-6'>

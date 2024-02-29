@@ -15,7 +15,7 @@ import AdminEditProduct from '../../components/AdminEditProduct'
 import AdminDialog from '../../components/AdminDialog'
 
 export default function AdminProductPage() {
-  const { setProductGroupId, currentProduct } = useContext(AdminContext)
+  const { setProductGroup, currentProduct } = useContext(AdminContext)
 
   //! DELCARE STATES
   const [editingMode, setEditingMode] = useState<boolean>(false)
@@ -40,9 +40,9 @@ export default function AdminProductPage() {
 
   useEffect(() => {
     if (defaultProduct) {
-      setProductGroupId(defaultProduct.group.id)
+      setProductGroup(defaultProduct.group)
     }
-  }, [defaultProduct, setProductGroupId])
+  }, [defaultProduct, setProductGroup])
 
   //! BUTTON FUNCTIONS
   const turnOnEditingMode = () => {
