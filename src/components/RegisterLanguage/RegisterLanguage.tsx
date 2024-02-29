@@ -27,7 +27,7 @@ export default function RegisterLanguage() {
     <div className='group'>
       <FloatingOnClick
         renderPopover={
-          <div className='text-darkText/90 md:w-40 lg:text-lg dark:text-lightText/90 relative flex w-28 select-none flex-col rounded-lg bg-lightWhite700 p-2 text-base shadow-lg dark:bg-darkGray700'>
+          <div className='md:w-40 lg:text-lg bg-lightColor700 relative flex w-28 select-none flex-col rounded-lg p-2 text-base text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90'>
             <button
               className='sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl px-2 py-1 text-sm hover:font-medium hover:text-primaryColor'
               onClick={() => changeLanguage('en')}
@@ -42,7 +42,7 @@ export default function RegisterLanguage() {
             </button>
           </div>
         }
-        className='text-darkText sm:text-sm md:text-sm xl:text-lg dark:text-lightText flex cursor-default select-none items-center space-x-0.5 p-1 text-xs font-semibold duration-200'
+        className='sm:text-sm md:text-sm xl:text-lg flex cursor-default select-none items-center space-x-0.5 p-1 text-xs font-semibold text-darkText duration-200 dark:text-lightText'
         isOpen={isOpen}
         handleClick={handleClick}
         openChange={setIsOpen}

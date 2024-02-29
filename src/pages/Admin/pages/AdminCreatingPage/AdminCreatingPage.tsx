@@ -4,10 +4,9 @@ import { adminPath } from 'src/constants/path'
 
 export default function AdminCreatingPage() {
   return (
-    <div className='text-lightText/80 lg:text-base relative flex items-center  justify-around rounded-xl  border border-white/40 py-2 text-sm font-semibold'>
-      {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
+    <div className='lg:text-base relative flex items-center justify-around  rounded-xl border  border-white/40 py-2 text-sm font-semibold text-lightText/80'>
       <NavLink
-        to={adminPath.createItem}
+        to={adminPath.createProductGroup}
         end
         className={({ isActive }) =>
           classNames('px-8 py-1 uppercase ', {
@@ -16,10 +15,10 @@ export default function AdminCreatingPage() {
           })
         }
       >
-        Create new item
+        Tạo nhóm sản phẩm
       </NavLink>
       <NavLink
-        to={adminPath.addItemColor}
+        to={adminPath.addProduct}
         end
         className={({ isActive }) =>
           classNames('px-4 py-1 uppercase ', {
@@ -28,7 +27,7 @@ export default function AdminCreatingPage() {
           })
         }
       >
-        create new color
+        Thêm sản phẩm
       </NavLink>
     </div>
   )

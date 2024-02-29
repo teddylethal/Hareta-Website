@@ -16,12 +16,12 @@ export default function Home() {
   return (
     <Fragment>
       {LoadingPage && <LoadingWithEmptyContent />}
-      <div className='text-darkText dark:text-lightText bg-lightBg duration-200 dark:bg-darkBg'>
+      <div className='bg-lightBg text-darkText duration-200 dark:bg-darkBg dark:text-lightText'>
         <EventCarousel />
         <div className='md:py-6 lg:py-8 xl:py-10 py-4'>
           <NewReleaseCarousel setLoadingPage={setLoadingPage} />
         </div>
-        <div className='md:py-6 lg:py-8 xl:py-10 bg-lightWhite700 py-4 dark:bg-darkGray700'>
+        <div className='md:py-6 lg:py-8 xl:py-10 bg-lightColor700 py-4 dark:bg-darkColor700'>
           <TopSellerCarousel setLoadingPage={setLoadingPage} />
         </div>
         <div className='md:py-6 lg:py-8 xl:py-10 py-4'>

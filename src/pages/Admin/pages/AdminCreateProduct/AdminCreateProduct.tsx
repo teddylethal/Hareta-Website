@@ -1,24 +1,24 @@
-import AdminCreateNewGroup from '../../components/AdminCreateNewGroup'
 import { useContext, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { AddProductSchema, AddProductSchema } from '../../utils/rules'
+import { CreateProductSchema, createProductSchema } from '../../utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AdminCreateItemForm from '../../components/AdminCreateItemForm'
 import { useMutation } from '@tanstack/react-query'
 import { adminProductApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { AdminContext } from 'src/contexts/admin.context'
-import AdminGroupNameList from '../../components/AdminGroupNameList'
 import { Product } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
 import AdminCreatingPage from '../AdminCreatingPage'
+import AdminCreateProductForm from '../../components/AdminCreateProductForm/AdminCreateProductForm'
+import AdminCreateProductGroup from '../../components/AdminCreateProductGroup'
+import AdminProductGroupList from '../../components/AdminProductGroupList'
 
-type FormData = AddProductSchema
+type FormData = CreateProductSchema
 
-export default function AdminCreateItem() {
-  const { ProductGroup, setCurrentProduct } = useContext(AdminContext)
+export default function AdminCreateProduct() {
+  const { productGroup, setCurrentProduct } = useContext(AdminContext)
   //? CREATE NEW ITEM
   const methods = useForm<FormData>({
     defaultValues: {
@@ -33,17 +33,19 @@ export default function AdminCreateItem() {
       product_line: '',
       color: ''
     },
-    resolver: yupResolver(AddProductSchema)
+    resolver: yupResolver(createProductSchema)
   })
   const { handleSubmit, setValue } = methods
 
   useEffect(() => {
-    setValue('name', ProductGroup?.name || '')
-    setValue('group_id', ProductGroup?.id || '')
-  }, [ProductGroup, setValue])
+    if (productGroup) {
+      setValue('name', productGroup.name)
+      setValue('group_id', productGroup.id)
+    }
+  }, [productGroup, setValue])
 
-  const createNewProduct = useMutation(adminProductApi.createNewProduct)
-  const setDefaultProductMutation = useMutation(adminProductApi.setDefaultProduct)
+  const createNewProduct = useMutation({ mutationFn: adminProductApi.createNewProduct })
+  const setDefaultProductMutation = useMutation({ mutationFn: adminProductApi.setDefaultProduct })
   const navigate = useNavigate()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -72,10 +74,10 @@ export default function AdminCreateItem() {
       <div className='mt-4 space-y-8'>
         <div className='grid grid-cols-2 items-center gap-12'>
           <div className='col-span-1 space-y-4'>
-            <AdminCreateNewGroup />
+            <AdminCreateProductGroup />
           </div>
           <div className='col-span-1'>
-            <AdminGroupNameList />
+            <AdminProductGroupList />
           </div>
         </div>
         <FormProvider {...methods}>
@@ -83,15 +85,15 @@ export default function AdminCreateItem() {
             className='relative space-y-4 overflow-hidden rounded-lg border border-white/40 p-4'
             onSubmit={handleSubmit(onSubmit, onInvalid)}
           >
-            {!ProductGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+            {!productGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
 
-            <AdminCreateItemForm />
+            <AdminCreateProductForm />
             <div className='col-span-1 mt-2 flex items-center justify-end'>
               <button
-                className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60'
+                className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor'
                 type='submit'
               >
-                Create
+                Tạo sản phẩm
               </button>
             </div>
           </form>

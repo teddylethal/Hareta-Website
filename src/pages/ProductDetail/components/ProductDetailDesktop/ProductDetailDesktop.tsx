@@ -110,7 +110,7 @@ export default function ProductDetailDesktop(props: Props) {
   return (
     <div className='lg:gap-8 xl:gap-16 relative grid grid-cols-12 gap-4'>
       <div className='col-span-4'>
-        <div className='text-darkText lg:top-20 lg:p-4 xl:p-6 dark:text-lightText sticky left-0 top-14 flex-col rounded-xl bg-lightWhite700 p-2 shadow-md dark:bg-darkGray700'>
+        <div className='lg:top-20 lg:p-4 xl:p-6 bg-lightColor700 sticky left-0 top-14 flex-col rounded-xl p-2 text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText'>
           <div className='relative flex items-center justify-between'>
             <p className='lg:text-2xl xl:text-3xl line-clamp-2 text-xl font-semibold'>{defaultItem.name}</p>
             {isAuthenticated && (
@@ -127,7 +127,7 @@ export default function ProductDetailDesktop(props: Props) {
           </div>
           {defaultItem.tag !== 0 && (
             <div className='relative mt-2'>
-              <span className='text-darkText flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm'>
+              <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
                 {tag == 1 && t('tag.top seller')}
                 {tag == 2 && t('tag.signature')}
                 {tag == 3 && t('tag.favourite')}
@@ -141,10 +141,10 @@ export default function ProductDetailDesktop(props: Props) {
             </span>
           </div>
 
-          <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightWhite900 p-2 dark:border-white/60 dark:bg-darkGray900'>
+          <div className='bg-lightColor900 mt-8 w-full rounded-lg border border-black/60 p-2 dark:border-white/60 dark:bg-darkColor900'>
             <div className='flex items-center justify-between'>
               <p className='lg:text-lg xl:text-xl text-base font-medium'>{t('sidebar.variant')}</p>
-              <p className='text-darkText/60 lg:text-base dark:text-lightText/60 text-sm '>
+              <p className='lg:text-base text-sm text-darkText/60 dark:text-lightText/60 '>
                 {itemsInGroup.length} {t('sidebar.variants')}
               </p>
             </div>
@@ -190,7 +190,7 @@ export default function ProductDetailDesktop(props: Props) {
                     onType={handleQuantity}
                   />
                 </div>
-                <p className='text-darkText/60 lg:text-sm dark:text-lightText/60 items-center space-x-1 text-xs'>
+                <p className='lg:text-sm items-center space-x-1 text-xs text-darkText/60 dark:text-lightText/60'>
                   {defaultItem.quantity <= 10 && <span>{t('sidebar.only')}</span>}
                   <span>
                     {defaultItem.quantity} {t('sidebar.available')}
@@ -198,7 +198,7 @@ export default function ProductDetailDesktop(props: Props) {
                 </p>
               </div>
 
-              <div className='text-darkText mt-4 flex justify-between'>
+              <div className='mt-4 flex justify-between text-darkText'>
                 <button
                   className='lg:py-1.5 lg:text-base xl:text-lg flex items-center rounded-md bg-haretaColor px-6 py-1 text-sm hover:bg-primaryColor'
                   onClick={
@@ -263,13 +263,13 @@ export default function ProductDetailDesktop(props: Props) {
           <Link
             to={path.login}
             type='button'
-            className='text-darkText lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize hover:bg-primaryColor'
+            className='lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-darkText hover:bg-primaryColor'
           >
             {t('message.login')}
           </Link>
           <button
             type='button'
-            className='text-darkText lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize hover:bg-primaryColor'
+            className='lg:px-6 lg:py-2 justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-darkText hover:bg-primaryColor'
             onClick={createTemporaryCart}
           >
             {t('message.Continue')}

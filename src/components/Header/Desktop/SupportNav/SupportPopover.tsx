@@ -12,10 +12,10 @@ export default function SupportPopover({ closePopover }: Props) {
   //? Use translation
   const { t } = useTranslation('header')
 
-  const className = 'rounded-md px-3 py-2 hover:bg-lightWhite900/80 hover:font-semibold dark:hover:bg-darkGray900/80'
+  const className = 'rounded-md px-3 py-2 hover:bg-lightColor900/80 hover:font-semibold dark:hover:bg-darkColor900/80'
 
   return (
-    <div className='text-darkText md:font-medium lg:w-72 lg:text-lg dark:text-lightText relative flex w-64 select-none flex-col space-y-1 rounded-lg bg-lightWhite700 p-2 text-base font-medium shadow-lg dark:bg-darkGray700'>
+    <div className='md:font-medium lg:w-72 lg:text-lg bg-lightColor700 relative flex w-64 select-none flex-col space-y-1 rounded-lg p-2 text-base font-medium text-darkText shadow-lg dark:bg-darkColor700 dark:text-lightText'>
       {/* <Link
         to='/'
         className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-darkText dark:hover:bg-[#101010] dark:hover:text-lightText'

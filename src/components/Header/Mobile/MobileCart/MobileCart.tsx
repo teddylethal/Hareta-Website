@@ -68,10 +68,10 @@ export default function MobileCart({ className }: Props) {
 
   return (
     <div className={className}>
-      <button onClick={openCart} className='text-darkText dark:text-lightText relative flex items-end'>
-        <FontAwesomeIcon icon={faCartShopping} className='text-darkText dark:text-lightText h-6 w-6' />
+      <button onClick={openCart} className='relative flex items-end text-darkText dark:text-lightText'>
+        <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-darkText dark:text-lightText' />
         {extendedPurchases.length > 0 && (
-          <span className='text-darkText absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs'>
+          <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs text-darkText'>
             {extendedPurchases.length}
           </span>
         )}
@@ -122,11 +122,11 @@ export default function MobileCart({ className }: Props) {
                 <div className='lg:text-lg px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300'>
                   {extendedPurchases.length} {t('cart button.items in cart')}
                 </div>
-                <div className='mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-lightWhite700 dark:border-white/20 dark:bg-darkGray700'>
+                <div className='bg-lightColor700 mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 dark:border-white/20 dark:bg-darkColor700'>
                   {extendedPurchases.length > 0 ? (
                     extendedPurchases.map((purchase, index) => (
                       <div
-                        className=' flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightWhite900/60 dark:border-white/20 dark:hover:bg-darkGray900/60'
+                        className=' hover:bg-lightColor900/60 flex space-x-3 border-b border-black/20 p-3 last:border-none dark:border-white/20 dark:hover:bg-darkColor900/60'
                         key={purchase.id}
                       >
                         <div className='h-12 w-12'>
@@ -184,7 +184,7 @@ export default function MobileCart({ className }: Props) {
                 <div className='flex space-x-2'>
                   <Link
                     to={path.store}
-                    className='text-darkText flex items-center justify-center rounded-md bg-haretaColor px-4 py-1 capitalize hover:bg-primaryColor'
+                    className='flex items-center justify-center rounded-md bg-haretaColor px-4 py-1 capitalize text-darkText hover:bg-primaryColor'
                     onClick={closeCart}
                   >
                     {t('cart button.store')}
@@ -193,7 +193,7 @@ export default function MobileCart({ className }: Props) {
                 <div>
                   <Link
                     to={path.cart}
-                    className='text-darkText flex items-center justify-center rounded-md bg-haretaColor px-4 py-1 capitalize hover:bg-primaryColor'
+                    className='flex items-center justify-center rounded-md bg-haretaColor px-4 py-1 capitalize text-darkText hover:bg-primaryColor'
                     onClick={closeCart}
                   >
                     {t('cart button.enter cart')}

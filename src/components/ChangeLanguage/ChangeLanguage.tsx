@@ -25,12 +25,12 @@ export default function ChangeLanguage({ closePopover }: Props) {
     <div
       ref={ref}
       className={classNames('w-full rounded-md', {
-        'bg-lightWhite900/60 dark:bg-darkGray900/60': visible
+        'bg-lightColor900/60 dark:bg-darkColor900/60': visible
       })}
     >
       <button
         className={classNames('flex w-full items-center rounded-md px-3 py-2 uppercase ', {
-          'hover:bg-lightWhite900/80 hover:font-semibold dark:hover:bg-darkGray900/80': !visible,
+          'hover:bg-lightColor900/80 hover:font-semibold dark:hover:bg-darkColor900/80': !visible,
           'font-semibold': visible
         })}
         onClick={() => setVisible(!visible)}
@@ -59,7 +59,7 @@ export default function ChangeLanguage({ closePopover }: Props) {
         <AnimatePresence>
           {visible && (
             <motion.div
-              className='text-darkText sm:text-sm dark:text-lightText flex w-full flex-col items-start space-y-1 rounded-b-md px-6 text-xs font-normal'
+              className='sm:text-sm flex w-full flex-col items-start space-y-1 rounded-b-md px-6 text-xs font-normal text-darkText dark:text-lightText'
               // initial={{ opacity: 0, y: '-20%' }}
               // animate={{
               //   opacity: 1,

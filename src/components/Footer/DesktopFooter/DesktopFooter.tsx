@@ -9,7 +9,7 @@ export default function DesktopFooter() {
   const { t } = useTranslation('footer')
 
   return (
-    <div className='w-full bg-lightWhite700 pb-12 pt-12 duration-200 dark:bg-darkGray700'>
+    <div className='bg-lightColor700 w-full pb-12 pt-12 duration-200 dark:bg-darkColor700'>
       <div className='container'>
         <div className=' lg:gap-2 lg:text-xl xl:gap-4 xl:text-2xl grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black duration-200 dark:text-white'>
           <div className='col-span-1 flex items-center justify-center'>{t('follow us on')}</div>
@@ -20,7 +20,7 @@ export default function DesktopFooter() {
           <div className='xl:px-10 col-span-1 flex items-center px-6'>{t('support')}</div>
           <div className='lg:px-4 xl:px-8 col-span-1 flex items-center px-2'>{t('contact')}</div>
         </div>
-        <div className='text-darkText/80 lg:gap-2 lg:text-base xl:gap-4 dark:text-lightText/80 mt-4 grid grid-cols-5 justify-center gap-1 text-xs duration-200'>
+        <div className='lg:gap-2 lg:text-base xl:gap-4 mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-darkText/80 duration-200 dark:text-lightText/80'>
           <div className='col-span-1'>
             <div className='lg:space-x-2 lg:text-xl xl:text-2xl flex items-center justify-center space-x-1 text-lg'>
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
@@ -74,12 +74,12 @@ export default function DesktopFooter() {
                 className='absolute left-0 top-0 h-full w-full object-scale-down'
               />
             </div>
-            <div className='text-darkText/80 dark:text-lightText/80 uppercase duration-200'>
+            <div className='uppercase text-darkText/80 duration-200 dark:text-lightText/80'>
               <p className='lg:text-xl xl:text-2xl text-lg'>hareta</p>
               <p className='lg:text-base  xl:text-lg pl-4 text-sm'>workshop</p>
             </div>
           </div>
-          <div className='text-darkText/60 lg:text-sm dark:text-lightText/60 absolute bottom-0 flex w-full items-center justify-center text-xs duration-200'>
+          <div className='lg:text-sm absolute bottom-0 flex w-full items-center justify-center text-xs text-darkText/60 duration-200 dark:text-lightText/60'>
             {t('coppyright')}
           </div>
         </div>

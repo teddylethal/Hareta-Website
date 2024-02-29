@@ -11,7 +11,7 @@ function InforSection({ title, infor }: { title: string; infor: string | number 
   const titleWrapperClassname = 'col-span-2'
   const contentWrapperClassname = 'col-span-10'
   const titleClassname = ' font-medium uppercase text-white/60'
-  const contentClassname = 'rounded-lg bg-darkGray900 px-2 py-1 capitalize text-haretaColor'
+  const contentClassname = 'rounded-lg bg-darkColor900 px-2 py-1 capitalize text-haretaColor'
 
   return (
     <div className={wrapperClassname}>
@@ -44,7 +44,7 @@ export default function AdminProductInfor() {
   const titleWrapperClassname = 'col-span-2'
   const contentWrapperClassname = 'col-span-10'
   const titleClassname = ' font-medium uppercase text-white/60'
-  const contentClassname = 'rounded-lg bg-darkGray900 px-2 py-1 capitalize text-haretaColor'
+  const contentClassname = 'rounded-lg bg-darkColor900 px-2 py-1 capitalize text-haretaColor'
 
   return (
     <div className='flex min-h-[200px] items-center justify-center rounded-lg border border-white/40 bg-black'>

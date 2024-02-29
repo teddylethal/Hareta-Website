@@ -25,17 +25,17 @@ export default function CartPopoverWithoutLogin() {
       <Popover
         className='lg:px-2 flex border border-none px-1.5 py-1'
         renderPopover={
-          <div className='text-darkText lg:top-0 dark:text-lightText relative -top-1 w-[360px] rounded-md bg-lightWhite700 py-2 text-sm shadow-md dark:bg-darkGray700'>
+          <div className='lg:top-0 bg-lightColor700 relative -top-1 w-[360px] rounded-md py-2 text-sm text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText'>
             <Fragment>
               <div className='lg:text-lg px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300'>
                 {tempExtendedPurchase.length} {t('cart button.items in cart')}
               </div>
-              <div className='m-2 overflow-auto rounded-md bg-lightWhite900 outline outline-1 outline-black/10 dark:bg-darkGray900 dark:outline-white/10'>
+              <div className='bg-lightColor900 m-2 overflow-auto rounded-md outline outline-1 outline-black/10 dark:bg-darkColor900 dark:outline-white/10'>
                 {tempExtendedPurchase.length > 0 ? (
                   <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
                     {tempExtendedPurchase.map((purchase, index) => (
                       <div
-                        className='flex items-center p-3 hover:bg-lightWhite700/60 dark:hover:bg-darkGray700/60'
+                        className='hover:bg-lightColor700/60 flex items-center p-3 dark:hover:bg-darkColor700/60'
                         key={purchase.id}
                       >
                         <div className='h-14 w-14'>
@@ -67,7 +67,7 @@ export default function CartPopoverWithoutLogin() {
                             </span>
                           </div>
                           <div className='ml-2 flex justify-between'>
-                            <span className='text-darkText/60 lg:text-sm dark:text-lightText/60 text-xs capitalize'>{`(${purchase.item.color})`}</span>
+                            <span className='lg:text-sm text-xs capitalize text-darkText/60 dark:text-lightText/60'>{`(${purchase.item.color})`}</span>
 
                             <div className='flex space-x-3'>
                               {/* <button
@@ -77,7 +77,7 @@ export default function CartPopoverWithoutLogin() {
                                 Buy
                               </button> */}
                               <button
-                                className='text-darkText/60 dark:text-lightText/60  text-sm hover:text-alertRed dark:hover:text-alertRed'
+                                className='text-sm text-darkText/60  hover:text-alertRed dark:text-lightText/60 dark:hover:text-alertRed'
                                 onClick={handleRemove(index)}
                               >
                                 {t('cart button.remove')}
@@ -116,7 +116,7 @@ export default function CartPopoverWithoutLogin() {
         <div className='flex items-center space-x-2 px-2 py-0.5 text-black'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
           {tempExtendedPurchase.length > 0 && (
-            <div className='text-darkText lg:text-sm xl:text-base flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium'>
+            <div className='lg:text-sm xl:text-base flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-darkText'>
               {tempExtendedPurchase.length}
             </div>
           )}

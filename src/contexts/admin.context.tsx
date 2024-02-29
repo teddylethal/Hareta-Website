@@ -1,10 +1,10 @@
 import React, { createContext, useState } from 'react'
-import { Product } from 'src/types/product.type'
+import { Product, ProductGroup } from 'src/types/product.type'
 import { ProductImage } from 'src/types/productImage.type'
 
 interface AdminContextInterface {
-  productGroupId: string | null
-  setProductGroupId: React.Dispatch<React.SetStateAction<string | null>>
+  productGroup: ProductGroup | null
+  setProductGroup: React.Dispatch<React.SetStateAction<ProductGroup | null>>
   currentProduct: Product | null
   setCurrentProduct: React.Dispatch<React.SetStateAction<Product | null>>
   currentProductDetail: Product | null
@@ -16,8 +16,8 @@ interface AdminContextInterface {
 }
 
 const initialAdminContext: AdminContextInterface = {
-  productGroupId: null,
-  setProductGroupId: () => null,
+  productGroup: null,
+  setProductGroup: () => null,
   currentProduct: null,
   setCurrentProduct: () => null,
   currentProductDetail: null,
@@ -31,7 +31,7 @@ const initialAdminContext: AdminContextInterface = {
 export const AdminContext = createContext<AdminContextInterface>(initialAdminContext)
 
 export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
-  const [productGroupId, setProductGroupId] = useState<string | null>(initialAdminContext.productGroupId)
+  const [productGroup, setProductGroup] = useState<ProductGroup | null>(initialAdminContext.productGroup)
   const [currentProduct, setCurrentProduct] = useState<Product | null>(initialAdminContext.currentProduct)
   const [currentProductDetail, setCurrentProductDetail] = useState<Product | null>(initialAdminContext.currentProduct)
   const [currentImage, setCurrentImage] = useState<ProductImage | null>(initialAdminContext.currentImage)
@@ -40,8 +40,8 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AdminContext.Provider
       value={{
-        productGroupId,
-        setProductGroupId,
+        productGroup,
+        setProductGroup,
         currentProduct,
         setCurrentProduct,
         currentProductDetail,

@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const addProductSchema = yup.object({
+export const createProductSchema = yup.object({
   name: yup.string().required('Name is required'),
   group_id: yup.string().required('Group ID is required'),
   category: yup.string().required('Category is required'),
@@ -13,7 +13,7 @@ export const addProductSchema = yup.object({
   description: yup.string().required('Description is required')
 })
 
-export type AddProductSchema = yup.InferType<typeof addProductSchema>
+export type CreateProductSchema = yup.InferType<typeof createProductSchema>
 
 export const editProductSchema = yup.object({
   id: yup.string().required('ID is required'),

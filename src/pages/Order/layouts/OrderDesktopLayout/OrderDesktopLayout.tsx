@@ -13,7 +13,7 @@ export default function OrderDesktopLayout() {
       </div>
 
       <div className='col-span-5'>
-        <div className='text-darkText lg:top-20 lg:p-4 dark:text-lightText sticky top-14 rounded-xl bg-lightWhite700 p-3 duration-200 dark:bg-darkGray700'>
+        <div className='lg:top-20 lg:p-4 bg-lightColor700 sticky top-14 rounded-xl p-3 text-darkText duration-200 dark:bg-darkColor700 dark:text-lightText'>
           <OrderDetail />
         </div>
       </div>

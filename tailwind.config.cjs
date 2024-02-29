@@ -32,14 +32,14 @@ module.exports = {
 
         //? Main interface
         lightBg: '#ffffff',
-        lightWhite900: '#fbfbff',
-        lightWhite700: '#e9e9e8',
-        lightWhite500: '#d6d6d5',
+        lightColor900: '#fbfbff',
+        lightColor700: '#e9e9e8',
+        lightColor500: '#d6d6d5',
         darkBg: '#0e0e12',
-        darkGray900: '#1d1d22',
-        darkGray700: '#2c2c32',
-        darkGray500: '#59595f',
-        darkGray300: '#a7a7ab',
+        darkColor900: '#1d1d22',
+        darkColor700: '#2c2c32',
+        darkColor500: '#59595f',
+        darkColor300: '#a7a7ab',
 
         //? Text
         lightText: '#EEEEEE',

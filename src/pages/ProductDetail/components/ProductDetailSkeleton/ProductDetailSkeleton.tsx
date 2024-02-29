@@ -10,7 +10,7 @@ export default function ProductDetailSkeleton() {
       {!isMobile && (
         <div className='lg:gap-8 xl:gap-16 relative grid grid-cols-12 gap-4'>
           <div className='col-span-4'>
-            <div className='text-darkText md:top-14 lg:top-20 dark:text-lightText sticky left-0 top-12 flex-col rounded-xl bg-lightWhite700 p-6 dark:bg-darkGray700'>
+            <div className='md:top-14 lg:top-20 bg-lightColor700 sticky left-0 top-12 flex-col rounded-xl p-6 text-darkText dark:bg-darkColor700 dark:text-lightText'>
               <div className='flex items-center justify-between'>
                 <p className='lg:text-2xl xl:text-3xl w-full text-xl font-medium'>
                   <Skeleton variant='rounded' className=' dark:bg-white/10' width={'60%'} />
@@ -28,7 +28,7 @@ export default function ProductDetailSkeleton() {
                   <p className='lg:text-lg xl:text-xl w-full text-base font-medium'>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </p>
-                  <p className='text-darkText/60 lg:text-base dark:text-lightText/60 text-sm '>
+                  <p className='lg:text-base text-sm text-darkText/60 dark:text-lightText/60 '>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </p>
                 </div>
@@ -60,7 +60,7 @@ export default function ProductDetailSkeleton() {
                     <p className='text-darkText dark:text-lightText'>Quantity:</p>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </div>
-                  <div className='text-darkText/60 dark:text-lightText/60 flex items-center space-x-1'>
+                  <div className='flex items-center space-x-1 text-darkText/60 dark:text-lightText/60'>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </div>
                 </div>
@@ -116,7 +116,7 @@ export default function ProductDetailSkeleton() {
               </div>
             </div>
 
-            <div className='text-darkText dark:text-lightText relative flex flex-col bg-[#f8f8f8] px-4 py-3 dark:bg-[#202020]'>
+            <div className='relative flex flex-col bg-[#f8f8f8] px-4 py-3 text-darkText dark:bg-[#202020] dark:text-lightText'>
               <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
               <div className='mt-4 flex items-center justify-between'>
                 <Skeleton width={'50%'} height={40} className=' dark:bg-white/10' />

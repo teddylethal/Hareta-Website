@@ -27,18 +27,18 @@ export default function AuthenticatedCartMobile(props: Props) {
   return (
     <Fragment>
       <div className='relative'>
-        <div className='text-darkText lg:text-lg dark:text-lightText grid grid-cols-12 rounded-md border border-black/20 bg-lightWhite900 px-4 py-2 text-base font-medium uppercase dark:border-white/20 dark:bg-darkGray900'>
+        <div className='lg:text-lg bg-lightColor900 grid grid-cols-12 rounded-md border border-black/20 px-4 py-2 text-base font-medium uppercase text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText'>
           <div className='col-span-1'></div>
           <div className='col-span-6 text-center'>Product</div>
           <div className='col-span-4 text-center'>Price</div>
           <div className='col-span-1'></div>
         </div>
-        <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightWhite900 p-2 dark:border-white/20 dark:bg-darkGray900'>
+        <div className='bg-lightColor900 my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 p-2 dark:border-white/20 dark:bg-darkColor900'>
           {extendedPurchases.length > 0 ? (
             extendedPurchases?.map((purchase, index) => (
               <div
                 key={purchase.id}
-                className='text-darkText dark:text-lightText mt-2 flex items-center rounded-lg border border-black/10 bg-lightWhite700 p-2 text-center first:mt-0 dark:border-white/10 dark:bg-darkGray700'
+                className='bg-lightColor700 mt-2 flex items-center rounded-lg border border-black/10 p-2 text-center text-darkText first:mt-0 dark:border-white/10 dark:bg-darkColor700 dark:text-lightText'
               >
                 <MobileItemInCart
                   handleChecking={handleChecking}
@@ -70,17 +70,17 @@ export default function AuthenticatedCartMobile(props: Props) {
               />
             )}
           </div>
-          <div className='text-darkText dark:text-lightText col-span-1 flex items-center justify-center'>
+          <div className='col-span-1 flex items-center justify-center text-darkText dark:text-lightText'>
             ({checkedPurchasesCount})
           </div>
           <div className='sm:text-base col-span-7 flex items-center justify-center space-x-2 text-sm font-medium'>
-            <div className='text-darkText dark:text-lightText col-span-1 items-center text-right uppercase'>Total:</div>
+            <div className='col-span-1 items-center text-right uppercase text-darkText dark:text-lightText'>Total:</div>
             <span className='col-span-1 text-center font-medium text-primaryColor'>
               ${formatCurrency(totalCheckedPurchasesPrice)}
             </span>
           </div>
           {checkedPurchasesCount === 0 && (
-            <div className='text-darkText sm:text-sm col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase opacity-40'>
+            <div className='sm:text-sm col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText opacity-40'>
               Check out
             </div>
           )}
@@ -88,7 +88,7 @@ export default function AuthenticatedCartMobile(props: Props) {
             <Link
               to={path.shippingInfor}
               onClick={handleCheckout}
-              className='text-darkText sm:text-sm col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase hover:bg-primaryColor'
+              className='sm:text-sm col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText hover:bg-primaryColor'
             >
               Check out
             </Link>

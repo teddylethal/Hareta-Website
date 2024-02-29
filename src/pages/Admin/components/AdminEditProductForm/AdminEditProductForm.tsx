@@ -43,7 +43,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
   const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2'
   const titleStyle = 'text-xs tablet:text-sm uppercase col-span-1 lg:text-base'
   const inputStyle =
-    'bg-darkGray700 py-1 px-2 text-base lg:text-lg col-span-3 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/60 focus:outline-haretaColor text-haretaColor'
+    'bg-darkColor700 py-1 px-2 text-base lg:text-lg col-span-3 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/60 focus:outline-haretaColor text-haretaColor'
 
   return (
     <div className='space-y-4'>

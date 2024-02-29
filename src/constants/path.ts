@@ -28,8 +28,8 @@ export const adminPath = {
   //? Item
   products: '/admin/products',
   productDetail: '/admin/products/:nameId',
-  createItem: '/admin/products/create-item',
-  addItemColor: '/admin/products/create-color',
+  createProductGroup: '/admin/products/create-item',
+  addProduct: '/admin/products/create-color',
   uploadProductAvatar: '/admin/products/update/item-avatar',
   updateProduct: '/admin/products/update/item',
   setDefaultProduct: '/admin/products/update/set-default-item',

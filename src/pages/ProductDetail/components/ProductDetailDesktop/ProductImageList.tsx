@@ -116,7 +116,7 @@ export default function ProductImageList(props: Props) {
   }
 
   return (
-    <div className='relative w-full overflow-auto rounded-xl bg-lightWhite700 pt-[75%] dark:bg-darkGray700'>
+    <div className='bg-lightColor700 relative w-full overflow-auto rounded-xl pt-[75%] dark:bg-darkColor700'>
       {(isLoading || isFetching) && (
         <div className='absolute inset-0 z-10 flex h-full w-full items-center justify-center rounded-lg bg-black/50'>
           <ColorRing
@@ -150,7 +150,7 @@ export default function ProductImageList(props: Props) {
 
             <div className='absolute right-2 top-2 rounded-lg bg-black/20'>
               <button
-                className='text-darkText/60 dark:text-lightText/60 flex items-center justify-center p-2 duration-200'
+                className='flex items-center justify-center p-2 text-darkText/60 duration-200 dark:text-lightText/60'
                 onClick={toggleZooming}
               >
                 {!zooming && (
@@ -164,7 +164,7 @@ export default function ProductImageList(props: Props) {
             </div>
           </div>
         ) : (
-          <div className='relative w-full overflow-hidden bg-lightWhite700 pt-[75%] dark:bg-darkGray700'>
+          <div className='bg-lightColor700 relative w-full overflow-hidden pt-[75%] dark:bg-darkColor700'>
             <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
               <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
             </div>
@@ -183,7 +183,7 @@ export default function ProductImageList(props: Props) {
           <Fragment>
             {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
               <button
-                className='text-lightText absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20'
+                className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-lightText'
                 onClick={previousImageList}
               >
                 <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
@@ -208,7 +208,7 @@ export default function ProductImageList(props: Props) {
             })}
             {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
               <button
-                className='text-lightText absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20'
+                className='absolute right-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-lightText'
                 onClick={nextImageList}
               >
                 <FontAwesomeIcon icon={faChevronRight} className='h-8' />

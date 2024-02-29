@@ -50,9 +50,9 @@ export default function ProductDetailMobile(props: Props) {
   return (
     <Fragment>
       <div className='bg-lightBg pb-10 dark:bg-darkBg'>
-        <div className=' overflow-hidden rounded-lg bg-lightWhite700 dark:bg-darkGray700'>
+        <div className=' bg-lightColor700 overflow-hidden rounded-lg dark:bg-darkColor700'>
           <MobileProductImageList item={defaultItem} itemID={activeItem.id} />
-          <div className='text-darkText dark:text-lightText relative flex flex-col bg-lightWhite700 px-3 py-3 dark:bg-darkGray700'>
+          <div className='bg-lightColor700 relative flex flex-col px-3 py-3 text-darkText dark:bg-darkColor700 dark:text-lightText'>
             <span className='text-2xl text-haretaColor'>${formatCurrency(defaultItem.price)}</span>
             <div className='mt-4 flex items-center justify-between'>
               <p className='text-2xl'>{defaultItem.name}</p>
@@ -72,7 +72,7 @@ export default function ProductDetailMobile(props: Props) {
 
             {defaultItem.tag !== 0 && (
               <div className='relative mt-2'>
-                <span className='text-darkText flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm'>
+                <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
                   {tag == 1 && t('tag.top seller')}
                   {tag == 2 && t('tag.signature')}
                   {tag == 3 && t('tag.favourite')}
@@ -81,10 +81,10 @@ export default function ProductDetailMobile(props: Props) {
               </div>
             )}
 
-            <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightWhite900 p-4 dark:border-white/60 dark:bg-darkGray900'>
+            <div className='bg-lightColor900 mt-8 w-full rounded-lg border border-black/60 p-4 dark:border-white/60 dark:bg-darkColor900'>
               <div className='flex items-center justify-between'>
                 <p className='sm:text-lg text-base font-medium'>{t('sidebar.variant')}</p>
-                <p className='text-darkText/60 sm:text-base dark:text-lightText/60 text-sm '>
+                <p className='sm:text-base text-sm text-darkText/60 dark:text-lightText/60 '>
                   {itemsInGroup.length} {t('sidebar.variants')}
                 </p>
               </div>
@@ -126,13 +126,13 @@ export default function ProductDetailMobile(props: Props) {
           <OtherItemsInType type={defaultItem.type} />
         </div>
 
-        <div className='text-darkText sm:h-12 dark:text-lightText fixed bottom-0 left-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base dark:bg-black'>
+        <div className='sm:h-12 fixed bottom-0 left-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base text-darkText dark:bg-black dark:text-lightText'>
           <button className='col-span-1 flex items-center justify-center text-center' onClick={openAddToCart}>
             <FontAwesomeIcon icon={faCartPlus} className='h-5' />
           </button>
           <button
             disabled={visible}
-            className={classNames('text-darkText col-span-1 rounded-sm bg-haretaColor ', {
+            className={classNames('col-span-1 rounded-sm bg-haretaColor text-darkText ', {
               'opacity-40': visible
             })}
           >

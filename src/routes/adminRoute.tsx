@@ -4,6 +4,7 @@ import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
+import AdminCreateProduct from 'src/pages/Admin/pages/AdminCreateProduct'
 
 import AdminSetDefaultProduct from 'src/pages/Admin/pages/AdminSetDefaultItem/AdminSetDefaultItem'
 
@@ -13,7 +14,6 @@ const AdminItemLayout = lazy(() => import('src/pages/Admin/layouts/AdminItemLayo
 //? IMPORT ADMIN COMPONENTS
 const AdminDefaultProductList = lazy(() => import('src/pages/Admin/pages/AdminDefaultProductList'))
 const AdminProductPage = lazy(() => import('src/pages/Admin/pages/AdminProductPage'))
-const AdminCreateItem = lazy(() => import('src/pages/Admin/pages/AdminCreateItem'))
 const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
 const AdminAddItemImage = lazy(() => import('src/pages/Admin/pages/AdminAddItemImage'))
@@ -66,11 +66,11 @@ const AdminRoute = {
           element: <AdminProductPage />
         },
         {
-          path: adminPath.createItem,
-          element: <AdminCreateItem />
+          path: adminPath.createProductGroup,
+          element: <AdminCreateProduct />
         },
         {
-          path: adminPath.addItemColor,
+          path: adminPath.addProduct,
           element: <AdminAddItemColor />
         },
         {
@@ -104,7 +104,7 @@ const AdminRoute = {
     //   path: adminPath.createItem,
     //   element: (
     //     <AdminItemLayout>
-    //       <AdminCreateItem />
+    //       <AdminCreateProduct />
     //     </AdminItemLayout>
     //   )
     // },

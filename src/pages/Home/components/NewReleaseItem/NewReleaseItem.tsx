@@ -48,7 +48,7 @@ export default function NewReleaseItem({ product, dragging }: Props) {
 
   return (
     <button
-      className='w-full cursor-grab items-start rounded-lg text-left duration-200 hover:bg-lightWhite700/60 dark:hover:bg-darkGray700/60'
+      className='hover:bg-lightColor700/60 w-full cursor-grab items-start rounded-lg text-left duration-200 dark:hover:bg-darkColor700/60'
       onClick={(e) => {
         if (dragging) e.preventDefault()
         else handleClickItem()
@@ -75,12 +75,12 @@ export default function NewReleaseItem({ product, dragging }: Props) {
         <div className='md:col-span-2 col-span-1'>
           <div className='sm:pl-8 lg:pl-10 xl:pl-14 flex h-full flex-col justify-between pl-2'>
             <div className='flex flex-col justify-between space-y-2 overflow-hidden'>
-              <p className='lg:text-xl xl:text-3xl text-darkText dark:text-lightText h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase duration-200'>
+              <p className='lg:text-xl xl:text-3xl h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-darkText duration-200 dark:text-lightText'>
                 {product.name}
               </p>
               {product.tag !== 0 && (
                 <div className='relative'>
-                  <span className='lg:h-6 lg:w-20 lg:text-sm text-lightText flex h-4 w-16 items-center justify-center bg-tagColor text-center  text-xs'>
+                  <span className='lg:h-6 lg:w-20 lg:text-sm flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs  text-lightText'>
                     {tag == 1 && t('tag.top seller')}
                     {tag == 2 && t('tag.signature')}
                     {tag == 3 && t('tag.favourite')}

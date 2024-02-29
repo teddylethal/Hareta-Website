@@ -116,7 +116,7 @@ export default function Login() {
         <div className='md:grid-cols-6 md:px-6 md:py-24 grid grid-cols-1 py-12'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
             <form
-              className='md:p-10 rounded-xl bg-lightWhite900 p-5 shadow-sm duration-200 dark:bg-darkGray900'
+              className='md:p-10 bg-lightColor900 rounded-xl p-5 shadow-sm duration-200 dark:bg-darkColor900'
               onSubmit={onSubmit}
               noValidate
             >
@@ -126,7 +126,7 @@ export default function Login() {
                 name='email'
                 register={register}
                 type='text'
-                className='autofill:text-darkText autofill:dark:text-lightText mt-8'
+                className='mt-8 autofill:text-darkText autofill:dark:text-lightText'
                 errorMessage={errors.email?.message}
                 labelName={t('login.email')}
                 required
@@ -187,7 +187,7 @@ export default function Login() {
 
                 {isSmall && (
                   <div className='mb-2 flex flex-col text-center'>
-                    <span className='text-darkText/60 dark:text-lightText/60 line-clamp-2'>
+                    <span className='line-clamp-2 text-darkText/60 dark:text-lightText/60'>
                       {t("login.Don't have an account?")}
                     </span>
                     <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>

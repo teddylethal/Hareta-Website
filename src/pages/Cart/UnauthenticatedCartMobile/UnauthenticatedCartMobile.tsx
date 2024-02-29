@@ -39,18 +39,18 @@ export default function UnauthenticatedCartMobile(props: Props) {
   return (
     <Fragment>
       <div className='relative'>
-        <div className='lg:text-lg grid grid-cols-12 rounded-md border border-black/20 bg-lightWhite900 px-4 py-2 text-base font-medium uppercase text-darkText dark:border-white/20 dark:bg-darkGray900 dark:text-lightText'>
+        <div className='lg:text-lg bg-lightColor900 grid grid-cols-12 rounded-md border border-black/20 px-4 py-2 text-base font-medium uppercase text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText'>
           <div className='col-span-1'></div>
           <div className='col-span-6 text-center'>Product</div>
           <div className='col-span-4 text-center'>Price</div>
           <div className='col-span-1'></div>
         </div>
-        <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightWhite900 p-2 dark:border-white/20 dark:bg-darkGray900'>
+        <div className='bg-lightColor900 my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 p-2 dark:border-white/20 dark:bg-darkColor900'>
           {extendedTempPurchases.length > 0 ? (
             extendedTempPurchases?.map((purchase, index) => (
               <div
                 key={purchase.id}
-                className='mt-2 flex items-center rounded-lg border border-black/10 bg-lightWhite700 p-2 text-center text-darkText first:mt-0 dark:border-white/10 dark:bg-darkGray700 dark:text-lightText'
+                className='bg-lightColor700 mt-2 flex items-center rounded-lg border border-black/10 p-2 text-center text-darkText first:mt-0 dark:border-white/10 dark:bg-darkColor700 dark:text-lightText'
               >
                 <div className='w-full'>
                   <div className='grid grid-cols-12 items-center justify-between'>

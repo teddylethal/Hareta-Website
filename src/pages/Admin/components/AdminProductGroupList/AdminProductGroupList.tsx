@@ -2,17 +2,16 @@ import { useContext } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import { adminProductGroupApi } from 'src/apis/admin.api'
 import { useQuery } from '@tanstack/react-query'
-import { ProductGroup } from 'src/types/admin.type'
 import classNames from 'classnames'
+import { ProductGroup } from 'src/types/product.type'
 
-export default function AdminGroupNameList() {
-  const { setProductGroup, ProductGroup } = useContext(AdminContext)
+export default function AdminProductGroupList() {
+  const { setProductGroup, productGroup } = useContext(AdminContext)
 
   //? GET GROUP LIST
   const { data: itemsInGroupData } = useQuery({
     queryKey: ['group_name_list'],
-    queryFn: () => adminProductGroupApi.getProductGroups(),
-    keepPreviousData: true
+    queryFn: () => adminProductGroupApi.getProductGroups()
   })
   const groupList = itemsInGroupData?.data.data || []
 
@@ -22,13 +21,13 @@ export default function AdminGroupNameList() {
   }
 
   return (
-    <div className='lg:py-4 relative rounded-lg border border-white/40 bg-black p-4'>
+    <div className='lg:py-4 relative rounded-lg border border-white/40 bg-darkBg p-4'>
       <div className='flex flex-col items-center justify-center'>
-        <p className='lg:text-xl mb-2 text-lg font-semibold uppercase'>Choose Group Name</p>
-        <div className='mt-2 w-full rounded-lg border border-white/40 p-2'>
+        <p className='lg:text-xl mb-2 text-lg font-semibold uppercase'>Chọn nhóm sản phẩm</p>
+        <div className='mt-2 w-full rounded-lg border border-white/40 bg-darkColor900 p-2'>
           <div className='grid max-h-40 w-full grid-cols-4 gap-4 overflow-scroll  overscroll-contain '>
             {groupList?.map((group) => {
-              const isActive = group.id === ProductGroup?.id
+              const isActive = group.id === productGroup?.id
               return (
                 <button
                   key={group.id}

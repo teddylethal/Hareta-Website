@@ -1,6 +1,6 @@
 import { Fragment, useContext } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { AddProductSchema } from '../../utils/rules'
+import { createProductSchema, CreateProductSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import Input from 'src/components/Input'
 import classNames from 'classnames'
@@ -8,10 +8,10 @@ import { AdminContext } from 'src/contexts/admin.context'
 import 'react-quill/dist/quill.snow.css'
 import QuillEditor from 'src/components/QuillEditor'
 
-type FormData = AddProductSchema
+type FormData = CreateProductSchema
 
-export default function AdminCreateItemForm() {
-  const { ProductGroup } = useContext(AdminContext)
+export default function AdminCreateProductForm() {
+  const { productGroup } = useContext(AdminContext)
   const {
     register,
     control,
@@ -36,7 +36,7 @@ export default function AdminCreateItemForm() {
         </div>
         <div className='col-span-2'>
           <div className='lg:text-lg cursor-not-allowed rounded-lg bg-[#101010] px-2 py-1 text-base capitalize text-haretaColor outline-none'>
-            {ProductGroup?.name}
+            {productGroup?.name}
           </div>
         </div>
       </div>
