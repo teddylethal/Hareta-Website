@@ -8,38 +8,34 @@ import { ProductGroup, ProductListConfig } from 'src/types/product.type'
 import { ColorRing } from 'react-loader-spinner'
 
 export default function AdminProductGroup() {
-  const { setProductGroupId, productGroupId, setCurrentProduct } = useContext(AdminContext)
+  const { setProductGroup, productGroup, setCurrentProduct } = useContext(AdminContext)
 
-  //? GET ITEM LIST
+  //! GET DEFAULT PRODUCTS
   const queryConfig = {}
-  const {
-    data: ProductGroupsData,
-    isFetching,
-    isFetched
-  } = useQuery({
-    queryKey: ['adminDefaultProductList'],
+  const { data: productGroupListData } = useQuery({
+    queryKey: ['admin_default_product_list'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-
-    staleTime: 3 * 60 * 1000
+    staleTime: 3 * 60 * 1000,
+    enabled: Boolean(productGroup)
   })
-  const ProductGroups = ProductGroupsData?.data.data
+  const productGroupList = productGroupListData?.data.data
 
   //? SELECT GROUP
   const queryClient = useQueryClient()
   const handleChooseGroup = (group: ProductGroup) => () => {
     setCurrentProduct(null)
-    setProductGroupId(group.id)
+    setProductGroup(group)
     queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
   }
 
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex flex-col items-center justify-center space-y-4'>
-        <p className=' lg:text-xl text-lg font-semibold uppercase'>Choose Item Group</p>
+        <p className=' lg:text-xl text-lg font-semibold uppercase'>Chọn nhóm sản phẩm</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
-          {isFetching && (
+          {!productGroupList && (
             <div className='col-span-4 flex h-full items-center justify-center bg-black/50'>
               <ColorRing
                 visible={true}
@@ -52,28 +48,28 @@ export default function AdminProductGroup() {
               />
             </div>
           )}
-          {isFetched && (
+          {productGroupList && (
             <div className='m-2 grid grid-cols-4 gap-4'>
-              {ProductGroups?.map((item) => {
-                const isActive = item.group.id === productGroupId
-                const avatarURL = item.avatar ? item.avatar.url : null
+              {productGroupList?.map((product) => {
+                const isActive = product.group.id === productGroup?.id
+                const avatarURL = product.avatar ? product.avatar.url : null
                 return (
                   <div
-                    key={item.id}
+                    key={product.id}
                     className={classNames('col-span-1 h-min rounded-xl p-1 outline outline-1 outline-offset-0', {
                       'outline-2 outline-haretaColor': isActive,
                       'outline-haretaColor/40 ': !isActive
                     })}
                   >
-                    <button className='w-full space-y-2' onClick={handleChooseGroup(item.group)}>
+                    <button className='w-full space-y-2' onClick={handleChooseGroup(product.group)}>
                       <div className='relative w-full pt-[75%]'>
                         <img
                           src={avatarURL || ''}
-                          alt={`${item.name} ${item.color}`}
+                          alt={`${product.name} ${product.color}`}
                           className='absolute left-0 top-0 h-full w-full object-scale-down'
                         />
                       </div>
-                      <div className='truncate'>{item.name}</div>
+                      <div className='truncate'>{product.name}</div>
                     </button>
                   </div>
                 )

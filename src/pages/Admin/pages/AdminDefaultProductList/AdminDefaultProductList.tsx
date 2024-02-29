@@ -38,7 +38,7 @@ export default function AdminDefaultProductList() {
   //! GET ITEM GROUP LIST
   const queryConfig = {}
   const { data: ProductGroupListData } = useQuery({
-    queryKey: ['adminDefaultProductList'],
+    queryKey: ['admin_default_product_list'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },

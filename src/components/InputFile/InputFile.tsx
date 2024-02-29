@@ -5,9 +5,13 @@ import config from 'src/constants/config'
 
 interface Props {
   onChangeImageFile?: (file?: File) => void
+  className?: string
 }
 
-export default function InputFile({ onChangeImageFile }: Props) {
+export default function InputFile({
+  onChangeImageFile,
+  className = 'absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60'
+}: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleUploadAvatar = () => {
@@ -36,12 +40,8 @@ export default function InputFile({ onChangeImageFile }: Props) {
         onChange={onFileChange}
         onClick={(event) => ((event.target as HTMLInputElement).value = '')}
       />
-      <button
-        className='absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60'
-        onClick={handleUploadAvatar}
-        type='button'
-      >
-        <p className='text-xs font-semibold md:text-sm lg:text-base'>{t('profile.upload avatar')}</p>
+      <button className={className} onClick={handleUploadAvatar} type='button'>
+        <p className='text-xs font-semibold tablet:text-sm desktop:text-base'>{t('profile.upload avatar')}</p>
       </button>
     </Fragment>
   )

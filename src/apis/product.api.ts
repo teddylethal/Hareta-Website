@@ -8,7 +8,7 @@ const productApi = {
   getProductList(params: ProductListConfig) {
     return http.get<ProductList>(`${URL}/list`, { params })
   },
-  getItemsInGroup(params: ProductsInGroupConfig) {
+  getProductsInGroup(params: ProductsInGroupConfig) {
     return http.get<ProductList>(`${URL}/group`, { params })
   },
   getProductDetail(id: string) {

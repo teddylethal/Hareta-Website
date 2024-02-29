@@ -80,8 +80,8 @@ export default function Profile() {
     setHoveringAvatar(true)
   }
 
-  const uploadAvatarMutation = useMutation(userApi.uploadAvatar)
-  const updateProfileMutation = useMutation(userApi.updateProfile)
+  const uploadAvatarMutation = useMutation({ mutationFn: userApi.uploadAvatar })
+  const updateProfileMutation = useMutation({ mutationFn: userApi.updateProfile })
   const onSubmit = handleSubmit(async (data) => {
     try {
       if (avatarFile) {
@@ -166,7 +166,7 @@ export default function Profile() {
             )}
             <div className='sm:ml-4 lg:ml-8 ml-2 flex flex-col space-y-1'>
               <p className='sm:text-lg lg:text-2xl text-base'>{profile.name}</p>
-              <p className='text-darkText/60 sm:text-sm lg:text-base dark:text-lightText/60 truncate text-xs'>
+              <p className='sm:text-sm lg:text-base truncate text-xs text-darkText/60 dark:text-lightText/60'>
                 {t('profile.joined')} {formatDate(profile.created_at)}
               </p>
             </div>
@@ -174,7 +174,7 @@ export default function Profile() {
           <div className=''>
             {!editingMode && (
               <button
-                className='text-darkText lg:px-4 lg:py-2 dark:text-lightText flex h-full space-x-2 rounded-md bg-vintageColor/90 px-2 py-1 hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/60'
+                className='lg:px-4 lg:py-2 flex h-full space-x-2 rounded-md bg-vintageColor/90 px-2 py-1 text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60'
                 onClick={() => setEditingMode(true)}
               >
                 <FontAwesomeIcon icon={faUserPen} className='sm:w-5 lg:w-6 h-auto w-4' />
@@ -187,7 +187,7 @@ export default function Profile() {
         {!editingMode && (
           <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#202020] '>
             <div className=''>
-              <p className='text-darkText/60 lg:text-lg dark:text-lightText/60 text-base font-semibold uppercase'>
+              <p className='lg:text-lg text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60'>
                 {t('profile.name')}
               </p>
               <div>
@@ -196,7 +196,7 @@ export default function Profile() {
               </div>
             </div>
             <div className=''>
-              <p className='text-darkText/60 lg:text-lg dark:text-lightText/60 text-base font-semibold uppercase'>
+              <p className='lg:text-lg text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60'>
                 {t('profile.phone number')}
               </p>
               <div>
@@ -205,7 +205,7 @@ export default function Profile() {
               </div>
             </div>
             <div className=''>
-              <p className='text-darkText/60 lg:text-lg dark:text-lightText/60 text-base font-semibold uppercase'>
+              <p className='lg:text-lg text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60'>
                 {t('profile.email')}
               </p>
               <p className='lg:text-base py-1  text-sm '>{profile.email}</p>
@@ -216,12 +216,12 @@ export default function Profile() {
         {editingMode && (
           <FormProvider {...methods}>
             <form
-              className='text-darkText dark:text-lightText space-y-2 rounded-lg bg-[#e8e8e8]  px-6 py-4 dark:bg-[#202020]'
+              className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4  text-darkText dark:bg-[#202020] dark:text-lightText'
               onSubmit={onSubmit}
             >
               <EditProfile />
               <div className=''>
-                <p className='text-darkText/60 lg:text-lg dark:text-lightText/60 text-base uppercase'>
+                <p className='lg:text-lg text-base uppercase text-darkText/60 dark:text-lightText/60'>
                   {t('profile.email')}
                 </p>
                 <p className='lg:text-base py-1 text-sm '>{profile.email}</p>
@@ -229,13 +229,13 @@ export default function Profile() {
 
               <div className='flex items-center space-x-2 pt-4'>
                 <button
-                  className='text-darkText lg:px-4 lg:py-2 lg:text-base dark:text-lightText flex items-center space-x-1 rounded-md bg-vintageColor/90 px-2 py-1 text-sm hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/60'
+                  className='lg:px-4 lg:py-2 lg:text-base flex items-center space-x-1 rounded-md bg-vintageColor/90 px-2 py-1 text-sm text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60'
                   type='submit'
                 >
                   <p>{t('profile.save')}</p>
                 </button>
                 <button
-                  className='text-darkText lg:px-4 lg:py-2 lg:text-base dark:text-lightText flex items-center space-x-1 rounded-md px-2 py-1 text-sm hover:underline'
+                  className='lg:px-4 lg:py-2 lg:text-base flex items-center space-x-1 rounded-md px-2 py-1 text-sm text-darkText hover:underline dark:text-lightText'
                   onClick={handleCancel}
                   type='button'
                 >

@@ -8,6 +8,7 @@ import AdminProductLayout from 'src/pages/Admin/layouts/AdminProductLayout'
 import AdminCreatingProductPage from 'src/pages/Admin/pages/AdminCreatingProductPage'
 import AdminCreatesProduct from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProduct'
 import AdminCreatesProductGroup from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProductGroup'
+import AdminProductImagePage from 'src/pages/Admin/pages/AdminProductImagePage'
 
 import AdminSetDefaultProduct from 'src/pages/Admin/pages/AdminSetDefaultItem/AdminSetDefaultItem'
 
@@ -23,7 +24,9 @@ const AdminDeleteItemImage = lazy(() => import('src/pages/Admin/pages/AdminDelet
 const AdminDeleteItem = lazy(() => import('src/pages/Admin/pages/AdminDeleteItem'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGroup'))
 const AdminOrder = lazy(() => import('src/pages/Admin/pages/AdminOrder'))
-const AdminUploadProductAvatar = lazy(() => import('src/pages/Admin/pages/AdminUploadProductAvatar'))
+const AdminUploadProductAvatar = lazy(
+  () => import('src/pages/Admin/pages/AdminProductImagePage/AdminUploadProductAvatar')
+)
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
@@ -83,13 +86,17 @@ const AdminRoute = {
           path: adminPath.uploadProductAvatar,
           element: <AdminUploadProductAvatar />
         },
+        {
+          path: adminPath.productImage,
+          element: <AdminProductImagePage />
+        },
 
         {
-          path: adminPath.addItemImage,
+          path: adminPath.addProductImage,
           element: <AdminAddItemImage />
         },
         {
-          path: adminPath.deleteItemImage,
+          path: adminPath.deleteProductImage,
           element: <AdminDeleteItemImage />
         },
         {

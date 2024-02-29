@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
-import ImageInput from '../../components/ImageInput'
-import AdminUpdatingPage from '../AdminUpdatingPage'
+import ImageInput from '../../../components/ImageInput'
+import AdminUpdatingPage from '../../AdminUpdatingPage'
 import producImageApi from 'src/apis/productImage.api'
-import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminSelectsVariant from '../../components/AdminSelectsVariant'
+import AdminProductGroup from '../../../components/AdminProductGroup'
+import AdminSelectsVariant from '../../../components/AdminSelectsVariant'
+import AdminProductImageHeader from '../AdminProductImageHeader'
+import AdminProductGroupList from 'src/pages/Admin/components/AdminProductGroupList'
 
 export default function AdminUploadProductAvatar() {
   const { currentProduct } = useContext(AdminContext)
@@ -83,7 +85,7 @@ export default function AdminUploadProductAvatar() {
 
   return (
     <div>
-      <AdminUpdatingPage />
+      <AdminProductImageHeader />
       <div className='mt-4 grid grid-cols-12 gap-4'>
         <div className='col-span-6'>
           <div className='relative z-10 rounded-lg border border-white/40 p-4'>
@@ -104,7 +106,7 @@ export default function AdminUploadProductAvatar() {
             <div className='mt-10 space-y-4'>
               <div className='grid grid-cols-2'>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>name</p>
+                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Tên sản phẩm</p>
                 </div>
                 <div className='col-span-1'>
                   <p className='lg:text-lg text-base font-medium uppercase'>{currentProduct?.name}</p>
@@ -112,7 +114,7 @@ export default function AdminUploadProductAvatar() {
               </div>
               <div className='grid grid-cols-2'>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>color</p>
+                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Màu</p>
                 </div>
                 <div className='col-span-1'>
                   <p className='lg:text-lg text-base font-medium uppercase'>{currentProduct?.color}</p>
@@ -133,7 +135,7 @@ export default function AdminUploadProductAvatar() {
         </div>
 
         <div className='col-span-6 space-y-6'>
-          <AdminProductGroup />
+          <AdminProductGroupList />
           <AdminSelectsVariant />
         </div>
       </div>

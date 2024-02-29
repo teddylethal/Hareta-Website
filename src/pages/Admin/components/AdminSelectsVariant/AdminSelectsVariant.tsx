@@ -7,33 +7,33 @@ import classNames from 'classnames'
 import LoadingRing from 'src/components/LoadingRing'
 
 export default function AdminSelectsVariant() {
-  const { productGroupId, currentProduct, setCurrentProduct } = useContext(AdminContext)
+  const { productGroup, currentProduct, setCurrentProduct } = useContext(AdminContext)
 
   //? ITEMS IN GROUP
   const {
-    data: itemsInGroupData,
+    data: productsInGroupData,
     refetch,
     isFetching,
     isFetched
   } = useQuery({
-    queryKey: ['items_in_group'],
+    queryKey: ['admin_products_in_group', productGroup],
     queryFn: () =>
-      productApi.getItemsInGroup({
-        id: productGroupId as string,
+      productApi.getProductsInGroup({
+        id: productGroup?.id as string,
         page: '1',
         limit: '50'
       }),
-    enabled: Boolean(productGroupId),
+    enabled: Boolean(productGroup),
 
     staleTime: 60000 * 3
   })
-  const itemsInGroup = itemsInGroupData?.data.data || []
+  const productsInGroup = productsInGroupData?.data.data || []
 
   useEffect(() => {
-    if (productGroupId) {
+    if (productGroup) {
       refetch()
     }
-  }, [productGroupId, refetch])
+  }, [productGroup, refetch])
 
   //? CHOOSE ITEM
   const handleChooseVariant = (item: Product) => () => {
@@ -45,9 +45,9 @@ export default function AdminSelectsVariant() {
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
         <p className='lg:text-xl text-lg font-semibold uppercase'>Chọn sản phẩm</p>
         <div className='h-80 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
-          {!productGroupId && (
+          {!productGroup && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
-              Chọn một nhóm sản phẩm trước
+              Chọn 1 nhóm sản phẩm
             </div>
           )}
           {isFetching && (
@@ -57,9 +57,9 @@ export default function AdminSelectsVariant() {
           )}
           {isFetched && (
             <div className='m-2 grid grid-cols-4 gap-4'>
-              {itemsInGroup.map((item, index) => {
-                const isActive = item.id === currentProduct?.id
-                const avatarURL = item.avatar ? item.avatar.url : null
+              {productsInGroup.map((product, index) => {
+                const isActive = product.id === currentProduct?.id
+                const avatarURL = product.avatar ? product.avatar.url : null
                 return (
                   <div
                     key={index}
@@ -68,15 +68,15 @@ export default function AdminSelectsVariant() {
                       'outline-haretaColor/40 ': !isActive
                     })}
                   >
-                    <button className='w-full justify-center space-y-2 py-2' onClick={handleChooseVariant(item)}>
+                    <button className='w-full justify-center space-y-2 py-2' onClick={handleChooseVariant(product)}>
                       <div className='relative w-full pt-[75%]'>
                         <img
                           src={avatarURL || ''}
-                          alt={`${item.name} ${item.color}`}
+                          alt={`${product.name} ${product.color}`}
                           className='absolute left-0 top-0 h-full w-full object-scale-down'
                         />
                       </div>
-                      <p className='w-full text-center font-medium uppercase'>{item.color}</p>
+                      <p className='w-full text-center font-medium uppercase'>{product.color}</p>
                     </button>
                   </div>
                 )
