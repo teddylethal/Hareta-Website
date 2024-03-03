@@ -49,7 +49,7 @@ export default function AdminProductGroupList() {
                 <div
                   key={product.id}
                   className={classNames('border-1 border-offset-0 col-span-1 h-min rounded-xl border p-1', {
-                    'border-2 border-haretaColor': isActive,
+                    'border-haretaColor': isActive,
                     'border-haretaColor/40 ': !isActive
                   })}
                 >

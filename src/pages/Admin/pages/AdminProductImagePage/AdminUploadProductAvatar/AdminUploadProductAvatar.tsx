@@ -8,9 +8,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import ImageInput from '../../../components/ImageInput'
-import AdminUpdatingPage from '../../AdminUpdatingPage'
 import producImageApi from 'src/apis/productImage.api'
-import AdminProductGroup from '../../../components/AdminProductGroup'
 import AdminSelectsVariant from '../../../components/AdminSelectsVariant'
 import AdminProductImageHeader from '../AdminProductImageHeader'
 import AdminProductGroupList from 'src/pages/Admin/components/AdminProductGroupList'
@@ -29,7 +27,7 @@ export default function AdminUploadProductAvatar() {
 
   //? GET IMAGE LIST
   const { data: itemImageListData, refetch } = useQuery({
-    queryKey: ['item_image_list'],
+    queryKey: ['admin_product_images'],
     queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
     enabled: Boolean(currentProduct)
@@ -42,7 +40,7 @@ export default function AdminUploadProductAvatar() {
   }, [currentProduct, refetch])
 
   //? AUTO ADD FIRST IMAGE
-  const addItemImage = useMutation({ mutationFn: producImageApi.addImage })
+  const addProductImageMutation = useMutation({ mutationFn: producImageApi.addImage })
 
   //? UPLOAD AVATAR
   const queryClient = useQueryClient()
@@ -60,17 +58,17 @@ export default function AdminUploadProductAvatar() {
             color: currentProduct.color,
             file: avatarFile
           }
-          addItemImage.mutate(addImageBody, {
+          addProductImageMutation.mutate(addImageBody, {
             onSuccess: () => {
-              queryClient.invalidateQueries({ queryKey: ['item_image_list'] })
+              queryClient.invalidateQueries({ queryKey: ['admin_product_group_list'] })
             }
           })
         }
         uploadAvatarMutation.mutate(body, {
           onSuccess: () => {
             showSuccessDialog(setSuccessDialogOpen)
-            queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
-            queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
+            queryClient.invalidateQueries({ queryKey: ['admin_products_in_group'] })
+            queryClient.invalidateQueries({ queryKey: ['admin_default_product_list'] })
           }
         })
       }
@@ -126,7 +124,7 @@ export default function AdminUploadProductAvatar() {
                     className='rounded-lg border border-white/40 bg-black px-4 py-2 hover:border-haretaColor'
                     onClick={handleSubmit}
                   >
-                    Confirm
+                    Xác nhận
                   </button>
                 </div>
               )}
@@ -153,7 +151,7 @@ export default function AdminUploadProductAvatar() {
             className={classNames('text- rounded-full  bg-white/20 p-4 text-center text-success', {})}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Upload avatar successfully</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>Cập nhật ảnh sản phẩm thành công</p>
       </DialogPopup>
     </div>
   )

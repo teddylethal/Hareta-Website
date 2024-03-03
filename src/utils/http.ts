@@ -4,6 +4,7 @@ import path from 'src/constants/path'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
+import { HttpErrorKeys } from 'src/constants/httpResponeErrorKey'
 
 export const ApiURL = 'https://api.hareta.me/'
 class Http {
@@ -56,7 +57,12 @@ class Http {
           toast.error(message)
         }
         // console.log(error)
-        if ((error.response?.data as ErrorRespone).status_code === HttpStatusCode.InternalServerError) {
+
+        const errorKey = (error.response?.data as ErrorRespone).error_key
+        if (
+          (error.response?.data as ErrorRespone).status_code === HttpStatusCode.InternalServerError ||
+          errorKey == HttpErrorKeys.NoPermission
+        ) {
           clearLS()
         }
         return Promise.reject(error)
