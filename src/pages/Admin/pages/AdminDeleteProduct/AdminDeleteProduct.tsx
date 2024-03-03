@@ -9,27 +9,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { adminProductApi } from 'src/apis/admin.api'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
 import AdminDialog from '../../components/AdminDialog'
-import { formatDate } from 'src/utils/utils'
-
-function InforSection({ title, infor, isDate = false }: { title: string; infor: string | number; isDate?: boolean }) {
-  //! STYLES
-  const wrapperClassname = 'grid grid-cols-3 text-sm items-center gap-4'
-  const titleWrapperClassname = 'col-span-1'
-  const contentWrapperClassname = 'col-span-2'
-  const titleClassname = 'font-medium uppercase text-white/60'
-  const contentClassname = 'rounded-lg bg-darkColor900 px-2 py-1 capitalize text-haretaColor'
-
-  return (
-    <div className={wrapperClassname}>
-      <div className={titleWrapperClassname}>
-        <p className={titleClassname}>{title}</p>
-      </div>
-      <div className={contentWrapperClassname}>
-        <div className={contentClassname}>{isDate ? formatDate(infor as string) : infor}</div>
-      </div>
-    </div>
-  )
-}
+import AdminInforSection from '../../components/AdminInforSection'
 
 export default function AdminDeleteProduct() {
   const { currentProduct, setCurrentProduct } = useContext(AdminContext)
@@ -93,33 +73,33 @@ export default function AdminDeleteProduct() {
                   </div>
                 </div>
 
-                <InforSection title='Nhóm sản phẩm' infor={currentProduct.group.name} />
-                <InforSection title='ID' infor={currentProduct.id} />
-                <InforSection title='Tên sản phẩm' infor={currentProduct.name} />
-                <InforSection title='Màu' infor={currentProduct.color} />
-                <InforSection title='Hạng mục' infor={currentProduct.category} />
-                <InforSection title='Bộ sưu tập' infor={currentProduct.collection} />
-                <InforSection title='Loại' infor={currentProduct.type} />
-                <InforSection title='Dòng sản phẩm' infor={currentProduct.product_line} />
-                <InforSection title='Số lượng' infor={currentProduct.quantity} />
-                <InforSection title='Giá' infor={currentProduct.price} />
-                <InforSection title='Giảm giá' infor={currentProduct.discount} />
-                <InforSection title='Tag' infor={currentProduct.tag} />
-                <InforSection title='Lượt thích' infor={currentProduct.like_count} />
-                <InforSection title='Đã bán' infor={currentProduct.sold} />
-                <InforSection title='cron status' infor={currentProduct.cron_status} />
-                <InforSection title='Ngày tạo' infor={currentProduct.created_at} isDate />
-                <InforSection title='Ngày chỉnh sửa' infor={currentProduct.updated_at} isDate />
+                <AdminInforSection title='Nhóm sản phẩm' infor={currentProduct.group.name} />
+                <AdminInforSection title='ID' infor={currentProduct.id} />
+                <AdminInforSection title='Tên sản phẩm' infor={currentProduct.name} />
+                <AdminInforSection title='Màu' infor={currentProduct.color} />
+                <AdminInforSection title='Hạng mục' infor={currentProduct.category} />
+                <AdminInforSection title='Bộ sưu tập' infor={currentProduct.collection} />
+                <AdminInforSection title='Loại' infor={currentProduct.type} />
+                <AdminInforSection title='Dòng sản phẩm' infor={currentProduct.product_line} />
+                <AdminInforSection title='Số lượng' infor={currentProduct.quantity} />
+                <AdminInforSection title='Giá' infor={currentProduct.price} />
+                <AdminInforSection title='Giảm giá' infor={currentProduct.discount} />
+                <AdminInforSection title='Tag' infor={currentProduct.tag} />
+                <AdminInforSection title='Lượt thích' infor={currentProduct.like_count} />
+                <AdminInforSection title='Đã bán' infor={currentProduct.sold} />
+                <AdminInforSection title='cron status' infor={currentProduct.cron_status} />
+                <AdminInforSection title='Ngày tạo' infor={currentProduct.created_at} isDate />
+                <AdminInforSection title='Ngày chỉnh sửa' infor={currentProduct.updated_at} isDate />
               </Fragment>
             )}
           </div>
           {currentProduct && (
-            <div className='mt-4 flex w-full items-center justify-end'>
+            <div className='mt-4  flex w-full items-center justify-end'>
               <button
-                className='lg:text-sm rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600'
+                className='lg:text-sm rounded-lg bg-alertRed/80 px-3 py-1 text-xs uppercase hover:bg-alertRed'
                 onClick={onClickDelete}
               >
-                delete
+                xóa
               </button>
             </div>
           )}
@@ -131,21 +111,21 @@ export default function AdminDeleteProduct() {
           setConfirmDialog(false)
         }}
       >
-        <p className='text-center text-xl font-semibold uppercase leading-6'>Are you sure to delete this item?</p>
+        <p className='text-center text-xl font-semibold uppercase leading-6'>Xóa sản phẩm?</p>
         <div className='mt-8 flex justify-between'>
           <button
             type='button'
-            className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+            className='flex items-center justify-center rounded-md bg-blue-100 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200'
             onClick={() => setConfirmDialog(false)}
           >
-            Cancel
+            Hủy
           </button>
           <button
             type='button'
-            className='inline-flex justify-center rounded-md border border-transparent bg-orange-100 px-4 py-2 text-sm font-medium text-red-600 hover:bg-orange-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+            className='flex items-center justify-center rounded-md bg-alertRed/80 px-4 py-1 text-sm font-medium hover:bg-alertRed'
             onClick={handleDelete}
           >
-            Delete
+            Xóa
           </button>
         </div>
       </DialogPopup>

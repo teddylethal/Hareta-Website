@@ -53,7 +53,7 @@ export const adminProductGroupApi = {
     return http.put<SuccessRespone<string>>(`${URL}group-item`, { id: id, name: name })
   },
   deleteProductGroup(body: { id: string }) {
-    return http.delete(`${URL}/group-item/`, { data: body })
+    return http.delete(`${URL}group-item/`, { data: body })
   }
 }
 

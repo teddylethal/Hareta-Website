@@ -92,14 +92,14 @@ export default function AdminDeleteProductImage() {
         <div className='mt-8 flex justify-between'>
           <button
             type='button'
-            className='justify-center rounded-md bg-blue-100 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200'
+            className='flex items-center justify-center rounded-md bg-blue-100 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200'
             onClick={() => setConfirmDialog(false)}
           >
             Hủy
           </button>
           <button
             type='button'
-            className='flex justify-center rounded-md bg-alertRed/80 px-4 py-1 text-sm font-medium hover:bg-alertRed'
+            className='flex items-center justify-center rounded-md bg-alertRed/80 px-4 py-1 text-sm font-medium hover:bg-alertRed'
             onClick={handleDelete}
           >
             Xóa

@@ -21,9 +21,7 @@ export default function AdminProductGroupList() {
   const queryConfig = {}
   const { data: defaultProductsData } = useQuery({
     queryKey: ['admin_default_product_list'],
-    queryFn: () => {
-      return productApi.getProductList(queryConfig as ProductListConfig)
-    },
+    queryFn: () => productApi.getProductList(queryConfig as ProductListConfig),
     staleTime: 1000 * 60 * 3
   })
   const defaultProducts = defaultProductsData?.data.data || []
