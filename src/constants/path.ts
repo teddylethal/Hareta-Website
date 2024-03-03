@@ -37,8 +37,9 @@ export const adminPath = {
   uploadProductAvatar: '/admin/product/image/avatar',
   addProductImage: '/admin/product/image/add',
   deleteProductImage: '/admin/product/image/delete',
-  deleteGroup: '/admin/product/delete-group',
-  deleteItem: '/admin/product/delete-item',
+  deleteProductPage: '/admin/product/delete',
+  deleteGroup: '/admin/product/delete/delete-group',
+  deleteProduct: '/admin/product/delete/delete-product',
 
   //? Image
   image: '/admin/images',

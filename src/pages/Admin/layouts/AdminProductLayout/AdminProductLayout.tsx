@@ -35,7 +35,7 @@ export default function AdminProductLayout({ children }: Props) {
             Hình ảnh
           </NavLink>
 
-          <NavLink to={adminPath.deleteItem} className={({ isActive }) => itemStyle(isActive)}>
+          <NavLink to={adminPath.deleteProduct} className={({ isActive }) => itemStyle(isActive)}>
             Xóa
           </NavLink>
         </div>

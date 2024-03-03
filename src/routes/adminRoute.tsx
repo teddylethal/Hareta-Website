@@ -9,6 +9,7 @@ import AdminAddProductImage from 'src/pages/Admin/pages/AdminAddProductImage'
 import AdminCreatingProductPage from 'src/pages/Admin/pages/AdminCreatingProductPage'
 import AdminCreatesProduct from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProduct'
 import AdminCreatesProductGroup from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProductGroup'
+import AdminDeleteProduct from 'src/pages/Admin/pages/AdminDeleteProduct'
 import AdminDeleteProductImage from 'src/pages/Admin/pages/AdminDeleteProductImage'
 import AdminProductImagePage from 'src/pages/Admin/pages/AdminProductImagePage'
 
@@ -21,7 +22,6 @@ const AdminDefaultProductList = lazy(() => import('src/pages/Admin/pages/AdminDe
 const AdminProductPage = lazy(() => import('src/pages/Admin/pages/AdminProductPage'))
 const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
-const AdminDeleteItem = lazy(() => import('src/pages/Admin/pages/AdminDeleteItem'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGroup'))
 const AdminOrder = lazy(() => import('src/pages/Admin/pages/AdminOrder'))
 const AdminUploadProductAvatar = lazy(
@@ -100,8 +100,8 @@ const AdminRoute = {
           element: <AdminDeleteProductImage />
         },
         {
-          path: adminPath.deleteItem,
-          element: <AdminDeleteItem />
+          path: adminPath.deleteProduct,
+          element: <AdminDeleteProduct />
         },
         {
           path: adminPath.deleteGroup,
