@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
-import ImageInput from '../../../components/ImageInput'
 import producImageApi from 'src/apis/productImage.api'
 import AdminSelectsVariant from '../../../components/AdminSelectsVariant'
 import AdminProductImageHeader from '../AdminProductImageHeader'
 import AdminProductGroupList from 'src/pages/Admin/components/AdminProductGroupList'
+import AdminImageInput from 'src/pages/Admin/components/AdminImageInput'
 
 export default function AdminUploadProductAvatar() {
   const { currentProduct } = useContext(AdminContext)
@@ -96,7 +96,7 @@ export default function AdminUploadProductAvatar() {
                     className='absolute left-0 top-0 h-full w-full object-scale-down'
                   />
                   <div className='absolute bottom-1 left-1/2 w-1/4 -translate-x-1/2 rounded-lg border border-white/20 bg-black px-2 py-1'>
-                    <ImageInput onChangeImageFile={handleChangeAvatarFile} />
+                    <AdminImageInput onChangeImageFile={handleChangeAvatarFile} />
                   </div>
                 </Fragment>
               )}

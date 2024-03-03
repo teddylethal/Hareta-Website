@@ -1,17 +1,17 @@
 import { useContext, useState } from 'react'
 import AdminDialog from '../../components/AdminDialog'
-import AdminImagesPage from '../AdminImagesPage'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
-import AdminProductGroup from '../../components/AdminProductGroup'
 import AdminSelectsVariant from '../../components/AdminSelectsVariant'
-import AdminItemImages from '../../components/AdminItemImages'
 import { AdminContext } from 'src/contexts/admin.context'
 import DialogPopup from 'src/components/DialogPopup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { adminProductImageApi } from 'src/apis/admin.api'
 import { AppContext } from 'src/contexts/app.context'
+import AdminProductImageHeader from '../AdminProductImagePage/AdminProductImageHeader'
+import AdminProductGroupList from '../../components/AdminProductGroupList'
+import AdminProductImageList from '../../components/AdminProductImageList'
 
-export default function AdminDeleteItemImage() {
+export default function AdminDeleteProductImage() {
   const { currentProduct, currentImage, setCurrentImage } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
@@ -23,7 +23,7 @@ export default function AdminDeleteItemImage() {
     setConfirmDialog(true)
   }
 
-  const deleteItemImageMutation = useMutation(adminProductImageApi.deleteImage)
+  const deleteItemImageMutation = useMutation({ mutationFn: adminProductImageApi.deleteImage })
   const handleDelete = () => {
     setConfirmDialog(false)
     setLoadingPage(true)
@@ -32,7 +32,7 @@ export default function AdminDeleteItemImage() {
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
-          queryClient.invalidateQueries({ queryKey: ['item_image_list'] })
+          queryClient.invalidateQueries({ queryKey: ['admin_product_image_list'] })
           setCurrentImage(null)
         }
       }
@@ -42,37 +42,37 @@ export default function AdminDeleteItemImage() {
 
   return (
     <div>
-      <AdminImagesPage />
-      <div className='mt-8 grid grid-cols-2 gap-8'>
+      <AdminProductImageHeader />
+      <div className='mt-4 grid grid-cols-2 gap-8'>
         <div className='col-span-1'>
           <div className='space-y-8'>
-            <AdminProductGroup />
+            <AdminProductGroupList />
             <AdminSelectsVariant />
           </div>
         </div>
         <div className='col-span-1'>
           <div className='space-y-8'>
-            <AdminItemImages />
+            <AdminProductImageList />
             <div className='space-y-4 rounded-lg border border-white/40 bg-black p-4'>
               <div className='grid grid-cols-3 gap-4'>
-                <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Item name</p>
+                <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Tên</p>
                 <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.name}</p>
               </div>
               <div className='grid grid-cols-3 gap-4'>
-                <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Color</p>
+                <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Màu</p>
                 <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentProduct?.color}</p>
               </div>
               <div className='grid grid-cols-3 gap-4'>
-                <p className='col-span-1 text-lg font-medium uppercase text-white/60'>Image ID</p>
+                <p className='col-span-1 text-lg font-medium uppercase text-white/60'>ID hình ảnh</p>
                 <p className='col-span-2 text-lg capitalize text-haretaColor'>{currentImage?.id}</p>
               </div>
               {currentImage && (
                 <div className='flex w-full items-center justify-end'>
                   <button
-                    className='lg:text-sm rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600'
+                    className='lg:text-sm rounded-lg bg-alertRed/80 px-3 py-1 text-xs uppercase hover:bg-alertRed'
                     onClick={onClickDelete}
                   >
-                    delete
+                    Xóa
                   </button>
                 </div>
               )}
@@ -86,22 +86,23 @@ export default function AdminDeleteItemImage() {
         handleClose={() => {
           setConfirmDialog(false)
         }}
+        classNameWrapper='relative w-80 max-w-md transform overflow-hidden rounded-2xl p-10 align-middle shadow-xl transition-all'
       >
-        <p className='text-center text-xl font-semibold uppercase leading-6'>Are you sure to delete this image?</p>
+        <p className='text-center text-xl font-semibold uppercase leading-6'>Xóa ảnh này?</p>
         <div className='mt-8 flex justify-between'>
           <button
             type='button'
-            className='inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+            className='justify-center rounded-md bg-blue-100 px-4 py-1 text-sm font-medium text-blue-900 hover:bg-blue-200'
             onClick={() => setConfirmDialog(false)}
           >
-            Cancel
+            Hủy
           </button>
           <button
             type='button'
-            className='inline-flex justify-center rounded-md border border-transparent bg-orange-100 px-4 py-2 text-sm font-medium text-red-600 hover:bg-orange-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+            className='flex justify-center rounded-md bg-alertRed/80 px-4 py-1 text-sm font-medium hover:bg-alertRed'
             onClick={handleDelete}
           >
-            Delete
+            Xóa
           </button>
         </div>
       </DialogPopup>

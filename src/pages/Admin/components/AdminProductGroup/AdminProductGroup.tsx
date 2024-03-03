@@ -17,8 +17,7 @@ export default function AdminProductGroup() {
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-    staleTime: 3 * 60 * 1000,
-    enabled: Boolean(productGroup)
+    staleTime: 3 * 60 * 1000
   })
   const productGroupList = productGroupListData?.data.data
 

@@ -80,7 +80,7 @@ export default function AdminProductGroupList() {
                 >
                   <div className='relative w-full pt-[75%]'>
                     <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center font-medium uppercase text-alertRed'>
-                      Chưa có sản phẩm nào
+                      0 sản phẩm
                     </div>
                   </div>
                   <div className=''>{group.name}</div>

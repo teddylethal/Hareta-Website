@@ -1,14 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
-import { ColorRing } from 'react-loader-spinner'
-import { AdminContext } from 'src/contexts/admin.context'
-import producImageApi from 'src/apis/productImage.api'
+import { useQuery } from '@tanstack/react-query'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { ProductImage } from 'src/types/productImage.type'
 import classNames from 'classnames'
+import { AdminContext } from 'src/contexts/admin.context'
+import { ProductImage } from 'src/types/productImage.type'
+import producImageApi from 'src/apis/productImage.api'
+import LoadingRing from 'src/components/LoadingRing'
 
-export default function AdminItemImages() {
+export default function AdminProductImageList() {
   const { currentProduct, setCurrentImage, currentImage } = useContext(AdminContext)
 
   //? GET IMAGE LIST
@@ -18,10 +18,10 @@ export default function AdminItemImages() {
     isFetching,
     refetch
   } = useQuery({
-    queryKey: ['item_image_list'],
+    queryKey: ['admin_product_image_list'],
     queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
-
-    enabled: Boolean(currentProduct)
+    enabled: Boolean(currentProduct),
+    staleTime: 1000 * 60 * 3
   })
   const imageList = itemImageListData?.data.data
   // const imageList = useMemo(() => itemImageListData?.data.data, [itemImageListData?.data.data])
@@ -39,28 +39,20 @@ export default function AdminItemImages() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className=' lg:text-xl text-center text-lg font-semibold uppercase text-white'>Image list</p>
+        <p className=' lg:text-xl text-center text-lg font-semibold uppercase text-white'>Danh sách hình ảnh</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {!currentProduct && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
-              select a variant
+              Chọn 1 sản phẩm
             </div>
           )}
           {isFetching && (
             <div className='inset-0 flex h-full w-full items-center justify-center bg-black/50'>
-              <ColorRing
-                visible={true}
-                height='60'
-                width='60'
-                ariaLabel='blocks-loading'
-                wrapperStyle={{}}
-                wrapperClass='blocks-wrapper'
-                colors={['#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6', '#ADD8E6']}
-              />
+              <LoadingRing />
             </div>
           )}
           {isFetched && (
-            <div className='m-2 grid grid-cols-4 gap-6'>
+            <div className='m-2 grid grid-cols-4 gap-2'>
               {imageList?.map((image) => {
                 const isActive = image.id === currentImage?.id
                 return (

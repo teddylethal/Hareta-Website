@@ -1,19 +1,19 @@
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
-import AdminProductGroup from '../../components/AdminProductGroup'
-import AdminSelectsVariant from '../../components/AdminSelectsVariant'
-import AdminImagesPage from '../AdminImagesPage'
-import { AdminContext } from 'src/contexts/admin.context'
-import ImageInput from '../../components/ImageInput'
+import { ColorRing } from 'react-loader-spinner'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import producImageApi from 'src/apis/productImage.api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { ColorRing } from 'react-loader-spinner'
-import DialogPopup from 'src/components/DialogPopup'
 import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import { AdminContext } from 'src/contexts/admin.context'
+import producImageApi from 'src/apis/productImage.api'
+import DialogPopup from 'src/components/DialogPopup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
+import AdminProductGroupList from '../../components/AdminProductGroupList'
+import AdminProductImageHeader from '../AdminProductImagePage/AdminProductImageHeader'
+import AdminImageInput from '../../components/AdminImageInput'
 
-export default function AdminAddItemImage() {
-  const { currentProduct, ProductGroup } = useContext(AdminContext)
+export default function AdminAddProductImage() {
+  const { currentProduct, productGroup } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
@@ -48,7 +48,7 @@ export default function AdminAddItemImage() {
   }, [currentProduct, refetch])
 
   //? HANDLE ADD IMAGE
-  const addItemImage = useMutation(producImageApi.addImage)
+  const addItemImage = useMutation({ mutationFn: producImageApi.addImage })
   const handleSubmit = () => {
     try {
       if (avatarFile && currentProduct) {
@@ -71,9 +71,8 @@ export default function AdminAddItemImage() {
 
   return (
     <div>
-      <AdminImagesPage />
-
-      <div className=' mt-8 grid grid-cols-2 gap-6'>
+      <AdminProductImageHeader />
+      <div className=' mt-4 grid grid-cols-2 gap-6'>
         <div className='col-span-1'>
           <div className='sticky top-6 rounded-lg border border-white/40'>
             <div className='grid grid-cols-2 gap-6 p-2'>
@@ -90,7 +89,7 @@ export default function AdminAddItemImage() {
                       )}
                       {!avatarFile && <div className='absolute left-0 top-0 h-full w-full bg-black/50'></div>}
                       <div className='absolute bottom-1 left-1/2 w-1/2 -translate-x-1/2 rounded-lg border border-white/20 bg-black px-2 py-1'>
-                        <ImageInput onChangeImageFile={handleChangeAvatarFile} />
+                        <AdminImageInput onChangeImageFile={handleChangeAvatarFile} />
                       </div>
                     </Fragment>
                   )}
@@ -99,15 +98,15 @@ export default function AdminAddItemImage() {
               <div className='col-span-1'>
                 <div className='flex h-full flex-col justify-around'>
                   <div className='grid grid-cols-3 gap-4'>
-                    <p className='text-lightText/60 col-span-1 font-medium uppercase'>Item ID</p>
+                    <p className='col-span-1 font-medium uppercase text-lightText/60'>ID</p>
                     <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentProduct?.id}</p>
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
-                    <p className='text-lightText/60 col-span-1 font-medium uppercase'>Name</p>
-                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{ProductGroup?.name}</p>
+                    <p className='col-span-1 font-medium uppercase text-lightText/60'>Tên</p>
+                    <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{productGroup?.name}</p>
                   </div>
                   <div className='grid grid-cols-3 gap-4'>
-                    <p className='text-lightText/60 col-span-1 font-medium uppercase'>Color</p>
+                    <p className='col-span-1 font-medium uppercase text-lightText/60'>Màu</p>
                     <p className='col-span-2 line-clamp-2 capitalize text-haretaColor'>{currentProduct?.color}</p>
                   </div>
                 </div>
@@ -119,13 +118,13 @@ export default function AdminAddItemImage() {
                   className='flex items-center justify-center rounded-lg bg-haretaColor/80 px-4 py-1 hover:bg-haretaColor/60'
                   onClick={handleSubmit}
                 >
-                  Add image
+                  Thêm hình ảnh
                 </button>
                 {!avatarFile && <div className='absolute inset-0 bg-black/50'></div>}
               </div>
             </div>
             <div className='mt-4 space-y-4 p-4'>
-              <p className='text-center text-lg font-medium uppercase text-white'>Image list</p>
+              <p className='text-center text-lg font-medium uppercase text-white'>Danh sách hình ảnh</p>
               <div className='h-80 overflow-hidden rounded-lg border border-white/40'>
                 {isFetching && (
                   <div className='inset-0 flex h-full w-full items-center justify-center bg-black/50'>
@@ -167,7 +166,7 @@ export default function AdminAddItemImage() {
         </div>
         <div className='col-span-1'>
           <div className='flex min-h-full flex-col justify-between'>
-            <AdminProductGroup />
+            <AdminProductGroupList />
             <AdminSelectsVariant />
           </div>
         </div>
@@ -179,7 +178,7 @@ export default function AdminAddItemImage() {
         }}
         classNameWrapper='relative w-72 h-40 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all flex items-center justify-center'
       >
-        <p className='text-center text-xl font-medium uppercase leading-6 text-green-500'>Image was added</p>
+        <p className='text-center text-xl font-medium uppercase leading-6 text-success'>Đã thêm hình ảnh</p>
       </DialogPopup>
     </div>
   )

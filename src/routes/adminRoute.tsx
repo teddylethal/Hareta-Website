@@ -5,9 +5,11 @@ import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
 import AdminProductLayout from 'src/pages/Admin/layouts/AdminProductLayout'
+import AdminAddProductImage from 'src/pages/Admin/pages/AdminAddProductImage'
 import AdminCreatingProductPage from 'src/pages/Admin/pages/AdminCreatingProductPage'
 import AdminCreatesProduct from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProduct'
 import AdminCreatesProductGroup from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProductGroup'
+import AdminDeleteProductImage from 'src/pages/Admin/pages/AdminDeleteProductImage'
 import AdminProductImagePage from 'src/pages/Admin/pages/AdminProductImagePage'
 
 import AdminSetDefaultProduct from 'src/pages/Admin/pages/AdminSetDefaultItem/AdminSetDefaultItem'
@@ -19,8 +21,6 @@ const AdminDefaultProductList = lazy(() => import('src/pages/Admin/pages/AdminDe
 const AdminProductPage = lazy(() => import('src/pages/Admin/pages/AdminProductPage'))
 const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
-const AdminAddItemImage = lazy(() => import('src/pages/Admin/pages/AdminAddItemImage'))
-const AdminDeleteItemImage = lazy(() => import('src/pages/Admin/pages/AdminDeleteItemImage'))
 const AdminDeleteItem = lazy(() => import('src/pages/Admin/pages/AdminDeleteItem'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGroup'))
 const AdminOrder = lazy(() => import('src/pages/Admin/pages/AdminOrder'))
@@ -93,11 +93,11 @@ const AdminRoute = {
 
         {
           path: adminPath.addProductImage,
-          element: <AdminAddItemImage />
+          element: <AdminAddProductImage />
         },
         {
           path: adminPath.deleteProductImage,
-          element: <AdminDeleteItemImage />
+          element: <AdminDeleteProductImage />
         },
         {
           path: adminPath.deleteItem,

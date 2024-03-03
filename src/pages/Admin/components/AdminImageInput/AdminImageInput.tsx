@@ -6,7 +6,7 @@ interface Props {
   onChangeImageFile?: (file?: File) => void
 }
 
-export default function ImageInput({ onChangeImageFile }: Props) {
+export default function AdminImageInput({ onChangeImageFile }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleUploadAvatar = () => {
@@ -37,7 +37,7 @@ export default function ImageInput({ onChangeImageFile }: Props) {
         onClick={handleUploadAvatar}
         type='button'
       >
-        <p className='text-xs font-semibold md:text-sm lg:text-base'>Choose image</p>
+        <p className='md:text-sm lg:text-base text-xs font-semibold'>Chọn hình ảnh</p>
       </button>
     </Fragment>
   )
