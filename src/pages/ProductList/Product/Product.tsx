@@ -1,5 +1,4 @@
 import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import {} from '@fortawesome/free-regular-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
 import { memo, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -60,7 +59,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
   const { data: imageListData, isLoading } = useQuery({
     queryKey: ['default_item_images', itemID],
     queryFn: () => producImageApi.getImageList(itemID as string),
-    keepPreviousData: true,
+
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data
@@ -83,7 +82,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     setHoveringImage(false)
   }
 
-  //? HANDLE ENTER ITEM
+  //! HANDLE ENTER ITEM
   const queryClient = useQueryClient()
   const handleClickItem = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (disableClick) {
@@ -94,7 +93,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     }
   }
 
-  //? HANDLE LIKE ITEM
+  //! HANDLE LIKE ITEM
   const likeItem = () => {
     setIsLikedByUser(true)
     const newWishlistIDs = [...wishlistIDs, product.id]
@@ -116,8 +115,8 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     !isLikedByUser && likeItem()
   }
 
-  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
-  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
+  const likeItemMutation = useMutation({ mutationFn: likeItemAPi.likeItem })
   useEffect(() => {
     const updateLikeItem = setTimeout(() => {
       if (isLikedByUser && initialInWishlist === false) {
@@ -137,7 +136,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
 
   return (
     <div
-      className='flex w-full items-center justify-center pb-0 pt-2 duration-200 md:hover:pb-2 md:hover:pt-0'
+      className='flex w-full items-center justify-center pb-0 pt-2 duration-200 tablet:hover:pb-2 tablet:hover:pt-0'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
@@ -161,26 +160,26 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
             </div>
           </div>
         )}
-        <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
+        <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 tabletSmall:px-3 desktop:px-4 desktop:pt-4'>
           <button
-            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-200 hover:text-primaryColor dark:text-textLight dark:hover:text-primaryColor sm:text-base lg:text-lg'
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 hover:text-primaryColor dark:text-lightText dark:hover:text-primaryColor tabletSmall:text-base desktop:text-lg'
             onClick={handleClickItem}
           >
             {product.name}
           </button>
 
-          <span className='text-xs font-semibold text-haretaColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
+          <span className='text-xs font-semibold text-haretaColor dark:text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
             ${formatCurrency(product.price)}
           </span>
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-textDark lg:h-6 lg:w-20  lg:text-sm'>
+            <span className=' flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-darkText desktop:h-6 desktop:w-20  desktop:text-sm'>
               {tag == 1 && t('tag.top seller')}
               {tag == 2 && t('tag.signature')}
               {tag == 3 && t('tag.favourite')}
             </span>
-            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent lg:left-20 lg:border-[12px]' />
+            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]' />
           </div>
         )}
         {isAuthenticated && (
@@ -188,9 +187,9 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
             <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
               <FontAwesomeIcon
                 icon={faHeart}
-                className={classNames('h-auto w-4 md:w-5  xl:w-6', {
+                className={classNames('h-auto w-4 tablet:w-5  desktopLarge:w-6', {
                   'text-favouriteRed': isLikedByUser,
-                  ' text-textLight': !isLikedByUser
+                  ' text-lightText': !isLikedByUser
                 })}
               />
             </button>

@@ -26,7 +26,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
         dotBefore = true
         return (
           <span
-            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
+            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-darkText shadow-sm dark:text-lightText '
             key={index}
           >
             ...
@@ -40,7 +40,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
         dotAfter = true
         return (
           <span
-            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-textDark shadow-sm dark:text-textLight '
+            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-darkText shadow-sm dark:text-lightText '
             key={index}
           >
             ...
@@ -74,10 +74,10 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               }).toString()
             }}
             className={classNames(
-              'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border px-2 py-2 text-sm shadow-sm hover:border-primaryColor dark:hover:border-primaryColor lg:mx-2 lg:h-8 lg:w-8 lg:text-base',
+              'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border px-2 py-2 text-sm shadow-sm hover:border-primaryColor dark:hover:border-primaryColor desktop:mx-2 desktop:h-8 desktop:w-8 desktop:text-base',
               {
-                'border-transparent bg-haretaColor text-textDark dark:text-textDark': pageNumber === currentPage,
-                'border-textDark text-textDark dark:border-textLight dark:text-textLight ': pageNumber !== currentPage
+                'border-transparent bg-haretaColor text-darkText dark:text-darkText': pageNumber === currentPage,
+                'border-textDark dark:border-textLight text-darkText dark:text-lightText ': pageNumber !== currentPage
               }
             )}
             key={index}
@@ -100,17 +100,17 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               page: (currentPage - 1).toString()
             }).toString()
           }}
-          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-primaryColor hover:text-primaryColor dark:border-textLight dark:text-textLight dark:hover:border-primaryColor dark:hover:text-primaryColor lg:text-base'
+          className='border-textDark dark:border-textLight group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText shadow-sm hover:border-primaryColor hover:text-primaryColor dark:text-lightText dark:hover:border-primaryColor dark:hover:text-primaryColor desktop:text-base'
         >
           <FontAwesomeIcon
             icon={faAngleLeft}
-            className='py-1 text-textDark group-hover:text-primaryColor dark:text-textLight dark:group-hover:text-primaryColor'
+            className='py-1 text-darkText group-hover:text-primaryColor dark:text-lightText dark:group-hover:text-primaryColor'
           />
           {!isMobile && <p>{t('pagination.prev')}</p>}
         </Link>
       ) : (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-40 shadow-sm dark:border-textLight dark:text-textLight lg:text-base '>
-          <FontAwesomeIcon icon={faAngleLeft} className='py-1 text-textDark dark:text-textLight' />
+        <span className='border-textDark dark:border-textLight group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText opacity-40 shadow-sm dark:text-lightText desktop:text-base '>
+          <FontAwesomeIcon icon={faAngleLeft} className='py-1 text-darkText dark:text-lightText' />
           {!isMobile && <p>{t('pagination.prev')}</p>}
         </span>
       )}
@@ -126,18 +126,18 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
               page: (currentPage + 1).toString()
             }).toString()
           }}
-          className='group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark shadow-sm hover:border-primaryColor  hover:text-primaryColor dark:border-textLight dark:text-textLight dark:hover:border-primaryColor dark:hover:text-primaryColor lg:text-base'
+          className='border-textDark dark:border-textLight group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText shadow-sm  hover:border-primaryColor hover:text-primaryColor dark:text-lightText dark:hover:border-primaryColor dark:hover:text-primaryColor desktop:text-base'
         >
           {!isMobile && <p>{t('pagination.next')}</p>}
           <FontAwesomeIcon
             icon={faAngleRight}
-            className='py-1 text-textDark group-hover:text-primaryColor dark:text-textLight dark:group-hover:text-primaryColor'
+            className='py-1 text-darkText group-hover:text-primaryColor dark:text-lightText dark:group-hover:text-primaryColor'
           />
         </Link>
       ) : (
-        <span className='group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-textDark px-3  py-1 text-sm text-textDark opacity-40  shadow-sm dark:border-textLight dark:text-textLight lg:text-base'>
+        <span className='border-textDark dark:border-textLight group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText  opacity-40 shadow-sm dark:text-lightText desktop:text-base'>
           {!isMobile && <p>{t('pagination.next')}</p>}
-          <FontAwesomeIcon icon={faAngleRight} className='py-1 text-textDark dark:text-textLight' />
+          <FontAwesomeIcon icon={faAngleRight} className='py-1 text-darkText dark:text-lightText' />
         </span>
       )}
     </div>

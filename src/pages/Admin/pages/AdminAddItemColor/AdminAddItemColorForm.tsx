@@ -1,12 +1,12 @@
 import classNames from 'classnames'
 import { Fragment } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { CreatingItemSchema } from '../../utils/rules'
+import { AddProductSchema } from '../../utils/rules'
 import Input from 'src/components/Input'
 import InputNumber from 'src/components/InputNumber'
 import QuillEditor from 'src/components/QuillEditor'
 
-type FormData = CreatingItemSchema
+type FormData = AddProductSchema
 
 export default function AdminAddItemColorForm() {
   const {
@@ -29,17 +29,17 @@ export default function AdminAddItemColorForm() {
     <Fragment>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>New Color</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>New Color</p>
         </div>
         <div className='col-span-2'>
           <Input
-            classNameInput={classNames(
-              'text-textLight bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor',
+            inputClassName={classNames(
+              'text-lightText bg-slate-900 py-1 px-2 text-base desktop:text-lg rounded-lg outline-none focus:outline-haretaColor',
               {
                 'outline-red-600': Boolean(errors.color)
               }
             )}
-            classNameError='hidden'
+            errorClassName='hidden'
             register={register}
             name='color'
             errorMessage={errors?.name?.message}
@@ -49,7 +49,7 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='relative grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>quantity</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>quantity</p>
         </div>
         <div className='col-span-1'>
           <Controller
@@ -57,14 +57,14 @@ export default function AdminAddItemColorForm() {
             name='quantity'
             render={({ field }) => (
               <InputNumber
-                classNameInput={classNames(
-                  'text-textLight bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor',
+                inputClassName={classNames(
+                  'text-lightText bg-slate-900 py-1 px-2 text-base desktop:text-lg rounded-lg outline-none focus:outline-haretaColor',
                   {
                     'outline-red-600': Boolean(errors.quantity)
                   }
                 )}
                 errorMessage={errors?.name?.message}
-                classNameError='hidden'
+                errorClassName='hidden'
                 autoComplete='false'
                 {...field}
                 onChange={field.onChange}
@@ -75,13 +75,13 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>name</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>name</p>
         </div>
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base desktop:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='name'
             autoComplete='false'
@@ -90,13 +90,13 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>group id</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>group id</p>
         </div>
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base desktop:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='group_id'
             autoComplete='false'
@@ -105,13 +105,13 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>Category</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>Category</p>
         </div>
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base desktop:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='category'
             autoComplete='false'
@@ -120,13 +120,13 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>collection</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>collection</p>
         </div>
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base desktop:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='collection'
             autoComplete='false'
@@ -135,13 +135,13 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>type</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>type</p>
         </div>
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base desktop:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='type'
             autoComplete='false'
@@ -150,13 +150,13 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>product line</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>product line</p>
         </div>
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base desktop:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='product_line'
             autoComplete='false'
@@ -165,13 +165,13 @@ export default function AdminAddItemColorForm() {
       </div>
       <div className='grid grid-cols-4 items-center gap-2'>
         <div className='col-span-2'>
-          <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>price</p>
+          <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>price</p>
         </div>
         <div className='col-span-2'>
           <Input
             readOnly
-            classNameInput='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base lg:text-lg rounded-lg outline-none'
-            classNameError='hidden'
+            inputClassName='text-haretaColor bg-[#101010] capitalize cursor-not-allowed py-1 px-2 text-base desktop:text-lg rounded-lg outline-none'
+            errorClassName='hidden'
             register={register}
             name='price'
             autoComplete='false'
@@ -179,9 +179,9 @@ export default function AdminAddItemColorForm() {
         </div>
       </div>
       <div className='space-y-4'>
-        <p className='text-base font-medium uppercase text-white/60 lg:text-lg'>description</p>
+        <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>description</p>
         {/* <textarea
-          className='h-60 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium capitalize text-textLight outline-none lg:text-lg'
+          className='h-60 w-full rounded-lg bg-slate-900 px-2 py-1 text-base font-medium capitalize text-lightText outline-none desktop:text-lg'
           {...register('description')}
           autoComplete='false'
         /> */}

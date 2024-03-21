@@ -1,4 +1,4 @@
-import { ProductList, ProductListConfig, ItemInGroupConfig } from 'src/types/product.type'
+import { ProductList, ProductListConfig, ProductsInGroupConfig } from 'src/types/product.type'
 import { ProductRespone, StoreRespone } from 'src/types/store.type'
 import http from 'src/utils/http'
 
@@ -8,7 +8,7 @@ const productApi = {
   getProductList(params: ProductListConfig) {
     return http.get<ProductList>(`${URL}/list`, { params })
   },
-  getItemsInGroup(params: ItemInGroupConfig) {
+  getProductsInGroup(params: ProductsInGroupConfig) {
     return http.get<ProductList>(`${URL}/group`, { params })
   },
   getProductDetail(id: string) {

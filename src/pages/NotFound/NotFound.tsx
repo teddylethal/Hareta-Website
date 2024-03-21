@@ -4,7 +4,7 @@ import path from 'src/constants/path'
 export default function NotFound() {
   return (
     <main className='flex h-screen w-full flex-col items-center justify-center bg-lightBg dark:bg-darkBg'>
-      <h1 className='text-9xl font-extrabold tracking-widest text-textDark dark:text-textLight'>404</h1>
+      <h1 className='text-darkText dark:text-lightText text-9xl font-extrabold tracking-widest'>404</h1>
       <div className='absolute rotate-12 rounded bg-haretaColor px-2 text-sm'>Page Not Found</div>
       <button className='mt-5'>
         <Link
@@ -13,7 +13,7 @@ export default function NotFound() {
         >
           <span className='bg-haretext-haretaColor absolute inset-0 translate-x-0.5 translate-y-0.5 transition-transform group-hover:translate-x-0 group-hover:translate-y-0'></span>
 
-          <span className='relative block rounded-md border border-current bg-[#1A2238] px-8 py-3 hover:bg-haretaColor hover:text-textDark'>
+          <span className='hover:text-darkText relative block rounded-md border border-current bg-[#1A2238] px-8 py-3 hover:bg-haretaColor'>
             <span>Go Home</span>
           </span>
         </Link>

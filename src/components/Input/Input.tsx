@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string
-  classNameInput?: string
-  classNameError?: string
+  inputClassName?: string
+  errorClassName?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register?: UseFormRegister<any>
   rules?: RegisterOptions
@@ -17,8 +17,8 @@ export default function Input({
   className = 'bg-transparent',
   errorMessage,
   rules,
-  classNameInput = 'w-full rounded-sm border border-gray-300 p-3 outline-none outline',
-  classNameError = 'mt-1 min-h-[1.25rem] lg:min-h-[1.5rem] text-sm lg:text-base text-red-600',
+  inputClassName = 'w-full rounded-sm border border-gray-300 p-3 outline-none outline',
+  errorClassName = 'mt-1 min-h-[1.25rem] desktop:min-h-[1.5rem] text-sm desktop:text-base text-red-600',
   ...rest
 }: Props) {
   //? handle errors
@@ -46,9 +46,9 @@ export default function Input({
   return (
     <Fragment>
       <div className={className}>
-        <input className={classNameInput} {...registerResult} {...rest} />
+        <input className={inputClassName} {...registerResult} {...rest} />
       </div>
-      <div className={classNameError}>{message}</div>
+      <div className={errorClassName}>{message}</div>
     </Fragment>
   )
 }

@@ -14,19 +14,19 @@ export default function EventCarouselItem() {
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000
   })
   const itemList = storeData?.data.data || []
   const showedItems = itemList.length > ITEMSHOW ? itemList.slice(0, ITEMSHOW) : itemList
 
   return (
-    <div className='grid grid-cols-12 gap-4 px-8 py-6 text-textDark dark:text-textLight xl:gap-6 xl:px-10 xl:py-12'>
+    <div className='grid grid-cols-12 gap-4 px-8 py-6 text-darkText dark:text-lightText desktopLarge:gap-6 desktopLarge:px-10 desktopLarge:py-12'>
       <div className='col-span-7'>
-        <div className='foont-bold text-lg uppercase text-brownColor dark:text-haretaColor lg:text-2xl xl:text-4xl'>
+        <div className='foont-bold text-lg uppercase text-brownColor dark:text-haretaColor desktop:text-2xl desktopLarge:text-4xl'>
           Mild winter
         </div>
-        <div className='mt-6 text-left text-sm lg:text-base xl:text-lg'>
+        <div className='mt-6 text-left text-sm desktop:text-base desktopLarge:text-lg'>
           The 2022-2023 winter in many ways could be described as volatile or perhaps even abnormal in terms of
           temperatures. When someone mentions a mild winter, they are often referring to average temperatures being
           higher than normal measured against historical trends in a region. The term “mild winter” can be subjective to
@@ -38,11 +38,11 @@ export default function EventCarouselItem() {
       </div>
 
       <div className='col-span-5'>
-        <div className='rounded-xl border border-brownColor/60 bg-lightBg px-6 py-6 dark:border-haretaColor/60 dark:bg-darkBg xl:px-8'>
-          <div className='xl:tetx-xl w-full text-center text-base font-medium uppercase lg:text-lg'>
+        <div className='rounded-xl border border-brownColor/60 bg-lightBg px-6 py-6 dark:border-haretaColor/60 dark:bg-darkBg desktopLarge:px-8'>
+          <div className='desktopLarge:tetx-xl w-full text-center text-base font-medium uppercase desktop:text-lg'>
             discount 15% for eveery item included in the event
           </div>
-          <div className='mt-6 grid w-full grid-cols-2 gap-4 xl:gap-6'>
+          <div className='mt-6 grid w-full grid-cols-2 gap-4 desktopLarge:gap-6'>
             {showedItems.map((product) => (
               <div className='mx-6' key={product.id}>
                 <Product product={product} />

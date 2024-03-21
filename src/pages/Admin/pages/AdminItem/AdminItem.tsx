@@ -6,25 +6,25 @@ import { adminPath } from 'src/constants/path'
 export default function AdminItem() {
   return (
     <Fragment>
-      <div className='relative flex items-center justify-around rounded-xl  border border-haretaColor py-2 text-base font-semibold text-textLight/80 lg:text-xl'>
+      <div className='relative flex items-center justify-around rounded-xl  border border-haretaColor py-2 text-base font-semibold text-lightText/80 desktop:text-xl'>
         {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
         <NavLink
           to={adminPath.createItem}
           className={({ isActive }) =>
             classNames('px-4 py-1 uppercase ', {
               'text-haretaColor': isActive,
-              'hover:text-textLight': !isActive
+              'hover:text-lightText': !isActive
             })
           }
         >
           Create
         </NavLink>
         <NavLink
-          to={adminPath.uploadItemAvatar}
+          to={adminPath.uploadProductAvatar}
           className={({ isActive }) =>
             classNames('px-4 py-1 uppercase ', {
               'text-haretaColor': isActive,
-              'hover:text-textLight': !isActive
+              'hover:text-lightText': !isActive
             })
           }
         >
@@ -35,7 +35,7 @@ export default function AdminItem() {
           className={({ isActive }) =>
             classNames('px-4 py-1 uppercase ', {
               'text-haretaColor': isActive,
-              'hover:text-textLight': !isActive
+              'hover:text-lightText': !isActive
             })
           }
         >
@@ -46,14 +46,14 @@ export default function AdminItem() {
           className={({ isActive }) =>
             classNames('px-4 py-1 uppercase ', {
               'text-haretaColor': isActive,
-              'hover:text-textLight': !isActive
+              'hover:text-lightText': !isActive
             })
           }
         >
           Delete
         </NavLink>
       </div>
-      <div className='min-h-[600px] py-4 text-textLight'>
+      <div className='min-h-[600px] py-4 text-lightText'>
         <Outlet />
       </div>
     </Fragment>

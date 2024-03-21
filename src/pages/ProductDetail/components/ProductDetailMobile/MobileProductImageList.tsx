@@ -106,19 +106,19 @@ export default function MobileProductImageList(props: Props) {
           </div>
           {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
             <button
-              className='absolute left-0 top-1/2 -translate-y-1/2 justify-start rounded-md bg-black/60 px-1 py-2 text-textLight'
+              className='absolute left-0 top-1/2 -translate-y-1/2 justify-start rounded-md bg-black/60 px-1 py-2 text-lightText'
               onClick={previousImageList}
             >
-              <FontAwesomeIcon icon={faChevronLeft} className='h-auto w-3 sm:w-4' />
+              <FontAwesomeIcon icon={faChevronLeft} className='h-auto w-3 tabletSmall:w-4' />
             </button>
           )}
 
           {imagesWithIndex.length > 5 && currentIndexImages[1] !== imagesWithIndex.length && (
             <button
-              className='absolute right-0 top-1/2 -translate-y-1/2 rounded-md bg-black/60 px-1 py-2 text-textLight'
+              className='absolute right-0 top-1/2 -translate-y-1/2 rounded-md bg-black/60 px-1 py-2 text-lightText'
               onClick={nextImageList}
             >
-              <FontAwesomeIcon icon={faChevronRight} className='h-auto w-3 sm:w-4' />
+              <FontAwesomeIcon icon={faChevronRight} className='h-auto w-3 tabletSmall:w-4' />
             </button>
           )}
         </div>

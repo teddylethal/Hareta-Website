@@ -2,7 +2,7 @@ import ProductDetailSkeleton from '../ProductDetailSkeleton/ProductDetailSkeleto
 
 export default function ProductDetailLoading() {
   return (
-    <div className='bg-lightBg py-2 dark:bg-darkBg xl:py-6'>
+    <div className='bg-lightBg py-2 dark:bg-darkBg desktopLarge:py-6'>
       <div className='container'>
         <ProductDetailSkeleton />
       </div>

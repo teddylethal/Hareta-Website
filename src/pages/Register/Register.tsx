@@ -57,10 +57,10 @@ export default function Register() {
   return (
     <AnimateTransition>
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
-          <div className='md:col-start-2 md:col-end-6 lg:col-span-4 lg:col-end-7'>
+        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+          <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-4 desktop:col-end-7'>
             <form
-              className='rounded-xl bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-darkBg md:p-10'
+              className='rounded-xl bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-darkBg tablet:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -68,8 +68,8 @@ export default function Register() {
                 {t('register.register')}
               </div>
 
-              <div className='py-8 xl:grid xl:grid-cols-2 xl:divide-x xl:divide-gray-300 dark:xl:divide-stone-700'>
-                <div className='xl:mr-8'>
+              <div className='py-8 desktopLarge:grid desktopLarge:grid-cols-2 desktopLarge:divide-x desktopLarge:divide-gray-300 dark:desktopLarge:divide-stone-700'>
+                <div className='desktopLarge:mr-8'>
                   <AccountInput
                     name='email'
                     register={register}
@@ -125,7 +125,7 @@ export default function Register() {
                   />
                 </div>
 
-                <div className='mt-8 xl:mt-0 xl:pl-8'>
+                <div className='mt-8 desktopLarge:mt-0 desktopLarge:pl-8'>
                   <AccountInput
                     name='name'
                     register={register}
@@ -162,9 +162,9 @@ export default function Register() {
                 </div>
               </div>
 
-              <div className='mt-2 text-base xl:text-lg'>
+              <div className='mt-2 text-base desktopLarge:text-lg'>
                 <Button
-                  className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                  className='flex w-full items-center justify-center py-2 uppercase desktop:py-3'
                   type='submit'
                   isLoading={registerAccountMutation.isLoading}
                   disabled={registerAccountMutation.isLoading}
@@ -172,8 +172,8 @@ export default function Register() {
                   {t('login.sign up')}
                 </Button>
               </div>
-              <div className='mt-8 flex justify-center text-center  text-sm md:text-base'>
-                <span className='text-textDark/60 dark:text-textLight/60'>
+              <div className='mt-8 flex justify-center text-center  text-sm tablet:text-base'>
+                <span className='text-darkText/60 dark:text-lightText/60'>
                   {t('register.Already have an account?')}
                 </span>
                 <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.login}>

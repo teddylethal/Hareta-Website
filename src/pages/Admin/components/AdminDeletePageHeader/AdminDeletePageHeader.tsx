@@ -4,19 +4,19 @@ import { adminPath } from 'src/constants/path'
 
 export default function AdminDeletePageHeader() {
   return (
-    <div className='relative flex items-center justify-around rounded-xl  border border-white/40  py-2 text-sm font-semibold text-textLight/80 lg:text-base'>
+    <div className='relative flex items-center justify-around rounded-xl  border border-white/40  py-2 text-sm font-semibold text-lightText/80 desktop:text-base'>
       {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
       <NavLink
-        to={adminPath.deleteItem}
+        to={adminPath.deleteProduct}
         end
         className={({ isActive }) =>
           classNames('px-8 py-1 uppercase ', {
             'text-haretaColor': isActive,
-            'hover:text-textLight': !isActive
+            'hover:text-lightText': !isActive
           })
         }
       >
-        Delete item
+        Xóa sản phẩm
       </NavLink>
       <NavLink
         to={adminPath.deleteGroup}
@@ -24,11 +24,11 @@ export default function AdminDeletePageHeader() {
         className={({ isActive }) =>
           classNames('px-8 py-1 uppercase ', {
             'text-haretaColor': isActive,
-            'hover:text-textLight': !isActive
+            'hover:text-lightText': !isActive
           })
         }
       >
-        Delete group
+        Xóa nhóm sản phẩm
       </NavLink>
     </div>
   )

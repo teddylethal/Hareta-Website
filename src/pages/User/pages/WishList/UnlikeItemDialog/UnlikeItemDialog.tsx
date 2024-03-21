@@ -71,8 +71,8 @@ export default function UnlikeItemDialog({
             >
               <Dialog.Panel
                 className={classNames(classNameWrapper, {
-                  'bg-white/70 text-textDark': theme === 'light',
-                  'bg-black/80 text-textLight': theme === 'dark'
+                  'text-darkText bg-white/70': theme === 'light',
+                  'text-lightText bg-black/80': theme === 'dark'
                 })}
               >
                 <p className='text-lg font-semibold'>{t('wishlist.remove message')}</p>

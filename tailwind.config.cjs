@@ -32,18 +32,18 @@ module.exports = {
 
         //? Main interface
         lightBg: '#ffffff',
-        lightWhite900: '#fbfbff',
-        lightWhite700: '#e9e9e8',
-        lightWhite500: '#d6d6d5',
+        lightColor900: '#fbfbff',
+        lightColor700: '#e9e9e8',
+        lightColor500: '#d6d6d5',
         darkBg: '#0e0e12',
-        darkGray900: '#1d1d22',
-        darkGray700: '#2c2c32',
-        darkGray500: '#59595f',
-        darkGray300: '#a7a7ab',
+        darkColor900: '#1d1d22',
+        darkColor700: '#2c2c32',
+        darkColor500: '#59595f',
+        darkColor300: '#a7a7ab',
 
         //? Text
-        textLight: '#EEEEEE',
-        textDark: '#111111',
+        lightText: '#EEEEEE',
+        darkText: '#111111',
         haretaColor: '#ff8800',
         primaryColor: '#ff6600',
         textVintage: '#FFFBF5',
@@ -67,9 +67,23 @@ module.exports = {
         productLightBg: '#F4F4F5',
         tagColor: '#ff3333',
         favouriteRed: '#ff2800',
+        whiteColor: '#ffffff',
 
-        whiteColor: '#ffffff'
+        //? Buttons
+        unhoveringBg: '#ff8800',
+        hoveringBg: '#ff6600',
+
+        primaryBlue: '#00B4D8'
       }
+    },
+    screens: {
+      mobileSmall: '320px',
+      mobileLarge: '425px',
+      tabletSmall: '640px',
+      tablet: '768px',
+      tabletLarge: '962px',
+      desktop: '1024px',
+      desktopLarge: '1440px'
     }
   },
   darkMode: 'class',

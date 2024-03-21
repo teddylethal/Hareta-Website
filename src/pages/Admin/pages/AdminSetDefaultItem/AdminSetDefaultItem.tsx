@@ -3,25 +3,25 @@ import Input from 'src/components/Input'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { adminItemApi } from 'src/apis/admin.api'
+import { adminProductApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { Fragment, useContext, useEffect } from 'react'
 import AdminUpdatingPage from '../AdminUpdatingPage'
-import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
-import AdminItemGroup from '../../components/AdminItemGroup'
-import AdminItemsInGroup from '../../components/AdminItemsInGroup'
+import { AdminContext } from 'src/contexts/admin.context'
+import AdminProductGroup from '../../components/AdminProductGroup'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 
 interface FormData {
   id: string
 }
 
-const defaultItemSchema = yup.object({
+const defaultProductSchema = yup.object({
   id: yup.string().required('Id is required')
 })
 
-export default function AdminSetDefaultItem() {
-  const { currentItem } = useContext(AdminContext)
+export default function AdminSetDefaultProduct() {
+  const { currentProduct } = useContext(AdminContext)
 
   //? SET DEFAULT ITEM
   const {
@@ -36,24 +36,24 @@ export default function AdminSetDefaultItem() {
     defaultValues: {
       id: ''
     },
-    resolver: yupResolver(defaultItemSchema)
+    resolver: yupResolver(defaultProductSchema)
   })
 
   useEffect(() => {
-    if (currentItem) {
-      setValue('id', currentItem?.id)
+    if (currentProduct) {
+      setValue('id', currentProduct?.id)
     }
-  }, [currentItem, setValue])
+  }, [currentProduct, setValue])
 
   const queryClient = useQueryClient()
-  const setDefaultItemMutation = useMutation(adminItemApi.setDefaultItem)
+  const setDefaultProductMutation = useMutation(adminProductApi.setDefaultProduct)
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await setDefaultItemMutation.mutateAsync({ ...data })
+      await setDefaultProductMutation.mutateAsync({ ...data })
       reset()
       clearErrors()
       queryClient.invalidateQueries({ queryKey: ['items_in_group'] })
-      queryClient.invalidateQueries({ queryKey: ['item_groups'] })
+      queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
     } catch (error) {
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
         const formError = error.response?.data
@@ -77,27 +77,27 @@ export default function AdminSetDefaultItem() {
       <div className='mt-4 grid grid-cols-12 gap-6'>
         <div className='col-span-5'>
           <div className='sticky top-6 flex flex-col items-center justify-center overflow-hidden rounded-lg border border-white/40 p-4'>
-            <p className='text-lg font-semibold uppercase lg:text-lg'>Set default item</p>
+            <p className='text-lg font-semibold uppercase desktop:text-lg'>Set default item</p>
             <form className='mt-4' onSubmit={onSubmit}>
               <Input
-                classNameInput='text-textDark bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
+                inputClassName='text-darkText bg-white py-1 px-2 text-base desktop:text-lg rounded-lg outline-none focus:outline-haretaColor'
                 register={register}
                 name='id'
                 errorMessage={errors?.id?.message}
                 autoComplete='false'
               />
               <div className='flex w-full items-center justify-end'>
-                <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 lg:text-lg'>
+                <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 desktop:text-lg'>
                   Set default
                 </button>
               </div>
             </form>
-            {!currentItem && <div className='absolute inset-0 z-10 bg-black/50'></div>}
+            {!currentProduct && <div className='absolute inset-0 z-10 bg-black/50'></div>}
           </div>
         </div>
         <div className='col-span-7 space-y-4'>
-          <AdminItemGroup />
-          <AdminItemsInGroup />
+          <AdminProductGroup />
+          <AdminSelectsVariant />
         </div>
       </div>
     </Fragment>

@@ -1,4 +1,4 @@
-export interface ItemGroup {
+export interface ProductGroup {
   id: string
   status: number
   created_at: string
@@ -6,7 +6,18 @@ export interface ItemGroup {
   name: string
 }
 
-export interface ItemAvatar {
+export interface ProductGroupList {
+  data: ProductGroup[]
+  paging: {
+    page: number
+    limit: number
+    total: number
+    cursor: string
+    next_cursor: string
+  }
+}
+
+export interface ProductAvatar {
   id: string
   status: number
   created_at: string
@@ -37,10 +48,10 @@ export interface Product {
   cron_status: number
   like_count: number
   product_line: string
-  avatar: ItemAvatar
+  avatar: ProductAvatar
   color: string
   default: boolean
-  group: ItemGroup
+  group: ProductGroup
 }
 
 export interface ProductList {
@@ -68,7 +79,7 @@ export interface ProductListConfig {
   tag?: number | string
 }
 
-export interface ItemInGroupConfig {
+export interface ProductsInGroupConfig {
   id: string
   page: number | string
   limit: number | string

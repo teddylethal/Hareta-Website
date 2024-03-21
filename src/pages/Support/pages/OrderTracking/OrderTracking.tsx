@@ -39,7 +39,7 @@ export default function OrderTracking() {
   const isMobile = useViewport().width < 768
 
   return (
-    <div className='bg-lightBg py-2 text-textDark duration-200 dark:bg-darkBg dark:text-textLight md:py-3 xl:py-4'>
+    <div className='bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
       <div className='container'>
         <PathBar
           pathList={[
@@ -48,23 +48,23 @@ export default function OrderTracking() {
           ]}
         />
 
-        <div className='flex flex-col space-y-6 py-2 md:space-y-10 md:py-4 xl:space-y-10 xl:py-6'>
-          <p className='upperacse w-full text-center font-medium uppercase text-haretaColor md:text-xl xl:text-2xl'>
+        <div className='flex flex-col space-y-6 py-2 tablet:space-y-10 tablet:py-4 desktopLarge:space-y-10 desktopLarge:py-6'>
+          <p className='upperacse w-full text-center font-medium uppercase text-haretaColor tablet:text-xl desktopLarge:text-2xl'>
             {t('order.content')}
           </p>
 
           <SearchOrder setCantFind={setCantFind} setFinding={setFinding} />
 
-          <div className='md:px-12 xl:px-24'>
+          <div className='tablet:px-12 desktopLarge:px-24'>
             {isAuthenticated && <OrderTrackingForUser />}
 
             {!isAuthenticated && (
-              <div className='flex flex-col items-center justify-center px-2 md:px-20 xl:px-32'>
+              <div className='flex flex-col items-center justify-center px-2 tablet:px-20 desktopLarge:px-32'>
                 <FontAwesomeIcon
                   icon={faRectangleList}
-                  className='h-auto w-40 text-textDark/60 dark:text-textLight/60 md:w-60 xl:w-80'
+                  className='h-auto w-40 text-darkText/60 dark:text-lightText/60 tablet:w-60 desktopLarge:w-80'
                 />
-                <div className='mt-2 justify-center space-y-1 text-center font-medium md:text-lg xl:text-xl'>
+                <div className='mt-2 justify-center space-y-1 text-center font-medium tablet:text-lg desktopLarge:text-xl'>
                   <NavLink to={path.login} className='inline font-semibold text-haretaColor'>
                     {t('order.login')}
                   </NavLink>
@@ -87,7 +87,7 @@ export default function OrderTracking() {
                   exit={{ opacity: 0 }}
                 />
                 <motion.div
-                  className='fixed left-1/2 top-1/2 z-10 flex w-10/12 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center md:w-1/2'
+                  className='fixed left-1/2 top-1/2 z-10 flex w-10/12 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center tablet:w-1/2'
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1
@@ -104,7 +104,7 @@ export default function OrderTracking() {
                     wrapperClass='blocks-wrapper'
                     colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
                   />
-                  <div className='mt-4 line-clamp-2 text-center text-lg font-semibold uppercase text-textDark dark:text-textLight md:text-2xl xl:text-4xl'>
+                  <div className='mt-4 line-clamp-2 text-center text-lg font-semibold uppercase text-darkText dark:text-lightText tablet:text-2xl desktopLarge:text-4xl'>
                     {t('order.finding order')}
                   </div>
                 </motion.div>
@@ -115,12 +115,12 @@ export default function OrderTracking() {
         <DialogPopup
           isOpen={cantFind}
           handleClose={() => setCantFind(false)}
-          classNameWrapper='relative w-[90%] px-2 md:px-6 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+          classNameWrapper='relative w-[90%] px-2 tablet:px-6 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
         >
           <div className='mt-4 flex w-full justify-center'>
-            <img src='/images/cant-find-item.png' alt='No item' className='h-auto w-40 md:w-72 ' />
+            <img src='/images/cant-find-item.png' alt='No item' className='h-auto w-40 tablet:w-72 ' />
           </div>
-          <div className='w-full text-center text-sm uppercase sm:text-base md:text-lg xl:text-xl'>
+          <div className='w-full text-center text-sm uppercase tabletSmall:text-base tablet:text-lg desktopLarge:text-xl'>
             <p className='font-semibold text-red-600'>{t('order.Cannot find your order')}</p>
             <p className='mt-1'>{t('order.Please check your order ID')}</p>
           </div>

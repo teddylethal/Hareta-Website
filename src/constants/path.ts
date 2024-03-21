@@ -1,4 +1,4 @@
-const path = {
+const mainPath = {
   home: '/',
   login: '/login',
   register: '/register',
@@ -20,20 +20,29 @@ const path = {
   orderInformation: '/order-tracking/:orderId',
   privacyAndTerms: '/privacy-and-terms'
 } as const
-export default path
+export default mainPath
 
 export const adminPath = {
   mainPage: '/admin',
-  itemManagement: '/admin/item',
-  createItem: '/admin/item/create-item',
-  addItemColor: '/admin/item/create-color',
-  uploadItemAvatar: '/admin/item/update/item-avatar',
-  updateItem: '/admin/item/update/item',
-  setDefaultItem: '/admin/item/update/set-default-item',
-  addItemImage: '/admin/item/item-image/add',
-  deleteItemImage: '/admin/item/item-image/delete',
-  deleteGroup: '/admin/item/delete-group',
-  deleteItem: '/admin/item/delete-item',
+
+  //? Product
+  products: '/admin/product',
+  productList: '/admin/product/list',
+  productDetail: '/admin/product/:nameId',
+  createProductGroup: '/admin/product/create-group',
+  createProduct: '/admin/product/create-product',
+  updateProduct: '/admin/product/update/item',
+  setDefaultProduct: '/admin/product/update/set-default-item',
+  productImage: '/admin/product/image',
+  uploadProductAvatar: '/admin/product/image/avatar',
+  addProductImage: '/admin/product/image/add',
+  deleteProductImage: '/admin/product/image/delete',
+  deleteProductPage: '/admin/product/delete',
+  deleteGroup: '/admin/product/delete/delete-group',
+  deleteProduct: '/admin/product/delete/delete-product',
+
+  //? Image
+  images: '/admin/images',
   orderManagemnet: '/admin/order'
 } as const
 

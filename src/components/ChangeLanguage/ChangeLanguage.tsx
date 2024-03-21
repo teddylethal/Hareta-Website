@@ -25,12 +25,12 @@ export default function ChangeLanguage({ closePopover }: Props) {
     <div
       ref={ref}
       className={classNames('w-full rounded-md', {
-        'bg-lightWhite900/60 dark:bg-darkGray900/60': visible
+        'bg-lightColor900/60 dark:bg-darkColor900/60': visible
       })}
     >
       <button
         className={classNames('flex w-full items-center rounded-md px-3 py-2 uppercase ', {
-          'hover:bg-lightWhite900/80 hover:font-semibold dark:hover:bg-darkGray900/80': !visible,
+          'hover:bg-lightColor900/80 hover:font-semibold dark:hover:bg-darkColor900/80': !visible,
           'font-semibold': visible
         })}
         onClick={() => setVisible(!visible)}
@@ -59,7 +59,7 @@ export default function ChangeLanguage({ closePopover }: Props) {
         <AnimatePresence>
           {visible && (
             <motion.div
-              className='flex w-full flex-col items-start space-y-1 rounded-b-md px-6 text-xs font-normal text-textDark dark:text-textLight sm:text-sm'
+              className='flex w-full flex-col items-start space-y-1 rounded-b-md px-6 text-xs font-normal text-darkText dark:text-lightText tabletSmall:text-sm'
               // initial={{ opacity: 0, y: '-20%' }}
               // animate={{
               //   opacity: 1,
@@ -70,13 +70,13 @@ export default function ChangeLanguage({ closePopover }: Props) {
               // transition={{ duration: 0.3 }}
             >
               <button
-                className='px-2 py-1 text-sm hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:text-xl'
+                className='px-2 py-1 text-sm hover:text-primaryColor tabletSmall:text-base tablet:px-1 tablet:py-1 tablet:text-lg desktopLarge:text-xl'
                 onClick={() => changeLanguage('en')}
               >
                 English
               </button>
               <button
-                className='px-2 py-1 text-sm hover:text-primaryColor sm:text-base md:px-1 md:py-1 md:text-lg xl:text-xl'
+                className='px-2 py-1 text-sm hover:text-primaryColor tabletSmall:text-base tablet:px-1 tablet:py-1 tablet:text-lg desktopLarge:text-xl'
                 onClick={() => changeLanguage('vi')}
               >
                 Tiếng Việt

@@ -2,8 +2,8 @@ import { InputHTMLAttributes, useState } from 'react'
 import { useController, UseControllerProps, FieldValues, FieldPath } from 'react-hook-form'
 
 export interface InputV2Props extends InputHTMLAttributes<HTMLInputElement> {
-  classNameInput?: string
-  classNameError?: string
+  inputClassName?: string
+  errorClassName?: string
 }
 
 function InputV2<
@@ -14,8 +14,8 @@ function InputV2<
     type,
     onChange,
     className,
-    classNameInput = 'w-full rounded-sm border border-gray-300 p-3 outline-none outline focus:border-gray-500 focus:shadow-sm',
-    classNameError = 'mt-1 min-h-[1.25rem] text-sm text-red-600',
+    inputClassName = 'w-full rounded-sm border border-gray-300 p-3 outline-none outline focus:border-gray-500 focus:shadow-sm',
+    errorClassName = 'mt-1 min-h-[1.25rem] text-sm text-red-600',
     value = '',
     ...rest
   } = props
@@ -34,8 +34,8 @@ function InputV2<
 
   return (
     <div className={className}>
-      <input className={classNameInput} {...rest} {...field} onChange={handleChange} value={value || localValue} />
-      <div className={classNameError}>{fieldState.error?.message}</div>
+      <input className={inputClassName} {...rest} {...field} onChange={handleChange} value={value || localValue} />
+      <div className={errorClassName}>{fieldState.error?.message}</div>
     </div>
   )
 }

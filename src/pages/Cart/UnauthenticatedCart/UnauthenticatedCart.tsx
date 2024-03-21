@@ -102,9 +102,9 @@ export default function UnauthenticatedCart() {
     <Fragment>
       {!isMobile && (
         <Fragment>
-          <div className=' mt-2 rounded-md border border-black/20 bg-lightWhite900 dark:border-white/20 dark:bg-darkGray900'>
+          <div className=' mt-2 rounded-md border border-black/20 bg-lightColor900 dark:border-white/20 dark:bg-darkColor900'>
             <div className=''>
-              <div className='grid grid-cols-12 rounded-sm px-8 py-4 text-sm uppercase text-textDark  dark:text-textLight lg:text-lg'>
+              <div className='grid grid-cols-12 rounded-sm px-8 py-4 text-sm uppercase text-darkText  dark:text-lightText desktop:text-lg'>
                 <div className='col-span-6'>
                   {/* <div className='flex flex-shrink-0 items-center justify-start pr-3'>
                     <input type='checkbox' className='h-4 w-4 accent-haretaColor' />
@@ -122,14 +122,14 @@ export default function UnauthenticatedCart() {
                   </div>
                 </div>
               </div>
-              <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-lightWhite700 shadow outline outline-1 outline-black/20 dark:bg-darkGray700 dark:outline-white/20'>
+              <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-lightColor700 shadow outline outline-1 outline-black/20 dark:bg-darkColor700 dark:outline-white/20'>
                 {extendedTempPurchases.length > 0 ? (
                   extendedTempPurchases?.map((purchase, index) => (
                     <div
                       key={purchase.id}
-                      className='border-b border-black/60 last:border-none hover:bg-lightWhite900/60 dark:border-white/60 dark:hover:bg-darkGray900/60'
+                      className='border-b border-black/60 last:border-none hover:bg-lightColor900/60 dark:border-white/60 dark:hover:bg-darkColor900/60'
                     >
-                      <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-textDark first:mt-0 first:border-none dark:text-textLight'>
+                      <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-darkText first:mt-0 first:border-none dark:text-lightText'>
                         <div className='col-span-6'>
                           <div className='flex'>
                             <div className='flex flex-shrink-0 items-center justify-center pr-3'>
@@ -155,7 +155,9 @@ export default function UnauthenticatedCart() {
                                 />
                               </div>
                               <div className='ml-4 flex-grow px-2 text-left'>
-                                <div className='truncate text-base font-medium lg:text-lg'>{purchase.item.name}</div>
+                                <div className='truncate text-base font-medium desktop:text-lg'>
+                                  {purchase.item.name}
+                                </div>
                               </div>
                             </Link>
                           </div>
@@ -164,7 +166,7 @@ export default function UnauthenticatedCart() {
                           <div className='grid grid-cols-4 items-center'>
                             <div className='col-span-1'>
                               <div className='flex items-center justify-center'>
-                                <span className='text-sm font-semibold text-textDark dark:text-textLight lg:text-base'>
+                                <span className='text-sm font-semibold text-darkText dark:text-lightText desktop:text-base'>
                                   ${formatCurrency(purchase.item.price)}
                                 </span>
                               </div>
@@ -194,7 +196,7 @@ export default function UnauthenticatedCart() {
                             </div>
                             <div className='col-span-1'>
                               <button
-                                className='bg-none text-xs text-alertRed/80 hover:text-alertRed hover:underline lg:text-sm'
+                                className='bg-none text-xs text-alertRed/80 hover:text-alertRed hover:underline desktop:text-sm'
                                 onClick={handleRemove(index)}
                               >
                                 {t('content.remove')}
@@ -230,7 +232,7 @@ export default function UnauthenticatedCart() {
                       />
 
                       <button
-                        className='ml-2 appearance-none text-textDark ring-0 dark:text-textLight'
+                        className='ml-2 appearance-none text-darkText ring-0 dark:text-lightText'
                         onClick={handleSelectAll}
                       >
                         {t('content.select all')}
@@ -238,7 +240,7 @@ export default function UnauthenticatedCart() {
                     </Fragment>
                   )}
                 </div>
-                <div className='col-span-1 flex items-center text-center text-textDark dark:text-textLight'>
+                <div className='col-span-1 flex items-center text-center text-darkText dark:text-lightText'>
                   {checkedPurchasesCount < 2
                     ? `${checkedPurchasesCount} ${t('content.item is selected')}`
                     : `${checkedPurchasesCount} ${t('content.items are selected')}`}
@@ -247,14 +249,14 @@ export default function UnauthenticatedCart() {
               <div className='col-span-6 grid grid-cols-4 items-center'>
                 <div className='col-span-1'></div>
 
-                <div className='col-span-1 items-center text-right font-medium uppercase text-textDark dark:text-textLight'>
+                <div className='col-span-1 items-center text-right font-medium uppercase text-darkText dark:text-lightText'>
                   {t('content.total')}:
                 </div>
-                <span className='col-span-1 text-center text-base font-medium text-haretaColor dark:text-haretaColor lg:text-lg'>
+                <span className='col-span-1 text-center text-base font-medium text-haretaColor dark:text-haretaColor desktop:text-lg'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
                 {checkedPurchasesCount === 0 && (
-                  <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 lg:text-base'>
+                  <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 desktop:text-base'>
                     {t('content.check out')}
                   </div>
                 )}
@@ -262,7 +264,7 @@ export default function UnauthenticatedCart() {
                   <Link
                     to={path.shippingInfor}
                     onClick={handleCheckout}
-                    className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor text-sm font-medium text-black hover:bg-primaryColor  lg:text-base'
+                    className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor text-sm font-medium text-black hover:bg-primaryColor  desktop:text-base'
                   >
                     {t('content.check out')}
                   </Link>

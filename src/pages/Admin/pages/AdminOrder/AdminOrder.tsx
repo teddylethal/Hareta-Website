@@ -16,7 +16,7 @@ export default function AdminOrder() {
     queryFn: () => {
       return adminOrderApi.getOrderList({ status: orderState, page: 1, limit: 10 })
     },
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000,
     enabled: enabled
   })
@@ -29,11 +29,11 @@ export default function AdminOrder() {
 
   return (
     <div className='min-h-[600px]'>
-      <div className='relative flex items-center justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold text-textLight/80 lg:text-xl'>
+      <div className='relative flex items-center justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold text-lightText/80 desktop:text-xl'>
         <button
           className={classNames('p-2', {
             'text-haretaColor': orderState == 0,
-            ' text-textLight/80  hover:text-textLight': orderState != 0
+            ' text-lightText/80  hover:text-lightText': orderState != 0
           })}
           onClick={handleChooseState(0)}
         >
@@ -42,7 +42,7 @@ export default function AdminOrder() {
         <button
           className={classNames('p-2', {
             'text-haretaColor': orderState == 1,
-            ' text-textLight/80  hover:text-textLight': orderState != 1
+            ' text-lightText/80  hover:text-lightText': orderState != 1
           })}
           onClick={handleChooseState(1)}
         >
@@ -51,7 +51,7 @@ export default function AdminOrder() {
         <button
           className={classNames('p-2', {
             'text-haretaColor': orderState == 2,
-            ' text-textLight/80  hover:text-textLight': orderState != 2
+            ' text-lightText/80  hover:text-lightText': orderState != 2
           })}
           onClick={handleChooseState(2)}
         >
@@ -60,7 +60,7 @@ export default function AdminOrder() {
         <button
           className={classNames('p-2', {
             'text-haretaColor': orderState == 3,
-            ' text-textLight/80  hover:text-textLight': orderState != 3
+            ' text-lightText/80  hover:text-lightText': orderState != 3
           })}
           onClick={handleChooseState(3)}
         >
@@ -69,7 +69,7 @@ export default function AdminOrder() {
         <button
           className={classNames('p-2', {
             'text-haretaColor': orderState == 4,
-            ' text-textLight/80  hover:text-textLight': orderState != 4
+            ' text-lightText/80  hover:text-lightText': orderState != 4
           })}
           onClick={handleChooseState(4)}
         >

@@ -8,27 +8,27 @@ export default function ProductDetailSkeleton() {
   return (
     <Fragment>
       {!isMobile && (
-        <div className='relative grid grid-cols-12 gap-4 lg:gap-8 xl:gap-16'>
+        <div className='relative grid grid-cols-12 gap-4 desktop:gap-8 desktopLarge:gap-16'>
           <div className='col-span-4'>
-            <div className='sticky left-0 top-12 flex-col rounded-xl bg-lightWhite700 p-6 text-textDark dark:bg-darkGray700 dark:text-textLight md:top-14 lg:top-20'>
+            <div className='sticky left-0 top-12 flex-col rounded-xl bg-lightColor700 p-6 text-darkText dark:bg-darkColor700 dark:text-lightText tablet:top-14 desktop:top-20'>
               <div className='flex items-center justify-between'>
-                <p className='w-full text-xl font-medium lg:text-2xl xl:text-3xl'>
+                <p className='w-full text-xl font-medium desktop:text-2xl desktopLarge:text-3xl'>
                   <Skeleton variant='rounded' className=' dark:bg-white/10' width={'60%'} />
                 </p>
               </div>
 
               <div className='mt-2'>
-                <span className='text-base font-medium lg:text-lg xl:text-xl'>
+                <span className='text-base font-medium desktop:text-lg desktopLarge:text-xl'>
                   <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                 </span>
               </div>
 
               <div className='mt-8 w-full rounded-lg border border-black/20 p-4 dark:border-white/20'>
                 <div className='flex items-center justify-between'>
-                  <p className='w-full text-base font-medium lg:text-lg xl:text-xl'>
+                  <p className='w-full text-base font-medium desktop:text-lg desktopLarge:text-xl'>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </p>
-                  <p className='text-sm text-textDark/60 dark:text-textLight/60 lg:text-base '>
+                  <p className='text-sm text-darkText/60 dark:text-lightText/60 desktop:text-base '>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </p>
                 </div>
@@ -55,12 +55,12 @@ export default function ProductDetailSkeleton() {
               </div>
 
               <div className='w-full'>
-                <div className='mt-6 flex items-center justify-between text-xs lg:text-sm xl:text-base'>
+                <div className='mt-6 flex items-center justify-between text-xs desktop:text-sm desktopLarge:text-base'>
                   <div className='flex items-center space-x-2'>
-                    <p className='text-textDark dark:text-textLight'>Quantity:</p>
+                    <p className='text-darkText dark:text-lightText'>Quantity:</p>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </div>
-                  <div className='flex items-center space-x-1 text-textDark/60 dark:text-textLight/60'>
+                  <div className='flex items-center space-x-1 text-darkText/60 dark:text-lightText/60'>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </div>
                 </div>
@@ -116,13 +116,13 @@ export default function ProductDetailSkeleton() {
               </div>
             </div>
 
-            <div className='relative flex flex-col bg-[#f8f8f8] px-4 py-3 text-textDark dark:bg-[#202020] dark:text-textLight'>
+            <div className='relative flex flex-col bg-[#f8f8f8] px-4 py-3 text-darkText dark:bg-[#202020] dark:text-lightText'>
               <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
               <div className='mt-4 flex items-center justify-between'>
                 <Skeleton width={'50%'} height={40} className=' dark:bg-white/10' />
               </div>
 
-              <div className='mt-4 h-full text-sm lg:text-lg'>
+              <div className='mt-4 h-full text-sm desktop:text-lg'>
                 <Skeleton variant='rounded' className=' dark:bg-white/10' height={'100%'} />
               </div>
             </div>

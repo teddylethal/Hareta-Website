@@ -39,18 +39,18 @@ export default function UnauthenticatedCartMobile(props: Props) {
   return (
     <Fragment>
       <div className='relative'>
-        <div className='grid grid-cols-12 rounded-md border border-black/20 bg-lightWhite900 px-4 py-2 text-base font-medium uppercase text-textDark dark:border-white/20 dark:bg-darkGray900 dark:text-textLight lg:text-lg'>
+        <div className='grid grid-cols-12 rounded-md border border-black/20 bg-lightColor900 px-4 py-2 text-base font-medium uppercase text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText desktop:text-lg'>
           <div className='col-span-1'></div>
           <div className='col-span-6 text-center'>Product</div>
           <div className='col-span-4 text-center'>Price</div>
           <div className='col-span-1'></div>
         </div>
-        <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightWhite900 p-2 dark:border-white/20 dark:bg-darkGray900'>
+        <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightColor900 p-2 dark:border-white/20 dark:bg-darkColor900'>
           {extendedTempPurchases.length > 0 ? (
             extendedTempPurchases?.map((purchase, index) => (
               <div
                 key={purchase.id}
-                className='mt-2 flex items-center rounded-lg border border-black/10 bg-lightWhite700 p-2 text-center text-textDark first:mt-0 dark:border-white/10 dark:bg-darkGray700 dark:text-textLight'
+                className='mt-2 flex items-center rounded-lg border border-black/10 bg-lightColor700 p-2 text-center text-darkText first:mt-0 dark:border-white/10 dark:bg-darkColor700 dark:text-lightText'
               >
                 <div className='w-full'>
                   <div className='grid grid-cols-12 items-center justify-between'>
@@ -67,7 +67,7 @@ export default function UnauthenticatedCartMobile(props: Props) {
                       ${formatCurrency(purchase.item.price)}
                     </span>
                     <button
-                      className='col-span-1 flex items-center bg-none p-1 text-textDark dark:text-textLight'
+                      className='col-span-1 flex items-center bg-none p-1 text-darkText dark:text-lightText'
                       onClick={handleRemove(index)}
                     >
                       <FontAwesomeIcon icon={faTrash} className='h-4 text-alertRed' />
@@ -104,8 +104,8 @@ export default function UnauthenticatedCartMobile(props: Props) {
                         max={purchase.item.quantity}
                         value={purchase.quantity}
                         classNameWrapper='justify-center'
-                        classNameInput='h-6 mx-2 w-12 text-xs rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white'
-                        classNameButton='round flex items-center justify-center rounded-full bg-white p-1.5 text-textDark dark:bg-black dark:text-textLight'
+                        inputClassName='h-6 mx-2 w-12 text-xs rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white'
+                        classNameButton='round flex items-center justify-center rounded-full bg-white p-1.5 text-darkText dark:bg-black dark:text-lightText'
                         classNameIcon='h-3'
                         onIncrease={(value) => handleQuantity(index, value, value <= purchase.item.quantity)}
                         onDecrease={(value) => handleQuantity(index, value, value >= 1)}
@@ -138,7 +138,7 @@ export default function UnauthenticatedCartMobile(props: Props) {
             </div>
           )}
         </div>
-        <div className='grid w-full grid-cols-12 items-center justify-between rounded-sm px-2 py-2 shadow  xl:mx-4'>
+        <div className='grid w-full grid-cols-12 items-center justify-between rounded-sm px-2 py-2 shadow  desktopLarge:mx-4'>
           <div className=' col-span-1 flex flex-shrink-0 items-center'>
             {extendedTempPurchases.length > 0 && (
               <input
@@ -150,17 +150,17 @@ export default function UnauthenticatedCartMobile(props: Props) {
               />
             )}
           </div>
-          <div className='col-span-1 flex items-center justify-center text-textDark dark:text-textLight'>
+          <div className='col-span-1 flex items-center justify-center text-darkText dark:text-lightText'>
             ({checkedPurchasesCount})
           </div>
           <div className='col-span-7 flex items-center justify-center space-x-2'>
-            <div className='col-span-1 items-center text-right uppercase text-textDark dark:text-textLight'>Total:</div>
+            <div className='col-span-1 items-center text-right uppercase text-darkText dark:text-lightText'>Total:</div>
             <span className='col-span-1 text-center font-medium text-primaryColor'>
               ${formatCurrency(totalCheckedPurchasesPrice)}
             </span>
           </div>
           {checkedPurchasesCount === 0 && (
-            <div className='col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-textDark opacity-40 sm:text-sm'>
+            <div className='col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText opacity-40 tabletSmall:text-sm'>
               Check out
             </div>
           )}
@@ -168,7 +168,7 @@ export default function UnauthenticatedCartMobile(props: Props) {
             <Link
               to={path.shippingInfor}
               onClick={handleCheckout}
-              className='col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-textDark hover:bg-primaryColor sm:text-sm'
+              className='col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText hover:bg-primaryColor tabletSmall:text-sm'
             >
               Check out
             </Link>

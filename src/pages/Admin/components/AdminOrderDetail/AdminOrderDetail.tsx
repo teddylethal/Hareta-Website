@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { AdminContext } from '../../layouts/AdminLayout/AdminLayout'
+import { AdminContext } from 'src/contexts/admin.context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { orderApi } from 'src/apis/order.api'
 import { formatDate, isAxiosBadRequestError } from 'src/utils/utils'
@@ -27,7 +27,7 @@ type UpdateOrderSchema = yup.InferType<typeof updateOrderSchema>
 
 export default function AdminOrderDetail() {
   const { orderID } = useContext(AdminContext)
-  const { setPageIsLoading } = useContext(AppContext)
+  const { setLoadingPage } = useContext(AppContext)
 
   const [successDialogOpen, setSuccessDialogOpen] = useState<boolean>(false)
 
@@ -38,7 +38,7 @@ export default function AdminOrderDetail() {
     queryFn: () => {
       return orderApi.getOrderById(orderID)
     },
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000,
     enabled: choosingOrder
   })
@@ -71,14 +71,14 @@ export default function AdminOrderDetail() {
   const queryClient = useQueryClient()
   const updateOrderMutation = useMutation(adminOrderApi.updateOrder)
   const onSubmit = handleSubmit(async (data) => {
-    setPageIsLoading(true)
+    setLoadingPage(true)
     try {
       await updateOrderMutation.mutateAsync({ id: orderID, status: data.status })
-      setPageIsLoading(false)
+      setLoadingPage(false)
       setSuccessDialogOpen(true)
       queryClient.invalidateQueries({ queryKey: ['order_list_for_admin'] })
     } catch (error) {
-      setPageIsLoading(false)
+      setLoadingPage(false)
       console.log(error)
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
         const formError = error.response?.data
@@ -92,7 +92,7 @@ export default function AdminOrderDetail() {
   return (
     <div className='min-h-40'>
       {!choosingOrder && (
-        <div className='flex h-40 w-full items-center justify-center text-center font-semibold uppercase md:text-lg xl:text-xl'>
+        <div className='flex h-40 w-full items-center justify-center text-center font-semibold uppercase tablet:text-lg desktopLarge:text-xl'>
           Choose an order
         </div>
       )}
@@ -105,13 +105,13 @@ export default function AdminOrderDetail() {
                 <Input
                   readOnly
                   className=''
-                  classNameInput={classNames(
-                    'text-haretaColor focus:outline-none bg-transparent cursor-not-allowed bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg lg:text-lg',
+                  inputClassName={classNames(
+                    'text-haretaColor focus:outline-none bg-transparent cursor-not-allowed bg-slate-900 py-1 px-2 text-base desktop:text-lg rounded-lg desktop:text-lg',
                     {
                       'outline-red-600': Boolean(errors.id)
                     }
                   )}
-                  classNameError='hidden'
+                  errorClassName='hidden'
                   register={register}
                   name='id'
                   autoComplete='false'
@@ -126,13 +126,13 @@ export default function AdminOrderDetail() {
                   name='status'
                   render={({ field }) => (
                     <InputNumber
-                      classNameInput={classNames(
-                        'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
+                      inputClassName={classNames(
+                        'text-haretaColor bg-slate-900 py-1 px-2 text-base desktop:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor desktop:text-lg',
                         {
                           'outline-red-600': Boolean(errors.status)
                         }
                       )}
-                      classNameError='hidden'
+                      errorClassName='hidden'
                       autoComplete='false'
                       {...field}
                       onChange={field.onChange}

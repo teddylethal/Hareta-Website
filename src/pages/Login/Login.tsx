@@ -107,16 +107,16 @@ export default function Login() {
     }
   }, [setValue, state])
 
-  //? translation
+  //! TRANSLATION
   const { t } = useTranslation('login')
 
   return (
     <AnimateTransition isDialog={state}>
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
-          <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
+        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+          <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>
             <form
-              className='rounded-xl bg-lightWhite900 p-5 shadow-sm duration-200 dark:bg-darkGray900 md:p-10'
+              className='rounded-xl bg-lightColor900 p-5 shadow-sm duration-200 dark:bg-darkColor900 tablet:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -126,7 +126,7 @@ export default function Login() {
                 name='email'
                 register={register}
                 type='text'
-                className='mt-8 autofill:text-textDark autofill:dark:text-textLight'
+                className='mt-8 autofill:text-darkText autofill:dark:text-lightText'
                 errorMessage={errors.email?.message}
                 labelName={t('login.email')}
                 required
@@ -157,18 +157,18 @@ export default function Login() {
                 }
               />
 
-              <div className='mt-2 text-base lg:text-lg'>
+              <div className='mt-2 text-base desktop:text-lg'>
                 <Button
-                  className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                  className='flex w-full items-center justify-center py-2 uppercase desktop:py-3'
                   type='submit'
-                  isLoading={loginAccountMutation.isLoading}
-                  disabled={loginAccountMutation.isLoading}
+                  isLoading={loginAccountMutation.isPending}
+                  disabled={loginAccountMutation.isPending}
                 >
                   {t('login.login')}
                 </Button>
               </div>
 
-              <div className='md:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs sm:text-sm md:mt-12 md:flex-row'>
+              <div className='tablet:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs tabletSmall:text-sm tablet:mt-12 tablet:flex-row'>
                 <div className=''>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
                     <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-200 hover:opacity-100 dark:text-blue-400'>
@@ -178,7 +178,7 @@ export default function Login() {
                 </div>
                 {!isSmall && (
                   <div className='flex items-center text-center'>
-                    <span className='text-textDark/60 dark:text-textLight/60'>{t("login.Don't have an account?")}</span>
+                    <span className='text-darkText/60 dark:text-lightText/60'>{t("login.Don't have an account?")}</span>
                     <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>
                       {t('login.sign up')}
                     </Link>
@@ -187,7 +187,7 @@ export default function Login() {
 
                 {isSmall && (
                   <div className='mb-2 flex flex-col text-center'>
-                    <span className='line-clamp-2 text-textDark/60 dark:text-textLight/60'>
+                    <span className='line-clamp-2 text-darkText/60 dark:text-lightText/60'>
                       {t("login.Don't have an account?")}
                     </span>
                     <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>

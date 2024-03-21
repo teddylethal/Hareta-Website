@@ -88,10 +88,10 @@ export default function ChangePasswordRecovery() {
       {true && (
         <AnimateTransition>
           <div className='container'>
-            <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
-              <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
+            <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+              <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>
                 <form
-                  className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-[#222222] md:p-10'
+                  className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-[#222222] tablet:p-10'
                   onSubmit={onSubmit}
                   noValidate
                 >
@@ -100,7 +100,7 @@ export default function ChangePasswordRecovery() {
                       <FontAwesomeIcon
                         icon={faArrowLeft}
                         fontSize={40}
-                        className='hidden pr-4 text-vintageColor/80 opacity-70 duration-200 hover:opacity-100 dark:text-haretaColor md:block'
+                        className='hidden pr-4 text-vintageColor/80 opacity-70 duration-200 hover:opacity-100 dark:text-haretaColor tablet:block'
                       />
                     </Link>
                     <div className='py-1 text-center text-2xl uppercase text-vintageColor dark:text-haretaColor'>
@@ -113,7 +113,7 @@ export default function ChangePasswordRecovery() {
                         xmlns='http://www.w3.org/2000/svg'
                         viewBox='0 0 24 24'
                         fill='currentColor'
-                        className='h-6 w-6 fill-black duration-200 dark:fill-vintageColor md:h-8 md:w-8'
+                        className='h-6 w-6 fill-black duration-200 dark:fill-vintageColor tablet:h-8 tablet:w-8'
                       >
                         <>
                           <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />
@@ -124,7 +124,7 @@ export default function ChangePasswordRecovery() {
                         Your email:
                       </div>
                     </div>
-                    <div className='ml-3 w-full truncate text-center text-sm text-blue-700 dark:text-blue-400 sm:text-xl'>
+                    <div className='ml-3 w-full truncate text-center text-sm text-blue-700 dark:text-blue-400 tabletSmall:text-xl'>
                       {data?.data.data.email}
                     </div>
                   </div>
@@ -132,7 +132,7 @@ export default function ChangePasswordRecovery() {
                     name='new_password'
                     register={register}
                     type='password'
-                    className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
+                    className='mt-8 autofill:bg-red-400 autofill:text-darkText autofill:dark:text-lightText'
                     errorMessage={errors.new_password?.message}
                     labelName='New Password'
                     required
@@ -150,7 +150,7 @@ export default function ChangePasswordRecovery() {
                     name='confirm_new_password'
                     register={register}
                     type='password'
-                    className='mt-8 autofill:bg-red-400 autofill:text-textDark autofill:dark:text-textLight'
+                    className='mt-8 autofill:bg-red-400 autofill:text-darkText autofill:dark:text-lightText'
                     errorMessage={errors.confirm_new_password?.message}
                     labelName='Confirm New Password'
                     required
@@ -164,9 +164,9 @@ export default function ChangePasswordRecovery() {
                       />
                     }
                   />
-                  <div className='mt-2 text-base lg:text-lg'>
+                  <div className='mt-2 text-base desktop:text-lg'>
                     <Button
-                      className='flex w-full items-center justify-center py-2 uppercase lg:py-3'
+                      className='flex w-full items-center justify-center py-2 uppercase desktop:py-3'
                       type='submit'
                       isLoading={changePasswordRecoveryMutation.isLoading}
                       disabled={changePasswordRecoveryMutation.isLoading}
@@ -175,7 +175,7 @@ export default function ChangePasswordRecovery() {
                     </Button>
                   </div>
 
-                  <div className='mt-3 flex justify-center text-sm md:hidden'>
+                  <div className='mt-3 flex justify-center text-sm tablet:hidden'>
                     <p className='text-gray-400'>Go back to</p>
                     <Link to={path.login} className='ml-1 text-brownColor dark:text-haretaColor'>
                       Login

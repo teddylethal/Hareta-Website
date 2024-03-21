@@ -36,7 +36,7 @@ export default function EventCarousel() {
   //   queryFn: () => {
   //     return productApi.getProductList(queryConfig as ProductListConfig)
   //   },
-  //   keepPreviousData: true,
+  //
   //   staleTime: 3 * 60 * 1000
   // })
   // const itemList = storeData?.data.data || []
@@ -75,7 +75,7 @@ export default function EventCarousel() {
           <ArrowFix>
             <FontAwesomeIcon
               icon={faChevronLeft}
-              className='text-primary-400 absolute left-4 top-1/2 h-6 w-auto -translate-y-1/2 cursor-pointer rounded-full p-4 text-textDark/60 duration-200 hover:h-7 hover:text-textDark dark:text-textLight/60 dark:hover:text-textLight xl:h-10 xl:hover:h-12'
+              className='text-primary-400 absolute left-4 top-1/2 h-6 w-auto -translate-y-1/2 cursor-pointer rounded-full p-4 text-darkText/60 duration-200 hover:h-7 hover:text-darkText dark:text-lightText/60 dark:hover:text-lightText desktopLarge:h-10 desktopLarge:hover:h-12'
             />
           </ArrowFix>
         }
@@ -83,7 +83,7 @@ export default function EventCarousel() {
           <ArrowFix>
             <FontAwesomeIcon
               icon={faChevronRight}
-              className='text-primary-400 absolute right-4 top-1/2 h-6 w-auto -translate-y-1/2 cursor-pointer rounded-full p-4 text-textDark/60 duration-200 hover:h-7 hover:text-textDark dark:text-textLight/60 dark:hover:text-textLight xl:h-10 xl:hover:h-12'
+              className='text-primary-400 absolute right-4 top-1/2 h-6 w-auto -translate-y-1/2 cursor-pointer rounded-full p-4 text-darkText/60 duration-200 hover:h-7 hover:text-darkText dark:text-lightText/60 dark:hover:text-lightText desktopLarge:h-10 desktopLarge:hover:h-12'
             />
           </ArrowFix>
         }

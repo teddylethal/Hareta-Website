@@ -1,9 +1,9 @@
-import { ItemGroup, ItemGroupList } from 'src/types/admin.type'
 import { OrderList } from 'src/types/order.type'
+import { ProductGroup, ProductGroupList } from 'src/types/product.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
-const URL = 'auth'
+const URL = 'auth/'
 
 interface NewItemForm {
   name: string
@@ -18,7 +18,7 @@ interface NewItemForm {
   description: string
 }
 
-interface UpdateItemForm {
+interface updateProductForm {
   id: string
   name?: string
   category?: string
@@ -36,59 +36,59 @@ interface UpdateItemForm {
   cron_status?: number
 }
 
-interface UpdateItemAvatarForm {
+interface UpdateProductAvatarForm {
   item_id: string
   file: FormData
   color: string
 }
 
-export const adminItemGroupApi = {
-  getItemGroups() {
-    return http.get<ItemGroupList>(`${URL}/group-item/`)
+export const adminProductGroupApi = {
+  getProductGroups() {
+    return http.get<ProductGroupList>(`${URL}group-item/`)
   },
-  createItemGroup(body: { name: string }) {
-    return http.post<SuccessRespone<ItemGroup>>(`${URL}/group-item/`, body)
+  createProductGroup(body: { name: string }) {
+    return http.post<SuccessRespone<ProductGroup>>(`${URL}group-item`, body)
   },
-  updateItemGroup(id: string, name: string) {
-    return http.put<SuccessRespone<string>>(`${URL}/group-item`, { id: id, name: name })
+  editProductGroup(id: string, name: string) {
+    return http.put<SuccessRespone<string>>(`${URL}group-item`, { id: id, name: name })
   },
-  deleteItemGroup(body: { id: string }) {
-    return http.delete(`${URL}/group-item/`, { data: body })
+  deleteProductGroup(body: { id: string }) {
+    return http.delete(`${URL}group-item/`, { data: body })
   }
 }
 
-export const adminItemApi = {
-  createNewItem(body: NewItemForm) {
-    return http.post(`${URL}/item/`, body)
+export const adminProductApi = {
+  createNewProduct(body: NewItemForm) {
+    return http.post(`${URL}item/`, body)
   },
-  updateItem(body: UpdateItemForm) {
-    return http.put<SuccessRespone<string>>(`${URL}/item/`, body)
+  editProduct(body: updateProductForm) {
+    return http.put<SuccessRespone<string>>(`${URL}item/`, body)
   },
-  setDefaultItem(body: { id: string }) {
-    return http.put<SuccessRespone<string>>(`${URL}/item/default`, body)
+  setDefaultProduct(body: { id: string }) {
+    return http.put<SuccessRespone<string>>(`${URL}item/default`, body)
   },
-  uploadItemAvatar(body: { id: string; file: File }) {
-    return http.put<SuccessRespone<string>>(`${URL}/item/avatar`, body, {
+  uploadProductAvatar(body: { id: string; file: File }) {
+    return http.put<SuccessRespone<string>>(`${URL}item/avatar`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
   },
-  deleteItem(body: { id: string }) {
-    return http.delete(`${URL}/item/`, { data: body })
+  deleteProduct(body: { id: string }) {
+    return http.delete(`${URL}item/`, { data: body })
   }
 }
 
-export const adminItemImageApi = {
-  addImage(body: UpdateItemAvatarForm) {
-    return http.post<SuccessRespone<string>>(`/item-image/`, body, {
+export const adminProductImageApi = {
+  addImage(body: UpdateProductAvatarForm) {
+    return http.post<SuccessRespone<string>>(`item-image/`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     })
   },
   deleteImage(body: { id: string }) {
-    return http.delete(`/item-image/`, { data: body })
+    return http.delete(`item-image/`, { data: body })
   }
 }
 
@@ -100,9 +100,9 @@ interface OrderListConfig {
 
 export const adminOrderApi = {
   getOrderList(params: OrderListConfig) {
-    return http.get<OrderList>(`${URL}/order/admin`, { params })
+    return http.get<OrderList>(`${URL}order/admin`, { params })
   },
   updateOrder(body: { id: string; status: number }) {
-    return http.put<SuccessRespone<string>>(`${URL}/order/`, body)
+    return http.put<SuccessRespone<string>>(`${URL}order/`, body)
   }
 }

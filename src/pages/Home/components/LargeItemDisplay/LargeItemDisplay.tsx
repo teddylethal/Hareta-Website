@@ -49,7 +49,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
   // const { data: imageListData, isLoading } = useQuery({
   //   queryKey: ['default_item_images', itemID],
   //   queryFn: () => producImageApi.getImageList(itemID as string),
-  //   keepPreviousData: true,
+  //
   //   staleTime: 1000 * 60 * 3
   // })
   // const imageList = imageListData?.data.data
@@ -118,7 +118,7 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
 
   return (
     <div
-      className='flex h-full w-full items-center justify-center pb-0 pt-2 duration-200 md:hover:pb-2 md:hover:pt-0'
+      className='flex h-full w-full items-center justify-center pb-0 pt-2 duration-200 tablet:hover:pb-2 tablet:hover:pt-0'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
@@ -153,24 +153,24 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
             </div>
           </div>
         )}
-        {/* <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 sm:px-3 lg:px-4 lg:pt-4'>
+        {/* <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 tabletSmall:px-3 desktop:px-4 desktop:pt-4'>
           <button
-            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-textDark duration-200 hover:text-brownColor dark:text-textLight dark:hover:text-haretaColor sm:text-base lg:text-lg'
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 hover:text-brownColor dark:text-lightText dark:hover:text-haretaColor tabletSmall:text-base desktop:text-lg'
             onClick={handleClickItem}
           >
             {product.name}
           </button>
 
-          <span className='text-xs font-medium text-brownColor dark:text-haretaColor sm:text-sm lg:text-base xl:text-lg'>
+          <span className='text-xs font-medium text-brownColor dark:text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
             ${formatCurrency(product.price)}
           </span>
         </div> */}
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
+            <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-lightText desktop:h-6 desktop:w-20  desktop:text-sm'>
               {itemTag[product.tag]}
             </span>
-            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent lg:left-20 lg:border-[12px]' />
+            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent desktop:left-20 desktop:border-[12px]' />
           </div>
         )}
         {isAuthenticated && (
@@ -178,9 +178,9 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
             <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
               <FontAwesomeIcon
                 icon={faHeart}
-                className={classNames('h-auto w-4 md:w-5  xl:w-6', {
+                className={classNames('h-auto w-4 tablet:w-5  desktopLarge:w-6', {
                   'text-red-500': isLikedByUser,
-                  ' text-textLight': !isLikedByUser
+                  ' text-lightText': !isLikedByUser
                 })}
               />
             </button>

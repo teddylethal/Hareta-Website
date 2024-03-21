@@ -64,26 +64,26 @@ export default function RequestVerifyEmail() {
   return (
     <AnimateTransition>
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 md:grid-cols-6 md:px-6 md:py-24'>
-          <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
+        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+          <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>
             <div className='rounded-2xl bg-[#F5F5F5] pb-2 pt-7 font-newfont shadow-sm duration-200 dark:bg-[#222222]'>
-              <div className='text-center text-lg font-semibold text-orangeColor sm:text-3xl'>
+              <div className='text-center text-lg font-semibold text-orangeColor tabletSmall:text-3xl'>
                 Please verify your email
               </div>
 
-              <div className='flex flex-col items-center justify-center pt-2 sm:pt-5'>
-                <div className='mt-2 text-center text-sm text-black dark:text-textVintage/80 sm:text-xl'>
+              <div className='flex flex-col items-center justify-center pt-2 tabletSmall:pt-5'>
+                <div className='mt-2 text-center text-sm text-black dark:text-textVintage/80 tabletSmall:text-xl'>
                   An email has been sent to your address
                 </div>
-                <div className=' w-full truncate text-center text-sm font-medium text-black dark:text-white sm:text-xl'>
+                <div className=' w-full truncate text-center text-sm font-medium text-black dark:text-white tabletSmall:text-xl'>
                   {state?.email}
                 </div>
-                <div className='mt-4 h-10 w-28 rounded-xl bg-black dark:bg-inherit sm:mt-8 sm:h-14 sm:w-32'>
+                <div className='mt-4 h-10 w-28 rounded-xl bg-black dark:bg-inherit tabletSmall:mt-8 tabletSmall:h-14 tabletSmall:w-32'>
                   <button
                     disabled={counter > 0 || click}
                     onClick={onSubmit}
                     className={
-                      'flex h-full w-full items-center justify-center rounded-xl bg-orangeColor text-sm font-semibold text-black duration-200 dark:text-white sm:text-base  ' +
+                      'flex h-full w-full items-center justify-center rounded-xl bg-orangeColor text-sm font-semibold text-black duration-200 dark:text-white tabletSmall:text-base  ' +
                       (counter > 0 || click
                         ? 'cursor-not-allowed bg-opacity-80 dark:bg-opacity-50'
                         : 'hover:bg-opacity-80')
@@ -110,7 +110,7 @@ export default function RequestVerifyEmail() {
                     {counter > 0 ? <span> {counter + 's'} </span> : <span>Resend Email</span>}
                   </button>
                 </div>
-                <div className='mt-1 flex justify-center text-sm font-thin sm:text-xl'>
+                <div className='mt-1 flex justify-center text-sm font-thin tabletSmall:text-xl'>
                   <p className='text-gray-700 dark:text-gray-400'>Wrong email address?</p>
                   <Link
                     to={path.login}

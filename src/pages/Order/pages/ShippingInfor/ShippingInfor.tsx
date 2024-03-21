@@ -31,18 +31,18 @@ export default function ShippingInfor() {
   const { t } = useTranslation('order')
 
   return (
-    <div className='w-full p-3 text-textDark dark:text-textLight xl:p-4 '>
+    <div className='w-full p-3 text-darkText dark:text-lightText desktopLarge:p-4 '>
       <div className='space-y-4'>
-        <p className='w-full text-center text-xl font-bold uppercase lg:text-2xl xl:text-4xl'>
+        <p className='w-full text-center text-xl font-bold uppercase desktop:text-2xl desktopLarge:text-4xl'>
           {t('layout.Shipping information')}
         </p>
 
         <div className=''>
-          <p className='uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Name')}</p>
+          <p className='uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Name')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
-              classNameError='mt-1 min-h-[1.25rem] lg:min-h-[1.5rem] text-sm lg:text-base text-red-600'
+              inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+              errorClassName='mt-1 min-h-[1.25rem] desktop:min-h-[1.5rem] text-sm desktop:text-base text-red-600'
               register={register}
               name='name'
               errorMessage={errors?.name?.message}
@@ -57,10 +57,10 @@ export default function ShippingInfor() {
           </div>
         </div>
         <div className=''>
-          <p className=' uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Phone')}</p>
+          <p className=' uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Phone')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+              inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
               register={register}
               name='phone'
               errorMessage={errors?.phone?.message}
@@ -75,10 +75,10 @@ export default function ShippingInfor() {
           </div>
         </div>
         <div>
-          <p className='uppercase text-textDark/60 dark:text-textLight/60'>{t('shipping information.Email address')}</p>
+          <p className='uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Email address')}</p>
           <div className='relative'>
             <Input
-              classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+              inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
               register={register}
               name='email'
               errorMessage={errors?.email?.message}
@@ -94,12 +94,12 @@ export default function ShippingInfor() {
         </div>
         <div className='py-8'>
           <div className=''>
-            <p className='uppercase text-textDark/60 dark:text-textLight/60'>
+            <p className='uppercase text-darkText/60 dark:text-lightText/60'>
               {t('shipping information.Delivery address')}
             </p>
             <div className='relative'>
               <Input
-                classNameInput='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+                inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
                 register={register}
                 name='address'
                 errorMessage={errors?.address?.message}
@@ -114,7 +114,7 @@ export default function ShippingInfor() {
             </div>
           </div>
           <div className='mt-2'>
-            <div className='mt-4 grid grid-cols-2 gap-3 lg:gap-4 xl:gap-6'>
+            <div className='mt-4 grid grid-cols-2 gap-3 desktop:gap-4 desktopLarge:gap-6'>
               <div className='col-span-1'>
                 <SelectCountry />
               </div>
@@ -129,7 +129,7 @@ export default function ShippingInfor() {
             <Link
               to={path.payment}
               type='button'
-              className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-primaryColor xl:text-lg'
+              className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-primaryColor desktopLarge:text-lg'
             >
               {t('layout.Continue to payment')}
             </Link>

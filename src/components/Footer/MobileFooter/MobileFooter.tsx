@@ -9,17 +9,17 @@ export default function MobileFooter() {
   const { t } = useTranslation('footer')
 
   return (
-    <div className='w-full bg-[#efefef] pb-14 duration-200 dark:bg-[#303030] sm:pb-16'>
-      <div className='flex flex-col text-textDark/80 duration-200 dark:text-textLight/80'>
+    <div className='w-full bg-[#efefef] pb-14 duration-200 dark:bg-[#303030] tabletSmall:pb-16'>
+      <div className='flex flex-col text-darkText/80 duration-200 dark:text-lightText/80'>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
-            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
+            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               {t('follow us on')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
-            <div className='col-span-2 flex flex-wrap items-center justify-center space-x-1 text-lg sm:text-xl'>
+            <div className='col-span-2 flex flex-wrap items-center justify-center space-x-1 text-lg tabletSmall:text-xl'>
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
                 <FontAwesomeIcon
                   icon={faFacebook}
@@ -49,13 +49,13 @@ export default function MobileFooter() {
         </div>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
-            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
+            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               Hareta
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
-            <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs sm:px-4 sm:text-sm'>
+            <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               <Link to='hareta.me' className='hover:text-primaryColor dark:hover:text-primaryColor'>
                 Hareta workshop
               </Link>
@@ -64,26 +64,26 @@ export default function MobileFooter() {
         </div>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
-            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
+            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               {t('our main office')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
-            <div className='col-span-2 px-2 text-xs sm:px-4 sm:text-sm'>
+            <div className='col-span-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam
             </div>
           </div>
         </div>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
-            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
+            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               {t('support')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
-            <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs sm:px-4 sm:text-sm'>
+            <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               <Link to={path.home}>{t('faq')}</Link>
               <Link to={path.home}>{t('policy and terms')}</Link>
               <Link to={path.home}>{t('order tracking')}</Link>
@@ -92,33 +92,33 @@ export default function MobileFooter() {
         </div>
         <div className='overflow-hidden border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
-            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase sm:px-4 sm:text-base'>
+            <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               {t('contact')}
             </div>
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/60 dark:border-white/60' /> */}
 
-            <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs sm:px-4 sm:text-sm'>
+            <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               <div className='truncate'>hareta.contact@gmail.com</div>
               <p>0394030604</p>
             </div>
           </div>
         </div>
         <div className=''>
-          <div className=' flex items-center justify-center space-x-2 lg:space-x-4'>
-            <div className='relative h-32 w-32 lg:h-40 lg:w-40'>
+          <div className=' flex items-center justify-center space-x-2 desktop:space-x-4'>
+            <div className='relative h-32 w-32 desktop:h-40 desktop:w-40'>
               <img
                 src='/images/haretaWorkshopLogo.png'
                 alt='Hareta'
                 className='absolute left-0 top-0 h-full w-full object-scale-down'
               />
             </div>
-            <div className='uppercase text-textDark/80 dark:text-textLight/80'>
-              <p className='text-lg lg:text-xl xl:text-2xl'>hareta</p>
-              <p className='pl-4  text-sm lg:text-base xl:text-lg'>workshop</p>
+            <div className='uppercase text-darkText/80 dark:text-lightText/80'>
+              <p className='text-lg desktop:text-xl desktopLarge:text-2xl'>hareta</p>
+              <p className='pl-4  text-sm desktop:text-base desktopLarge:text-lg'>workshop</p>
             </div>
           </div>
-          <div className=' mt-4 flex w-full items-center justify-center text-xs text-textDark/60 dark:text-textLight/60 lg:text-sm'>
+          <div className=' mt-4 flex w-full items-center justify-center text-xs text-darkText/60 dark:text-lightText/60 desktop:text-sm'>
             {t('coppyright')}
           </div>
         </div>

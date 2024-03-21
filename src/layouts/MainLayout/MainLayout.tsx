@@ -32,7 +32,7 @@ export default function MainLayout({ children }: Props) {
           )}
         </AnimatePresence>
       </div>
-      <div className='pt-10 md:pt-12 lg:pt-16'>{children}</div>
+      <div className='pt-10 tablet:pt-12 desktop:pt-16'>{children}</div>
       <Footer />
     </div>
   )

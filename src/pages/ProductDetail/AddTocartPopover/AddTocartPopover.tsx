@@ -51,7 +51,7 @@ export default function AddTocartPopover({
   const { data: productDetailData, isLoading } = useQuery({
     queryKey: ['previewing_item', activeItemID],
     queryFn: () => productApi.getProductDetail(activeItemID),
-    keepPreviousData: true,
+
     staleTime: 3 * 60 * 1000
   })
   const item = productDetailData?.data.data
@@ -138,10 +138,10 @@ export default function AddTocartPopover({
         <div
           ref={elementRef}
           className={classNames(
-            'fixed left-1/2 top-1/2 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-black/40 px-2 py-4 shadow-sm dark:border-white/40 sm:w-[60%] ',
+            'fixed left-1/2 top-1/2 flex w-[90%] -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-black/40 px-2 py-4 shadow-sm dark:border-white/40 tabletSmall:w-[60%] ',
             {
-              'bg-white text-textDark ': theme === 'light',
-              'bg-black text-textLight': theme === 'dark'
+              'bg-white text-darkText ': theme === 'light',
+              'bg-black text-lightText': theme === 'dark'
             }
           )}
         >
@@ -243,8 +243,8 @@ export default function AddTocartPopover({
                 className={classNames(
                   'fixed left-1/2 top-1/2 w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl border p-8 align-middle ',
                   {
-                    'border-white/60 bg-darkGray900 text-textLight': theme == 'dark',
-                    'border-black/60 bg-lightWhite900 text-textDark': theme == 'light'
+                    'border-white/60 bg-darkColor900 text-lightText': theme == 'dark',
+                    'border-black/60 bg-lightColor900 text-darkText': theme == 'light'
                   }
                 )}
                 ref={createDialogRef}
@@ -269,13 +269,13 @@ export default function AddTocartPopover({
                   <Link
                     to={path.login}
                     type='button'
-                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark lg:px-6 lg:py-2'
+                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-darkText desktop:px-6 desktop:py-2'
                   >
                     {t('message.login')}
                   </Link>
                   <button
                     type='button'
-                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-textDark lg:px-6 lg:py-2'
+                    className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-darkText desktop:px-6 desktop:py-2'
                     onClick={createTemporaryCart}
                   >
                     {t('message.Continue')}

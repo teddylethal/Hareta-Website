@@ -64,10 +64,10 @@ export default function OtherItemsInType({ type }: Props) {
 
   if (!itemsInType) return null
   return (
-    <div className='rounded-lg border border-black/40 px-2 py-4 text-textDark dark:border-white/40 dark:text-textLight lg:px-4 xl:px-6'>
+    <div className='rounded-lg border border-black/40 px-2 py-4 text-darkText dark:border-white/40 dark:text-lightText desktop:px-4 desktopLarge:px-6'>
       <button
         onClick={handleClick}
-        className='mx-2 text-lg font-bold uppercase hover:text-primaryColor dark:hover:text-primaryColor lg:mx-4 lg:text-2xl xl:mx-6'
+        className='mx-2 text-lg font-bold uppercase hover:text-primaryColor dark:hover:text-primaryColor desktop:mx-4 desktop:text-2xl desktopLarge:mx-6'
       >
         {type}
       </button>
@@ -95,7 +95,7 @@ export default function OtherItemsInType({ type }: Props) {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronLeft}
-                  className='text-primary-400 absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 text-textDark/60 hover:bg-white hover:text-textDark/80 dark:bg-black/40 dark:text-textLight/60 dark:hover:bg-black dark:hover:text-textLight/80 lg:h-5 lg:w-5 xl:h-6 xl:w-6 xl:p-4'
+                  className='text-primary-400 absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 text-darkText/60 hover:bg-white hover:text-darkText/80 dark:bg-black/40 dark:text-lightText/60 dark:hover:bg-black dark:hover:text-lightText/80 desktop:h-5 desktop:w-5 desktopLarge:h-6 desktopLarge:w-6 desktopLarge:p-4'
                 />
               </ArrowFix>
             }
@@ -103,13 +103,13 @@ export default function OtherItemsInType({ type }: Props) {
               <ArrowFix>
                 <FontAwesomeIcon
                   icon={faChevronRight}
-                  className='text-primary-400 absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 text-textDark/60 hover:bg-white hover:text-textDark/80 dark:bg-black/40 dark:text-textLight/60 dark:hover:bg-black dark:hover:text-textLight/80 lg:h-5 lg:w-5 xl:h-6 xl:w-6 xl:p-4'
+                  className='text-primary-400 absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer rounded-full bg-white/40 p-3 text-darkText/60 hover:bg-white hover:text-darkText/80 dark:bg-black/40 dark:text-lightText/60 dark:hover:bg-black dark:hover:text-lightText/80 desktop:h-5 desktop:w-5 desktopLarge:h-6 desktopLarge:w-6 desktopLarge:p-4'
                 />
               </ArrowFix>
             }
           >
             {itemsInType.map((product) => (
-              <div className='mx-2 lg:mx-4 xl:mx-6' key={product.id}>
+              <div className='mx-2 desktop:mx-4 desktopLarge:mx-6' key={product.id}>
                 <Product product={product} />
               </div>
             ))}

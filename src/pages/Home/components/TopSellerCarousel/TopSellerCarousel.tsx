@@ -19,10 +19,10 @@ import { useTranslation } from 'react-i18next'
 const LIMIT = 10
 
 interface Props {
-  setPageIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function TopSellerCarousel({ setPageIsLoading }: Props) {
+export default function TopSellerCarousel({ setLoadingPage }: Props) {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
@@ -47,7 +47,7 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
   }, [setWishlistIDs, wishlistData])
 
   //? SET LOADING PAGE
-  useEffect(() => setPageIsLoading(isLoading), [isLoading, setPageIsLoading])
+  useEffect(() => setLoadingPage(isLoading), [isLoading, setLoadingPage])
 
   //? GET TOP SELLER ITEMS
   const itemsConfig: QueryConfig = { tag: '1', limit: String(LIMIT) }
@@ -124,12 +124,12 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
   return (
     <div className='container'>
       <div className='flex items-center justify-between'>
-        <p className='w-full select-none py-2 text-left text-2xl font-bold uppercase lg:text-4xl xl:text-5xl'>
+        <p className='w-full select-none py-2 text-left text-2xl font-bold uppercase desktop:text-4xl desktopLarge:text-5xl'>
           {t('top seller')}
         </p>
         {displayedItems.length >= 3 && (
           <button
-            className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium hover:text-textDark dark:border-white/60 dark:hover:border-transparent md:gap-3 md:text-base xl:text-lg'
+            className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium hover:text-darkText dark:border-white/60 dark:hover:border-transparent tablet:gap-3 tablet:text-base desktopLarge:text-lg'
             onClick={handleNavigate}
           >
             <p className='truncate uppercase'>{t('explore')}</p>
@@ -138,12 +138,12 @@ export default function TopSellerCarousel({ setPageIsLoading }: Props) {
         )}
       </div>
 
-      <div className='p-2 md:p-4 lg:p-8 xl:p-12'>
+      <div className='p-2 tablet:p-4 desktop:p-8 desktopLarge:p-12'>
         {length <= 3 && (
           <div
             className={classNames('grid grid-cols-1 gap-4', {
-              'md:grid-cols-3': length == 1 || length == 3,
-              'md:grid-cols-2 lg:gap-12 xl:gap-24': length == 2
+              'tablet:grid-cols-3': length == 1 || length == 3,
+              'tablet:grid-cols-2 desktop:gap-12 desktopLarge:gap-24': length == 2
             })}
           >
             {length == 1 && <div className='col-span-1'></div>}

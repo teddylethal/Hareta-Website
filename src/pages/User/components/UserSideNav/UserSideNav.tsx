@@ -9,15 +9,15 @@ export default function UserSideNav() {
   //? translation
   const { t } = useTranslation('user')
   return (
-    <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-textDark/70  duration-200 dark:border-white/20 dark:bg-[#181818] dark:text-textLight/70'>
+    <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-darkText/70  duration-200 dark:border-white/20 dark:bg-[#181818] dark:text-lightText/70'>
       <div className=''>
         <NavLink
           to={path.profile}
           end
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >
@@ -31,9 +31,9 @@ export default function UserSideNav() {
           to={path.password}
           aria-current='page'
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >
@@ -46,9 +46,9 @@ export default function UserSideNav() {
           to={path.inventory}
           aria-current='true'
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >
@@ -61,9 +61,9 @@ export default function UserSideNav() {
           to={path.wishList}
           aria-current='true'
           className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold xl:text-xl', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-textDark dark:hover:text-textLight': !isActive
+              ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
           }
         >

@@ -28,7 +28,7 @@ export default function NewReleaseItem({ product, dragging }: Props) {
   const { data: imageListData, isFetching } = useQuery({
     queryKey: ['default_item_images', itemID],
     queryFn: () => producImageApi.getImageList(itemID as string),
-    keepPreviousData: true,
+
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data || []
@@ -48,13 +48,13 @@ export default function NewReleaseItem({ product, dragging }: Props) {
 
   return (
     <button
-      className='w-full cursor-grab items-start rounded-lg text-left duration-200 hover:bg-lightWhite700/60 dark:hover:bg-darkGray700/60'
+      className='w-full cursor-grab items-start rounded-lg text-left duration-200 hover:bg-lightColor700/60 dark:hover:bg-darkColor700/60'
       onClick={(e) => {
         if (dragging) e.preventDefault()
         else handleClickItem()
       }}
     >
-      <div className='grid w-full grid-cols-2 gap-2 p-4 md:grid-cols-3 md:px-8 md:py-6 lg:py-8 xl:gap-4 xl:px-12 xl:py-10'>
+      <div className='grid w-full grid-cols-2 gap-2 p-4 tablet:grid-cols-3 tablet:px-8 tablet:py-6 desktop:py-8 desktopLarge:gap-4 desktopLarge:px-12 desktopLarge:py-10'>
         <div className='col-span-1'>
           <div className='relative w-full bg-[#dfdfdf] pt-[80%] dark:bg-[#282828]'>
             <div className='absolute left-0 top-0 h-full w-full'>
@@ -72,24 +72,24 @@ export default function NewReleaseItem({ product, dragging }: Props) {
             </div>
           </div>
         </div>
-        <div className='col-span-1 md:col-span-2'>
-          <div className='flex h-full flex-col justify-between pl-2 sm:pl-8 lg:pl-10 xl:pl-14'>
+        <div className='col-span-1 tablet:col-span-2'>
+          <div className='flex h-full flex-col justify-between pl-2 tabletSmall:pl-8 desktop:pl-10 desktopLarge:pl-14'>
             <div className='flex flex-col justify-between space-y-2 overflow-hidden'>
-              <p className='h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-textDark duration-200 dark:text-textLight lg:text-xl xl:text-3xl'>
+              <p className='h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-darkText duration-200 dark:text-lightText desktop:text-xl desktopLarge:text-3xl'>
                 {product.name}
               </p>
               {product.tag !== 0 && (
                 <div className='relative'>
-                  <span className='flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-textLight lg:h-6 lg:w-20  lg:text-sm'>
+                  <span className='flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-lightText desktop:h-6 desktop:w-20  desktop:text-sm'>
                     {tag == 1 && t('tag.top seller')}
                     {tag == 2 && t('tag.signature')}
                     {tag == 3 && t('tag.favourite')}
                   </span>
-                  <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent lg:left-20 lg:border-[12px]' />
+                  <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]' />
                 </div>
               )}
 
-              <span className='text-sm font-medium text-haretaColor dark:text-haretaColor sm:text-base lg:text-lg xl:text-xl'>
+              <span className='text-sm font-medium text-haretaColor dark:text-haretaColor tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
                 ${formatCurrency(product.price)}
               </span>
             </div>

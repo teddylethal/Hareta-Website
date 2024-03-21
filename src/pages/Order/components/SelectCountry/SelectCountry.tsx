@@ -13,20 +13,20 @@ export default function SelectCountry() {
   return (
     <Listbox value={addressCountry} onChange={setCountryAddress}>
       <div className='relative mt-1'>
-        <Listbox.Button className='relative flex w-full cursor-default items-center justify-between rounded-lg border border-black/40 bg-white py-2 text-left text-xs dark:border-white/40 dark:bg-black sm:text-sm md:text-base lg:text-lg xl:text-xl'>
+        <Listbox.Button className='relative flex w-full cursor-default items-center justify-between rounded-lg border border-black/40 bg-white py-2 text-left text-xs dark:border-white/40 dark:bg-black tabletSmall:text-sm tablet:text-base desktop:text-lg desktopLarge:text-xl'>
           <span className='block truncate px-3'>{addressCountry?.name}</span>
           <span className='pointer-events-none right-0 flex items-center pr-2'>
             <FontAwesomeIcon icon={faChevronDown} className=' text-gray-400' />
           </span>
         </Listbox.Button>
         <Transition as={Fragment} leave='transition ease-in duration-100' leaveFrom='opacity-100' leaveTo='opacity-0'>
-          <Listbox.Options className='absolute z-[2] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1  text-xs shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:text-sm lg:text-lg'>
+          <Listbox.Options className='absolute z-[2] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1  text-xs shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black tablet:text-sm desktop:text-lg'>
             {COUNTRIES.map((country, countryIdx) => (
               <Listbox.Option
                 key={countryIdx}
                 className={({ active }) =>
                   `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                    active ? 'bg-haretaColor text-textDark' : 'text-textDark dark:text-textLight'
+                    active ? 'bg-haretaColor text-darkText' : 'text-darkText dark:text-lightText'
                   }`
                 }
                 value={country}

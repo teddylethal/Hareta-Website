@@ -17,7 +17,7 @@ export default function Cart() {
   })
 
   return (
-    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg lg:py-3 xl:py-4'>
+    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
       <div className='container'>
         <PathBar
           pathList={[

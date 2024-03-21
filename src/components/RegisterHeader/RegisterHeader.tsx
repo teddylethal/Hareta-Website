@@ -17,10 +17,10 @@ export default function RegisterHeader() {
   const { t } = useTranslation('login')
 
   return (
-    <header className='top-0 z-10 flex h-10 w-full items-center bg-lightHeader text-textDark duration-200 dark:bg-darkHeader dark:text-textLight md:h-12 lg:h-16'>
+    <header className='top-0 z-10 flex h-10 w-full items-center bg-lightHeader text-darkText duration-200 dark:bg-darkHeader dark:text-lightText tablet:h-12 desktop:h-16'>
       <div className='container'>
         <div className='flex items-center justify-between'>
-          <nav className='flex items-center space-x-2 text-sm font-medium uppercase sm:space-x-3 md:space-x-4 md:text-base md:font-semibold lg:text-lg'>
+          <nav className='flex items-center space-x-2 text-sm font-medium uppercase tabletSmall:space-x-3 tablet:space-x-4 tablet:text-base tablet:font-semibold desktop:text-lg'>
             <Fragment>
               {smallDevice && (
                 <NavLink
@@ -120,9 +120,9 @@ export default function RegisterHeader() {
               )}
             </Fragment>
           </nav>
-          <div className='flex items-center space-x-2 md:space-x-4'>
+          <div className='flex items-center space-x-2 tablet:space-x-4'>
             <RegisterLanguage />
-            <ToggleTheme className='h-6 w-6 md:h-8 md:w-8 xl:h-10 xl:w-10' />
+            <ToggleTheme className='h-6 w-6 tablet:h-8 tablet:w-8 desktopLarge:h-10 desktopLarge:w-10' />
           </div>
         </div>
       </div>
