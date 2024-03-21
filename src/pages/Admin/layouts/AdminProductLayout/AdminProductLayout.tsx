@@ -27,11 +27,7 @@ export default function AdminProductLayout({ children }: Props) {
             Tạo
           </NavLink>
 
-          <NavLink to={adminPath.uploadProductAvatar} className={({ isActive }) => itemStyle(isActive)}>
-            Chỉnh sửa
-          </NavLink>
-
-          <NavLink to={adminPath.productImage} className={({ isActive }) => itemStyle(isActive)}>
+          <NavLink to={adminPath.addProductImage} className={({ isActive }) => itemStyle(isActive)}>
             Hình ảnh
           </NavLink>
 

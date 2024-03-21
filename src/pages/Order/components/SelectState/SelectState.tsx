@@ -50,7 +50,7 @@ export default function SelectState({ isError = false }: Props) {
                 key={stateIdx}
                 className={({ active }) =>
                   `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                    active ? 'text-darkText bg-haretaColor' : 'text-darkText dark:text-lightText'
+                    active ? 'bg-haretaColor text-darkText' : 'text-darkText dark:text-lightText'
                   }`
                 }
                 value={state}

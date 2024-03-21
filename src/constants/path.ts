@@ -42,7 +42,7 @@ export const adminPath = {
   deleteProduct: '/admin/product/delete/delete-product',
 
   //? Image
-  image: '/admin/images',
+  images: '/admin/images',
   orderManagemnet: '/admin/order'
 } as const
 

@@ -11,6 +11,7 @@ import AdminCreatesProduct from 'src/pages/Admin/pages/AdminCreatingProductPage/
 import AdminCreatesProductGroup from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProductGroup'
 import AdminDeleteProduct from 'src/pages/Admin/pages/AdminDeleteProduct'
 import AdminDeleteProductImage from 'src/pages/Admin/pages/AdminDeleteProductImage'
+import AdminImagesPage from 'src/pages/Admin/pages/AdminImagesPage'
 import AdminProductImagePage from 'src/pages/Admin/pages/AdminProductImagePage'
 
 import AdminSetDefaultProduct from 'src/pages/Admin/pages/AdminSetDefaultItem/AdminSetDefaultItem'
@@ -43,6 +44,14 @@ function AdminMainRoute() {
 }
 
 function AdminProductRoute() {
+  return (
+    <AdminProductLayout>
+      <Outlet />
+    </AdminProductLayout>
+  )
+}
+
+function AdminImageRoute() {
   return (
     <AdminProductLayout>
       <Outlet />
@@ -109,14 +118,10 @@ const AdminRoute = {
         }
       ]
     },
-    // {
-    //   path: adminPath.createItem,
-    //   element: (
-    //     <AdminProductLayout>
-    //       <AdminCreatingProductPage />
-    //     </AdminProductLayout>
-    //   )
-    // },
+    {
+      path: adminPath.images,
+      element: <AdminImagesPage />
+    },
     {
       path: adminPath.orderManagemnet,
       element: <AdminOrder />

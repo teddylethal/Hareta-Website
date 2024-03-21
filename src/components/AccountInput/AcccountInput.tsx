@@ -157,7 +157,7 @@ export default function AccountInput({
           type={visible ? 'text' : `${type}`}
           id={inputId}
           className={
-            'autofill:text-darkText peer h-full w-full border-none bg-transparent text-lg text-haretaColor outline-none duration-200 disabled:text-brownColor dark:text-haretaColor dark:caret-haretaColor autofill:dark:text-haretaColor dark:disabled:text-haretaColor ' +
+            'peer h-full w-full border-none bg-transparent text-lg text-haretaColor outline-none duration-200 autofill:text-darkText disabled:text-brownColor dark:text-haretaColor dark:caret-haretaColor autofill:dark:text-haretaColor dark:disabled:text-haretaColor ' +
             (isPasswordInput ? 'md:pr-20 pr-14' : 'md:pr-12 pr-9')
           }
           disabled={disabled}
@@ -167,7 +167,7 @@ export default function AccountInput({
         />
         <label
           htmlFor={inputId}
-          className='absolute left-0 top-1/2 -translate-y-1/2 cursor-text select-none text-base font-medium text-[#666666] duration-200 peer-valid:top-[-5px] peer-valid:text-sm peer-focus:top-[-5px] peer-focus:text-sm peer-disabled:top-[-5px] peer-disabled:text-sm dark:text-textVintage dark:text-opacity-80'
+          className='absolute left-0 top-1/2 -translate-y-1/2 cursor-text select-none text-base font-medium text-[#666666] duration-200 peer-autofill:top-[-5px] peer-autofill:text-sm peer-valid:top-[-5px] peer-valid:text-sm peer-focus:top-[-5px] peer-focus:text-sm peer-disabled:top-[-5px] peer-disabled:text-sm dark:text-textVintage dark:text-opacity-80'
         >
           {labelName}
         </label>

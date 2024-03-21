@@ -28,7 +28,7 @@ export default function AdminLayout({ children }: Props) {
               </NavLink>
 
               <NavLink
-                to={adminPath.image}
+                to={adminPath.images}
                 className={({ isActive }) =>
                   classNames('px-4 py-1 uppercase ', {
                     'text-haretaColor': isActive,

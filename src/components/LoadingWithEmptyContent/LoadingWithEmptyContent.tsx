@@ -14,9 +14,9 @@ export default function LoadingWithEmptyContent() {
         <Fragment>
           <motion.div
             className='fixed inset-0 z-10 bg-white dark:bg-black'
-            initial={{ opacity: 0.8 }}
+            initial={{ opacity: 0.0 }}
             animate={{
-              opacity: 0.8
+              opacity: 0.4
             }}
             exit={{ opacity: 0 }}
           />

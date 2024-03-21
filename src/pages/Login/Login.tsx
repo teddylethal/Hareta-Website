@@ -116,7 +116,7 @@ export default function Login() {
         <div className='md:grid-cols-6 md:px-6 md:py-24 grid grid-cols-1 py-12'>
           <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
             <form
-              className='md:p-10 bg-lightColor900 rounded-xl p-5 shadow-sm duration-200 dark:bg-darkColor900'
+              className='md:p-10 rounded-xl bg-lightColor900 p-5 shadow-sm duration-200 dark:bg-darkColor900'
               onSubmit={onSubmit}
               noValidate
             >
@@ -161,8 +161,8 @@ export default function Login() {
                 <Button
                   className='lg:py-3 flex w-full items-center justify-center py-2 uppercase'
                   type='submit'
-                  isLoading={loginAccountMutation.isLoading}
-                  disabled={loginAccountMutation.isLoading}
+                  isLoading={loginAccountMutation.isPending}
+                  disabled={loginAccountMutation.isPending}
                 >
                   {t('login.login')}
                 </Button>

@@ -51,7 +51,7 @@ export default function SearchBar() {
         onSubmit={handleSearch}
       >
         <input
-          className='focus:ring-primaryColordark:text-lightText text-darkText autofill:text-darkText lg:py-2 lg:text-lg dark:text-lightText dark:autofill:text-lightText w-full rounded-md bg-transparent px-4 py-1 text-base caret-black outline-none ring-1 ring-haretaColor duration-200 focus:ring-2 dark:caret-white dark:ring-haretaColor dark:focus:ring-primaryColor'
+          className='focus:ring-primaryColordark:text-lightText lg:py-2 lg:text-lg w-full rounded-md bg-transparent px-4 py-1 text-base text-darkText caret-black outline-none ring-1 ring-haretaColor duration-200 autofill:text-darkText focus:ring-2 dark:text-lightText dark:caret-white dark:ring-haretaColor dark:autofill:text-lightText dark:focus:ring-primaryColor'
           placeholder={t('aside filter.search')}
           {...register('name')}
         />
