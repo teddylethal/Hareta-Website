@@ -27,13 +27,13 @@ export default function ActiveFiltering() {
   }
 
   return (
-    <div className='text-darkText/80 dark:text-lightText/80 grid grid-cols-3 gap-1.5 py-2'>
+    <div className='grid grid-cols-3 gap-1.5 py-2 text-darkText/80 dark:text-lightText/80'>
       {category && (
         <div className='col-span-1'>
           <div className='flex items-center justify-between rounded-lg border border-black/40 px-2 py-1 dark:border-white/40'>
-            <div className='sm:text-base truncate px-0.5 text-sm text-haretaColor'>{category}</div>
+            <div className='truncate px-0.5 text-sm text-haretaColor tabletSmall:text-base'>{category}</div>
             <button
-              className='text-darkText/40 dark:text-lightText/40 flex items-center justify-center font-light'
+              className='flex items-center justify-center font-light text-darkText/40 dark:text-lightText/40'
               onClick={handleClick('category')}
             >
               <FontAwesomeIcon icon={faXmark} />
@@ -44,9 +44,9 @@ export default function ActiveFiltering() {
       {collection && (
         <div className='col-span-1'>
           <div className='flex items-center justify-between rounded-lg border border-black/40 px-2 py-1 dark:border-white/40'>
-            <div className='sm:text-base truncate px-0.5 text-sm text-haretaColor'>{collection}</div>
+            <div className='truncate px-0.5 text-sm text-haretaColor tabletSmall:text-base'>{collection}</div>
             <button
-              className='text-darkText/40 dark:text-lightText/40 flex items-center justify-center font-light'
+              className='flex items-center justify-center font-light text-darkText/40 dark:text-lightText/40'
               onClick={handleClick('collection')}
             >
               <FontAwesomeIcon icon={faXmark} />
@@ -57,9 +57,9 @@ export default function ActiveFiltering() {
       {type && (
         <div className='col-span-1'>
           <div className='flex items-center justify-between rounded-lg border border-black/40 px-2 py-1 dark:border-white/40'>
-            <div className='sm:text-base truncate px-0.5 text-sm text-haretaColor'>{type}</div>
+            <div className='truncate px-0.5 text-sm text-haretaColor tabletSmall:text-base'>{type}</div>
             <button
-              className='text-darkText/40 dark:text-lightText/40 flex items-center justify-center font-light'
+              className='flex items-center justify-center font-light text-darkText/40 dark:text-lightText/40'
               onClick={handleClick('type')}
             >
               <FontAwesomeIcon icon={faXmark} />

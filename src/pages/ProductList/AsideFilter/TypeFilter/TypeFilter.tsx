@@ -91,10 +91,10 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
       className='overflow-hidden rounded-md bg-barLightBg p-2 outline outline-1 outline-black/20 duration-200 dark:bg-barDarkBg dark:outline-white/20'
       ref={ref}
     >
-      <button className='sm:text-base flex w-full flex-col items-start text-sm' onClick={toggleOpenClose}>
+      <button className='flex w-full flex-col items-start text-sm tabletSmall:text-base' onClick={toggleOpenClose}>
         <div
           className={classNames(
-            'text-darkText/80 dark:text-lightText/80 flex items-center capitalize hover:text-primaryColor dark:hover:text-primaryColor',
+            'flex items-center capitalize text-darkText/80 hover:text-primaryColor dark:text-lightText/80 dark:hover:text-primaryColor',
 
             {
               'mb-2': visible || type
@@ -107,7 +107,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 24 24'
               fill='currentColor'
-              className='lg:h-4 lg:w-4 ml-1 h-3 w-3'
+              className='ml-1 h-3 w-3 desktop:h-4 desktop:w-4'
             >
               <path
                 fillRule='evenodd'
@@ -121,7 +121,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 24 24'
               fill='currentColor'
-              className='lg:h-4 lg:w-4 ml-1 h-3 w-3'
+              className='ml-1 h-3 w-3 desktop:h-4 desktop:w-4'
             >
               <path
                 fillRule='evenodd'
@@ -134,7 +134,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
         {type && (
           <div
             className={classNames(
-              'text-darkText sm:text-base lg:text-lg dark:text-lightText flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-sidebarItemLight px-2 py-1 text-sm capitalize duration-200 dark:border-white/20 dark:bg-sidebarItemDark',
+              'flex min-h-[36px] w-full select-none items-center justify-start truncate rounded-t-md border border-black/20 bg-sidebarItemLight px-2 py-1 text-sm capitalize text-darkText duration-200 dark:border-white/20 dark:bg-sidebarItemDark dark:text-lightText tabletSmall:text-base desktop:text-lg',
               {
                 'rounded-b-md': !isOpening || !visible
               }
@@ -148,7 +148,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
         {visible && isOpening && (
           <motion.div
             className={classNames(
-              'text-darkText sm:text-base lg:text-lg dark:text-lightText max-h-32 overflow-auto overscroll-contain rounded-b-md border-x border-b border-black/20 text-sm dark:border-white/20',
+              'max-h-32 overflow-auto overscroll-contain rounded-b-md border-x border-b border-black/20 text-sm text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-base desktop:text-lg',
               {
                 'rounded-t-md border-t': !type
               }

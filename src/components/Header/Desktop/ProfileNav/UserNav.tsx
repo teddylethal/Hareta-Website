@@ -8,7 +8,7 @@ export default function UserNav() {
 
   return (
     <div className='group'>
-      <Popover renderPopover={<UserPopover />} className='lg:py-1.5 py-0.5' offsetValue={12}>
+      <Popover renderPopover={<UserPopover />} className='py-0.5 desktop:py-1.5' offsetValue={12}>
         <div className='flex cursor-default items-center space-x-2'>
           <img
             src={
@@ -20,7 +20,7 @@ export default function UserNav() {
             className='h-6 w-6 rounded-full object-cover'
           />
 
-          <div className='md:text-base lg:text-lg text-sm font-medium normal-case  duration-200 group-hover:text-brownColor dark:group-hover:text-haretaColor'>
+          <div className='text-sm font-medium normal-case duration-200 group-hover:text-brownColor  dark:group-hover:text-haretaColor tablet:text-base desktop:text-lg'>
             {profile ? profile.name : ''}
           </div>
         </div>

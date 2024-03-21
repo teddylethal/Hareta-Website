@@ -65,8 +65,8 @@ export default function OrderDetail() {
   const { t } = useTranslation('order')
 
   return (
-    <div className='lg:p-4 rounded-xl p-3'>
-      <p className='xl:text-3xl text-2xl font-semibold uppercase'>{t('layout.Order')}</p>
+    <div className='rounded-xl p-3 desktop:p-4'>
+      <p className='text-2xl font-semibold uppercase desktopLarge:text-3xl'>{t('layout.Order')}</p>
       <div className='my-4 w-full border border-black/80 dark:border-white/80'></div>
       {isAuthenticated && <PurchaseListForUser />}
       {!isAuthenticated && <PurchaseListForGuest />}
@@ -100,7 +100,7 @@ export default function OrderDetail() {
       {!validForm() && (
         <button
           type={confirmPayment ? 'submit' : 'button'}
-          className='xl:py-4 xl:text-2xl mt-4 flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-haretaColor py-3  text-xl font-bold uppercase text-black opacity-20'
+          className='mt-4 flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-haretaColor py-3 text-xl font-bold  uppercase text-black opacity-20 desktopLarge:py-4 desktopLarge:text-2xl'
           onClick={invalidButton}
         >
           {t('layout.Confirm order')}
@@ -110,9 +110,9 @@ export default function OrderDetail() {
         <button
           disabled={!confirmPayment}
           className={classNames({
-            // 'mt-4 flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-vintageColor/80 py-3 text-xl font-bold  uppercase text-black opacity-20 dark:bg-haretaColor/80 dark:text-white xl:py-4 xl:text-2xl':
+            // 'mt-4 flex w-full cursor-not-allowed items-center justify-center rounded-xl bg-vintageColor/80 py-3 text-xl font-bold  uppercase text-black opacity-20 dark:bg-haretaColor/80 dark:text-white desktopLarge:py-4 desktopLarge:text-2xl':
             //   lackingInformation,
-            'text-darkText xl:py-4 xl:text-2xl mt-4 flex w-full cursor-pointer items-center justify-center rounded-xl bg-haretaColor py-3 text-xl font-bold uppercase hover:bg-primaryColor':
+            'mt-4 flex w-full cursor-pointer items-center justify-center rounded-xl bg-haretaColor py-3 text-xl font-bold uppercase text-darkText hover:bg-primaryColor desktopLarge:py-4 desktopLarge:text-2xl':
               !lackingInformation
           })}
           type='submit'
@@ -129,23 +129,23 @@ export default function OrderDetail() {
           <div className='text-center'>
             <FontAwesomeIcon
               icon={faXmark}
-              className={classNames('md:h-16 md:w-16 h-10 w-10 rounded-full p-4 text-center text-red-600', {
+              className={classNames('h-10 w-10 rounded-full p-4 text-center text-red-600 tablet:h-16 tablet:w-16', {
                 'bg-black/20': theme == 'light',
                 'bg-white/20': theme == 'dark'
               })}
             />
           </div>
-          <p className='md:text-xl xl:text-2xl my-6 text-lg font-bold uppercase leading-6'>
+          <p className='my-6 text-lg font-bold uppercase leading-6 tablet:text-xl desktopLarge:text-2xl'>
             {t('layout.YOUR ORDER WAS DENIDED')}
           </p>
           {lackingInformation && (
-            <p className='md:text-base xl:text-lg mt-2 text-center text-sm font-semibold leading-6'>
+            <p className='mt-2 text-center text-sm font-semibold leading-6 tablet:text-base desktopLarge:text-lg'>
               - {t('layout.You must fullfilled your')}
               <span className='text-haretaColor'> {t('layout.order information')}</span>
             </p>
           )}
           {!confirmPayment && (
-            <p className='md:text-base xl:text-lg mt-2 text-center text-sm font-semibold leading-6'>
+            <p className='mt-2 text-center text-sm font-semibold leading-6 tablet:text-base desktopLarge:text-lg'>
               - {t('layout.You must accept with the')}
               <span className='text-haretaColor'> {t('layout.payment policy')}</span>
             </p>

@@ -49,7 +49,7 @@ export default function PrivacyAndTerms() {
   const scrollDirection = useScrollDirection()
 
   return (
-    <div className='text-darkText md:py-3 xl:py-4 dark:text-lightText relative bg-lightBg py-2 duration-200 dark:bg-darkBg'>
+    <div className='relative bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
       {isMobile && (
         <AnimatePresence>
           <button
@@ -65,13 +65,13 @@ export default function PrivacyAndTerms() {
       )}
       <div className='container'>
         <div
-          className={classNames('md:pb-10 xl:pb-12 pb-6', {
-            'lg:gap-3 xl:gap-4 grid grid-cols-12 gap-2 ': !isMobile
+          className={classNames('pb-6 tablet:pb-10 desktopLarge:pb-12', {
+            'grid grid-cols-12 gap-2 desktop:gap-3 desktopLarge:gap-4 ': !isMobile
           })}
         >
           {!isMobile && (
             <div className='col-span-3'>
-              <div className='md:top-14 lg:top-20 sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto border-r border-black/20 duration-200 dark:border-white/20'>
+              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto border-r border-black/20 duration-200 dark:border-white/20 tablet:top-14 desktop:top-20'>
                 <PrivacyAndTermsSideNav />
               </div>
             </div>
@@ -90,7 +90,7 @@ export default function PrivacyAndTerms() {
                     transition={{ duration: 0.3 }}
                   />
                   <motion.div
-                    className='sm:w-[60%] fixed left-0 top-0 z-10 flex h-full w-[70%] overflow-hidden rounded-l-md py-2 shadow-md'
+                    className='fixed left-0 top-0 z-10 flex h-full w-[70%] overflow-hidden rounded-l-md py-2 shadow-md tabletSmall:w-[60%]'
                     initial={{ opacity: 0, x: '-20%' }}
                     animate={{
                       opacity: 1,
@@ -128,11 +128,11 @@ export default function PrivacyAndTerms() {
           {/* Element components that act as scroll targets */}
           <div
             className={classNames({
-              'md:space-y-10 xl:space-y-16 flex flex-col space-y-6': isMobile,
-              'lg:space-y-8 xl:space-y-10 col-start-4 col-end-13 flex flex-col space-y-6': !isMobile
+              'flex flex-col space-y-6 tablet:space-y-10 desktopLarge:space-y-16': isMobile,
+              'col-start-4 col-end-13 flex flex-col space-y-6 desktop:space-y-8 desktopLarge:space-y-10': !isMobile
             })}
           >
-            <div className='md:text-2xl xl:text-4xl mt-2 text-center text-xl font-bold uppercase text-haretaColor'>
+            <div className='mt-2 text-center text-xl font-bold uppercase text-haretaColor tablet:text-2xl desktopLarge:text-4xl'>
               {t('title.Privacy and terms')}
             </div>
             <Element name={privacyPath.ProductInformation}>
@@ -182,11 +182,11 @@ export default function PrivacyAndTerms() {
             </Element>
           </div>
           <div className='col-start-1 col-end-13 text-center'>
-            <div className='md:mt-8 xl:mt-12 mt-4'>
-              <p className='md:text-xl xl:text-2xl text-lg font-bold uppercase text-haretaColor'>
+            <div className='mt-4 tablet:mt-8 desktopLarge:mt-12'>
+              <p className='text-lg font-bold uppercase text-haretaColor tablet:text-xl desktopLarge:text-2xl'>
                 {t('Contact.title')}
               </p>
-              <p className='md:text-lg xl:text-xl text-base font-medium'>
+              <p className='text-base font-medium tablet:text-lg desktopLarge:text-xl'>
                 {t('Contact.guide')}
                 <span className='text-haretaColor'>{t('Contact.hareta.manage@gmail.com')}</span>
               </p>

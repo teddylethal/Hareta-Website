@@ -73,17 +73,17 @@ export default function AdminCreatesProductGroup() {
 
       <div className='rounded-lg border border-white/40 p-4'>
         <div className='flex flex-col items-center justify-center'>
-          <p className='lg:text-lg text-lg font-semibold uppercase'>Tạo nhóm sản phẩm</p>
+          <p className='text-lg font-semibold uppercase desktop:text-lg'>Tạo nhóm sản phẩm</p>
           <form className='mt-2' onSubmit={onSubmit}>
             <Input
-              inputClassName='text-darkText bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-haretaColor'
+              inputClassName='text-darkText bg-white py-1 px-2 text-base desktop:text-lg rounded-lg outline-none focus:outline-haretaColor'
               register={register}
               name='name'
               errorMessage={errors?.name?.message}
               autoComplete='false'
             />
             <div className='flex w-full items-center justify-end'>
-              <button className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor'>
+              <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor desktop:text-lg'>
                 Tạo nhóm mới
               </button>
             </div>

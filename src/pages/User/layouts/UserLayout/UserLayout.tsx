@@ -33,7 +33,7 @@ export default function UserLayout() {
               <div className='pb-6'>
                 <UserMobileNavBar />
 
-                <div className='text-darkText dark:text-lightText mt-2 rounded-md border border-black/10 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#181818]'>
+                <div className='mt-2 rounded-md border border-black/10 bg-[#f8f8f8] text-darkText dark:border-white/20 dark:bg-[#181818] dark:text-lightText'>
                   <Outlet />
                 </div>
               </div>
@@ -47,7 +47,7 @@ export default function UserLayout() {
       <Fragment>
         <div className='bg-lightBg dark:bg-darkBg'>
           <div className='container'>
-            <div className='lg:pb-8 xl:pb-10 pb-6 pt-2'>
+            <div className='pb-6 pt-2 desktop:pb-8 desktopLarge:pb-10'>
               <PathBar
                 pathList={[
                   { pathName: t('path.home'), url: '/' },
@@ -61,7 +61,7 @@ export default function UserLayout() {
                 </div>
 
                 <div className='col-span-9'>
-                  <div className='text-darkText dark:text-lightText min-h-full rounded-md border border-black/10 bg-[#f8f8f8] dark:border-white/20 dark:bg-[#181818]'>
+                  <div className='min-h-full rounded-md border border-black/10 bg-[#f8f8f8] text-darkText dark:border-white/20 dark:bg-[#181818] dark:text-lightText'>
                     <Outlet />
                   </div>
                 </div>

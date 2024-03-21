@@ -1,10 +1,9 @@
-import { faAngleRight, faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Fragment, useContext, useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
-import path from 'src/constants/path'
 import { ProductImage } from 'src/types/productImage.type'
 import { getIdFromNameId } from 'src/utils/utils'
 import OtherItemsInCollection from './OtherItemsInCollection'
@@ -25,6 +24,8 @@ import { ErrorRespone } from 'src/types/utils.type'
 import { errorResponeList } from 'src/constants/error'
 import { StoreContext } from 'src/contexts/store.context'
 import { useTranslation } from 'react-i18next'
+import PathBar, { PathElement } from 'src/components/PathBar/PathBar'
+import mainPath from 'src/constants/path'
 
 export interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -61,7 +62,7 @@ export default function ProductDetail() {
   }
   const { data: itemsInGroupData } = useQuery({
     queryKey: ['items_in_group', itemInGroupQuery],
-    queryFn: () => productApi.getItemsInGroup(itemInGroupQuery),
+    queryFn: () => productApi.getProductsInGroup(itemInGroupQuery),
 
     enabled: Boolean(defaltItem)
   })
@@ -111,7 +112,7 @@ export default function ProductDetail() {
     )
   }
 
-  //? LIKE ITEM
+  //! LIKE ITEM
   const likeItemMutation = useMutation({ mutationFn: likeItemAPi.likeItem })
   const likeItem = () => {
     setIsLikedByUser(true)
@@ -173,36 +174,23 @@ export default function ProductDetail() {
   const { t } = useTranslation('productdetail')
 
   if (!defaltItem) return <ProductDetailLoading />
+  //! PATH BAR
+  const pathList: PathElement[] = [
+    {
+      pathName: t('path.store'),
+      url: mainPath.store,
+      isNotALink: false
+    },
+    {
+      pathName: defaltItem.name,
+      url: '',
+      isNotALink: true
+    }
+  ]
   return (
-    <div className='lg:py-3 xl:py-4 bg-lightBg py-2 dark:bg-darkBg'>
+    <div className='bg-lightBg py-2 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
       <div className='container'>
-        <div className='lg:mb-3 lg:px-4 lg:py-2 lg:text-sm xl:mb-4 xl:px-6 xl:py-3 text-darkText dark:text-lightText relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-[#f8f8f8] px-3 py-1  text-xs font-medium uppercase duration-200 dark:border-white/20 dark:bg-[#000]'>
-          <NavLink
-            to={path.home}
-            className={({ isActive }) =>
-              classNames({
-                'text-haretaColor': isActive,
-                'hover:text-primaryColor': !isActive
-              })
-            }
-          >
-            {t('path.home')}
-          </NavLink>
-          <FontAwesomeIcon icon={faAngleRight} />
-          <NavLink
-            to={path.store}
-            className={({ isActive }) =>
-              classNames({
-                'text-haretaColor': isActive,
-                'hover:text-primaryColor': !isActive
-              })
-            }
-          >
-            {t('path.store')}
-          </NavLink>
-          <FontAwesomeIcon icon={faAngleRight} />
-          <div className={'text-primaryColor'}>{defaltItem.name}</div>
-        </div>
+        <PathBar pathList={pathList} />
 
         {!isMobile && (
           <Fragment>
@@ -280,7 +268,10 @@ export default function ProductDetail() {
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
         <div className='text-center'>
-          <FontAwesomeIcon icon={faXmark} className={classNames('md:w-10 lg:w-12 xl:w-16 h-auto w-8 text-red-700')} />
+          <FontAwesomeIcon
+            icon={faXmark}
+            className={classNames('h-auto w-8 text-red-700 tablet:w-10 desktop:w-12 desktopLarge:w-16')}
+          />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           The quantity of the current item you are trying to add exceed our store

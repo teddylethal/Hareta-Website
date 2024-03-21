@@ -124,7 +124,7 @@ export default function AdminAddItemColor() {
             {!ProductGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
             <div className='grid grid-cols-4 items-center gap-2'>
               <div className='col-span-2'>
-                <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Avatar</p>
+                <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>Avatar</p>
               </div>
               <div className='col-span-2 '>
                 <div className='relative w-full pt-[75%]'>
@@ -146,7 +146,7 @@ export default function AdminAddItemColor() {
                 <AdminAddItemColorForm />
                 <div className='col-span-1 mt-2 flex items-center justify-end'>
                   <button
-                    className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60'
+                    className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor/60 desktop:text-lg'
                     type='submit'
                   >
                     Create

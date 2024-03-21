@@ -107,16 +107,16 @@ export default function Login() {
     }
   }, [setValue, state])
 
-  //? translation
+  //! TRANSLATION
   const { t } = useTranslation('login')
 
   return (
     <AnimateTransition isDialog={state}>
       <div className='container'>
-        <div className='md:grid-cols-6 md:px-6 md:py-24 grid grid-cols-1 py-12'>
-          <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
+        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+          <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>
             <form
-              className='md:p-10 rounded-xl bg-lightColor900 p-5 shadow-sm duration-200 dark:bg-darkColor900'
+              className='rounded-xl bg-lightColor900 p-5 shadow-sm duration-200 dark:bg-darkColor900 tablet:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -157,9 +157,9 @@ export default function Login() {
                 }
               />
 
-              <div className='lg:text-lg mt-2 text-base'>
+              <div className='mt-2 text-base desktop:text-lg'>
                 <Button
-                  className='lg:py-3 flex w-full items-center justify-center py-2 uppercase'
+                  className='flex w-full items-center justify-center py-2 uppercase desktop:py-3'
                   type='submit'
                   isLoading={loginAccountMutation.isPending}
                   disabled={loginAccountMutation.isPending}
@@ -168,7 +168,7 @@ export default function Login() {
                 </Button>
               </div>
 
-              <div className='md:text-md sm:text-sm md:mt-12 md:flex-row mt-4 flex flex-col-reverse items-center justify-between text-xs'>
+              <div className='tablet:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs tabletSmall:text-sm tablet:mt-12 tablet:flex-row'>
                 <div className=''>
                   <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
                     <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-200 hover:opacity-100 dark:text-blue-400'>

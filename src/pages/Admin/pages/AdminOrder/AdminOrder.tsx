@@ -29,7 +29,7 @@ export default function AdminOrder() {
 
   return (
     <div className='min-h-[600px]'>
-      <div className='lg:text-xl text-lightText/80 relative flex items-center justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold'>
+      <div className='relative flex items-center justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold text-lightText/80 desktop:text-xl'>
         <button
           className={classNames('p-2', {
             'text-haretaColor': orderState == 0,

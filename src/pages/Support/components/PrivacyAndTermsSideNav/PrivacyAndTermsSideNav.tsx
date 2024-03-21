@@ -17,7 +17,7 @@ export default function PrivacyAndTermsSideNav({ closeMenu }: Props) {
   }
 
   const navClassname =
-    'flex w-full cursor-pointer items-center space-x-2 p-2 text-sm hover:bg-white dark:hover:bg-black lg:p-3 lg:text-base xl:p-4 xl:text-lg rounded-lg'
+    'flex w-full cursor-pointer items-center space-x-2 p-2 text-sm hover:bg-white dark:hover:bg-black desktop:p-3 desktop:text-base desktopLarge:p-4 desktopLarge:text-lg rounded-lg'
   const activeClassname = 'font-semibold text-haretaColor dark:text-haretaColor'
   return (
     <div className='flex flex-col'>

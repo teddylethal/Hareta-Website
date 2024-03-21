@@ -1,7 +1,7 @@
 import { useContext, lazy, Suspense } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import { AppContext } from './contexts/app.context'
-import path, { adminPath } from './constants/path'
+import mainPath, { adminPath } from './constants/path'
 import { OrderContext } from './contexts/order.context'
 
 import NotFound from './pages/NotFound'
@@ -60,7 +60,7 @@ function OrderRoute() {
       <Outlet />
     </Suspense>
   ) : (
-    <Navigate to={path.home} />
+    <Navigate to={mainPath.home} />
   )
 }
 
@@ -84,27 +84,27 @@ export default function useRouteElements() {
       element: <RejectedRoute />,
       children: [
         {
-          path: path.login,
+          path: mainPath.login,
           element: <Login />
         },
         {
-          path: path.register,
+          path: mainPath.register,
           element: <Register />
         },
         {
-          path: path.requestVerify,
+          path: mainPath.requestVerify,
           element: <RequestVerifyEmail />
         },
         {
-          path: path.requestPasswordRecovery,
+          path: mainPath.requestPasswordRecovery,
           element: <RequestPasswordRecovery />
         },
         {
-          path: path.changePasswordRecovery,
+          path: mainPath.changePasswordRecovery,
           element: <ChangePasswordRecovery />
         },
         {
-          path: path.verifyEmail,
+          path: mainPath.verifyEmail,
           element: <VerifyEmail />
         }
       ]
@@ -123,7 +123,7 @@ export default function useRouteElements() {
           ),
           children: [
             {
-              path: path.profile,
+              path: mainPath.profile,
               element: (
                 <Suspense fallback={<LoadingWithEmptyContent />}>
                   <Profile />
@@ -131,7 +131,7 @@ export default function useRouteElements() {
               )
             },
             {
-              path: path.password,
+              path: mainPath.password,
               element: (
                 <Suspense fallback={<LoadingWithEmptyContent />}>
                   <ChangePassword />
@@ -139,7 +139,7 @@ export default function useRouteElements() {
               )
             },
             {
-              path: path.inventory,
+              path: mainPath.inventory,
               element: (
                 <Suspense fallback={<LoadingWithEmptyContent />}>
                   <Inventory />
@@ -147,7 +147,7 @@ export default function useRouteElements() {
               )
             },
             {
-              path: path.wishList,
+              path: mainPath.wishList,
               element: (
                 <Suspense fallback={<LoadingWithEmptyContent />}>
                   <WishList />
@@ -167,7 +167,7 @@ export default function useRouteElements() {
       element: <OrderRoute />,
       children: [
         {
-          path: path.order,
+          path: mainPath.order,
           element: (
             <MainLayout>
               <OrderLayout />
@@ -175,11 +175,11 @@ export default function useRouteElements() {
           ),
           children: [
             {
-              path: path.shippingInfor,
+              path: mainPath.shippingInfor,
               element: <ShippingInfor />
             },
             {
-              path: path.payment,
+              path: mainPath.payment,
               element: <Payment />
             }
           ]
@@ -188,7 +188,7 @@ export default function useRouteElements() {
     },
 
     {
-      path: path.home,
+      path: mainPath.home,
       index: true,
       element: (
         <MainLayout>
@@ -197,7 +197,7 @@ export default function useRouteElements() {
       )
     },
     {
-      path: path.store,
+      path: mainPath.store,
       element: (
         <MainLayout>
           <ProductList />
@@ -205,7 +205,7 @@ export default function useRouteElements() {
       )
     },
     {
-      path: path.productDetail,
+      path: mainPath.productDetail,
       element: (
         <MainLayout>
           <ProductDetail />
@@ -213,7 +213,7 @@ export default function useRouteElements() {
       )
     },
     {
-      path: path.cart,
+      path: mainPath.cart,
       element: (
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
@@ -223,7 +223,7 @@ export default function useRouteElements() {
       )
     },
     {
-      path: path.privacyAndTerms,
+      path: mainPath.privacyAndTerms,
       element: (
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
@@ -233,7 +233,7 @@ export default function useRouteElements() {
       )
     },
     {
-      path: path.orderTracking,
+      path: mainPath.orderTracking,
       element: (
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
@@ -243,7 +243,7 @@ export default function useRouteElements() {
       )
     },
     {
-      path: path.orderInformation,
+      path: mainPath.orderInformation,
       element: (
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>

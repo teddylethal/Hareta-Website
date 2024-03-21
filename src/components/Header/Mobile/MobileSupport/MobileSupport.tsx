@@ -51,7 +51,7 @@ export default function MobileSupport() {
         <AnimatePresence>
           {visible && (
             <motion.div
-              className='text-darkText sm:text-sm dark:text-lightText flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4  pb-2 text-xs font-medium dark:border-white/20'
+              className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-medium  text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-sm'
               // initial={{ opacity: 0, y: '-20%' }}
               // animate={{
               //   opacity: 1,
@@ -86,7 +86,7 @@ export default function MobileSupport() {
               </div>
 
               <div className=''>
-                <ToggleTheme className='sm:h-6 sm:w-6 h-5 w-5' />
+                <ToggleTheme className='h-5 w-5 tabletSmall:h-6 tabletSmall:w-6' />
               </div>
             </motion.div>
           )}

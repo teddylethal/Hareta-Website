@@ -18,13 +18,13 @@ export default function Home() {
       {LoadingPage && <LoadingWithEmptyContent />}
       <div className='bg-lightBg text-darkText duration-200 dark:bg-darkBg dark:text-lightText'>
         <EventCarousel />
-        <div className='md:py-6 lg:py-8 xl:py-10 py-4'>
+        <div className='py-4 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
           <NewReleaseCarousel setLoadingPage={setLoadingPage} />
         </div>
-        <div className='md:py-6 lg:py-8 xl:py-10 bg-lightColor700 py-4 dark:bg-darkColor700'>
+        <div className='bg-lightColor700 py-4 dark:bg-darkColor700 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
           <TopSellerCarousel setLoadingPage={setLoadingPage} />
         </div>
-        <div className='md:py-6 lg:py-8 xl:py-10 py-4'>
+        <div className='py-4 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
           <MostFavouriteList setLoadingPage={setLoadingPage} />
         </div>
       </div>

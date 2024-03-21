@@ -116,7 +116,7 @@ export default function ProductImageList(props: Props) {
   }
 
   return (
-    <div className='bg-lightColor700 relative w-full overflow-auto rounded-xl pt-[75%] dark:bg-darkColor700'>
+    <div className='relative w-full overflow-auto rounded-xl bg-lightColor700 pt-[75%] dark:bg-darkColor700'>
       {(isLoading || isFetching) && (
         <div className='absolute inset-0 z-10 flex h-full w-full items-center justify-center rounded-lg bg-black/50'>
           <ColorRing
@@ -156,15 +156,20 @@ export default function ProductImageList(props: Props) {
                 {!zooming && (
                   <FontAwesomeIcon
                     icon={faMagnifyingGlassPlus}
-                    className='lg:w-7 xl:w-8 h-auto w-6 hover:text-haretaColor'
+                    className='h-auto w-6 hover:text-haretaColor desktop:w-7 desktopLarge:w-8'
                   />
                 )}
-                {zooming && <FontAwesomeIcon icon={faBan} className='lg:w-7 xl:w-8 h-auto w-6 hover:text-alertRed' />}
+                {zooming && (
+                  <FontAwesomeIcon
+                    icon={faBan}
+                    className='h-auto w-6 hover:text-alertRed desktop:w-7 desktopLarge:w-8'
+                  />
+                )}
               </button>
             </div>
           </div>
         ) : (
-          <div className='bg-lightColor700 relative w-full overflow-hidden pt-[75%] dark:bg-darkColor700'>
+          <div className='relative w-full overflow-hidden bg-lightColor700 pt-[75%] dark:bg-darkColor700'>
             <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
               <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
             </div>

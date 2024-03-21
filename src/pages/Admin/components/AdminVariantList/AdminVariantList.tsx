@@ -35,7 +35,7 @@ export default function AdminVariantList() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className='lg:text-xl text-lg font-semibold uppercase'>variant list</p>
+        <p className='text-lg font-semibold uppercase desktop:text-xl'>variant list</p>
         <div className='h-80 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {/* {!ProductGroup && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>

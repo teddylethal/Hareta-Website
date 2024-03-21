@@ -69,6 +69,10 @@ module.exports = {
         favouriteRed: '#ff2800',
         whiteColor: '#ffffff',
 
+        //? Buttons
+        unhoveringBg: '#ff8800',
+        hoveringBg: '#ff6600',
+
         primaryBlue: '#00B4D8'
       }
     },

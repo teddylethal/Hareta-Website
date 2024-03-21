@@ -86,10 +86,10 @@ export default function RequestPasswordRecovery() {
     <>
       <AnimateTransition isDialog={state?.failSlugVerify}>
         <div className='container'>
-          <div className='md:grid-cols-6 md:px-6 md:py-24 grid grid-cols-1 py-12'>
-            <div className='md:col-start-2 md:col-end-6 lg:col-span-3 lg:col-end-7'>
+          <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+            <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>
               <form
-                className='md:p-10 rounded bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-[#222222]'
+                className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-[#222222] tablet:p-10'
                 onSubmit={onSubmit}
                 noValidate
               >
@@ -98,10 +98,10 @@ export default function RequestPasswordRecovery() {
                     <FontAwesomeIcon
                       icon={faArrowLeft}
                       fontSize={32}
-                      className='md:block hidden pr-4 text-vintageColor/80 opacity-70 duration-200 hover:opacity-100 dark:text-haretaColor'
+                      className='hidden pr-4 text-vintageColor/80 opacity-70 duration-200 hover:opacity-100 dark:text-haretaColor tablet:block'
                     />
                   </Link>
-                  <div className=' sm:text-xl xl:text-2xl text-center text-base uppercase text-vintageColor dark:text-haretaColor'>
+                  <div className=' text-center text-base uppercase text-vintageColor dark:text-haretaColor tabletSmall:text-xl desktopLarge:text-2xl'>
                     {t('password.password recovery')}
                   </div>
                 </div>
@@ -110,7 +110,7 @@ export default function RequestPasswordRecovery() {
                   name='email'
                   register={register}
                   type='text'
-                  className='autofill:text-darkText md:mt-8 autofill:dark:text-lightText autofill:bg-red-400'
+                  className='autofill:bg-red-400 autofill:text-darkText autofill:dark:text-lightText tablet:mt-8'
                   errorMessage={errors.email?.message}
                   labelName={t('password.Email address')}
                   required
@@ -124,9 +124,9 @@ export default function RequestPasswordRecovery() {
                   }
                 />
 
-                <div className='lg:text-lg mt-2 text-base'>
+                <div className='mt-2 text-base desktop:text-lg'>
                   <Button
-                    className='lg:py-3 flex w-full items-center justify-center py-2'
+                    className='flex w-full items-center justify-center py-2 desktop:py-3'
                     type='submit'
                     isLoading={passwordRecoveryMutation.isLoading || counter > 0}
                     disabled={passwordRecoveryMutation.isLoading || counter > 0}
@@ -136,7 +136,7 @@ export default function RequestPasswordRecovery() {
                     {counter > 1 && t('password.Wait for') + ' ' + counter + ' ' + t('password.second')}
                   </Button>
                 </div>
-                <div className='md:hidden mt-3 flex justify-center text-sm'>
+                <div className='mt-3 flex justify-center text-sm tablet:hidden'>
                   <p className='text-gray-400'>{t('password.Go back to')}</p>
                   <Link
                     to={path.login}

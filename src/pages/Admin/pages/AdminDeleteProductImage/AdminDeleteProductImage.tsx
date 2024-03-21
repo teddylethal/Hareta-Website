@@ -69,7 +69,7 @@ export default function AdminDeleteProductImage() {
               {currentImage && (
                 <div className='flex w-full items-center justify-end'>
                   <button
-                    className='lg:text-sm rounded-lg bg-alertRed/80 px-3 py-1 text-xs uppercase hover:bg-alertRed'
+                    className='rounded-lg bg-alertRed/80 px-3 py-1 text-xs uppercase hover:bg-alertRed desktop:text-sm'
                     onClick={onClickDelete}
                   >
                     Xóa

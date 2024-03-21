@@ -33,7 +33,7 @@ export default function UserPopover() {
     'flex items-center rounded-md px-4 py-2 hover:bg-lightColor900 hover:font-semibold hover:text-darkText dark:hover:bg-darkColor900 dark:hover:text-lightText font-medium'
 
   return (
-    <div className='md:w-56 lg:top-0 lg:w-72 lg:text-xl bg-lightColor700 relative -top-1 flex w-40 flex-col rounded-lg px-2 py-3 text-base font-medium capitalize text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90'>
+    <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-lightColor700 px-2 py-3 text-base font-medium capitalize text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90 tablet:w-56 desktop:top-0 desktop:w-72 desktop:text-xl'>
       <Link to={path.profile} className={className}>
         <p>{t('user.profile')}</p>
       </Link>
@@ -49,7 +49,7 @@ export default function UserPopover() {
 
       <button
         onClick={handleLogout}
-        className='hover:bg-lightColor900 flex items-center space-x-2 rounded-md px-4 py-2 hover:font-semibold hover:text-darkText dark:hover:bg-darkColor900 dark:hover:text-lightText'
+        className='flex items-center space-x-2 rounded-md px-4 py-2 hover:bg-lightColor900 hover:font-semibold hover:text-darkText dark:hover:bg-darkColor900 dark:hover:text-lightText'
       >
         <FontAwesomeIcon icon={faRightFromBracket} />
         <p>{t('user.log out')}</p>

@@ -10,10 +10,10 @@ export default function OrderPurchaseDekstop({ purchase }: Props) {
   const avatarURL = purchase.item.avatar ? purchase.item.avatar.url : null
 
   return (
-    <div className='text-darkText md:px-4 md:text-base lg:text-lg xl:px-8 xl:text-lg dark:text-lightText grid grid-cols-3 px-1 py-4 text-sm font-medium uppercase'>
+    <div className='grid grid-cols-3 px-1 py-4 text-sm font-medium uppercase text-darkText dark:text-lightText tablet:px-4 tablet:text-base desktop:text-lg desktopLarge:px-8 desktopLarge:text-lg'>
       <div className='col-span-1'>
-        <div className='lg:grid-cols-3 lg:gap-4 grid grid-cols-2 gap-2'>
-          <div className='lg:col-span-2 col-span-1'>
+        <div className='grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-4'>
+          <div className='col-span-1 desktop:col-span-2'>
             <div className='relative w-full overflow-hidden bg-white pt-[100%] dark:bg-black'>
               {avatarURL ? (
                 <img
@@ -31,8 +31,8 @@ export default function OrderPurchaseDekstop({ purchase }: Props) {
           </div>
           <div className='col-span-1 flex min-h-full items-center'>
             <div className=' space-y-3 truncate text-left'>
-              <div className='lg:text-base xl:text-lg truncate text-sm'>{purchase.item.name}</div>
-              <div className='text-darkText/80 lg:text-sm xl:text-base dark:text-lightText/80 truncate text-xs'>
+              <div className='truncate text-sm desktop:text-base desktopLarge:text-lg'>{purchase.item.name}</div>
+              <div className='truncate text-xs text-darkText/80 dark:text-lightText/80 desktop:text-sm desktopLarge:text-base'>
                 {purchase.item.color}
               </div>
             </div>
@@ -40,14 +40,14 @@ export default function OrderPurchaseDekstop({ purchase }: Props) {
         </div>
       </div>
       <div className='col-span-2 min-h-full'>
-        <div className='xl:gap-4 grid h-full grid-cols-3 gap-2 text-center'>
-          <div className='lg:text-base xl:text-lg col-span-1 flex min-h-full w-full items-center justify-center text-center text-sm '>
+        <div className='grid h-full grid-cols-3 gap-2 text-center desktopLarge:gap-4'>
+          <div className='col-span-1 flex min-h-full w-full items-center justify-center text-center text-sm desktop:text-base desktopLarge:text-lg '>
             ${purchase.item.price}
           </div>
-          <div className='lg:text-base xl:text-lg col-span-1 flex min-h-full w-full items-center justify-center text-center text-sm '>
+          <div className='col-span-1 flex min-h-full w-full items-center justify-center text-center text-sm desktop:text-base desktopLarge:text-lg '>
             {purchase.quantity}
           </div>
-          <div className='lg:text-lg xl:text-xl col-span-1 flex min-h-full w-full items-center justify-center text-center text-base font-medium '>
+          <div className='col-span-1 flex min-h-full w-full items-center justify-center text-center text-base font-medium desktop:text-lg desktopLarge:text-xl '>
             ${purchase.item.price * purchase.quantity}
           </div>
         </div>

@@ -176,7 +176,7 @@ export default function OrderLayout() {
   const { t } = useTranslation('order')
 
   return (
-    <div className='lg:py-3 xl:py-4 bg-lightBg py-2 duration-200 dark:bg-darkBg'>
+    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
       <div className='container'>
         <PathBar
           pathList={[
@@ -197,23 +197,25 @@ export default function OrderLayout() {
       <DialogPopup
         isOpen={successDialog}
         handleClose={() => setSuccesDialog(false)}
-        classNameWrapper='relative w-10/12 md:w-8/12 max-w:lg transform overflow-hidden rounded-2xl py-6 px-4 align-middle shadow-xl transition-all'
+        classNameWrapper='relative w-10/12 tablet:w-8/12 max-w:lg transform overflow-hidden rounded-2xl py-6 px-4 align-middle shadow-xl transition-all'
         closeButton={false}
       >
         <div className={theme === 'dark' ? 'dark' : 'light'}>
           <div className='mb-4 text-center'>
             <FontAwesomeIcon
               icon={faCheck}
-              className='text- md:w-10 lg:w-12 xl:w-16 h-auto w-8 rounded-full text-center text-success'
+              className='text- h-auto w-8 rounded-full text-center text-success tablet:w-10 desktop:w-12 desktopLarge:w-16'
             />
           </div>
-          <p className='md:text-lg xl:text-xl mt-6 text-center text-base font-bold uppercase leading-6'>
+          <p className='mt-6 text-center text-base font-bold uppercase leading-6 tablet:text-lg desktopLarge:text-xl'>
             {t('layout.Your order was created successfully')}
           </p>
-          <div className='md:text-base xl:text-lg mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium'>
+          <div className='mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium tablet:text-base desktopLarge:text-lg'>
             <p className='text-center'>{t('layout.A payment instruction email was sent to your email address')}</p>
             <p className='text-center'>{t('layout.Please complete transaction in 48 hours to complete your order')}</p>
-            <p className='md:text-lg xl:text-xl text-center text-base font-semibold'>{t('layout.Sincerely thanks!')}</p>
+            <p className='text-center text-base font-semibold tablet:text-lg desktopLarge:text-xl'>
+              {t('layout.Sincerely thanks!')}
+            </p>
           </div>
           <div className='mt-4 flex w-full items-center justify-center'>
             <button
@@ -257,7 +259,7 @@ export default function OrderLayout() {
                 wrapperClass='blocks-wrapper'
                 colors={['#ff8800', '#ff8800', '#ff8800', '#ff8800', '#ff8800']}
               />
-              <div className='md:text-xl xl:text-2xl text-darkText dark:text-lightText mt-2 text-lg font-semibold uppercase'>
+              <div className='mt-2 text-lg font-semibold uppercase text-darkText dark:text-lightText tablet:text-xl desktopLarge:text-2xl'>
                 Processing...
               </div>
             </motion.div>
@@ -269,20 +271,20 @@ export default function OrderLayout() {
       <DialogPopup
         isOpen={unavailableOrder}
         handleClose={() => setUnavailableOrder(false)}
-        classNameWrapper='relative w-11/12 sm:w-9/12 md:w-8/12 max-w:lg transform overflow-hidden rounded-2xl py-6 px-4 align-middle shadow-xl transition-all'
+        classNameWrapper='relative w-11/12 tabletSmall:w-9/12 tablet:w-8/12 max-w:lg transform overflow-hidden rounded-2xl py-6 px-4 align-middle shadow-xl transition-all'
         closeButton={false}
       >
         <div className={theme === 'dark' ? 'dark' : 'light'}>
           <div className='mb-4 text-center'>
             <FontAwesomeIcon
               icon={faXmark}
-              className='text- md:w-10 lg:w-12 xl:w-16 h-auto w-8 rounded-full text-center text-red-600'
+              className='text- h-auto w-8 rounded-full text-center text-red-600 tablet:w-10 desktop:w-12 desktopLarge:w-16'
             />
           </div>
-          <p className='sm:text-lg md:text-xl xl:text-2xl mt-6 text-center text-base font-bold uppercase leading-6'>
+          <p className='mt-6 text-center text-base font-bold uppercase leading-6 tabletSmall:text-lg tablet:text-xl desktopLarge:text-2xl'>
             {t('layout.YOUR ORDER WAS DENIDED')}
           </p>
-          <div className='md:text-base xl:text-lg mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium'>
+          <div className='mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium tablet:text-base desktopLarge:text-lg'>
             <p className='w-full text-left'>
               {t('denided order.Your order was denied due to ')}
               <span className='text-haretaColor'>{t('denided order.unavailable quantity')}</span>
@@ -301,7 +303,7 @@ export default function OrderLayout() {
               {t('denided order. the unavailable items and ')}
               <span className='text-haretaColor'>{t('denided order.adjust the quantity.')}</span>
             </p>
-            <p className='md:text-lg xl:text-xl text-center text-base font-semibold'>
+            <p className='text-center text-base font-semibold tablet:text-lg desktopLarge:text-xl'>
               {t('denided order.Sincerely apologies for this accident!')}
             </p>
           </div>

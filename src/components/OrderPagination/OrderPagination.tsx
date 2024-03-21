@@ -23,7 +23,7 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
         dotBefore = true
         return (
           <span
-            className='text-darkText dark:text-lightText mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] shadow-sm '
+            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-darkText shadow-sm dark:text-lightText '
             key={index}
           >
             ...
@@ -37,7 +37,7 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
         dotAfter = true
         return (
           <span
-            className='text-darkText dark:text-lightText mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] shadow-sm '
+            className='mx-1 rounded bg-transparent px-2 py-2 tracking-[4px] text-darkText shadow-sm dark:text-lightText '
             key={index}
           >
             ...
@@ -71,9 +71,9 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
               }).toString()
             }}
             className={classNames(
-              'text-darkText lg:mx-2 lg:h-8 lg:w-8 lg:text-base mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-textDark px-2 py-2 text-sm shadow-sm hover:border-brownColor dark:border-textLight dark:hover:border-haretaColor ',
+              'border-textDark dark:border-textLight mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border px-2 py-2 text-sm text-darkText shadow-sm hover:border-brownColor dark:hover:border-haretaColor desktop:mx-2 desktop:h-8 desktop:w-8 desktop:text-base ',
               {
-                'text-darkText dark:text-darkText border-transparent bg-vintageColor dark:bg-haretaColor':
+                'border-transparent bg-vintageColor text-darkText dark:bg-haretaColor dark:text-darkText':
                   pageNumber === currentPage,
                 'border-textDark dark:border-textLight': pageNumber !== currentPage
               }
@@ -98,16 +98,16 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
               page: (currentPage - 1).toString()
             }).toString()
           }}
-          className='text-darkText lg:text-base dark:text-lightText group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl  border border-textDark px-3 py-1 text-sm  shadow-sm hover:border-brownColor hover:text-brownColor dark:border-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor'
+          className='border-textDark dark:border-textLight group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText shadow-sm  hover:border-brownColor hover:text-brownColor dark:text-lightText dark:hover:border-haretaColor dark:hover:text-haretaColor desktop:text-base'
         >
           <FontAwesomeIcon
             icon={faAngleLeft}
-            className='text-darkText dark:text-lightText py-1 group-hover:text-brownColor dark:group-hover:text-haretaColor'
+            className='py-1 text-darkText group-hover:text-brownColor dark:text-lightText dark:group-hover:text-haretaColor'
           />
         </Link>
       ) : (
-        <span className='text-darkText lg:text-base dark:text-lightText group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl  border border-textDark px-3 py-1 text-sm opacity-60 shadow-sm dark:border-textLight '>
-          <FontAwesomeIcon icon={faAngleLeft} className='text-darkText dark:text-lightText py-1' />
+        <span className='border-textDark dark:border-textLight group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText opacity-60 shadow-sm dark:text-lightText desktop:text-base '>
+          <FontAwesomeIcon icon={faAngleLeft} className='py-1 text-darkText dark:text-lightText' />
         </span>
       )}
 
@@ -122,16 +122,16 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
               page: (currentPage + 1).toString()
             }).toString()
           }}
-          className='text-darkText lg:text-base dark:text-lightText group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl  border border-textDark px-3 py-1 text-sm  shadow-sm hover:border-brownColor hover:text-brownColor dark:border-textLight dark:hover:border-haretaColor dark:hover:text-haretaColor'
+          className='border-textDark dark:border-textLight group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText shadow-sm  hover:border-brownColor hover:text-brownColor dark:text-lightText dark:hover:border-haretaColor dark:hover:text-haretaColor desktop:text-base'
         >
           <FontAwesomeIcon
             icon={faAngleRight}
-            className='text-darkText dark:text-lightText py-1 group-hover:text-brownColor dark:group-hover:text-haretaColor'
+            className='py-1 text-darkText group-hover:text-brownColor dark:text-lightText dark:group-hover:text-haretaColor'
           />
         </Link>
       ) : (
-        <span className='text-darkText lg:text-base dark:text-lightText group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl  border border-textDark px-3 py-1 text-sm opacity-60 shadow-sm dark:border-textLight '>
-          <FontAwesomeIcon icon={faAngleRight} className='text-darkText dark:text-lightText py-1' />
+        <span className='border-textDark dark:border-textLight group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText opacity-60 shadow-sm dark:text-lightText desktop:text-base '>
+          <FontAwesomeIcon icon={faAngleRight} className='py-1 text-darkText dark:text-lightText' />
         </span>
       )}
     </div>

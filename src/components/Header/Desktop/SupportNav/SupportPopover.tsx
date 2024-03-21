@@ -15,7 +15,7 @@ export default function SupportPopover({ closePopover }: Props) {
   const className = 'rounded-md px-3 py-2 hover:bg-lightColor900/80 hover:font-semibold dark:hover:bg-darkColor900/80'
 
   return (
-    <div className='md:font-medium lg:w-72 lg:text-lg bg-lightColor700 relative flex w-64 select-none flex-col space-y-1 rounded-lg p-2 text-base font-medium text-darkText shadow-lg dark:bg-darkColor700 dark:text-lightText'>
+    <div className='relative flex w-64 select-none flex-col space-y-1 rounded-lg bg-lightColor700 p-2 text-base font-medium text-darkText shadow-lg dark:bg-darkColor700 dark:text-lightText tablet:font-medium desktop:w-72 desktop:text-lg'>
       {/* <Link
         to='/'
         className='rounded-md px-3 py-2 hover:bg-[#dfdfdf] hover:font-semibold hover:text-darkText dark:hover:bg-[#101010] dark:hover:text-lightText'
@@ -47,7 +47,10 @@ export default function SupportPopover({ closePopover }: Props) {
 
       <ChangeLanguage closePopover={closePopover} />
 
-      <ToggleTheme className='lg:h-7 lg:w-7 xl:h-8 xl:w-8 h-6 w-6' classNameWrapper={className} />
+      <ToggleTheme
+        className='h-6 w-6 desktop:h-7 desktop:w-7 desktopLarge:h-8 desktopLarge:w-8'
+        classNameWrapper={className}
+      />
     </div>
   )
 }

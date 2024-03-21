@@ -18,7 +18,7 @@ export default function Input({
   errorMessage,
   rules,
   inputClassName = 'w-full rounded-sm border border-gray-300 p-3 outline-none outline',
-  errorClassName = 'mt-1 min-h-[1.25rem] lg:min-h-[1.5rem] text-sm lg:text-base text-red-600',
+  errorClassName = 'mt-1 min-h-[1.25rem] desktop:min-h-[1.5rem] text-sm desktop:text-base text-red-600',
   ...rest
 }: Props) {
   //? handle errors

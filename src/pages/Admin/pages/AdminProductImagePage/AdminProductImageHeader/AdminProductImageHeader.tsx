@@ -4,7 +4,7 @@ import { adminPath } from 'src/constants/path'
 
 export default function AdminProductImageHeader() {
   return (
-    <div className='lg:text-base relative flex items-center justify-around  rounded-xl border  border-white/40 py-2 text-sm font-semibold text-lightText/80'>
+    <div className='relative flex items-center justify-around rounded-xl  border border-white/40  py-2 text-sm font-semibold text-lightText/80 desktop:text-base'>
       {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
       <NavLink
         to={adminPath.uploadProductAvatar}

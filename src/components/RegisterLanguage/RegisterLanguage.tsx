@@ -27,22 +27,22 @@ export default function RegisterLanguage() {
     <div className='group'>
       <FloatingOnClick
         renderPopover={
-          <div className='md:w-40 lg:text-lg bg-lightColor700 relative flex w-28 select-none flex-col rounded-lg p-2 text-base text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90'>
+          <div className='relative flex w-28 select-none flex-col rounded-lg bg-lightColor700 p-2 text-base text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90 tablet:w-40 desktop:text-lg'>
             <button
-              className='sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl px-2 py-1 text-sm hover:font-medium hover:text-primaryColor'
+              className='px-2 py-1 text-sm hover:font-medium hover:text-primaryColor tabletSmall:text-base tablet:px-1 tablet:py-1 tablet:text-lg desktopLarge:px-2 desktopLarge:py-2 desktopLarge:text-xl'
               onClick={() => changeLanguage('en')}
             >
               English
             </button>
             <button
-              className='sm:text-base md:px-1 md:py-1 md:text-lg xl:px-2 xl:py-2 xl:text-xl px-2 py-1 text-sm hover:font-medium hover:text-primaryColor'
+              className='px-2 py-1 text-sm hover:font-medium hover:text-primaryColor tabletSmall:text-base tablet:px-1 tablet:py-1 tablet:text-lg desktopLarge:px-2 desktopLarge:py-2 desktopLarge:text-xl'
               onClick={() => changeLanguage('vi')}
             >
               Tiếng Việt
             </button>
           </div>
         }
-        className='sm:text-sm md:text-sm xl:text-lg flex cursor-default select-none items-center space-x-0.5 p-1 text-xs font-semibold text-darkText duration-200 dark:text-lightText'
+        className='flex cursor-default select-none items-center space-x-0.5 p-1 text-xs font-semibold text-darkText duration-200 dark:text-lightText tabletSmall:text-sm tablet:text-sm desktopLarge:text-lg'
         isOpen={isOpen}
         handleClick={handleClick}
         openChange={setIsOpen}
@@ -54,7 +54,7 @@ export default function RegisterLanguage() {
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 20 20'
               fill='currentColor'
-              className='lg:h-6 lg:w-6 h-5 w-5'
+              className='h-5 w-5 desktop:h-6 desktop:w-6'
             >
               <path
                 fillRule='evenodd'
@@ -68,7 +68,7 @@ export default function RegisterLanguage() {
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 20 20'
               fill='currentColor'
-              className='lg:h-6 lg:w-6 h-5 w-5'
+              className='h-5 w-5 desktop:h-6 desktop:w-6'
             >
               <path
                 fillRule='evenodd'

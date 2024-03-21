@@ -39,7 +39,7 @@ export default function AdminProductImageList() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
-        <p className=' lg:text-xl text-center text-lg font-semibold uppercase text-white'>Danh sách hình ảnh</p>
+        <p className=' text-center text-lg font-semibold uppercase text-white desktop:text-xl'>Danh sách hình ảnh</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {!currentProduct && (
             <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>

@@ -21,6 +21,8 @@ import PathBar from 'src/components/PathBar'
 import { StoreContext } from 'src/contexts/store.context'
 import EmptyProductList from 'src/components/EmptyProductList'
 import { useTranslation } from 'react-i18next'
+import { PathElement } from 'src/components/PathBar/PathBar'
+import mainPath from 'src/constants/path'
 
 export default function ProductList() {
   const { isAuthenticated } = useContext(AppContext)
@@ -42,7 +44,7 @@ export default function ProductList() {
   })
 
   //? GET WISHLIST
-  const { data: wishlistData, isInitialLoading } = useQuery({
+  const { data: wishlistData, isLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
       return likeItemAPi.getWishList()
@@ -65,20 +67,24 @@ export default function ProductList() {
   //? TRANSLATION
   const { t } = useTranslation('store')
 
+  //! PATH LIST
+  const pathList: PathElement[] = [
+    {
+      pathName: t('path bar.store'),
+      url: mainPath.store,
+      isNotALink: false
+    }
+  ]
+
   return (
-    <div className='md:py-3 xl:py-4 bg-lightBg py-2 duration-200 dark:bg-darkBg'>
+    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg tablet:py-3 desktopLarge:py-4'>
       <div className='container'>
-        <PathBar
-          pathList={[
-            { pathName: t('path bar.home'), url: '/' },
-            { pathName: t('path bar.store'), url: '/store' }
-          ]}
-        />
+        <PathBar pathList={pathList} />
 
         {!isMobile && (
-          <div className='lg:gap-4 xl:gap-6 relative grid grid-cols-12 gap-2'>
+          <div className='relative grid grid-cols-12 gap-2 desktop:gap-4 desktopLarge:gap-6'>
             <div className='col-span-3'>
-              <div className='md:top-14 lg:top-20 sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/20 bg-barLightBg px-2 py-4 duration-200 dark:border-white/20 dark:bg-barDarkBg'>
+              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/20 bg-barLightBg px-2 py-4 duration-200 dark:border-white/20 dark:bg-barDarkBg tablet:top-14 desktop:top-20'>
                 <SearchBar />
                 <AsideSorter />
                 <PriceRange queryConfig={queryConfig} />
@@ -90,7 +96,7 @@ export default function ProductList() {
               {storeData?.data.paging.total == 0 && <EmptyProductList currentPage='store' />}
               {storeData && (
                 <div className=''>
-                  <div className='lg:grid-cols-3 lg:gap-6 grid grid-cols-2 gap-4'>
+                  <div className='grid grid-cols-2 gap-4 desktop:grid-cols-3 desktop:gap-6'>
                     {isFetching &&
                       Array(12)
                         .fill(0)
@@ -102,7 +108,7 @@ export default function ProductList() {
                     {!isFetching &&
                       storeData.data.data.map((product) => (
                         <div className='col-span-1' key={product.id}>
-                          <Product product={product} initialLoading={isInitialLoading} />
+                          <Product product={product} initialLoading={isLoading} />
                         </div>
                       ))}
                   </div>
@@ -125,7 +131,7 @@ export default function ProductList() {
                   {storeData &&
                     storeData.data.data.map((product) => (
                       <div className='col-span-1' key={product.id}>
-                        <Product product={product} initialLoading={isInitialLoading} />
+                        <Product product={product} initialLoading={isLoading} />
                       </div>
                     ))}
                 </div>

@@ -1,4 +1,4 @@
-const path = {
+const mainPath = {
   home: '/',
   login: '/login',
   register: '/register',
@@ -20,7 +20,7 @@ const path = {
   orderInformation: '/order-tracking/:orderId',
   privacyAndTerms: '/privacy-and-terms'
 } as const
-export default path
+export default mainPath
 
 export const adminPath = {
   mainPage: '/admin',

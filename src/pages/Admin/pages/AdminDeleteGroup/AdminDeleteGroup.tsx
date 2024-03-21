@@ -136,7 +136,7 @@ export default function AdminDeleteGroup() {
           {productGroup && (
             <div className='mt-4 flex w-full items-center justify-end'>
               <button
-                className='lg:text-sm rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600'
+                className='rounded-lg bg-red-600/80 px-3 py-1 text-xs uppercase hover:bg-red-600 desktop:text-sm'
                 onClick={onClickDelete}
               >
                 Xóa

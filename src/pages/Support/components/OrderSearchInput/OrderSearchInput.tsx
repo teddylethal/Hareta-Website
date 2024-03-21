@@ -34,7 +34,7 @@ export default function OrderSearchInput({ name, register, errorMessage, rules, 
         <input
           autoComplete='off'
           className={classNames(
-            'autofill:text-darkText lg:py-2 lg:text-lg dark:autofill:text-lightText w-full rounded-md bg-transparent px-4  py-1 text-base outline-none ring-1 duration-200  focus:ring-2 focus:ring-vintageColor dark:caret-white dark:focus:ring-haretaColor',
+            'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-200 autofill:text-darkText focus:ring-2 focus:ring-vintageColor dark:caret-white  dark:autofill:text-lightText dark:focus:ring-haretaColor desktop:py-2 desktop:text-lg',
             {
               'ring-red-600': errorMessage,
               'ring-vintageColor/80 dark:ring-haretaColor/80': !errorMessage
@@ -44,12 +44,12 @@ export default function OrderSearchInput({ name, register, errorMessage, rules, 
           required={required}
           {...register(name, rules)}
         />
-        <button className='lg:right-4 lg:px-3 absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor'>
+        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor desktop:right-4 desktop:px-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
             fill='currentColor'
-            className='lg:h-5 lg:w-5 h-4 w-4'
+            className='h-4 w-4 desktop:h-5 desktop:w-5'
           >
             <path
               fillRule='evenodd'
@@ -59,7 +59,7 @@ export default function OrderSearchInput({ name, register, errorMessage, rules, 
           </svg>
         </button>
       </div>
-      <div className={'md:text-base mt-1 min-h-[1.25rem] text-sm text-red-600 '}>{message}</div>
+      <div className={'mt-1 min-h-[1.25rem] text-sm text-red-600 tablet:text-base '}>{message}</div>
     </Fragment>
   )
 }

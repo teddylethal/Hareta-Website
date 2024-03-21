@@ -58,7 +58,7 @@ export default function OrderItem({ order }: Props) {
   return (
     <Fragment>
       {(!purchasesData || isFetching) && (
-        <div className='md:py-2 xl:py-4 flex w-full items-center justify-center py-1'>
+        <div className='flex w-full items-center justify-center py-1 tablet:py-2 desktopLarge:py-4'>
           <ColorRing
             visible={true}
             height='80'
@@ -72,25 +72,27 @@ export default function OrderItem({ order }: Props) {
       )}
       {purchasesData && (
         <button
-          className='md:grid-cols-6 md:gap-4 md:px-3 md:py-2 lg:px-4 xl:py-4 grid w-full grid-cols-4 gap-2 py-1'
+          className='grid w-full grid-cols-4 gap-2 py-1 tablet:grid-cols-6 tablet:gap-4 tablet:px-3 tablet:py-2 desktop:px-4 desktopLarge:py-4'
           onClick={handleClickItem}
         >
-          <div className='md:col-span-4 col-span-2'>
-            <div className='md:py-2 flex flex-col items-start space-y-2 py-1'>
-              <div className='md:space-x-8 xl:space-x-10 flex w-full items-center justify-center space-x-6'>
+          <div className='col-span-2 tablet:col-span-4'>
+            <div className='flex flex-col items-start space-y-2 py-1 tablet:py-2'>
+              <div className='flex w-full items-center justify-center space-x-6 tablet:space-x-8 desktopLarge:space-x-10'>
                 {!isMobile && (
-                  <p className='md:text-base xl:text-lg text-sm font-semibold'>{t('orderDetail.order id')}</p>
+                  <p className='text-sm font-semibold tablet:text-base desktopLarge:text-lg'>
+                    {t('orderDetail.order id')}
+                  </p>
                 )}
-                <p className='md:text-base xl:text-lg text-sm font-medium'>{order.id}</p>
+                <p className='text-sm font-medium tablet:text-base desktopLarge:text-lg'>{order.id}</p>
               </div>
-              <div className='md:grid-cols-4 md:gap-3 mt-2 grid w-full grid-cols-2 gap-1'>
-                <div className='cols-span-1 md:col-span-3'>
-                  <div className='md:grid-cols-3 md:gap-2 xl:gap-4 grid w-full grid-cols-1 gap-1'>
+              <div className='mt-2 grid w-full grid-cols-2 gap-1 tablet:grid-cols-4 tablet:gap-3'>
+                <div className='cols-span-1 tablet:col-span-3'>
+                  <div className='grid w-full grid-cols-1 gap-1 tablet:grid-cols-3 tablet:gap-2 desktopLarge:gap-4'>
                     {itemList.map((item) => {
                       const avatarURL = item.avatar ? item.avatar.url : null
                       return (
                         <div className='col-span-1' key={item.id}>
-                          <div className='md:rounded-lg relative w-full overflow-hidden rounded-md pt-[100%]'>
+                          <div className='relative w-full overflow-hidden rounded-md pt-[100%] tablet:rounded-lg'>
                             {avatarURL ? (
                               <img
                                 src={avatarURL}
@@ -101,7 +103,7 @@ export default function OrderItem({ order }: Props) {
                               <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
                             )}
                           </div>
-                          <p className='md:text-sm xl:text-base mt-2 w-full text-center text-xs font-medium'>
+                          <p className='mt-2 w-full text-center text-xs font-medium tablet:text-sm desktopLarge:text-base'>
                             {item.name}
                           </p>
                         </div>
@@ -111,7 +113,7 @@ export default function OrderItem({ order }: Props) {
                 </div>
                 {remain > 0 && (
                   <div className='col-span-1'>
-                    <div className='md:rounded-lg relative w-full rounded-md border border-black/60 pt-[100%] dark:border-white/60'>
+                    <div className='relative w-full rounded-md border border-black/60 pt-[100%] dark:border-white/60 tablet:rounded-lg'>
                       <div className='absolute left-0 top-0 flex h-full w-full items-center text-center'>
                         + {remain}
                       </div>
@@ -122,7 +124,7 @@ export default function OrderItem({ order }: Props) {
             </div>
           </div>
           <div className='col-span-1 flex min-h-full items-center justify-center'>
-            <p className='sm:text-sm md:text-base xl:text-lg flex h-full flex-col items-center justify-center text-center text-xs font-medium'>
+            <p className='flex h-full flex-col items-center justify-center text-center text-xs font-medium tabletSmall:text-sm tablet:text-base desktopLarge:text-lg'>
               {formatDate(order.created_at)}
             </p>
           </div>

@@ -7,7 +7,7 @@ export default function OrderMobileLayout() {
     <div>
       <ShippingInfor />
       <Payment />
-      <div className='text-darkText sm:p-2 dark:text-lightText rounded-lg bg-white p-1 dark:bg-black'>
+      <div className='rounded-lg bg-white p-1 text-darkText dark:bg-black dark:text-lightText tabletSmall:p-2'>
         <OrderDetail />
       </div>
     </div>

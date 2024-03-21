@@ -33,7 +33,7 @@ export default function MobileNav({ className }: Props) {
       <button
         onClick={openMenu}
         type='button'
-        className='text-darkText dark:text-lightText flex items-center justify-center'
+        className='flex items-center justify-center text-darkText dark:text-lightText'
       >
         <FontAwesomeIcon icon={faBars} className='h-6 w-6' />
       </button>
@@ -50,7 +50,7 @@ export default function MobileNav({ className }: Props) {
               transition={{ duration: 0.3 }}
             />
             <motion.div
-              className='sm:w-[60%] fixed right-0 top-0 z-10 flex h-full w-[70%] overflow-hidden rounded-l-md py-2 shadow-md'
+              className='fixed right-0 top-0 z-10 flex h-full w-[70%] overflow-hidden rounded-l-md py-2 shadow-md tabletSmall:w-[60%]'
               initial={{ opacity: 0, x: '20%' }}
               animate={{
                 opacity: 1,
@@ -62,7 +62,7 @@ export default function MobileNav({ className }: Props) {
               transition={{ duration: 0.3 }}
               ref={ref}
             >
-              <div className=' sm:text-base flex w-full flex-col items-start justify-start px-3 text-sm font-medium uppercase'>
+              <div className=' flex w-full flex-col items-start justify-start px-3 text-sm font-medium uppercase tabletSmall:text-base'>
                 <Link to={path.home} className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.home')}</div>
                 </Link>

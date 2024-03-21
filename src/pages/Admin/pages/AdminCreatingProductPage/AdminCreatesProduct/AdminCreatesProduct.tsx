@@ -112,7 +112,7 @@ export default function AdminCreatesProduct() {
             <AdminCreatesProductForm />
             <div className='col-span-1 mt-2 flex items-center justify-end'>
               <button
-                className='lg:text-lg rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor'
+                className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor desktop:text-lg'
                 type='submit'
               >
                 Tạo sản phẩm

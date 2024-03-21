@@ -80,25 +80,25 @@ export default function MostFavouriteList({ setLoadingPage }: Props) {
   const { t } = useTranslation('home')
 
   return (
-    <div className='md:py-6 lg:py-8 xl:py-10 py-4'>
+    <div className='py-4 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
       <div className='container'>
-        <div className='md:py-6 lg:py-8 xl:py-10 relative rounded-xl border border-black/60 py-4 duration-200 dark:border-white/60'>
-          <div className='md:left-4 xl:left-8 absolute left-2 top-0 -translate-y-1/2 bg-lightBg duration-200 dark:bg-darkBg'>
-            <p className='lg:text-4xl xl:text-5xl px-1 py-2 text-left text-2xl font-bold uppercase text-tagColor'>
+        <div className='relative rounded-xl border border-black/60 py-4 duration-200 dark:border-white/60 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
+          <div className='absolute left-2 top-0 -translate-y-1/2 bg-lightBg duration-200 dark:bg-darkBg tablet:left-4 desktopLarge:left-8'>
+            <p className='px-1 py-2 text-left text-2xl font-bold uppercase text-tagColor desktop:text-4xl desktopLarge:text-5xl'>
               {t('most favourite')}
             </p>
           </div>
-          <div className='md:right-4 xl:right-8 absolute right-2 top-0 -translate-y-1/2 bg-lightBg duration-200 dark:bg-darkBg'>
+          <div className='absolute right-2 top-0 -translate-y-1/2 bg-lightBg duration-200 dark:bg-darkBg tablet:right-4 desktopLarge:right-8'>
             <button
-              className='hover:text-darkText md:gap-3 md:text-base xl:text-lg flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium dark:border-white/60 dark:hover:border-transparent'
+              className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium hover:text-darkText dark:border-white/60 dark:hover:border-transparent tablet:gap-3 tablet:text-base desktopLarge:text-lg'
               onClick={handleNavigate}
             >
               {!isMobile && <p className='truncate uppercase'>{t('explore')}</p>}
               <FontAwesomeIcon icon={faAnglesRight} />
             </button>
           </div>
-          <div className='lg:space-y-6 lg:px-8 xl:px-12 space-y-4 px-2'>
-            <div className='lg:grid-cols-9 lg:gap-8 grid grid-cols-5 gap-4'>
+          <div className='space-y-4 px-2 desktop:space-y-6 desktop:px-8 desktopLarge:px-12'>
+            <div className='grid grid-cols-5 gap-4 desktop:grid-cols-9 desktop:gap-8'>
               {!isFetched &&
                 Array(DESKTOP_LIMIT / 2)
                   .fill(0)
@@ -115,7 +115,7 @@ export default function MostFavouriteList({ setLoadingPage }: Props) {
                 ))}
             </div>
 
-            <div className='lg:grid-cols-9 lg:gap-8 grid grid-cols-5 gap-4'>
+            <div className='grid grid-cols-5 gap-4 desktop:grid-cols-9 desktop:gap-8'>
               <div className='col-span-1'></div>
               {!isFetched &&
                 Array(DESKTOP_LIMIT / 2)

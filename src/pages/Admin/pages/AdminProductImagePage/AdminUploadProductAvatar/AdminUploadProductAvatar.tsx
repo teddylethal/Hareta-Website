@@ -104,18 +104,18 @@ export default function AdminUploadProductAvatar() {
             <div className='mt-10 space-y-4'>
               <div className='grid grid-cols-2'>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Tên sản phẩm</p>
+                  <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>Tên sản phẩm</p>
                 </div>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase'>{currentProduct?.name}</p>
+                  <p className='text-base font-medium uppercase desktop:text-lg'>{currentProduct?.name}</p>
                 </div>
               </div>
               <div className='grid grid-cols-2'>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase text-white/60'>Màu</p>
+                  <p className='text-base font-medium uppercase text-white/60 desktop:text-lg'>Màu</p>
                 </div>
                 <div className='col-span-1'>
-                  <p className='lg:text-lg text-base font-medium uppercase'>{currentProduct?.color}</p>
+                  <p className='text-base font-medium uppercase desktop:text-lg'>{currentProduct?.color}</p>
                 </div>
               </div>
               {currentProduct && (

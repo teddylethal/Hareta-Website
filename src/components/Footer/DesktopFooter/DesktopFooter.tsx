@@ -9,20 +9,20 @@ export default function DesktopFooter() {
   const { t } = useTranslation('footer')
 
   return (
-    <div className='bg-lightColor700 w-full pb-12 pt-12 duration-200 dark:bg-darkColor700'>
+    <div className='w-full bg-lightColor700 pb-12 pt-12 duration-200 dark:bg-darkColor700'>
       <div className='container'>
-        <div className=' lg:gap-2 lg:text-xl xl:gap-4 xl:text-2xl grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black duration-200 dark:text-white'>
+        <div className=' grid grid-cols-5 gap-1 text-sm font-medium uppercase text-black duration-200 dark:text-white desktop:gap-2 desktop:text-xl desktopLarge:gap-4 desktopLarge:text-2xl'>
           <div className='col-span-1 flex items-center justify-center'>{t('follow us on')}</div>
-          <div className='lg:px-4 xl:px-8 col-span-1 flex items-center px-2'>Hareta</div>
-          <div className='lg:px-2 lg:text-xl xl:text-2xl col-span-1 flex items-center px-0 text-sm'>
+          <div className='col-span-1 flex items-center px-2 desktop:px-4 desktopLarge:px-8'>Hareta</div>
+          <div className='col-span-1 flex items-center px-0 text-sm desktop:px-2 desktop:text-xl desktopLarge:text-2xl'>
             {t('our main office')}
           </div>
-          <div className='xl:px-10 col-span-1 flex items-center px-6'>{t('support')}</div>
-          <div className='lg:px-4 xl:px-8 col-span-1 flex items-center px-2'>{t('contact')}</div>
+          <div className='col-span-1 flex items-center px-6 desktopLarge:px-10'>{t('support')}</div>
+          <div className='col-span-1 flex items-center px-2 desktop:px-4 desktopLarge:px-8'>{t('contact')}</div>
         </div>
-        <div className='lg:gap-2 lg:text-base xl:gap-4 mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-darkText/80 duration-200 dark:text-lightText/80'>
+        <div className='mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-darkText/80 duration-200 dark:text-lightText/80 desktop:gap-2 desktop:text-base desktopLarge:gap-4'>
           <div className='col-span-1'>
-            <div className='lg:space-x-2 lg:text-xl xl:text-2xl flex items-center justify-center space-x-1 text-lg'>
+            <div className='flex items-center justify-center space-x-1 text-lg desktop:space-x-2 desktop:text-xl desktopLarge:text-2xl'>
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
                 <FontAwesomeIcon
                   icon={faFacebook}
@@ -49,25 +49,25 @@ export default function DesktopFooter() {
               </Link>
             </div>
           </div>
-          <div className='lg:px-4 xl:px-8 col-span-1 flex flex-col space-y-2 px-2'>
+          <div className='col-span-1 flex flex-col space-y-2 px-2 desktop:px-4 desktopLarge:px-8'>
             <Link to='hareta.me' className='hover:text-primaryColor dark:hover:text-primaryColor'>
               Hareta workshop
             </Link>
           </div>
-          <div className='lg:px-2 col-span-1 px-0'>974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam</div>
-          <div className='xl:px-10 col-span-1 flex flex-col space-y-2 px-6'>
+          <div className='col-span-1 px-0 desktop:px-2'>974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam</div>
+          <div className='col-span-1 flex flex-col space-y-2 px-6 desktopLarge:px-10'>
             <Link to={path.home}>{t('faq')}</Link>
             <Link to={path.home}>{t('policy and terms')}</Link>
             <Link to={path.home}>{t('order tracking')}</Link>
           </div>
-          <div className='lg:px-4 xl:px-8 col-span-1 flex flex-col justify-start space-y-2 px-2'>
+          <div className='col-span-1 flex flex-col justify-start space-y-2 px-2 desktop:px-4 desktopLarge:px-8'>
             <p>hareta.contact@gmail.com</p>
             <p>0394030604</p>
           </div>
         </div>
-        <div className='lg:gap-2 xl:gap-4 relative grid grid-cols-5 gap-1'>
-          <div className='lg:space-x-4 col-span-2 flex items-center justify-center space-x-2'>
-            <div className='lg:h-40 lg:w-40 relative h-32 w-32'>
+        <div className='relative grid grid-cols-5 gap-1 desktop:gap-2 desktopLarge:gap-4'>
+          <div className='col-span-2 flex items-center justify-center space-x-2 desktop:space-x-4'>
+            <div className='relative h-32 w-32 desktop:h-40 desktop:w-40'>
               <img
                 src='/images/haretaWorkshopLogo.png'
                 alt='Hareta'
@@ -75,11 +75,11 @@ export default function DesktopFooter() {
               />
             </div>
             <div className='uppercase text-darkText/80 duration-200 dark:text-lightText/80'>
-              <p className='lg:text-xl xl:text-2xl text-lg'>hareta</p>
-              <p className='lg:text-base  xl:text-lg pl-4 text-sm'>workshop</p>
+              <p className='text-lg desktop:text-xl desktopLarge:text-2xl'>hareta</p>
+              <p className='pl-4  text-sm desktop:text-base desktopLarge:text-lg'>workshop</p>
             </div>
           </div>
-          <div className='lg:text-sm absolute bottom-0 flex w-full items-center justify-center text-xs text-darkText/60 duration-200 dark:text-lightText/60'>
+          <div className='absolute bottom-0 flex w-full items-center justify-center text-xs text-darkText/60 duration-200 dark:text-lightText/60 desktop:text-sm'>
             {t('coppyright')}
           </div>
         </div>

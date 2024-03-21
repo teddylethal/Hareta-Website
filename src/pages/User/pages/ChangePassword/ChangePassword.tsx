@@ -39,7 +39,7 @@ export default function ChangePassword() {
     shouldFocusError: false
   })
 
-  const changePasswordMutation = useMutation(userApi.changePassword)
+  const changePasswordMutation = useMutation({ mutationFn: userApi.changePassword })
   const onSubmit = handleSubmit(async (data) => {
     try {
       await changePasswordMutation.mutateAsync(data, {
@@ -95,45 +95,45 @@ export default function ChangePassword() {
 
   return (
     <Fragment>
-      <form className='md:my-6 md:px-4 lg:my-8 lg:px-6 my-4 px-2' onSubmit={onSubmit}>
+      <form className='my-4 px-2 tablet:my-6 tablet:px-4 desktop:my-8 desktop:px-6' onSubmit={onSubmit}>
         <div className='flex flex-col space-y-2 rounded-lg border border-black/20 bg-[#efefef] p-4 dark:border-white/20 dark:bg-[#202020]'>
           <div className='relative mt-2 w-full'>
-            <p className='lg:text-lg text-sm font-medium uppercase'>{t('password.current password')}</p>
+            <p className='text-sm font-medium uppercase desktop:text-lg'>{t('password.current password')}</p>
             <Input
               type='password'
-              inputClassName='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-200 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage '
+              inputClassName='mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs desktop:text-base outline-none duration-200 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage '
               register={register}
               name='old_password'
               errorMessage={errors.old_password?.message}
             />
           </div>
           <div className='relative w-full '>
-            <p className='lg:text-lg text-sm font-medium uppercase'>{t('password.new password')}</p>
+            <p className='text-sm font-medium uppercase desktop:text-lg'>{t('password.new password')}</p>
             <Input
               type='password'
-              inputClassName='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-200 autofill:text-darkText  dark:caret-white autofill:dark:text-textVintage'
+              inputClassName='mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs desktop:text-base outline-none duration-200 autofill:text-darkText  dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='new_password'
               errorMessage={errors.new_password?.message}
             />
           </div>
           <div className='relative w-full '>
-            <p className='lg:text-lg text-sm font-medium uppercase'>{t('password.confirm new password')}</p>
+            <p className='text-sm font-medium uppercase desktop:text-lg'>{t('password.confirm new password')}</p>
             <Input
               type='password'
-              inputClassName='mt-2 w-full sm:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs lg:text-base outline-none duration-200 autofill:text-darkText peer dark:caret-white autofill:dark:text-textVintage'
+              inputClassName='mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs desktop:text-base outline-none duration-200 autofill:text-darkText peer dark:caret-white autofill:dark:text-textVintage'
               register={register}
               name='confirm_new_password'
               errorMessage={errors.confirm_new_password?.message}
             />
           </div>
-          <div className='sm:w-[50%] lg:text-base flex w-full justify-start space-x-8 pt-2 text-sm'>
+          <div className='flex w-full justify-start space-x-8 pt-2 text-sm tabletSmall:w-[50%] desktop:text-base'>
             <button type='button' className='hover:underline' onClick={handleCancle}>
               {t('password.cancel')}
             </button>
             <button
               type='submit'
-              className='lg:px-4 lg:py-2 rounded-md bg-vintageColor/90  px-2 py-1 hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/70 '
+              className='rounded-md bg-vintageColor/90 px-2 py-1  hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/70 desktop:px-4 desktop:py-2 '
             >
               {t('password.change password')}
             </button>

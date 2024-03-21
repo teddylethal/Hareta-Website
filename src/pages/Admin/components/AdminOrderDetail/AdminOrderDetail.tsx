@@ -92,7 +92,7 @@ export default function AdminOrderDetail() {
   return (
     <div className='min-h-40'>
       {!choosingOrder && (
-        <div className='md:text-lg xl:text-xl flex h-40 w-full items-center justify-center text-center font-semibold uppercase'>
+        <div className='flex h-40 w-full items-center justify-center text-center font-semibold uppercase tablet:text-lg desktopLarge:text-xl'>
           Choose an order
         </div>
       )}
@@ -106,7 +106,7 @@ export default function AdminOrderDetail() {
                   readOnly
                   className=''
                   inputClassName={classNames(
-                    'text-haretaColor focus:outline-none bg-transparent cursor-not-allowed bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg lg:text-lg',
+                    'text-haretaColor focus:outline-none bg-transparent cursor-not-allowed bg-slate-900 py-1 px-2 text-base desktop:text-lg rounded-lg desktop:text-lg',
                     {
                       'outline-red-600': Boolean(errors.id)
                     }
@@ -127,7 +127,7 @@ export default function AdminOrderDetail() {
                   render={({ field }) => (
                     <InputNumber
                       inputClassName={classNames(
-                        'text-haretaColor bg-slate-900 py-1 px-2 text-base lg:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor lg:text-lg',
+                        'text-haretaColor bg-slate-900 py-1 px-2 text-base desktop:text-lg rounded-lg outline outline-1 outline-haretaColor/40 focus:outline-haretaColor desktop:text-lg',
                         {
                           'outline-red-600': Boolean(errors.status)
                         }

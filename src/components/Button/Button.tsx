@@ -13,7 +13,7 @@ export default function Button(props: ButtonProps) {
       className={classNames(
         'w-full rounded-md bg-haretaColor text-center font-medium uppercase text-darkText duration-200',
         {
-          'bg-opacity-50 text-opacity-50': isLoading,
+          'opacity-50': isLoading,
           'hover:bg-primaryColor': !isLoading
         }
       )}

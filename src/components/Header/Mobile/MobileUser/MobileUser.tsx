@@ -32,7 +32,10 @@ export default function MobileUser({ className, closeMenu }: Props) {
     <div ref={ref}>
       {!isAuthenticated && (
         <Link to={path.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
-          <FontAwesomeIcon icon={faUser} className='sm:h-6 sm:w-6 h-4 w-4 rounded-full dark:fill-white ' />
+          <FontAwesomeIcon
+            icon={faUser}
+            className='h-4 w-4 rounded-full dark:fill-white tabletSmall:h-6 tabletSmall:w-6 '
+          />
           <p className=''>Login</p>
         </Link>
       )}
@@ -52,7 +55,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
                 : 'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
             }
             alt='avatar'
-            className={classNames(className, 'sm:h-8 sm:w-8 h-6 w-6 rounded-full dark:fill-white ')}
+            className={classNames(className, 'h-6 w-6 rounded-full dark:fill-white tabletSmall:h-8 tabletSmall:w-8 ')}
           />
           <p>{profile?.name}</p>
         </button>
@@ -61,7 +64,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
       <AnimatePresence>
         {visible && (
           <motion.div
-            className='text-darkText sm:text-sm dark:text-lightText flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal dark:border-white/20'
+            className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-sm'
             initial={{ opacity: 0, y: '-10%' }}
             animate={{
               opacity: 1,

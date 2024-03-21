@@ -29,7 +29,7 @@ export default function SelectState({ isError = false }: Props) {
       <div className='relative mt-1'>
         <Listbox.Button
           className={classNames(
-            'sm:text-sm md:text-base lg:text-lg xl:text-xl relative flex w-full cursor-default  items-center justify-between rounded-lg border  bg-white py-2 text-left text-xs dark:bg-black',
+            'relative flex w-full cursor-default items-center justify-between rounded-lg border  bg-white py-2 text-left text-xs  dark:bg-black tabletSmall:text-sm tablet:text-base desktop:text-lg desktopLarge:text-xl',
             {
               'border-black/40 dark:border-white/40': !isError,
               'border-red-700 dark:border-red-700': isError
@@ -44,7 +44,7 @@ export default function SelectState({ isError = false }: Props) {
           </span>
         </Listbox.Button>
         <Transition as={Fragment} leave='transition ease-in duration-100' leaveFrom='opacity-100' leaveTo='opacity-0'>
-          <Listbox.Options className='md:text-sm lg:text-lg absolute z-[2] mt-1 max-h-60 w-full overflow-auto rounded-md  bg-white py-1 text-xs shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black'>
+          <Listbox.Options className='absolute z-[2] mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1  text-xs shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black tablet:text-sm desktop:text-lg'>
             {stateList?.map((state, stateIdx) => (
               <Listbox.Option
                 key={stateIdx}

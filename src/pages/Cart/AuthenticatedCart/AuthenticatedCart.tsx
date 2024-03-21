@@ -73,9 +73,9 @@ export default function AuthenticatedCart() {
     <Fragment>
       {!isMobile && (
         <Fragment>
-          <div className='bg-lightColor900 mt-2 rounded-md border border-black/20 dark:border-white/20 dark:bg-darkColor900'>
+          <div className='mt-2 rounded-md border border-black/20 bg-lightColor900 dark:border-white/20 dark:bg-darkColor900'>
             <div className=''>
-              <div className='lg:text-lg grid grid-cols-12 rounded-sm  px-8 py-4 text-base uppercase  text-darkText dark:text-lightText'>
+              <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-darkText  dark:text-lightText desktop:text-lg'>
                 <div className='col-span-6'>
                   <p className='flex-grow items-center justify-center text-center text-darkText dark:text-lightText'>
                     {t('content.product')}
@@ -90,12 +90,12 @@ export default function AuthenticatedCart() {
                   </div>
                 </div>
               </div>
-              <div className='bg-lightColor700 mx-4 my-2 h-[440px] overflow-y-auto rounded-md shadow outline outline-1 outline-black/20 dark:bg-darkColor700 dark:outline-white/20'>
+              <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-lightColor700 shadow outline outline-1 outline-black/20 dark:bg-darkColor700 dark:outline-white/20'>
                 {extendedPurchases.length > 0 ? (
                   extendedPurchases?.map((purchase, index) => (
                     <div
                       key={purchase.id}
-                      className='hover:bg-lightColor900/60 border-b border-black/60 last:border-none dark:border-white/60 dark:hover:bg-darkColor900/60'
+                      className='border-b border-black/60 last:border-none hover:bg-lightColor900/60 dark:border-white/60 dark:hover:bg-darkColor900/60'
                     >
                       <ItemInCart
                         handleChecking={handleChecking}
@@ -150,11 +150,11 @@ export default function AuthenticatedCart() {
                 <div className='col-span-1 items-center text-right font-medium uppercase text-darkText dark:text-lightText'>
                   {t('content.total')}:
                 </div>
-                <span className='lg:text-lg col-span-1 text-center text-base font-medium text-haretaColor dark:text-haretaColor'>
+                <span className='col-span-1 text-center text-base font-medium text-haretaColor dark:text-haretaColor desktop:text-lg'>
                   ${formatCurrency(totalCheckedPurchasesPrice)}
                 </span>
                 {checkedPurchasesCount === 0 && (
-                  <div className='lg:text-base col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40'>
+                  <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 desktop:text-base'>
                     {t('content.check out')}
                   </div>
                 )}

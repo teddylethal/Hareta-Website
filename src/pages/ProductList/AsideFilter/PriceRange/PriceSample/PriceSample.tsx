@@ -42,7 +42,7 @@ export default function PriceSample({ handleChoosePrice }: Props) {
   return (
     <div className='duration-200' ref={ref}>
       <button
-        className='text-darkText lg:text-lg dark:text-lightText flex items-center space-x-2 text-left text-base font-medium duration-200 hover:text-primaryColor dark:hover:text-primaryColor'
+        className='flex items-center space-x-2 text-left text-base font-medium text-darkText duration-200 hover:text-primaryColor dark:text-lightText dark:hover:text-primaryColor desktop:text-lg'
         onClick={toggleOpenClose}
       >
         <p className=' uppercase '>{t('aside filter.price')}</p>
@@ -66,7 +66,7 @@ export default function PriceSample({ handleChoosePrice }: Props) {
               <button
                 key={index}
                 onClick={handleSelect(index)}
-                className='text-darkText/80 hover:text-darkText sm:text-sm md:px-3 md:py-2 md:text-base dark:text-lightText/80 dark:hover:text-lightText rounded-xl bg-lightBg/60 px-2 py-1 text-xs outline outline-1 outline-black/20 hover:bg-lightBg dark:bg-darkBg/60 dark:outline-white/20 dark:hover:bg-darkBg'
+                className='rounded-xl bg-lightBg/60 px-2 py-1 text-xs text-darkText/80 outline outline-1 outline-black/20 hover:bg-lightBg hover:text-darkText dark:bg-darkBg/60 dark:text-lightText/80 dark:outline-white/20 dark:hover:bg-darkBg dark:hover:text-lightText tabletSmall:text-sm tablet:px-3 tablet:py-2 tablet:text-base'
               >
                 ${range.lowerPrice} - ${range.upperPrice}
               </button>

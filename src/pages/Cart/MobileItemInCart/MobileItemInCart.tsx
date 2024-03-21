@@ -141,7 +141,7 @@ export default function MobileItemInCart({ purchase, index, handleChecking, hand
             }
             disabled={purchase.disabled}
             inputClassName={classNames(
-              'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
+              'h-6 text-sm desktop:text-base desktop:h-8 mx-1 desktop:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
               {
                 'text-red-600 font-semibold': unavailable,
                 'text-haretaColor font-medium': !unavailable

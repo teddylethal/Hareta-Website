@@ -136,7 +136,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
 
   return (
     <div
-      className='md:hover:pb-2 md:hover:pt-0 flex w-full items-center justify-center pb-0 pt-2 duration-200'
+      className='flex w-full items-center justify-center pb-0 pt-2 duration-200 tablet:hover:pb-2 tablet:hover:pt-0'
       onMouseMove={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
@@ -160,26 +160,26 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
             </div>
           </div>
         )}
-        <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2'>
+        <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 tabletSmall:px-3 desktop:px-4 desktop:pt-4'>
           <button
-            className='sm:text-base lg:text-lg h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 hover:text-primaryColor dark:text-lightText dark:hover:text-primaryColor'
+            className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 hover:text-primaryColor dark:text-lightText dark:hover:text-primaryColor tabletSmall:text-base desktop:text-lg'
             onClick={handleClickItem}
           >
             {product.name}
           </button>
 
-          <span className='sm:text-sm lg:text-base xl:text-lg text-xs font-semibold text-haretaColor dark:text-haretaColor'>
+          <span className='text-xs font-semibold text-haretaColor dark:text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
             ${formatCurrency(product.price)}
           </span>
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' lg:h-6 lg:w-20 lg:text-sm flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs  text-darkText'>
+            <span className=' flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-darkText desktop:h-6 desktop:w-20  desktop:text-sm'>
               {tag == 1 && t('tag.top seller')}
               {tag == 2 && t('tag.signature')}
               {tag == 3 && t('tag.favourite')}
             </span>
-            <div className='lg:left-20 lg:border-[12px] absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent' />
+            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]' />
           </div>
         )}
         {isAuthenticated && (
@@ -187,7 +187,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
             <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
               <FontAwesomeIcon
                 icon={faHeart}
-                className={classNames('md:w-5 xl:w-6 h-auto  w-4', {
+                className={classNames('h-auto w-4 tablet:w-5  desktopLarge:w-6', {
                   'text-favouriteRed': isLikedByUser,
                   ' text-lightText': !isLikedByUser
                 })}

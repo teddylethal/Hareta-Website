@@ -124,12 +124,12 @@ export default function TopSellerCarousel({ setLoadingPage }: Props) {
   return (
     <div className='container'>
       <div className='flex items-center justify-between'>
-        <p className='lg:text-4xl xl:text-5xl w-full select-none py-2 text-left text-2xl font-bold uppercase'>
+        <p className='w-full select-none py-2 text-left text-2xl font-bold uppercase desktop:text-4xl desktopLarge:text-5xl'>
           {t('top seller')}
         </p>
         {displayedItems.length >= 3 && (
           <button
-            className='hover:text-darkText md:gap-3 md:text-base xl:text-lg flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium dark:border-white/60 dark:hover:border-transparent'
+            className='flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium hover:text-darkText dark:border-white/60 dark:hover:border-transparent tablet:gap-3 tablet:text-base desktopLarge:text-lg'
             onClick={handleNavigate}
           >
             <p className='truncate uppercase'>{t('explore')}</p>
@@ -138,12 +138,12 @@ export default function TopSellerCarousel({ setLoadingPage }: Props) {
         )}
       </div>
 
-      <div className='md:p-4 lg:p-8 xl:p-12 p-2'>
+      <div className='p-2 tablet:p-4 desktop:p-8 desktopLarge:p-12'>
         {length <= 3 && (
           <div
             className={classNames('grid grid-cols-1 gap-4', {
-              'md:grid-cols-3': length == 1 || length == 3,
-              'md:grid-cols-2 lg:gap-12 xl:gap-24': length == 2
+              'tablet:grid-cols-3': length == 1 || length == 3,
+              'tablet:grid-cols-2 desktop:gap-12 desktopLarge:gap-24': length == 2
             })}
           >
             {length == 1 && <div className='col-span-1'></div>}

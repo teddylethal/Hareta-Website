@@ -65,7 +65,7 @@ export default function MobileSorter() {
     <Fragment>
       <button
         onClick={open}
-        className='text-darkText sm:text-base flex w-[60%] items-center justify-center rounded-md bg-haretaColor px-4 py-1 text-sm font-medium'
+        className='flex w-[60%] items-center justify-center rounded-md bg-haretaColor px-4 py-1 text-sm font-medium text-darkText tabletSmall:text-base'
       >
         {tagEnum === 0 ? 'Newest' : ItemTag[tagEnum]}
       </button>
@@ -95,12 +95,12 @@ export default function MobileSorter() {
               ref={ref}
             >
               <p className='flex items-center justify-center text-lg font-medium uppercase'>Sort by:</p>
-              <ul className='text-darkText/80 lg:text-base dark:text-lightText/80 flex flex-col space-y-2 px-4 py-2 text-sm'>
+              <ul className='flex flex-col space-y-2 px-4 py-2 text-sm text-darkText/80 dark:text-lightText/80 desktop:text-base'>
                 <li className='w-full'>
                   <button
                     onClick={handleChange(0)}
                     className={classNames(
-                      'text-darkText flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium dark:border-white/40',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
                       {
                         'bg-primaryColor': tagEnum === 0,
                         'bg-haretaColor/80': tagEnum !== 0
@@ -114,7 +114,7 @@ export default function MobileSorter() {
                   <button
                     onClick={handleChange(1)}
                     className={classNames(
-                      'text-darkText flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium dark:border-white/40',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
                       {
                         'bg-primaryColor': tagEnum === 1,
                         'bg-haretaColor/80': tagEnum !== 1
@@ -128,7 +128,7 @@ export default function MobileSorter() {
                   <button
                     onClick={handleChange(2)}
                     className={classNames(
-                      'text-darkText flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium dark:border-white/40',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
                       {
                         'bg-primaryColor': tagEnum === 2,
                         'bg-haretaColor/80': tagEnum !== 2
@@ -142,7 +142,7 @@ export default function MobileSorter() {
                   <button
                     onClick={handleChange(3)}
                     className={classNames(
-                      'text-darkText flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium dark:border-white/40',
+                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
                       {
                         'bg-primaryColor': tagEnum === 3,
                         'bg-haretaColor/80': tagEnum !== 3
@@ -153,7 +153,7 @@ export default function MobileSorter() {
                   </button>
                 </li>
               </ul>
-              <button className='text-darkText dark:text-lightText absolute right-2 top-2' onClick={close}>
+              <button className='absolute right-2 top-2 text-darkText dark:text-lightText' onClick={close}>
                 <FontAwesomeIcon icon={faXmark} />
               </button>
             </motion.div>

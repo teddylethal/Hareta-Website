@@ -31,9 +31,9 @@ export default function ShippingInfor() {
   const { t } = useTranslation('order')
 
   return (
-    <div className='xl:p-4 w-full p-3 text-darkText dark:text-lightText '>
+    <div className='w-full p-3 text-darkText dark:text-lightText desktopLarge:p-4 '>
       <div className='space-y-4'>
-        <p className='lg:text-2xl xl:text-4xl w-full text-center text-xl font-bold uppercase'>
+        <p className='w-full text-center text-xl font-bold uppercase desktop:text-2xl desktopLarge:text-4xl'>
           {t('layout.Shipping information')}
         </p>
 
@@ -41,8 +41,8 @@ export default function ShippingInfor() {
           <p className='uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Name')}</p>
           <div className='relative'>
             <Input
-              inputClassName='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
-              errorClassName='mt-1 min-h-[1.25rem] lg:min-h-[1.5rem] text-sm lg:text-base text-red-600'
+              inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+              errorClassName='mt-1 min-h-[1.25rem] desktop:min-h-[1.5rem] text-sm desktop:text-base text-red-600'
               register={register}
               name='name'
               errorMessage={errors?.name?.message}
@@ -60,7 +60,7 @@ export default function ShippingInfor() {
           <p className=' uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Phone')}</p>
           <div className='relative'>
             <Input
-              inputClassName='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+              inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
               register={register}
               name='phone'
               errorMessage={errors?.phone?.message}
@@ -78,7 +78,7 @@ export default function ShippingInfor() {
           <p className='uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Email address')}</p>
           <div className='relative'>
             <Input
-              inputClassName='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+              inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
               register={register}
               name='email'
               errorMessage={errors?.email?.message}
@@ -99,7 +99,7 @@ export default function ShippingInfor() {
             </p>
             <div className='relative'>
               <Input
-                inputClassName='text-lg w-full py-2 bg-transparent xl:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
+                inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
                 register={register}
                 name='address'
                 errorMessage={errors?.address?.message}
@@ -114,7 +114,7 @@ export default function ShippingInfor() {
             </div>
           </div>
           <div className='mt-2'>
-            <div className='lg:gap-4 xl:gap-6 mt-4 grid grid-cols-2 gap-3'>
+            <div className='mt-4 grid grid-cols-2 gap-3 desktop:gap-4 desktopLarge:gap-6'>
               <div className='col-span-1'>
                 <SelectCountry />
               </div>
@@ -129,7 +129,7 @@ export default function ShippingInfor() {
             <Link
               to={path.payment}
               type='button'
-              className='xl:text-lg flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-primaryColor'
+              className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-primaryColor desktopLarge:text-lg'
             >
               {t('layout.Continue to payment')}
             </Link>

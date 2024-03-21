@@ -9,13 +9,13 @@ export default function UserSideNav() {
   //? translation
   const { t } = useTranslation('user')
   return (
-    <div className='text-darkText/70 dark:text-lightText/70 rounded-md border  border-black/10  bg-[#f8f8f8] duration-200 dark:border-white/20 dark:bg-[#181818]'>
+    <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-darkText/70  duration-200 dark:border-white/20 dark:bg-[#181818] dark:text-lightText/70'>
       <div className=''>
         <NavLink
           to={path.profile}
           end
           className={({ isActive }) =>
-            classNames('xl:text-xl flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
@@ -31,7 +31,7 @@ export default function UserSideNav() {
           to={path.password}
           aria-current='page'
           className={({ isActive }) =>
-            classNames('xl:text-xl flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
@@ -46,7 +46,7 @@ export default function UserSideNav() {
           to={path.inventory}
           aria-current='true'
           className={({ isActive }) =>
-            classNames('xl:text-xl flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-darkText dark:hover:text-lightText': !isActive
             })
@@ -61,7 +61,7 @@ export default function UserSideNav() {
           to={path.wishList}
           aria-current='true'
           className={({ isActive }) =>
-            classNames('xl:text-xl flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold', {
+            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
               'text-brownColor dark:text-haretaColor': isActive,
               ' hover:text-darkText dark:hover:text-lightText': !isActive
             })

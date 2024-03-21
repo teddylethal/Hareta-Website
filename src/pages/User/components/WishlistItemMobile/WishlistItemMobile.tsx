@@ -24,8 +24,8 @@ export default function WishlistItemMobile({
   const isWide = viewPort.width >= 640
 
   return (
-    <div className='sm:px-4 sm:py-4 py-2'>
-      <div className='text-darkText dark:text-lightText grid grid-cols-12 text-center '>
+    <div className='py-2 tabletSmall:px-4 tabletSmall:py-4'>
+      <div className='grid grid-cols-12 text-center text-darkText dark:text-lightText '>
         <div className='col-span-4'>
           <button className='relative w-full pt-[75%]' onClick={handleClickItem(item)}>
             <img
@@ -40,9 +40,9 @@ export default function WishlistItemMobile({
           </button>
         </div>
         <div className='col-span-8 '>
-          <div className='sm:ml-6 ml-2 flex min-h-full flex-col justify-start'>
+          <div className='ml-2 flex min-h-full flex-col justify-start tabletSmall:ml-6'>
             <button
-              className='sm:text-lg flex items-center justify-start truncate px-2 py-1 text-base font-medium'
+              className='flex items-center justify-start truncate px-2 py-1 text-base font-medium tabletSmall:text-lg'
               onClick={handleClickItem(item)}
             >
               {item.name}
@@ -50,10 +50,10 @@ export default function WishlistItemMobile({
             <div>
               {item.tag !== 0 && (
                 <div className='relative ml-2'>
-                  <span className=' text-darkText md:h-6 md:w-20 md:text-sm flex h-4 w-16 items-center justify-center bg-red-600 text-center  text-xs'>
+                  <span className=' flex h-4 w-16 items-center justify-center bg-red-600 text-center text-xs text-darkText tablet:h-6 tablet:w-20  tablet:text-sm'>
                     {itemTag[item.tag]}
                   </span>
-                  <div className='md:left-20 md:border-[12px] absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent' />
+                  <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-red-600 border-l-red-600 border-r-transparent tablet:left-20 tablet:border-[12px]' />
                 </div>
               )}
             </div>
@@ -110,9 +110,9 @@ export default function WishlistItemMobile({
         </div>
       )}
 
-      <div className='sm:space-x-12 relative mt-3 flex items-center space-x-8 '>
-        <div className='sm:py-2 relative grid w-full grid-cols-2 items-center rounded-md bg-white py-1.5 dark:bg-black '>
-          <span className='text-darkText sm:text-sm dark:text-lightText col-span-1 flex items-center justify-center text-xs font-medium'>
+      <div className='relative mt-3 flex items-center space-x-8 tabletSmall:space-x-12 '>
+        <div className='relative grid w-full grid-cols-2 items-center rounded-md bg-white py-1.5 dark:bg-black tabletSmall:py-2 '>
+          <span className='col-span-1 flex items-center justify-center text-xs font-medium text-darkText dark:text-lightText tabletSmall:text-sm'>
             ${formatCurrency(item.price)}
           </span>
           <div className='absolute left-1/2 h-full border-l border-black/30 dark:border-white/30'></div>
@@ -120,14 +120,14 @@ export default function WishlistItemMobile({
             className='col-span-1 flex items-center justify-center bg-none text-brownColor/80 hover:text-brownColor dark:text-haretaColor dark:hover:text-haretaColor/80'
             onClick={addToCart(item.id)}
           >
-            <FontAwesomeIcon icon={faCartPlus} className='sm:h-5 h-4 w-auto' onClick={addToCart(item.id)} />
+            <FontAwesomeIcon icon={faCartPlus} className='h-4 w-auto tabletSmall:h-5' onClick={addToCart(item.id)} />
           </button>
         </div>
         <button
-          className='hover:text-darkText dark:hover:text-lightText bg-none'
+          className='bg-none hover:text-darkText dark:hover:text-lightText'
           onClick={openUnlikeItemDialog(item.group.id)}
         >
-          <p className='text-darkText/80 hover:text-darkText sm:text-sm lg:text-sm dark:text-lightText/80 dark:hover:text-lightText text-xs hover:underline'>
+          <p className='text-xs text-darkText/80 hover:text-darkText hover:underline dark:text-lightText/80 dark:hover:text-lightText tabletSmall:text-sm desktop:text-sm'>
             Remove
           </p>
         </button>

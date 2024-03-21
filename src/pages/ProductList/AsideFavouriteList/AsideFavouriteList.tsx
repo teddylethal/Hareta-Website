@@ -9,7 +9,7 @@ export default function AsideFavouriteList() {
   return (
     <div
       className={classNames(
-        'lg:text-lg m-4 rounded-lg px-2 py-2 text-base outline-none outline duration-200 hover:outline-haretaColor ',
+        'm-4 rounded-lg px-2 py-2 text-base outline-none outline duration-200 hover:outline-haretaColor desktop:text-lg ',
         isActive ? 'bg-vintageColor' : ' bg-[#f8f8f8]  dark:bg-[#444] '
       )}
     >

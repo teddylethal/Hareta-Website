@@ -101,7 +101,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
             </div>
             <div className='ml-4 flex-grow px-2 text-left'>
               <div
-                className={classNames('lg:text-lg truncate text-base', {
+                className={classNames('truncate text-base desktop:text-lg', {
                   'text-alertRed': unavailable
                 })}
               >
@@ -136,7 +136,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
               }
               disabled={purchase.disabled}
               inputClassName={classNames(
-                'h-6 text-sm lg:text-base lg:h-8 mx-1 lg:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
+                'h-6 text-sm desktop:text-base desktop:h-8 mx-1 desktop:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
                 {
                   'text-red-600 font-semibold': unavailable,
                   'text-haretaColor font-medium': !unavailable
@@ -149,7 +149,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
           </div>
           <div className='col-span-1'>
             <button
-              className='lg:text-sm bg-none text-xs text-darkText/80 hover:text-darkText hover:underline dark:text-lightText/80 dark:hover:text-lightText'
+              className='bg-none text-xs text-darkText/80 hover:text-darkText hover:underline dark:text-lightText/80 dark:hover:text-lightText desktop:text-sm'
               onClick={handleRemove(index)}
             >
               {t('content.remove')}

@@ -23,12 +23,14 @@ export default function EditProfile() {
     <Fragment>
       <div className=''>
         <div className='flex items-center space-x-2'>
-          <p className='lg:text-lg text-base uppercase text-darkText/60 dark:text-lightText/60'>{t('profile.name')}</p>
+          <p className='text-base uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
+            {t('profile.name')}
+          </p>
           <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
         </div>
         <div className='relative'>
           <Input
-            inputClassName='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-200 autofill:text-darkText  dark:caret-white autofill:dark:text-textVintage'
+            inputClassName='text-sm w-full py-1 bg-transparent desktop:text-base outline-none duration-200 autofill:text-darkText  dark:caret-white autofill:dark:text-textVintage'
             register={register}
             name='name'
             errorMessage={errors?.name?.message}
@@ -39,7 +41,7 @@ export default function EditProfile() {
       </div>
       <div className=''>
         <div className='flex items-center space-x-2'>
-          <p className='lg:text-lg text-base uppercase text-darkText/60 dark:text-lightText/60'>
+          <p className='text-base uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
             {t('profile.phone number')}
           </p>
           <FontAwesomeIcon icon={faPen} fontSize={12} className='text-orangeColor dark:text-haretaColor' />
@@ -50,7 +52,7 @@ export default function EditProfile() {
             name='phone'
             render={({ field }) => (
               <InputNumber
-                inputClassName='text-sm w-full py-1 bg-transparent lg:text-base outline-none duration-200 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage'
+                inputClassName='text-sm w-full py-1 bg-transparent desktop:text-base outline-none duration-200 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage'
                 errorMessage={errors.phone?.message}
                 autoComplete='false'
                 {...field}

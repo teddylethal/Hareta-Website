@@ -6,7 +6,7 @@ import { adminPath } from 'src/constants/path'
 export default function AdminItem() {
   return (
     <Fragment>
-      <div className='lg:text-xl text-lightText/80 relative flex items-center  justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold'>
+      <div className='relative flex items-center justify-around rounded-xl  border border-haretaColor py-2 text-base font-semibold text-lightText/80 desktop:text-xl'>
         {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
         <NavLink
           to={adminPath.createItem}
@@ -53,7 +53,7 @@ export default function AdminItem() {
           Delete
         </NavLink>
       </div>
-      <div className='text-lightText min-h-[600px] py-4'>
+      <div className='min-h-[600px] py-4 text-lightText'>
         <Outlet />
       </div>
     </Fragment>

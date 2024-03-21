@@ -32,7 +32,7 @@ export default function AdminProductGroup() {
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex flex-col items-center justify-center space-y-4'>
-        <p className=' lg:text-xl text-lg font-semibold uppercase'>Chọn nhóm sản phẩm</p>
+        <p className=' text-lg font-semibold uppercase desktop:text-xl'>Chọn nhóm sản phẩm</p>
         <div className='h-60 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
           {!productGroupList && (
             <div className='col-span-4 flex h-full items-center justify-center bg-black/50'>

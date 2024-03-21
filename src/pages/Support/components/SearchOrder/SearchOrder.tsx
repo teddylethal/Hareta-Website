@@ -72,7 +72,7 @@ export default function SearchOrder({ setFinding, setCantFind }: Props) {
   })
 
   return (
-    <form className='md:px-20 xl:px-40' onSubmit={handleSearch} noValidate>
+    <form className='tablet:px-20 desktopLarge:px-40' onSubmit={handleSearch} noValidate>
       <OrderSearchInput
         name='orderId'
         register={register}

@@ -4,7 +4,7 @@ import { adminPath } from 'src/constants/path'
 
 export default function AdminCreatingProductHeader() {
   return (
-    <div className='lg:text-base relative flex items-center justify-around rounded-xl border border-white/40 py-2 text-sm font-semibold text-lightText/80'>
+    <div className='relative flex items-center justify-around rounded-xl border border-white/40 py-2 text-sm font-semibold text-lightText/80 desktop:text-base'>
       <NavLink
         to={adminPath.createProduct}
         end

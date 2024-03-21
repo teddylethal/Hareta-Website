@@ -138,12 +138,12 @@ export default function Profile() {
   if (!profile) return <ProfileLoading />
   else {
     return (
-      <div className='lg:mx-8 lg:my-16 lg:p-4 relative mx-2 my-12 rounded-lg bg-lightBg p-2 dark:bg-darkBg'>
-        <div className='lg:-top-10 relative -top-4 flex items-center justify-between'>
+      <div className='relative mx-2 my-12 rounded-lg bg-lightBg p-2 dark:bg-darkBg desktop:mx-8 desktop:my-16 desktop:p-4'>
+        <div className='relative -top-4 flex items-center justify-between desktop:-top-10'>
           <div className='flex items-center'>
             {editingMode && (
               <div
-                className='lg:h-32 lg:w-32 relative h-20 w-20 overflow-hidden rounded-full border-[5px] border-vintageColor dark:border-haretaColor'
+                className='relative h-20 w-20 overflow-hidden rounded-full border-[5px] border-vintageColor dark:border-haretaColor desktop:h-32 desktop:w-32'
                 onMouseEnter={showUploadAvatar}
                 onMouseLeave={() => setHoveringAvatar(false)}
               >
@@ -156,7 +156,7 @@ export default function Profile() {
               </div>
             )}
             {!editingMode && (
-              <div className='lg:h-32 lg:w-32 relative h-20 w-20 rounded-full border-[5px] border-[#f8f8f8] dark:border-[#181818]'>
+              <div className='relative h-20 w-20 rounded-full border-[5px] border-[#f8f8f8] dark:border-[#181818] desktop:h-32 desktop:w-32'>
                 <img
                   src={avatar}
                   alt={profile.name}
@@ -164,9 +164,9 @@ export default function Profile() {
                 />
               </div>
             )}
-            <div className='sm:ml-4 lg:ml-8 ml-2 flex flex-col space-y-1'>
-              <p className='sm:text-lg lg:text-2xl text-base'>{profile.name}</p>
-              <p className='sm:text-sm lg:text-base truncate text-xs text-darkText/60 dark:text-lightText/60'>
+            <div className='ml-2 flex flex-col space-y-1 tabletSmall:ml-4 desktop:ml-8'>
+              <p className='text-base tabletSmall:text-lg desktop:text-2xl'>{profile.name}</p>
+              <p className='truncate text-xs text-darkText/60 dark:text-lightText/60 tabletSmall:text-sm desktop:text-base'>
                 {t('profile.joined')} {formatDate(profile.created_at)}
               </p>
             </div>
@@ -174,10 +174,10 @@ export default function Profile() {
           <div className=''>
             {!editingMode && (
               <button
-                className='lg:px-4 lg:py-2 flex h-full space-x-2 rounded-md bg-vintageColor/90 px-2 py-1 text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60'
+                className='flex h-full space-x-2 rounded-md bg-vintageColor/90 px-2 py-1 text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60 desktop:px-4 desktop:py-2'
                 onClick={() => setEditingMode(true)}
               >
-                <FontAwesomeIcon icon={faUserPen} className='sm:w-5 lg:w-6 h-auto w-4' />
+                <FontAwesomeIcon icon={faUserPen} className='h-auto w-4 tabletSmall:w-5 desktop:w-6' />
                 {!isMobile && <p>{t('profile.edit')}</p>}
               </button>
             )}
@@ -187,28 +187,28 @@ export default function Profile() {
         {!editingMode && (
           <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#202020] '>
             <div className=''>
-              <p className='lg:text-lg text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60'>
+              <p className='text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
                 {t('profile.name')}
               </p>
               <div>
-                <p className='lg:text-base py-1  text-sm '>{profile.name}</p>
+                <p className='py-1 text-sm  desktop:text-base '>{profile.name}</p>
                 <div className='mt-1 min-h-[1.25rem]'></div>
               </div>
             </div>
             <div className=''>
-              <p className='lg:text-lg text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60'>
+              <p className='text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
                 {t('profile.phone number')}
               </p>
               <div>
-                <p className='lg:text-base py-1  text-sm '>{profile.phone}</p>
+                <p className='py-1 text-sm  desktop:text-base '>{profile.phone}</p>
                 <div className='mt-1 min-h-[1.25rem]'></div>
               </div>
             </div>
             <div className=''>
-              <p className='lg:text-lg text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60'>
+              <p className='text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
                 {t('profile.email')}
               </p>
-              <p className='lg:text-base py-1  text-sm '>{profile.email}</p>
+              <p className='py-1 text-sm  desktop:text-base '>{profile.email}</p>
             </div>
           </div>
         )}
@@ -221,21 +221,21 @@ export default function Profile() {
             >
               <EditProfile />
               <div className=''>
-                <p className='lg:text-lg text-base uppercase text-darkText/60 dark:text-lightText/60'>
+                <p className='text-base uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
                   {t('profile.email')}
                 </p>
-                <p className='lg:text-base py-1 text-sm '>{profile.email}</p>
+                <p className='py-1 text-sm desktop:text-base '>{profile.email}</p>
               </div>
 
               <div className='flex items-center space-x-2 pt-4'>
                 <button
-                  className='lg:px-4 lg:py-2 lg:text-base flex items-center space-x-1 rounded-md bg-vintageColor/90 px-2 py-1 text-sm text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60'
+                  className='flex items-center space-x-1 rounded-md bg-vintageColor/90 px-2 py-1 text-sm text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60 desktop:px-4 desktop:py-2 desktop:text-base'
                   type='submit'
                 >
                   <p>{t('profile.save')}</p>
                 </button>
                 <button
-                  className='lg:px-4 lg:py-2 lg:text-base flex items-center space-x-1 rounded-md px-2 py-1 text-sm text-darkText hover:underline dark:text-lightText'
+                  className='flex items-center space-x-1 rounded-md px-2 py-1 text-sm text-darkText hover:underline dark:text-lightText desktop:px-4 desktop:py-2 desktop:text-base'
                   onClick={handleCancel}
                   type='button'
                 >

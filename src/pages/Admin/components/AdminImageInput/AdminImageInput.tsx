@@ -37,7 +37,7 @@ export default function AdminImageInput({ onChangeImageFile }: Props) {
         onClick={handleUploadAvatar}
         type='button'
       >
-        <p className='md:text-sm lg:text-base text-xs font-semibold'>Chọn hình ảnh</p>
+        <p className='text-xs font-semibold tablet:text-sm desktop:text-base'>Chọn hình ảnh</p>
       </button>
     </Fragment>
   )
