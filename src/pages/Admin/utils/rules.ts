@@ -12,7 +12,6 @@ export const createProductSchema = yup.object({
   quantity: yup.number().required('Quantity is required'),
   description: yup.string().required('Description is required')
 })
-
 export type CreateProductSchema = yup.InferType<typeof createProductSchema>
 
 export const editProductSchema = yup.object({
@@ -32,5 +31,4 @@ export const editProductSchema = yup.object({
   sold: yup.number().default(0),
   cron_status: yup.number().default(0)
 })
-
 export type EditProductSchema = yup.InferType<typeof editProductSchema>

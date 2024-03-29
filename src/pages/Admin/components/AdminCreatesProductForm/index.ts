@@ -1,3 +1,3 @@
-import AdminCreatesProductForm from './AdminCreatesProductForm'
+import AdminCreateProductForm from './AdminCreateProductForm'
 
-export default AdminCreatesProductForm
+export default AdminCreateProductForm

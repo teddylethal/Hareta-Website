@@ -14,13 +14,6 @@ import { StoreContext } from 'src/contexts/store.context'
 
 // const MAXLENGTH = 3
 
-export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
-  setIsOpen(true)
-  setTimeout(() => {
-    setIsOpen(false)
-  }, time || 1500)
-}
-
 interface Props {
   product: Product
   initialLoading?: boolean
@@ -101,8 +94,8 @@ export default function LargeItemDisplay({ product, initialLoading }: Props) {
     !isLikedByUser && likeItem()
   }
 
-  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
-  const likeItemMutation = useMutation(likeItemAPi.likeItem)
+  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
+  const likeItemMutation = useMutation({ mutationFn: likeItemAPi.likeItem })
   useEffect(() => {
     const updateLikeItem = setTimeout(() => {
       if (isLikedByUser && initialInWishlist === false) {

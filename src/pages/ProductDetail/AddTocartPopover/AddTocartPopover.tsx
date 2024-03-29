@@ -15,7 +15,7 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { showSuccessDialog } from 'src/pages/ProductList/Product/Product'
+import { showSuccessDialog } from 'src/utils/utils'
 import { TemporaryPurchase } from 'src/types/cart.type'
 import { Product } from 'src/types/product.type'
 

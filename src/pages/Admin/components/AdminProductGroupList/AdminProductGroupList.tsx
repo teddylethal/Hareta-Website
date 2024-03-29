@@ -1,13 +1,13 @@
 import { useContext } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import { adminProductGroupApi } from 'src/apis/admin.api'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { ProductGroup, ProductListConfig } from 'src/types/product.type'
+import { Product, ProductGroup, ProductListConfig } from 'src/types/product.type'
 import productApi from 'src/apis/product.api'
 
 export default function AdminProductGroupList() {
-  const { setProductGroup, productGroup } = useContext(AdminContext)
+  const { setProductGroup, productGroup, setCurrentProduct } = useContext(AdminContext)
 
   //! GET PRODUTC GROUPS
   const { data: itemsInGroupData } = useQuery({
@@ -29,9 +29,17 @@ export default function AdminProductGroupList() {
 
   const emptyProductGroups = groupList.filter((group) => !notEmptyProductGroups.includes(group.id))
 
-  //? SELECT GROUP
-  const handleChooseGroup = (group: ProductGroup) => () => {
+  //! SELECT GROUP
+  const queryClient = useQueryClient()
+  const handleChooseGroup = (product: Product) => () => {
+    setCurrentProduct(product)
+    setProductGroup(product.group)
+    queryClient.invalidateQueries({ queryKey: ['products_in_group'] })
+  }
+
+  const handleChooseEmptyGroup = (group: ProductGroup) => () => {
     setProductGroup(group)
+    queryClient.invalidateQueries({ queryKey: ['products_in_group'] })
   }
 
   return (
@@ -51,7 +59,7 @@ export default function AdminProductGroupList() {
                     'border-haretaColor/40 ': !isActive
                   })}
                 >
-                  <button className='w-full space-y-2' onClick={handleChooseGroup(product.group)}>
+                  <button className='w-full space-y-2' onClick={handleChooseGroup(product)}>
                     <div className='relative w-full pt-[75%]'>
                       <img
                         src={avatarURL || ''}
@@ -74,7 +82,7 @@ export default function AdminProductGroupList() {
                     'border-2 border-haretaColor': isActive,
                     'border-haretaColor/40 ': !isActive
                   })}
-                  onClick={handleChooseGroup(group)}
+                  onClick={handleChooseEmptyGroup(group)}
                 >
                   <div className='relative w-full pt-[75%]'>
                     <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center font-medium uppercase text-alertRed'>

@@ -18,7 +18,7 @@ interface NewItemForm {
   description: string
 }
 
-interface updateProductForm {
+interface UpdateProductForm {
   id: string
   name?: string
   category?: string
@@ -47,7 +47,7 @@ export const adminProductGroupApi = {
     return http.get<ProductGroupList>(`${URL}group-item/`)
   },
   createProductGroup(body: { name: string }) {
-    return http.post<SuccessRespone<ProductGroup>>(`${URL}group-item`, body)
+    return http.post<SuccessRespone<ProductGroup>>(`${URL}group-item/`, body)
   },
   editProductGroup(id: string, name: string) {
     return http.put<SuccessRespone<string>>(`${URL}group-item`, { id: id, name: name })
@@ -61,7 +61,7 @@ export const adminProductApi = {
   createNewProduct(body: NewItemForm) {
     return http.post(`${URL}item/`, body)
   },
-  editProduct(body: updateProductForm) {
+  editProduct(body: UpdateProductForm) {
     return http.put<SuccessRespone<string>>(`${URL}item/`, body)
   },
   setDefaultProduct(body: { id: string }) {

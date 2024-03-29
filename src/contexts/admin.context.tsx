@@ -13,6 +13,8 @@ interface AdminContextInterface {
   setCurrentImage: React.Dispatch<React.SetStateAction<ProductImage | null>>
   orderID: string
   setOrderID: React.Dispatch<React.SetStateAction<string>>
+  defaultProductIdList: string[]
+  setDefaultProductIdList: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const initialAdminContext: AdminContextInterface = {
@@ -25,7 +27,9 @@ const initialAdminContext: AdminContextInterface = {
   currentImage: null,
   setCurrentImage: () => null,
   orderID: '',
-  setOrderID: () => null
+  setOrderID: () => null,
+  defaultProductIdList: [],
+  setDefaultProductIdList: () => null
 }
 
 export const AdminContext = createContext<AdminContextInterface>(initialAdminContext)
@@ -36,6 +40,7 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentProductDetail, setCurrentProductDetail] = useState<Product | null>(initialAdminContext.currentProduct)
   const [currentImage, setCurrentImage] = useState<ProductImage | null>(initialAdminContext.currentImage)
   const [orderID, setOrderID] = useState<string>(initialAdminContext.orderID)
+  const [defaultProductIdList, setDefaultProductIdList] = useState<string[]>(initialAdminContext.defaultProductIdList)
 
   return (
     <AdminContext.Provider
@@ -49,7 +54,9 @@ export const AdminProvider = ({ children }: { children: React.ReactNode }) => {
         currentImage,
         setCurrentImage,
         orderID,
-        setOrderID
+        setOrderID,
+        defaultProductIdList,
+        setDefaultProductIdList
       }}
     >
       {children}

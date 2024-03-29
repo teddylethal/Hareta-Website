@@ -9,7 +9,7 @@ interface Props {
   content?: string
 }
 
-export default function AdminDialog({ isOpen, setIsOpen, state = true, content = 'successfully' }: Props) {
+export default function AdminDialog({ isOpen, setIsOpen, state = true, content = 'Thành công' }: Props) {
   return (
     <DialogPopup
       isOpen={isOpen}

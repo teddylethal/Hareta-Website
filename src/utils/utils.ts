@@ -44,3 +44,10 @@ export const getLanguageFromLS = () => {
 export const formatDate = (timeStamp: string) => {
   return moment(timeStamp).utc().format('YYYY-MM-DD')
 }
+
+export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
+  setIsOpen(true)
+  setTimeout(() => {
+    setIsOpen(false)
+  }, time || 1500)
+}

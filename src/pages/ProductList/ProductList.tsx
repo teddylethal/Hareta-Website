@@ -33,7 +33,7 @@ export default function ProductList() {
 
   const queryConfig = useQueryConfig()
 
-  //? GET PRODUCT LIST
+  //! GET PRODUCT LIST
   const { data: storeData, isFetching } = useQuery({
     queryKey: ['items', queryConfig],
     queryFn: () => {
@@ -43,7 +43,7 @@ export default function ProductList() {
     staleTime: 3 * 60 * 1000
   })
 
-  //? GET WISHLIST
+  //! GET WISHLIST
   const { data: wishlistData, isLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {

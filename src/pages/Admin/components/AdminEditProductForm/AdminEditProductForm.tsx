@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form'
-import { EditProductSchema } from '../../utils/rules'
+import { editProductSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import classNames from 'classnames'
 import { Product } from 'src/types/product.type'
@@ -8,7 +8,7 @@ import CustomJoditEditor from 'src/components/CustomJoditEditor'
 import AdminProductInput from '../AdminProductInput'
 import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 
-type FormData = EditProductSchema
+type FormData = editProductSchema
 
 interface Props {
   productDetail: Product

@@ -61,7 +61,7 @@ export default function ProductDetail() {
     limit: '50'
   }
   const { data: itemsInGroupData } = useQuery({
-    queryKey: ['items_in_group', itemInGroupQuery],
+    queryKey: ['products_in_group', itemInGroupQuery],
     queryFn: () => productApi.getProductsInGroup(itemInGroupQuery),
 
     enabled: Boolean(defaltItem)

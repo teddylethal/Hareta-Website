@@ -3,31 +3,25 @@ import { Navigate, Outlet } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
+import AdminImageManagement from 'src/pages/Admin/children/AdminImageManagement'
 import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
 import AdminProductLayout from 'src/pages/Admin/layouts/AdminProductLayout'
-import AdminAddProductImage from 'src/pages/Admin/pages/AdminAddProductImage'
-import AdminCreatingProductPage from 'src/pages/Admin/pages/AdminCreatingProductPage'
-import AdminCreatesProduct from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProduct'
-import AdminCreatesProductGroup from 'src/pages/Admin/pages/AdminCreatingProductPage/AdminCreatesProductGroup'
-import AdminDeleteProduct from 'src/pages/Admin/pages/AdminDeleteProduct'
-import AdminDeleteProductImage from 'src/pages/Admin/pages/AdminDeleteProductImage'
-import AdminImagesPage from 'src/pages/Admin/pages/AdminImagesPage'
-import AdminProductImagePage from 'src/pages/Admin/pages/AdminProductImagePage'
-
-import AdminSetDefaultProduct from 'src/pages/Admin/pages/AdminSetDefaultItem/AdminSetDefaultItem'
+import AdminAddProductImage from 'src/pages/Admin/children/AdminAddProductImage'
+import AdminCreateProductGroup from 'src/pages/Admin/children/AdminCreateProductGroup'
+import AdminDeleteProduct from 'src/pages/Admin/children/AdminDeleteProduct'
+import AdminDeleteProductImage from 'src/pages/Admin/children/AdminDeleteProductImage'
+import AdminProductImagePage from 'src/pages/Admin/children/AdminProductImagePage'
+import AdminCreateProduct from 'src/pages/Admin/children/AdminCreatesProduct'
 
 //? IMPORT ADMIN LAYOUTS
 
 //? IMPORT ADMIN COMPONENTS
-const AdminDefaultProductList = lazy(() => import('src/pages/Admin/pages/AdminDefaultProductList'))
-const AdminProductPage = lazy(() => import('src/pages/Admin/pages/AdminProductPage'))
-const AdminAddItemColor = lazy(() => import('src/pages/Admin/pages/AdminAddItemColor'))
-const AdminMainPage = lazy(() => import('src/pages/Admin/pages/AdminMainPage'))
-const AdminDeleteGroup = lazy(() => import('src/pages/Admin/pages/AdminDeleteGroup'))
-const AdminOrder = lazy(() => import('src/pages/Admin/pages/AdminOrder'))
-const AdminUploadProductAvatar = lazy(
-  () => import('src/pages/Admin/pages/AdminProductImagePage/AdminUploadProductAvatar')
-)
+const AdminDefaultProductList = lazy(() => import('src/pages/Admin/children/AdminDefaultProductList'))
+const AdminProductPage = lazy(() => import('src/pages/Admin/children/AdminProductPage'))
+const AdminMainPage = lazy(() => import('src/pages/Admin/children/AdminMainPage'))
+const AdminDeleteGroup = lazy(() => import('src/pages/Admin/children/AdminDeleteGroup'))
+const AdminOrder = lazy(() => import('src/pages/Admin/children/AdminOrder'))
+const AdminUploadProductAvatar = lazy(() => import('src/pages/Admin/children/AdminUploadProductAvatar'))
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
@@ -81,15 +75,11 @@ const AdminRoute = {
         },
         {
           path: adminPath.createProductGroup,
-          element: <AdminCreatesProductGroup />
+          element: <AdminCreateProductGroup />
         },
         {
           path: adminPath.createProduct,
-          element: <AdminCreatesProduct />
-        },
-        {
-          path: adminPath.setDefaultProduct,
-          element: <AdminSetDefaultProduct />
+          element: <AdminCreateProduct />
         },
         {
           path: adminPath.uploadProductAvatar,
@@ -99,7 +89,6 @@ const AdminRoute = {
           path: adminPath.productImage,
           element: <AdminProductImagePage />
         },
-
         {
           path: adminPath.addProductImage,
           element: <AdminAddProductImage />
@@ -120,7 +109,13 @@ const AdminRoute = {
     },
     {
       path: adminPath.images,
-      element: <AdminImagesPage />
+      element: <AdminImageRoute />,
+      children: [
+        {
+          path: '',
+          element: <AdminImageManagement />
+        }
+      ]
     },
     {
       path: adminPath.orderManagemnet,

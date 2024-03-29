@@ -32,7 +32,6 @@ export const adminPath = {
   createProductGroup: '/admin/product/create-group',
   createProduct: '/admin/product/create-product',
   updateProduct: '/admin/product/update/item',
-  setDefaultProduct: '/admin/product/update/set-default-item',
   productImage: '/admin/product/image',
   uploadProductAvatar: '/admin/product/image/avatar',
   addProductImage: '/admin/product/image/add',

@@ -2,14 +2,15 @@ import { Fragment, useContext, useEffect } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { Product } from 'src/types/product.type'
+import { Product, ProductListConfig } from 'src/types/product.type'
 import classNames from 'classnames'
 import LoadingRing from 'src/components/LoadingRing'
 
 export default function AdminSelectsVariant() {
-  const { productGroup, currentProduct, setCurrentProduct } = useContext(AdminContext)
+  const { productGroup, currentProduct, setCurrentProduct, defaultProductIdList, setDefaultProductIdList } =
+    useContext(AdminContext)
 
-  //? ITEMS IN GROUP
+  //! Get product in group
   const {
     data: productsInGroupData,
     refetch,
@@ -24,8 +25,7 @@ export default function AdminSelectsVariant() {
         limit: '50'
       }),
     enabled: Boolean(productGroup),
-
-    staleTime: 60000 * 3
+    staleTime: 1000 * 60 * 3
   })
   const productsInGroup = productsInGroupData?.data.data || []
 
@@ -35,7 +35,24 @@ export default function AdminSelectsVariant() {
     }
   }, [productGroup, refetch])
 
-  //? CHOOSE ITEM
+  //! Get default product list
+  const queryConfig = {}
+  const { data: defaultProductListData } = useQuery({
+    queryKey: ['admin_default_product_list'],
+    queryFn: () => {
+      return productApi.getProductList(queryConfig as ProductListConfig)
+    },
+    staleTime: 3 * 60 * 1000
+  })
+  const defaultProductList = defaultProductListData?.data.data
+
+  useEffect(() => {
+    if (defaultProductList) {
+      setDefaultProductIdList(defaultProductList.map((p) => p.id))
+    }
+  }, [setDefaultProductIdList, defaultProductList])
+
+  //! Select product
   const handleChooseVariant = (item: Product) => () => {
     setCurrentProduct(item)
   }
@@ -63,14 +80,14 @@ export default function AdminSelectsVariant() {
                 </div>
               )}
               {productsInGroup.length > 0 && (
-                <div className='m-2 grid grid-cols-4 gap-4'>
+                <div className='m-2 grid grid-cols-3 gap-3'>
                   {productsInGroup.map((product, index) => {
                     const isActive = product.id === currentProduct?.id
                     const avatarURL = product.avatar ? product.avatar.url : null
                     return (
                       <div
                         key={index}
-                        className={classNames('col-span-1 h-min rounded-xl outline outline-1 outline-offset-0', {
+                        className={classNames(' col-span-1 h-min rounded-xl outline outline-1 outline-offset-0', {
                           'outline-2 outline-haretaColor': isActive,
                           'outline-haretaColor/40 ': !isActive
                         })}
@@ -82,6 +99,11 @@ export default function AdminSelectsVariant() {
                               alt={`${product.name} ${product.color}`}
                               className='absolute left-0 top-0 h-full w-full object-scale-down'
                             />
+                            {defaultProductIdList.includes(product.id) && (
+                              <p className='absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 select-none rounded-md bg-primaryColor  p-2 text-center uppercase text-lightText opacity-50'>
+                                Sản phẩm mặc định
+                              </p>
+                            )}
                           </div>
                           <p className='w-full text-center font-medium uppercase'>{product.color}</p>
                         </button>

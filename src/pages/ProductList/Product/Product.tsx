@@ -19,13 +19,6 @@ import { useTranslation } from 'react-i18next'
 
 const MAXLENGTH = 3
 
-export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
-  setIsOpen(true)
-  setTimeout(() => {
-    setIsOpen(false)
-  }, time || 1500)
-}
-
 interface Props {
   product: ProductType
   initialLoading?: boolean
