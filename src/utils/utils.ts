@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios'
+import { floor } from 'lodash'
 import moment from 'moment'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { locales } from 'src/i18n/i18n'
@@ -43,6 +44,10 @@ export const getLanguageFromLS = () => {
 
 export const formatDate = (timeStamp: string) => {
   return moment(timeStamp).utc().format('YYYY-MM-DD')
+}
+
+export const formatTimeToSeconds = (time: number) => {
+  return floor(time / 1000)
 }
 
 export const showSuccessDialog = (setIsOpen: React.Dispatch<React.SetStateAction<boolean>>, time?: number) => {
