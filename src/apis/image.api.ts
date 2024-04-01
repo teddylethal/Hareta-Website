@@ -9,7 +9,7 @@ export const imageApi = {
     return http.get<ImageList>(`${URL}/`, { params })
   },
   uploadImage(body: { file: File }) {
-    return http.post<SuccessRespone<Image>>(`${URL}`, body, {
+    return http.post<SuccessRespone<Image>>(`${URL}/`, body, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
