@@ -104,7 +104,7 @@ export default function AdminImageFilter() {
   return (
     <form
       onSubmit={onSubmit}
-      className='flex w-full items-center justify-center space-x-4 rounded-md bg-darkColor900 px-2 py-2 desktop:px-4'
+      className='flex w-full items-center justify-center space-x-4 rounded-md border border-white/40 bg-darkColor900 px-2 py-2 desktop:px-4'
     >
       <div className='flex w-full flex-col space-y-2 mobileLarge:w-8/12 tablet:w-6/12 desktop:w-4/12'>
         <div className='grid w-full grid-cols-12 gap-1'>
