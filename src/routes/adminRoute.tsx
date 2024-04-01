@@ -1,5 +1,5 @@
 import { Suspense, lazy, useContext } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
@@ -12,6 +12,9 @@ import AdminDeleteProduct from 'src/pages/Admin/children/AdminDeleteProduct'
 import AdminDeleteProductImage from 'src/pages/Admin/children/AdminDeleteProductImage'
 import AdminProductImagePage from 'src/pages/Admin/children/AdminProductImagePage'
 import AdminCreateProduct from 'src/pages/Admin/children/AdminCreatesProduct'
+import AdminImageLayout from 'src/pages/Admin/layouts/AdminImageLayout'
+import AdminUploadImages from 'src/pages/Admin/children/AdminUploadImages'
+import AdminDeleteImages from 'src/pages/Admin/children/AdminDeleteImages'
 
 //? IMPORT ADMIN LAYOUTS
 
@@ -47,13 +50,13 @@ function AdminProductRoute() {
 
 function AdminImageRoute() {
   return (
-    <AdminProductLayout>
+    <AdminImageLayout>
       <Outlet />
-    </AdminProductLayout>
+    </AdminImageLayout>
   )
 }
 
-const AdminRoute = {
+const AdminRoute: RouteObject = {
   path: '',
   element: <AdminMainRoute />,
   children: [
@@ -114,11 +117,19 @@ const AdminRoute = {
         {
           path: '',
           element: <AdminImageManagement />
+        },
+        {
+          path: adminPath.uploadImages,
+          element: <AdminUploadImages />
+        },
+        {
+          path: adminPath.deleteImages,
+          element: <AdminDeleteImages />
         }
       ]
     },
     {
-      path: adminPath.orderManagemnet,
+      path: adminPath.orders,
       element: <AdminOrder />
     }
   ]

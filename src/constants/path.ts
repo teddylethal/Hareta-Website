@@ -42,7 +42,8 @@ export const adminPath = {
 
   // Image
   images: '/admin/images',
-  orderManagemnet: '/admin/order',
+  uploadImages: '/admin/images/upload',
+  deleteImages: '/admin/images/delete',
 
   // Order
   orders: '/admin/orders',
