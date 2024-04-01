@@ -116,11 +116,7 @@ export default function AdminProductPage() {
           {!editingMode && <AdminProductInfor />}
 
           {editingMode && (
-            <AdminEditProduct
-              editingMode={editingMode}
-              setEditingMode={setEditingMode}
-              setSuccessDialogOpen={setUpdateProductSuccess}
-            />
+            <AdminEditProduct setEditingMode={setEditingMode} setSuccessDialogOpen={setUpdateProductSuccess} />
           )}
         </div>
       )}

@@ -15,7 +15,6 @@ import { EditProductSchema, editProductSchema } from '../../utils/rules'
 type FormData = NoUndefinedField<EditProductSchema>
 
 interface Props {
-  editingMode: boolean
   setEditingMode: Dispatch<SetStateAction<boolean>>
   setSuccessDialogOpen: Dispatch<SetStateAction<boolean>>
 }

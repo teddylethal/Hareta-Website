@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form'
-import { editProductSchema } from '../../utils/rules'
+import { EditProductSchema } from '../../utils/rules'
 import InputNumber from 'src/components/InputNumber'
 import classNames from 'classnames'
 import { Product } from 'src/types/product.type'
@@ -8,7 +8,7 @@ import CustomJoditEditor from 'src/components/CustomJoditEditor'
 import AdminProductInput from '../AdminProductInput'
 import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 
-type FormData = editProductSchema
+type FormData = EditProductSchema
 
 interface Props {
   productDetail: Product
@@ -23,7 +23,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
     formState: { errors }
   } = useFormContext<FormData>()
 
-  //? EDIT DESCRIPTION
+  //! EDIT DESCRIPTION
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onEditorStateChange = (editorState: any) => {
     setValue('description', editorState)

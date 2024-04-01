@@ -1,6 +1,5 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
 import { clearLS, getAccessTokenFromLS, setAccessTokenToLS } from './auth'
-import path from 'src/constants/path'
 import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
@@ -35,17 +34,12 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === path.login) {
+        if (url === '/login') {
           const accessToken = response.data.data.token
           if (accessToken !== undefined) {
             this.accessToken = accessToken
             setAccessTokenToLS(accessToken)
           }
-          // const headers = response.config.headers
-          // axios.get<ProfileRespone>('https://api.hareta.me/auth/', { headers }).then((userResponse) => {
-          //   console.log(userResponse.data.data)
-          //   setProfileToLS(userResponse.data.data)
-          // })
         }
         return response
       },

@@ -25,7 +25,7 @@ export default mainPath
 export const adminPath = {
   mainPage: '/admin',
 
-  //? Product
+  // Product
   products: '/admin/product',
   productList: '/admin/product/list',
   productDetail: '/admin/product/:nameId',
@@ -40,9 +40,15 @@ export const adminPath = {
   deleteGroup: '/admin/product/delete/delete-group',
   deleteProduct: '/admin/product/delete/delete-product',
 
-  //? Image
+  // Image
   images: '/admin/images',
-  orderManagemnet: '/admin/order'
+  orderManagemnet: '/admin/order',
+
+  // Order
+  orders: '/admin/orders',
+
+  // Blog
+  blogs: '/admin/blogs'
 } as const
 
 export const privacyPath = {

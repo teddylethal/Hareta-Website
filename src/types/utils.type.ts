@@ -12,3 +12,8 @@ export interface SuccessRespone<Data> {
 export type NoUndefinedField<T> = {
   [P in keyof T]-?: NoUndefinedField<NonNullable<T[P]>>
 }
+
+export interface NavigateItem {
+  name: string
+  url: string
+}

@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
 import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -10,7 +9,7 @@ import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
-import { getAccessTokenFromLS, setProfileToLS } from 'src/utils/auth'
+import { setProfileToLS } from 'src/utils/auth'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
@@ -20,7 +19,6 @@ import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/SuccessPasswordRecoveryPopup'
 import SuccessEmailVerifyPopup from 'src/components/VerifyEmailDialog/SuccessEmailVerifyPopup'
 import { useViewport } from 'src/hooks/useViewport'
-import { ApiURL } from 'src/utils/http'
 import { useTranslation } from 'react-i18next'
 
 type FormData = LoginSchema
@@ -47,17 +45,15 @@ export default function Login() {
   const loginAccountMutation = useMutation({
     mutationFn: (body: FormData) => authApi.loginAccount(body)
   })
+  const getProfileMutation = useMutation({
+    mutationFn: authApi.getProfile
+  })
 
   const onSubmit = handleSubmit((data) => {
     loginAccountMutation.mutate(data, {
       onSuccess: () => {
         setIsAuthenticated(true)
-        const token = getAccessTokenFromLS()
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-        axios.get(`${ApiURL}auth/`, { headers }).then((response) => {
+        getProfileMutation.mutateAsync().then((response) => {
           setProfileToLS(response.data.data)
           setProfile(response.data.data)
         })

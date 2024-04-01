@@ -1,6 +1,8 @@
 import { AuthRespone } from 'src/types/auth.type'
 import { FavouriteListConfig, ProductList } from 'src/types/product.type'
-import { clearLS } from 'src/utils/auth'
+import { User } from 'src/types/user.type'
+import { SuccessRespone } from 'src/types/utils.type'
+import { clearLS, getAccessTokenFromLS } from 'src/utils/auth'
 import http from 'src/utils/http'
 
 const authApi = {
@@ -15,6 +17,15 @@ const authApi = {
   },
   getFavouriteList(params: FavouriteListConfig) {
     return http.get<ProductList>('/auth/user-like-item/', { params })
+  },
+  getProfile() {
+    const token = getAccessTokenFromLS()
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+
+    return http.get<SuccessRespone<User>>(`/auth/`, { headers })
   }
 }
 
