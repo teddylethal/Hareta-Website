@@ -1,76 +1,63 @@
 import { faBagShopping, faHeart, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
+import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
+import { NavigateItem } from 'src/types/utils.type'
+
+interface NaviagteItemWithIcon extends NavigateItem {
+  icon: ReactNode
+}
 
 export default function UserSideNav() {
-  //? translation
+  //! translation
   const { t } = useTranslation('user')
+
+  //! Navigation menu
+  const menus: NaviagteItemWithIcon[] = [
+    {
+      name: t('layout.profile'),
+      url: mainPath.profile,
+      icon: <FontAwesomeIcon icon={faUser} />
+    },
+    {
+      name: t('layout.password'),
+      url: mainPath.password,
+      icon: <FontAwesomeIcon icon={faLock} />
+    },
+    {
+      name: t('layout.inventory'),
+      url: mainPath.inventory,
+      icon: <FontAwesomeIcon icon={faBagShopping} />
+    },
+    {
+      name: t('layout.wishlist'),
+      url: mainPath.wishList,
+      icon: <FontAwesomeIcon icon={faHeart} />
+    }
+  ]
+
   return (
     <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-darkText/70  duration-200 dark:border-white/20 dark:bg-[#181818] dark:text-lightText/70'>
-      <div className=''>
-        <NavLink
-          to={path.profile}
-          end
-          className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
-              'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-darkText dark:hover:text-lightText': !isActive
-            })
-          }
-        >
-          <FontAwesomeIcon icon={faUser} />
-          <p>{t('layout.profile')}</p>
-        </NavLink>
-      </div>
-
-      <div className='border-t border-black/10 dark:border-white/20'>
-        <NavLink
-          to={path.password}
-          aria-current='page'
-          className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
-              'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-darkText dark:hover:text-lightText': !isActive
-            })
-          }
-        >
-          <FontAwesomeIcon icon={faLock} />
-          <p>{t('layout.password')}</p>
-        </NavLink>
-      </div>
-      <div className='border-t border-black/10 dark:border-white/20'>
-        <NavLink
-          to={path.inventory}
-          aria-current='true'
-          className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
-              'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-darkText dark:hover:text-lightText': !isActive
-            })
-          }
-        >
-          <FontAwesomeIcon icon={faBagShopping} />
-          <p>{t('layout.inventory')}</p>
-        </NavLink>
-      </div>
-      <div className='border-t border-black/10 dark:border-white/20'>
-        <NavLink
-          to={path.wishList}
-          aria-current='true'
-          className={({ isActive }) =>
-            classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
-              'text-brownColor dark:text-haretaColor': isActive,
-              ' hover:text-darkText dark:hover:text-lightText': !isActive
-            })
-          }
-        >
-          <FontAwesomeIcon icon={faHeart} />
-          <p>{t('layout.wishlist')}</p>
-        </NavLink>
-      </div>
+      {menus.map((item, index) => (
+        <div key={index} className='border-t border-black/10 first:border-none dark:border-white/20'>
+          <NavLink
+            to={item.url}
+            end
+            className={({ isActive }) =>
+              classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
+                'text-brownColor dark:text-haretaColor': isActive,
+                ' hover:text-darkText dark:hover:text-lightText': !isActive
+              })
+            }
+          >
+            {item.icon}
+            <p>{item.name}</p>
+          </NavLink>
+        </div>
+      ))}
     </div>
   )
 }

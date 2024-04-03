@@ -15,8 +15,8 @@ import ProductList from './pages/ProductList'
 import Home from './pages/Home'
 import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
-import UserLayout from './pages/User/layouts/UserLayout'
 import AdminRoute from './routes/adminRoute'
+import UserRoute from './routes/userRoute'
 import LoadingPage from './components/LoadingPage'
 
 const Cart = lazy(() => import('./pages/Cart'))
@@ -24,10 +24,10 @@ const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms
 const OrderItemInformation = lazy(() => import('./pages/Support/components/OrderItemInformation'))
 
 //? IMPORT USER COMPONENTS
-const Profile = lazy(() => import('./pages/User/pages/Profile'))
-const WishList = lazy(() => import('./pages/User/pages/WishList'))
-const Inventory = lazy(() => import('./pages/User/pages/Inventory'))
-const ChangePassword = lazy(() => import('./pages/User/pages/ChangePassword'))
+const Profile = lazy(() => import('./pages/User/pages/UserProfile'))
+const UserWishList = lazy(() => import('./pages/User/pages/UserWishList'))
+const Inventory = lazy(() => import('./pages/User/pages/UserInventory'))
+const ChangePassword = lazy(() => import('./pages/User/pages/UserChangePassword'))
 const OrderTracking = lazy(() => import('./pages/Support/pages/OrderTracking'))
 
 //? IMPORT LOGIN/REGISTER COMPONENTS
@@ -109,55 +109,11 @@ export default function useRouteElements() {
         }
       ]
     },
-
     {
-      path: '',
-      element: <ProtectedRoute />,
-      children: [
-        {
-          path: '',
-          element: (
-            <MainLayout>
-              <UserLayout />
-            </MainLayout>
-          ),
-          children: [
-            {
-              path: mainPath.profile,
-              element: (
-                <Suspense fallback={<LoadingWithEmptyContent />}>
-                  <Profile />
-                </Suspense>
-              )
-            },
-            {
-              path: mainPath.password,
-              element: (
-                <Suspense fallback={<LoadingWithEmptyContent />}>
-                  <ChangePassword />
-                </Suspense>
-              )
-            },
-            {
-              path: mainPath.inventory,
-              element: (
-                <Suspense fallback={<LoadingWithEmptyContent />}>
-                  <Inventory />
-                </Suspense>
-              )
-            },
-            {
-              path: mainPath.wishList,
-              element: (
-                <Suspense fallback={<LoadingWithEmptyContent />}>
-                  <WishList />
-                </Suspense>
-              )
-            }
-          ]
-        }
-      ]
+      path: mainPath.user,
+      children: [UserRoute]
     },
+
     {
       path: adminPath.mainPage,
       children: [AdminRoute]

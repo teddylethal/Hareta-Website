@@ -25,7 +25,7 @@ export default function UnlikeItemDialog({
 }: Props) {
   const { theme } = useContext(AppContext)
   const queryClient = useQueryClient()
-  const unlikeItemMutation = useMutation(likeItemAPi.unlikeItem)
+  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
   const unlikeItem = () => {
     unlikeItemMutation.mutate(
       { group_id: unlikeItemId as string },
@@ -71,8 +71,8 @@ export default function UnlikeItemDialog({
             >
               <Dialog.Panel
                 className={classNames(classNameWrapper, {
-                  'text-darkText bg-white/70': theme === 'light',
-                  'text-lightText bg-black/80': theme === 'dark'
+                  'bg-white/70 text-darkText': theme === 'light',
+                  'bg-black/80 text-lightText': theme === 'dark'
                 })}
               >
                 <p className='text-lg font-semibold'>{t('wishlist.remove message')}</p>

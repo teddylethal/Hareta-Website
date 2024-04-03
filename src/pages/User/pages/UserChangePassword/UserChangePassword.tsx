@@ -18,7 +18,7 @@ import { isAxiosBadRequestError } from 'src/utils/utils'
 
 type FormData = ChangePasswordSchema
 
-export default function ChangePassword() {
+export default function UserChangePassword() {
   const { theme, setIsAuthenticated, setProfile } = useContext(AppContext)
 
   const [successDialog, setSuccessDialog] = useState<boolean>(false)

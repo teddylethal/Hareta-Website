@@ -5,9 +5,8 @@ import { createSearchParams, useNavigate } from 'react-router-dom'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
 import { Product } from 'src/types/product.type'
-import { generateNameId } from 'src/utils/utils'
+import { generateNameId, showSuccessDialog } from 'src/utils/utils'
 import purchaseApi from 'src/apis/cart.api'
-import { showSuccessDialog } from 'src/utils/utils'
 import classNames from 'classnames'
 import omit from 'lodash/omit'
 import useQueryConfig from 'src/hooks/useQueryConfig'
@@ -22,7 +21,7 @@ import WishlistItem from '../../components/WishlistItem'
 import WishlistItemMobile from '../../components/WishlistItemMobile'
 import { useTranslation } from 'react-i18next'
 
-export default function WishList() {
+export default function UserWishList() {
   const { theme, isAuthenticated } = useContext(AppContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
@@ -49,7 +48,7 @@ export default function WishList() {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
-  const addToCartMutation = useMutation(purchaseApi.addToCart)
+  const addToCartMutation = useMutation({ mutationFn: purchaseApi.addToCart })
   const addToCart = (id: string) => () => {
     addToCartMutation.mutate(
       { item_id: id, quantity: 1 },

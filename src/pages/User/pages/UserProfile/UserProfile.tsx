@@ -28,7 +28,7 @@ const formatDate = (timeStamp: string) => {
   return moment(timeStamp).utc().format('YYYY-MM-DD')
 }
 
-export default function Profile() {
+export default function UserProfile() {
   const { theme, setProfile } = useContext(AppContext)
 
   const [editingMode, setEditingMode] = useState<boolean>(false)
