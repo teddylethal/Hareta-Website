@@ -10,7 +10,7 @@ interface Props {
 
 export default function AdminLayout({ children }: Props) {
   const menus: NavigateItem[] = [
-    { name: 'Sản phẩm', url: adminPath.products },
+    { name: 'Sản phẩm', url: adminPath.productList },
     { name: 'Hình ảnh', url: adminPath.images },
     { name: 'Đơn hàng', url: adminPath.orders },
     { name: 'Bài viết', url: adminPath.blogs }

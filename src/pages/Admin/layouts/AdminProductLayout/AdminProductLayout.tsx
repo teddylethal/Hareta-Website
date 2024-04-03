@@ -16,7 +16,7 @@ export default function AdminProductLayout({ children }: Props) {
     })
 
   return (
-    <div className='relative grid grid-cols-12 gap-2'>
+    <div className='relative grid min-h-screen grid-cols-12 gap-2'>
       <div className='col-span-2 p-2'>
         <div className='sticky top-4 flex flex-col items-center justify-around space-y-2 overflow-hidden rounded-md border border-white/40 p-3 text-base font-semibold text-lightText/80'>
           <NavLink to={adminPath.productList} className={({ isActive }) => itemStyle(isActive)}>

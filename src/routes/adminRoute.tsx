@@ -3,29 +3,28 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
-import AdminImageManagement from 'src/pages/Admin/children/AdminImageManagement'
-import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
-import AdminProductLayout from 'src/pages/Admin/layouts/AdminProductLayout'
-import AdminAddProductImage from 'src/pages/Admin/children/AdminAddProductImage'
-import AdminCreateProductGroup from 'src/pages/Admin/children/AdminCreateProductGroup'
-import AdminDeleteProduct from 'src/pages/Admin/children/AdminDeleteProduct'
-import AdminDeleteProductImage from 'src/pages/Admin/children/AdminDeleteProductImage'
-import AdminProductImagePage from 'src/pages/Admin/children/AdminProductImagePage'
-import AdminCreateProduct from 'src/pages/Admin/children/AdminCreatesProduct'
-import AdminImageLayout from 'src/pages/Admin/layouts/AdminImageLayout'
-import AdminUploadImages from 'src/pages/Admin/children/AdminUploadImages'
-import AdminDeleteImages from 'src/pages/Admin/children/AdminDeleteImages'
-import AdminOrderMangement from 'src/pages/Admin/children/AdminOrderMangement'
+
 import AdminOrderLayout from 'src/pages/Admin/layouts/AdminOrderLayout'
+import AdminProductLayout from 'src/pages/Admin/layouts/AdminProductLayout'
+import AdminMainLayout from 'src/pages/Admin/layouts/AdminMainLayout'
+import AdminImageLayout from 'src/pages/Admin/layouts/AdminImageLayout'
 
-//? IMPORT ADMIN LAYOUTS
-
-//? IMPORT ADMIN COMPONENTS
+//! LAZY IMPORT ADMIN PAGES
 const AdminDefaultProductList = lazy(() => import('src/pages/Admin/children/AdminDefaultProductList'))
 const AdminProductPage = lazy(() => import('src/pages/Admin/children/AdminProductPage'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/children/AdminMainPage'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/children/AdminDeleteGroup'))
 const AdminUploadProductAvatar = lazy(() => import('src/pages/Admin/children/AdminUploadProductAvatar'))
+const AdminImageManagement = lazy(() => import('src/pages/Admin/children/AdminImageManagement'))
+const AdminAddProductImage = lazy(() => import('src/pages/Admin/children/AdminAddProductImage'))
+const AdminCreateProductGroup = lazy(() => import('src/pages/Admin/children/AdminCreateProductGroup'))
+const AdminDeleteProduct = lazy(() => import('src/pages/Admin/children/AdminDeleteProduct'))
+const AdminDeleteProductImage = lazy(() => import('src/pages/Admin/children/AdminDeleteProductImage'))
+const AdminProductImagePage = lazy(() => import('src/pages/Admin/children/AdminProductImagePage'))
+const AdminCreateProduct = lazy(() => import('src/pages/Admin/children/AdminCreateProduct'))
+const AdminUploadImages = lazy(() => import('src/pages/Admin/children/AdminUploadImages'))
+const AdminDeleteImages = lazy(() => import('src/pages/Admin/children/AdminDeleteImages'))
+const AdminOrderMangement = lazy(() => import('src/pages/Admin/children/AdminOrderMangement'))
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)

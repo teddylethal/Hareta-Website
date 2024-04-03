@@ -70,7 +70,7 @@ export default function WishlistItem({
           {attributes.map((attribute, index) => (
             <button
               key={index}
-              className='flex items-center justify-start truncate rounded-lg border border-black/40 px-1 py-1 text-xs capitalize hover:bg-lightColor500 dark:border-white/40 dark:hover:bg-black desktop:px-4 desktop:text-base'
+              className='flex items-center justify-start truncate rounded-lg border border-black/40 px-1 py-1 text-xs capitalize hover:bg-lightColor500 dark:border-white/40 dark:hover:bg-black tablet:px-2 tablet:text-sm desktop:px-3 desktop:text-base'
               onClick={attribute.onClick}
             >
               {attribute.name}

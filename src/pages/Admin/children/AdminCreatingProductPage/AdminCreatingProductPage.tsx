@@ -1,7 +1,7 @@
 import AdminProductGroupList from '../../components/AdminProductGroupList'
 import AdminCreatingProductHeader from '../../components/AdminCreatingProductHeader'
 import AdminCreateProductGroup from '../AdminCreateProductGroup/AdminCreateProductGroup'
-import AdminCreateProduct from '../AdminCreatesProduct/AdminCreateProduct'
+import AdminCreateProduct from '../AdminCreateProduct/AdminCreateProduct'
 
 export default function AdminCreatingProductPage() {
   return (
