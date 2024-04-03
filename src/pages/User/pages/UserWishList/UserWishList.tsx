@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Fragment, useContext, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import likeItemAPi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
 import { Product } from 'src/types/product.type'
 import { generateNameId, showSuccessDialog } from 'src/utils/utils'
@@ -20,6 +19,12 @@ import DialogPopup from 'src/components/DialogPopup'
 import WishlistItem from '../../components/WishlistItem'
 import WishlistItemMobile from '../../components/WishlistItemMobile'
 import { useTranslation } from 'react-i18next'
+import likeItemAPi from 'src/apis/userLikeItem.api'
+
+export interface Attribute {
+  name: string
+  onClick: () => void
+}
 
 export default function UserWishList() {
   const { theme, isAuthenticated } = useContext(AppContext)
@@ -43,8 +48,8 @@ export default function UserWishList() {
   })
   const favouriteList = favouriteListData?.data.data as Product[]
 
-  const handleClickItem = (item: Product) => () => {
-    navigate({ pathname: `${path.home}${generateNameId({ name: item.name, id: item.id })}` })
+  const handleClickItem = (product: Product) => () => {
+    navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
@@ -116,14 +121,14 @@ export default function UserWishList() {
   return (
     <Fragment>
       <div className='m-2 h-[calc(100vh-128px)] overflow-scroll rounded-sm tablet:m-3 desktop:mx-4 desktop:my-4 desktop:overscroll-contain'>
-        {favouriteList?.map((item) => (
+        {favouriteList?.map((product) => (
           <div
-            key={item.id}
-            className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-2 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] tablet:px-3 desktop:px-4 '
+            key={product.id}
+            className='mt-4 rounded-lg border border-black/20 bg-lightBg px-2 first:mt-0 hover:bg-lightColor900 dark:border-white/20 dark:bg-darkBg dark:hover:bg-darkColor900 tablet:px-3 desktop:px-4 '
           >
             {!isMobile && (
               <WishlistItem
-                item={item}
+                product={product}
                 handleClickItem={handleClickItem}
                 handleChooseFilter={handleChooseFilter}
                 addToCart={addToCart}
@@ -132,7 +137,7 @@ export default function UserWishList() {
             )}
             {isMobile && (
               <WishlistItemMobile
-                item={item}
+                product={product}
                 handleClickItem={handleClickItem}
                 handleChooseFilter={handleChooseFilter}
                 addToCart={addToCart}
@@ -158,7 +163,7 @@ export default function UserWishList() {
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
-            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+            className={classNames('rounded-full  p-4 text-center text-success ', {
               'bg-black/20': theme === 'light',
               'bg-white/20': theme === 'dark'
             })}

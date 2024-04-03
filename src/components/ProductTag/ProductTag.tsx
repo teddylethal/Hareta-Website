@@ -8,8 +8,8 @@ interface Props {
 
 export default function ProductTag({
   tag,
-  tailClassname = 'absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]',
-  sectionClassname = 'flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-lightText font-medium desktop:h-6 desktop:w-20  desktop:text-sm'
+  tailClassname = 'absolute left-16 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]',
+  sectionClassname = 'flex h-6 w-16 items-center justify-center bg-tagColor text-center text-xs text-lightText font-medium desktop:h-6 desktop:w-20 desktop:text-sm'
 }: Props) {
   //! use translation
   const { t } = useTranslation('productdetail')

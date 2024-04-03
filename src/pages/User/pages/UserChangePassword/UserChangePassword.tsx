@@ -23,6 +23,7 @@ export default function UserChangePassword() {
 
   const [successDialog, setSuccessDialog] = useState<boolean>(false)
 
+  //! Use form
   const {
     register,
     handleSubmit,
@@ -39,6 +40,7 @@ export default function UserChangePassword() {
     shouldFocusError: false
   })
 
+  //! Change password
   const changePasswordMutation = useMutation({ mutationFn: userApi.changePassword })
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -90,50 +92,56 @@ export default function UserChangePassword() {
     reset()
   }
 
-  //? translation
+  //! translation
   const { t } = useTranslation('user')
+
+  //! Style
+  const wrapperClassName = 'relative w-full'
+  const titleClassName = 'text-sm font-medium uppercase desktop:text-lg'
+  const inputClassName =
+    'mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-lightColor900 rounded-md dark:bg-darkColor900 text-xs desktop:text-base outline-none duration-200 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage focus:outline-primaryColor'
 
   return (
     <Fragment>
       <form className='my-4 px-2 tablet:my-6 tablet:px-4 desktop:my-8 desktop:px-6' onSubmit={onSubmit}>
-        <div className='flex flex-col space-y-2 rounded-lg border border-black/20 bg-[#efefef] p-4 dark:border-white/20 dark:bg-[#202020]'>
-          <div className='relative mt-2 w-full'>
-            <p className='text-sm font-medium uppercase desktop:text-lg'>{t('password.current password')}</p>
+        <div className='flex flex-col space-y-2 rounded-lg border border-black/20 bg-lightBg p-4 dark:border-white/20 dark:bg-darkBg'>
+          <div className={wrapperClassName}>
+            <p className={titleClassName}>{t('password.current password')}</p>
             <Input
               type='password'
-              inputClassName='mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs desktop:text-base outline-none duration-200 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage '
+              inputClassName={inputClassName}
               register={register}
               name='old_password'
               errorMessage={errors.old_password?.message}
             />
           </div>
-          <div className='relative w-full '>
-            <p className='text-sm font-medium uppercase desktop:text-lg'>{t('password.new password')}</p>
+          <div className={wrapperClassName}>
+            <p className={titleClassName}>{t('password.new password')}</p>
             <Input
               type='password'
-              inputClassName='mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs desktop:text-base outline-none duration-200 autofill:text-darkText  dark:caret-white autofill:dark:text-textVintage'
+              inputClassName={inputClassName}
               register={register}
               name='new_password'
               errorMessage={errors.new_password?.message}
             />
           </div>
-          <div className='relative w-full '>
-            <p className='text-sm font-medium uppercase desktop:text-lg'>{t('password.confirm new password')}</p>
+          <div className={wrapperClassName}>
+            <p className={titleClassName}>{t('password.confirm new password')}</p>
             <Input
               type='password'
-              inputClassName='mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-white rounded-md dark:bg-black text-xs desktop:text-base outline-none duration-200 autofill:text-darkText peer dark:caret-white autofill:dark:text-textVintage'
+              inputClassName={inputClassName}
               register={register}
               name='confirm_new_password'
               errorMessage={errors.confirm_new_password?.message}
             />
           </div>
-          <div className='flex w-full justify-start space-x-8 pt-2 text-sm tabletSmall:w-[50%] desktop:text-base'>
+          <div className='flex w-full justify-start space-x-8 pt-2 text-sm tabletSmall:w-[50%] desktop:space-x-20 desktop:text-base'>
             <button type='button' className='hover:underline' onClick={handleCancle}>
               {t('password.cancel')}
             </button>
             <button
               type='submit'
-              className='rounded-md bg-vintageColor/90 px-2 py-1  hover:bg-vintageColor dark:bg-haretaColor/90 dark:hover:bg-haretaColor/70 desktop:px-4 desktop:py-2 '
+              className='rounded-md bg-unhoveringBg px-2 py-1 text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-1.5 '
             >
               {t('password.change password')}
             </button>
@@ -162,11 +170,7 @@ export default function UserChangePassword() {
             onClick={handelConfirm}
             type='button'
             className={classNames(
-              'inline-flex justify-center rounded-md border border-transparent  px-4 py-2 text-sm font-medium   ',
-              {
-                'bg-vintageColor/90 text-darkText hover:bg-vintageColor': theme === 'light',
-                'bg-haretaColor/80 text-lightText hover:bg-haretaColor/60 ': theme === 'dark'
-              }
+              'inline-flex justify-center rounded-md border border-transparent bg-unhoveringBg px-4 py-1.5 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:text-base'
             )}
           >
             {t('password.go to login')}
