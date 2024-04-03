@@ -40,7 +40,7 @@ export default function UserSideNav() {
   ]
 
   return (
-    <div className='rounded-md border border-black/10 bg-[#f8f8f8]  text-darkText/70  duration-200 dark:border-white/20 dark:bg-[#181818] dark:text-lightText/70'>
+    <div className='rounded-md border border-black/10 bg-lightColor900 text-darkText/70 duration-200 dark:border-white/20 dark:bg-darkColor900 dark:text-lightText/70'>
       {menus.map((item, index) => (
         <div key={index} className='border-t border-black/10 first:border-none dark:border-white/20'>
           <NavLink
@@ -48,7 +48,7 @@ export default function UserSideNav() {
             end
             className={({ isActive }) =>
               classNames('flex h-8 items-center space-x-3 px-4 py-8 text-lg font-semibold desktopLarge:text-xl', {
-                'text-brownColor dark:text-haretaColor': isActive,
+                'text-primaryColor dark:text-primaryColor': isActive,
                 ' hover:text-darkText dark:hover:text-lightText': !isActive
               })
             }

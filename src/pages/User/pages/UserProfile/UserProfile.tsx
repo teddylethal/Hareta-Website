@@ -1,4 +1,4 @@
-import { faCheck, faUserPen } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faUser, faUserPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -71,9 +71,7 @@ export default function UserProfile() {
     }
   }, [profile, setValue, setProfile, clearErrors])
 
-  const avatar: string =
-    profile?.avatar?.url ||
-    'https://media.autoexpress.co.uk/image/private/s--X-WVjvBW--/f_auto,t_content-image-full-desktop@1/v1685458010/autoexpress/2023/05/Porsche%20911%20GTS%20UK%20001_otx6j7.jpg'
+  const userAvatar = profile?.avatar?.url
 
   const showUploadAvatar = () => {
     setHoveringAvatar(true)
@@ -142,38 +140,70 @@ export default function UserProfile() {
           <div className='flex items-center'>
             {editingMode && (
               <div
-                className='relative h-20 w-20 overflow-hidden rounded-full border-[5px] border-vintageColor dark:border-haretaColor desktop:h-32 desktop:w-32'
+                className={classNames(
+                  'relative h-20 w-20 rounded-full border-[5px] border-primaryColor dark:border-primaryColor desktop:h-32 desktop:w-32',
+                  {
+                    'bg-lightBg dark:bg-darkBg': !userAvatar
+                  }
+                )}
                 onMouseEnter={showUploadAvatar}
                 onMouseLeave={() => setHoveringAvatar(false)}
               >
-                <img
-                  src={previewImage || avatar}
-                  alt={profile.name}
-                  className='absolute left-0 top-0 h-full w-full rounded-full object-cover '
-                />
+                {previewImage && (
+                  <img
+                    src={previewImage}
+                    alt={profile.name}
+                    className='absolute left-0 top-0 h-full w-full rounded-full object-cover'
+                  />
+                )}
+                {!previewImage &&
+                  (userAvatar ? (
+                    <img
+                      src={previewImage || userAvatar}
+                      alt={profile.name}
+                      className='absolute left-0 top-0 h-full w-full rounded-full object-cover'
+                    />
+                  ) : (
+                    <div className='h-6/12 absolute left-1/2 top-1/2 flex w-6/12 -translate-x-1/2 -translate-y-1/2'>
+                      <FontAwesomeIcon icon={faUser} className=' h-full w-full' />
+                    </div>
+                  ))}
                 {(hoveringAvatar || isMobile) && <InputFile onChangeImageFile={handleChangeAvatarFile} />}
               </div>
             )}
             {!editingMode && (
-              <div className='relative h-20 w-20 rounded-full border-[5px] border-[#f8f8f8] dark:border-[#181818] desktop:h-32 desktop:w-32'>
-                <img
-                  src={avatar}
-                  alt={profile.name}
-                  className='absolute left-0 top-0 h-full w-full rounded-full object-cover '
-                />
+              <div
+                className={classNames(
+                  'relative h-20 w-20 rounded-full border-[5px] border-lightColor900 dark:border-darkColor900 desktop:h-32 desktop:w-32',
+                  {
+                    'bg-lightBg dark:bg-darkBg': !userAvatar
+                  }
+                )}
+              >
+                {userAvatar ? (
+                  <img
+                    src={previewImage || userAvatar}
+                    alt={profile.name}
+                    className='absolute left-0 top-0 h-full w-full rounded-full object-cover'
+                  />
+                ) : (
+                  <div className='h-6/12 absolute left-1/2 top-1/2 flex w-6/12 -translate-x-1/2 -translate-y-1/2'>
+                    <FontAwesomeIcon icon={faUser} className=' h-full w-full' />
+                  </div>
+                )}
               </div>
             )}
             <div className='ml-2 flex flex-col space-y-1 tabletSmall:ml-4 desktop:ml-8'>
-              <p className='text-base tabletSmall:text-lg desktop:text-2xl'>{profile.name}</p>
+              <p className='text-base font-semibold tabletSmall:text-lg desktop:text-2xl'>{profile.name}</p>
               <p className='truncate text-xs text-darkText/60 dark:text-lightText/60 tabletSmall:text-sm desktop:text-base'>
-                {t('profile.joined')} {formatDate(profile.created_at)}
+                {t('profile.joined')}: {formatDate(profile.created_at)}
               </p>
             </div>
           </div>
           <div className=''>
             {!editingMode && (
               <button
-                className='flex h-full space-x-2 rounded-md bg-vintageColor/90 px-2 py-1 text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60 desktop:px-4 desktop:py-2'
+                className='flex h-full space-x-2 rounded-md bg-unhoveringBg px-2 py-1 text-darkText hover:bg-hoveringBg dark:text-lightText desktop:px-4 desktop:py-2'
                 onClick={() => setEditingMode(true)}
               >
                 <FontAwesomeIcon icon={faUserPen} className='h-auto w-4 tabletSmall:w-5 desktop:w-6' />
@@ -184,14 +214,14 @@ export default function UserProfile() {
         </div>
 
         {!editingMode && (
-          <div className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4 dark:bg-[#202020] '>
+          <div className='space-y-2 rounded-lg bg-lightColor900 px-6 py-4 dark:bg-darkColor900 '>
             <div className=''>
               <p className='text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
                 {t('profile.name')}
               </p>
               <div>
-                <p className='py-1 text-sm  desktop:text-base '>{profile.name}</p>
-                <div className='mt-1 min-h-[1.25rem]'></div>
+                <p className='py-1 text-sm font-medium desktop:text-base'>{profile.name}</p>
+                <div className='mt-1 min-h-[1.25rem]' />
               </div>
             </div>
             <div className=''>
@@ -199,15 +229,15 @@ export default function UserProfile() {
                 {t('profile.phone number')}
               </p>
               <div>
-                <p className='py-1 text-sm  desktop:text-base '>{profile.phone}</p>
-                <div className='mt-1 min-h-[1.25rem]'></div>
+                <p className='py-1 text-sm font-medium desktop:text-base'>{profile.phone}</p>
+                <div className='mt-1 min-h-[1.25rem]' />
               </div>
             </div>
             <div className=''>
               <p className='text-base font-semibold uppercase text-darkText/60 dark:text-lightText/60 desktop:text-lg'>
                 {t('profile.email')}
               </p>
-              <p className='py-1 text-sm  desktop:text-base '>{profile.email}</p>
+              <p className='py-1 text-sm font-medium desktop:text-base'>{profile.email}</p>
             </div>
           </div>
         )}
@@ -215,7 +245,7 @@ export default function UserProfile() {
         {editingMode && (
           <FormProvider {...methods}>
             <form
-              className='space-y-2 rounded-lg bg-[#e8e8e8] px-6 py-4  text-darkText dark:bg-[#202020] dark:text-lightText'
+              className='space-y-2 rounded-lg bg-lightColor900 px-6 py-4  text-darkText dark:bg-darkColor900 dark:text-lightText'
               onSubmit={onSubmit}
             >
               <EditProfile />
@@ -228,7 +258,7 @@ export default function UserProfile() {
 
               <div className='flex items-center space-x-2 pt-4'>
                 <button
-                  className='flex items-center space-x-1 rounded-md bg-vintageColor/90 px-2 py-1 text-sm text-darkText hover:bg-vintageColor dark:bg-haretaColor/90 dark:text-lightText dark:hover:bg-haretaColor/60 desktop:px-4 desktop:py-2 desktop:text-base'
+                  className='flex items-center space-x-1 rounded-md bg-unhoveringBg px-2 py-1 text-sm text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-2 desktop:text-base'
                   type='submit'
                 >
                   <p>{t('profile.save')}</p>

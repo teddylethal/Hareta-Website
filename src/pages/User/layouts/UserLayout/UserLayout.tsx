@@ -35,7 +35,7 @@ export default function UserLayout({ children }: Props) {
             <div className='pb-6'>
               <UserMobileNavBar />
 
-              <div className='mt-2 rounded-md border border-black/10 bg-[#f8f8f8] text-darkText dark:border-white/20 dark:bg-[#181818] dark:text-lightText'>
+              <div className='mt-2 rounded-md border border-black/10 bg-lightColor900 text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText'>
                 {children}
               </div>
             </div>
@@ -61,7 +61,7 @@ export default function UserLayout({ children }: Props) {
               </div>
 
               <div className='col-span-9'>
-                <div className='min-h-full rounded-md border border-black/10 bg-[#f8f8f8] text-darkText dark:border-white/20 dark:bg-[#181818] dark:text-lightText'>
+                <div className='min-h-full rounded-md border border-black/10 bg-lightColor900 text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText'>
                   {children}
                 </div>
               </div>
