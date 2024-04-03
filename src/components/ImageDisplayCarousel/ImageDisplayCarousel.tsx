@@ -33,6 +33,16 @@ export default function ImageDisplayCarousel({
     }
   }
 
+  if (imageList.length == 0) {
+    return (
+      <div className={customClassname}>
+        <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center object-cover'>
+          <FontAwesomeIcon icon={faTriangleExclamation} fontSize={40} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <Carousel
       responsive={responsive}
@@ -45,7 +55,6 @@ export default function ImageDisplayCarousel({
     >
       {imageList.map((image) => {
         const imageURL = image.image ? image.image.url : null
-        // const imageURL = null
         return (
           <div className={customClassname} key={image.id}>
             {imageURL ? (

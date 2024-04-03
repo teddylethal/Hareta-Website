@@ -15,7 +15,7 @@ import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
 import { ProductImage } from 'src/types/productImage.type'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { StoreContext } from 'src/contexts/store.context'
-import { useTranslation } from 'react-i18next'
+import ProductTag from 'src/components/ProductTag'
 
 const MAXLENGTH = 3
 
@@ -47,7 +47,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     }
   }, [initialLoading, product.id, wishlistIDs])
 
-  //? GET IMAGE LIST
+  //! GET IMAGE LIST
   const itemID = product.id
   const { data: imageListData, isLoading } = useQuery({
     queryKey: ['default_item_images', itemID],
@@ -57,7 +57,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
   })
   const imageList = imageListData?.data.data
 
-  //? HANDLE CHANGE IMAGE WHILE HOVERING
+  //! HANDLE CHANGE IMAGE WHILE HOVERING
   const avatarUrl = product.avatar ? product.avatar.url : null
   const [hoveringImage, setHoveringImage] = useState<boolean>(false)
   const [imageListCarousel, setImageListCarousel] = useState<ProductImage[]>([])
@@ -123,10 +123,6 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLikedByUser])
 
-  //? use translation
-  const { t } = useTranslation('productdetail')
-  const tag = product.tag
-
   return (
     <div
       className='flex w-full items-center justify-center pb-0 pt-2 duration-200 tablet:hover:pb-2 tablet:hover:pt-0'
@@ -167,12 +163,7 @@ function Product({ product, initialLoading, disableClick = false }: Props) {
         </div>
         {product.tag !== 0 && (
           <div className='absolute left-0 top-4'>
-            <span className=' flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-darkText desktop:h-6 desktop:w-20  desktop:text-sm'>
-              {tag == 1 && t('tag.top seller')}
-              {tag == 2 && t('tag.signature')}
-              {tag == 3 && t('tag.favourite')}
-            </span>
-            <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]' />
+            <ProductTag tag={product.tag} />
           </div>
         )}
         {isAuthenticated && (

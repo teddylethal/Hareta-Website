@@ -54,15 +54,15 @@ export default function ProductDetail() {
   })
   const defaltItem = productDetailData?.data.data
 
-  //? ITEMS IN GROUP
-  const itemInGroupQuery: ProductsInGroupConfig = {
+  //! Get product list in group
+  const productsInGroupQuery: ProductsInGroupConfig = {
     id: defaltItem?.group.id as string,
     page: '1',
     limit: '50'
   }
   const { data: itemsInGroupData } = useQuery({
-    queryKey: ['products_in_group', itemInGroupQuery],
-    queryFn: () => productApi.getProductsInGroup(itemInGroupQuery),
+    queryKey: ['product_list_in_group', productsInGroupQuery],
+    queryFn: () => productApi.getProductsInGroup(productsInGroupQuery),
 
     enabled: Boolean(defaltItem)
   })
@@ -165,15 +165,16 @@ export default function ProductDetail() {
     setDialogIsOpen(false)
   }
 
-  //? CHANGE TITLE
+  //! CHANGE TITLE
   useEffect(() => {
     document.title = `${defaltItem?.name} | Hareta Workshop`
   })
 
-  //? translation
+  //! translation
   const { t } = useTranslation('productdetail')
 
   if (!defaltItem) return <ProductDetailLoading />
+
   //! PATH BAR
   const pathList: PathElement[] = [
     {

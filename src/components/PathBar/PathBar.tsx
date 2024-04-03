@@ -17,11 +17,11 @@ interface Props {
 }
 
 export default function PathBar({ pathList }: Props) {
-  //? TRANSLATION
+  //! TRANSLATION
   const { t } = useTranslation('store')
 
   return (
-    <div className='relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-barLightBg px-3 py-1 text-xs font-medium uppercase text-darkText duration-200 dark:border-white/20 dark:bg-barDarkBg dark:text-lightText desktop:mb-3  desktop:px-4 desktop:py-2 desktop:text-sm desktopLarge:mb-4 desktopLarge:px-6 desktopLarge:py-3'>
+    <div className='relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-barLightBg px-3 py-1 text-xs font-semibold uppercase text-darkText duration-200 dark:border-white/20 dark:bg-barDarkBg dark:text-lightText desktop:mb-3  desktop:px-4 desktop:py-2 desktop:text-sm desktopLarge:mb-4 desktopLarge:px-6 desktopLarge:py-3'>
       <Fragment>
         <NavLink
           to={mainPath.home}

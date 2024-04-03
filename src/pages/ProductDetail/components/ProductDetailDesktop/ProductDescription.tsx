@@ -132,7 +132,9 @@ export default function ProductDescription({ item }: Props) {
         ref={detailRef}
       >
         <div className='space-y-4'>
-          <p className='text-xl font-semibold uppercase desktop:text-2xl desktopLarge:text-3xl'>{t('detail.Detail')}</p>
+          <p className='py-2 text-center text-xl font-semibold uppercase tracking-widest desktop:text-2xl desktopLarge:text-3xl'>
+            {t('detail.Detail')}
+          </p>
           {infos.map((infoItem, index) => (
             <div key={index} className={wrapperClassname}>
               <div className={titleClassname}>{infoItem.title}</div>
