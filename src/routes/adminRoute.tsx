@@ -15,6 +15,8 @@ import AdminCreateProduct from 'src/pages/Admin/children/AdminCreatesProduct'
 import AdminImageLayout from 'src/pages/Admin/layouts/AdminImageLayout'
 import AdminUploadImages from 'src/pages/Admin/children/AdminUploadImages'
 import AdminDeleteImages from 'src/pages/Admin/children/AdminDeleteImages'
+import AdminOrderMangement from 'src/pages/Admin/children/AdminOrderMangement'
+import AdminOrderLayout from 'src/pages/Admin/layouts/AdminOrderLayout'
 
 //? IMPORT ADMIN LAYOUTS
 
@@ -23,7 +25,6 @@ const AdminDefaultProductList = lazy(() => import('src/pages/Admin/children/Admi
 const AdminProductPage = lazy(() => import('src/pages/Admin/children/AdminProductPage'))
 const AdminMainPage = lazy(() => import('src/pages/Admin/children/AdminMainPage'))
 const AdminDeleteGroup = lazy(() => import('src/pages/Admin/children/AdminDeleteGroup'))
-const AdminOrder = lazy(() => import('src/pages/Admin/children/AdminOrder'))
 const AdminUploadProductAvatar = lazy(() => import('src/pages/Admin/children/AdminUploadProductAvatar'))
 
 function AdminMainRoute() {
@@ -53,6 +54,14 @@ function AdminImageRoute() {
     <AdminImageLayout>
       <Outlet />
     </AdminImageLayout>
+  )
+}
+
+function AdminOrderRoute() {
+  return (
+    <AdminOrderLayout>
+      <Outlet />
+    </AdminOrderLayout>
   )
 }
 
@@ -130,7 +139,13 @@ const AdminRoute: RouteObject = {
     },
     {
       path: adminPath.orders,
-      element: <AdminOrder />
+      element: <AdminOrderRoute />,
+      children: [
+        {
+          path: '',
+          element: <AdminOrderMangement />
+        }
+      ]
     }
   ]
 }

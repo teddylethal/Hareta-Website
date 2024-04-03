@@ -16,6 +16,6 @@ export const imageApi = {
     })
   },
   deleteImage(body: { image_id: string }) {
-    return http.delete(URL, { data: body })
+    return http.delete(`${URL}/`, { data: body })
   }
 }
