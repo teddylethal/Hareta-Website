@@ -16,12 +16,18 @@ interface Props {
   item: Product
 }
 
+interface InfoItem {
+  title: string
+  info: string
+  handleClick: () => void
+}
+
 export default function ProductDescription({ item }: Props) {
   const { theme } = useContext(AppContext)
 
   const detailRef = useRef<HTMLDivElement>(null)
 
-  //? HANDLE CLICK FIELD
+  //! HANDLE CLICK FIELD
   const navigate = useNavigate()
   const queryConfig = useQueryConfig()
   const handleChooseFilter = (field: string, value: string) => () => {
@@ -66,7 +72,29 @@ export default function ProductDescription({ item }: Props) {
     })
   }
 
-  //? HANDLE DESCRIPTION
+  //! translation
+  const { t } = useTranslation('productdetail')
+
+  //! Get information
+  const infos: InfoItem[] = [
+    {
+      title: t('detail.Category'),
+      info: item.category,
+      handleClick: handleChooseFilter('category', item.category)
+    },
+    {
+      title: t('detail.Collection'),
+      info: item.collection,
+      handleClick: handleChooseFilter('collection', item.collection)
+    },
+    {
+      title: t('detail.Type'),
+      info: item.type,
+      handleClick: handleChooseFilter('type', item.type)
+    }
+  ]
+
+  //! HANDLE DESCRIPTION
   const [extendButton, setExtendButton] = useState(false)
   const itemDescriptionRef = createRef<HTMLDivElement>()
   const itemDescriptionContentRef = createRef<HTMLDivElement>()
@@ -89,66 +117,41 @@ export default function ProductDescription({ item }: Props) {
     setExtending(false)
   }
 
-  //? translation
-  const { t } = useTranslation('productdetail')
+  //! Style
+  const wrapperClassname = 'grid w-full grid-cols-3 gap-4'
+  const titleClassname =
+    'col-span-1 text-base text-lightText/60 dark:text-lightText/60 desktop:text-lg desktopLarge:text-xl'
+  const clickableInfoClassname =
+    'text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-lg desktopLarge:text-xl'
+  const normalInfoClassname = 'col-span-2 text-base capitalize desktop:text-lg desktopLarge:text-xl'
 
   return (
     <div className={theme === 'dark' ? 'dark' : 'light'}>
-      <div className='text-darkText dark:text-lightText ' ref={detailRef}>
+      <div
+        className='rounded-lg bg-darkColor500 p-2 text-lightText dark:bg-darkColor700 dark:text-lightText'
+        ref={detailRef}
+      >
         <div className='space-y-4'>
           <p className='text-xl font-semibold uppercase desktop:text-2xl desktopLarge:text-3xl'>{t('detail.Detail')}</p>
-          <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 desktop:text-lg desktopLarge:text-xl'>
-              {t('detail.Category')}
+          {infos.map((infoItem, index) => (
+            <div key={index} className={wrapperClassname}>
+              <div className={titleClassname}>{infoItem.title}</div>
+              <div className='col-span-2'>
+                <button className={clickableInfoClassname} onClick={infoItem.handleClick}>
+                  {infoItem.info}
+                </button>
+              </div>
             </div>
-            <div className='col-span-2'>
-              <button
-                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-lg desktopLarge:text-xl'
-                onClick={handleChooseFilter('category', item.category)}
-              >
-                {item.category}
-              </button>
-            </div>
+          ))}
+
+          <div className={wrapperClassname}>
+            <div className={titleClassname}>{t('detail.Product line')}</div>
+            <div className={normalInfoClassname}>{item.product_line}</div>
           </div>
-          <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 desktop:text-lg desktopLarge:text-xl'>
-              {t('detail.Collection')}
-            </div>
-            <div className='col-span-2'>
-              <button
-                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-lg desktopLarge:text-xl'
-                onClick={handleChooseFilter('collection', item.collection)}
-              >
-                {item.collection}
-              </button>
-            </div>
-          </div>
-          <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 desktop:text-lg desktopLarge:text-xl'>
-              {t('detail.Type')}
-            </div>
-            <div className='col-span-2'>
-              <button
-                className='text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-lg desktopLarge:text-xl'
-                onClick={handleChooseFilter('type', item.type)}
-              >
-                {item.type}
-              </button>
-            </div>
-          </div>
-          <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 desktop:text-lg desktopLarge:text-xl'>
-              {t('detail.Product line')}
-            </div>
-            <div className='col-span-2 text-base capitalize desktop:text-lg desktopLarge:text-xl'>
-              {item.product_line}
-            </div>
-          </div>
-          <div className='grid w-full grid-cols-3 gap-4'>
-            <div className='col-span-1 text-base text-black/60 dark:text-white/60 desktop:text-lg desktopLarge:text-xl'>
-              {t('detail.In store')}
-            </div>
-            <div className='col-span-2 text-base capitalize desktop:text-lg desktopLarge:text-xl'>{item.quantity}</div>
+
+          <div className={wrapperClassname}>
+            <div className={titleClassname}>{t('detail.In store')}</div>
+            <div className={normalInfoClassname}>{item.quantity}</div>
           </div>
         </div>
         <div className='mt-10 '>
@@ -169,7 +172,7 @@ export default function ProductDescription({ item }: Props) {
                   })
                 }}
                 style={{ color: '#fff' }}
-                className='overflow-visible text-red-400'
+                className='overflow-visible'
               />
               {extendButton && (
                 <div className='absolute bottom-0 left-1/2 -translate-x-1/2'>

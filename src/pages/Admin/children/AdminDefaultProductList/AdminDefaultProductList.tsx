@@ -56,7 +56,7 @@ export default function AdminDefaultProductList() {
     <div>
       {!defaultProductList && <LoadingSection />}
       {defaultProductList && (
-        <div className='grid grid-cols-2 gap-2 tablet:grid-cols-3 tablet:gap-3 desktop:grid-cols-4 desktop:gap-4'>
+        <div className='grid grid-cols-2 gap-2 p-3 tablet:grid-cols-3 tablet:gap-3 desktop:grid-cols-4 desktop:gap-4'>
           {defaultProductList.map((product) => (
             <div key={product.id} className='col-span-1'>
               <ProductItem product={product} handleEnterProduct={handleEnterProduct} />

@@ -17,8 +17,8 @@ export default function AdminProductLayout({ children }: Props) {
 
   return (
     <div className='relative grid grid-cols-12 gap-2'>
-      <div className='col-span-2'>
-        <div className='sticky top-2 flex flex-col items-center justify-around space-y-2 overflow-hidden rounded-md border border-white/40 px-4 py-2 text-base font-semibold text-lightText/80'>
+      <div className='col-span-2 p-2'>
+        <div className='sticky top-4 flex flex-col items-center justify-around space-y-2 overflow-hidden rounded-md border border-white/40 p-3 text-base font-semibold text-lightText/80'>
           <NavLink to={adminPath.productList} className={({ isActive }) => itemStyle(isActive)}>
             Sản phẩm
           </NavLink>
@@ -36,8 +36,8 @@ export default function AdminProductLayout({ children }: Props) {
           </NavLink>
         </div>
       </div>
-      <div className='col-span-10'>
-        <div className='min-h-[600px] text-lightText'>{children}</div>
+      <div className='col-span-10 p-2'>
+        <div className='border border-white/20'>{children}</div>
       </div>
     </div>
   )
