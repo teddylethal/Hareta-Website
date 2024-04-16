@@ -13,7 +13,7 @@ export default function HomePage() {
 
   return (
     <div className='duration-200 '>
-      {/* <HomeEventSlideShow /> */}
+      <HomeEventSlideShow />
 
       {/* <div className='container py-4 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
         <NewReleaseCarousel />

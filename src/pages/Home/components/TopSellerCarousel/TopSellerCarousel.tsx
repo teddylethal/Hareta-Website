@@ -15,6 +15,7 @@ import likeItemAPi from 'src/apis/userLikeItem.api'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
+import CustomSlideShow from 'src/components/CustomSlideShow'
 
 const LIMIT = 10
 
@@ -146,30 +147,13 @@ export default function TopSellerCarousel() {
 
         {displayedItems.length > 3 && (
           <div className='relative pb-8'>
-            <Carousel
-              // beforeChange={() => setDisableClick(true)}
-              // afterChange={() => setDisableClick(false)}
-              className='overflow-hidden'
-              showDots
-              renderDotsOutside
-              autoPlay
-              draggable={false}
-              arrows={false}
-              autoPlaySpeed={5000}
-              responsive={responsive}
-              transitionDuration={500}
-              slidesToSlide={1}
-              partialVisible
-              infinite
-              pauseOnHover={false}
-              customDot={<CustomDot />}
-            >
+            <CustomSlideShow>
               {displayedItems.map((item) => (
                 <div key={item.id} className='mx-4 select-none'>
                   <Product product={item} initialLoading={isLoading} />
                 </div>
               ))}
-            </Carousel>
+            </CustomSlideShow>
           </div>
         )}
       </div>
