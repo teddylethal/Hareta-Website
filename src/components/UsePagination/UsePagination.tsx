@@ -15,7 +15,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
   const currentPage = Number(queryConfig.page)
   const RANGE = isMobile ? 1 : 2
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('utils')
 
   const renderPagination = () => {

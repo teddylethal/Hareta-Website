@@ -32,7 +32,7 @@ export default function OrderTracking() {
   const [finding, setFinding] = useState<boolean>(false)
   const [cantFind, setCantFind] = useState<boolean>(false)
 
-  //? Translation
+  //! Multi languages
   const { t } = useTranslation(['support'])
 
   //? Responsive

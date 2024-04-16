@@ -36,7 +36,7 @@ export default function PriceSample({ handleChoosePrice }: Props) {
     handleChoosePrice(index)
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
 
   return (

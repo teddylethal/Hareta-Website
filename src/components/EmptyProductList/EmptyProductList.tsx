@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function EmptyProductList({ currentPage }: Props) {
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('utils')
   return (
     <div className='my-4 text-center text-2xl uppercase text-darkText dark:text-lightText'>

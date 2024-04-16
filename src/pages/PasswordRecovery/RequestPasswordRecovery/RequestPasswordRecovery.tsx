@@ -79,7 +79,7 @@ export default function RequestPasswordRecovery() {
     })
   })
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('login')
 
   return (

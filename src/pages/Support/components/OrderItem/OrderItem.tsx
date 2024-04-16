@@ -24,7 +24,7 @@ export default function OrderItem({ order }: Props) {
   const viewport = useViewport()
   const isMobile = viewport.width <= 640
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('support')
 
   //? get items of order

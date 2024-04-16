@@ -18,20 +18,12 @@ import { useTranslation } from 'react-i18next'
 
 const LIMIT = 10
 
-interface Props {
-  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export default function TopSellerCarousel({ setLoadingPage }: Props) {
+export default function TopSellerCarousel() {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
   //? GET WISHLIST
-  const {
-    data: wishlistData,
-    isInitialLoading,
-    isLoading
-  } = useQuery({
+  const { data: wishlistData, isLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
       return likeItemAPi.getWishList()
@@ -46,10 +38,7 @@ export default function TopSellerCarousel({ setLoadingPage }: Props) {
     }
   }, [setWishlistIDs, wishlistData])
 
-  //? SET LOADING PAGE
-  useEffect(() => setLoadingPage(isLoading), [isLoading, setLoadingPage])
-
-  //? GET TOP SELLER ITEMS
+  //! Get top seller product list
   const itemsConfig: QueryConfig = { tag: '1', limit: String(LIMIT) }
   const { data: itemsData } = useQuery({
     queryKey: ['top_seller_items', itemsConfig],
@@ -118,7 +107,7 @@ export default function TopSellerCarousel({ setLoadingPage }: Props) {
     }
   }
 
-  //? Translation
+  //! Multi languages
   const { t } = useTranslation('home')
 
   return (
@@ -177,7 +166,7 @@ export default function TopSellerCarousel({ setLoadingPage }: Props) {
             >
               {displayedItems.map((item) => (
                 <div key={item.id} className='mx-4 select-none'>
-                  <Product product={item} initialLoading={isInitialLoading} />
+                  <Product product={item} initialLoading={isLoading} />
                 </div>
               ))}
             </Carousel>

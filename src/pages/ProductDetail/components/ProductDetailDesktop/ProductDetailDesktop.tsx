@@ -103,7 +103,7 @@ export default function ProductDetailDesktop(props: Props) {
   //? CHECK IN STOCK
   const inStock = activeItem.quantity > 0
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('productdetail')
 
   return (

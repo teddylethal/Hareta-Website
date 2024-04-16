@@ -4,11 +4,11 @@ import { NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
 
 export default function OrderHeader() {
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('order')
 
   return (
-    <div className='text-darkText dark:text-lightText rounded-lg border border-black/40 bg-white dark:border-white/40 dark:bg-black'>
+    <div className='rounded-lg border border-black/40 bg-white text-darkText dark:border-white/40 dark:bg-black dark:text-lightText'>
       <div className='relative grid grid-cols-2'>
         <div className='absolute left-1/2 h-full border-l border-black/40 duration-200 dark:border-white/40'></div>
         <div className='col-span-1 '>

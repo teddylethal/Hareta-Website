@@ -25,7 +25,7 @@ export default function MobileNav({ className }: Props) {
     setVisible(false)
   }
 
-  //? Translation
+  //! Multi languages
   const { t } = useTranslation('header')
 
   return (

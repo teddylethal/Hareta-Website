@@ -172,7 +172,7 @@ export default function OrderLayout() {
     setConfirmPayment(false)
   }
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('order')
 
   return (

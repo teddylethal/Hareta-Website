@@ -115,7 +115,7 @@ export default function UserWishList() {
     })
   }
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('user')
 
   return (

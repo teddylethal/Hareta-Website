@@ -26,7 +26,7 @@ export default function TypeFilter({ setMobileFilterOpen, isMobile = false, quer
   const [isOpening, setIsopening] = useState<boolean>(false)
   const { category, collection, type } = queryConfig
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
 
   const queryParams = useQueryParams()

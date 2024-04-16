@@ -24,7 +24,7 @@ export default function AsideFilter({ queryConfig }: Props) {
     })
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
 
   return (

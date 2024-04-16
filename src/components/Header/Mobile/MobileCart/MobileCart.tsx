@@ -63,7 +63,7 @@ export default function MobileCart({ className }: Props) {
     setVisible(false)
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('header')
 
   return (

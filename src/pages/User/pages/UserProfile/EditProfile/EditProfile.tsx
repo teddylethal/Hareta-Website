@@ -16,7 +16,7 @@ export default function EditProfile() {
     formState: { errors }
   } = useFormContext<FormData>()
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('user')
 
   return (

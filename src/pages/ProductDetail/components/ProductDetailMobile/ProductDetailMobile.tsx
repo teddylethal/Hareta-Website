@@ -44,7 +44,7 @@ export default function ProductDetailMobile(props: Props) {
   }
 
   const tag = defaultItem.tag
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('productdetail')
 
   return (

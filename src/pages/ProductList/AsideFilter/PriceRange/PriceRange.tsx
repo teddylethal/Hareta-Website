@@ -138,7 +138,7 @@ export default function PriceRange({ queryConfig }: Props) {
     })
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
 
   return (

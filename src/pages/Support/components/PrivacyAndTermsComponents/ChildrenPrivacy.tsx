@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 export default function ChildrenPrivacy() {
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('privacyAndTerms')
   return (
     <div>

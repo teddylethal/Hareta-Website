@@ -25,7 +25,7 @@ export default function MobileUser({ className, closeMenu }: Props) {
     setVisible(false)
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('header')
 
   return (

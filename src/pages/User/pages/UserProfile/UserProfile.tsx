@@ -129,7 +129,7 @@ export default function UserProfile() {
     setAvatarFile(file)
   }
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('user')
 
   if (!profile) return <ProfileLoading />

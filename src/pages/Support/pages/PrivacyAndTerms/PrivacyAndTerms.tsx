@@ -33,7 +33,7 @@ export default function PrivacyAndTerms() {
   //? responsive
   const isMobile = useViewport().width < 768
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('privacyAndTerms')
 
   //? navigate side bar

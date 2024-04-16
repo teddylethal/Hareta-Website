@@ -1,18 +1,14 @@
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Carousel, { DotProps } from 'react-multi-carousel'
-import NewReleaseItem from '../NewReleaseItem'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import classNames from 'classnames'
 import toArray from 'lodash/toArray'
 import { useTranslation } from 'react-i18next'
-
-interface Props {
-  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
-}
+import { QueryConfig } from 'src/hooks/useQueryConfig'
+import NewReleaseItem from '../NewReleaseItem'
 
 const IsNewReleased = 86400 * 1000 * 90
 const date = new Date()
@@ -35,7 +31,7 @@ const responsive = {
   }
 }
 
-//? ARROW FIX FOR CAROUSEL
+//! ARROW FIX FOR CAROUSEL
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ArrowFix = (arrowProps: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,12 +39,12 @@ const ArrowFix = (arrowProps: any) => {
   return <span {...restArrowProps}>{children}</span>
 }
 
-export default function NewReleaseCarousel({ setLoadingPage }: Props) {
+export default function NewReleaseCarousel() {
   const [dragging, setDragging] = useState<boolean>(false)
 
   //? GET ITEMS
   const itemsConfig: QueryConfig = {}
-  const { data: itemsData, isLoading } = useQuery({
+  const { data: itemsData } = useQuery({
     queryKey: ['new_release_items', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
@@ -57,9 +53,6 @@ export default function NewReleaseCarousel({ setLoadingPage }: Props) {
   const itemList = itemsData?.data.data || []
 
   const newRelaseList = itemList.filter((item) => date.getTime() - new Date(item.created_at).getTime() <= IsNewReleased)
-
-  //? SET LOADING PAGE
-  useEffect(() => setLoadingPage(isLoading), [isLoading, setLoadingPage])
 
   //? CUSTOM DOTS
   const dots = newRelaseList.map((item) => <div className='' key={item.id}></div>)
@@ -84,7 +77,7 @@ export default function NewReleaseCarousel({ setLoadingPage }: Props) {
     )
   }
 
-  //? Translation
+  //! Multi languages
   const { t } = useTranslation('home')
 
   return (

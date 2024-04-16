@@ -26,7 +26,7 @@ export default function CollectionFilter({ queryConfig, setMobileFilterOpen, isM
   const [isOpening, setIsopening] = useState<boolean>(false)
   const { category, collection, type } = queryConfig
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('store')
 
   const queryParams = useQueryParams()

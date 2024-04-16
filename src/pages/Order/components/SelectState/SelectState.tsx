@@ -21,7 +21,7 @@ export default function SelectState({ isError = false }: Props) {
     setStateAddress(null)
   }, [addressCountry.isoCode, addressState?.countryCode, setStateAddress])
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('order')
 
   return (

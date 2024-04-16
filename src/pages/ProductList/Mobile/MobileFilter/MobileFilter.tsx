@@ -45,7 +45,7 @@ export default function MobileBottomBar({ queryConfig }: Props) {
     })
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
 
   return (

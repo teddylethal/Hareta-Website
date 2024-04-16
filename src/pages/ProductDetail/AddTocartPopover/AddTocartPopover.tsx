@@ -126,7 +126,7 @@ export default function AddTocartPopover({
     showSuccessDialog(setDialogIsOpen)
   }
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('productdetail')
 
   if (!item) return null

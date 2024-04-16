@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 
 export default function DesktopFooter() {
-  //? Translation
+  //! Multi languages
   const { t } = useTranslation('footer')
 
   return (

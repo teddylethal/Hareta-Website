@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function PrivacyAndTermsSideNav({ closeMenu }: Props) {
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('privacyAndTerms')
 
   const handleClose = () => {

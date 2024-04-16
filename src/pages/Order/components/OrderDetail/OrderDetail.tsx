@@ -61,7 +61,7 @@ export default function OrderDetail() {
     }
   }, [addressState, setNoneState])
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('order')
 
   return (

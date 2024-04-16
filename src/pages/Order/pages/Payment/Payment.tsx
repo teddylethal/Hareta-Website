@@ -7,7 +7,7 @@ export default function Payment() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('order')
   return (
     <div className='p-3 text-darkText dark:text-lightText desktopLarge:p-4'>

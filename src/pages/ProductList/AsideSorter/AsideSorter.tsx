@@ -71,7 +71,7 @@ export default function AsideSorter() {
     close()
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
   const classNameForItem =
     'flex w-full flex-wrap items-center justify-center space-x-2 rounded-lg border border-black/20 px-1 py-0.5 capitalize dark:border-white/20 desktop:px-2'

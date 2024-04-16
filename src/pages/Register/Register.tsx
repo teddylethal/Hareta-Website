@@ -51,7 +51,7 @@ export default function Register() {
     })
   })
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('login')
 
   return (

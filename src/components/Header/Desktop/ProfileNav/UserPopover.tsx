@@ -26,7 +26,7 @@ export default function UserPopover() {
     })
   }
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('header')
 
   const className =

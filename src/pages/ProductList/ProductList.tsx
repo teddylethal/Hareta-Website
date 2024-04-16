@@ -64,7 +64,7 @@ export default function ProductList() {
     document.title = `${t('path bar.store')} | Hareta Workshop`
   })
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
 
   //! PATH LIST

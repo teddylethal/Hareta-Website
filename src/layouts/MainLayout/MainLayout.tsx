@@ -17,7 +17,7 @@ export default function MainLayout({ children }: Props) {
   }, [])
 
   return (
-    <div className='bg-lightBg dark:bg-darkBg'>
+    <div className='bg-lightBg text-darkText dark:bg-darkBg dark:text-lightText'>
       <div className='fixed z-10 w-full'>
         <AnimatePresence>
           {scrollDirection == 'up' && (

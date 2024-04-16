@@ -13,7 +13,7 @@ export default function PurchaseListForUser() {
     return result + current.item.discount * current.quantity
   }, 0)
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('order')
 
   return (

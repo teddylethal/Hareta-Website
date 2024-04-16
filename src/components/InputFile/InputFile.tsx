@@ -27,7 +27,7 @@ export default function InputFile({
     }
   }
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('user')
 
   return (

@@ -41,7 +41,7 @@ export default function SearchBar() {
     })
   })
 
-  //? TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('store')
 
   return (

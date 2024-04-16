@@ -27,7 +27,7 @@ export default function ShippingInfor() {
     formState: { errors }
   } = useFormContext<FormData>()
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('order')
 
   return (

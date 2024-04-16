@@ -49,7 +49,7 @@ export default function OrderItemInformation() {
   })
   const purchaseList = purchasesData?.data.data || []
 
-  //? translation
+  //! Multi languages
   const { t } = useTranslation('support')
   return (
     <div className='bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
