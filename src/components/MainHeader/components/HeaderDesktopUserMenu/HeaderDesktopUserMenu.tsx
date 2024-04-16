@@ -42,7 +42,7 @@ function PopoverSection() {
   )
 }
 
-export default function HeaderUserMenu() {
+export default function HeaderDesktopUserMenu() {
   const { profile } = useContext(AppContext)
 
   return (

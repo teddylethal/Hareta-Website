@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
-import HeaderSupportMenu from '../../components/HeaderSupportMenu'
-import HeaderUserMenu from '../../components/HeaderUserMenu'
+import HeaderDesktopSupportMenu from '../../components/HeaderDesktopSupportMenu'
+import HeaderDesktopUserMenu from '../../components/HeaderDesktopUserMenu'
 import HeaderDesktopCartUnlogged from '../../components/HeaderDesktopCartUnlogged'
 import HeaderDesktopCartLogged from '../../components/HeaderDesktopCartLogged'
 
@@ -48,7 +48,7 @@ export default function HeaderDesktop() {
           <div>{t('navbar.event')}</div>
         </NavLink>
 
-        <HeaderSupportMenu />
+        <HeaderDesktopSupportMenu />
       </nav>
 
       {/* <div className='col-span-1 flex grow select-none justify-center text-xs text-primaryColor tablet:text-sm tablet:font-semibold desktop:text-base'>
@@ -69,7 +69,7 @@ export default function HeaderDesktop() {
 
         {isAuthenticated && (
           <div className='flex px-3'>
-            <HeaderUserMenu />
+            <HeaderDesktopUserMenu />
           </div>
         )}
 

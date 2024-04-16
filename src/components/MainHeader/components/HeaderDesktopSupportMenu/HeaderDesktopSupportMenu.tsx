@@ -35,7 +35,7 @@ function PopoverSection({ closePopover }: { closePopover: () => void }) {
   )
 }
 
-export default function HeaderSupportMenu() {
+export default function HeaderDesktopSupportMenu() {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const handleClick = () => {
     setIsOpen(!isOpen)
