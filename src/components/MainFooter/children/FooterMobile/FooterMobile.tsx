@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 
-export default function MobileFooter() {
+export default function FooterMobile() {
   //! Multi languages
   const { t } = useTranslation('footer')
 
   return (
-    <div className='w-full bg-[#efefef] pb-14 duration-200 dark:bg-[#303030] tabletSmall:pb-16'>
+    <div className='w-full bg-lightColor700 pb-14 duration-200 dark:bg-darkColor700 tabletSmall:pb-16'>
       <div className='flex flex-col text-darkText/80 duration-200 dark:text-lightText/80'>
         <div className='border-b border-black/40 dark:border-white/40'>
           <div className='relative grid grid-cols-3 py-2'>
@@ -21,28 +21,16 @@ export default function MobileFooter() {
 
             <div className='col-span-2 flex flex-wrap items-center justify-center space-x-1 text-lg tabletSmall:text-xl'>
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
-                <FontAwesomeIcon
-                  icon={faFacebook}
-                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
-                />
+                <FontAwesomeIcon icon={faFacebook} className='cursor-pointer p-1 hover:text-primaryColor' />
               </Link>
               <Link to='https://www.instagram.com/hareta.workshop/' target='_blank'>
-                <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
-                  icon={faInstagram}
-                />
+                <FontAwesomeIcon className='cursor-pointer p-1 hover:text-primaryColor' icon={faInstagram} />
               </Link>
               <Link to='' target='_blank'>
-                <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
-                  icon={faDiscord}
-                />
+                <FontAwesomeIcon className='cursor-pointer p-1 hover:text-primaryColor' icon={faDiscord} />
               </Link>
               <Link to='' target='_blank'>
-                <FontAwesomeIcon
-                  className='cursor-pointer p-1 hover:text-primaryColor dark:hover:text-primaryColor'
-                  icon={faYoutube}
-                />
+                <FontAwesomeIcon className='cursor-pointer p-1 hover:text-primaryColor' icon={faYoutube} />
               </Link>
             </div>
           </div>
@@ -52,8 +40,6 @@ export default function MobileFooter() {
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               Hareta
             </div>
-
-            {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               <Link to='hareta.me' className='hover:text-primaryColor dark:hover:text-primaryColor'>
@@ -68,8 +54,6 @@ export default function MobileFooter() {
               {t('our main office')}
             </div>
 
-            {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
-
             <div className='col-span-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam
             </div>
@@ -80,8 +64,6 @@ export default function MobileFooter() {
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               {t('support')}
             </div>
-
-            {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               <Link to={path.home}>{t('faq')}</Link>
@@ -95,8 +77,6 @@ export default function MobileFooter() {
             <div className='col-span-1 flex items-center px-2 text-sm font-medium uppercase tabletSmall:px-4 tabletSmall:text-base'>
               {t('contact')}
             </div>
-
-            {/* <div className='absolute left-1/2 h-full border-l border-black/60 dark:border-white/60' /> */}
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
               <div className='truncate'>hareta.contact@gmail.com</div>

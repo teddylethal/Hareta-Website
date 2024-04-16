@@ -1,8 +1,8 @@
-import Footer from 'src/components/Footer'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollDirection } from 'src/hooks/useScrollDirection'
 import { useEffect, useState } from 'react'
 import MainHeader from 'src/components/MainHeader'
+import MainFooter from 'src/components/MainFooter'
 
 interface Props {
   children?: React.ReactNode
@@ -38,7 +38,7 @@ export default function MainLayout({ children }: Props) {
         </AnimatePresence>
       </div>
       <div className='pt-10 tablet:pt-12 desktop:pt-16'>{children}</div>
-      <Footer />
+      <MainFooter />
     </div>
   )
 }

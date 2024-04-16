@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import Footer from 'src/components/Footer'
+import Footer from 'src/components/MainFooter'
 import RegisterHeader from 'src/components/RegisterHeader'
 import { AppContext } from 'src/contexts/app.context'
 interface Props {
