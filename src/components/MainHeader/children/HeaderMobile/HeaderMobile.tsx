@@ -1,11 +1,17 @@
 import BackButton from 'src/components/BackButton'
 import { useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
-import MobileCart from 'src/components/Header/Mobile/MobileCart'
-import MobileCartWithoutLogin from 'src/components/Header/Mobile/MobileCartWithoutLogin'
-import MobileNav from 'src/components/Header/Mobile/MobileNav'
+import HeaderMobileMenu from '../../components/HeaderMobileMenu'
+import HeaderMobileCartLogged from '../../components/HeaderMobileCartLogged'
+import HeaderMobileCartUnlogged from '../../components/HeaderMobileCartUnlogged'
 
 export default function HeaderMobile() {
+  //! Styles
+  const wrapperStyle =
+    'mx-3 h-[220px] overflow-y-auto rounded-md border border-black/20 bg-lightColor700 dark:border-white/20 dark:bg-darkColor700'
+  const navigatorBtnStyle =
+    'flex items-center justify-center rounded-md bg-unhoveringBg px-4 py-1 capitalize text-darkText hover:bg-hoveringBg font-medium'
+
   const { isAuthenticated } = useContext(AppContext)
   return (
     <div className='grid h-full w-full grid-cols-3 items-center px-2'>
@@ -13,11 +19,15 @@ export default function HeaderMobile() {
         <BackButton />
       </div>
       <div className='col-span-1 flex items-center justify-center'>
-        {isAuthenticated && <MobileCart />}
-        {!isAuthenticated && <MobileCartWithoutLogin />}
+        {isAuthenticated && (
+          <HeaderMobileCartLogged wrapperStyle={wrapperStyle} navigatorBtnStyle={navigatorBtnStyle} />
+        )}
+        {!isAuthenticated && (
+          <HeaderMobileCartUnlogged wrapperStyle={wrapperStyle} navigatorBtnStyle={navigatorBtnStyle} />
+        )}
       </div>
       <div className='col-span-1 flex items-center justify-end'>
-        <MobileNav />
+        <HeaderMobileMenu />
       </div>
     </div>
   )

@@ -1,20 +1,8 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import { Link, NavLink } from 'react-router-dom'
-import { createContext, useContext } from 'react'
+import { createContext } from 'react'
 import { useViewport } from 'src/hooks/useViewport'
-import SupportNav from '../Header/Desktop/SupportNav'
-import { AppContext } from 'src/contexts/app.context'
-import UserNav from '../Header/Desktop/ProfileNav/UserNav'
-import mainPath from 'src/constants/path'
-import CartPopoverWithLogin from '../Header/Desktop/CartPopover/CartPopoverWithLogin'
-import CartPopoverWithoutLogin from '../Header/Desktop/CartPopover/CartPopoverWithoutLogin/CartPopoverWithoutLogin'
-import MobileHeader from '../Header/Mobile/MobileHeader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import classNames from 'classnames'
-import { useTranslation } from 'react-i18next'
+
 import HeaderDesktop from './children/HeaderDesktop'
+import HeaderMobile from './children/HeaderMobile/HeaderMobile'
 
 interface MenuContextInterface {
   openingMenu: boolean
@@ -35,7 +23,7 @@ export default function MainHeader() {
       {!isMobile && <HeaderDesktop />}
 
       {/*//! Mobile */}
-      {isMobile && <MobileHeader />}
+      {isMobile && <HeaderMobile />}
     </div>
   )
 }

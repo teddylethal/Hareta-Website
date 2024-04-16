@@ -8,8 +8,8 @@ import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import HeaderSupportMenu from '../../components/HeaderSupportMenu'
 import HeaderUserMenu from '../../components/HeaderUserMenu'
-import HeaderCartUnlogged from '../../components/HeaderCartUnlogged'
-import HeaderCartLogged from '../../components/HeaderCartLogged'
+import HeaderDesktopCartUnlogged from '../../components/HeaderDesktopCartUnlogged'
+import HeaderDesktopCartLogged from '../../components/HeaderDesktopCartLogged'
 
 export default function HeaderDesktop() {
   //! Multi languages
@@ -73,7 +73,7 @@ export default function HeaderDesktop() {
           </div>
         )}
 
-        {isAuthenticated ? <HeaderCartLogged /> : <HeaderCartUnlogged />}
+        {isAuthenticated ? <HeaderDesktopCartLogged /> : <HeaderDesktopCartUnlogged />}
       </nav>
     </div>
   )

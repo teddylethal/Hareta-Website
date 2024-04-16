@@ -1,20 +1,20 @@
 import { Fragment, useContext } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
 import path from 'src/constants/path'
-import MobileSupport from '../MobileSupport'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import MobileUser from '../MobileUser'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
+import HeaderMobileSupportSection from '../HeaderMobileSupportSection'
+import HeaderMobileUserSection from '../HeaderMobileUserSection'
 
 interface Props {
   className?: string
 }
 
-export default function MobileNav({ className }: Props) {
+export default function HeaderMobileMenu({ className }: Props) {
   const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
@@ -63,20 +63,20 @@ export default function MobileNav({ className }: Props) {
               ref={ref}
             >
               <div className=' flex w-full flex-col items-start justify-start px-3 text-sm font-medium uppercase tabletSmall:text-base'>
-                <Link to={path.home} className='w-full px-2 py-2' onClick={closeMenu}>
+                <NavLink to={path.home} className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.home')}</div>
-                </Link>
+                </NavLink>
 
-                <Link to={path.store} className='w-full px-2 py-2' onClick={closeMenu}>
+                <NavLink to={path.store} className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.store')}</div>
-                </Link>
+                </NavLink>
 
-                <Link to='/' className='w-full px-2 py-2' onClick={closeMenu}>
+                <NavLink to='/' className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.event')}</div>
-                </Link>
+                </NavLink>
 
                 <div className='flex w-full flex-col items-center'>
-                  <MobileSupport />
+                  <HeaderMobileSupportSection />
                 </div>
 
                 <div className='w-full'>
@@ -84,7 +84,7 @@ export default function MobileNav({ className }: Props) {
                 </div>
 
                 <div className='w-full'>
-                  <MobileUser closeMenu={closeMenu} />
+                  <HeaderMobileUserSection closeMenu={closeMenu} />
                 </div>
               </div>
               <div className='absolute right-0 flex h-10 space-x-2 p-2'>

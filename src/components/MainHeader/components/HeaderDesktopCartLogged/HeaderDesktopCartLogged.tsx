@@ -150,7 +150,7 @@ function PopoverSection() {
   )
 }
 
-export default function HeaderCartLogged() {
+export default function HeaderDesktopCartLogged() {
   const { extendedPurchases } = useContext(CartContext)
 
   return (

@@ -29,7 +29,7 @@ export default function ChangeLanguage({ closePopover }: Props) {
       })}
     >
       <button
-        className={classNames('flex w-full items-center rounded-md px-3 py-2 uppercase ', {
+        className={classNames('flex w-full items-center rounded-md py-2 uppercase ', {
           'hover:bg-lightColor900/80 hover:font-semibold dark:hover:bg-darkColor900/80': !visible,
           'font-semibold': visible
         })}

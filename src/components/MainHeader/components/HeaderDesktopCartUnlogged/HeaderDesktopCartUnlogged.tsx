@@ -103,7 +103,7 @@ function PopoverSection() {
   )
 }
 
-export default function HeaderCartUnlogged() {
+export default function HeaderDesktopCartUnlogged() {
   const { tempExtendedPurchase } = useContext(CartContext)
 
   return (

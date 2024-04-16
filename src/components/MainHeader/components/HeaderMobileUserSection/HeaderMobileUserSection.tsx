@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
@@ -15,7 +15,7 @@ interface Props {
   closeMenu: () => void
 }
 
-export default function MobileUser({ className, closeMenu }: Props) {
+export default function HeaderMobileUserSection({ className, closeMenu }: Props) {
   const { isAuthenticated, setIsAuthenticated, profile, theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
@@ -31,13 +31,13 @@ export default function MobileUser({ className, closeMenu }: Props) {
   return (
     <div ref={ref}>
       {!isAuthenticated && (
-        <Link to={path.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
+        <NavLink to={path.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
           <FontAwesomeIcon
             icon={faUser}
             className='h-4 w-4 rounded-full dark:fill-white tabletSmall:h-6 tabletSmall:w-6 '
           />
-          <p className=''>Login</p>
-        </Link>
+          <p className=''>{t('navbar.login')}</p>
+        </NavLink>
       )}
       {isAuthenticated && (
         <button
@@ -74,19 +74,17 @@ export default function MobileUser({ className, closeMenu }: Props) {
             exit={{ opacity: 0, y: '-10%' }}
             transition={{ duration: 0.3 }}
           >
-            <Link to={path.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+            <NavLink to={path.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.profile')}</p>
-            </Link>
+            </NavLink>
 
-            <Link to={path.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+            <NavLink to={path.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.inventory')}</p>
-            </Link>
+            </NavLink>
 
-            <Link to={path.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+            <NavLink to={path.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.wishlist')}</p>
-            </Link>
-
-            {/* <div className='my-1 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' /> */}
+            </NavLink>
 
             <button
               onClick={handleLogout}
