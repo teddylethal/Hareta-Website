@@ -11,19 +11,18 @@
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Add css min height screen 100% -->
+    <style>
+      html,
+      body {
+        min-height: 100vh;
+        margin: 0;
+      }
+    </style>
   </head>
 
-  <!-- Add css min height screen 100% -->
-  <style>
-    html,
-    body {
-      min-height: 100vh;
-      margin: 0;
-    }
-  </style>
-
   <body>
-    <div id="root"></div>
+    <div id="root" style="min-height: inherit"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

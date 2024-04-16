@@ -26,7 +26,7 @@ interface Props {
   offsetValue?: number
 }
 
-export default function Popover({
+export default function CustomPopover({
   children,
   className,
   renderPopover,
@@ -35,6 +35,7 @@ export default function Popover({
   placement,
   offsetValue = 14
 }: Props) {
+  const { theme } = useContext(AppContext)
   const [isOpen, setIsOpen] = useState<boolean>(initialOpen || false)
 
   const arrowRef = useRef(null)
@@ -50,7 +51,6 @@ export default function Popover({
       blockPointerEvents: true
     })
   })
-  const { theme } = useContext(AppContext)
 
   const { getReferenceProps, getFloatingProps } = useInteractions([hover])
   return (
@@ -77,15 +77,6 @@ export default function Popover({
               exit={{ opacity: 0, transform: 'scale(0)' }}
               transition={{ duration: 0.2 }}
             >
-              {/* <div className='absolute -top-6 left-[calc(50%-40px)] z-20 h-10 w-20 self-center bg-transparent'></div> */}
-              {/* <span
-                ref={arrowRef}
-                className={arrowClassName}
-                style={{
-                  left: middlewareData.arrow?.x,
-                  top: middlewareData.arrow?.y
-                }}
-              /> */}
               <FloatingArrow
                 ref={arrowRef}
                 context={context}

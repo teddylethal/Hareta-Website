@@ -42,7 +42,7 @@ export default function NewReleaseItem({ product, dragging }: Props) {
     queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
   }
 
-  //? use translation
+  //! Multi languages
   const { t } = useTranslation('productdetail')
   const tag = product.tag
 

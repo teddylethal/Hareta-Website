@@ -28,7 +28,7 @@ export default function MobileCartWithoutLogin() {
     setTempExtendedPurchase(newPurchaseList)
   }
 
-  //? Use translation
+  //! Multi languages
   const { t } = useTranslation('header')
 
   return (

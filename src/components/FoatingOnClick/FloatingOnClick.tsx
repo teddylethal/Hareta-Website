@@ -80,29 +80,13 @@ export default function FloatingOnClick({
             exit={{ opacity: 0, y: '-5%' }}
             transition={{ duration: 0.2 }}
           >
-            {/* <div className='absolute -top-6 left-1/2 z-20 h-8 w-[20%] -translate-x-1/2 self-center bg-transparent' /> */}
-
-            {/* <span
-              ref={arrowRef}
-              className={classNames(
-                'absolute z-10 translate-y-[-90%] border-[12px] border-x-transparent border-t-transparent ',
-                {
-                  'border-b-[#202020]': theme === 'dark',
-                  'border-b-[#efefef]': theme === 'light'
-                }
-              )}
-              style={{
-                left: middlewareData.arrow?.x,
-                top: middlewareData.arrow?.y
-              }}
-            /> */}
             <div className={classNames('-translate-y-1')}>{renderPopover}</div>
             <FloatingArrow
               ref={arrowRef}
               context={context}
               width={30}
               height={10}
-              className={classNames({ 'z-[5] fill-[#2c2c32]': theme === 'dark', 'fill-[#e9e9e8]': theme === 'light' })}
+              className={classNames({ ' fill-[#2c2c32]': theme === 'dark', 'fill-[#e9e9e8]': theme === 'light' })}
             />
           </motion.div>
         )}

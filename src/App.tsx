@@ -16,7 +16,7 @@ export const ThemeContext = createContext({
 })
 
 function App() {
-  const { reset, loadingPage, theme } = useContext(AppContext)
+  const { handleLogout, loadingPage, theme } = useContext(AppContext)
   const { setExtendedPurchases } = useContext(CartContext)
   const { setOrderList, setTempOrderList } = useContext(OrderContext)
 
@@ -24,26 +24,33 @@ function App() {
 
   useEffect(() => {
     const resetFunction = () => {
-      reset()
+      handleLogout()
+
+      // Clear purchase list
       setExtendedPurchases([])
 
-      //? clear order list
+      // Clear order list
       setOrderList([])
     }
     LocalStorageEventTarget.addEventListener('clearLS', resetFunction)
     return () => {
       LocalStorageEventTarget.removeEventListener('clearLS', resetFunction)
     }
-  }, [reset, setExtendedPurchases, setOrderList, setTempOrderList])
+  }, [handleLogout, setExtendedPurchases, setOrderList, setTempOrderList])
 
   useEffect(() => {
     document.title = 'Hareta Workshop'
   }, [])
 
   return (
-    <div className={theme === 'dark' ? 'dark' : 'light'}>
+    <div
+      className={theme === 'dark' ? 'dark' : 'light'}
+      style={{
+        minHeight: 'inherit'
+      }}
+    >
       {routeElements}
-      <ToastContainer limit={5} />
+      <ToastContainer limit={3} />
       {loadingPage && <LoadingPage />}
     </div>
   )

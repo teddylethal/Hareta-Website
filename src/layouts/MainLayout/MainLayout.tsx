@@ -1,8 +1,8 @@
 import Footer from 'src/components/Footer'
-import Header from 'src/components/Header'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useScrollDirection } from 'src/hooks/useScrollDirection'
 import { useEffect, useState } from 'react'
+import MainHeader from 'src/components/MainHeader'
 
 interface Props {
   children?: React.ReactNode
@@ -17,7 +17,12 @@ export default function MainLayout({ children }: Props) {
   }, [])
 
   return (
-    <div className='bg-lightBg text-darkText dark:bg-darkBg dark:text-lightText'>
+    <div
+      className='flex h-full min-h-full shrink-0 flex-col justify-between bg-lightBg text-darkText dark:bg-darkBg dark:text-lightText'
+      style={{
+        minHeight: 'inherit'
+      }}
+    >
       <div className='fixed z-10 w-full'>
         <AnimatePresence>
           {scrollDirection == 'up' && (
@@ -27,7 +32,7 @@ export default function MainLayout({ children }: Props) {
               exit={{ opacity: 0, y: -100 }}
               transition={{ duration: 0.3 }}
             >
-              <Header />
+              <MainHeader />
             </motion.div>
           )}
         </AnimatePresence>

@@ -12,7 +12,7 @@ import MainLayout from './layouts/MainLayout'
 
 //? IMPORT PAGES
 import ProductList from './pages/ProductList'
-import Home from './pages/Home'
+import HomePage from './pages/HomePage'
 import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 import AdminRoute from './routes/adminRoute'
@@ -24,10 +24,6 @@ const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms
 const OrderItemInformation = lazy(() => import('./pages/Support/components/OrderItemInformation'))
 
 //? IMPORT USER COMPONENTS
-const Profile = lazy(() => import('./pages/User/pages/UserProfile'))
-const UserWishList = lazy(() => import('./pages/User/pages/UserWishList'))
-const Inventory = lazy(() => import('./pages/User/pages/UserInventory'))
-const ChangePassword = lazy(() => import('./pages/User/pages/UserChangePassword'))
 const OrderTracking = lazy(() => import('./pages/Support/pages/OrderTracking'))
 
 //? IMPORT LOGIN/REGISTER COMPONENTS
@@ -73,12 +69,21 @@ function RejectedRoute() {
       </Suspense>
     </RegisterLayout>
   ) : (
-    <Navigate to='/' />
+    <Navigate to={mainPath.home} />
   )
 }
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
+    {
+      path: mainPath.home,
+      index: true,
+      element: (
+        <MainLayout>
+          <HomePage />
+        </MainLayout>
+      )
+    },
     {
       path: '',
       element: <RejectedRoute />,
@@ -143,15 +148,6 @@ export default function useRouteElements() {
       ]
     },
 
-    {
-      path: mainPath.home,
-      index: true,
-      element: (
-        <MainLayout>
-          <Home />
-        </MainLayout>
-      )
-    },
     {
       path: mainPath.store,
       element: (

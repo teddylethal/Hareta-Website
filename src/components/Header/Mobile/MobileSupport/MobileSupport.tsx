@@ -15,7 +15,7 @@ export default function MobileSupport() {
     setVisible(false)
   }
 
-  //? Use translation
+  //! Multi languages
   const { t } = useTranslation('header')
 
   return (

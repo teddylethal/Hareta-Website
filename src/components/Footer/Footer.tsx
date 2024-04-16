@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import MobileFooter from './MobileFooter'
 import DesktopFooter from './DesktopFooter'
 
-export default function Footer() {
+export default function MainFooter() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
   return (
