@@ -17,7 +17,7 @@ interface Props {
   dragging: boolean
 }
 
-export default function NewReleaseItem({ product, dragging }: Props) {
+export default function HomeNewProductCard({ product, dragging }: Props) {
   //? IS MOBILE
   const viewPort = useViewport()
   const isMobile = viewPort.width < 768

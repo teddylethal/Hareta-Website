@@ -17,7 +17,7 @@ import ProductSekeleton from 'src/pages/ProductList/ProductSkeleton'
 const DESKTOP_LIMIT = 8
 const MOBILE_LIMIT = 4
 
-export default function MostFavouriteList() {
+export default function HomeFavouriteList() {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 

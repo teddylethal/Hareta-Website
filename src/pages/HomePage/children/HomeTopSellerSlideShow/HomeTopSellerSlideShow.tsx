@@ -4,10 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import Product from 'src/pages/ProductList/Product'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
-import Carousel from 'react-multi-carousel'
 import classNames from 'classnames'
-import { DotProps } from 'react-multi-carousel/lib/types'
-import toArray from 'lodash/toArray'
 import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
@@ -19,11 +16,35 @@ import CustomSlideShow from 'src/components/CustomSlideShow'
 
 const LIMIT = 10
 
-export default function TopSellerCarousel() {
+const responsiveSettings = [
+  {
+    breakpoint: 1024,
+    settings: {
+      slidesToShow: 3,
+      slidesToScroll: 1
+    }
+  },
+  {
+    breakpoint: 464,
+    settings: {
+      slidesToShow: 2,
+      slidesToScroll: 1
+    }
+  },
+  {
+    breakpoint: 0,
+    settings: {
+      slidesToShow: 1,
+      slidesToScroll: 1
+    }
+  }
+]
+
+export default function HomeTopSellerSlideShow() {
   const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs } = useContext(StoreContext)
 
-  //? GET WISHLIST
+  //! Get use wish list
   const { data: wishlistData, isLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
@@ -50,7 +71,7 @@ export default function TopSellerCarousel() {
   const displayedItems = itemsData?.data.data || []
   const length = displayedItems.length
 
-  //? HANDLE NAVIGATE
+  //! HANDLE NAVIGATE
   const navigate = useNavigate()
   const handleNavigate = () => {
     navigate({
@@ -59,53 +80,6 @@ export default function TopSellerCarousel() {
         tag: '1'
       }).toString()
     })
-  }
-
-  //? CUSTOM DOTS
-  const dots = displayedItems.map((item) => <div className='' key={item.id}></div>)
-  const CustomDot = ({ index, onClick, active }: DotProps) => {
-    return (
-      <button
-        onClick={(e) => {
-          onClick && onClick()
-          e.preventDefault()
-        }}
-        className='py-2'
-      >
-        <div
-          className={classNames('mx-0.5 h-1 w-8 rounded-md duration-200', {
-            ' bg-primaryColor': active,
-            ' bg-haretaColor/60': !active
-          })}
-        >
-          {toArray(dots)[index as number]}
-        </div>
-      </button>
-    )
-  }
-
-  //? Responsive for carousel
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 3,
-      partialVisibilityGutter: 0
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      partialVisibilityGutter: 0
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      partialVisibilityGutter: 0
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      partialVisibilityGutter: 0
-    }
   }
 
   //! Multi languages
@@ -147,7 +121,7 @@ export default function TopSellerCarousel() {
 
         {displayedItems.length > 3 && (
           <div className='relative pb-8'>
-            <CustomSlideShow>
+            <CustomSlideShow responsive={responsiveSettings}>
               {displayedItems.map((item) => (
                 <div key={item.id} className='mx-4 select-none'>
                   <Product product={item} initialLoading={isLoading} />
