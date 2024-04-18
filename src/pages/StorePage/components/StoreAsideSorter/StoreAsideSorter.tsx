@@ -4,7 +4,7 @@ import { useContext, useState } from 'react'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { motion } from 'framer-motion'
-import useQueryConfig from 'src/hooks/useQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
 import path from 'src/constants/path'
@@ -15,12 +15,12 @@ import { useTranslation } from 'react-i18next'
 //   queryConfig: QueryConfig
 // }
 
-export default function AsideSorter() {
+export default function StoreAsideSorter() {
   const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
 
-  const queryConfig = useQueryConfig()
+  const queryConfig = useProductListQueryConfig()
   const { tag } = queryConfig
   const tagEnum = tag ? Number(tag) : 0
 

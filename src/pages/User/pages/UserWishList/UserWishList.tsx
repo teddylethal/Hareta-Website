@@ -8,7 +8,7 @@ import { generateNameId, showSuccessDialog } from 'src/utils/utils'
 import purchaseApi from 'src/apis/cart.api'
 import classNames from 'classnames'
 import omit from 'lodash/omit'
-import useQueryConfig from 'src/hooks/useQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { useViewport } from 'src/hooks/useViewport'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from 'src/contexts/app.context'
@@ -72,7 +72,7 @@ export default function UserWishList() {
   }
 
   //? CHOOSE FILTER
-  const queryConfig = useQueryConfig()
+  const queryConfig = useProductListQueryConfig()
   const handleChooseFilter = (field: string, value: string) => () => {
     let searchParams = createSearchParams({
       ...queryConfig

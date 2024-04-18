@@ -16,7 +16,7 @@ const authApi = {
     clearLS()
   },
   getFavouriteList(params: FavouriteListConfig) {
-    return http.get<ProductList>('/auth/user-like-item/', { params })
+    return http.get<StorePage>('/auth/user-like-item/', { params })
   },
   getProfile() {
     const token = getAccessTokenFromLS()

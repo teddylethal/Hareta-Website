@@ -11,7 +11,7 @@ import PriceRange from '../../AsideFilter/PriceRange'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import classNames from 'classnames'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
 

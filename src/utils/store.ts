@@ -1,4 +1,4 @@
-import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { ProductList } from 'src/types/product.type'
 
 export const setFavouriteListToLS = (data: ProductList) => {
@@ -48,4 +48,3 @@ export const clearFileringFromLS = () => {
   localStorage.removeItem('collection_filtering')
   localStorage.removeItem('type_filtering')
 }
-

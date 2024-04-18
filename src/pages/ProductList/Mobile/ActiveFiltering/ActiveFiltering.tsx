@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import omit from 'lodash/omit'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import useQueryConfig from 'src/hooks/useQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 
 export default function ActiveFiltering() {
-  const queryConfig = useQueryConfig()
+  const queryConfig = useProductListQueryConfig()
   const { category, collection, type } = queryConfig
 
   const navigate = useNavigate()

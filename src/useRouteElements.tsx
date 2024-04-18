@@ -11,13 +11,13 @@ import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
 
 //? IMPORT PAGES
-import ProductList from './pages/ProductList'
 import HomePage from './pages/HomePage'
 import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 import AdminRoute from './routes/adminRoute'
 import UserRoute from './routes/userRoute'
 import LoadingPage from './components/LoadingPage'
+import StorePage from './pages/StorePage'
 
 const Cart = lazy(() => import('./pages/Cart'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
@@ -152,7 +152,7 @@ export default function useRouteElements() {
       path: mainPath.store,
       element: (
         <MainLayout>
-          <ProductList />
+          <StorePage />
         </MainLayout>
       )
     },

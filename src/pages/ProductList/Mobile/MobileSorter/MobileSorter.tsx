@@ -10,13 +10,13 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 
 import useClickOutside from 'src/hooks/useClickOutside'
-import useQueryConfig from 'src/hooks/useQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 
 export default function MobileSorter() {
   const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
-  const queryConfig = useQueryConfig()
+  const queryConfig = useProductListQueryConfig()
   const { tag } = queryConfig
   const tagEnum = tag ? Number(tag) : 0
 

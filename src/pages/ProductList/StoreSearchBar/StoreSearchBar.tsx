@@ -1,4 +1,4 @@
-import useQueryConfig from 'src/hooks/useQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { useForm } from 'react-hook-form'
 import { ProductSchema, productSchema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next'
 
 type FormData = ProductSchema
 
-export default function SearchBar() {
-  const queryConfig = useQueryConfig()
+export default function StoreSearchBar() {
+  const queryConfig = useProductListQueryConfig()
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: {

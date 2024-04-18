@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 
 import classNames from 'classnames'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { useTranslation } from 'react-i18next'
 
 interface Props {

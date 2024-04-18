@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { Slide } from 'react-slideshow-image'
 import HomeNewProductCard from '../../components/HomeNewProductCard'
 

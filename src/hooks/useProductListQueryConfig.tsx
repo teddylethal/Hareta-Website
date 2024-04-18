@@ -9,7 +9,7 @@ export type QueryConfig = {
 
 export const ITEM_LIMIT = 24
 
-export default function useQueryConfig() {
+export default function useProductListQueryConfig() {
   const queryParams: QueryConfig = useQueryParams()
   const queryConfig: QueryConfig = omitBy(
     {

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import Product from 'src/pages/ProductList/Product'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'

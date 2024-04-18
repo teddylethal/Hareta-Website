@@ -5,7 +5,7 @@ import DOMPurify from 'dompurify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
-import useQueryConfig from 'src/hooks/useQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
 import path from 'src/constants/path'
@@ -29,7 +29,7 @@ export default function ProductDescription({ item }: Props) {
 
   //! HANDLE CLICK FIELD
   const navigate = useNavigate()
-  const queryConfig = useQueryConfig()
+  const queryConfig = useProductListQueryConfig()
   const handleChooseFilter = (field: string, value: string) => () => {
     let searchParams = createSearchParams({
       ...queryConfig

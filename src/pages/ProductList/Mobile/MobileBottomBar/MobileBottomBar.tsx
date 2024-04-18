@@ -1,6 +1,6 @@
 import MobileSorter from '../MobileSorter'
 import MobileFilter from '../MobileFilter'
-import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 
 interface Props {
   queryConfig: QueryConfig
