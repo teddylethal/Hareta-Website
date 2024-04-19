@@ -3,15 +3,15 @@ import isUndefined from 'lodash/isUndefined'
 import useQueryParams from './useQueryParams'
 import { ProductListConfig } from 'src/types/product.type'
 
-export type QueryConfig = {
+export type ProductListQueryConfig = {
   [key in keyof ProductListConfig]: string
 }
 
 export const ITEM_LIMIT = 24
 
 export default function useProductListQueryConfig() {
-  const queryParams: QueryConfig = useQueryParams()
-  const queryConfig: QueryConfig = omitBy(
+  const queryParams: ProductListQueryConfig = useQueryParams()
+  const queryConfig: ProductListQueryConfig = omitBy(
     {
       page: queryParams.page || 1,
       limit: queryParams.limit || ITEM_LIMIT,

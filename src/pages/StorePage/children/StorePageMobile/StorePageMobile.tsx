@@ -2,13 +2,13 @@ import { AxiosResponse } from 'axios'
 import { ceil } from 'lodash'
 import { Fragment } from 'react'
 import EmptyProductList from 'src/components/EmptyProductList'
+import ProductCard from 'src/components/ProductCard'
 import UsePagination from 'src/components/UsePagination'
 import useProductListQueryConfig, { ITEM_LIMIT } from 'src/hooks/useProductListQueryConfig'
-import ActiveFiltering from 'src/pages/ProductList/Mobile/ActiveFiltering'
-import Product from 'src/pages/ProductList/Product'
-import ProductListSkeleton from 'src/pages/ProductList/ProductListSkeleton'
-import StoreSearchBar from 'src/pages/ProductList/StoreSearchBar'
+import StoreSearchBar from 'src/pages/StorePage/components/StoreSearchBar'
 import { ProductList } from 'src/types/product.type'
+import StoreActiveFiltering from 'src/pages/StorePage/components/StoreActiveFiltering'
+import StoreProductListSkeleton from '../StoreProductListSkeleton'
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,8 +23,8 @@ export default function StorePageMobile({ storeData, isFetching, isLoading }: Pr
   return (
     <Fragment>
       <StoreSearchBar />
-      <ActiveFiltering />
-      {(isFetching || !storeData) && <ProductListSkeleton />}
+      <StoreActiveFiltering />
+      {(isFetching || !storeData) && <StoreProductListSkeleton />}
       {storeData?.data.paging.total == 0 && <EmptyProductList currentPage='store' />}
       {storeData && (
         <Fragment>
@@ -32,7 +32,7 @@ export default function StorePageMobile({ storeData, isFetching, isLoading }: Pr
             {storeData &&
               storeData.data.data.map((product) => (
                 <div className='col-span-1' key={product.id}>
-                  <Product product={product} initialLoading={isLoading} />
+                  <ProductCard product={product} initialLoading={isLoading} />
                 </div>
               ))}
           </div>

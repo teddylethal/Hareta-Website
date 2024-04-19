@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { useViewport } from 'src/hooks/useViewport'
-import MobileBottomBar from '../ProductList/Mobile/MobileBottomBar'
 import { ProductListConfig } from 'src/types/product.type'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { useContext, useEffect } from 'react'
@@ -14,6 +13,7 @@ import mainPath from 'src/constants/path'
 import StorePageMobile from './children/StorePageMobile'
 import StorePageDesktop from './children/StorePageDesktop'
 import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
+import StoreMobileBottomBar from './components/StoreMobileBottomBar'
 
 export default function StorePage() {
   const { isAuthenticated } = useContext(AppContext)
@@ -76,7 +76,7 @@ export default function StorePage() {
 
         {isMobile && <StorePageMobile storeData={storeData} isFetching={isFetching} isLoading={isLoading} />}
       </div>
-      {isMobile && <MobileBottomBar queryConfig={queryConfig} />}
+      {isMobile && <StoreMobileBottomBar queryConfig={queryConfig} />}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import { faAnglesRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import Product from 'src/pages/ProductList/Product'
+import Product from 'src/components/ProductCard'
 import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import classNames from 'classnames'
 import { useContext, useEffect } from 'react'
@@ -113,7 +113,7 @@ export default function HomeTopSellerSlideShow() {
             {length == 1 && <div className='col-span-1'></div>}
             {displayedItems.map((product) => (
               <div className='col-span-1' key={product.id}>
-                <Product product={product} />
+                <ProductCard product={product} />
               </div>
             ))}
           </div>
@@ -124,7 +124,7 @@ export default function HomeTopSellerSlideShow() {
             <CustomSlideShow responsive={responsiveSettings}>
               {displayedItems.map((item) => (
                 <div key={item.id} className='mx-4 select-none'>
-                  <Product product={item} initialLoading={isLoading} />
+                  <ProductCard product={item} initialLoading={isLoading} />
                 </div>
               ))}
             </CustomSlideShow>

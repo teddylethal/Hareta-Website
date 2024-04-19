@@ -11,8 +11,8 @@ import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
 import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { useViewport } from 'src/hooks/useViewport'
-import Product from 'src/pages/ProductList/Product'
-import ProductSekeleton from 'src/pages/ProductList/ProductSkeleton'
+import Product from 'src/components/ProductCard'
+import ProductSekeleton from 'src/components/ProductSkeleton'
 
 const DESKTOP_LIMIT = 8
 const MOBILE_LIMIT = 4
@@ -99,7 +99,7 @@ export default function HomeFavouriteList() {
           {isLoading &&
             firstRow.map((item) => (
               <div className='col-span-2' key={item.id}>
-                <Product product={item} initialLoading={isInitialLoading} />
+                <ProductCard product={item} initialLoading={isInitialLoading} />
               </div>
             ))}
         </div>
@@ -117,7 +117,7 @@ export default function HomeFavouriteList() {
           {isLoading &&
             secondRow.map((item) => (
               <div className='col-span-2' key={item.id}>
-                <Product product={item} initialLoading={isInitialLoading} />
+                <ProductCard product={item} initialLoading={isInitialLoading} />
               </div>
             ))}
         </div>

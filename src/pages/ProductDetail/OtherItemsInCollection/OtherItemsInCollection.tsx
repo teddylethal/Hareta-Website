@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
-import Product from 'src/pages/ProductList/Product'
+import Product from 'src/components/ProductCard'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
-import ProductSekeleton from 'src/pages/ProductList/ProductSkeleton'
+import ProductSekeleton from 'src/components/ProductSkeleton'
 
 interface Props {
   collectionName: string
@@ -112,7 +112,7 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
           >
             {productsInCollection.map((product) => (
               <div className='mx-2 desktop:mx-4 desktopLarge:mx-6' key={product.id}>
-                <Product product={product} />
+                <ProductCard product={product} />
               </div>
             ))}
           </Carousel>
