@@ -10,6 +10,7 @@ import omit from 'lodash/omit'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
+import { ProductTagList } from 'src/constants/itemTag'
 
 // interface Props {
 //   queryConfig: QueryConfig
@@ -37,7 +38,7 @@ export default function StoreAsideSorter() {
     else close()
   }
 
-  //? HANDLE CHOOSE SORT
+  //! Handle sorting
   const navigate = useNavigate()
   const handleChange = (tagIndex: number) => () => {
     // console.log(event)
@@ -92,12 +93,12 @@ export default function StoreAsideSorter() {
             {
               'rounded-b-none border-x border-t border-black/20 text-darkText duration-200 dark:border-white/20 dark:text-lightText':
                 visible,
-              'bg-haretaColor hover:bg-primaryColor': !visible
+              'bg-unhoveringBg hover:bg-hoveringBg': !visible
             }
           )}
           onClick={toggleOpenClose}
         >
-          {tagEnum === 0 && t('aside filter.newest')}
+          {tagEnum == 0 && t('aside filter.newest')}
           {tagEnum == 1 && t('aside filter.top seller')}
           {tagEnum == 2 && t('aside filter.signature')}
           {tagEnum == 3 && t('aside filter.favourite')}
@@ -115,52 +116,20 @@ export default function StoreAsideSorter() {
               exit={{ opacity: 1, y: '-40%', backgroundColor: theme === 'dark' ? '#1d1d22' : '#e9e9e8' }}
               transition={{ duration: 0.2 }}
             >
-              <ul className='flex grow flex-col space-y-2 text-xs desktop:text-base'>
-                <li className='w-full'>
+              <div className='flex grow flex-col space-y-2 text-xs desktop:text-base'>
+                {ProductTagList.map((tag, index) => (
                   <button
-                    onClick={handleChange(0)}
+                    key={index}
+                    onClick={handleChange(index)}
                     className={classNames(classNameForItem, {
-                      'text-darkText hover:bg-[#d6d6d5] dark:text-lightText dark:hover:bg-[#2c2c32]': tagEnum !== 0,
-                      'bg-primaryColor text-darkText': tagEnum === 0
+                      'text-darkText hover:bg-[#d6d6d5] dark:text-lightText dark:hover:bg-[#2c2c32]': tagEnum !== index,
+                      'bg-primaryColor text-darkText': tagEnum === index
                     })}
                   >
-                    {t('aside filter.newest')}
+                    {tag.name}
                   </button>
-                </li>
-                <li className='w-full'>
-                  <button
-                    onClick={handleChange(1)}
-                    className={classNames(classNameForItem, {
-                      'text-darkText hover:bg-[#d6d6d5] dark:text-lightText dark:hover:bg-[#2c2c32]': tagEnum !== 1,
-                      'bg-primaryColor text-darkText': tagEnum === 1
-                    })}
-                  >
-                    {t('aside filter.top seller')}
-                  </button>
-                </li>
-                <li className='w-full'>
-                  <button
-                    onClick={handleChange(2)}
-                    className={classNames(classNameForItem, {
-                      'text-darkText hover:bg-[#d6d6d5] dark:text-lightText dark:hover:bg-[#2c2c32]': tagEnum !== 2,
-                      'bg-primaryColor text-darkText': tagEnum === 2
-                    })}
-                  >
-                    {t('aside filter.signature')}
-                  </button>
-                </li>
-                <li className='w-full'>
-                  <button
-                    onClick={handleChange(3)}
-                    className={classNames(classNameForItem, {
-                      'text-darkText hover:bg-[#d6d6d5] dark:text-lightText dark:hover:bg-[#2c2c32]': tagEnum !== 3,
-                      'bg-primaryColor text-darkText': tagEnum === 3
-                    })}
-                  >
-                    {t('aside filter.favourite')}
-                  </button>
-                </li>
-              </ul>
+                ))}
+              </div>
             </motion.div>
           )}
         </AnimateChangeInHeight>

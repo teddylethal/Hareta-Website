@@ -9,13 +9,13 @@ import productApi from 'src/apis/product.api'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import omit from 'lodash/omit'
-import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
+import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
 
 interface Props {
-  queryConfig: QueryConfig
+  queryConfig: ProductListQueryConfig
   isMobile?: boolean
   setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }

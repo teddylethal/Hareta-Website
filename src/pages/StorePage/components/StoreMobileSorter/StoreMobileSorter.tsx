@@ -4,8 +4,9 @@ import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
 import omit from 'lodash/omit'
 import { Fragment, useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import ItemTag from 'src/constants/itemTag'
+import { ProductTagList } from 'src/constants/itemTag'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 
@@ -30,7 +31,6 @@ export default function StoreMobileSorter() {
   //! Handle sorting
   const navigate = useNavigate()
   const handleChange = (tagIndex: number) => () => {
-    // console.log(event)
     if (tagIndex === 0) {
       navigate({
         pathname: path.store,
@@ -61,13 +61,19 @@ export default function StoreMobileSorter() {
     close()
   }
 
+  //! Multi languages
+  const { t } = useTranslation('store')
+
   return (
     <Fragment>
       <button
         onClick={open}
         className='flex w-[60%] items-center justify-center rounded-md bg-haretaColor px-4 py-1 text-sm font-medium text-darkText tabletSmall:text-base'
       >
-        {tagEnum === 0 ? 'Newest' : ItemTag[tagEnum]}
+        {tagEnum == 0 && t('aside filter.newest')}
+        {tagEnum == 1 && t('aside filter.top seller')}
+        {tagEnum == 2 && t('aside filter.signature')}
+        {tagEnum == 3 && t('aside filter.favourite')}
       </button>
       <AnimatePresence>
         {visible && (
@@ -94,65 +100,26 @@ export default function StoreMobileSorter() {
               transition={{ duration: 0.3 }}
               ref={ref}
             >
-              <p className='flex items-center justify-center text-lg font-medium uppercase'>Sort by:</p>
-              <ul className='flex flex-col space-y-2 px-4 py-2 text-sm text-darkText/80 dark:text-lightText/80 desktop:text-base'>
-                <li className='w-full'>
+              <p className='flex items-center justify-center text-lg font-medium uppercase'>
+                {t('aside filter.sort by')}:
+              </p>
+              <div className='flex flex-col space-y-2 px-4 py-2 text-sm text-darkText/80 dark:text-lightText/80 desktop:text-base'>
+                {ProductTagList.map((tag, index) => (
                   <button
-                    onClick={handleChange(0)}
+                    key={index}
+                    onClick={handleChange(index)}
                     className={classNames(
-                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
+                      'flex w-full items-center justify-center rounded-lg px-3 py-1 font-medium text-darkText ',
                       {
-                        'bg-primaryColor': tagEnum === 0,
-                        'bg-haretaColor/80': tagEnum !== 0
+                        'bg-primaryColor': tagEnum === index,
+                        'bg-haretaColor': tagEnum !== index
                       }
                     )}
                   >
-                    <p>Newest</p>
+                    <p>{tag.name}</p>
                   </button>
-                </li>
-                <li className='w-full '>
-                  <button
-                    onClick={handleChange(1)}
-                    className={classNames(
-                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
-                      {
-                        'bg-primaryColor': tagEnum === 1,
-                        'bg-haretaColor/80': tagEnum !== 1
-                      }
-                    )}
-                  >
-                    Top seller
-                  </button>
-                </li>
-                <li className='w-full '>
-                  <button
-                    onClick={handleChange(2)}
-                    className={classNames(
-                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
-                      {
-                        'bg-primaryColor': tagEnum === 2,
-                        'bg-haretaColor/80': tagEnum !== 2
-                      }
-                    )}
-                  >
-                    Signature
-                  </button>
-                </li>
-                <li className='w-full '>
-                  <button
-                    onClick={handleChange(3)}
-                    className={classNames(
-                      'flex w-full items-center justify-center rounded-lg border border-black/40 px-3 py-1 font-medium text-darkText dark:border-white/40',
-                      {
-                        'bg-primaryColor': tagEnum === 3,
-                        'bg-haretaColor/80': tagEnum !== 3
-                      }
-                    )}
-                  >
-                    Favourite
-                  </button>
-                </li>
-              </ul>
+                ))}
+              </div>
               <button className='absolute right-2 top-2 text-darkText dark:text-lightText' onClick={close}>
                 <FontAwesomeIcon icon={faXmark} />
               </button>
