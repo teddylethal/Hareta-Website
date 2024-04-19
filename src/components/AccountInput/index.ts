@@ -1,3 +1,3 @@
-import AccountInput from './AcccountInput'
+import AccountInput from './AccountInput'
 
 export default AccountInput

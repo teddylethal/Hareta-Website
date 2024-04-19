@@ -13,23 +13,25 @@ function PopoverSection({ closePopover }: { closePopover: () => void }) {
   //! Multi languages
   const { t } = useTranslation('header')
 
-  const className = 'rounded-md px-3 py-2 hover:bg-lightColor900/80 hover:font-semibold dark:hover:bg-darkColor900/80'
+  const itemClassName = 'rounded-md px-3 py-2 hover:bg-lightColor900 hover:font-semibold dark:hover:bg-darkColor900'
 
   return (
     <div className='relative flex w-64 select-none flex-col space-y-1 rounded-lg bg-lightColor700 p-2 text-base font-medium text-darkText shadow-lg dark:bg-darkColor700 dark:text-lightText tablet:font-medium desktop:w-72 desktop:text-lg'>
-      <NavLink to={mainPath.privacyAndTerms} className={className} onClick={closePopover}>
+      <NavLink to={mainPath.privacyAndTerms} className={itemClassName} onClick={closePopover}>
         {t('support.privacy & terms')}
       </NavLink>
 
-      <NavLink to={mainPath.orderTracking} className={className} onClick={closePopover}>
+      <NavLink to={mainPath.orderTracking} className={itemClassName} onClick={closePopover}>
         {t('support.order tracking')}
       </NavLink>
 
-      <ChangeLanguage closePopover={closePopover} />
+      <div className={'rounded-md px-3 hover:bg-lightColor900 hover:font-semibold dark:hover:bg-darkColor900'}>
+        <ChangeLanguage closePopover={closePopover} />
+      </div>
 
       <ToggleTheme
         className='h-6 w-6 desktop:h-7 desktop:w-7 desktopLarge:h-8 desktopLarge:w-8'
-        classNameWrapper={className}
+        classNameWrapper={itemClassName}
       />
     </div>
   )

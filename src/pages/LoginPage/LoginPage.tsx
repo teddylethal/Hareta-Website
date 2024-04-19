@@ -20,12 +20,14 @@ import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/Succe
 import SuccessEmailVerifyPopup from 'src/components/VerifyEmailDialog/SuccessEmailVerifyPopup'
 import { useViewport } from 'src/hooks/useViewport'
 import { useTranslation } from 'react-i18next'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
 type FormData = LoginSchema
 
-export default function Login() {
+export default function LoginPage() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
-  //? responsive
+
   const viewPort = useViewport()
   const isSmall = viewPort.width <= 425
   const navigate = useNavigate()
@@ -57,6 +59,7 @@ export default function Login() {
           setProfileToLS(response.data.data)
           setProfile(response.data.data)
         })
+
         if (state && state.context == 'AccessProtectedRouteDenied' && state.from == 'user') {
           navigate(path.profile)
         } else {
@@ -127,12 +130,7 @@ export default function Login() {
                 labelName={t('login.email')}
                 required
                 autoComplete='on'
-                svgData={
-                  <>
-                    <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />
-                    <path d='M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z' />
-                  </>
-                }
+                label={<FontAwesomeIcon icon={faEnvelope} className='h-4 w-4 text-haretaColor' />}
               />
 
               <AccountInput
@@ -144,13 +142,7 @@ export default function Login() {
                 labelName={t('login.password')}
                 required
                 isPasswordInput
-                svgData={
-                  <path
-                    fillRule='evenodd'
-                    d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
-                    clipRule='evenodd'
-                  />
-                }
+                label={<FontAwesomeIcon icon={faLock} className='h-4 w-4 text-haretaColor' />}
               />
 
               <div className='mt-2 text-base desktop:text-lg'>

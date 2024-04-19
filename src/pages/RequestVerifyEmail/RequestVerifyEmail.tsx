@@ -36,7 +36,6 @@ export default function RequestVerifyEmail() {
           setClick(false)
         },
         onError: (error) => {
-          // console.log(error)
           setClick(false)
           setEmailSentDialog(true)
           setCounter(60)
@@ -59,6 +58,7 @@ export default function RequestVerifyEmail() {
     } else {
       navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, navigate])
 
   return (
