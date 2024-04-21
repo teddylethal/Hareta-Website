@@ -1,13 +1,11 @@
 import { useContext, lazy, Suspense } from 'react'
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import { AppContext } from './contexts/app.context'
 import mainPath, { adminPath } from './constants/path'
 import { OrderContext } from './contexts/order.context'
 
 import NotFound from './pages/NotFound'
 
 //! IMPORT LAYOUTS
-import RegisterLayout from './layouts/RegisterLayout'
 import MainLayout from './layouts/MainLayout'
 
 //! IMPORT PAGES
@@ -16,10 +14,8 @@ import ProductDetail from './pages/ProductDetail'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 import AdminRoute from './routes/adminRoute'
 import UserRoute from './routes/userRoute'
-import LoadingPage from './components/LoadingPage'
 import StorePage from './pages/StorePage'
-import LoginPage from './pages/LoginPage'
-import RegisterPage from './pages/RegisterPage'
+import AuthenticationRoute from './routes/authenticationRoute'
 
 const Cart = lazy(() => import('./pages/Cart'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
@@ -27,12 +23,6 @@ const OrderItemInformation = lazy(() => import('./pages/Support/components/Order
 
 //! IMPORT USER COMPONENTS
 const OrderTracking = lazy(() => import('./pages/Support/pages/OrderTracking'))
-
-//! IMPORT LOGIN/REGISTER COMPONENTS
-const VerifyEmail = lazy(() => import('./pages/VerifyEmail'))
-const RequestVerifyEmail = lazy(() => import('./pages/RequestVerifyEmail'))
-const RequestPasswordRecovery = lazy(() => import('./pages/PasswordRecovery/RequestPasswordRecovery'))
-const ChangePasswordRecovery = lazy(() => import('./pages/PasswordRecovery/ChangePasswordRecovery'))
 
 //! IMPORT ORDER COMPONENTS
 const OrderLayout = lazy(() => import('./pages/Order/layouts/OrderLayout'))
@@ -51,19 +41,6 @@ function OrderRoute() {
   )
 }
 
-function RejectedRoute() {
-  const { isAuthenticated } = useContext(AppContext)
-  return !isAuthenticated ? (
-    <RegisterLayout>
-      <Suspense fallback={<LoadingPage />}>
-        <Outlet />
-      </Suspense>
-    </RegisterLayout>
-  ) : (
-    <Navigate to={mainPath.home} />
-  )
-}
-
 export default function useRouteElements() {
   const routeElements = useRoutes([
     {
@@ -77,33 +54,7 @@ export default function useRouteElements() {
     },
     {
       path: '',
-      element: <RejectedRoute />,
-      children: [
-        {
-          path: mainPath.login,
-          element: <LoginPage />
-        },
-        {
-          path: mainPath.register,
-          element: <RegisterPage />
-        },
-        {
-          path: mainPath.requestVerify,
-          element: <RequestVerifyEmail />
-        },
-        {
-          path: mainPath.requestPasswordRecovery,
-          element: <RequestPasswordRecovery />
-        },
-        {
-          path: mainPath.changePasswordRecovery,
-          element: <ChangePasswordRecovery />
-        },
-        {
-          path: mainPath.verifyEmail,
-          element: <VerifyEmail />
-        }
-      ]
+      children: [AuthenticationRoute]
     },
     {
       path: mainPath.user,

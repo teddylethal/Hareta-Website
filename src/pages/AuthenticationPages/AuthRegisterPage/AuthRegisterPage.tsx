@@ -11,14 +11,14 @@ import { ErrorRespone, InputField } from 'src/types/utils.type'
 import Button from 'src/components/Button'
 import path from 'src/constants/path'
 import AccountInput from 'src/components/AccountInput'
-import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons'
+import AnimateTransition from 'src/components/AnimateTransition'
 
 type FormData = RegisterSchema
 
-export default function RegisterPage() {
+export default function AuthRegisterPage() {
   const {
     register,
     handleSubmit,

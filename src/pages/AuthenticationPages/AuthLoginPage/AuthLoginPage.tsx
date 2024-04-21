@@ -13,7 +13,6 @@ import { setProfileToLS } from 'src/utils/auth'
 import { LoginSchema, loginSchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import omit from 'lodash/omit'
 import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/SuccessPasswordRecoveryPopup'
@@ -22,10 +21,11 @@ import { useViewport } from 'src/hooks/useViewport'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import AnimateTransition from 'src/components/AnimateTransition'
 
 type FormData = LoginSchema
 
-export default function LoginPage() {
+export default function AuthLoginPage() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
 
   const viewPort = useViewport()
@@ -158,7 +158,7 @@ export default function LoginPage() {
 
               <div className='tablet:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs tabletSmall:text-sm tablet:mt-12 tablet:flex-row'>
                 <div className=''>
-                  <Link to={path.requestPasswordRecovery} state={{ email: getValues('email') }}>
+                  <Link to={path.AuthPasswordRecoveryRequestEmail} state={{ email: getValues('email') }}>
                     <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-200 hover:opacity-100 dark:text-blue-400'>
                       {t('login.Forgot Password?')}
                     </p>

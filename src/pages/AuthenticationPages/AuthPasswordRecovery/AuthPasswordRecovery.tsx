@@ -7,17 +7,18 @@ import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import path from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
-import { ChangePasswordRecoverySchema, changePasswordRecoverySchema } from 'src/utils/rules'
+import { PasswordRecoverySchema, passwordRecoverySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faLock } from '@fortawesome/free-solid-svg-icons'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
+import AnimateTransition from 'src/components/AnimateTransition'
+import LoadingSection from 'src/components/LoadingSection'
 
-type FormData = ChangePasswordRecoverySchema
+type FormData = PasswordRecoverySchema
 
-export default function ChangePasswordRecovery() {
+export default function AuthPasswordRecovery() {
   const {
     register,
     handleSubmit,
@@ -25,7 +26,7 @@ export default function ChangePasswordRecovery() {
     setValue,
     formState: { errors }
   } = useForm<FormData>({
-    resolver: yupResolver(changePasswordRecoverySchema)
+    resolver: yupResolver(passwordRecoverySchema)
   })
 
   const navigate = useNavigate()
@@ -43,16 +44,15 @@ export default function ChangePasswordRecovery() {
   useEffect(() => {
     if (isAxiosBadRequestError<ErrorRespone>(error)) {
       const formError = error.response?.data
-      //console.log(formError)
 
       const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
       if (errorRespone && errorRespone.error_key === 'ErrPasswordRecoveryNotFound') {
-        navigate(path.requestPasswordRecovery, { state: { failSlugVerify: 'true' } })
+        navigate(path.AuthPasswordRecoveryRequestEmail, { state: { failSlugVerify: 'true' } })
       }
     }
   }, [isError, error, navigate])
 
-  const changePasswordRecoveryMutation = useMutation({
+  const AuthPasswordRecoveryMutation = useMutation({
     mutationFn: (body: { slug: string; password: string }) => passwordRecovery.changePassword(body)
   })
 
@@ -61,7 +61,7 @@ export default function ChangePasswordRecovery() {
       slug: slug as string,
       password: data.new_password
     }
-    changePasswordRecoveryMutation.mutate(submitData, {
+    AuthPasswordRecoveryMutation.mutate(submitData, {
       onSuccess: () => {
         navigate(path.login, {
           state: { type: 'Success', title: 'PasswordRecovery', email: data.email }
@@ -84,7 +84,7 @@ export default function ChangePasswordRecovery() {
 
   return (
     <>
-      {isLoading && <></>}
+      {isLoading && <LoadingSection />}
       {true && (
         <AnimateTransition>
           <div className='container'>
@@ -138,13 +138,7 @@ export default function ChangePasswordRecovery() {
                     required
                     isPasswordInput
                     autoComplete='on'
-                    svgData={
-                      <path
-                        fillRule='evenodd'
-                        d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
-                        clipRule='evenodd'
-                      />
-                    }
+                    label={<FontAwesomeIcon icon={faLock} className='h-4 w-4 text-haretaColor' />}
                   />
                   <AccountInput
                     name='confirm_new_password'
@@ -156,20 +150,14 @@ export default function ChangePasswordRecovery() {
                     required
                     isPasswordInput
                     autoComplete='on'
-                    svgData={
-                      <path
-                        fillRule='evenodd'
-                        d='M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z'
-                        clipRule='evenodd'
-                      />
-                    }
+                    label={<FontAwesomeIcon icon={faLock} className='h-4 w-4 text-haretaColor' />}
                   />
                   <div className='mt-2 text-base desktop:text-lg'>
                     <Button
                       className='flex w-full items-center justify-center py-2 uppercase desktop:py-3'
                       type='submit'
-                      isLoading={changePasswordRecoveryMutation.isLoading}
-                      disabled={changePasswordRecoveryMutation.isLoading}
+                      isLoading={AuthPasswordRecoveryMutation.isPending}
+                      disabled={AuthPasswordRecoveryMutation.isPending}
                     >
                       Change
                     </Button>

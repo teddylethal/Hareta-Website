@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import verifyEmail from 'src/apis/verifyEmail.api'
 import path from 'src/constants/path'
 
-export default function VerifyEmail() {
+export default function AuthVerifyEmail() {
   const { code } = useParams()
   const navigate = useNavigate()
   const { data, status, error } = useQuery({

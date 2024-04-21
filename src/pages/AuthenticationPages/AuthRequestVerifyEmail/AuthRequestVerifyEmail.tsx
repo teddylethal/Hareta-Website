@@ -6,13 +6,13 @@ import path from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
 import { RequestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
-import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import verifyEmail from 'src/apis/verifyEmail.api'
 import useTimer from 'src/hooks/useTimer'
 import VerificationEmailSentPopup from 'src/components/VerifyEmailDialog/VerificationEmailSentPopup'
+import AnimateTransition from 'src/components/AnimateTransition'
 type FormData = RequestVerifySchema
 
-export default function RequestVerifyEmail() {
+export default function AuthRequestVerifyEmail() {
   const { state } = useLocation()
   const navigate = useNavigate()
 

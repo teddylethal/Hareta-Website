@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useLocation } from 'react-router-dom'
 import Button from 'src/components/Button'
@@ -10,17 +10,17 @@ import { ErrorRespone } from 'src/types/utils.type'
 import { RequestVerifySchema, requestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import AccountInput from 'src/components/AccountInput'
-import AnimateTransition from 'src/layouts/RegisterLayout/components/AnimateTransition'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faLock } from '@fortawesome/free-solid-svg-icons'
 import passwordRecovery from 'src/apis/passwordRecovery.api'
 import RecoveryEmailSentPopup from 'src/components/VerifyEmailDialog/RecoveryEmailSentPopup'
 import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 import { useTranslation } from 'react-i18next'
+import AnimateTransition from 'src/components/AnimateTransition'
 
 type FormData = RequestVerifySchema
 
-export default function RequestPasswordRecovery() {
+export default function AuthPasswordRecoveryRequestEmail() {
   const {
     register,
     handleSubmit,
@@ -83,7 +83,7 @@ export default function RequestPasswordRecovery() {
   const { t } = useTranslation('login')
 
   return (
-    <>
+    <Fragment>
       <AnimateTransition isDialog={state?.failSlugVerify}>
         <div className='container'>
           <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
@@ -98,10 +98,10 @@ export default function RequestPasswordRecovery() {
                     <FontAwesomeIcon
                       icon={faArrowLeft}
                       fontSize={32}
-                      className='hidden pr-4 text-vintageColor/80 opacity-70 duration-200 hover:opacity-100 dark:text-haretaColor tablet:block'
+                      className='hidden pr-4 text-haretaColor/80 opacity-70 duration-200 hover:opacity-100 tablet:block'
                     />
                   </Link>
-                  <div className=' text-center text-base uppercase text-vintageColor dark:text-haretaColor tabletSmall:text-xl desktopLarge:text-2xl'>
+                  <div className=' text-center text-base font-medium uppercase text-haretaColor tabletSmall:text-xl desktopLarge:text-2xl'>
                     {t('password.password recovery')}
                   </div>
                 </div>
@@ -114,22 +114,16 @@ export default function RequestPasswordRecovery() {
                   errorMessage={errors.email?.message}
                   labelName={t('password.Email address')}
                   required
-                  // notifyMessage={notifySuccess}
                   autoComplete='on'
-                  svgData={
-                    <>
-                      <path d='M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z' />
-                      <path d='M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z' />
-                    </>
-                  }
+                  label={<FontAwesomeIcon icon={faLock} className='h-4 w-4 text-haretaColor' />}
                 />
 
                 <div className='mt-2 text-base desktop:text-lg'>
                   <Button
                     className='flex w-full items-center justify-center py-2 desktop:py-3'
                     type='submit'
-                    isLoading={passwordRecoveryMutation.isLoading || counter > 0}
-                    disabled={passwordRecoveryMutation.isLoading || counter > 0}
+                    isLoading={passwordRecoveryMutation.isPending || counter > 0}
+                    disabled={passwordRecoveryMutation.isPending || counter > 0}
                   >
                     {counter == 0 && t('password.Send')}
                     {counter == 1 && t('password.Wait for') + ' 1 ' + t('password.second')}
@@ -152,6 +146,6 @@ export default function RequestPasswordRecovery() {
       </AnimateTransition>
       <InvalidLinkPopup dialog={dialogFail} closeDialog={() => setDialogFail(false)} />
       <RecoveryEmailSentPopup dialog={dialogSuccess} closeDialog={() => setDialogSuccess(false)} />
-    </>
+    </Fragment>
   )
 }
