@@ -10,7 +10,7 @@ import UserInventory from 'src/pages/User/pages/UserInventory'
 import UserProfile from 'src/pages/User/pages/UserProfile'
 import UserWishList from 'src/pages/User/pages/UserWishList'
 
-function ProtectedUserRoute() {
+function UserRouteWrapper() {
   const { isAuthenticated } = useContext(AppContext)
   return isAuthenticated ? (
     <MainLayout>
@@ -27,7 +27,7 @@ function ProtectedUserRoute() {
 
 const UserRoute: RouteObject = {
   path: '',
-  element: <ProtectedUserRoute />,
+  element: <UserRouteWrapper />,
   children: [
     {
       path: mainPath.profile,

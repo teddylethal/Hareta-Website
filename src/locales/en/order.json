@@ -6,6 +6,7 @@
     "Cart": "Cart",
     "Order": "Order"
   },
+  "Processing...": "Processing...",
   "shipping information": {
     "Name": "Name",
     "Phone": "Phone",

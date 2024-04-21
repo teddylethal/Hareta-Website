@@ -16,7 +16,7 @@ const SelectState = lazy(() => import('../../components/SelectState'))
 
 type FormData = OrderSchema
 
-export default function ShippingInfor() {
+export default function OrderShippingInfor() {
   const { noneState } = useContext(OrderContext)
 
   const viewPort = useViewport()

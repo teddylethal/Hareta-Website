@@ -1,18 +1,15 @@
-import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import OrderDesktopLayout from '../OrderDesktopLayout'
 import OrderMobileLayout from '../OrderMobileLayout'
 import { OrderSchema, OrderSchemaForGuest, orderSchema } from 'src/utils/rules'
 import { FormProvider, useForm } from 'react-hook-form'
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { OrderContext } from 'src/contexts/order.context'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { orderApi } from 'src/apis/order.api'
-import DialogPopup from 'src/components/DialogPopup'
 import { AppContext } from 'src/contexts/app.context'
 import { setOrderListToLS, setTempOrderListToLS } from 'src/utils/order'
 import PathBar from 'src/components/PathBar'
@@ -21,14 +18,14 @@ import { CartContext } from 'src/contexts/cart.context'
 import { useTranslation } from 'react-i18next'
 import productApi from 'src/apis/product.api'
 import purchaseApi from 'src/apis/cart.api'
-import { ColorRing } from 'react-loader-spinner'
-import { FloatingOverlay } from '@floating-ui/react'
-import { motion } from 'framer-motion'
+import OrderSuccessDialog from '../../components/OrderSuccessDialog'
+import OrderUnavailableDialog from '../../components/OrderUnavailableDialog'
+import OrderProcessingDialog from '../../components/OrderProcessingDialog'
 
 export default function OrderLayout() {
   const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
     useContext(OrderContext)
-  const { theme, isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated } = useContext(AppContext)
   const { tempExtendedPurchase, setTempExtendedPurchase, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [successDialog, setSuccesDialog] = useState(false)
@@ -91,9 +88,9 @@ export default function OrderLayout() {
     return purchase.quantity > purchase.item.quantity
   })
 
-  //? PLACE ORDER
+  //! PLACE ORDER
   const queryClient = useQueryClient()
-  const createOrderMutation = useMutation(orderApi.createOrder)
+  const createOrderMutation = useMutation({ mutationFn: orderApi.createOrder })
   const onPlaceOrder = handleSubmit(async (data) => {
     setProcessingDialog(true)
     //? fetch data from store to check if available quantity
@@ -117,8 +114,8 @@ export default function OrderLayout() {
   })
 
   //? PLACE ORDER WITHOUT LOGIN
-  const getProductDataMutation = useMutation(productApi.getProductDetail)
-  const createOrderForGuestMutation = useMutation(orderApi.createOrderWithouLogin)
+  const getProductDataMutation = useMutation({ mutationFn: productApi.getProductDetail })
+  const createOrderForGuestMutation = useMutation({ mutationFn: orderApi.createOrderWithouLogin })
   const placeOrderWithoutLogin = handleSubmit(async (data) => {
     //? fetch data to check quantity
     const unavailableTempPurchases = itemList.filter((item) => {
@@ -152,9 +149,10 @@ export default function OrderLayout() {
     }
   })
 
-  //? HANDLE CONFIRM
+  //! Handle confirm
   const navigate = useNavigate()
-  const handleConfirm = () => {
+
+  const userConfirm = () => {
     setSuccesDialog(false)
     setOrderList([])
     setOrderListToLS([])
@@ -171,6 +169,8 @@ export default function OrderLayout() {
     navigate(path.cart)
     setConfirmPayment(false)
   }
+
+  const handleConfirm = isAuthenticated ? userConfirm : guestConfirm
 
   //! Multi languages
   const { t } = useTranslation('order')
@@ -193,131 +193,23 @@ export default function OrderLayout() {
           </form>
         </FormProvider>
       </div>
+
       {/* //! success dialog */}
-      <DialogPopup
+      <OrderSuccessDialog
+        handleConfirm={handleConfirm}
         isOpen={successDialog}
         handleClose={() => setSuccesDialog(false)}
-        classNameWrapper='relative w-10/12 tablet:w-8/12 max-w:lg transform overflow-hidden rounded-2xl py-6 px-4 align-middle shadow-xl transition-all'
-        closeButton={false}
-      >
-        <div className={theme === 'dark' ? 'dark' : 'light'}>
-          <div className='mb-4 text-center'>
-            <FontAwesomeIcon
-              icon={faCheck}
-              className='text- h-auto w-8 rounded-full text-center text-success tablet:w-10 desktop:w-12 desktopLarge:w-16'
-            />
-          </div>
-          <p className='mt-6 text-center text-base font-bold uppercase leading-6 tablet:text-lg desktopLarge:text-xl'>
-            {t('layout.Your order was created successfully')}
-          </p>
-          <div className='mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium tablet:text-base desktopLarge:text-lg'>
-            <p className='text-center'>{t('layout.A payment instruction email was sent to your email address')}</p>
-            <p className='text-center'>{t('layout.Please complete transaction in 48 hours to complete your order')}</p>
-            <p className='text-center text-base font-semibold tablet:text-lg desktopLarge:text-xl'>
-              {t('layout.Sincerely thanks!')}
-            </p>
-          </div>
-          <div className='mt-4 flex w-full items-center justify-center'>
-            <button
-              className='rounded-lg bg-haretaColor px-4 py-2 font-medium hover:bg-primaryColor'
-              onClick={isAuthenticated ? handleConfirm : guestConfirm}
-            >
-              {t('layout.Confirm')}
-            </button>
-          </div>
-        </div>
-      </DialogPopup>
+      />
 
       {/* //! Processing dialog */}
-      {processingDialog && (
-        <FloatingOverlay lockScroll>
-          <Fragment>
-            <motion.div
-              className='fixed inset-0 z-10 bg-black dark:bg-black'
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 0.5
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-            <motion.div
-              className='fixed left-1/2 top-1/2 z-10 flex w-60 max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-2xl bg-white px-4 py-6 shadow-sm dark:bg-black'
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ColorRing
-                visible={true}
-                height='80'
-                width='80'
-                ariaLabel='blocks-loading'
-                wrapperStyle={{}}
-                wrapperClass='blocks-wrapper'
-                colors={['#ff8800', '#ff8800', '#ff8800', '#ff8800', '#ff8800']}
-              />
-              <div className='mt-2 text-lg font-semibold uppercase text-darkText dark:text-lightText tablet:text-xl desktopLarge:text-2xl'>
-                Processing...
-              </div>
-            </motion.div>
-          </Fragment>
-        </FloatingOverlay>
-      )}
+      {processingDialog && <OrderProcessingDialog />}
 
       {/* //! Unavailable dialog */}
-      <DialogPopup
+      <OrderUnavailableDialog
+        handleConfirm={handleConfirm}
         isOpen={unavailableOrder}
         handleClose={() => setUnavailableOrder(false)}
-        classNameWrapper='relative w-11/12 tabletSmall:w-9/12 tablet:w-8/12 max-w:lg transform overflow-hidden rounded-2xl py-6 px-4 align-middle shadow-xl transition-all'
-        closeButton={false}
-      >
-        <div className={theme === 'dark' ? 'dark' : 'light'}>
-          <div className='mb-4 text-center'>
-            <FontAwesomeIcon
-              icon={faXmark}
-              className='text- h-auto w-8 rounded-full text-center text-red-600 tablet:w-10 desktop:w-12 desktopLarge:w-16'
-            />
-          </div>
-          <p className='mt-6 text-center text-base font-bold uppercase leading-6 tabletSmall:text-lg tablet:text-xl desktopLarge:text-2xl'>
-            {t('layout.YOUR ORDER WAS DENIDED')}
-          </p>
-          <div className='mt-4 flex flex-col items-center justify-center space-y-2 text-sm font-medium tablet:text-base desktopLarge:text-lg'>
-            <p className='w-full text-left'>
-              {t('denided order.Your order was denied due to ')}
-              <span className='text-haretaColor'>{t('denided order.unavailable quantity')}</span>
-              {t('denided order. of some items.')}
-              {t('denided order.some items ')}
-              <span className='text-haretaColor'>{t('denided order.have unavailable quantity.')}</span>
-            </p>
-            <p className='text-left'>
-              {t(
-                'denided order.This accident sometimes occurs when someone else had place an order including your desired items before you did. Therefore the quantity of those items in our storage could not meet your need.'
-              )}
-            </p>
-            <p className='w-full text-left'>
-              {t('denided order.Please ')}
-              <span className='text-haretaColor'>{t('denided order.recheck')}</span>
-              {t('denided order. the unavailable items and ')}
-              <span className='text-haretaColor'>{t('denided order.adjust the quantity.')}</span>
-            </p>
-            <p className='text-center text-base font-semibold tablet:text-lg desktopLarge:text-xl'>
-              {t('denided order.Sincerely apologies for this accident!')}
-            </p>
-          </div>
-          <div className='mt-4 flex w-full items-center justify-center'>
-            <Link
-              to={path.cart}
-              className='rounded-lg bg-haretaColor px-4 py-2 font-medium hover:bg-primaryColor'
-              onClick={isAuthenticated ? handleConfirm : guestConfirm}
-            >
-              {t('denided order.Return to cart')}
-            </Link>
-          </div>
-        </div>
-      </DialogPopup>
+      />
     </div>
   )
 }

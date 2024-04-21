@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 
-export default function Payment() {
+export default function OrderPayment() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 

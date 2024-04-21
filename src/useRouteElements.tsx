@@ -1,7 +1,6 @@
-import { useContext, lazy, Suspense } from 'react'
-import { Navigate, Outlet, useRoutes } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
+import { useRoutes } from 'react-router-dom'
 import mainPath, { adminPath } from './constants/path'
-import { OrderContext } from './contexts/order.context'
 
 import NotFound from './pages/NotFound'
 
@@ -16,6 +15,7 @@ import AdminRoute from './routes/adminRoute'
 import UserRoute from './routes/userRoute'
 import StorePage from './pages/StorePage'
 import AuthenticationRoute from './routes/authenticationRoute'
+import OrderRoute from './routes/orderRoute'
 
 const Cart = lazy(() => import('./pages/Cart'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
@@ -23,23 +23,6 @@ const OrderItemInformation = lazy(() => import('./pages/Support/components/Order
 
 //! IMPORT USER COMPONENTS
 const OrderTracking = lazy(() => import('./pages/Support/pages/OrderTracking'))
-
-//! IMPORT ORDER COMPONENTS
-const OrderLayout = lazy(() => import('./pages/Order/layouts/OrderLayout'))
-const ShippingInfor = lazy(() => import('./pages/Order/pages/ShippingInfor'))
-const Payment = lazy(() => import('./pages/Order/pages/Payment'))
-
-function OrderRoute() {
-  const { orderList, tempOrderList } = useContext(OrderContext)
-  const accpeted = orderList.length > 0 || tempOrderList.length > 0
-  return accpeted ? (
-    <Suspense fallback={<LoadingWithEmptyContent />}>
-      <Outlet />
-    </Suspense>
-  ) : (
-    <Navigate to={mainPath.home} />
-  )
-}
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -67,27 +50,7 @@ export default function useRouteElements() {
     },
     {
       path: '',
-      element: <OrderRoute />,
-      children: [
-        {
-          path: mainPath.order,
-          element: (
-            <MainLayout>
-              <OrderLayout />
-            </MainLayout>
-          ),
-          children: [
-            {
-              path: mainPath.shippingInfor,
-              element: <ShippingInfor />
-            },
-            {
-              path: mainPath.payment,
-              element: <Payment />
-            }
-          ]
-        }
-      ]
+      children: [OrderRoute]
     },
 
     {

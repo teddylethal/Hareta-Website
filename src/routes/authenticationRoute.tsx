@@ -14,7 +14,7 @@ const AuthPasswordRecoveryRequestEmail = lazy(
 const AuthPasswordRecovery = lazy(() => import('src/pages/AuthenticationPages/AuthPasswordRecovery'))
 const AuthVerifyEmail = lazy(() => import('src/pages/AuthenticationPages/AuthVerifyEmail'))
 
-function RejectedRoute() {
+function AuthenticationRouteWrapper() {
   const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? (
     <AuthenticationLayout>
@@ -29,7 +29,7 @@ function RejectedRoute() {
 
 const AuthenticationRoute: RouteObject = {
   path: '',
-  element: <RejectedRoute />,
+  element: <AuthenticationRouteWrapper />,
   children: [
     {
       path: mainPath.login,
