@@ -9,10 +9,10 @@ import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import { useTranslation } from 'react-i18next'
 
-const SelectCountry = lazy(() => import('../../components/SelectCountry'))
-const SelectState = lazy(() => import('../../components/SelectState'))
-// import SelectCountry from '../../components/SelectCountry'
-// import SelectState from '../../components/SelectState'
+const OrderSelectCountry = lazy(() => import('../../components/OrderSelectCountry'))
+const OrderSelectState = lazy(() => import('../../components/OrderSelectState'))
+// import OrderSelectCountry from '../../components/OrderSelectCountry'
+// import OrderSelectState from '../../components/OrderSelectState'
 
 type FormData = OrderSchema
 
@@ -116,10 +116,10 @@ export default function OrderShippingInfor() {
           <div className='mt-2'>
             <div className='mt-4 grid grid-cols-2 gap-3 desktop:gap-4 desktopLarge:gap-6'>
               <div className='col-span-1'>
-                <SelectCountry />
+                <OrderSelectCountry />
               </div>
               <div className='col-span-1'>
-                <SelectState isError={noneState} />
+                <OrderSelectState isError={noneState} />
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@
 //   isError?: boolean
 // }
 
-// export default function SelectCity({ isError = false }: Props) {
+// export default function OrderSelectCity({ isError = false }: Props) {
 //   const { addressCountry, addressState, addressCity, setAddressCity } = useContext(OrderContext)
 
 //   const [cityList, setCityList] = useState<ICity[]>(

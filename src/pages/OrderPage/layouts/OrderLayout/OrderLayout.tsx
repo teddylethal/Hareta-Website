@@ -67,9 +67,6 @@ export default function OrderLayout() {
       setValue('name', profile.name || '')
       setValue('phone', profile.phone || '')
       setValue('email', profile.email || '')
-      // clearErrors('name')
-      // clearErrors('phone')
-      // clearErrors('email')
     }
   }, [profile, setValue, clearErrors])
 
@@ -88,7 +85,7 @@ export default function OrderLayout() {
     return purchase.quantity > purchase.item.quantity
   })
 
-  //! PLACE ORDER
+  //! Placing order for user
   const queryClient = useQueryClient()
   const createOrderMutation = useMutation({ mutationFn: orderApi.createOrder })
   const onPlaceOrder = handleSubmit(async (data) => {
@@ -113,7 +110,7 @@ export default function OrderLayout() {
     }
   })
 
-  //? PLACE ORDER WITHOUT LOGIN
+  //! Placing order for guest
   const getProductDataMutation = useMutation({ mutationFn: productApi.getProductDetail })
   const createOrderForGuestMutation = useMutation({ mutationFn: orderApi.createOrderWithouLogin })
   const placeOrderWithoutLogin = handleSubmit(async (data) => {
@@ -194,17 +191,17 @@ export default function OrderLayout() {
         </FormProvider>
       </div>
 
-      {/* //! success dialog */}
+      {/*  success dialog */}
       <OrderSuccessDialog
         handleConfirm={handleConfirm}
         isOpen={successDialog}
         handleClose={() => setSuccesDialog(false)}
       />
 
-      {/* //! Processing dialog */}
+      {/*  Processing dialog */}
       {processingDialog && <OrderProcessingDialog />}
 
-      {/* //! Unavailable dialog */}
+      {/*  Unavailable dialog */}
       <OrderUnavailableDialog
         handleConfirm={handleConfirm}
         isOpen={unavailableOrder}

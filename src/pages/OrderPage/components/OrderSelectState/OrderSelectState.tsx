@@ -11,7 +11,7 @@ interface Props {
   isError?: boolean
 }
 
-export default function SelectState({ isError = false }: Props) {
+export default function OrderSelectState({ isError = false }: Props) {
   const { addressCountry, addressState, setStateAddress } = useContext(OrderContext)
   const [stateList, setStateList] = useState<IState[]>(State.getStatesOfCountry(addressCountry.isoCode))
 

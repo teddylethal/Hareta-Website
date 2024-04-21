@@ -11,8 +11,8 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { OrderContext } from 'src/contexts/order.context'
 import { OrderSchema } from 'src/utils/rules'
-import PurchaseListForUser from '../PurchaseListForUser'
-import PurchaseListForGuest from '../PurchaseListForGuest'
+import OrderPurchaseListForUser from '../OrderPurchaseListForUser'
+import OrderPurchaseListForGuest from '../OrderPurchaseListForGuest'
 
 export default function OrderDetail() {
   const { addressState, setNoneState, confirmPayment, setConfirmPayment } = useContext(OrderContext)
@@ -68,8 +68,8 @@ export default function OrderDetail() {
     <div className='rounded-xl p-3 desktop:p-4'>
       <p className='text-2xl font-semibold uppercase desktopLarge:text-3xl'>{t('layout.Order')}</p>
       <div className='my-4 w-full border border-black/80 dark:border-white/80'></div>
-      {isAuthenticated && <PurchaseListForUser />}
-      {!isAuthenticated && <PurchaseListForGuest />}
+      {isAuthenticated && <OrderPurchaseListForUser />}
+      {!isAuthenticated && <OrderPurchaseListForGuest />}
       <div className='mt-4 flex items-center space-x-2 font-medium'>
         <input
           name='confirm'

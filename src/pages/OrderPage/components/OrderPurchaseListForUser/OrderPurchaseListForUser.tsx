@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { OrderContext } from 'src/contexts/order.context'
 import { formatCurrency } from 'src/utils/utils'
 
-export default function PurchaseListForGuest() {
-  const { tempOrderList } = useContext(OrderContext)
-  const totalPrice = tempOrderList.reduce((result, current) => {
+export default function OrderPurchaseListForUser() {
+  const { orderList } = useContext(OrderContext)
+  const totalPrice = orderList.reduce((result, current) => {
     return result + current.item.price * current.quantity
   }, 0)
 
-  const totalDiscount = tempOrderList.reduce((result, current) => {
+  const totalDiscount = orderList.reduce((result, current) => {
     return result + current.item.discount * current.quantity
   }, 0)
 
@@ -19,7 +19,7 @@ export default function PurchaseListForGuest() {
   return (
     <Fragment>
       <div className='max-h-60 overflow-auto'>
-        {tempOrderList.map((orderItem, index) => (
+        {orderList.map((orderItem, index) => (
           <div className='relative grid grid-cols-3 items-center gap-2 py-3 desktopLarge:py-4' key={orderItem.id}>
             <div className='col-span-2'>
               <p className='text-lg font-bold capitalize desktopLarge:text-xl'>{orderItem.item.name}</p>

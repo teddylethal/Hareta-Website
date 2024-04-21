@@ -1,12 +1,13 @@
-import { Suspense, useContext } from 'react'
+import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import mainPath from 'src/constants/path'
 import { OrderContext } from 'src/contexts/order.context'
 import MainLayout from 'src/layouts/MainLayout'
-import OrderPayment from 'src/pages/OrderPage/children/OrderPayment'
-import OrderShippingInfor from 'src/pages/OrderPage/children/OrderShippingInfor'
 import OrderLayout from 'src/pages/OrderPage/layouts/OrderLayout'
+
+const OrderPayment = lazy(() => import('src/pages/OrderPage/children/OrderPayment'))
+const OrderShippingInfor = lazy(() => import('src/pages/OrderPage/children/OrderShippingInfor'))
 
 function OrderRouteWrapper() {
   const { orderList, tempOrderList } = useContext(OrderContext)

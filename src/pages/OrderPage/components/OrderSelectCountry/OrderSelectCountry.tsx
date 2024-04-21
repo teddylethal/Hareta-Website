@@ -7,7 +7,7 @@ import { OrderContext } from 'src/contexts/order.context'
 
 const COUNTRIES = Country.getAllCountries()
 
-export default function SelectCountry() {
+export default function OrderSelectCountry() {
   const { addressCountry, setCountryAddress } = useContext(OrderContext)
 
   return (
