@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 import { ExtendsPurchase } from './cart.context'
-import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
+import { ExtendedTemporaryPurchase } from 'src/pages/CartPage/children/CartForGuest/CartForGuest'
 import { Country, ICity, ICountry, IState } from 'country-state-city'
 import {
   getCountryAddressFromLS,

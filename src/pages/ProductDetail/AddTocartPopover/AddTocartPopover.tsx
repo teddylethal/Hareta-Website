@@ -43,7 +43,7 @@ export default function AddTocartPopover({
   setErrorDialog
 }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
+  const { tempExtendedPurchases, settempExtendedPurchases } = useContext(CartContext)
   const [activeItemID, setActiveItemID] = useState<string>(activeItem.id)
   const { visible: createTempCart, ref: createDialogRef, setVisible: setCreateTempCart } = useClickOutside(false)
 
@@ -88,7 +88,7 @@ export default function AddTocartPopover({
       quantity: 1,
       item: activeItem
     }
-    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+    settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     setCreateTempCart(false)
     setVisible(false)
     setQuantity(1)
@@ -101,26 +101,26 @@ export default function AddTocartPopover({
       quantity: quantity,
       item: activeItem
     }
-    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = tempExtendedPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const purchase = tempExtendedPurchase[purchaseIndex]
+      const purchase = tempExtendedPurchases[purchaseIndex]
       const maxQuanityInStore = purchase.item.quantity
       const currentQuantityInCart = purchase.quantity
       if (currentQuantityInCart + quantity <= maxQuanityInStore) {
         const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
+        const newPurchasesList = tempExtendedPurchases.map((purchase, index) => {
           if (index === purchaseIndex) {
             return { ...purchase, quantity: newQuantity }
           } else return purchase
         })
-        setTempExtendedPurchase(newPurchasesList)
+        settempExtendedPurchases(newPurchasesList)
         setQuantity(1)
       } else {
         setErrorDialog(true)
         setQuantity(1)
       }
     } else {
-      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+      settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     }
     setVisible(false)
     showSuccessDialog(setDialogIsOpen)
@@ -225,7 +225,7 @@ export default function AddTocartPopover({
               onClick={
                 isAuthenticated
                   ? addToCart
-                  : tempExtendedPurchase.length === 0
+                  : tempExtendedPurchases.length === 0
                   ? () => {
                       setCreateTempCart(true)
                     }

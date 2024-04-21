@@ -17,7 +17,7 @@ interface Props {
 
 export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperStyle }: Props) {
   const { theme } = useContext(AppContext)
-  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
+  const { tempExtendedPurchases, settempExtendedPurchases } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)
   const openCart = () => {
@@ -28,9 +28,9 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
   }
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = tempExtendedPurchase[purchaseIndex].id
-    const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
-    setTempExtendedPurchase(newPurchaseList)
+    const purchaseId = tempExtendedPurchases[purchaseIndex].id
+    const newPurchaseList = tempExtendedPurchases.filter((purchase) => purchase.id !== purchaseId)
+    settempExtendedPurchases(newPurchaseList)
   }
 
   //! Multi languages
@@ -40,9 +40,9 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
     <div>
       <button onClick={openCart} className='relative flex items-end text-darkText dark:text-lightText'>
         <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-darkText dark:text-lightText' />
-        {tempExtendedPurchase.length > 0 && (
+        {tempExtendedPurchases.length > 0 && (
           <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs text-darkText'>
-            {tempExtendedPurchase.length}
+            {tempExtendedPurchases.length}
           </span>
         )}
       </button>
@@ -79,11 +79,11 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
 
               <Fragment>
                 <div className='px-3 py-2 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
-                  {tempExtendedPurchase.length} {t('cart button.items in cart')}
+                  {tempExtendedPurchases.length} {t('cart button.items in cart')}
                 </div>
                 <div className={wrapperStyle}>
-                  {tempExtendedPurchase.length > 0 ? (
-                    tempExtendedPurchase.map((purchase, index) => (
+                  {tempExtendedPurchases.length > 0 ? (
+                    tempExtendedPurchases.map((purchase, index) => (
                       <div
                         className='flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightColor900/60 dark:border-white/20 dark:hover:bg-darkColor900/60'
                         key={purchase.id}

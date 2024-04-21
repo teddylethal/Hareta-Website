@@ -9,7 +9,7 @@ interface Props {
   customClassname?: string
 }
 
-export default function ImageDisplayCarousel({
+export default function ProductImageSlideShow({
   imageList,
   customClassname = 'relative left-0 top-0 w-full pt-[75%]'
 }: Props) {

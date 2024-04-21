@@ -8,10 +8,9 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
-
 import { AppContext } from 'src/contexts/app.context'
 import producImageApi from 'src/apis/productImage.api'
-import ImageDisplayCarousel from 'src/components/ImageDisplayCarousel'
+import ProductImageSlideShow from 'src/components/ProductImageSlideShow'
 import { ProductImage } from 'src/types/productImage.type'
 import likeItemAPi from 'src/apis/userLikeItem.api'
 import { StoreContext } from 'src/contexts/store.context'
@@ -132,7 +131,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
       <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-200 dark:bg-productDarkBg'>
         {hoveringImage && (
           <div className='relative'>
-            <ImageDisplayCarousel imageList={imageListCarousel} isLoading={isLoading} />
+            <ProductImageSlideShow imageList={imageListCarousel} isLoading={isLoading} />
             <button className='absolute inset-0' onClick={handleClickItem}></button>
           </div>
         )}

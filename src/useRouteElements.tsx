@@ -17,7 +17,7 @@ import StorePage from './pages/StorePage'
 import AuthenticationRoute from './routes/authenticationRoute'
 import OrderRoute from './routes/orderRoute'
 
-const Cart = lazy(() => import('./pages/Cart'))
+const CartPage = lazy(() => import('./pages/CartPage'))
 const PrivacyAndTerms = lazy(() => import('./pages/Support/pages/PrivacyAndTerms'))
 const OrderItemInformation = lazy(() => import('./pages/Support/components/OrderItemInformation'))
 
@@ -74,7 +74,7 @@ export default function useRouteElements() {
       element: (
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
-            <Cart />
+            <CartPage />
           </Suspense>
         </MainLayout>
       )

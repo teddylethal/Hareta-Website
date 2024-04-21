@@ -9,12 +9,12 @@ import { CartContext } from 'src/contexts/cart.context'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 
 function PopoverSection() {
-  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
+  const { tempExtendedPurchases, settempExtendedPurchases } = useContext(CartContext)
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = tempExtendedPurchase[purchaseIndex].id
-    const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
-    setTempExtendedPurchase(newPurchaseList)
+    const purchaseId = tempExtendedPurchases[purchaseIndex].id
+    const newPurchaseList = tempExtendedPurchases.filter((purchase) => purchase.id !== purchaseId)
+    settempExtendedPurchases(newPurchaseList)
   }
 
   //! Multi languages
@@ -24,12 +24,12 @@ function PopoverSection() {
     <div className='relative -top-1 w-[360px] rounded-md bg-lightColor700 py-2 text-sm text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-0'>
       <Fragment>
         <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
-          {tempExtendedPurchase.length} {t('cart button.items in cart')}
+          {tempExtendedPurchases.length} {t('cart button.items in cart')}
         </div>
         <div className='m-2 overflow-auto rounded-md bg-lightColor900 outline outline-1 outline-black/10 dark:bg-darkColor900 dark:outline-white/10'>
-          {tempExtendedPurchase.length > 0 ? (
+          {tempExtendedPurchases.length > 0 ? (
             <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
-              {tempExtendedPurchase.map((purchase, index) => (
+              {tempExtendedPurchases.map((purchase, index) => (
                 <div
                   className='flex items-center p-3 hover:bg-lightColor700/60 dark:hover:bg-darkColor700/60'
                   key={purchase.id}
@@ -104,7 +104,7 @@ function PopoverSection() {
 }
 
 export default function HeaderDesktopCartUnlogged() {
-  const { tempExtendedPurchase } = useContext(CartContext)
+  const { tempExtendedPurchases } = useContext(CartContext)
 
   return (
     <div className='rounded-lg bg-unhoveringBg hover:bg-hoveringBg'>
@@ -115,9 +115,9 @@ export default function HeaderDesktopCartUnlogged() {
       >
         <div className='flex items-center space-x-2 px-2 py-0.5 text-black'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
-          {tempExtendedPurchase.length > 0 && (
+          {tempExtendedPurchases.length > 0 && (
             <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-darkText desktop:text-sm desktopLarge:text-base'>
-              {tempExtendedPurchase.length}
+              {tempExtendedPurchases.length}
             </div>
           )}
         </div>

@@ -1,14 +1,14 @@
 import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import PathBar from 'src/components/PathBar'
-import AuthenticatedCart from './AuthenticatedCart'
-import UnauthenticatedCart from './UnauthenticatedCart'
+import CartForUser from './children/CartForUser'
 import { useTranslation } from 'react-i18next'
+import CartForGuest from './children/CartForGuest'
 
-export default function Cart() {
+export default function CartPage() {
   const { isAuthenticated } = useContext(AppContext)
 
-  //? transaltion
+  //! Multi languages
   const { t } = useTranslation('cart')
 
   //? CHANGE TITLE
@@ -25,8 +25,8 @@ export default function Cart() {
             { pathName: t('path.cart'), url: '/cart' }
           ]}
         />
-        {isAuthenticated && <AuthenticatedCart />}
-        {!isAuthenticated && <UnauthenticatedCart />}
+        {isAuthenticated && <CartForUser />}
+        {!isAuthenticated && <CartForGuest />}
       </div>
     </div>
   )

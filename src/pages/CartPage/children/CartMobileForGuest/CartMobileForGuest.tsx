@@ -1,24 +1,33 @@
-import React, { Fragment, useContext } from 'react'
-
-import { CartContext } from 'src/contexts/cart.context'
+import React, { Fragment } from 'react'
+import { ExtendedTemporaryPurchase } from '../CartForGuest/CartForGuest'
 import { formatCurrency } from 'src/utils/utils'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
-import MobileItemInCart from '../MobileItemInCart'
+import CartMobileTempPurchaseCard from '../../components/CartMobileTempPurchaseCard'
 
 interface Props {
+  extendedTempPurchases: ExtendedTemporaryPurchase[]
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
   handleSelectAll: () => void
+  handleQuantity: (purchaseIndex: number, value: number, enable: boolean) => void
+  handleTypeQuantity: (purchaseIndex: number) => (value: number) => void
   handleRemove: (purchaseIndex: number) => () => void
   handleCheckout: () => void
 }
 
-export default function AuthenticatedCartMobile(props: Props) {
-  const { handleChecking, handleRemove, handleSelectAll, handleCheckout } = props
+export default function CartMobileForGuest(props: Props) {
+  const {
+    extendedTempPurchases,
+    handleChecking,
+    handleQuantity,
+    handleRemove,
+    handleSelectAll,
+    handleTypeQuantity,
+    handleCheckout
+  } = props
 
-  const { extendedPurchases } = useContext(CartContext)
-  const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
-  const checkedPurchases = extendedPurchases.filter((purchase) => purchase.checked)
+  const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
+  const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
   const checkedPurchasesCount = checkedPurchases.length
   const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, current) => {
     return result + current.item.price * current.quantity
@@ -34,19 +43,17 @@ export default function AuthenticatedCartMobile(props: Props) {
           <div className='col-span-1'></div>
         </div>
         <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightColor900 p-2 dark:border-white/20 dark:bg-darkColor900'>
-          {extendedPurchases.length > 0 ? (
-            extendedPurchases?.map((purchase, index) => (
-              <div
+          {extendedTempPurchases.length > 0 ? (
+            extendedTempPurchases?.map((purchase, index) => (
+              <CartMobileTempPurchaseCard
                 key={purchase.id}
-                className='mt-2 flex items-center rounded-lg border border-black/10 bg-lightColor700 p-2 text-center text-darkText first:mt-0 dark:border-white/10 dark:bg-darkColor700 dark:text-lightText'
-              >
-                <MobileItemInCart
-                  handleChecking={handleChecking}
-                  handleRemove={handleRemove}
-                  index={index}
-                  purchase={purchase}
-                />
-              </div>
+                purchase={purchase}
+                index={index}
+                handleChecking={handleChecking}
+                handleQuantity={handleQuantity}
+                handleRemove={handleRemove}
+                handleTypeQuantity={handleTypeQuantity}
+              />
             ))
           ) : (
             <div className='relative h-full w-full'>
@@ -58,9 +65,9 @@ export default function AuthenticatedCartMobile(props: Props) {
             </div>
           )}
         </div>
-        <div className='grid w-full grid-cols-12 items-center justify-between rounded-sm py-2 shadow'>
-          <div className='col-span-1 flex flex-shrink-0 items-center'>
-            {extendedPurchases.length > 0 && (
+        <div className='grid w-full grid-cols-12 items-center justify-between rounded-sm px-2 py-2 shadow  desktopLarge:mx-4'>
+          <div className=' col-span-1 flex flex-shrink-0 items-center'>
+            {extendedTempPurchases.length > 0 && (
               <input
                 name='all_are_selected'
                 type='checkbox'
@@ -73,7 +80,7 @@ export default function AuthenticatedCartMobile(props: Props) {
           <div className='col-span-1 flex items-center justify-center text-darkText dark:text-lightText'>
             ({checkedPurchasesCount})
           </div>
-          <div className='col-span-7 flex items-center justify-center space-x-2 text-sm font-medium tabletSmall:text-base'>
+          <div className='col-span-7 flex items-center justify-center space-x-2'>
             <div className='col-span-1 items-center text-right uppercase text-darkText dark:text-lightText'>Total:</div>
             <span className='col-span-1 text-center font-medium text-primaryColor'>
               ${formatCurrency(totalCheckedPurchasesPrice)}

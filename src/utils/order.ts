@@ -1,6 +1,6 @@
 import { ICountry, IState } from 'country-state-city'
 import { ExtendsPurchase } from 'src/contexts/cart.context'
-import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
+import { ExtendedTemporaryPurchase } from 'src/pages/CartPage/children/CartForGuest/CartForGuest'
 
 export const setOrderListToLS = (orderList: ExtendsPurchase[]) => {
   localStorage.setItem('order_list', JSON.stringify(orderList))

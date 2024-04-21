@@ -1,5 +1,5 @@
 import { ExtendsPurchase } from 'src/contexts/cart.context'
-import { ExtendedTemporaryPurchase } from 'src/pages/Cart/UnauthenticatedCart/UnauthenticatedCart'
+import { ExtendedTemporaryPurchase } from 'src/pages/CartPage/children/CartForGuest/CartForGuest'
 
 export const setExtendedPurchasesToLS = (extendedPurchases: ExtendsPurchase[]) => {
   localStorage.setItem('extended_purchases', JSON.stringify(extendedPurchases))

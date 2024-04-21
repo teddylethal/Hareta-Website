@@ -19,7 +19,7 @@ interface Props {
   handleRemove: (purchaseIndex: number) => () => void
 }
 
-export default function MobileItemInCart({ purchase, index, handleChecking, handleRemove }: Props) {
+export default function CartMobilePurchaseCard({ purchase, index, handleChecking, handleRemove }: Props) {
   const { setExtendedPurchases, unavailablePurchaseIds, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [quantity, setQuantity] = useState<number>(purchase.quantity)

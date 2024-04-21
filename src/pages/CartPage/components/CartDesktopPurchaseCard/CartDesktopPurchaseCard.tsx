@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import QuantityController from '../QuantityController'
+import QuantityController from '../../../../components/QuantityController'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { CartContext, ExtendsPurchase } from 'src/contexts/cart.context'
@@ -17,7 +17,7 @@ interface Props {
   handleRemove: (purchaseIndex: number) => () => void
 }
 
-export default function ItemInCart({ purchase, index, handleChecking, handleRemove }: Props) {
+export default function CartDesktopPurchaseCard({ purchase, index, handleChecking, handleRemove }: Props) {
   const { setExtendedPurchases, unavailablePurchaseIds, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [quantity, setQuantity] = useState<number>(purchase.quantity)
@@ -63,7 +63,7 @@ export default function ItemInCart({ purchase, index, handleChecking, handleRemo
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [purchase.id, quantity])
 
-  //? transaltion
+  //! Multi languages
   const { t } = useTranslation('cart')
 
   //? is unavailable

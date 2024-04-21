@@ -28,7 +28,7 @@ export default function ProductDetailDesktop(props: Props) {
   const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
+  const { tempExtendedPurchases, settempExtendedPurchases } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
@@ -63,7 +63,7 @@ export default function ProductDetailDesktop(props: Props) {
       quantity: quantity,
       item: activeItem
     }
-    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+    settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     setCreateTempCart(false)
     setQuantity(1)
     showSuccessDialog(setDialogIsOpen)
@@ -75,26 +75,26 @@ export default function ProductDetailDesktop(props: Props) {
       quantity: quantity,
       item: activeItem
     }
-    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = tempExtendedPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const purchase = tempExtendedPurchase[purchaseIndex]
+      const purchase = tempExtendedPurchases[purchaseIndex]
       const maxQuanityInStore = purchase.item.quantity
       const currentQuantityInCart = purchase.quantity
       if (currentQuantityInCart + quantity <= maxQuanityInStore) {
         const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
+        const newPurchasesList = tempExtendedPurchases.map((purchase, index) => {
           if (index === purchaseIndex) {
             return { ...purchase, quantity: newQuantity }
           } else return purchase
         })
-        setTempExtendedPurchase(newPurchasesList)
+        settempExtendedPurchases(newPurchasesList)
         setQuantity(1)
       } else {
         setErrorDialog(true)
         setQuantity(1)
       }
     } else {
-      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+      settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     }
     showSuccessDialog(setDialogIsOpen)
   }
@@ -205,7 +205,7 @@ export default function ProductDetailDesktop(props: Props) {
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
-                      : tempExtendedPurchase.length === 0
+                      : tempExtendedPurchases.length === 0
                       ? () => {
                           setCreateTempCart(true)
                         }
