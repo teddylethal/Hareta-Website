@@ -4,11 +4,11 @@ import http from 'src/utils/http'
 const URL = 'auth/user-like-item/'
 const LIMIT = 100
 
-const likeItemAPi = {
-  likeItem(body: { group_id: string }) {
+const userLikeProductApi = {
+  likeProduct(body: { group_id: string }) {
     return http.post(URL, body)
   },
-  unlikeItem(body: { group_id: string }) {
+  unlikeProduct(body: { group_id: string }) {
     return http.delete(URL, { data: body })
   },
   getWishList() {
@@ -20,4 +20,4 @@ const likeItemAPi = {
   }
 }
 
-export default likeItemAPi
+export default userLikeProductApi

@@ -1,0 +1,3 @@
+import ProductMobileAddTocartPopover from './ProductMobileAddTocartPopover'
+
+export default ProductMobileAddTocartPopover

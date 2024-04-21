@@ -13,16 +13,16 @@ import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  item: Product
+  product: Product
 }
 
-interface InfoItem {
+interface InfoProduct {
   title: string
   info: string
   handleClick: () => void
 }
 
-export default function ProductDescription({ item }: Props) {
+export default function ProductDetailDescription({ product }: Props) {
   const { theme } = useContext(AppContext)
 
   const detailRef = useRef<HTMLDivElement>(null)
@@ -76,35 +76,35 @@ export default function ProductDescription({ item }: Props) {
   const { t } = useTranslation('productdetail')
 
   //! Get information
-  const infos: InfoItem[] = [
+  const infos: InfoProduct[] = [
     {
       title: t('detail.Category'),
-      info: item.category,
-      handleClick: handleChooseFilter('category', item.category)
+      info: product.category,
+      handleClick: handleChooseFilter('category', product.category)
     },
     {
       title: t('detail.Collection'),
-      info: item.collection,
-      handleClick: handleChooseFilter('collection', item.collection)
+      info: product.collection,
+      handleClick: handleChooseFilter('collection', product.collection)
     },
     {
       title: t('detail.Type'),
-      info: item.type,
-      handleClick: handleChooseFilter('type', item.type)
+      info: product.type,
+      handleClick: handleChooseFilter('type', product.type)
     }
   ]
 
   //! HANDLE DESCRIPTION
   const [extendButton, setExtendButton] = useState(false)
   const itemDescriptionRef = createRef<HTMLDivElement>()
-  const itemDescriptionContentRef = createRef<HTMLDivElement>()
+  const productDescriptionContentRef = createRef<HTMLDivElement>()
   useLayoutEffect(() => {
-    if (itemDescriptionRef.current && itemDescriptionContentRef.current) {
-      if (itemDescriptionRef.current.clientHeight < itemDescriptionContentRef.current.scrollHeight) {
+    if (itemDescriptionRef.current && productDescriptionContentRef.current) {
+      if (itemDescriptionRef.current.clientHeight < productDescriptionContentRef.current.scrollHeight) {
         setExtendButton(true)
       } else setExtendButton(false)
     }
-  }, [itemDescriptionRef, itemDescriptionContentRef])
+  }, [itemDescriptionRef, productDescriptionContentRef])
 
   const [extending, setExtending] = useState<boolean>(false)
   const extend = () => {
@@ -148,12 +148,12 @@ export default function ProductDescription({ item }: Props) {
 
           <div className={wrapperClassname}>
             <div className={titleClassname}>{t('detail.Product line')}</div>
-            <div className={normalInfoClassname}>{item.product_line}</div>
+            <div className={normalInfoClassname}>{product.product_line}</div>
           </div>
 
           <div className={wrapperClassname}>
             <div className={titleClassname}>{t('detail.In store')}</div>
-            <div className={normalInfoClassname}>{item.quantity}</div>
+            <div className={normalInfoClassname}>{product.quantity}</div>
           </div>
         </div>
         <div className='mt-10 '>
@@ -166,9 +166,9 @@ export default function ProductDescription({ item }: Props) {
               })}
             >
               <div
-                ref={itemDescriptionContentRef}
+                ref={productDescriptionContentRef}
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(item.description, {
+                  __html: DOMPurify.sanitize(product.description, {
                     FORCE_BODY: true,
                     ALLOWED_ATTR: ['style', 'classs']
                   })

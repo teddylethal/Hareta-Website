@@ -5,45 +5,46 @@ import { Product } from 'src/types/product.type'
 import { formatCurrency } from 'src/utils/utils'
 import classNames from 'classnames'
 import useClickOutside from 'src/hooks/useClickOutside'
-import AddTocartPopover from '../../AddTocartPopover'
 import { AppContext } from 'src/contexts/app.context'
-import MobileProductImageList from './MobileProductImageList'
+import ProductMobileImageList from '../../components/ProductMobileImageList/ProductMobileImageList'
 import DialogPopup from 'src/components/DialogPopup'
-import ProductDescription from '../ProductDetailDesktop/ProductDescription'
-import OtherItemsInCollection from '../../OtherItemsInCollection'
-import OtherItemsInType from '../../OtherItemsInType'
+import ProductListForCollection from '../../components/ProductListForCollection'
+import ProductListForType from '../../components/ProductListForType'
 import { useTranslation } from 'react-i18next'
+import ProductMobileAddTocartPopover from '../../components/ProductMobileAddTocartPopover'
+import ProductDetailVariantList from '../../components/ProductDetailVariantList'
+import ProductDetailDescription from '../../components/ProductDetailDescription/ProductDetailDescription'
 
 interface Props {
-  defaultItem: Product
-  itemsInGroup: Product[]
+  defaultProduct: Product
+  productsInGroup: Product[]
   isLikedByUser: boolean
   addToCart: (itemID: string, quantity: number) => void
-  toggleLikeItem: () => void
+  toggleLikeProduct: () => void
 }
 
 export default function ProductDetailMobile(props: Props) {
-  const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
+  const { defaultProduct, isLikedByUser, productsInGroup, addToCart, toggleLikeProduct } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
-  const [activeItem, setActiveItem] = useState<Product>(defaultItem)
+  const [activeProduct, setActiveProduct] = useState<Product>(defaultProduct)
 
-  //? CHOOSE VARIANT
+  //! CHOOSE VARIANT
   const handleChooseVariant = (item: Product) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    setActiveItem(item)
+    setActiveProduct(item)
   }
 
-  //? ADD TO CART
+  //! ADD TO CART
   const { ref, visible, setVisible } = useClickOutside(false)
   const openAddToCart = () => {
     setVisible(true)
   }
 
-  const tag = defaultItem.tag
+  const tag = defaultProduct.tag
   //! Multi languages
   const { t } = useTranslation('productdetail')
 
@@ -51,16 +52,16 @@ export default function ProductDetailMobile(props: Props) {
     <Fragment>
       <div className='bg-lightBg pb-10 dark:bg-darkBg'>
         <div className=' overflow-hidden rounded-lg bg-lightColor700 dark:bg-darkColor700'>
-          <MobileProductImageList item={defaultItem} itemID={activeItem.id} />
+          <ProductMobileImageList item={defaultProduct} itemID={activeProduct.id} />
           <div className='relative flex flex-col bg-lightColor700 px-3 py-3 text-darkText dark:bg-darkColor700 dark:text-lightText'>
-            <span className='text-2xl text-haretaColor'>${formatCurrency(defaultItem.price)}</span>
+            <span className='text-2xl text-haretaColor'>${formatCurrency(defaultProduct.price)}</span>
             <div className='mt-4 flex items-center justify-between'>
-              <p className='text-2xl'>{defaultItem.name}</p>
+              <p className='text-2xl'>{defaultProduct.name}</p>
               {isAuthenticated && (
                 <button className=''>
                   <FontAwesomeIcon
                     icon={faHeart}
-                    onClick={toggleLikeItem}
+                    onClick={toggleLikeProduct}
                     className={classNames('h-6', {
                       'text-darkText/40 dark:text-lightText/40': !isLikedByUser,
                       'text-favouriteRed': isLikedByUser
@@ -70,7 +71,7 @@ export default function ProductDetailMobile(props: Props) {
               )}
             </div>
 
-            {defaultItem.tag !== 0 && (
+            {defaultProduct.tag !== 0 && (
               <div className='relative mt-2'>
                 <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
                   {tag == 1 && t('tag.top seller')}
@@ -81,49 +82,22 @@ export default function ProductDetailMobile(props: Props) {
               </div>
             )}
 
-            <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightColor900 p-4 dark:border-white/60 dark:bg-darkColor900'>
-              <div className='flex items-center justify-between'>
-                <p className='text-base font-medium tabletSmall:text-lg'>{t('sidebar.variant')}</p>
-                <p className='text-sm text-darkText/60 dark:text-lightText/60 tabletSmall:text-base '>
-                  {itemsInGroup.length} {t('sidebar.variants')}
-                </p>
-              </div>
-              <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/40 p-2 dark:border-white/40'>
-                <div className='grid w-full grid-cols-3 gap-4'>
-                  {itemsInGroup.map((item, index) => {
-                    const isActive = item.id === activeItem.id
-                    const avatarURL = item.avatar ? item.avatar.url : null
-                    return (
-                      <div
-                        key={index}
-                        className={classNames('col-span-1 rounded-xl border', {
-                          'border-haretaColor dark:border-haretaColor': isActive,
-                          'border-black/20 dark:border-white/20': !isActive
-                        })}
-                      >
-                        <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item)}>
-                          <img
-                            src={avatarURL || ''}
-                            alt={`${defaultItem.name} ${item.color}`}
-                            className='absolute left-0 top-0 h-full w-full object-scale-down'
-                          />
-                        </button>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
+            <ProductDetailVariantList
+              defaultProduct={defaultProduct}
+              productsInGroup={productsInGroup}
+              activeProductID={activeProduct.id}
+              handleChooseVariant={handleChooseVariant}
+            />
 
             <div className='mt-4 h-full text-sm desktop:text-lg'>
-              <ProductDescription item={defaultItem} />
+              <ProductDetailDescription product={defaultProduct} />
             </div>
           </div>
         </div>
 
         <div className='mt-8 space-y-6 rounded-lg tabletSmall:space-y-8'>
-          <OtherItemsInCollection collectionName={defaultItem.collection} />
-          <OtherItemsInType type={defaultItem.type} />
+          <ProductListForCollection collectionName={defaultProduct.collection} />
+          <ProductListForType type={defaultProduct.type} />
         </div>
 
         <div className='fixed bottom-0 left-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base text-darkText dark:bg-black dark:text-lightText tabletSmall:h-12'>
@@ -141,11 +115,11 @@ export default function ProductDetailMobile(props: Props) {
         </div>
       </div>
       {visible && (
-        <AddTocartPopover
-          item={defaultItem}
-          activeItem={activeItem}
-          setActiveItem={setActiveItem}
-          itemsInGroup={itemsInGroup}
+        <ProductMobileAddTocartPopover
+          item={defaultProduct}
+          activeProduct={activeProduct}
+          setActiveProduct={setActiveProduct}
+          productsInGroup={productsInGroup}
           elementRef={ref}
           visible={visible}
           setVisible={setVisible}
@@ -170,8 +144,9 @@ export default function ProductDetailMobile(props: Props) {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Added successfully')}</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to cart')}</p>
       </DialogPopup>
+
       <DialogPopup
         isOpen={errorDialog}
         handleClose={() => setErrorDialog(false)}

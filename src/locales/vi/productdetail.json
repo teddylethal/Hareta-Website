@@ -22,7 +22,8 @@
     "login": "đăng nhập",
     "save": "lưu lại",
     "Continue": "Thêm sản phẩm",
-    "Added successfully": "Sản phẩm đã được thêm vào giỏ hàng",
+    "Product was added to cart": "Sản phẩm đã được thêm vào giỏ hàng",
+    "Product was added to wish list": "Sản phẩm đã được thêm vào danh sách yêu thích",
     "The quantity of the current item you are trying to add exceed our store": "Số lượng mà bạn muốn thêm vào giỏ hàng vượt quá số lượng hiện có của sản phẩm trong cửa hàng"
   },
   "tag": {

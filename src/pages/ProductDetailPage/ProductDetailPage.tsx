@@ -6,18 +6,12 @@ import { useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import { ProductImage } from 'src/types/productImage.type'
 import { getIdFromNameId } from 'src/utils/utils'
-import OtherItemsInCollection from './OtherItemsInCollection'
 import purchaseApi from 'src/apis/cart.api'
 import { useViewport } from 'src/hooks/useViewport'
 import classNames from 'classnames'
-import OtherItemsInType from './OtherItemsInType'
-import likeItemAPi from 'src/apis/userLikeItem.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { AppContext } from 'src/contexts/app.context'
-import ProductDetailLoading from './components/ProductDetailLoading'
-import ProductDetailSkeleton from './components/ProductDetailSkeleton/ProductDetailSkeleton'
-import ProductDetailDesktop from './components/ProductDetailDesktop'
-import ProductDetailMobile from './components/ProductDetailMobile'
+
 import { ProductsInGroupConfig } from 'src/types/product.type'
 import { AxiosError } from 'axios'
 import { ErrorRespone } from 'src/types/utils.type'
@@ -26,12 +20,19 @@ import { StoreContext } from 'src/contexts/store.context'
 import { useTranslation } from 'react-i18next'
 import PathBar, { PathElement } from 'src/components/PathBar/PathBar'
 import mainPath from 'src/constants/path'
+import ProductListForCollection from './components/ProductListForCollection'
+import ProductListForType from './components/ProductListForType'
+import ProductDetailSkeleton from './children/ProductDetailSkeleton/ProductDetailSkeleton'
+import ProductDetailDesktop from './children/ProductDetailDesktop'
+import ProductDetailMobile from './children/ProductDetailMobile'
+import ProductDetailLoading from './children/ProductDetailLoading'
+import userLikeProductApi from 'src/apis/userLikeProduct.api'
 
 export interface ProductImageWithIndex extends ProductImage {
   index: number
 }
 
-export default function ProductDetail() {
+export default function ProductDetailPage() {
   const { isAuthenticated, theme } = useContext(AppContext)
   const { setWishlistIDs, wishlistIDs } = useContext(StoreContext)
 
@@ -40,39 +41,39 @@ export default function ProductDetail() {
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
-  const [likeItemDialog, setLikeItemDialog] = useState<boolean>(false)
+  const [likeProductDialog, setLikeProductDialog] = useState<boolean>(false)
   const [isLikedByUser, setIsLikedByUser] = useState<boolean>(false)
 
   const queryClient = useQueryClient()
   const { nameId } = useParams()
 
-  //! GET ITEM DATA
+  //! GET product DATA
   const id = getIdFromNameId(nameId as string)
   const { data: productDetailData, isFetching } = useQuery({
     queryKey: ['product_detail', id],
     queryFn: () => productApi.getProductDetail(id as string)
   })
-  const defaltItem = productDetailData?.data.data
+  const defaultProduct = productDetailData?.data.data
 
   //! Get product list in group
   const productsInGroupQuery: ProductsInGroupConfig = {
-    id: defaltItem?.group.id as string,
+    id: defaultProduct?.group.id as string,
     page: '1',
     limit: '50'
   }
-  const { data: itemsInGroupData } = useQuery({
+  const { data: productsInGroupData } = useQuery({
     queryKey: ['product_list_in_group', productsInGroupQuery],
     queryFn: () => productApi.getProductsInGroup(productsInGroupQuery),
 
-    enabled: Boolean(defaltItem)
+    enabled: Boolean(defaultProduct)
   })
-  const itemsInGroup = itemsInGroupData?.data.data || []
+  const productsInGroup = productsInGroupData?.data.data || []
 
   //! GET WISHLIST
   const { data: wishlistData } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
-      return likeItemAPi.getWishList()
+      return userLikeProductApi.getWishList()
     },
     staleTime: 3 * 60 * 1000,
     enabled: isAuthenticated
@@ -81,7 +82,7 @@ export default function ProductDetail() {
   useEffect(() => {
     const wishlist = wishlistData?.data.data
     if (wishlist) {
-      setWishlistIDs(wishlist.map((item) => item.id))
+      setWishlistIDs(wishlist.map((product) => product.id))
     }
   }, [setWishlistIDs, wishlistData])
 
@@ -91,9 +92,9 @@ export default function ProductDetail() {
 
   //! HANDLE ADD TO CART
   const addToCartMutation = useMutation({ mutationFn: purchaseApi.addToCart })
-  const addToCart = (itemID: string, quantity: number) => {
+  const addToCart = (productID: string, quantity: number) => {
     addToCartMutation.mutate(
-      { item_id: itemID, quantity: quantity },
+      { item_id: productID, quantity: quantity },
       {
         onSuccess: () => {
           showDialog()
@@ -112,30 +113,30 @@ export default function ProductDetail() {
     )
   }
 
-  //! LIKE ITEM
-  const likeItemMutation = useMutation({ mutationFn: likeItemAPi.likeItem })
-  const likeItem = () => {
+  //! LIKE product
+  const likeproductMutation = useMutation({ mutationFn: userLikeProductApi.likeProduct })
+  const likeproduct = () => {
     setIsLikedByUser(true)
-    likeItemMutation.mutate(
-      { group_id: defaltItem?.group.id as string },
+    likeproductMutation.mutate(
+      { group_id: defaultProduct?.group.id as string },
       {
         onSuccess: () => {
           const newWishlistIDs = [...wishlistIDs, id]
           setWishlistIDs(newWishlistIDs)
-          setLikeItemDialog(true)
+          setLikeProductDialog(true)
           setTimeout(() => {
-            setLikeItemDialog(false)
+            setLikeProductDialog(false)
           }, 3000)
         }
       }
     )
   }
 
-  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
-  const unlikeItem = () => {
+  const unlikeProductMutation = useMutation({ mutationFn: userLikeProductApi.unlikeProduct })
+  const unlikeProduct = () => {
     setIsLikedByUser(false)
-    unlikeItemMutation.mutate(
-      { group_id: defaltItem?.group.id as string },
+    unlikeProductMutation.mutate(
+      { group_id: defaultProduct?.group.id as string },
       {
         onSuccess: () => {
           const IDindex = wishlistIDs.indexOf(id)
@@ -149,9 +150,9 @@ export default function ProductDetail() {
     )
   }
 
-  const toggleLikeItem = () => {
-    isLikedByUser && unlikeItem()
-    !isLikedByUser && likeItem()
+  const toggleLikeProduct = () => {
+    isLikedByUser && unlikeProduct()
+    !isLikedByUser && likeproduct()
   }
 
   const showDialog = () => {
@@ -167,13 +168,13 @@ export default function ProductDetail() {
 
   //! CHANGE TITLE
   useEffect(() => {
-    document.title = `${defaltItem?.name} | Hareta Workshop`
+    document.title = `${defaultProduct?.name} | Hareta Workshop`
   })
 
   //! translation
   const { t } = useTranslation('productdetail')
 
-  if (!defaltItem) return <ProductDetailLoading />
+  if (!defaultProduct) return <ProductDetailLoading />
 
   //! PATH BAR
   const pathList: PathElement[] = [
@@ -183,7 +184,7 @@ export default function ProductDetail() {
       isNotALink: false
     },
     {
-      pathName: defaltItem.name,
+      pathName: defaultProduct.name,
       url: '',
       isNotALink: true
     }
@@ -198,16 +199,16 @@ export default function ProductDetail() {
             {isFetching && <ProductDetailSkeleton />}
             {!isFetching && (
               <ProductDetailDesktop
-                defaultItem={defaltItem}
+                defaultProduct={defaultProduct}
                 isLikedByUser={isLikedByUser}
-                itemsInGroup={itemsInGroup}
+                productsInGroup={productsInGroup}
                 addToCart={addToCart}
-                toggleLikeItem={toggleLikeItem}
+                toggleLikeProduct={toggleLikeProduct}
               />
             )}
             <div className='my-20 space-y-20'>
-              <OtherItemsInCollection collectionName={defaltItem.collection} />
-              <OtherItemsInType type={defaltItem.type} />
+              <ProductListForCollection collectionName={defaultProduct.collection} />
+              <ProductListForType type={defaultProduct.type} />
             </div>
           </Fragment>
         )}
@@ -216,11 +217,11 @@ export default function ProductDetail() {
             {isFetching && <ProductDetailSkeleton />}
             {!isFetching && (
               <ProductDetailMobile
-                itemsInGroup={itemsInGroup}
-                defaultItem={defaltItem}
+                productsInGroup={productsInGroup}
+                defaultProduct={defaultProduct}
                 isLikedByUser={isLikedByUser}
                 addToCart={addToCart}
-                toggleLikeItem={toggleLikeItem}
+                toggleLikeProduct={toggleLikeProduct}
               />
             )}
           </Fragment>
@@ -242,12 +243,12 @@ export default function ProductDetail() {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to cart')}</p>
       </DialogPopup>
 
       <DialogPopup
-        isOpen={likeItemDialog}
-        handleClose={() => setLikeItemDialog(false)}
+        isOpen={likeProductDialog}
+        handleClose={() => setLikeProductDialog(false)}
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
         <div className=' text-center'>
@@ -260,7 +261,7 @@ export default function ProductDetail() {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to your Wishlist</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to wish list')}</p>
       </DialogPopup>
 
       <DialogPopup
@@ -275,7 +276,7 @@ export default function ProductDetail() {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>
-          The quantity of the current item you are trying to add exceed our store
+          {t('message.The quantity of the current item you are trying to add exceed our store')}
         </p>
       </DialogPopup>
     </div>

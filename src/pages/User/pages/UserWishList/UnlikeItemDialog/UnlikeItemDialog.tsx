@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import React, { Fragment, useContext, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import likeItemAPi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeItem.api'
 import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
@@ -25,7 +25,7 @@ export default function UnlikeItemDialog({
 }: Props) {
   const { theme } = useContext(AppContext)
   const queryClient = useQueryClient()
-  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
+  const unlikeItemMutation = useMutation({ mutationFn: userLikeProductApi.unlikeProduct })
   const unlikeItem = () => {
     unlikeItemMutation.mutate(
       { group_id: unlikeItemId as string },

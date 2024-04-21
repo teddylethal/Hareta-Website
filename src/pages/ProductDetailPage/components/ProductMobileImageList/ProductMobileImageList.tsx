@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import producImageApi from 'src/apis/productImage.api'
 import { Product } from 'src/types/product.type'
-import { ProductImageWithIndex } from '../../ProductDetail'
+import { ProductImageWithIndex } from '../../ProductDetailPage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,14 +11,13 @@ interface Props {
   item: Product
 }
 
-export default function MobileProductImageList(props: Props) {
+export default function ProductMobileImageList(props: Props) {
   const { itemID, item } = props
 
   //? GET IMAGE LIST
   const { data: productImages } = useQuery({
-    queryKey: ['item_images', itemID],
-    queryFn: () => producImageApi.getImageList(itemID as string),
-    keepPreviousData: true
+    queryKey: ['product_images', itemID],
+    queryFn: () => producImageApi.getImageList(itemID as string)
   })
 
   //? HANDLE IMAGE LIST

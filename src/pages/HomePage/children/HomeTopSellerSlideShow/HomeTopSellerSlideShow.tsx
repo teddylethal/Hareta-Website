@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
-import likeItemAPi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeItem.api'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
@@ -48,7 +48,7 @@ export default function HomeTopSellerSlideShow() {
   const { data: wishlistData, isLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
-      return likeItemAPi.getWishList()
+      return userLikeProductApi.getWishList()
     },
     enabled: isAuthenticated
   })

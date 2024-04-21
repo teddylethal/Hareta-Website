@@ -26,7 +26,7 @@ export default function HomeNewProductCard({ product, dragging }: Props) {
   //? GET IMAGE LIST
   const itemID = product.id
   const { data: imageListData, isFetching } = useQuery({
-    queryKey: ['default_item_images', itemID],
+    queryKey: ['default_product_images', itemID],
     queryFn: () => producImageApi.getImageList(itemID as string),
 
     staleTime: 1000 * 60 * 3

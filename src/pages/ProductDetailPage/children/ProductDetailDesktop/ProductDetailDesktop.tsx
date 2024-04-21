@@ -5,8 +5,7 @@ import QuantityController from 'src/components/QuantityController'
 import { formatCurrency, showSuccessDialog } from 'src/utils/utils'
 import { AppContext } from 'src/contexts/app.context'
 import classNames from 'classnames'
-import ProductImageList from './ProductImageList'
-import ProductDescription from './ProductDescription'
+import ProductDescription from '../../components/ProductDetailDescription/ProductDetailDescription'
 import { TemporaryPurchase } from 'src/types/cart.type'
 import { CartContext } from 'src/contexts/cart.context'
 import { Product } from 'src/types/product.type'
@@ -15,55 +14,55 @@ import path from 'src/constants/path'
 
 import DialogPopup from 'src/components/DialogPopup'
 import { useTranslation } from 'react-i18next'
+import ProductDetailImageList from '../../components/ProductDetailImageList'
+import ProductDetailVariantList from '../../components/ProductDetailVariantList'
 
 interface Props {
-  defaultItem: Product
-  itemsInGroup: Product[]
+  defaultProduct: Product
+  productsInGroup: Product[]
   isLikedByUser: boolean
   addToCart: (itemID: string, quantity: number) => void
-  toggleLikeItem: () => void
+  toggleLikeProduct: () => void
 }
 
 export default function ProductDetailDesktop(props: Props) {
-  const { defaultItem, isLikedByUser, itemsInGroup, addToCart, toggleLikeItem } = props
+  const { defaultProduct, isLikedByUser, productsInGroup, addToCart, toggleLikeProduct } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchases, settempExtendedPurchases } = useContext(CartContext)
+  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
+  const [activeProduct, setActiveProduct] = useState<Product>(defaultProduct)
 
   const [createTempCart, setCreateTempCart] = useState<boolean>(false)
 
-  //? CHOOSE VARIANT
-  const [activeItemID, setActiveItemID] = useState<string>(defaultItem.id)
-  const [activeItem, setActiveItem] = useState<Product>(defaultItem)
+  //! CHOOSE VARIANT
   const handleChooseVariant = (item: Product) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setQuantity(1)
-    setActiveItemID(item.id)
-    setActiveItem(item)
+    setActiveProduct(item)
   }
 
-  //? ADD TO CART
+  //! ADD TO CART
   const [quantity, setQuantity] = useState<number>(1)
   const handleQuantity = (value: number) => {
     setQuantity(value)
   }
 
   const handleAddToCart = () => {
-    addToCart(activeItemID, quantity)
+    addToCart(activeProduct.id, quantity)
     setQuantity(1)
   }
 
-  //? ADD TO TEMPORARY CART
+  //! ADD TO TEMPORARY CART
   const createTemporaryCart = () => {
     const newPurchase: TemporaryPurchase = {
       id: Date.now().toString(),
       quantity: quantity,
-      item: activeItem
+      item: activeProduct
     }
-    settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
+    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
     setCreateTempCart(false)
     setQuantity(1)
     showSuccessDialog(setDialogIsOpen)
@@ -73,35 +72,35 @@ export default function ProductDetailDesktop(props: Props) {
     const newPurchase: TemporaryPurchase = {
       id: Date.now().toString(),
       quantity: quantity,
-      item: activeItem
+      item: activeProduct
     }
-    const purchaseIndex = tempExtendedPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const purchase = tempExtendedPurchases[purchaseIndex]
+      const purchase = tempExtendedPurchase[purchaseIndex]
       const maxQuanityInStore = purchase.item.quantity
       const currentQuantityInCart = purchase.quantity
       if (currentQuantityInCart + quantity <= maxQuanityInStore) {
         const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = tempExtendedPurchases.map((purchase, index) => {
+        const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
           if (index === purchaseIndex) {
             return { ...purchase, quantity: newQuantity }
           } else return purchase
         })
-        settempExtendedPurchases(newPurchasesList)
+        setTempExtendedPurchase(newPurchasesList)
         setQuantity(1)
       } else {
         setErrorDialog(true)
         setQuantity(1)
       }
     } else {
-      settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
+      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
     }
     showSuccessDialog(setDialogIsOpen)
   }
-  const tag = defaultItem.tag
+  const tag = defaultProduct.tag
 
-  //? CHECK IN STOCK
-  const inStock = activeItem.quantity > 0
+  //! CHECK IN STOCK
+  const inStock = activeProduct.quantity > 0
 
   //! Multi languages
   const { t } = useTranslation('productdetail')
@@ -112,10 +111,10 @@ export default function ProductDetailDesktop(props: Props) {
         <div className='sticky left-0 top-14 flex-col rounded-xl bg-lightColor700 p-2 text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-20 desktop:p-4 desktopLarge:p-6'>
           <div className='relative flex items-center justify-between'>
             <p className='line-clamp-2 text-xl font-semibold desktop:text-2xl desktopLarge:text-3xl'>
-              {defaultItem.name}
+              {defaultProduct.name}
             </p>
             {isAuthenticated && (
-              <button onClick={toggleLikeItem} className=''>
+              <button onClick={toggleLikeProduct} className=''>
                 <FontAwesomeIcon
                   className={classNames('h-auto w-5 hover:text-favouriteRed desktop:w-6 desktopLarge:w-7', {
                     'text-favouriteRed': isLikedByUser,
@@ -126,7 +125,7 @@ export default function ProductDetailDesktop(props: Props) {
               </button>
             )}
           </div>
-          {defaultItem.tag !== 0 && (
+          {defaultProduct.tag !== 0 && (
             <div className='relative mt-2'>
               <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
                 {tag == 1 && t('tag.top seller')}
@@ -138,44 +137,16 @@ export default function ProductDetailDesktop(props: Props) {
           )}
           <div className='mt-2'>
             <span className='text-base font-medium text-haretaColor desktop:text-lg desktopLarge:text-xl'>
-              ${formatCurrency(defaultItem.price)}
+              ${formatCurrency(defaultProduct.price)}
             </span>
           </div>
 
-          <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightColor900 p-2 dark:border-white/60 dark:bg-darkColor900'>
-            <div className='flex items-center justify-between'>
-              <p className='text-base font-medium desktop:text-lg desktopLarge:text-xl'>{t('sidebar.variant')}</p>
-              <p className='text-sm text-darkText/60 dark:text-lightText/60 desktop:text-base '>
-                {itemsInGroup.length} {t('sidebar.variants')}
-              </p>
-            </div>
-            <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/40 p-2 dark:border-white/40'>
-              <div className='grid w-full grid-cols-3 gap-4'>
-                {itemsInGroup.map((item, index) => {
-                  const isActive = item.id === activeItemID
-                  const avatarURL = item.avatar ? item.avatar.url : null
-                  return (
-                    <div
-                      key={index}
-                      className={classNames('col-span-1 rounded-xl border', {
-                        ' border-haretaColor dark:border-haretaColor': isActive,
-                        ' border-black/20 dark:border-white/20': !isActive
-                      })}
-                    >
-                      <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item)}>
-                        <img
-                          src={avatarURL || ''}
-                          alt={`${defaultItem.name} ${item.color}`}
-                          className='absolute left-0 top-0 h-full w-full object-scale-down'
-                        />
-                        {/* {isActive && <div className='absolute inset-0 border-2 border-haretaColor' />} */}
-                      </button>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
+          <ProductDetailVariantList
+            defaultProduct={defaultProduct}
+            productsInGroup={productsInGroup}
+            activeProductID={activeProduct.id}
+            handleChooseVariant={handleChooseVariant}
+          />
 
           {inStock && (
             <div className='w-full'>
@@ -185,16 +156,16 @@ export default function ProductDetailDesktop(props: Props) {
                   <QuantityController
                     classNameWrapper=''
                     value={quantity}
-                    max={defaultItem.quantity}
+                    max={defaultProduct.quantity}
                     onDecrease={handleQuantity}
                     onIncrease={handleQuantity}
                     onType={handleQuantity}
                   />
                 </div>
                 <p className='items-center space-x-1 text-xs text-darkText/60 dark:text-lightText/60 desktop:text-sm'>
-                  {defaultItem.quantity <= 10 && <span>{t('sidebar.only')}</span>}
+                  {defaultProduct.quantity <= 10 && <span>{t('sidebar.only')}</span>}
                   <span>
-                    {defaultItem.quantity} {t('sidebar.available')}
+                    {defaultProduct.quantity} {t('sidebar.available')}
                   </span>
                 </p>
               </div>
@@ -205,7 +176,7 @@ export default function ProductDetailDesktop(props: Props) {
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
-                      : tempExtendedPurchases.length === 0
+                      : tempExtendedPurchase.length === 0
                       ? () => {
                           setCreateTempCart(true)
                         }
@@ -229,10 +200,10 @@ export default function ProductDetailDesktop(props: Props) {
       </div>
       <div className='col-span-8'>
         <div className='h-full w-full'>
-          <ProductImageList item={defaultItem} itemID={activeItemID} />
+          <ProductDetailImageList product={defaultProduct} productID={activeProduct.id} />
 
           <div className='mt-12'>
-            <ProductDescription item={defaultItem} />
+            <ProductDescription product={defaultProduct} />
           </div>
         </div>
       </div>
@@ -294,7 +265,7 @@ export default function ProductDetailDesktop(props: Props) {
             })}
           />
         </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Added successfully')}</p>
+        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to cart')}</p>
       </DialogPopup>
 
       {/* //? ERROR DIALOG */}

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import producImageApi from 'src/apis/productImage.api'
 import { Product } from 'src/types/product.type'
-import { ProductImageWithIndex } from '../../ProductDetail'
+import { ProductImageWithIndex } from '../../ProductDetailPage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBan,
@@ -16,12 +16,12 @@ import { ColorRing } from 'react-loader-spinner'
 import { Skeleton } from '@mui/material'
 
 interface Props {
-  itemID: string
-  item: Product
+  productID: string
+  product: Product
 }
 
-export default function ProductImageList(props: Props) {
-  const { itemID, item } = props
+export default function ProductDetailImageList(props: Props) {
+  const { productID, product } = props
 
   //? GET IMAGE LIST
   const {
@@ -29,9 +29,8 @@ export default function ProductImageList(props: Props) {
     isLoading,
     isFetching
   } = useQuery({
-    queryKey: ['item_images', itemID],
-    queryFn: () => producImageApi.getImageList(itemID as string),
-    keepPreviousData: true
+    queryKey: ['product_images', productID],
+    queryFn: () => producImageApi.getImageList(productID as string)
   })
 
   //? HANDLE IMAGE LIST
@@ -143,7 +142,7 @@ export default function ProductImageList(props: Props) {
           >
             <img
               src={activeImage.image.url}
-              alt={item.name}
+              alt={product.name}
               className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
               ref={imageRef}
             />
@@ -204,7 +203,7 @@ export default function ProductImageList(props: Props) {
                 >
                   <img
                     src={image.image ? image.image.url : ''}
-                    alt={item.name}
+                    alt={product.name}
                     className='absolute left-0 top-0 h-full w-full object-scale-down'
                   />
                   {isActive && <div className='absolute inset-0 rounded-lg border-2 border-haretaColor' />}

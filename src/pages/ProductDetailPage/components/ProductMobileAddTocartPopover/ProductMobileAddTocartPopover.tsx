@@ -21,9 +21,9 @@ import { Product } from 'src/types/product.type'
 
 interface Props {
   item: Product
-  activeItem: Product
-  setActiveItem: React.Dispatch<React.SetStateAction<Product>>
-  itemsInGroup: Product[]
+  activeProduct: Product
+  setActiveProduct: React.Dispatch<React.SetStateAction<Product>>
+  productsInGroup: Product[]
   elementRef: React.RefObject<HTMLDivElement>
   visible: boolean
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
@@ -32,25 +32,25 @@ interface Props {
   setErrorDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function AddTocartPopover({
-  activeItem,
-  itemsInGroup,
+export default function ProductMobileAddTocartPopover({
+  activeProduct,
+  productsInGroup,
   setVisible,
   elementRef,
   handleAddToCart,
-  setActiveItem,
+  setActiveProduct,
   setDialogIsOpen,
   setErrorDialog
 }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchases, settempExtendedPurchases } = useContext(CartContext)
-  const [activeItemID, setActiveItemID] = useState<string>(activeItem.id)
+  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
+  const [activeProductID, setActiveProductID] = useState<string>(activeProduct.id)
   const { visible: createTempCart, ref: createDialogRef, setVisible: setCreateTempCart } = useClickOutside(false)
 
   //? GET ITEM DATA
   const { data: productDetailData, isLoading } = useQuery({
-    queryKey: ['previewing_item', activeItemID],
-    queryFn: () => productApi.getProductDetail(activeItemID),
+    queryKey: ['previewing_item', activeProductID],
+    queryFn: () => productApi.getProductDetail(activeProductID),
 
     staleTime: 3 * 60 * 1000
   })
@@ -60,8 +60,8 @@ export default function AddTocartPopover({
   const handleChooseVariant = (item: Product) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setQuantity(1)
-    setActiveItemID(item.id)
-    setActiveItem(item)
+    setActiveProductID(item.id)
+    setActiveProduct(item)
   }
 
   //? ADD TO CART
@@ -71,7 +71,7 @@ export default function AddTocartPopover({
   }
 
   const addToCart = () => {
-    handleAddToCart(activeItemID, quantity)
+    handleAddToCart(activeProductID, quantity)
     setVisible(false)
   }
 
@@ -86,9 +86,9 @@ export default function AddTocartPopover({
     const newPurchase: TemporaryPurchase = {
       id: Date.now().toString(),
       quantity: 1,
-      item: activeItem
+      item: activeProduct
     }
-    settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
+    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
     setCreateTempCart(false)
     setVisible(false)
     setQuantity(1)
@@ -99,28 +99,28 @@ export default function AddTocartPopover({
     const newPurchase: TemporaryPurchase = {
       id: Date.now().toString(),
       quantity: quantity,
-      item: activeItem
+      item: activeProduct
     }
-    const purchaseIndex = tempExtendedPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const purchase = tempExtendedPurchases[purchaseIndex]
+      const purchase = tempExtendedPurchase[purchaseIndex]
       const maxQuanityInStore = purchase.item.quantity
       const currentQuantityInCart = purchase.quantity
       if (currentQuantityInCart + quantity <= maxQuanityInStore) {
         const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = tempExtendedPurchases.map((purchase, index) => {
+        const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
           if (index === purchaseIndex) {
             return { ...purchase, quantity: newQuantity }
           } else return purchase
         })
-        settempExtendedPurchases(newPurchasesList)
+        setTempExtendedPurchase(newPurchasesList)
         setQuantity(1)
       } else {
         setErrorDialog(true)
         setQuantity(1)
       }
     } else {
-      settempExtendedPurchases([...tempExtendedPurchases, newPurchase])
+      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
     }
     setVisible(false)
     showSuccessDialog(setDialogIsOpen)
@@ -195,8 +195,8 @@ export default function AddTocartPopover({
           <div className='mt-4 w-full rounded-lg border border-black/20 p-4 dark:border-white/20'>
             <div className='max-h-40 w-full overflow-auto py-2'>
               <div className='grid w-full grid-cols-3 gap-4'>
-                {itemsInGroup.map((item, index) => {
-                  const isActive = item.id === activeItemID
+                {productsInGroup.map((item, index) => {
+                  const isActive = item.id === activeProductID
                   const avatarURL = item.avatar ? item.avatar.url : null
                   return (
                     <div
@@ -225,7 +225,7 @@ export default function AddTocartPopover({
               onClick={
                 isAuthenticated
                   ? addToCart
-                  : tempExtendedPurchases.length === 0
+                  : tempExtendedPurchase.length === 0
                   ? () => {
                       setCreateTempCart(true)
                     }

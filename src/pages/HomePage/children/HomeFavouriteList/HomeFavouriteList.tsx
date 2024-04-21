@@ -5,7 +5,7 @@ import { useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
-import likeItemAPi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeItem.api'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
@@ -28,7 +28,7 @@ export default function HomeFavouriteList() {
   const { data: wishlistData, isInitialLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
-      return likeItemAPi.getWishList()
+      return userLikeProductApi.getWishList()
     },
     enabled: isAuthenticated
   })

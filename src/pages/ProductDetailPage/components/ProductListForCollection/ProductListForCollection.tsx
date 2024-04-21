@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
-import Product from 'src/components/ProductCard'
+import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,12 +8,13 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import ProductSekeleton from 'src/components/ProductSkeleton'
+import ProductCard from 'src/components/ProductCard'
 
 interface Props {
   collectionName: string
 }
 
-export default function OtherItemsInCollection({ collectionName }: Props) {
+export default function ProductListForCollection({ collectionName }: Props) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -35,8 +35,8 @@ export default function OtherItemsInCollection({ collectionName }: Props) {
     }
   }
 
-  //? GET ITEMS IN COLLECTION
-  const inCollectionQueryConfig: QueryConfig = { collection: collectionName, page: '1', limit: '12' }
+  //! Get product list in collection
+  const inCollectionQueryConfig: ProductListQueryConfig = { collection: collectionName, page: '1', limit: '12' }
   const { data: productsData, isLoading } = useQuery({
     queryKey: ['products_in_collection', inCollectionQueryConfig],
     queryFn: () => {

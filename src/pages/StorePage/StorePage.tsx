@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { useViewport } from 'src/hooks/useViewport'
 import { ProductListConfig } from 'src/types/product.type'
-import likeItemAPi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeItem.api'
 import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import PathBar from 'src/components/PathBar'
@@ -38,7 +38,7 @@ export default function StorePage() {
   const { data: wishlistData, isLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
-      return likeItemAPi.getWishList()
+      return userLikeProductApi.getWishList()
     },
     enabled: isAuthenticated
   })

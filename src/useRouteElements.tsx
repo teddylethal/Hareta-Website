@@ -9,7 +9,7 @@ import MainLayout from './layouts/MainLayout'
 
 //! IMPORT PAGES
 import HomePage from './pages/HomePage'
-import ProductDetail from './pages/ProductDetail'
+import ProductDetail from './pages/ProductDetailPage'
 import LoadingWithEmptyContent from './components/LoadingWithEmptyContent'
 import AdminRoute from './routes/adminRoute'
 import UserRoute from './routes/userRoute'

@@ -12,7 +12,7 @@ import { AppContext } from 'src/contexts/app.context'
 import producImageApi from 'src/apis/productImage.api'
 import ProductImageSlideShow from 'src/components/ProductImageSlideShow'
 import { ProductImage } from 'src/types/productImage.type'
-import likeItemAPi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeItem.api'
 import { StoreContext } from 'src/contexts/store.context'
 import ProductTag from 'src/components/ProductTag'
 
@@ -49,7 +49,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
   //! GET IMAGE LIST
   const itemID = product.id
   const { data: imageListData, isLoading } = useQuery({
-    queryKey: ['default_item_images', itemID],
+    queryKey: ['default_product_images', itemID],
     queryFn: () => producImageApi.getImageList(itemID as string),
 
     staleTime: 1000 * 60 * 3
@@ -107,8 +107,8 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
     !isLikedByUser && likeItem()
   }
 
-  const unlikeItemMutation = useMutation({ mutationFn: likeItemAPi.unlikeItem })
-  const likeItemMutation = useMutation({ mutationFn: likeItemAPi.likeItem })
+  const unlikeItemMutation = useMutation({ mutationFn: userLikeProductApi.unlikeProduct })
+  const likeItemMutation = useMutation({ mutationFn: userLikeProductApi.likeItem })
   useEffect(() => {
     const updateLikeItem = setTimeout(() => {
       if (isLikedByUser && initialInWishlist === false) {

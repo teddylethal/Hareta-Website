@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
-import Product from 'src/components/ProductCard'
+import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
+import ProductCard from 'src/components/ProductCard'
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +14,7 @@ interface Props {
   type: string
 }
 
-export default function OtherItemsInType({ type }: Props) {
+export default function ProductListForType({ type }: Props) {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -34,7 +34,7 @@ export default function OtherItemsInType({ type }: Props) {
       items: 2
     }
   }
-  const inTypeQueryConfig: QueryConfig = { type: type, page: '1', limit: '12' }
+  const inTypeQueryConfig: ProductListQueryConfig = { type: type, page: '1', limit: '12' }
   const { data: productsData, isLoading } = useQuery({
     queryKey: ['products_in_type', inTypeQueryConfig],
     queryFn: () => {

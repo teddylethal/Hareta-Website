@@ -19,7 +19,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import WishlistItem from '../../components/WishlistItem'
 import WishlistItemMobile from '../../components/WishlistItemMobile'
 import { useTranslation } from 'react-i18next'
-import likeItemAPi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeItem.api'
 
 export interface Attribute {
   name: string
@@ -42,7 +42,7 @@ export default function UserWishList() {
   const { data: favouriteListData } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
-      return likeItemAPi.getWishList()
+      return userLikeProductApi.getWishList()
     },
     enabled: isAuthenticated
   })

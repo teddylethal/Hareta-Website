@@ -26,7 +26,7 @@ export default function OrderLayout() {
   const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
     useContext(OrderContext)
   const { isAuthenticated } = useContext(AppContext)
-  const { tempExtendedPurchases, settempExtendedPurchases, setUnavailablePurchaseIds } = useContext(CartContext)
+  const { tempExtendedPurchase, setTempExtendedPurchase, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [successDialog, setSuccesDialog] = useState(false)
   const [processingDialog, setProcessingDialog] = useState<boolean>(false)
@@ -160,7 +160,7 @@ export default function OrderLayout() {
   const guestConfirm = () => {
     const orderIdList = tempOrderList.map((tempOrderItem) => tempOrderItem.id)
     setSuccesDialog(false)
-    settempExtendedPurchases(tempExtendedPurchases.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
+    setTempExtendedPurchase(tempExtendedPurchase.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
     setTempOrderList([])
     setTempOrderListToLS([])
     navigate(path.cart)

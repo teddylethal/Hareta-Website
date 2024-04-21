@@ -6,10 +6,10 @@ const URL = 'item'
 
 const productApi = {
   getProductList(params: ProductListConfig) {
-    return http.get<StorePage>(`${URL}/list`, { params })
+    return http.get<ProductList>(`${URL}/list`, { params })
   },
   getProductsInGroup(params: ProductsInGroupConfig) {
-    return http.get<StorePage>(`${URL}/group`, { params })
+    return http.get<ProductList>(`${URL}/group`, { params })
   },
   getProductDetail(id: string) {
     return http.get<ProductRespone>(`${URL}/${id}`)
