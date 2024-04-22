@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-export default function UseOfInformation() {
+export default function PrivacyUseOfInformation() {
   //! Multi languages
   const { t } = useTranslation('privacyAndTerms')
   return (

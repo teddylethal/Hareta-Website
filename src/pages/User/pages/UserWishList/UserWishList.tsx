@@ -19,7 +19,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import WishlistItem from '../../components/WishlistItem'
 import WishlistItemMobile from '../../components/WishlistItemMobile'
 import { useTranslation } from 'react-i18next'
-import userLikeProductApi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeProduct.api'
 
 export interface Attribute {
   name: string

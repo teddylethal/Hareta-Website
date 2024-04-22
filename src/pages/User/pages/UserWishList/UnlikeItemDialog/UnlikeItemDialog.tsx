@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import React, { Fragment, useContext, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import userLikeProductApi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeProduct.api'
 import { AppContext } from 'src/contexts/app.context'
 
 interface Props {

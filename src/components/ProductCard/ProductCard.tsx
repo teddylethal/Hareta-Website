@@ -12,7 +12,7 @@ import { AppContext } from 'src/contexts/app.context'
 import producImageApi from 'src/apis/productImage.api'
 import ProductImageSlideShow from 'src/components/ProductImageSlideShow'
 import { ProductImage } from 'src/types/productImage.type'
-import userLikeProductApi from 'src/apis/userLikeItem.api'
+import userLikeProductApi from 'src/apis/userLikeProduct.api'
 import { StoreContext } from 'src/contexts/store.context'
 import ProductTag from 'src/components/ProductTag'
 

@@ -1,22 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useViewport } from 'src/hooks/useViewport'
-import ProductInformation from '../../components/PrivacyAndTermsComponents/ProductInformation'
-import OrderingAndPayments from '../../components/PrivacyAndTermsComponents/OrderingAndPayments'
-import ShippingAndDelivery from '../../components/PrivacyAndTermsComponents/ShippingAndDelivery'
-import ReturnsAndRefunds from '../../components/PrivacyAndTermsComponents/ReturnsAndRefunds'
-import ProductWarranty from '../../components/PrivacyAndTermsComponents/ProductWarranty'
-import IntellectualProperty from '../../components/PrivacyAndTermsComponents/IntellectualProperty'
-import InformationCollection from '../../components/PrivacyAndTermsComponents/InformationCollection'
-import UseOfInformation from '../../components/PrivacyAndTermsComponents/UseOfInformation'
-import DataProtection from '../../components/PrivacyAndTermsComponents/DataProtection'
-import SharingOfInformation from '../../components/PrivacyAndTermsComponents/SharingOfInformation'
-import CookiesAndTracking from '../../components/PrivacyAndTermsComponents/CookiesAndTracking'
-import ThirdPartyLinks from '../../components/PrivacyAndTermsComponents/ThirdPartyLinks'
-import ChildrenPrivacy from '../../components/PrivacyAndTermsComponents/ChildrenPrivacy'
-import ChangeToThePrivacyPolicy from '../../components/PrivacyAndTermsComponents/ChangeToThePrivacyPolicy'
-import TermAndConditions from '../../components/PrivacyAndTermsComponents/TermAndConditions'
 import classNames from 'classnames'
-import PrivacyAndTermsSideNav from '../../components/PrivacyAndTermsSideNav'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons'
 import { Element } from 'react-scroll'
@@ -24,11 +8,27 @@ import { privacyPath } from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Fragment, useContext } from 'react'
+import { Fragment, ReactNode, useContext } from 'react'
 import { AppContext } from 'src/contexts/app.context'
+import PrivacyAndTermsSideNav from './components/PrivacyAndTermsSideNav'
 import { useScrollDirection } from 'src/hooks/useScrollDirection'
+import PrivacyShippingAndDelivery from './children/PrivacyShippingAndDelivery'
+import PrivacyUseOfInformation from './children/PrivacyUseOfInformation'
+import PrivacyDataProtection from './children/PrivacyDataProtection'
+import PrivacySharingOfInformation from './children/PrivacySharingOfInformation'
+import PrivacyCookiesAndTracking from './children/PrivacyCookiesAndTracking'
+import PrivacyThirdPartyLinks from './children/PrivacyThirdPartyLinks'
+import PrivacyChildrenPrivacy from './children/PrivacyChildrenPrivacy'
+import PrivacyChangeToThePrivacyPolicy from './children/PrivacyChangeToThePrivacyPolicy'
+import PrivacyTermAndConditions from './children/PrivacyTermAndConditions'
+import PrivacyInformationCollection from './children/PrivacyInformationCollection'
+import PrivacyProductWarranty from './children/PrivacyProductWarranty'
+import PrivacyProductInformation from './children/PrivacyProductInformation'
+import PrivacyOrderingAndPayments from './children/PrivacyOrderingAndPayments'
+import PrivacyReturnsAndRefunds from './children/PrivacyReturnsAndRefunds'
+import PrivacyIntellectualProperty from './children/PrivacyIntellectualProperty'
 
-export default function PrivacyAndTerms() {
+export default function PrivacyAndTermsPage() {
   const { theme } = useContext(AppContext)
   //? responsive
   const isMobile = useViewport().width < 768
@@ -48,6 +48,69 @@ export default function PrivacyAndTerms() {
   //? handle scroll up
   const scrollDirection = useScrollDirection()
 
+  const elementList: { path: string; children: ReactNode }[] = [
+    {
+      path: privacyPath.ProductInformation,
+      children: <PrivacyProductInformation />
+    },
+    {
+      path: privacyPath.OrderingAndPayments,
+      children: <PrivacyOrderingAndPayments />
+    },
+    {
+      path: privacyPath.ShippingAndDelivery,
+      children: <PrivacyShippingAndDelivery />
+    },
+    {
+      path: privacyPath.ReturnsAndRefunds,
+      children: <PrivacyReturnsAndRefunds />
+    },
+    {
+      path: privacyPath.ProductWarranty,
+      children: <PrivacyProductWarranty />
+    },
+    {
+      path: privacyPath.IntellectualProperty,
+      children: <PrivacyIntellectualProperty />
+    },
+    {
+      path: privacyPath.InformationCollection,
+      children: <PrivacyInformationCollection />
+    },
+    {
+      path: privacyPath.UseOfInformation,
+      children: <PrivacyUseOfInformation />
+    },
+    {
+      path: privacyPath.DataProtection,
+      children: <PrivacyDataProtection />
+    },
+    {
+      path: privacyPath.SharingOfInformation,
+      children: <PrivacySharingOfInformation />
+    },
+    {
+      path: privacyPath.CookiesAndTracking,
+      children: <PrivacyCookiesAndTracking />
+    },
+    {
+      path: privacyPath.ThirdPartyLinks,
+      children: <PrivacyThirdPartyLinks />
+    },
+    {
+      path: privacyPath.ChildrenPrivacy,
+      children: <PrivacyChildrenPrivacy />
+    },
+    {
+      path: privacyPath.ChangeToThePrivacyPolicy,
+      children: <PrivacyChangeToThePrivacyPolicy />
+    },
+    {
+      path: privacyPath.TermAndConditions,
+      children: <PrivacyTermAndConditions />
+    }
+  ]
+
   return (
     <div className='relative bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
       {isMobile && (
@@ -63,6 +126,7 @@ export default function PrivacyAndTerms() {
           </button>
         </AnimatePresence>
       )}
+
       <div className='container'>
         <div
           className={classNames('pb-6 tablet:pb-10 desktopLarge:pb-12', {
@@ -129,57 +193,18 @@ export default function PrivacyAndTerms() {
           <div
             className={classNames({
               'flex flex-col space-y-6 tablet:space-y-10 desktopLarge:space-y-16': isMobile,
-              'col-start-4 col-end-13 flex flex-col space-y-6 desktop:space-y-8 desktopLarge:space-y-10': !isMobile
+              'col-start-4 col-end-13 flex flex-col space-y-6 desktop:space-y-8 desktopLarge:space-y-16': !isMobile
             })}
           >
             <div className='mt-2 text-center text-xl font-bold uppercase text-haretaColor tablet:text-2xl desktopLarge:text-4xl'>
               {t('title.Privacy and terms')}
             </div>
-            <Element name={privacyPath.ProductInformation}>
-              <ProductInformation />
-            </Element>
-            <Element name={privacyPath.OrderingAndPayments}>
-              <OrderingAndPayments />
-            </Element>
-            <Element name={privacyPath.ShippingAndDelivery}>
-              <ShippingAndDelivery />
-            </Element>
-            <Element name={privacyPath.ReturnsAndRefunds}>
-              <ReturnsAndRefunds />
-            </Element>
-            <Element name={privacyPath.ProductWarranty}>
-              <ProductWarranty />
-            </Element>
-            <Element name={privacyPath.IntellectualProperty}>
-              <IntellectualProperty />
-            </Element>
-            <Element name={privacyPath.InformationCollection}>
-              <InformationCollection />
-            </Element>
-            <Element name={privacyPath.UseOfInformation}>
-              <UseOfInformation />
-            </Element>
-            <Element name={privacyPath.DataProtection}>
-              <DataProtection />
-            </Element>
-            <Element name={privacyPath.SharingOfInformation}>
-              <SharingOfInformation />
-            </Element>
-            <Element name={privacyPath.CookiesAndTracking}>
-              <CookiesAndTracking />
-            </Element>
-            <Element name={privacyPath.ThirdPartyLinks}>
-              <ThirdPartyLinks />
-            </Element>
-            <Element name={privacyPath.ChildrenPrivacy}>
-              <ChildrenPrivacy />
-            </Element>
-            <Element name={privacyPath.ChangeToThePrivacyPolicy}>
-              <ChangeToThePrivacyPolicy />
-            </Element>
-            <Element name={privacyPath.TermAndConditions}>
-              <TermAndConditions />
-            </Element>
+
+            {elementList.map((ele, index) => (
+              <Element key={index} name={ele.path}>
+                {ele.children}
+              </Element>
+            ))}
           </div>
           <div className='col-start-1 col-end-13 text-center'>
             <div className='mt-4 tablet:mt-8 desktopLarge:mt-12'>
