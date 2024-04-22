@@ -1,14 +1,14 @@
 import { Fragment, useContext } from 'react'
 import EmptyProductList from 'src/components/EmptyProductList'
-import OrderTrackingLoading from 'src/components/OrderTrackingLoading'
+import OrderTrackingLoading from 'src/pages/OrderTrackingPage/components/OrderTrackingLoading'
 import { AppContext } from 'src/contexts/app.context'
-import { OrderConfig } from '../OrderTracking/OrderTracking'
+import { OrderConfig } from '../../OrderTrackingPage'
 import { useQuery } from '@tanstack/react-query'
 import { orderApi } from 'src/apis/order.api'
 import { useTranslation } from 'react-i18next'
-import OrderItem from '../../components/OrderItem'
 import OrderPagination from 'src/components/OrderPagination'
 import { ceil } from 'lodash'
+import OrderTrackingOrderItem from '../../components/OrderTrackingOrderItem'
 
 const LIMIT = 5 as const
 
@@ -69,7 +69,7 @@ export default function OrderTrackingForUser() {
                     key={order.id}
                     className='mt-4 rounded-lg border border-black/20 bg-[#efefef] px-2 first:mt-0 hover:bg-[#e8e8e8] dark:border-white/20 dark:bg-[#202020] dark:hover:bg-[#171717] tablet:px-3 desktop:px-4 '
                   >
-                    <OrderItem order={order} />
+                    <OrderTrackingOrderItem order={order} />
                   </div>
                 ))}
               </div>

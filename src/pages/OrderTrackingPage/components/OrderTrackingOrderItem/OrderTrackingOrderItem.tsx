@@ -1,7 +1,6 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@tanstack/react-query'
-import moment from 'moment'
 import { Fragment, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ColorRing } from 'react-loader-spinner'
@@ -17,7 +16,7 @@ interface Props {
   order: Order
 }
 
-export default function OrderItem({ order }: Props) {
+export default function OrderTrackingOrderItem({ order }: Props) {
   const { isAuthenticated } = useContext(AppContext)
 
   //? viewport

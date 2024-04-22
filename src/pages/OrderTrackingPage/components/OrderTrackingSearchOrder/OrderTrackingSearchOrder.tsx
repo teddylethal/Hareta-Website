@@ -10,7 +10,7 @@ import { formatDate, generateNameId, isAxiosBadRequestError } from 'src/utils/ut
 import path from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
-import OrderSearchInput from '../OrderSearchInput/OrderSearchInput'
+import OrderTrackingSearchInput from '../OrderTrackingSearchInput'
 
 const orderSchema = yup.object({
   orderId: yup.string().trim().required('ID is required')
@@ -23,7 +23,7 @@ interface Props {
   setCantFind: Dispatch<SetStateAction<boolean>>
 }
 
-export default function SearchOrder({ setFinding, setCantFind }: Props) {
+export default function OrderTrackingSearchOrder({ setFinding, setCantFind }: Props) {
   const { isAuthenticated } = useContext(AppContext)
 
   //? Find order
@@ -38,7 +38,9 @@ export default function SearchOrder({ setFinding, setCantFind }: Props) {
     },
     resolver: yupResolver(orderSchema)
   })
-  const findOrderMutation = useMutation(isAuthenticated ? orderApi.getOrderById : orderApi.getOrderOfGuestById)
+  const findOrderMutation = useMutation({
+    mutationFn: isAuthenticated ? orderApi.getOrderById : orderApi.getOrderOfGuestById
+  })
   const navigate = useNavigate()
   const handleSearch = handleSubmit((data) => {
     setFinding(true)
@@ -73,7 +75,7 @@ export default function SearchOrder({ setFinding, setCantFind }: Props) {
 
   return (
     <form className='tablet:px-20 desktopLarge:px-40' onSubmit={handleSearch} noValidate>
-      <OrderSearchInput
+      <OrderTrackingSearchInput
         name='orderId'
         register={register}
         type='text'

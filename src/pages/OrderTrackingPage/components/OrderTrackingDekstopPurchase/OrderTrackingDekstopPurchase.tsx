@@ -6,7 +6,7 @@ interface Props {
   purchase: Purchase
 }
 
-export default function OrderPurchaseDekstop({ purchase }: Props) {
+export default function OrderTrackingDekstopPurchase({ purchase }: Props) {
   const avatarURL = purchase.item.avatar ? purchase.item.avatar.url : null
 
   return (

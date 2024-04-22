@@ -9,12 +9,12 @@ import { formatDate, getIdFromNameId } from 'src/utils/utils'
 import { ItemOrderConfig } from 'src/types/order.type'
 import { orderApi } from 'src/apis/order.api'
 import { useQuery } from '@tanstack/react-query'
-import OrderPurchaseDekstop from '../OrderPurchaseDekstop'
+import OrderTrackingDekstopPurchase from '../../components/OrderTrackingDekstopPurchase'
 import { useViewport } from 'src/hooks/useViewport'
-import OrderPurchaseMobile from '../OrderPurchaseMobile'
+import OrderTrackingMobilePurchase from '../../components/OrderTrackingMobilePurchase'
 import { ColorRing } from 'react-loader-spinner'
 
-export default function OrderItemInformation() {
+export default function OrderTrackingItemInformation() {
   //? responsive
   const isMobile = useViewport().width < 768
 
@@ -221,7 +221,7 @@ export default function OrderItemInformation() {
                         <div className='mt-2 tablet:mt-4 desktopLarge:mt-6'>
                           {purchasesData &&
                             purchaseList.map((purchase) => (
-                              <OrderPurchaseDekstop key={purchase.id} purchase={purchase} />
+                              <OrderTrackingDekstopPurchase key={purchase.id} purchase={purchase} />
                             ))}
                         </div>
                       </Fragment>
@@ -244,7 +244,9 @@ export default function OrderItemInformation() {
                       </div>
                     )}
                     {purchasesData &&
-                      purchaseList.map((purchase) => <OrderPurchaseMobile key={purchase.id} purchase={purchase} />)}
+                      purchaseList.map((purchase) => (
+                        <OrderTrackingMobilePurchase key={purchase.id} purchase={purchase} />
+                      ))}
                   </Fragment>
                 )}
               </div>

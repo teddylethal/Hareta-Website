@@ -19,10 +19,10 @@ import OrderRoute from './routes/orderRoute'
 
 const CartPage = lazy(() => import('./pages/CartPage'))
 const PrivacyAndTermsPage = lazy(() => import('./pages/PrivacyAndTermsPage'))
-const OrderItemInformation = lazy(() => import('./pages/Support/components/OrderItemInformation'))
-
-//! IMPORT USER COMPONENTS
-const OrderTracking = lazy(() => import('./pages/Support/pages/OrderTracking'))
+const OrderTrackingItemInformation = lazy(
+  () => import('./pages/OrderTrackingPage/children/OrderTrackingItemInformation')
+)
+const OrderTrackingPage = lazy(() => import('./pages/OrderTrackingPage'))
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -94,7 +94,7 @@ export default function useRouteElements() {
       element: (
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
-            <OrderTracking />
+            <OrderTrackingPage />
           </Suspense>
         </MainLayout>
       )
@@ -104,7 +104,7 @@ export default function useRouteElements() {
       element: (
         <MainLayout>
           <Suspense fallback={<LoadingWithEmptyContent />}>
-            <OrderItemInformation />
+            <OrderTrackingItemInformation />
           </Suspense>
         </MainLayout>
       )

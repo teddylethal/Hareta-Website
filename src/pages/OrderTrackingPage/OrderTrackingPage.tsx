@@ -1,33 +1,26 @@
-import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import { orderApi } from 'src/apis/order.api'
 import PathBar from 'src/components/PathBar'
 import { Fragment, useContext, useState } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { useViewport } from 'src/hooks/useViewport'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import path from 'src/constants/path'
-import { formatDate, generateNameId, isAxiosBadRequestError } from 'src/utils/utils'
-import { ColorRing } from 'react-loader-spinner'
 import { FloatingOverlay, FloatingPortal } from '@floating-ui/react'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRectangleList } from '@fortawesome/free-solid-svg-icons'
-import { ErrorRespone } from 'src/types/utils.type'
-import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import DialogPopup from 'src/components/DialogPopup'
-import OrderTrackingForUser from '../OrderTrackingForUser'
-import SearchOrder from '../../components/SearchOrder'
+import OrderTrackingForUser from './children/OrderTrackingForUser'
+import LoadingRing from 'src/components/LoadingRing'
+import OrderTrackingSearchOrder from './components/OrderTrackingSearchOrder/OrderTrackingSearchOrder'
 
 export interface OrderConfig {
   page: string
   limit: string
 }
 
-export default function OrderTracking() {
+export default function OrderTrackingPage() {
   const { isAuthenticated, theme } = useContext(AppContext)
   const [finding, setFinding] = useState<boolean>(false)
   const [cantFind, setCantFind] = useState<boolean>(false)
@@ -53,7 +46,7 @@ export default function OrderTracking() {
             {t('order.content')}
           </p>
 
-          <SearchOrder setCantFind={setCantFind} setFinding={setFinding} />
+          <OrderTrackingSearchOrder setCantFind={setCantFind} setFinding={setFinding} />
 
           <div className='tablet:px-12 desktopLarge:px-24'>
             {isAuthenticated && <OrderTrackingForUser />}
@@ -95,15 +88,7 @@ export default function OrderTracking() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ColorRing
-                    visible={true}
-                    height='80'
-                    width='80'
-                    ariaLabel='blocks-loading'
-                    wrapperStyle={{}}
-                    wrapperClass='blocks-wrapper'
-                    colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
-                  />
+                  <LoadingRing />
                   <div className='mt-4 line-clamp-2 text-center text-lg font-semibold uppercase text-darkText dark:text-lightText tablet:text-2xl desktopLarge:text-4xl'>
                     {t('order.finding order')}
                   </div>

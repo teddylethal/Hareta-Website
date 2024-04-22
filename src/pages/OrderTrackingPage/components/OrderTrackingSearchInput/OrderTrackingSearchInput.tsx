@@ -13,8 +13,8 @@ interface Props {
   required?: boolean
 }
 
-export default function OrderSearchInput({ name, register, errorMessage, rules, required = false }: Props) {
-  //? handle error
+export default function OrderTrackingSearchInput({ name, register, errorMessage, rules, required = false }: Props) {
+  //! handle error
   const { t } = useTranslation('support')
   let message = ''
   switch (errorMessage) {
