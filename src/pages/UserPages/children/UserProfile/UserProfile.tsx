@@ -14,10 +14,10 @@ import { isAxiosBadRequestError, showSuccessDialog } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { setProfileToLS } from 'src/utils/auth'
 import { UserSchema, userSchema } from 'src/utils/rules'
-import EditProfile from './EditProfile'
+import EditProfile from '../../components/UserEditProfile'
 import { useViewport } from 'src/hooks/useViewport'
 import moment from 'moment'
-import ProfileLoading from './ProfileLoading'
+import ProfileLoading from '../../components/UserProfileSekeleton'
 import { useTranslation } from 'react-i18next'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>

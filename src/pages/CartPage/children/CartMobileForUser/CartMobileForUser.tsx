@@ -3,7 +3,7 @@ import { CartContext } from 'src/contexts/cart.context'
 import { formatCurrency } from 'src/utils/utils'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
-import CartMobilePurchaseCard from '../CartMobilePurchaseCard'
+import CartMobilePurchaseCard from '../../components/CartMobilePurchaseCard'
 
 interface Props {
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void

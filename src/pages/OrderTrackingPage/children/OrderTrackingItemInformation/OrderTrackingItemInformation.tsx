@@ -15,14 +15,13 @@ import OrderTrackingMobilePurchase from '../../components/OrderTrackingMobilePur
 import { ColorRing } from 'react-loader-spinner'
 
 export default function OrderTrackingItemInformation() {
-  //? responsive
   const isMobile = useViewport().width < 768
 
-  //? get order id
+  //! Get order id
   const { orderId } = useParams()
   const id = getIdFromNameId(orderId as string)
 
-  //? get order informtaion
+  //! Get order information
   const { data: orderData, isLoading: loadingOrderData } = useQuery({
     queryKey: ['order_information', id],
     queryFn: () => {
@@ -33,14 +32,14 @@ export default function OrderTrackingItemInformation() {
   })
   const orderInformation = orderData?.data.data
 
-  //? get item list
+  //! Get purchase list
   const itemOrderConfig: ItemOrderConfig = {
     order_id: id,
     page: 1,
     limit: 20
   }
   const { data: purchasesData, isLoading: loadingPurchasesData } = useQuery({
-    queryKey: ['items_of_order', itemOrderConfig],
+    queryKey: ['purchases_of_order', itemOrderConfig],
     queryFn: () => {
       return orderApi.getItemListOfOrder(itemOrderConfig)
     },

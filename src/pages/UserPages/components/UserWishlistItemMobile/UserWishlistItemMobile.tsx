@@ -4,7 +4,7 @@ import ProductTag from 'src/components/ProductTag'
 import { useViewport } from 'src/hooks/useViewport'
 import { Product } from 'src/types/product.type'
 import { formatCurrency } from 'src/utils/utils'
-import { Attribute } from '../../pages/UserWishList/UserWishList'
+import { Attribute } from '../../children/UserWishList/UserWishList'
 
 interface Props {
   product: Product
@@ -14,7 +14,7 @@ interface Props {
   openUnlikeItemDialog: (id: string) => () => void
 }
 
-export default function WishlistItemMobile({
+export default function UserWishlistItemMobile({
   product,
   handleClickItem,
   handleChooseFilter,

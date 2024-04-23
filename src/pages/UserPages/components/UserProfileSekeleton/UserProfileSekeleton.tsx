@@ -1,6 +1,6 @@
 import { Skeleton } from '@mui/material'
 
-export default function ProfileLoading() {
+export default function UserProfileSekeleton() {
   return (
     <div className='relative mx-2 my-12 rounded-lg bg-lightBg p-2 dark:bg-darkBg desktop:mx-8 desktop:my-16 desktop:p-4'>
       <div className='relative -top-4 flex items-center justify-between desktop:-top-10'>

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
     <main className='flex h-screen w-full flex-col items-center justify-center bg-lightBg dark:bg-darkBg'>
       <h1 className='text-9xl font-extrabold tracking-widest text-darkText dark:text-lightText'>404</h1>

@@ -9,7 +9,7 @@ import { UserSchema } from 'src/utils/rules'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
 
-export default function EditProfile() {
+export default function UserEditProfile() {
   const {
     register,
     control,

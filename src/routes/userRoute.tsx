@@ -1,14 +1,15 @@
-import { Suspense, useContext } from 'react'
+import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import MainLayout from 'src/layouts/MainLayout'
-import UserLayout from 'src/pages/User/layouts/UserLayout'
-import UserChangePassword from 'src/pages/User/pages/UserChangePassword'
-import UserInventory from 'src/pages/User/pages/UserInventory'
-import UserProfile from 'src/pages/User/pages/UserProfile'
-import UserWishList from 'src/pages/User/pages/UserWishList'
+import UserLayout from 'src/pages/UserPages/layouts/UserLayout'
+
+const UserChangePassword = lazy(() => import('src/pages/UserPages/children/UserChangePassword'))
+const UserInventory = lazy(() => import('src/pages/UserPages/children/UserInventory'))
+const UserProfile = lazy(() => import('src/pages/UserPages/children/UserProfile'))
+const UserWishList = lazy(() => import('src/pages/UserPages/children/UserWishList'))
 
 function UserRouteWrapper() {
   const { isAuthenticated } = useContext(AppContext)

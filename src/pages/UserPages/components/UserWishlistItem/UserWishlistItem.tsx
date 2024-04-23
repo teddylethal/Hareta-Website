@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ProductTag from 'src/components/ProductTag'
 import { Product } from 'src/types/product.type'
 import { formatCurrency } from 'src/utils/utils'
-import { Attribute } from '../../pages/UserWishList/UserWishList'
+import { Attribute } from '../../children/UserWishList/UserWishList'
 
 interface Props {
   product: Product
@@ -14,7 +14,7 @@ interface Props {
   openUnlikeItemDialog: (id: string) => () => void
 }
 
-export default function WishlistItem({
+export default function UserWishlistItem({
   product,
   handleClickItem,
   handleChooseFilter,

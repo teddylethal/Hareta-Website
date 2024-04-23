@@ -33,7 +33,7 @@ export default function OrderTrackingOrderItem({ order }: Props) {
     limit: 4
   }
   const { data: purchasesData, isFetching } = useQuery({
-    queryKey: ['items_of_order', itemOrderConfig],
+    queryKey: ['purchases_of_order', itemOrderConfig],
     queryFn: () => {
       return orderApi.getItemListOfOrder(itemOrderConfig)
     },

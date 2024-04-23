@@ -14,12 +14,12 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from 'src/contexts/app.context'
 
 //? IMPORT COMPONENTS
-import UnlikeItemDialog from './UnlikeItemDialog'
+import UnlikeItemDialog from '../../components/UserUnlikeProductDialog'
 import DialogPopup from 'src/components/DialogPopup'
-import WishlistItem from '../../components/WishlistItem'
-import WishlistItemMobile from '../../components/WishlistItemMobile'
 import { useTranslation } from 'react-i18next'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
+import UserWishlistItem from '../../components/UserWishlistItem'
+import UserWishlistItemMobile from '../../components/UserWishlistItemMobile'
 
 export interface Attribute {
   name: string
@@ -127,7 +127,7 @@ export default function UserWishList() {
             className='mt-4 rounded-lg border border-black/20 bg-lightBg px-2 first:mt-0 hover:bg-lightColor900 dark:border-white/20 dark:bg-darkBg dark:hover:bg-darkColor900 tablet:px-3 desktop:px-4 '
           >
             {!isMobile && (
-              <WishlistItem
+              <UserWishlistItem
                 product={product}
                 handleClickItem={handleClickItem}
                 handleChooseFilter={handleChooseFilter}
@@ -136,7 +136,7 @@ export default function UserWishList() {
               />
             )}
             {isMobile && (
-              <WishlistItemMobile
+              <UserWishlistItemMobile
                 product={product}
                 handleClickItem={handleClickItem}
                 handleChooseFilter={handleChooseFilter}

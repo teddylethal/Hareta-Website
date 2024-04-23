@@ -16,7 +16,7 @@ interface Props {
   classNameWrapper?: string
 }
 
-export default function UnlikeItemDialog({
+export default function UserUnlikeProductDialog({
   isOpen,
   handleClose,
   unlikeItemId,
