@@ -8,12 +8,14 @@ const tagURL = '/blog/tag'
 interface CreateBlogForm {
   title: string
   content: string
+  avatar?: string
 }
 
 interface UpdateBlogForm {
   id: string
   title?: string
   content?: string
+  avatar?: string
 }
 
 const blogApi = {

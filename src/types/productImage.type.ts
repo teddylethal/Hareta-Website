@@ -20,13 +20,13 @@ export interface ProductImage {
   }
 }
 
-export interface ImageListConfig {
+export interface ProductImageListConfig {
   id: string
   page: number | string
   limit: number | string
 }
 
-export interface ImageListRespone {
+export interface ProductImageListRespone {
   data: ProductImage[]
   paging: PagingType
 }

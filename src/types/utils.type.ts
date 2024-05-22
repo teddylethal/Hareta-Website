@@ -45,3 +45,8 @@ export interface JSONModel {
   created_at: string
   updated_at: string
 }
+
+export interface InformationField {
+  title: string
+  info: string | number
+}

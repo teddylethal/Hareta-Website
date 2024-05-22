@@ -28,7 +28,7 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
 
   return (
     <button
-      className='relative grid w-full grid-cols-5 gap-2 overflow-hidden rounded-xl border border-black/20 bg-darkColor900 p-2 duration-200 hover:bg-darkColor700 tablet:gap-4 tablet:p-3 desktop:gap-6 desktop:p-4'
+      className='relative grid w-full grid-cols-5 gap-2 overflow-hidden rounded-xl border border-white/20 bg-darkColor900 p-2 duration-200 hover:bg-darkColor700 tablet:gap-4 tablet:p-3 desktop:gap-6 desktop:p-4'
       onClick={handleClickItem}
     >
       <div className='col-span-2'>
@@ -62,7 +62,7 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
             </div>
           </div>
           <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
-            <div className='col-span-1 flex items-center font-semibold'>Ngày tạo:</div>
+            <div className='col-span-1 flex items-center truncate font-semibold'>Ngày tạo:</div>
             <div className='col-span-2 text-left'>{formatDate(blog.created_at)}</div>
           </div>
         </div>

@@ -10,7 +10,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { isAxiosBadRequestError, showSuccessDialog } from 'src/utils/utils'
 import LoadingRing from 'src/components/LoadingRing'
 import AdminEditProductForm from '../../components/AdminEditProductForm'
-import { EditProductSchema, editProductSchema } from '../../utils/rules'
+import { EditProductSchema, editProductSchema } from '../../../../rules/adminproduct.rule'
 
 type FormData = NoUndefinedField<EditProductSchema>
 

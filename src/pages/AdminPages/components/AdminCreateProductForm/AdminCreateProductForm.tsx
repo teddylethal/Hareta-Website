@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { CreateProductSchema } from '../../utils/rules'
+import { CreateProductSchema } from '../../../../rules/adminproduct.rule'
 import InputNumber from 'src/components/InputNumber'
 import classNames from 'classnames'
 import { AdminContext } from 'src/contexts/admin.context'

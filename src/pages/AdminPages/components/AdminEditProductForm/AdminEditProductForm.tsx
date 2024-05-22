@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form'
-import { EditProductSchema } from '../../utils/rules'
+import { EditProductSchema } from '../../../../rules/adminproduct.rule'
 import InputNumber from 'src/components/InputNumber'
 import classNames from 'classnames'
 import { Product } from 'src/types/product.type'

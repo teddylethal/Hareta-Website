@@ -14,7 +14,7 @@ import productApi from 'src/apis/product.api'
 import AdminCreatingProductHeader from '../../components/AdminCreatingProductHeader'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
 import AdminCreateProductForm from '../../components/AdminCreateProductForm'
-import { CreateProductSchema, createProductSchema } from '../../utils/rules'
+import { CreateProductSchema, createProductSchema } from '../../../../rules/adminproduct.rule'
 
 type FormData = CreateProductSchema
 

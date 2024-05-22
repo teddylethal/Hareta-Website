@@ -11,7 +11,7 @@ interface Props {
 export default function AdminBlogLayout({ children }: Props) {
   //! Menus
   const menus: NavigateItem[] = [
-    { name: 'Quản lí', url: adminPath.images },
+    { name: 'Danh sách', url: adminPath.blogs },
     { name: 'Tạo bài viết', url: adminPath.blogCreate },
     { name: 'Danh mục', url: adminPath.blogTags }
   ]
@@ -38,7 +38,7 @@ export default function AdminBlogLayout({ children }: Props) {
         </div>
       </div>
       <div className='col-span-10 p-2'>
-        <div className='text-lightText'>{children}</div>
+        <div className='bg-darkColor900 p-4 text-lightText'>{children}</div>
       </div>
     </div>
   )

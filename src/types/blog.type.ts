@@ -22,3 +22,10 @@ export interface BlogListConfig {
   page?: number | string
   limit?: number | string
 }
+
+export interface BlogDetail extends JSONModel {
+  title: string
+  avatar: string
+  content: string
+  tags: BlogTagType[]
+}
