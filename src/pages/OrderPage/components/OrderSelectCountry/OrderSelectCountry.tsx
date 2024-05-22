@@ -10,6 +10,13 @@ const COUNTRIES = Country.getAllCountries()
 export default function OrderSelectCountry() {
   const { addressCountry, setCountryAddress } = useContext(OrderContext)
 
+  //! Get country list
+  // const { data: countryListData } = useQuery({
+  //   queryKey: ['country_list'],
+  //   queryFn: () => locationApi.getCountryList()
+  // })
+  // console.log(countryListData)
+
   return (
     <Listbox value={addressCountry} onChange={setCountryAddress}>
       <div className='relative mt-1'>

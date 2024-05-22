@@ -51,28 +51,7 @@ export default function AdminProductPage() {
   //! Set default product
   const queryClient = useQueryClient()
   const setDefaultProductMutation = useMutation({ mutationFn: adminProductApi.setDefaultProduct })
-  // const setDefaultProduct = handleSubmit(async (data) => {
-  //   try {
-  //     await setDefaultProductMutation.mutateAsync({ ...data })
-  //     reset()
-  //     clearErrors()
-  //     queryClient.invalidateQueries({ queryKey: ['products_in_group'] })
-  //     queryClient.invalidateQueries({ queryKey: ['adminDefaultProductList'] })
-  //   } catch (error) {
-  //     if (isAxiosBadRequestError<ErrorRespone>(error)) {
-  //       const formError = error.response?.data
-  //       if (formError) {
-  //         const responeLog = formError?.log as string
-  //         if (responeLog.search(`'name'`) !== -1) {
-  //           setError('id', {
-  //             message: 'ID',
-  //             type: 'Server'
-  //           })
-  //         }
-  //       }
-  //     }
-  //   }
-  // })
+
   const setDefaultProduct = () => {
     if (currentProduct) {
       setDefaultProductMutation.mutate(

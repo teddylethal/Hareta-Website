@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useState, createContext } from 'react'
 import { User } from 'src/types/user.type'
-import { clearLS, getAccessTokenFromLS, getProfileFromLS, getThemeFromLS, setThemeToLS } from 'src/utils/auth'
+import { getAccessTokenFromLS, getProfileFromLS, getThemeFromLS, setThemeToLS } from 'src/utils/auth'
 
 interface AppContextInterface {
   isAuthenticated: boolean
@@ -47,7 +47,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const handleLogout = () => {
     setIsAuthenticated(false)
     setProfile(null)
-    clearLS()
     queryClient.removeQueries({
       queryKey: ['purchases']
     })

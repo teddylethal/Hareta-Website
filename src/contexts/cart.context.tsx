@@ -11,8 +11,8 @@ export interface ExtendsPurchase extends Purchase {
 interface CartContextInterface {
   extendedPurchases: ExtendsPurchase[]
   setExtendedPurchases: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
-  tempExtendedPurchase: TemporaryPurchase[]
-  setTempExtendedPurchase: React.Dispatch<React.SetStateAction<TemporaryPurchase[]>>
+  tempExtendedPurchases: TemporaryPurchase[]
+  setTempExtendedPurchases: React.Dispatch<React.SetStateAction<TemporaryPurchase[]>>
   unavailablePurchaseIds: string[]
   setUnavailablePurchaseIds: React.Dispatch<React.SetStateAction<string[]>>
 }
@@ -20,8 +20,8 @@ interface CartContextInterface {
 const initialcartContext: CartContextInterface = {
   extendedPurchases: getExtendedPurchasesFromLS(),
   setExtendedPurchases: () => null,
-  tempExtendedPurchase: getExtendedTempPurchasesFromLS(),
-  setTempExtendedPurchase: () => null,
+  tempExtendedPurchases: getExtendedTempPurchasesFromLS(),
+  setTempExtendedPurchases: () => null,
   unavailablePurchaseIds: [],
   setUnavailablePurchaseIds: () => null
 }
@@ -30,8 +30,8 @@ export const CartContext = createContext<CartContextInterface>(initialcartContex
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [extendedPurchases, setExtendedPurchases] = useState<ExtendsPurchase[]>(initialcartContext.extendedPurchases)
-  const [tempExtendedPurchase, setTempExtendedPurchase] = useState<TemporaryPurchase[]>(
-    initialcartContext.tempExtendedPurchase
+  const [tempExtendedPurchases, setTempExtendedPurchases] = useState<TemporaryPurchase[]>(
+    initialcartContext.tempExtendedPurchases
   )
   const [unavailablePurchaseIds, setUnavailablePurchaseIds] = useState<string[]>(
     initialcartContext.unavailablePurchaseIds
@@ -42,8 +42,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         extendedPurchases,
         setExtendedPurchases,
-        tempExtendedPurchase,
-        setTempExtendedPurchase,
+        tempExtendedPurchases,
+        setTempExtendedPurchases,
         unavailablePurchaseIds,
         setUnavailablePurchaseIds
       }}

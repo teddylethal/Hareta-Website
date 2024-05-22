@@ -8,12 +8,12 @@ import productApi from 'src/apis/product.api'
 import { ProductsInGroupConfig } from 'src/types/product.type'
 import DialogPopup from 'src/components/DialogPopup'
 import AdminDialog from '../../components/AdminDialog'
-import AdminVariantList from '../../components/AdminVariantList'
 import DOMPurify from 'dompurify'
 import { adminProductGroupApi } from 'src/apis/admin.api'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
 import AdminInforSection from '../../components/AdminInforSection'
 import LoadingSection from 'src/components/LoadingSection'
+import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 
 export default function AdminDeleteGroup() {
   const { productGroup, setProductGroup } = useContext(AdminContext)
@@ -78,7 +78,7 @@ export default function AdminDeleteGroup() {
         <div className='col-span-1'>
           <div className='sticky top-6 space-y-8'>
             <AdminProductGroupList />
-            <AdminVariantList />
+            <AdminSelectsVariant />
           </div>
         </div>
         <div className='col-span-1'>

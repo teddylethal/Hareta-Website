@@ -10,9 +10,10 @@ const OrderPayment = lazy(() => import('src/pages/OrderPage/children/OrderPaymen
 const OrderShippingInfor = lazy(() => import('src/pages/OrderPage/children/OrderShippingInfor'))
 
 function OrderRouteWrapper() {
-  const { orderList, tempOrderList } = useContext(OrderContext)
-  const accpeted = orderList.length > 0 || tempOrderList.length > 0
-  return accpeted ? (
+  // const { orderList, tempOrderList } = useContext(OrderContext)
+  // const accpeted = orderList.length > 0 || tempOrderList.length > 0
+
+  return true ? (
     <Suspense fallback={<LoadingWithEmptyContent />}>
       <Outlet />
     </Suspense>

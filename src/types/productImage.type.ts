@@ -1,3 +1,5 @@
+import { PagingType } from './utils.type'
+
 export interface ProductImage {
   id: string
   status: number
@@ -26,11 +28,5 @@ export interface ImageListConfig {
 
 export interface ImageListRespone {
   data: ProductImage[]
-  paging: {
-    page: number
-    limit: number
-    total: number
-    cursor: string
-    next_cursor: string
-  }
+  paging: PagingType
 }

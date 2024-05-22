@@ -10,8 +10,8 @@ import { showSuccessDialog } from 'src/utils/utils'
 import producImageApi from 'src/apis/productImage.api'
 import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 import AdminProductImageHeader from '../../components/AdminProductImageHeader'
-import AdminProductGroupList from 'src/pages/Admin/components/AdminProductGroupList'
-import AdminImageInput from 'src/pages/Admin/components/AdminImageInput'
+import AdminImageInput from '../../components/AdminImageInput'
+import AdminProductGroupList from '../../components/AdminProductGroupList'
 
 export default function AdminUploadProductAvatar() {
   const { currentProduct } = useContext(AdminContext)

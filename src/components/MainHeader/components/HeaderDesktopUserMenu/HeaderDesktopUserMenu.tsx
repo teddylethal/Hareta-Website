@@ -6,9 +6,15 @@ import { NavLink } from 'react-router-dom'
 import CustomPopover from 'src/components/CustomPopover'
 import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
+import { clearLS } from 'src/utils/auth'
 
 function PopoverSection() {
   const { handleLogout } = useContext(AppContext)
+
+  const logout = () => {
+    clearLS()
+    handleLogout()
+  }
 
   //! Multi languages
   const { t } = useTranslation('header')
@@ -32,7 +38,7 @@ function PopoverSection() {
       <div className='border-b border-black/40 dark:border-white/40' />
 
       <button
-        onClick={handleLogout}
+        onClick={logout}
         className='flex items-center space-x-2 rounded-md px-4 py-2 hover:bg-lightColor900 hover:font-semibold hover:text-darkText dark:hover:bg-darkColor900 dark:hover:text-lightText'
       >
         <FontAwesomeIcon icon={faRightFromBracket} />

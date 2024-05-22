@@ -50,7 +50,10 @@ export const adminPath = {
   orders: '/admin/orders',
 
   // Blog
-  blogs: '/admin/blogs'
+  blogs: '/admin/blogs',
+  blogDetail: '/admin/blogs/:blogId',
+  blogCreate: '/admin/blogs/create',
+  blogTags: '/admin/blogs/tags'
 } as const
 
 export const privacyPath = {

@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import mainPath from 'src/constants/path'
+import mainPath, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import HeaderDesktopSupportMenu from '../../components/HeaderDesktopSupportMenu'
 import HeaderDesktopUserMenu from '../../components/HeaderDesktopUserMenu'
@@ -14,11 +14,11 @@ import HeaderDesktopCartLogged from '../../components/HeaderDesktopCartLogged'
 export default function HeaderDesktop() {
   //! Multi languages
   const { t } = useTranslation('header')
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, profile } = useContext(AppContext)
 
   return (
     <div className='container grid w-full grid-cols-3 items-center text-black duration-200  dark:text-white'>
-      <nav className='col-span-2 flex items-center justify-start space-x-2 text-base font-medium uppercase tablet:font-semibold desktop:space-x-4 desktop:text-lg'>
+      <div className='col-span-2 flex items-center justify-start space-x-2 text-base font-medium uppercase tablet:font-semibold desktop:space-x-4 desktop:text-lg'>
         <NavLink
           to={mainPath.home}
           className={({ isActive }) =>
@@ -49,13 +49,18 @@ export default function HeaderDesktop() {
         </NavLink>
 
         <HeaderDesktopSupportMenu />
-      </nav>
 
-      {/* <div className='col-span-1 flex grow select-none justify-center text-xs text-primaryColor tablet:text-sm tablet:font-semibold desktop:text-base'>
-    <h2>Decor your life with us</h2>
-  </div> */}
+        {profile?.role == 'admin' && (
+          <NavLink
+            to={adminPath.mainPage}
+            className='rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor'
+          >
+            <div>{'Admin'}</div>
+          </NavLink>
+        )}
+      </div>
 
-      <nav className='col-span-1 flex items-center justify-end space-x-1 uppercase desktop:space-x-4  desktop:text-lg '>
+      <div className='col-span-1 flex items-center justify-end space-x-1 uppercase desktop:space-x-4  desktop:text-lg '>
         {!isAuthenticated && (
           <NavLink
             to={mainPath.login}
@@ -74,7 +79,7 @@ export default function HeaderDesktop() {
         )}
 
         {isAuthenticated ? <HeaderDesktopCartLogged /> : <HeaderDesktopCartUnlogged />}
-      </nav>
+      </div>
     </div>
   )
 }

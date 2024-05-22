@@ -30,3 +30,18 @@ export interface InputField {
   isPassword?: boolean | false
   label?: ReactNode
 }
+
+export interface PagingType {
+  page: number
+  limit: number
+  total: number
+  cursor: string
+  next_cursor: string
+}
+
+export interface JSONModel {
+  id: string
+  status: number
+  created_at: string
+  updated_at: string
+}

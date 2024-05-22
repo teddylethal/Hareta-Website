@@ -8,6 +8,8 @@ import AdminOrderLayout from 'src/pages/AdminPages/layouts/AdminOrderLayout'
 import AdminProductLayout from 'src/pages/AdminPages/layouts/AdminProductLayout'
 import AdminMainLayout from 'src/pages/AdminPages/layouts/AdminMainLayout'
 import AdminImageLayout from 'src/pages/AdminPages/layouts/AdminImageLayout'
+import AdminBlogLayout from 'src/pages/AdminPages/layouts/AdminBlogLayout'
+import AdminBlogManagement from 'src/pages/AdminPages/children/AdminBlogManagement'
 
 //! LAZY IMPORT ADMIN PAGES
 const AdminDefaultProductList = lazy(() => import('src/pages/AdminPages/children/AdminDefaultProductList'))
@@ -61,6 +63,14 @@ function AdminOrderRoute() {
     <AdminOrderLayout>
       <Outlet />
     </AdminOrderLayout>
+  )
+}
+
+function AdminBlogRoute() {
+  return (
+    <AdminBlogLayout>
+      <Outlet />
+    </AdminBlogLayout>
   )
 }
 
@@ -143,6 +153,16 @@ const AdminRoute: RouteObject = {
         {
           path: '',
           element: <AdminOrderMangement />
+        }
+      ]
+    },
+    {
+      path: adminPath.blogs,
+      element: <AdminBlogRoute />,
+      children: [
+        {
+          path: '',
+          element: <AdminBlogManagement />
         }
       ]
     }

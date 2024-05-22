@@ -8,13 +8,13 @@ import { AdminContext } from 'src/contexts/admin.context'
 import { Product } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
-import AdminCreatingProductHeader from 'src/pages/Admin/components/AdminCreatingProductHeader'
-import AdminProductGroupList from 'src/pages/Admin/components/AdminProductGroupList'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
-import { CreateProductSchema, createProductSchema } from 'src/pages/Admin/utils/rules'
-import AdminCreateProductForm from 'src/pages/Admin/components/AdminCreatesProductForm/AdminCreateProductForm'
 import productApi from 'src/apis/product.api'
+import AdminCreatingProductHeader from '../../components/AdminCreatingProductHeader'
+import AdminProductGroupList from '../../components/AdminProductGroupList'
+import AdminCreateProductForm from '../../components/AdminCreateProductForm'
+import { CreateProductSchema, createProductSchema } from '../../utils/rules'
 
 type FormData = CreateProductSchema
 

@@ -16,11 +16,12 @@ interface Props {
 }
 
 export default function HeaderMobileUserSection({ className, closeMenu }: Props) {
-  const { isAuthenticated, setIsAuthenticated, profile, theme } = useContext(AppContext)
+  const { isAuthenticated, setIsAuthenticated, profile, theme, handleLogout } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
-  const handleLogout = () => {
+  const logout = () => {
     clearLS()
+    handleLogout()
     setIsAuthenticated(false)
     setVisible(false)
   }
@@ -87,7 +88,7 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
             </NavLink>
 
             <button
-              onClick={handleLogout}
+              onClick={logout}
               type='button'
               className='flex items-center justify-start space-x-2 py-1 font-medium'
             >

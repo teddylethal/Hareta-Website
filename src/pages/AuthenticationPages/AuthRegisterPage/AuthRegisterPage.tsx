@@ -88,14 +88,14 @@ export default function AuthRegisterPage() {
       error: errors.name,
       errorMessage: errors.name?.message,
       name: 'name',
-      title: 'Tên khóa học',
+      title: t('register.Name'),
       label: <FontAwesomeIcon icon={faUser} className='h-4 w-4 text-haretaColor' />
     },
     {
       error: errors.phone,
       errorMessage: errors.phone?.message,
       name: 'phone',
-      title: 'Tên khóa học',
+      title: t('register.Phone number'),
       label: <FontAwesomeIcon icon={faPhone} className='h-4 w-4 text-haretaColor' />
     }
   ]

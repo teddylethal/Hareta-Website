@@ -1,3 +1,5 @@
+import { PagingType } from './utils.type'
+
 export interface ProductGroup {
   id: string
   status: number
@@ -56,13 +58,7 @@ export interface Product {
 
 export interface ProductList {
   data: Product[]
-  paging: {
-    page: number
-    limit: number
-    total: number
-    cursor: string
-    next_cursor: string
-  }
+  paging: PagingType
 }
 
 export interface ProductListConfig {

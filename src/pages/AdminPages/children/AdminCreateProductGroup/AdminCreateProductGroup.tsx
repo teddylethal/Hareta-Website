@@ -9,9 +9,9 @@ import { adminProductGroupApi } from 'src/apis/admin.api'
 import { useContext } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import { ProductGroup } from 'src/types/product.type'
-import AdminCreatingProductHeader from 'src/pages/Admin/components/AdminCreatingProductHeader'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
+import AdminCreatingProductHeader from '../../components/AdminCreatingProductHeader'
 
 interface FormData {
   name: string

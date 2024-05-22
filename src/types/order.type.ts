@@ -1,3 +1,5 @@
+import { PagingType } from './utils.type'
+
 export interface Order {
   id: string
   status: number
@@ -12,13 +14,7 @@ export interface Order {
 
 export interface OrderList {
   data: Order[]
-  paging: {
-    page: number
-    limit: number
-    total: number
-    cursor: string
-    next_cursor: string
-  }
+  paging: PagingType
 }
 
 export interface ItemOrderConfig {

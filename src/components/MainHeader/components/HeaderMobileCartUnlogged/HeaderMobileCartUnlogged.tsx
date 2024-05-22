@@ -17,7 +17,7 @@ interface Props {
 
 export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperStyle }: Props) {
   const { theme } = useContext(AppContext)
-  const { tempExtendedPurchases, settempExtendedPurchases } = useContext(CartContext)
+  const { tempExtendedPurchases, setTempExtendedPurchases } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)
   const openCart = () => {
@@ -30,7 +30,7 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
   const handleRemove = (purchaseIndex: number) => () => {
     const purchaseId = tempExtendedPurchases[purchaseIndex].id
     const newPurchaseList = tempExtendedPurchases.filter((purchase) => purchase.id !== purchaseId)
-    settempExtendedPurchases(newPurchaseList)
+    setTempExtendedPurchases(newPurchaseList)
   }
 
   //! Multi languages
