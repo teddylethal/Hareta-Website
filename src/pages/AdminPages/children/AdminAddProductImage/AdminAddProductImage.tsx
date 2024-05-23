@@ -34,7 +34,7 @@ export default function AdminAddProductImage() {
     isFetching,
     refetch
   } = useQuery({
-    queryKey: ['item_image_list'],
+    queryKey: ['admin', 'product', 'images'],
     queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
     enabled: Boolean(currentProduct)
@@ -170,7 +170,7 @@ export default function AdminAddProductImage() {
         }}
         classNameWrapper='relative w-72 h-40 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all flex items-center justify-center'
       >
-        <p className='text-center text-xl font-medium uppercase leading-6 text-success'>Đã thêm hình ảnh</p>
+        <p className='text-center text-xl font-medium uppercase leading-6 text-successGreen'>Đã thêm hình ảnh</p>
       </DialogPopup>
     </div>
   )

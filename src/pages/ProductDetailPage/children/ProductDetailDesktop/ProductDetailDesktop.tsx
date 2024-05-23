@@ -259,7 +259,7 @@ export default function ProductDetailDesktop(props: Props) {
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
-            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+            className={classNames('text- rounded-full  p-4 text-center text-successGreen ', {
               'bg-black/20': theme === 'light',
               'bg-white/20': theme === 'dark'
             })}

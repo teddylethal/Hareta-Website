@@ -279,7 +279,7 @@ export default function AdminBlogDetail() {
         {!excuting && (
           <Fragment>
             {updateSuccess && (
-              <p className='text-successGreen text-center text-xl font-medium uppercase leading-6'>
+              <p className='text-center text-xl font-medium uppercase leading-6 text-successGreen'>
                 Bài viết đã được cập nhật
               </p>
             )}
@@ -312,12 +312,12 @@ export default function AdminBlogDetail() {
           setDeleteDialog(false)
         }}
       >
-        <div className='flex h-full flex-col justify-between py-4'>
-          <p className='text-center text-xl font-medium uppercase leading-6 text-alertRed'>Xác nhận xóa bài viết</p>
-          <div className='flex items-center justify-between text-sm'>
+        <div className='sapce-y-4 flex flex-col justify-between py-2'>
+          <p className='text-center text-xl font-semibold uppercase leading-6 text-alertRed'>Xác nhận xóa bài viết</p>
+          <div className='mt-6 flex items-center justify-between text-sm'>
             <button
               type='button'
-              className='rounded-md bg-alertRed/80 px-4 py-1 hover:bg-alertRed'
+              className='rounded-md bg-primaryBlue/80 px-4 py-1 hover:bg-primaryBlue'
               onClick={() => setDeleteDialog(false)}
             >
               Hủy
@@ -325,7 +325,7 @@ export default function AdminBlogDetail() {
 
             <button
               type='button'
-              className='bg-primaryBackground/80 hover:bg-primaryBackground rounded-md px-4 py-1'
+              className='rounded-md bg-alertRed/80 px-4 py-1 hover:bg-alertRed'
               onClick={deletePost}
             >
               Xóa
@@ -337,7 +337,7 @@ export default function AdminBlogDetail() {
       <DialogPopup isOpen={deleteExcutingDialog} handleClose={closeDeleteExcutingDialog}>
         {excuting && <LoadingRing />}
         {!excuting && (
-          <p className='text-successGreen text-center text-xl font-medium uppercase leading-6'>Đã xóa bài viết</p>
+          <p className='text-center text-xl font-medium uppercase leading-6 text-successGreen'>Đã xóa bài viết</p>
         )}
       </DialogPopup>
     </Fragment>

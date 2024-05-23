@@ -108,7 +108,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
   }
 
   const unlikeItemMutation = useMutation({ mutationFn: userLikeProductApi.unlikeProduct })
-  const likeItemMutation = useMutation({ mutationFn: userLikeProductApi.likeItem })
+  const likeItemMutation = useMutation({ mutationFn: userLikeProductApi.likeProduct })
   useEffect(() => {
     const updateLikeItem = setTimeout(() => {
       if (isLikedByUser && initialInWishlist === false) {
@@ -188,7 +188,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
-            className={classNames('text- rounded-full  p-4 text-center text-success ', {
+            className={classNames('text- rounded-full  p-4 text-center text-successGreen ', {
               'bg-black/20': theme === 'light',
               'bg-white/20': theme === 'dark'
             })}

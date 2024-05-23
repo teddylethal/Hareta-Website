@@ -1,12 +1,28 @@
+import classNames from 'classnames'
 import DOMPurify from 'dompurify'
+import { useContext, useEffect, useState } from 'react'
+import { AdminBlogContext } from 'src/contexts/adminblog.context'
 import { BlogDetail } from 'src/types/blog.type'
 import { InformationField } from 'src/types/utils.type'
+import AdminBlogTagEditor from '../AdminBlogTagEditor'
+import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
+import { useLocation } from 'react-router-dom'
+import { formatDate } from 'src/utils/utils'
 
 interface Props {
   blogDetail: BlogDetail
 }
 
 export default function AdminBlogInfo({ blogDetail }: Props) {
+  const { state } = useLocation()
+
+  const { setUpdateTags } = useContext(AdminBlogContext)
+  const [editingTag, setEditingTag] = useState<boolean>(state && state.from == 'AdminBlogCreate')
+
+  useEffect(() => {
+    setUpdateTags(blogDetail.tags.map((tag) => tag.tag))
+  }, [setUpdateTags, blogDetail])
+
   //! Styles
   const wrapperStyle = 'grid grid-cols-4 items-center gap-2 border border-black/20 py-1 px-2 rounded-md'
   const inforStyle = 'py-1 px-2 text-sm tablet:text-base desktop:text-lg'
@@ -20,13 +36,18 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
     },
     {
       title: 'Ngày tạo',
-      info: blogDetail.created_at
+      info: formatDate(blogDetail.created_at)
     },
     {
       title: 'Ngày chỉnh sửa',
-      info: blogDetail.updated_at
+      info: formatDate(blogDetail.updated_at)
     }
   ]
+
+  //! Handle edit tags
+  const toggleEditTag = () => {
+    setEditingTag((prev) => !prev)
+  }
 
   return (
     <div className='flex flex-col space-y-2'>
@@ -58,20 +79,44 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
         </div>
       ))}
 
-      {/* <div className={wrapperStyle}>
-        <div className='col-span-1'>
-          <p className={titleStyle}>Tags</p>
-        </div>
-        <div className='col-span-3'>
-          <div className={inforStyle}>
-            {blogDetail.tags.map((tag, index) => (
-              <span key={index} className='pr-1'>
-                {tag.tag},
-              </span>
-            ))}
+      <div
+        className={classNames('w-full space-y-2', {
+          'rounded-xl outline outline-1 outline-primaryColor': editingTag
+        })}
+      >
+        <AnimateChangeInHeight>
+          <div className={wrapperStyle}>
+            <div className='col-span-1'>
+              <p className={titleStyle}>Tags</p>
+            </div>
+            <div className='col-span-3'>
+              <div className={classNames(inforStyle, 'flex items-center space-x-2')}>
+                {blogDetail.tags.length == 0 && (
+                  <p className='font-medium uppercase text-alertRed'>Chưa có danh mục </p>
+                )}
+                {blogDetail.tags.map((tag, index) => (
+                  <span key={index} className='justify-center rounded-md border border-primaryBlue px-2 py-0.5'>
+                    {tag.tag}
+                  </span>
+                ))}
+                <button
+                  type='button'
+                  onClick={toggleEditTag}
+                  className='translate-x-4 rounded-md bg-unhoveringBg px-2 py-1 hover:bg-hoveringBg'
+                >
+                  {editingTag ? 'Hủy' : 'Chỉnh sửa tag'}
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div> */}
+
+          {editingTag && (
+            <div className='px-4'>
+              <AdminBlogTagEditor blogId={blogDetail.id} />
+            </div>
+          )}
+        </AnimateChangeInHeight>
+      </div>
 
       <div className=''>
         <p className='w-full text-center text-base font-semibold uppercase text-primaryBlue tablet:text-lg desktop:text-xl'>

@@ -44,9 +44,7 @@ export default function AuthPasswordRecovery() {
   useEffect(() => {
     if (isAxiosBadRequestError<ErrorRespone>(error)) {
       const formError = error.response?.data
-
-      const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
-      if (errorRespone && errorRespone.error_key === 'ErrPasswordRecoveryNotFound') {
+      if (formError && formError.error_key === 'ErrPasswordRecoveryNotFound') {
         navigate(path.AuthPasswordRecoveryRequestEmail, { state: { failSlugVerify: 'true' } })
       }
     }
@@ -70,10 +68,10 @@ export default function AuthPasswordRecovery() {
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
-          const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
-          if (errorRespone) {
+          const errorMessage = HttpStatusMessage.get(formError?.error_key || '')
+          if (errorMessage) {
             setError('email', {
-              message: errorRespone.error_message,
+              message: errorMessage,
               type: 'Server'
             })
           }

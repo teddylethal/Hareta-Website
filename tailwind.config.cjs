@@ -56,7 +56,7 @@ module.exports = {
         sidebarItemDark: '#2c2c32',
 
         //? States and badges
-        success: '#4bb543',
+        successGreen: '#4bb543',
         brownColor: '#B77729',
         orangeColor: '#ff6a00',
         sunYellow: '#ffc107',

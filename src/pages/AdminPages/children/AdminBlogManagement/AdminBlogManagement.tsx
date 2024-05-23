@@ -16,7 +16,7 @@ export default function AdminBlogManagement() {
     document.title = 'Quản lí bài viết'
   })
 
-  //! GET POST LIST
+  //! Get blog list
   const blogListQuery = useBlogListQueryConfig()
   const { data: blogsData, isFetching } = useQuery({
     queryKey: ['admin_blog_list', blogListQuery],

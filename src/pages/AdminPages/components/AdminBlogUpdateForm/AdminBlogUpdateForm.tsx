@@ -93,7 +93,11 @@ export default function AdminBlogUpdateForm({ blogDetail, imageFile, setImageFil
                 )}
                 {!previewImage && <div className='absolute left-0 top-0 h-full w-full bg-white'></div>}
                 <div className='absolute bottom-1 left-1/2 flex w-full -translate-x-1/2 justify-center'>
-                  <InputFile onChangeImageFile={handleChangeFile} buttonClassname={buttonStyle} />
+                  <InputFile
+                    onChangeImageFile={handleChangeFile}
+                    buttonClassname={buttonStyle}
+                    buttonTitle='Chọn ảnh'
+                  />
                 </div>
               </div>
             </div>
@@ -135,7 +139,7 @@ export default function AdminBlogUpdateForm({ blogDetail, imageFile, setImageFil
         </div>
       </AdminInput>
 
-      <div className='space-y-4'>
+      <div className='space-y-4 text-black'>
         <p className='w-full text-center text-base font-semibold uppercase text-primaryBlue tablet:text-lg desktop:text-xl'>
           Nội dung
         </p>

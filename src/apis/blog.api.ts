@@ -1,4 +1,4 @@
-import { BlogListConfig, BlogListType, BlogTagType, BlogType } from 'src/types/blog.type'
+import { BlogListConfig, BlogListType, BlogType } from 'src/types/blog.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
@@ -35,7 +35,7 @@ const blogApi = {
     return http.delete<SuccessRespone<string>>(`${URL}/`, { data: body })
   },
   getBlogTagList() {
-    return http.get<SuccessRespone<BlogTagType[]>>(`${tagURL}/`)
+    return http.get<SuccessRespone<string[]>>(`${tagURL}/`)
   },
   addTagForBlog(body: { blog_id: string; tag: string[] }) {
     return http.post<SuccessRespone<string>>(`${tagURL}/`, body)
