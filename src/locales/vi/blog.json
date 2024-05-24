@@ -1,0 +1,22 @@
+{
+  "": {},
+  "sample": "sample",
+  "title": "Bài viết",
+  "path": {
+    "home": "Trang chủ",
+    "blog": "Bài viết"
+  },
+  "content": {
+    "product": "Product",
+    "unit price": "Unit price",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "action": "Action",
+    "remove": "Remove",
+    "select all": "Select all",
+    "check out": "Check out",
+    "total": "Total",
+    "item is selected": "item is selected",
+    "items are selected": "items are selected"
+  }
+}

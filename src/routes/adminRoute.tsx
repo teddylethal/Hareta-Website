@@ -92,12 +92,8 @@ const AdminRoute: RouteObject = {
       element: <AdminProductRoute />,
       children: [
         {
-          path: adminPath.productList,
+          path: '',
           element: <AdminDefaultProductList />
-        },
-        {
-          path: adminPath.productDetail,
-          element: <AdminProductPage />
         },
         {
           path: adminPath.createProductGroup,
@@ -130,6 +126,10 @@ const AdminRoute: RouteObject = {
         {
           path: adminPath.deleteGroup,
           element: <AdminDeleteGroup />
+        },
+        {
+          path: adminPath.productDetail,
+          element: <AdminProductPage />
         }
       ]
     },
@@ -170,12 +170,12 @@ const AdminRoute: RouteObject = {
           element: <AdminBlogManagement />
         },
         {
-          path: adminPath.blogDetail,
-          element: <AdminBlogDetail />
-        },
-        {
           path: adminPath.blogCreate,
           element: <AdminBlogCreate />
+        },
+        {
+          path: adminPath.blogDetail,
+          element: <AdminBlogDetail />
         }
       ]
     }

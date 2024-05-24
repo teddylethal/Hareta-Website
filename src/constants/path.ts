@@ -7,6 +7,8 @@ const mainPath = {
   productDetail: ':nameId',
   cart: '/cart',
   user: '/user',
+  blogs: '/blogs',
+  events: '/events',
   profile: '/user/profile',
   wishList: '/user/wishlist',
   inventory: '/user/inventory',
@@ -27,19 +29,19 @@ export const adminPath = {
   mainPage: '/admin',
 
   // Product
-  products: '/admin/product',
-  productList: '/admin/product/list',
-  productDetail: '/admin/product/:nameId',
-  createProductGroup: '/admin/product/create-group',
-  createProduct: '/admin/product/create-product',
-  updateProduct: '/admin/product/update/item',
-  productImage: '/admin/product/image',
-  uploadProductAvatar: '/admin/product/image/avatar',
-  addProductImage: '/admin/product/image/add',
-  deleteProductImage: '/admin/product/image/delete',
-  deleteProductPage: '/admin/product/delete',
-  deleteGroup: '/admin/product/delete/delete-group',
-  deleteProduct: '/admin/product/delete/delete-product',
+  products: '/admin/products',
+  productList: '/admin/products/list',
+  productDetail: '/admin/products/:nameId',
+  createProductGroup: '/admin/products/create-group',
+  createProduct: '/admin/products/create-product',
+  updateProduct: '/admin/products/update/item',
+  productImage: '/admin/products/image',
+  uploadProductAvatar: '/admin/products/image/avatar',
+  addProductImage: '/admin/products/image/add',
+  deleteProductImage: '/admin/products/image/delete',
+  deleteProductPage: '/admin/products/delete',
+  deleteGroup: '/admin/products/delete/delete-group',
+  deleteProduct: '/admin/products/delete/delete-product',
 
   // Image
   images: '/admin/images',
@@ -52,8 +54,7 @@ export const adminPath = {
   // Blog
   blogs: '/admin/blogs',
   blogDetail: '/admin/blogs/:blogId',
-  blogCreate: '/admin/blogs/create',
-  blogTags: '/admin/blogs/tags'
+  blogCreate: '/admin/blogs/create'
 } as const
 
 export const privacyPath = {

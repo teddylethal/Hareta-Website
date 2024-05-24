@@ -20,7 +20,7 @@ export default function AdminProductGroupList() {
   //! GET DEFAULT PRODUCTS
   const queryConfig = {}
   const { data: defaultProductsData } = useQuery({
-    queryKey: ['admin_default_product_list'],
+    queryKey: ['admin', 'products', 'default'],
     queryFn: () => productApi.getProductList(queryConfig as ProductListConfig),
     staleTime: 1000 * 60 * 3
   })
@@ -34,12 +34,12 @@ export default function AdminProductGroupList() {
   const handleChooseGroup = (product: Product) => () => {
     setCurrentProduct(product)
     setProductGroup(product.group)
-    queryClient.invalidateQueries({ queryKey: ['products_in_group'] })
+    queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups', 'products'] })
   }
 
   const handleChooseEmptyGroup = (group: ProductGroup) => () => {
     setProductGroup(group)
-    queryClient.invalidateQueries({ queryKey: ['products_in_group'] })
+    queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups', 'products'] })
   }
 
   return (

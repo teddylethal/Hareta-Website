@@ -5,9 +5,10 @@ import InputNumber from 'src/components/InputNumber'
 import classNames from 'classnames'
 import { AdminContext } from 'src/contexts/admin.context'
 import 'react-quill/dist/quill.snow.css'
-import AdminProductInput from '../AdminProductInput'
 import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
+import { InputField } from 'src/types/utils.type'
+import AdminInput from '../AdminInput'
 
 type FormData = CreateProductSchema
 
@@ -32,16 +33,56 @@ export default function AdminCreateProductForm() {
   //! GET PRODUCT GROUP DATA
   useEffect(() => {
     setValue('name', currentProduct?.name || '')
-    setValue('group_id', currentProduct?.group.id || '')
+    setValue('group_id', productGroup?.id || '')
     setValue('category', currentProduct?.category || '')
     setValue('collection', currentProduct?.collection || '')
     setValue('product_line', currentProduct?.product_line || '')
     setValue('type', currentProduct?.type || '')
-  }, [currentProduct, setValue])
+  }, [currentProduct, productGroup, setValue])
+
+  //! Fields
+  const textFields: InputField[] = [
+    {
+      error: errors.name,
+      errorMessage: errors.name?.message,
+      name: 'name',
+      title: 'Tên sản phẩm'
+    },
+    {
+      error: errors.color,
+      errorMessage: errors.color?.message,
+      name: 'color',
+      title: 'Màu'
+    },
+    {
+      error: errors.category,
+      errorMessage: errors.category?.message,
+      name: 'category',
+      title: 'Hạng mục'
+    },
+    {
+      error: errors.collection,
+      errorMessage: errors.collection?.message,
+      name: 'collection',
+      title: 'Bộ sưu tập'
+    },
+    {
+      error: errors.type,
+      errorMessage: errors.type?.message,
+      name: 'type',
+      title: 'Loại'
+    },
+    {
+      error: errors.product_line,
+      errorMessage: errors.product_line?.message,
+      name: 'product_line',
+      title: 'Dòng sản phẩm'
+    }
+  ]
 
   //! STYLES
   const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2 bg-transparent'
-  const titleStyle = 'text-xs tablet:text-sm space-x-2 uppercase col-span-1 desktop:text-base'
+  const titleStyle = 'text-xs tablet:text-sm space-x-2 uppercase col-span-1 desktop:text-base text-primaryBlue'
   const inputStyle =
     'bg-darkColor700 py-1 px-2 text-base desktop:text-lg col-span-2 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/40 focus:outline-primaryColor text-haretaColor'
   const noSelectedInputStyle =
@@ -59,110 +100,29 @@ export default function AdminCreateProductForm() {
 
       <div className={inputFieldStyle}>
         <div className='col-span-1'>
-          <p className={titleStyle}>ID nhóm</p>
+          <p className={titleStyle}>ID nhóm sản phẩm</p>
         </div>
         <p className={noSelectedInputStyle}>{productGroup?.id}</p>
       </div>
 
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.name)
-        })}
-        register={register}
-        name='name'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.name?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Tên sản phẩm</span>
-          <span className={starStyle}>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.color)
-        })}
-        register={register}
-        name='color'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.color?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Màu</span>
-          <span className={starStyle}>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(noSelectedInputStyle, {
-          'outline-alertRed': Boolean(errors.category)
-        })}
-        register={register}
-        name='category'
-        disabled
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.category?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Hạng mục</span>
-          <span className={starStyle}>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(noSelectedInputStyle, {
-          'outline-alertRed': Boolean(errors.collection)
-        })}
-        register={register}
-        name='collection'
-        disabled
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.collection?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Bộ sưu tập</span>
-          <span className={starStyle}>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(noSelectedInputStyle, {
-          'outline-alertRed': Boolean(errors.type)
-        })}
-        register={register}
-        name='type'
-        disabled
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.type?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Loại</span>
-          <span className={starStyle}>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(noSelectedInputStyle, {
-          'outline-alertRed': Boolean(errors.product_line)
-        })}
-        register={register}
-        name='product_line'
-        disabled
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.product_line?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Dòng sản phẩm</span>
-          <span className={starStyle}>*</span>
-        </div>
-      </AdminProductInput>
+      {textFields.map((field) => (
+        <AdminInput
+          key={field.name}
+          className={inputFieldStyle}
+          inputClassName={classNames(field.readonly ? noSelectedInputStyle : inputStyle, {
+            'outline-alertRed': Boolean(field.error)
+          })}
+          register={register}
+          name={field.name}
+          readOnly={field.readonly}
+          errorSection={<AdminInputErrorSection errorMessage={field.errorMessage} />}
+        >
+          <div className={titleStyle}>
+            <span className=''>{field.title}</span>
+            <span className={starStyle}>*</span>
+          </div>
+        </AdminInput>
+      ))}
 
       <div className={inputFieldStyle}>
         <div className={titleStyle}>
@@ -214,7 +174,7 @@ export default function AdminCreateProductForm() {
         <AdminInputErrorSection errorMessage={errors.price?.message} />
       </div>
 
-      <div className='space-y-2 px-2 py-1 '>
+      <div className='space-y-2 px-2 py-1 text-black'>
         <div className={titleStyle}>
           <span className='text-lg'>Mô tả</span>
           <span className={starStyle}>*</span>

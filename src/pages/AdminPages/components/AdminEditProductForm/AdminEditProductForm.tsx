@@ -5,10 +5,28 @@ import classNames from 'classnames'
 import { Product } from 'src/types/product.type'
 import { formatDate } from 'src/utils/utils'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
-import AdminProductInput from '../AdminProductInput'
 import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
+import AdminInput from '../AdminInput'
+import { InputField } from 'src/types/utils.type'
 
 type FormData = EditProductSchema
+
+type InputNameType =
+  | 'id'
+  | 'name'
+  | 'category'
+  | 'collection'
+  | 'type'
+  | 'color'
+  | 'product_line'
+  | 'description'
+  | 'price'
+  | 'quantity'
+  | 'discount'
+  | 'tag'
+  | 'like_count'
+  | 'sold'
+  | 'cron_status'
 
 interface Props {
   productDetail: Product
@@ -22,6 +40,95 @@ export default function AdminEditProductForm({ productDetail }: Props) {
     setValue,
     formState: { errors }
   } = useFormContext<FormData>()
+
+  //! Fields
+  const textFields: InputField[] = [
+    {
+      error: errors.name,
+      errorMessage: errors.name?.message,
+      name: 'name',
+      title: 'Tên sản phẩm'
+    },
+    {
+      error: errors.color,
+      errorMessage: errors.color?.message,
+      name: 'color',
+      title: 'Màu'
+    },
+    {
+      error: errors.category,
+      errorMessage: errors.category?.message,
+      name: 'category',
+      title: 'Hạng mục',
+      readonly: true
+    },
+    {
+      error: errors.collection,
+      errorMessage: errors.collection?.message,
+      name: 'collection',
+      title: 'Bộ sưu tập',
+      readonly: true
+    },
+    {
+      error: errors.type,
+      errorMessage: errors.type?.message,
+      name: 'type',
+      title: 'Loại',
+      readonly: true
+    },
+    {
+      error: errors.product_line,
+      errorMessage: errors.product_line?.message,
+      name: 'product_line',
+      title: 'Dòng sản phẩm',
+      readonly: true
+    }
+  ]
+
+  const numberFields: InputField[] = [
+    {
+      error: errors.quantity,
+      errorMessage: errors.quantity?.message,
+      name: 'quantity',
+      title: 'Số lượng'
+    },
+    {
+      error: errors.price,
+      errorMessage: errors.price?.message,
+      name: 'price',
+      title: 'Dòng sản phẩm'
+    },
+    {
+      error: errors.discount,
+      errorMessage: errors.discount?.message,
+      name: 'discount',
+      title: 'Dòng sản phẩm'
+    },
+    {
+      error: errors.tag,
+      errorMessage: errors.tag?.message,
+      name: 'tag',
+      title: 'Dòng sản phẩm'
+    },
+    {
+      error: errors.like_count,
+      errorMessage: errors.like_count?.message,
+      name: 'like_count',
+      title: 'Dòng sản phẩm'
+    },
+    {
+      error: errors.sold,
+      errorMessage: errors.sold?.message,
+      name: 'sold',
+      title: 'Dòng sản phẩm'
+    },
+    {
+      error: errors.cron_status,
+      errorMessage: errors.cron_status?.message,
+      name: 'cron_status',
+      title: 'Dòng sản phẩm'
+    }
+  ]
 
   //! EDIT DESCRIPTION
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,6 +144,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
   const titleStyle = 'text-xs tablet:text-sm uppercase col-span-1 desktop:text-base'
   const inputStyle =
     'bg-darkColor700 py-1 px-2 text-base desktop:text-lg col-span-3 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/60 focus:outline-haretaColor text-haretaColor'
+  const starStyle = 'text-lg text-alertRed tablet:text-xl desktop:text-2xl'
 
   return (
     <div className='space-y-4'>
@@ -76,276 +184,51 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         </div>
       </div>
 
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.name)
-        })}
-        register={register}
-        name='name'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.name?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Tên sản phẩm</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-      </AdminProductInput>
+      {textFields.map((field) => (
+        <AdminInput
+          key={field.name}
+          className={inputFieldStyle}
+          inputClassName={classNames(field.readonly ? noSelectedInputStyle : inputStyle, {
+            'outline-alertRed': Boolean(field.error)
+          })}
+          register={register}
+          name={field.name}
+          readOnly={field.readonly}
+          errorSection={<AdminInputErrorSection errorMessage={field.errorMessage} />}
+        >
+          <div className={titleStyle}>
+            <span className=''>{field.title}</span>
+            <span className={starStyle}>*</span>
+          </div>
+        </AdminInput>
+      ))}
 
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.color)
-        })}
-        register={register}
-        name='color'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.color?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Màu</span>
-          <span className='text-alertRed'>*</span>
+      {numberFields.map((inputField) => (
+        <div key={inputField.name} className={inputFieldStyle}>
+          <div className={titleStyle}>
+            <span className=''>{inputField.title}</span>
+            <span className={starStyle}>*</span>
+          </div>
+          <div className={'col-span-3'}>
+            <Controller
+              control={control}
+              name={inputField.name as InputNameType}
+              render={({ field }) => (
+                <InputNumber
+                  inputClassName={classNames(inputStyle, {
+                    'outline-alertRed': Boolean(inputField.error)
+                  })}
+                  errorClassName='hidden'
+                  autoComplete='false'
+                  {...field}
+                  onChange={field.onChange}
+                />
+              )}
+            />
+          </div>
+          <AdminInputErrorSection errorMessage={inputField.errorMessage} />
         </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.category)
-        })}
-        register={register}
-        name='category'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.category?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Hạng mục</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.collection)
-        })}
-        register={register}
-        name='collection'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.collection?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Bộ sưu tập</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.type)
-        })}
-        register={register}
-        name='type'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.type?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Loại</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-      </AdminProductInput>
-
-      <AdminProductInput
-        className={inputFieldStyle}
-        inputClassName={classNames(inputStyle, {
-          'outline-alertRed': Boolean(errors.product_line)
-        })}
-        register={register}
-        name='product_line'
-        autoComplete='false'
-        errorSection={<AdminInputErrorSection errorMessage={errors.product_line?.message} />}
-      >
-        <div className={titleStyle}>
-          <span className=''>Dòng sản phẩm</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-      </AdminProductInput>
-
-      <div className={inputFieldStyle}>
-        <div className={titleStyle}>
-          <span className=''>Số lượng</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-        <div className={'col-span-3'}>
-          <Controller
-            control={control}
-            name='quantity'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(inputStyle, {
-                  'outline-alertRed': Boolean(errors.quantity)
-                })}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-        <AdminInputErrorSection errorMessage={errors.quantity?.message} />
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className={titleStyle}>
-          <span className=''>Giá</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-        <div className={'col-span-3'}>
-          <Controller
-            control={control}
-            name='price'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(inputStyle, {
-                  'outline-alertRed': Boolean(errors.price)
-                })}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-        <AdminInputErrorSection errorMessage={errors.price?.message} />
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className={titleStyle}>
-          <span className=''>Giảm giá</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-        <div className={'col-span-3'}>
-          <Controller
-            control={control}
-            name='discount'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(inputStyle, {
-                  'outline-alertRed': Boolean(errors.discount)
-                })}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-        <AdminInputErrorSection errorMessage={errors.discount?.message} />
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className={titleStyle}>
-          <span className=''>Tag</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-        <div className={'col-span-3'}>
-          <Controller
-            control={control}
-            name='tag'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(inputStyle, {
-                  'outline-alertRed': Boolean(errors.tag)
-                })}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-        <AdminInputErrorSection errorMessage={errors.tag?.message} />
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className={titleStyle}>
-          <span className=''>Lượt thích</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-        <div className={'col-span-3'}>
-          <Controller
-            control={control}
-            name='like_count'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(inputStyle, {
-                  'outline-alertRed': Boolean(errors.like_count)
-                })}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-        <AdminInputErrorSection errorMessage={errors.like_count?.message} />
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className={titleStyle}>
-          <span className=''>Đã bán</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-        <div className={'col-span-3'}>
-          <Controller
-            control={control}
-            name='sold'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(inputStyle, {
-                  'outline-alertRed': Boolean(errors.sold)
-                })}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-        <AdminInputErrorSection errorMessage={errors.sold?.message} />
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className={titleStyle}>
-          <span className=''>Cron status</span>
-          <span className='text-alertRed'>*</span>
-        </div>
-        <div className={'col-span-3'}>
-          <Controller
-            control={control}
-            name='cron_status'
-            render={({ field }) => (
-              <InputNumber
-                inputClassName={classNames(inputStyle, {
-                  'outline-alertRed': Boolean(errors.cron_status)
-                })}
-                errorClassName='hidden'
-                autoComplete='false'
-                {...field}
-                onChange={field.onChange}
-              />
-            )}
-          />
-        </div>
-        <AdminInputErrorSection errorMessage={errors.cron_status?.message} />
-      </div>
+      ))}
 
       <div className='space-y-2 px-2 py-1 '>
         <div className={titleStyle}>

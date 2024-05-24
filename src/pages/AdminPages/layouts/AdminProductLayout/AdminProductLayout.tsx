@@ -18,7 +18,7 @@ export default function AdminProductLayout({ children }: Props) {
 
   //! Menus
   const menus: NavigateItem[] = [
-    { name: 'Sản phẩm', url: adminPath.productList },
+    { name: 'Sản phẩm', url: adminPath.products },
     { name: 'Tạo', url: adminPath.createProduct },
     { name: 'Hình ảnh', url: adminPath.addProductImage },
     { name: 'Xóa', url: adminPath.deleteProduct }
@@ -29,7 +29,7 @@ export default function AdminProductLayout({ children }: Props) {
       <div className='col-span-2 p-2'>
         <div className='sticky top-4 flex flex-col items-center justify-around space-y-2 overflow-hidden rounded-md border border-white/40 p-3 text-base font-semibold text-lightText/80'>
           {menus.map((item, index) => (
-            <NavLink key={index} to={item.url} className={({ isActive }) => itemStyle(isActive)}>
+            <NavLink key={index} to={item.url} end className={({ isActive }) => itemStyle(isActive)}>
               {item.name}
             </NavLink>
           ))}

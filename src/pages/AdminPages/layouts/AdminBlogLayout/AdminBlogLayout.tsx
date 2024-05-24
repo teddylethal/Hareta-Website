@@ -12,8 +12,7 @@ export default function AdminBlogLayout({ children }: Props) {
   //! Menus
   const menus: NavigateItem[] = [
     { name: 'Danh sách', url: adminPath.blogs },
-    { name: 'Tạo bài viết', url: adminPath.blogCreate },
-    { name: 'Danh mục', url: adminPath.blogTags }
+    { name: 'Tạo bài viết', url: adminPath.blogCreate }
   ]
 
   return (

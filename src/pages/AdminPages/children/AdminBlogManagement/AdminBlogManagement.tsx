@@ -8,6 +8,7 @@ import { BlogListConfig } from 'src/types/blog.type'
 import AdminBlogCard from '../../components/AdminBlogCard'
 import UsePagination from 'src/components/UsePagination'
 import { ceil } from 'lodash'
+import AdminBlogSorter from '../../components/AdminBlogSorter'
 
 export default function AdminBlogManagement() {
   const isMobile = useViewport().width < 768
@@ -27,7 +28,8 @@ export default function AdminBlogManagement() {
   })
 
   return (
-    <div>
+    <div className='space-y-4'>
+      <AdminBlogSorter />
       <div className='w-full'>
         {isFetching && <LoadingSection />}
         {blogsData && (

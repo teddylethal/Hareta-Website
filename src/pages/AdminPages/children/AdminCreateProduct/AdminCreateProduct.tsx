@@ -24,7 +24,7 @@ export default function AdminCreateProduct() {
 
   //! Get product in group
   const { data: productsInGroupData } = useQuery({
-    queryKey: ['admin_products_in_group', productGroup],
+    queryKey: ['admin', 'product_groups', 'products', productGroup],
     queryFn: () =>
       productApi.getProductsInGroup({
         id: productGroup?.id as string,
@@ -40,6 +40,7 @@ export default function AdminCreateProduct() {
   const methods = useForm<FormData>({
     defaultValues: {
       name: '',
+
       group_id: '',
       category: '',
       price: 10,
