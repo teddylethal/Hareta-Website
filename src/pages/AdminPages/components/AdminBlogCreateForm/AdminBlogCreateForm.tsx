@@ -4,6 +4,7 @@ import { useFormContext } from 'react-hook-form'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
 import { CreateBlogSchema } from 'src/rules/adminblog.rule'
 import AdminInput from '../AdminInput'
+import NoToolbarJoditEditor from 'src/components/NoToolbarJoditEditor'
 
 type FormData = CreateBlogSchema
 
@@ -23,12 +24,18 @@ export default function AdminBlogCreateForm() {
     formState: { errors }
   } = useFormContext<FormData>()
 
-  //! EDIT DESCRIPTION
+  //! Editor
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onEditorStateChange = (editorState: any) => {
+  const onEditorStateChangeForContent = (editorState: any) => {
     setValue('content', editorState)
   }
-  const editorContent = watch('content')
+  const editorContentForContent = watch('content')
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onEditorStateChangeForOverall = (editorState: any) => {
+    setValue('overall', editorState)
+  }
+  const editorContentForOverall = watch('overall')
 
   //! Styles
   const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2'
@@ -57,13 +64,25 @@ export default function AdminBlogCreateForm() {
       <div className='space-y-4 px-2 text-black'>
         <div className='flex space-x-2'>
           <div className={titleStyle}>
+            <span className=''>Giới thiệu</span>
+            <span className='text-alertRed'>*</span>
+          </div>
+          <span className='text-sm text-alertRed'>{errors.overall?.message}</span>
+        </div>
+        <div className='h-20 overflow-hidden rounded-md'>
+          <NoToolbarJoditEditor content={editorContentForOverall} setContent={onEditorStateChangeForOverall} />
+        </div>
+      </div>
+
+      <div className='space-y-4 px-2 text-black'>
+        <div className='flex space-x-2'>
+          <div className={titleStyle}>
             <span className=''>Nội dung</span>
             <span className='text-alertRed'>*</span>
           </div>
           <span className='text-sm text-alertRed'>{errors.content?.message}</span>
         </div>
-        {/* <QuillEditor value={editorContent} setValue={onEditorStateChange} /> */}
-        <CustomJoditEditor content={editorContent} setContent={onEditorStateChange} />
+        <CustomJoditEditor content={editorContentForContent} setContent={onEditorStateChangeForContent} />
       </div>
     </Fragment>
   )

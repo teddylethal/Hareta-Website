@@ -84,8 +84,7 @@ export default function AdminBlogCreate() {
       }
 
       const newPostBody: FormData = {
-        title: data.title,
-        content: data.content,
+        ...data,
         avatar: newUploadedImageRespone ? newUploadedImageRespone.data.data.url : ''
       }
       // console.log(data.content)

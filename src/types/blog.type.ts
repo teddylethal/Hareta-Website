@@ -7,7 +7,7 @@ export interface BlogTagType {
 export interface BlogType extends JSONModel {
   title: string
   avatar: string
-  content: string
+  overall: string
   tags: BlogTagType[]
 }
 
@@ -26,6 +26,7 @@ export interface BlogListConfig {
 export interface BlogDetail extends JSONModel {
   title: string
   avatar: string
+  overall: string
   content: string
   tags: BlogTagType[]
 }

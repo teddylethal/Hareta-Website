@@ -6,7 +6,7 @@ const URL = 'item'
 
 const productApi = {
   getProductList(params: ProductListConfig) {
-    return http.get<ProductList>(`${URL}/list`, { params })
+    return http.get<ProductList>(`${URL}/`, { params })
   },
   getProductsInGroup(params: ProductsInGroupConfig) {
     return http.get<ProductList>(`${URL}/group`, { params })

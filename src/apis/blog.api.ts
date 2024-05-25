@@ -1,4 +1,4 @@
-import { BlogListConfig, BlogListType, BlogType } from 'src/types/blog.type'
+import { BlogDetail, BlogListConfig, BlogListType } from 'src/types/blog.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
@@ -23,7 +23,7 @@ const blogApi = {
     return http.get<BlogListType>(`${URL}/`, { params })
   },
   getBlogDetail(blogId: string) {
-    return http.get<SuccessRespone<BlogType>>(`${URL}/${blogId}`)
+    return http.get<SuccessRespone<BlogDetail>>(`${URL}/${blogId}`)
   },
   createBlog(body: CreateBlogForm) {
     return http.post<SuccessRespone<string>>(`${URL}/`, body)

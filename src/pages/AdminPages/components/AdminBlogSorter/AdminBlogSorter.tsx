@@ -52,7 +52,7 @@ export default function AdminBlogSorter() {
   }
 
   return (
-    <div className='flex items-center justify-center space-x-2 rounded-lg bg-darkColor500 px-6 py-2 text-darkText'>
+    <div className='flex items-center justify-center space-x-2 rounded-lg bg-darkColor700 px-6 py-2 text-darkText'>
       <span className='flex shrink-0 items-center text-lg font-semibold uppercase text-haretaColor'>Lọc theo tag:</span>
 
       <label className='relative w-40'>

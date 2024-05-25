@@ -32,7 +32,7 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
       onClick={handleClickItem}
     >
       <div className='col-span-2'>
-        <div className='relative w-full pt-[75%]'>
+        <div className='relative w-full pt-[100%]'>
           <div className='absolute left-0 top-0 h-full w-full'>
             {avatarUrl ? (
               <img src={avatarUrl} alt={blog.title} className='absolute left-0 top-0 h-full w-full object-cover' />
@@ -45,12 +45,12 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
         </div>
       </div>
       <div className='col-span-3 flex min-h-full items-center'>
-        <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-center justify-start space-x-1 space-y-1 overflow-hidden px-2 pt-2'>
-          <p className='over text-darkPrimaryBlue h-full w-full justify-start overflow-hidden truncate text-left text-sm font-semibold uppercase duration-200 tablet:text-lg desktop:text-lg'>
+        <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-start justify-start space-x-1 space-y-1 overflow-hidden px-2 pt-2'>
+          <p className='over h-full w-full justify-start overflow-hidden truncate text-left text-sm font-semibold uppercase text-haretaColor tablet:text-lg desktop:text-lg'>
             {blog.title}
           </p>
 
-          <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
+          {/* <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
             <div className='col-span-1 flex font-semibold'>Tag:</div>
             <div className='col-span-2 text-left'>
               {blog.tags.map((tag, index) => (
@@ -60,11 +60,12 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
                 </span>
               ))}
             </div>
-          </div>
-          <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
-            <div className='col-span-1 flex items-center truncate font-semibold'>Ngày tạo:</div>
-            <div className='col-span-2 text-left'>{formatDate(blog.created_at)}</div>
-          </div>
+          </div> */}
+          <p className='text-left text-xs desktop:text-sm'>{formatDate(blog.created_at)}</p>
+
+          <p className='over line-clamp-2 h-full w-full justify-start overflow-hidden text-left text-sm font-semibold '>
+            {blog.overall}
+          </p>
         </div>
       </div>
     </button>

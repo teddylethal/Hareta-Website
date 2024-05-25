@@ -1,7 +1,7 @@
 import { faRightLong } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
-import React, { Fragment, useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
@@ -11,6 +11,7 @@ import { BlogDetail } from 'src/types/blog.type'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { formatDate } from 'src/utils/utils'
 import AdminInput from '../AdminInput'
+import NoToolbarJoditEditor from 'src/components/NoToolbarJoditEditor'
 
 type FormData = NoUndefinedField<UpdateBlogSchema>
 
@@ -47,12 +48,18 @@ export default function AdminBlogUpdateForm({ blogDetail, imageFile, setImageFil
     setImageFile(file)
   }
 
-  //! Edit content
+  //! Editor
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onEditorStateChange = (editorState: any) => {
+  const onEditorStateChangeForContent = (editorState: any) => {
     setValue('content', editorState)
   }
-  const editorContent = watch('content')
+  const editorContentForContent = watch('content')
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onEditorStateChangeForOverall = (editorState: any) => {
+    setValue('overall', editorState)
+  }
+  const editorContentForOverall = watch('overall')
 
   //! Styles
   const wrapperStyle = 'grid grid-cols-4 items-center gap-2 border border-black/20 py-1 px-2 rounded-md'
@@ -65,7 +72,7 @@ export default function AdminBlogUpdateForm({ blogDetail, imageFile, setImageFil
     'flex py-1 px-2 tablet:px-4 desktop:px-6 hover:bg-hoveringBg cursor-pointer items-center justify-center rounded-md text-xs font-semibold tablet:text-sm desktop:text-base bg-black/60 text-white hover:text-darkText'
 
   return (
-    <Fragment>
+    <div className='space-y-4'>
       <div className={wrapperStyle}>
         <div className='col-span-1'>
           <p className={titleStyle}>Ảnh</p>
@@ -139,12 +146,29 @@ export default function AdminBlogUpdateForm({ blogDetail, imageFile, setImageFil
         </div>
       </AdminInput>
 
-      <div className='space-y-4 text-black'>
-        <p className='w-full text-center text-base font-semibold uppercase text-primaryBlue tablet:text-lg desktop:text-xl'>
-          Nội dung
-        </p>
-        <CustomJoditEditor content={editorContent} setContent={onEditorStateChange} />
+      <div className='space-y-4 px-2 text-black'>
+        <div className='flex space-x-2'>
+          <div className={titleStyle}>
+            <span className=''>Giới thiệu</span>
+            <span className='text-alertRed'>*</span>
+          </div>
+          <span className='text-sm text-alertRed'>{errors.overall?.message}</span>
+        </div>
+        <div className='h-20 overflow-hidden rounded-md'>
+          <NoToolbarJoditEditor content={editorContentForOverall} setContent={onEditorStateChangeForOverall} />
+        </div>
       </div>
-    </Fragment>
+
+      <div className='space-y-4 px-2 text-black'>
+        <div className='flex space-x-2'>
+          <div className={titleStyle}>
+            <span className=''>Nội dung</span>
+            <span className='text-alertRed'>*</span>
+          </div>
+          <span className='text-sm text-alertRed'>{errors.content?.message}</span>
+        </div>
+        <CustomJoditEditor content={editorContentForContent} setContent={onEditorStateChangeForContent} />
+      </div>
+    </div>
   )
 }

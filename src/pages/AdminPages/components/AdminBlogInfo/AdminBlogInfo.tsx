@@ -41,6 +41,10 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
     {
       title: 'Ngày chỉnh sửa',
       info: formatDate(blogDetail.updated_at)
+    },
+    {
+      title: 'Giới thiệu',
+      info: blogDetail.overall
     }
   ]
 
@@ -50,7 +54,7 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
   }
 
   return (
-    <div className='flex flex-col space-y-2'>
+    <div className='flex flex-col space-y-4'>
       <div className={wrapperStyle}>
         <div className='col-span-1'>
           <p className={titleStyle}>Ảnh</p>
@@ -118,10 +122,8 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
         </AnimateChangeInHeight>
       </div>
 
-      <div className=''>
-        <p className='w-full text-center text-base font-semibold uppercase text-primaryBlue tablet:text-lg desktop:text-xl'>
-          Nội dung
-        </p>
+      <div className='px-2 py-1'>
+        <p className={titleStyle}>Nội dung</p>
         <div className={inforStyle}>
           <div
             dangerouslySetInnerHTML={{
