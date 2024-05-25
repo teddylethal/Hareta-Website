@@ -1,5 +1,6 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import DOMPurify from 'dompurify'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
@@ -63,9 +64,12 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
           </div> */}
           <p className='text-left text-xs desktop:text-sm'>{formatDate(blog.created_at)}</p>
 
-          <p className='over line-clamp-2 h-full w-full justify-start overflow-hidden text-left text-sm font-semibold '>
-            {blog.overall}
-          </p>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(blog.overall)
+            }}
+            className='over line-clamp-2 h-full w-full justify-start overflow-hidden text-left text-sm font-semibold '
+          />
         </div>
       </div>
     </button>

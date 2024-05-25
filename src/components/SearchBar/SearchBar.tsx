@@ -1,50 +1,24 @@
-import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { useForm } from 'react-hook-form'
-import { ProductSchema, productSchema } from 'src/utils/rules'
+import { SearchSchema, searchSchema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
-import omit from 'lodash/omit'
 import { useTranslation } from 'react-i18next'
 
-type FormData = ProductSchema
+type FormData = SearchSchema
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handleSearch: any
+  handleSearch: (keyWord: string) => void
 }
 
 export default function SearchBar({ handleSearch }: Props) {
-  const queryConfig = useProductListQueryConfig()
-  const navigate = useNavigate()
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: {
       name: ''
     },
-    resolver: yupResolver(productSchema)
+    resolver: yupResolver(searchSchema)
   })
-  // const handleSearch = handleSubmit((data) => {
-  //   // console.log(data.name)
-  //   const config =
-  //     data.name === ''
-  //       ? omit(
-  //           {
-  //             ...queryConfig
-  //           },
-  //           ['category', 'collection', 'type', 'page', 'limit', 'name']
-  //         )
-  //       : omit(
-  //           {
-  //             ...queryConfig,
-  //             name: data.name
-  //           },
-  //           ['category', 'collection', 'type', 'page', 'limit']
-  //         )
-  //   navigate({
-  //     pathname: path.store,
-  //     search: createSearchParams(config).toString()
-  //   })
-  // })
+  const onSubmit = handleSubmit((data) => {
+    handleSearch(data.name)
+  })
 
   //! Multi languages
   const { t } = useTranslation('store')
@@ -53,7 +27,7 @@ export default function SearchBar({ handleSearch }: Props) {
     <div className='w-full'>
       <form
         className='relative flex w-full items-center rounded-lg bg-sidebarItemLight shadow-sm duration-200 dark:bg-sidebarItemDark'
-        onSubmit={handleSearch}
+        onSubmit={onSubmit}
       >
         <input
           className='focus:ring-primaryColordark:text-lightText w-full rounded-md bg-transparent px-4 py-1 text-base text-darkText caret-black outline-none ring-1 ring-haretaColor duration-200 autofill:text-darkText focus:ring-2 dark:text-lightText dark:caret-white dark:ring-haretaColor dark:autofill:text-lightText dark:focus:ring-primaryColor desktop:py-2 desktop:text-lg'

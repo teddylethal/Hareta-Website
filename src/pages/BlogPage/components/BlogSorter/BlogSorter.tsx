@@ -28,7 +28,7 @@ export default function BlogSorter() {
             {
               ...blogListQueryConfig
             },
-            ['tag', 'page', 'limit']
+            ['tag', 'title', 'page', 'limit']
           )
         ).toString()
       })
@@ -41,7 +41,7 @@ export default function BlogSorter() {
               ...blogListQueryConfig,
               tag: tag
             },
-            ['page', 'limit']
+            ['title', 'page', 'limit']
           )
         ).toString()
       })

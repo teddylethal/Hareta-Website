@@ -16,6 +16,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import { useTranslation } from 'react-i18next'
 import ProductDetailImageList from '../../components/ProductDetailImageList'
 import ProductDetailVariantList from '../../components/ProductDetailVariantList'
+import ProductTag from 'src/components/ProductTag'
 
 interface Props {
   defaultProduct: Product
@@ -29,7 +30,7 @@ export default function ProductDetailDesktop(props: Props) {
   const { defaultProduct, isLikedByUser, productsInGroup, addToCart, toggleLikeProduct } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
+  const { tempExtendedPurchases, setTempExtendedPurchases } = useContext(CartContext)
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
@@ -62,7 +63,7 @@ export default function ProductDetailDesktop(props: Props) {
       quantity: quantity,
       item: activeProduct
     }
-    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+    setTempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     setCreateTempCart(false)
     setQuantity(1)
     showSuccessDialog(setDialogIsOpen)
@@ -74,26 +75,26 @@ export default function ProductDetailDesktop(props: Props) {
       quantity: quantity,
       item: activeProduct
     }
-    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = tempExtendedPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const purchase = tempExtendedPurchase[purchaseIndex]
+      const purchase = tempExtendedPurchases[purchaseIndex]
       const maxQuanityInStore = purchase.item.quantity
       const currentQuantityInCart = purchase.quantity
       if (currentQuantityInCart + quantity <= maxQuanityInStore) {
         const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
+        const newPurchasesList = tempExtendedPurchases.map((purchase, index) => {
           if (index === purchaseIndex) {
             return { ...purchase, quantity: newQuantity }
           } else return purchase
         })
-        setTempExtendedPurchase(newPurchasesList)
+        setTempExtendedPurchases(newPurchasesList)
         setQuantity(1)
       } else {
         setErrorDialog(true)
         setQuantity(1)
       }
     } else {
-      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+      setTempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     }
     showSuccessDialog(setDialogIsOpen)
   }
@@ -125,13 +126,14 @@ export default function ProductDetailDesktop(props: Props) {
               </button>
             )}
           </div>
-          {defaultProduct.tag !== 0 && (
+          {tag !== 0 && (
             <div className='relative mt-2'>
-              <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
+              <ProductTag tag={tag} />
+              {/* <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
                 {tag == 1 && t('tag.top seller')}
                 {tag == 2 && t('tag.signature')}
                 {tag == 3 && t('tag.favourite')}
-              </span>
+              </span> */}
               <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent' />
             </div>
           )}
@@ -176,7 +178,7 @@ export default function ProductDetailDesktop(props: Props) {
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
-                      : tempExtendedPurchase.length === 0
+                      : tempExtendedPurchases.length === 0
                       ? () => {
                           setCreateTempCart(true)
                         }

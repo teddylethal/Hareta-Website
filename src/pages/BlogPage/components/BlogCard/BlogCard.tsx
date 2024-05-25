@@ -1,9 +1,11 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import DOMPurify from 'dompurify'
-import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import { blogPath } from 'src/constants/path'
 import { BlogType } from 'src/types/blog.type'
-import { formatDate } from 'src/utils/utils'
+import { formatDateEn, formatDateVi, generateNameId } from 'src/utils/utils'
 
 interface Props {
   blog: BlogType
@@ -14,13 +16,27 @@ export default function BlogCard({ blog }: Props) {
   const avatarUrl = blog.avatar
 
   //! Handle click
+  const navigate = useNavigate()
   const handleClick = () => {
-    return
+    navigate({
+      pathname: `${blogPath.blogs}/${generateNameId({
+        name: blog.title,
+        id: blog.id
+      })}`
+    })
   }
 
+  //! Multi languages
+  const { t } = useTranslation('blog')
+  const { i18n } = useTranslation()
+  const currentLan = i18n.language
+
   return (
-    <button className='group w-full rounded-xl bg-darkColor900 hover:bg-darkColor700'>
-      <div className='relative w-full pt-[75%]'>
+    <button
+      onClick={handleClick}
+      className='group w-full overflow-hidden rounded-xl bg-darkColor900 hover:bg-darkColor700'
+    >
+      <div className='relative w-full pt-[100%]'>
         <div className='absolute left-0 top-0 h-full w-full'>
           {avatarUrl != '' ? (
             <img src={avatarUrl} alt={blog.title} className='absolute left-0 top-0 h-full w-full object-cover' />
@@ -31,21 +47,20 @@ export default function BlogCard({ blog }: Props) {
           )}
         </div>
       </div>
-      <div className='flex flex-col justify-between space-x-1 space-y-2 overflow-hidden px-2 py-4 tabletSmall:px-3 desktop:px-4'>
-        <p className='justify-center overflow-hidden truncate py-1 text-center text-sm font-bold uppercase duration-200 group-hover:text-primaryColor dark:text-lightText desktop:text-2xl'>
+      <div className='flex flex-col justify-between space-x-1 space-y-2 overflow-hidden px-2 py-4 tabletSmall:px-3 desktop:space-y-3 desktop:px-4'>
+        <p className='justify-center overflow-hidden truncate text-center text-sm font-bold uppercase duration-200 group-hover:text-primaryColor dark:text-lightText desktop:text-2xl'>
           {blog.title}
         </p>
 
-        <p className=''>{formatDate(blog.created_at)}</p>
+        <p className='text-left'>
+          {t('card.Posted on')} {currentLan == 'en' ? formatDateEn(blog.created_at) : formatDateVi(blog.created_at)}
+        </p>
 
         <div
+          className='line-clamp-4 h-20 max-h-20 overflow-hidden text-left'
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(blog.content, {
-              FORCE_BODY: true,
-              ALLOWED_ATTR: ['style', 'classs']
-            })
+            __html: DOMPurify.sanitize(blog.overall)
           }}
-          className='line-clamp-2 overflow-visible text-left'
         />
       </div>
     </button>

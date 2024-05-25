@@ -74,3 +74,12 @@ export const privacyPath = {
   ChangeToThePrivacyPolicy: 'changeToThePrivacyPolicy',
   TermAndConditions: 'termAndConditions'
 }
+
+export const blogPath = {
+  blogs: '/blogs',
+  blogDetail: '/blogs/:blogId'
+}
+
+export const orderPath = {}
+
+export const userPath = {}

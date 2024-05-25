@@ -41,10 +41,6 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
     {
       title: 'Ngày chỉnh sửa',
       info: formatDate(blogDetail.updated_at)
-    },
-    {
-      title: 'Giới thiệu',
-      info: blogDetail.overall
     }
   ]
 
@@ -59,9 +55,9 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
         <div className='col-span-1'>
           <p className={titleStyle}>Ảnh</p>
         </div>
-        <div className='col-span-3'>
-          <div className='flex w-full flex-col items-center space-y-4 py-4 tabletSmall:w-8/12 tablet:w-6/12 desktop:w-4/12'>
-            <div className='relative w-full overflow-hidden rounded-md border-2 border-white pt-[100%]'>
+        <div className='col-span-3 '>
+          <div className='flex w-full flex-col items-center space-y-4 py-4 tabletSmall:w-8/12 tablet:w-6/12 desktop:w-4/12 '>
+            <div className='relative w-full overflow-hidden rounded-md border-2 pt-[100%]'>
               <img
                 src={blogDetail.avatar}
                 alt={blogDetail.title}
@@ -123,8 +119,20 @@ export default function AdminBlogInfo({ blogDetail }: Props) {
       </div>
 
       <div className='px-2 py-1'>
+        <p className={titleStyle}>Phần giới thiệu</p>
+        <div className={'py-1 text-sm tablet:text-base desktop:text-lg'}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(blogDetail.overall)
+            }}
+            className='overflow-visible'
+          />
+        </div>
+      </div>
+
+      <div className='px-2 py-1'>
         <p className={titleStyle}>Nội dung</p>
-        <div className={inforStyle}>
+        <div className={'py-1 text-sm tablet:text-base desktop:text-lg'}>
           <div
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(blogDetail.content)

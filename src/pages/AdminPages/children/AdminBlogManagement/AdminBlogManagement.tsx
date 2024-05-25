@@ -20,7 +20,7 @@ export default function AdminBlogManagement() {
   //! Get blog list
   const blogListQuery = useBlogListQueryConfig()
   const { data: blogsData, isFetching } = useQuery({
-    queryKey: ['admin_blog_list', blogListQuery],
+    queryKey: ['admin', 'blogs', blogListQuery],
     queryFn: () => {
       return blogApi.getBlogList(blogListQuery as BlogListConfig)
     },

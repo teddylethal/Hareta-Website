@@ -34,9 +34,9 @@ export default function ProductDetailVariantList({
             return (
               <div
                 key={index}
-                className={classNames('col-span-1 rounded-xl border', {
-                  ' border-haretaColor dark:border-haretaColor': isActive,
-                  ' border-black/20 dark:border-white/20': !isActive
+                className={classNames('col-span-1 overflow-hidden rounded-xl outline', {
+                  ' outline-primaryColor dark:outline-primaryColor': isActive,
+                  ' outline-black/20 dark:outline-white/20': !isActive
                 })}
               >
                 <button className='relative w-full pt-[100%]' onClick={handleChooseVariant(item)}>

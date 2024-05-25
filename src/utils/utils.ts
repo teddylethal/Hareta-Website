@@ -46,6 +46,14 @@ export const formatDate = (timeStamp: string) => {
   return moment(timeStamp).utc().format('YYYY-MM-DD')
 }
 
+export const formatDateEn = (timeStamp: string) => {
+  return moment(timeStamp).utc().format('MMM DD, YYYY')
+}
+
+export const formatDateVi = (timeStamp: string) => {
+  return moment(timeStamp).utc().format('DD-MM-YYYY')
+}
+
 export const formatTimeToSeconds = (time: number) => {
   return floor(time / 1000)
 }

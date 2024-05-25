@@ -10,7 +10,6 @@ const OrderTrackingPage = lazy(() => import('src/pages/OrderTrackingPage'))
 const PrivacyAndTermsPage = lazy(() => import('src/pages/PrivacyAndTermsPage'))
 const ProductDetailPage = lazy(() => import('src/pages/ProductDetailPage'))
 const StorePage = lazy(() => import('src/pages/StorePage'))
-const BlogPage = lazy(() => import('src/pages/BlogPage'))
 
 function MainRouteWrapper() {
   return (
@@ -37,10 +36,6 @@ const MainRoute: RouteObject = {
     {
       path: mainPath.events,
       element: <CartPage />
-    },
-    {
-      path: mainPath.blogs,
-      element: <BlogPage />
     },
     {
       path: mainPath.privacyAndTerms,

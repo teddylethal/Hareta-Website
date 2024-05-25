@@ -11,6 +11,7 @@ import LoadingSection from 'src/components/LoadingSection'
 import BlogCard from './components/BlogCard'
 import UsePagination from 'src/components/UsePagination'
 import { ceil } from 'lodash'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 export default function BlogPage() {
   //! Multi languages
@@ -28,8 +29,21 @@ export default function BlogPage() {
     queryFn: () => blogApi.getBlogList(blogListQueryConfig)
   })
 
-  const handleSearch = () => {
-    return
+  //! Handle search
+  const navigate = useNavigate()
+  const handleSearch = (keyWord: string) => {
+    if (keyWord == '') {
+      navigate({
+        pathname: mainPath.blogs
+      })
+    } else {
+      navigate({
+        pathname: mainPath.blogs,
+        search: createSearchParams({
+          title: keyWord
+        }).toString()
+      })
+    }
   }
 
   return (

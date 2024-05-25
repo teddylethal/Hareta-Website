@@ -123,3 +123,8 @@ export type ProductSchema = yup.InferType<typeof productSchema>
 export type PriceSchema = yup.InferType<typeof priceSchema>
 
 export type UserSchema = yup.InferType<typeof userSchema>
+
+export const searchSchema = yup.object({
+  name: yup.string().trim().default('')
+})
+export type SearchSchema = yup.InferType<typeof searchSchema>
