@@ -11,7 +11,7 @@ export default function AdminProductGroupList() {
 
   //! GET PRODUTC GROUPS
   const { data: itemsInGroupData } = useQuery({
-    queryKey: ['admin_product_group_list'],
+    queryKey: ['admin', 'products', 'groups'],
     queryFn: () => adminProductGroupApi.getProductGroups(),
     staleTime: 1000 * 60 * 3
   })
@@ -52,24 +52,23 @@ export default function AdminProductGroupList() {
               const isActive = product.group.id === productGroup?.id
               const avatarURL = product.avatar ? product.avatar.url : null
               return (
-                <div
+                <button
                   key={product.id}
-                  className={classNames('border-1 border-offset-0 col-span-1 h-min rounded-xl border p-1', {
+                  onClick={handleChooseGroup(product)}
+                  className={classNames('border-1 border-offset-0 col-span-1 h-min space-y-2 rounded-xl border p-1', {
                     'border-haretaColor': isActive,
                     'border-haretaColor/40 ': !isActive
                   })}
                 >
-                  <button className='w-full space-y-2' onClick={handleChooseGroup(product)}>
-                    <div className='relative w-full pt-[75%]'>
-                      <img
-                        src={avatarURL || ''}
-                        alt={`${product.name} ${product.color}`}
-                        className='absolute left-0 top-0 h-full w-full object-scale-down'
-                      />
-                    </div>
-                    <div className='truncate'>{product.name}</div>
-                  </button>
-                </div>
+                  <div className='relative w-full pt-[75%]'>
+                    <img
+                      src={avatarURL || ''}
+                      alt={`${product.name} ${product.color}`}
+                      className='absolute left-0 top-0 h-full w-full object-scale-down'
+                    />
+                  </div>
+                  <div className='truncate'>{product.name}</div>
+                </button>
               )
             })}
 
@@ -78,7 +77,7 @@ export default function AdminProductGroupList() {
               return (
                 <button
                   key={group.id}
-                  className={classNames('border-1 border-offset-0 col-span-1 min-h-full rounded-xl border p-1', {
+                  className={classNames('border-1 border-offset-0 col-span-1 h-min space-y-2 rounded-xl border p-1', {
                     'border-2 border-haretaColor': isActive,
                     'border-haretaColor/40 ': !isActive
                   })}

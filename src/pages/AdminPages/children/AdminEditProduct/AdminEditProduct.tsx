@@ -27,7 +27,7 @@ export default function AdminEditProduct({ setEditingMode, setSuccessDialogOpen 
   //! GET CURRENT PRODUCT DETAIL
   const productId = currentProduct?.id
   const { data: productDetailData } = useQuery({
-    queryKey: ['admin_product_detail', productId],
+    queryKey: ['admin', 'products', productId, 'detail'],
     queryFn: () => productApi.getProductDetail(productId as string),
     staleTime: 1000 * 60 * 5,
     enabled: Boolean(currentProduct)
@@ -39,6 +39,7 @@ export default function AdminEditProduct({ setEditingMode, setSuccessDialogOpen 
     defaultValues: {
       id: '',
       name: '',
+      avatar_url: '',
       category: '',
       collection: '',
       type: '',
@@ -78,7 +79,7 @@ export default function AdminEditProduct({ setEditingMode, setSuccessDialogOpen 
 
   //:: Handle edit
   const queryClient = useQueryClient()
-  const editProductMutation = useMutation({ mutationFn: adminProductApi.editProduct })
+  const editProductMutation = useMutation({ mutationFn: adminProductApi.updateProduct })
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInvalid = (errors: any) => console.error(errors)
@@ -89,7 +90,7 @@ export default function AdminEditProduct({ setEditingMode, setSuccessDialogOpen 
       {
         onSuccess: () => {
           reset()
-          queryClient.invalidateQueries({ queryKey: ['admin_product_detail'] })
+          queryClient.invalidateQueries({ queryKey: ['admin', 'products', productId, 'detail'] })
           showSuccessDialog(setSuccessDialogOpen, 2000)
         },
         onError: (error) => {

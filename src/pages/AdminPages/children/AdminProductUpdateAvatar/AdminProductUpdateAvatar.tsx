@@ -13,7 +13,7 @@ import AdminProductImageHeader from '../../components/AdminProductImageHeader'
 import AdminImageInput from '../../components/AdminImageInput'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
 
-export default function AdminUploadProductAvatar() {
+export default function AdminProductUpdateAvatar() {
   const { currentProduct } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
@@ -27,7 +27,7 @@ export default function AdminUploadProductAvatar() {
 
   //? GET IMAGE LIST
   const { data: itemImageListData, refetch } = useQuery({
-    queryKey: ['admin_product_images'],
+    queryKey: ['admin', 'products', currentProduct?.id || '', 'images'],
     queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
     enabled: Boolean(currentProduct)
@@ -60,15 +60,15 @@ export default function AdminUploadProductAvatar() {
           }
           addProductImageMutation.mutate(addImageBody, {
             onSuccess: () => {
-              queryClient.invalidateQueries({ queryKey: ['admin_product_group_list'] })
+              queryClient.invalidateQueries({ queryKey: ['admin', 'products', 'groups'] })
             }
           })
         }
         uploadAvatarMutation.mutate(body, {
           onSuccess: () => {
             showSuccessDialog(setSuccessDialogOpen)
-            queryClient.invalidateQueries({ queryKey: ['admin_products_in_group'] })
-            queryClient.invalidateQueries({ queryKey: ['admin_default_product_list'] })
+            queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct.id] })
+            queryClient.invalidateQueries({ queryKey: ['admin', 'products', 'default'] })
           }
         })
       }
@@ -85,6 +85,11 @@ export default function AdminUploadProductAvatar() {
     <div>
       <AdminProductImageHeader />
       <div className='mt-4 grid grid-cols-12 gap-4'>
+        <div className='col-span-6 space-y-4'>
+          <AdminProductGroupList />
+          <AdminSelectsVariant />
+        </div>
+
         <div className='col-span-6'>
           <div className='relative z-10 rounded-lg border border-white/40 p-4'>
             <div className='relative w-full pt-[75%]'>
@@ -131,11 +136,6 @@ export default function AdminUploadProductAvatar() {
             </div>
           </div>
         </div>
-
-        <div className='col-span-6 space-y-6'>
-          <AdminProductGroupList />
-          <AdminSelectsVariant />
-        </div>
       </div>
       <DialogPopup
         isOpen={successDialogOpen}
@@ -148,7 +148,7 @@ export default function AdminUploadProductAvatar() {
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
-            className={classNames('text- rounded-full  bg-white/20 p-4 text-center text-success', {})}
+            className={classNames('text- text-success  rounded-full bg-white/20 p-4 text-center', {})}
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>Cập nhật ảnh sản phẩm thành công</p>

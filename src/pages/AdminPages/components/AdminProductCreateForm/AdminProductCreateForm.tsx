@@ -12,7 +12,7 @@ import AdminInput from '../AdminInput'
 
 type FormData = CreateProductSchema
 
-export default function AdminCreateProductForm() {
+export default function AdminProductCreateForm() {
   const { productGroup, currentProduct } = useContext(AdminContext)
   const {
     register,

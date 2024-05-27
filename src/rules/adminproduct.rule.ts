@@ -29,6 +29,7 @@ export const editProductSchema = yup.object({
   tag: yup.number().default(0),
   like_count: yup.number().default(0),
   sold: yup.number().default(0),
-  cron_status: yup.number().default(0)
+  cron_status: yup.number().default(0),
+  avatar_url: yup.string().default('')
 })
 export type EditProductSchema = yup.InferType<typeof editProductSchema>

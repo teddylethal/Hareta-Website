@@ -1,6 +1,6 @@
 import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { Product as ProductType } from 'src/types/product.type'
-import { memo, useContext, useEffect, useState } from 'react'
+import { Fragment, memo, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -125,29 +125,26 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
   return (
     <div
       className='flex w-full items-center justify-center pb-0 pt-2 duration-200 tablet:hover:pb-2 tablet:hover:pt-0'
-      onMouseMove={handleHoveringImage}
+      onMouseEnter={handleHoveringImage}
       onMouseLeave={handleUnhoveringImage}
     >
       <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-200 dark:bg-productDarkBg'>
-        {hoveringImage && (
-          <div className='relative'>
-            <ProductImageSlideShow imageList={imageListCarousel} isLoading={isLoading} />
-            <button className='absolute inset-0' onClick={handleClickItem}></button>
+        <div className='relative w-full pt-[75%]'>
+          <div className='absolute left-0 top-0 h-full w-full'>
+            {hoveringImage ? (
+              <Fragment>
+                <ProductImageSlideShow imageList={imageListCarousel} avatarUrl={avatarUrl} isLoading={isLoading} />
+                <button className='absolute inset-0' onClick={handleClickItem}></button>
+              </Fragment>
+            ) : avatarUrl ? (
+              <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
+            ) : (
+              <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
+                <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
+              </div>
+            )}
           </div>
-        )}
-        {!hoveringImage && (
-          <div className='relative w-full pt-[75%]'>
-            <div className='absolute left-0 top-0 h-full w-full'>
-              {avatarUrl ? (
-                <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
-              ) : (
-                <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
-                  <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+        </div>
         <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 tabletSmall:px-3 desktop:px-4 desktop:pt-4'>
           <button
             className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 hover:text-primaryColor dark:text-lightText dark:hover:text-primaryColor tabletSmall:text-base desktop:text-lg'

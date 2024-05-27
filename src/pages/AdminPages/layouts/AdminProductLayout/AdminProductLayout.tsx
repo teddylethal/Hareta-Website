@@ -20,7 +20,7 @@ export default function AdminProductLayout({ children }: Props) {
   const menus: NavigateItem[] = [
     { name: 'Sản phẩm', url: adminPath.products },
     { name: 'Tạo', url: adminPath.createProduct },
-    { name: 'Hình ảnh', url: adminPath.addProductImage },
+    { name: 'Hình ảnh', url: adminPath.productImage },
     { name: 'Xóa', url: adminPath.deleteProduct }
   ]
 

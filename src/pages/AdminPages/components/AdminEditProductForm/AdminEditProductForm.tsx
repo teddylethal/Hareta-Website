@@ -139,11 +139,12 @@ export default function AdminEditProductForm({ productDetail }: Props) {
   const editorContent = watch('description')
 
   //! STYLES
-  const noSelectedInputStyle = 'text-lightText py-1 px-2 text-base font-medium desktop:text-lg'
-  const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2'
-  const titleStyle = 'text-xs tablet:text-sm uppercase col-span-1 desktop:text-base'
+  const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2 bg-transparent'
+  const titleStyle = 'text-xs tablet:text-sm space-x-2 uppercase col-span-1 desktop:text-base text-primaryBlue'
   const inputStyle =
-    'bg-darkColor700 py-1 px-2 text-base desktop:text-lg col-span-3 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/60 focus:outline-haretaColor text-haretaColor'
+    'bg-darkColor700 py-1 px-2 text-base desktop:text-lg col-span-2 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/40 focus:outline-primaryColor text-haretaColor'
+  const noSelectedInputStyle =
+    'text-lightText py-1 px-2 col-span-2 text-base font-medium desktop:text-lg bg-transparent rounded-lg'
   const starStyle = 'text-lg text-alertRed tablet:text-xl desktop:text-2xl'
 
   return (
@@ -230,7 +231,7 @@ export default function AdminEditProductForm({ productDetail }: Props) {
         </div>
       ))}
 
-      <div className='space-y-2 px-2 py-1 '>
+      <div className='space-y-2 px-2 py-1 text-black'>
         <div className={titleStyle}>
           <span className='text-lg'>Mô tả</span>
           <span className='text-alertRed'>*</span>

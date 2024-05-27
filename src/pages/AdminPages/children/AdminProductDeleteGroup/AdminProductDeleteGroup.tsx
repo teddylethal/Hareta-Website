@@ -15,7 +15,7 @@ import AdminInforSection from '../../components/AdminInforSection'
 import LoadingSection from 'src/components/LoadingSection'
 import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 
-export default function AdminDeleteGroup() {
+export default function AdminProductDeleteGroup() {
   const { productGroup, setProductGroup } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)

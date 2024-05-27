@@ -11,7 +11,7 @@ import AdminDialog from '../../components/AdminDialog'
 import AdminInforSection from '../../components/AdminInforSection'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
 
-export default function AdminDeleteProduct() {
+export default function AdminProductDeleteProduct() {
   const { currentProduct, setCurrentProduct } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)

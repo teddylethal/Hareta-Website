@@ -23,14 +23,14 @@ export default function AdminDialog({ isOpen, setIsOpen, state = true, content =
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
-            className={'text- rounded-full  bg-white/20 p-4 text-center text-success'}
+            className={'rounded-full bg-white/20  p-4 text-center text-successGreen'}
           />
         )}
         {!state && (
           <FontAwesomeIcon
             icon={faTriangleExclamation}
             fontSize={36}
-            className={'text- rounded-full  bg-white/20 p-4 text-center text-red-600'}
+            className={'rounded-full bg-white/20  p-4 text-center text-alertRed'}
           />
         )}
       </div>

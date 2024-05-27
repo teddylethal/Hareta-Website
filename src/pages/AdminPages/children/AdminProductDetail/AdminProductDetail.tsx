@@ -12,7 +12,7 @@ import { adminProductApi } from 'src/apis/admin.api'
 import AdminEditProduct from '../AdminEditProduct'
 import AdminDialog from '../../components/AdminDialog'
 
-export default function AdminProductPage() {
+export default function AdminProductDetail() {
   const { setProductGroup, currentProduct, setCurrentProduct, defaultProductIdList } = useContext(AdminContext)
 
   const isDefaultProduct = defaultProductIdList.includes(currentProduct?.id as string)
@@ -59,7 +59,7 @@ export default function AdminProductPage() {
         {
           onSuccess: () => {
             showSuccessDialog(setUpdateDefaultProductSuccess)
-            queryClient.invalidateQueries({ queryKey: ['admin_default_product_list'] })
+            queryClient.invalidateQueries({ queryKey: ['admin', 'products', 'default'] })
           }
         }
       )

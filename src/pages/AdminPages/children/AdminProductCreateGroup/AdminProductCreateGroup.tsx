@@ -21,7 +21,7 @@ const ProductGroupSchema = yup.object({
   name: yup.string().required('Name is required')
 })
 
-export default function AdminCreateProductGroup() {
+export default function AdminProductCreateGroup() {
   const { setProductGroup } = useContext(AdminContext)
 
   //? CREATE NEW GROUP

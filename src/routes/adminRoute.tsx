@@ -15,21 +15,24 @@ import AdminBlogDetail from 'src/pages/AdminPages/children/AdminBlogDetail'
 import AdminBlogCreate from 'src/pages/AdminPages/children/AdminBlogCreate'
 
 //! LAZY IMPORT ADMIN PAGES
-const AdminDefaultProductList = lazy(() => import('src/pages/AdminPages/children/AdminDefaultProductList'))
-const AdminProductPage = lazy(() => import('src/pages/AdminPages/children/AdminProductPage'))
 const AdminMainPage = lazy(() => import('src/pages/AdminPages/children/AdminMainPage'))
-const AdminDeleteGroup = lazy(() => import('src/pages/AdminPages/children/AdminDeleteGroup'))
-const AdminUploadProductAvatar = lazy(() => import('src/pages/AdminPages/children/AdminUploadProductAvatar'))
 const AdminImageManagement = lazy(() => import('src/pages/AdminPages/children/AdminImageManagement'))
-const AdminAddProductImage = lazy(() => import('src/pages/AdminPages/children/AdminAddProductImage'))
-const AdminCreateProductGroup = lazy(() => import('src/pages/AdminPages/children/AdminCreateProductGroup'))
-const AdminDeleteProduct = lazy(() => import('src/pages/AdminPages/children/AdminDeleteProduct'))
-const AdminDeleteProductImage = lazy(() => import('src/pages/AdminPages/children/AdminDeleteProductImage'))
-const AdminProductImagePage = lazy(() => import('src/pages/AdminPages/children/AdminProductImagePage'))
-const AdminCreateProduct = lazy(() => import('src/pages/AdminPages/children/AdminCreateProduct'))
 const AdminUploadImages = lazy(() => import('src/pages/AdminPages/children/AdminUploadImages'))
 const AdminDeleteImages = lazy(() => import('src/pages/AdminPages/children/AdminDeleteImages'))
 const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/children/AdminOrderMangement'))
+
+//! Lazy loading product pages
+const AdminProductManagement = lazy(() => import('src/pages/AdminPages/children/AdminProductManagement'))
+const AdminProductDetail = lazy(() => import('src/pages/AdminPages/children/AdminProductDetail'))
+
+const AdminProductCreate = lazy(() => import('src/pages/AdminPages/children/AdminProductCreate'))
+const AdminProductCreateGroup = lazy(() => import('src/pages/AdminPages/children/AdminProductCreateGroup'))
+
+const AdminProductUpdateAvatar = lazy(() => import('src/pages/AdminPages/children/AdminProductUpdateAvatar'))
+const AdminProductImagePage = lazy(() => import('src/pages/AdminPages/children/AdminProductImagePage'))
+
+const AdminProductDeleteProduct = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteProduct'))
+const AdminProductDeleteGroup = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteGroup'))
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
@@ -93,43 +96,36 @@ const AdminRoute: RouteObject = {
       children: [
         {
           path: '',
-          element: <AdminDefaultProductList />
+          element: <AdminProductManagement />
         },
         {
           path: adminPath.createProductGroup,
-          element: <AdminCreateProductGroup />
+          element: <AdminProductCreateGroup />
         },
         {
           path: adminPath.createProduct,
-          element: <AdminCreateProduct />
+          element: <AdminProductCreate />
         },
         {
           path: adminPath.uploadProductAvatar,
-          element: <AdminUploadProductAvatar />
+          element: <AdminProductUpdateAvatar />
         },
         {
           path: adminPath.productImage,
           element: <AdminProductImagePage />
         },
-        {
-          path: adminPath.addProductImage,
-          element: <AdminAddProductImage />
-        },
-        {
-          path: adminPath.deleteProductImage,
-          element: <AdminDeleteProductImage />
-        },
+
         {
           path: adminPath.deleteProduct,
-          element: <AdminDeleteProduct />
+          element: <AdminProductDeleteProduct />
         },
         {
           path: adminPath.deleteGroup,
-          element: <AdminDeleteGroup />
+          element: <AdminProductDeleteGroup />
         },
         {
           path: adminPath.productDetail,
-          element: <AdminProductPage />
+          element: <AdminProductDetail />
         }
       ]
     },

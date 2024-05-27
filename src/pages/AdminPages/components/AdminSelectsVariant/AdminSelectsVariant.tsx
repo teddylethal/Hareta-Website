@@ -100,7 +100,7 @@ export default function AdminSelectsVariant() {
                               className='absolute left-0 top-0 h-full w-full object-scale-down'
                             />
                             {defaultProductIdList.includes(product.id) && (
-                              <p className='absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 select-none rounded-md bg-primaryColor  p-2 text-center uppercase text-lightText opacity-50'>
+                              <p className='absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 select-none rounded-md bg-primaryColor  p-2 text-center uppercase text-lightText opacity-80'>
                                 Sản phẩm mặc định
                               </p>
                             )}

@@ -61,7 +61,7 @@ export const adminProductApi = {
   createNewProduct(body: NewItemForm) {
     return http.post(`${URL}item/`, body)
   },
-  editProduct(body: UpdateProductForm) {
+  updateProduct(body: UpdateProductForm) {
     return http.put<SuccessRespone<string>>(`${URL}item/`, body)
   },
   setDefaultProduct(body: { id: string }) {

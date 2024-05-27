@@ -4,6 +4,7 @@ import { Fragment, useContext } from 'react'
 import productApi from 'src/apis/product.api'
 import LoadingRing from 'src/components/LoadingRing'
 import { AdminContext } from 'src/contexts/admin.context'
+import { InformationField } from 'src/types/utils.type'
 
 function InforSection({ title, infor }: { title: string; infor: string | number }) {
   //! STYLES
@@ -11,7 +12,8 @@ function InforSection({ title, infor }: { title: string; infor: string | number 
   const titleWrapperClassname = 'col-span-2'
   const contentWrapperClassname = 'col-span-10'
   const titleClassname = ' font-medium uppercase text-white/60'
-  const contentClassname = 'rounded-lg bg-darkColor900 px-2 py-1 capitalize text-haretaColor'
+  const contentClassname =
+    'rounded-lg bg-darkColor900 px-2 py-1 w-full tablet:w-8/12 desktop:w-6/12 capitalize text-haretaColor'
 
   return (
     <div className={wrapperClassname}>
@@ -46,15 +48,80 @@ export default function AdminProductInfor() {
   const titleClassname = ' font-medium uppercase text-white/60'
   const contentClassname = 'rounded-lg bg-darkColor900 px-2 py-1 capitalize text-haretaColor'
 
+  if (!currentProduct) return <div className='h-full text-xl font-semibold uppercase'>Hãy chọn một sản phẩm</div>
+
+  //! Infos
+  const infos: InformationField[] = [
+    {
+      title: 'Nhóm sản phẩm',
+      info: productDetail?.group.name ?? ''
+    },
+    {
+      title: 'ID',
+      info: productDetail?.id ?? ''
+    },
+    {
+      title: 'Tên sản phẩm',
+      info: productDetail?.name ?? ''
+    },
+    {
+      title: 'Màu',
+      info: productDetail?.color ?? ''
+    },
+    {
+      title: 'Hạng mục',
+      info: productDetail?.category ?? ''
+    },
+    {
+      title: 'Bộ sưu tập',
+      info: productDetail?.collection ?? ''
+    },
+    {
+      title: 'Loại',
+      info: productDetail?.type ?? ''
+    },
+    {
+      title: 'Dòng sản phẩm',
+      info: productDetail?.product_line ?? ''
+    },
+    {
+      title: 'Số lượng',
+      info: productDetail?.quantity ?? ''
+    },
+    {
+      title: 'Giá',
+      info: productDetail?.price ?? ''
+    },
+    {
+      title: 'Giảm giá',
+      info: productDetail?.discount ?? ''
+    },
+    {
+      title: 'Tag',
+      info: productDetail?.tag ?? ''
+    },
+    {
+      title: 'Lượt thích',
+      info: productDetail?.like_count ?? ''
+    },
+    {
+      title: 'Đã bán',
+      info: productDetail?.sold ?? ''
+    },
+    {
+      title: 'cron status',
+      info: productDetail?.cron_status ?? ''
+    }
+  ]
+
   return (
     <div className='flex min-h-[200px] items-center justify-center rounded-lg border border-white/40 bg-black'>
-      {!currentProduct && <div className='h-full text-xl font-semibold uppercase'>Hãy chọn một sản phẩm</div>}
       {currentProduct && (
         <Fragment>
           {!productDetail && <LoadingRing />}
 
           {productDetail && (
-            <div className='space-y-4 px-2 py-4'>
+            <div className='space-y-4 px-2 py-4 desktop:space-y-6'>
               <div className={wrapperClassname}>
                 <div className={titleWrapperClassname}>
                   <p className={titleClassname}>Ảnh đại diện</p>
@@ -63,7 +130,7 @@ export default function AdminProductInfor() {
                   <div className=' w-6/12 desktop:w-8/12'>
                     <div className='relative w-full overflow-hidden pt-[75%]'>
                       <img
-                        src={avatarURL || ''}
+                        src={avatarURL ?? ''}
                         alt={`${productDetail.name} ${productDetail.color}`}
                         className='absolute left-0 top-0 h-full w-full object-scale-down'
                       />
@@ -72,21 +139,9 @@ export default function AdminProductInfor() {
                 </div>
               </div>
 
-              <InforSection title='Nhóm sản phẩm' infor={productDetail.group.name} />
-              <InforSection title='ID' infor={productDetail.id} />
-              <InforSection title='Tên sản phẩm' infor={productDetail.name} />
-              <InforSection title='Màu' infor={productDetail.color} />
-              <InforSection title='Hạng mục' infor={productDetail.category} />
-              <InforSection title='Bộ sưu tập' infor={productDetail.collection} />
-              <InforSection title='Loại' infor={productDetail.type} />
-              <InforSection title='Dòng sản phẩm' infor={productDetail.product_line} />
-              <InforSection title='Số lượng' infor={productDetail.quantity} />
-              <InforSection title='Giá' infor={productDetail.price} />
-              <InforSection title='Giảm giá' infor={productDetail.discount} />
-              <InforSection title='Tag' infor={productDetail.tag} />
-              <InforSection title='Lượt thích' infor={productDetail.like_count} />
-              <InforSection title='Đã bán' infor={productDetail.sold} />
-              <InforSection title='cron status' infor={productDetail.cron_status} />
+              {infos.map((info, index) => (
+                <InforSection key={index} title={info.title} infor={info.info} />
+              ))}
 
               <div className='flex flex-col items-center space-y-2 text-lg'>
                 <p className={titleClassname}>Mô tả</p>
@@ -95,7 +150,7 @@ export default function AdminProductInfor() {
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(productDetail.description)
                     }}
-                    className='overflow-visible'
+                    className='overflow-visible text-lightText'
                   />
                 </div>
               </div>

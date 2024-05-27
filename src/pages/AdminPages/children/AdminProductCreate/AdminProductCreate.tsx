@@ -13,12 +13,12 @@ import { ErrorRespone } from 'src/types/utils.type'
 import productApi from 'src/apis/product.api'
 import AdminCreatingProductHeader from '../../components/AdminCreatingProductHeader'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
-import AdminCreateProductForm from '../../components/AdminCreateProductForm'
+import AdminProductCreateForm from '../../components/AdminProductCreateForm'
 import { CreateProductSchema, createProductSchema } from '../../../../rules/adminproduct.rule'
 
 type FormData = CreateProductSchema
 
-export default function AdminCreateProduct() {
+export default function AdminProductCreate() {
   const { setLoadingPage } = useContext(AppContext)
   const { productGroup, setCurrentProduct } = useContext(AdminContext)
 
@@ -96,7 +96,7 @@ export default function AdminCreateProduct() {
           <form className='relative space-y-4 overflow-hidden ' onSubmit={handleSubmit(onSubmit, onInvalid)}>
             {!productGroup && <div className='absolute inset-0 z-10 bg-black/50'></div>}
 
-            <AdminCreateProductForm />
+            <AdminProductCreateForm />
             <div className='col-span-1 mt-2 flex items-center justify-end'>
               <button
                 className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor desktop:text-lg'

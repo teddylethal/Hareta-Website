@@ -34,7 +34,7 @@ function ProductItem({ product, handleEnterProduct }: ItemProps) {
   )
 }
 
-export default function AdminDefaultProductList() {
+export default function AdminProductManagement() {
   //! Get default product list
   const queryConfig = {}
   const { data: defaultProductListData } = useQuery({
