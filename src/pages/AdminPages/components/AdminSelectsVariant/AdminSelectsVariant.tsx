@@ -6,7 +6,11 @@ import { Product, ProductListConfig } from 'src/types/product.type'
 import classNames from 'classnames'
 import LoadingRing from 'src/components/LoadingRing'
 
-export default function AdminSelectsVariant() {
+interface Props {
+  wrapperClassname?: string
+}
+
+export default function AdminSelectsVariant({ wrapperClassname = 'm-2 grid grid-cols-3 gap-3' }: Props) {
   const { productGroup, currentProduct, setCurrentProduct, defaultProductIdList, setDefaultProductIdList } =
     useContext(AdminContext)
 
@@ -17,7 +21,7 @@ export default function AdminSelectsVariant() {
     isFetching,
     isFetched
   } = useQuery({
-    queryKey: ['admin_products_in_group', productGroup],
+    queryKey: ['admin', 'product-groups', productGroup?.id],
     queryFn: () =>
       productApi.getProductsInGroup({
         id: productGroup?.id as string,
@@ -38,7 +42,7 @@ export default function AdminSelectsVariant() {
   //! Get default product list
   const queryConfig = {}
   const { data: defaultProductListData } = useQuery({
-    queryKey: ['admin_default_product_list'],
+    queryKey: ['admin', 'default-products'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
@@ -80,7 +84,7 @@ export default function AdminSelectsVariant() {
                 </div>
               )}
               {productsInGroup.length > 0 && (
-                <div className='m-2 grid grid-cols-3 gap-3'>
+                <div className={wrapperClassname}>
                   {productsInGroup.map((product, index) => {
                     const isActive = product.id === currentProduct?.id
                     const avatarURL = product.avatar ? product.avatar.url : null
@@ -100,8 +104,8 @@ export default function AdminSelectsVariant() {
                               className='absolute left-0 top-0 h-full w-full object-scale-down'
                             />
                             {defaultProductIdList.includes(product.id) && (
-                              <p className='absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 select-none rounded-md bg-primaryColor  p-2 text-center uppercase text-lightText opacity-80'>
-                                Sản phẩm mặc định
+                              <p className='absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 select-none rounded-md bg-primaryColor p-2 text-center text-sm uppercase text-lightText opacity-80'>
+                                sp mặc định
                               </p>
                             )}
                           </div>

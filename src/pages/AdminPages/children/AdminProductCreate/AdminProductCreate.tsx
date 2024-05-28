@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminProductApi } from 'src/apis/admin.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { AdminContext } from 'src/contexts/admin.context'
@@ -24,7 +24,7 @@ export default function AdminProductCreate() {
 
   //! Get product in group
   const { data: productsInGroupData } = useQuery({
-    queryKey: ['admin', 'product_groups', 'products', productGroup],
+    queryKey: ['admin', 'product_groups', productGroup?.id],
     queryFn: () =>
       productApi.getProductsInGroup({
         id: productGroup?.id as string,
@@ -59,6 +59,7 @@ export default function AdminProductCreate() {
   const setDefaultProductMutation = useMutation({ mutationFn: adminProductApi.setDefaultProduct })
 
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInvalid = (errors: any) => console.error(errors)
   const onSubmit = async (data: FormData) => {
@@ -68,6 +69,9 @@ export default function AdminProductCreate() {
       const newProductRespone = await createNewProductMutation.mutateAsync({ ...data })
       const newItem: Product = newProductRespone.data.data
       setCurrentProduct(newItem)
+      queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
+      queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups', productGroup?.id] })
+      queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups'] })
       if (productsInGroup.length == 0) {
         setDefaultProductMutation.mutate({ id: newItem.id })
       }

@@ -60,7 +60,7 @@ export default function AdminProductUpdateAvatar() {
           }
           addProductImageMutation.mutate(addImageBody, {
             onSuccess: () => {
-              queryClient.invalidateQueries({ queryKey: ['admin', 'products', 'groups'] })
+              queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
             }
           })
         }
@@ -68,7 +68,7 @@ export default function AdminProductUpdateAvatar() {
           onSuccess: () => {
             showSuccessDialog(setSuccessDialogOpen)
             queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct.id] })
-            queryClient.invalidateQueries({ queryKey: ['admin', 'products', 'default'] })
+            queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
           }
         })
       }

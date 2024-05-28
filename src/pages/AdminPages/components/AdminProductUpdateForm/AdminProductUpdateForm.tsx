@@ -7,7 +7,7 @@ import { formatDate } from 'src/utils/utils'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
 import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 import AdminInput from '../AdminInput'
-import { InputField } from 'src/types/utils.type'
+import { InformationField, InputField } from 'src/types/utils.type'
 
 type FormData = EditProductSchema
 
@@ -32,7 +32,7 @@ interface Props {
   productDetail: Product
 }
 
-export default function AdminEditProductForm({ productDetail }: Props) {
+export default function AdminProductUpdateForm({ productDetail }: Props) {
   const {
     register,
     control,
@@ -42,6 +42,25 @@ export default function AdminEditProductForm({ productDetail }: Props) {
   } = useFormContext<FormData>()
 
   //! Fields
+  const infoFields: InformationField[] = [
+    {
+      title: 'Nhóm sản phẩm',
+      info: productDetail.group.name
+    },
+    {
+      title: 'ID',
+      info: productDetail.id
+    },
+    {
+      title: 'Ngày tạo',
+      info: formatDate(productDetail.created_at)
+    },
+    {
+      title: 'Ngày chỉnh sửa',
+      info: formatDate(productDetail.updated_at)
+    }
+  ]
+
   const textFields: InputField[] = [
     {
       error: errors.name,
@@ -149,41 +168,16 @@ export default function AdminEditProductForm({ productDetail }: Props) {
 
   return (
     <div className='space-y-4'>
-      <div className={inputFieldStyle}>
-        <div className='col-span-1'>
-          <p className={titleStyle}>Nhóm sản phẩm</p>
+      {infoFields.map((info, index) => (
+        <div key={index} className={inputFieldStyle}>
+          <div className='col-span-1'>
+            <p className={titleStyle}>{info.title}</p>
+          </div>
+          <div className='col-span-3'>
+            <p className={noSelectedInputStyle}>{info.info}</p>
+          </div>
         </div>
-        <div className='col-span-3'>
-          <p className={noSelectedInputStyle}>{productDetail.group.name}</p>
-        </div>
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className='col-span-1'>
-          <p className={titleStyle}>ID</p>
-        </div>
-        <div className='col-span-3'>
-          <p className={noSelectedInputStyle}>{productDetail.id}</p>
-        </div>
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className='col-span-1'>
-          <p className={titleStyle}>Ngày tạo</p>
-        </div>
-        <div className='col-span-3'>
-          <p className={noSelectedInputStyle}>{formatDate(productDetail.created_at)}</p>
-        </div>
-      </div>
-
-      <div className={inputFieldStyle}>
-        <div className='col-span-1'>
-          <p className={titleStyle}>Ngày chỉnh sửa</p>
-        </div>
-        <div className='col-span-3'>
-          <p className={noSelectedInputStyle}>{formatDate(productDetail.updated_at)}</p>
-        </div>
-      </div>
+      ))}
 
       {textFields.map((field) => (
         <AdminInput

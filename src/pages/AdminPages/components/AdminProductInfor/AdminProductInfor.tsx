@@ -11,7 +11,7 @@ function InforSection({ title, infor }: { title: string; infor: string | number 
   const wrapperClassname = 'grid grid-cols-12 items-center gap-4 text-lg'
   const titleWrapperClassname = 'col-span-2'
   const contentWrapperClassname = 'col-span-10'
-  const titleClassname = ' font-medium uppercase text-white/60'
+  const titleClassname = 'font-medium text-primaryBlue uppercase'
   const contentClassname =
     'rounded-lg bg-darkColor900 px-2 py-1 w-full tablet:w-8/12 desktop:w-6/12 capitalize text-haretaColor'
 
@@ -45,8 +45,7 @@ export default function AdminProductInfor() {
   const wrapperClassname = 'grid grid-cols-12 items-center gap-4 text-lg'
   const titleWrapperClassname = 'col-span-2'
   const contentWrapperClassname = 'col-span-10'
-  const titleClassname = ' font-medium uppercase text-white/60'
-  const contentClassname = 'rounded-lg bg-darkColor900 px-2 py-1 capitalize text-haretaColor'
+  const titleClassname = 'font-medium text-primaryBlue uppercase'
 
   if (!currentProduct) return <div className='h-full text-xl font-semibold uppercase'>Hãy chọn một sản phẩm</div>
 
@@ -115,7 +114,7 @@ export default function AdminProductInfor() {
   ]
 
   return (
-    <div className='flex min-h-[200px] items-center justify-center rounded-lg border border-white/40 bg-black'>
+    <div className='flex min-h-[200px] items-center justify-center rounded-lg border border-white/40'>
       {currentProduct && (
         <Fragment>
           {!productDetail && <LoadingRing />}
@@ -143,14 +142,14 @@ export default function AdminProductInfor() {
                 <InforSection key={index} title={info.title} infor={info.info} />
               ))}
 
-              <div className='flex flex-col items-center space-y-2 text-lg'>
+              <div className='text-lg'>
                 <p className={titleClassname}>Mô tả</p>
-                <div className={contentClassname}>
+                <div className='py-1 text-sm tablet:text-base desktop:text-lg'>
                   <div
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(productDetail.description)
                     }}
-                    className='overflow-visible text-lightText'
+                    className='overflow-visible'
                   />
                 </div>
               </div>

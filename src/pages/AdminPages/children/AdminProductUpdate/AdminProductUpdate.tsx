@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { FormProvider, useForm } from 'react-hook-form'
 import { isAxiosBadRequestError, showSuccessDialog } from 'src/utils/utils'
 import LoadingRing from 'src/components/LoadingRing'
-import AdminEditProductForm from '../../components/AdminEditProductForm'
+import AdminProductUpdateForm from '../../components/AdminProductUpdateForm'
 import { EditProductSchema, editProductSchema } from '../../../../rules/adminproduct.rule'
 
 type FormData = NoUndefinedField<EditProductSchema>
@@ -19,7 +19,7 @@ interface Props {
   setSuccessDialogOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function AdminEditProduct({ setEditingMode, setSuccessDialogOpen }: Props) {
+export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpen }: Props) {
   //! USE CONTEXT
   const { setLoadingPage } = useContext(AppContext)
   const { currentProduct } = useContext(AdminContext)
@@ -90,7 +90,7 @@ export default function AdminEditProduct({ setEditingMode, setSuccessDialogOpen 
       {
         onSuccess: () => {
           reset()
-          queryClient.invalidateQueries({ queryKey: ['admin', 'products', productId, 'detail'] })
+          queryClient.invalidateQueries({ queryKey: ['admin', 'products', productId] })
           showSuccessDialog(setSuccessDialogOpen, 2000)
         },
         onError: (error) => {
@@ -117,7 +117,7 @@ export default function AdminEditProduct({ setEditingMode, setSuccessDialogOpen 
         {productDetail && (
           <FormProvider {...methods}>
             <form className='relative w-full' onSubmit={handleSubmit(onSubmit, onInvalid)}>
-              <AdminEditProductForm productDetail={productDetail} />
+              <AdminProductUpdateForm productDetail={productDetail} />
 
               <div className='fixed bottom-2 left-0 z-10 w-full text-darkText'>
                 <div className='container '>

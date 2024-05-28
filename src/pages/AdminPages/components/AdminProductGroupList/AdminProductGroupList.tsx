@@ -9,9 +9,9 @@ import productApi from 'src/apis/product.api'
 export default function AdminProductGroupList() {
   const { setProductGroup, productGroup, setCurrentProduct } = useContext(AdminContext)
 
-  //! GET PRODUTC GROUPS
+  //! Get product groups
   const { data: itemsInGroupData } = useQuery({
-    queryKey: ['admin', 'products', 'groups'],
+    queryKey: ['admin', 'product-groups'],
     queryFn: () => adminProductGroupApi.getProductGroups(),
     staleTime: 1000 * 60 * 3
   })
@@ -34,12 +34,12 @@ export default function AdminProductGroupList() {
   const handleChooseGroup = (product: Product) => () => {
     setCurrentProduct(product)
     setProductGroup(product.group)
-    queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups', 'products'] })
+    queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
   }
 
   const handleChooseEmptyGroup = (group: ProductGroup) => () => {
     setProductGroup(group)
-    queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups', 'products'] })
+    queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
   }
 
   return (

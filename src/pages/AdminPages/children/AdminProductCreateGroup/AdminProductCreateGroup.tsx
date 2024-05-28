@@ -49,7 +49,7 @@ export default function AdminProductCreateGroup() {
       setProductGroup(newGroup)
       reset()
       clearErrors()
-      queryClient.invalidateQueries({ queryKey: ['admin_product_group_list'] })
+      queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
       navigate(adminPath.createProduct)
     } catch (error) {
       if (isAxiosBadRequestError<ErrorRespone>(error)) {

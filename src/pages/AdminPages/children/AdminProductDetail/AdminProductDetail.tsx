@@ -9,7 +9,7 @@ import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 import AdminProductInfor from '../../components/AdminProductInfor'
 import { adminProductApi } from 'src/apis/admin.api'
 
-import AdminEditProduct from '../AdminEditProduct'
+import AdminProductUpdate from '../AdminProductUpdate'
 import AdminDialog from '../../components/AdminDialog'
 
 export default function AdminProductDetail() {
@@ -24,10 +24,10 @@ export default function AdminProductDetail() {
 
   //! GET PRODUCT DETAIL
   const { nameId } = useParams()
-  const id = getIdFromNameId(nameId as string)
+  const productId = getIdFromNameId(nameId as string)
   const { data: productDetailData } = useQuery({
-    queryKey: ['admin_product_detail', id],
-    queryFn: () => productApi.getProductDetail(id as string)
+    queryKey: ['admin', 'products', productId],
+    queryFn: () => productApi.getProductDetail(productId as string)
   })
   const defaultProduct = productDetailData?.data.data
 
@@ -59,7 +59,7 @@ export default function AdminProductDetail() {
         {
           onSuccess: () => {
             showSuccessDialog(setUpdateDefaultProductSuccess)
-            queryClient.invalidateQueries({ queryKey: ['admin', 'products', 'default'] })
+            queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
           }
         }
       )
@@ -71,7 +71,7 @@ export default function AdminProductDetail() {
       {!defaultProduct && <LoadingSection />}
       {defaultProduct && (
         <div className='space-y-6'>
-          <AdminSelectsVariant />
+          <AdminSelectsVariant wrapperClassname='m-2 grid grid-cols-5 gap-4' />
 
           <div className='flex w-full items-center justify-between'>
             <button
@@ -95,7 +95,7 @@ export default function AdminProductDetail() {
           {!editingMode && <AdminProductInfor />}
 
           {editingMode && (
-            <AdminEditProduct setEditingMode={setEditingMode} setSuccessDialogOpen={setUpdateProductSuccess} />
+            <AdminProductUpdate setEditingMode={setEditingMode} setSuccessDialogOpen={setUpdateProductSuccess} />
           )}
         </div>
       )}

@@ -12,7 +12,7 @@ import AdminInforSection from '../../components/AdminInforSection'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
 
 export default function AdminProductDeleteProduct() {
-  const { currentProduct, setCurrentProduct } = useContext(AdminContext)
+  const { currentProduct, setCurrentProduct, productGroup } = useContext(AdminContext)
   const { setLoadingPage } = useContext(AppContext)
   const [confirmDialog, setConfirmDialog] = useState(false)
   const [dialog, setDialog] = useState(false)
@@ -32,8 +32,8 @@ export default function AdminProductDeleteProduct() {
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
-          queryClient.invalidateQueries({ queryKey: ['admin_products_in_group'] })
-          queryClient.invalidateQueries({ queryKey: ['admin_default_prouduct_list'] })
+          queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups', productGroup?.id] })
+          queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
           setCurrentProduct(null)
         }
       }
@@ -44,7 +44,7 @@ export default function AdminProductDeleteProduct() {
   return (
     <div>
       <AdminDeletePageHeader />
-      <div className='mt-4 grid grid-cols-2 gap-8'>
+      <div className='mt-4 grid grid-cols-2 gap-4'>
         <div className='col-span-1'>
           <div className='sticky top-6 space-y-4'>
             <AdminProductGroupList />
@@ -54,7 +54,7 @@ export default function AdminProductDeleteProduct() {
         <div className='col-span-1'>
           <div className='relative min-h-screen space-y-4 rounded-lg border border-white/40 p-4'>
             {!currentProduct && (
-              <div className='flex h-20 items-center justify-center text-lg font-semibold text-alertRed'>
+              <div className='flex h-20 items-center justify-center text-2xl font-bold uppercase text-alertRed'>
                 Chọn 1 sản phẩm
               </div>
             )}
@@ -73,7 +73,7 @@ export default function AdminProductDeleteProduct() {
                   </div>
                 </div>
 
-                <AdminInforSection title='Nhóm sản phẩm' infor={currentProduct.group.name} />
+                <AdminInforSection title='Nhóm sản phẩm' infor={productGroup?.name ?? ''} />
                 <AdminInforSection title='ID' infor={currentProduct.id} />
                 <AdminInforSection title='Tên sản phẩm' infor={currentProduct.name} />
                 <AdminInforSection title='Màu' infor={currentProduct.color} />
@@ -96,7 +96,7 @@ export default function AdminProductDeleteProduct() {
           {currentProduct && (
             <div className='mt-4  flex w-full items-center justify-end'>
               <button
-                className='rounded-lg bg-alertRed/80 px-3 py-1 text-xs uppercase hover:bg-alertRed desktop:text-sm'
+                className='rounded-lg bg-alertRed/80 px-4 py-2 text-sm uppercase hover:bg-alertRed desktop:text-base'
                 onClick={onClickDelete}
               >
                 xóa
