@@ -3,7 +3,7 @@ import { Slide, toast } from 'react-toastify'
 import { imageApi } from 'src/apis/image.api'
 import { useCopyToClipboard } from 'src/hooks/useCopyToClipboard'
 import useImageListQueryConfig from 'src/hooks/useImageListQueryConfig'
-import { ImageListConfig } from 'src/types/productImage.type'
+import { ImageListConfig } from 'src/types/image.type'
 import AdminImageFilter from '../../components/AdminImageFilter'
 import LoadingRing from 'src/components/LoadingRing'
 import ImageCard from 'src/components/ImageCard'
@@ -13,7 +13,7 @@ export default function AdminImageManagement() {
   const imagesConfig = useImageListQueryConfig()
 
   const { data: imagesData, isFetching } = useQuery({
-    queryKey: ['admin_image_list', imagesConfig],
+    queryKey: ['admin', 'images', imagesConfig],
     queryFn: () => {
       return imageApi.getImageList(imagesConfig as ImageListConfig)
     },

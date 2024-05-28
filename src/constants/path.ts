@@ -49,6 +49,11 @@ export const adminPath = {
   // Order
   orders: '/admin/orders',
 
+  // Event
+  events: '/admin/events',
+  eventDetail: '/admin/events/:eventId',
+  eventCreate: '/admin/events/create',
+
   // Blog
   blogs: '/admin/blogs',
   blogDetail: '/admin/blogs/:blogId',

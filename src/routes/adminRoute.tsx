@@ -10,16 +10,12 @@ import AdminProductLayout from 'src/pages/AdminPages/layouts/AdminProductLayout'
 import AdminMainLayout from 'src/pages/AdminPages/layouts/AdminMainLayout'
 import AdminImageLayout from 'src/pages/AdminPages/layouts/AdminImageLayout'
 import AdminBlogLayout from 'src/pages/AdminPages/layouts/AdminBlogLayout'
-import AdminBlogManagement from 'src/pages/AdminPages/children/AdminBlogManagement'
-import AdminBlogDetail from 'src/pages/AdminPages/children/AdminBlogDetail'
-import AdminBlogCreate from 'src/pages/AdminPages/children/AdminBlogCreate'
+import AdminEventLayout from 'src/pages/AdminPages/layouts/AdminEventLayout'
+import AdminEventManagement from 'src/pages/AdminPages/children/AdminEventManagement'
+import AdminEventDetail from 'src/pages/AdminPages/children/AdminEventDetail'
 
 //! LAZY IMPORT ADMIN PAGES
 const AdminMainPage = lazy(() => import('src/pages/AdminPages/children/AdminMainPage'))
-const AdminImageManagement = lazy(() => import('src/pages/AdminPages/children/AdminImageManagement'))
-const AdminUploadImages = lazy(() => import('src/pages/AdminPages/children/AdminUploadImages'))
-const AdminDeleteImages = lazy(() => import('src/pages/AdminPages/children/AdminDeleteImages'))
-const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/children/AdminOrderMangement'))
 
 //! Lazy loading product pages
 const AdminProductManagement = lazy(() => import('src/pages/AdminPages/children/AdminProductManagement'))
@@ -33,6 +29,21 @@ const AdminProductImagePage = lazy(() => import('src/pages/AdminPages/children/A
 
 const AdminProductDeleteProduct = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteProduct'))
 const AdminProductDeleteGroup = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteGroup'))
+
+//! Lazy loading image pages
+const AdminImageManagement = lazy(() => import('src/pages/AdminPages/children/AdminImageManagement'))
+const AdminImageUpload = lazy(() => import('src/pages/AdminPages/children/AdminImageUpload'))
+const AdminImageDelete = lazy(() => import('src/pages/AdminPages/children/AdminImageDelete'))
+
+//! Lazy loading order pages
+const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/children/AdminOrderMangement'))
+
+//! Lazy loading event pages
+
+//! Lazy loading blog pages
+const AdminBlogManagement = lazy(() => import('src/pages/AdminPages/children/AdminBlogManagement'))
+const AdminBlogDetail = lazy(() => import('src/pages/AdminPages/children/AdminBlogDetail'))
+const AdminBlogCreate = lazy(() => import('src/pages/AdminPages/children/AdminBlogCreate'))
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
@@ -69,6 +80,14 @@ function AdminOrderRoute() {
     <AdminOrderLayout>
       <Outlet />
     </AdminOrderLayout>
+  )
+}
+
+function AdminEventRoute() {
+  return (
+    <AdminEventLayout>
+      <Outlet />
+    </AdminEventLayout>
   )
 }
 
@@ -139,11 +158,11 @@ const AdminRoute: RouteObject = {
         },
         {
           path: adminPath.uploadImages,
-          element: <AdminUploadImages />
+          element: <AdminImageUpload />
         },
         {
           path: adminPath.deleteImages,
-          element: <AdminDeleteImages />
+          element: <AdminImageDelete />
         }
       ]
     },
@@ -172,6 +191,24 @@ const AdminRoute: RouteObject = {
         {
           path: adminPath.blogDetail,
           element: <AdminBlogDetail />
+        }
+      ]
+    },
+    {
+      path: adminPath.events,
+      element: <AdminEventRoute />,
+      children: [
+        {
+          path: '',
+          element: <AdminEventManagement />
+        },
+        {
+          path: adminPath.eventCreate,
+          element: <AdminEventManagement />
+        },
+        {
+          path: adminPath.eventDetail,
+          element: <AdminEventDetail />
         }
       ]
     }

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import MultipleFilesInput from 'src/components/MultipleFilesInput'
 
-export default function AdminUploadImages() {
+export default function AdminImageUpload() {
   const [files, setFiles] = useState<File[]>([])
   const [excutingDialog, setExcutingDialog] = useState<boolean>(false)
   const [excuting, setExcuting] = useState<boolean>(false)
@@ -105,7 +105,7 @@ export default function AdminUploadImages() {
           />
         )}
         {!excuting && (
-          <p className='text-center text-xl font-medium uppercase leading-6 text-success'>Upload hình ảnh thành công</p>
+          <p className='text-success text-center text-xl font-medium uppercase leading-6'>Upload hình ảnh thành công</p>
         )}
       </DialogPopup>
     </div>

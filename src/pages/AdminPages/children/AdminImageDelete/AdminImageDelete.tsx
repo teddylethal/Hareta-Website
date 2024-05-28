@@ -1,11 +1,10 @@
 import { Fragment, useState } from 'react'
-import { Image } from 'src/types/image.type'
+import { Image, ImageListConfig } from 'src/types/image.type'
 import { formatDate } from 'src/utils/utils'
 import AdminImageFilter from '../../components/AdminImageFilter'
 import LoadingRing from 'src/components/LoadingRing'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { imageApi } from 'src/apis/image.api'
-import { ImageListConfig } from 'src/types/productImage.type'
 import useImageListQueryConfig from 'src/hooks/useImageListQueryConfig'
 import DialogPopup from 'src/components/DialogPopup'
 
@@ -37,7 +36,7 @@ function ImageItem({ image, handleDelete }: { image: Image; handleDelete: (image
   )
 }
 
-export default function AdminDeleteImages() {
+export default function AdminImageDelete() {
   const [excutingDialog, setExcutingDialog] = useState<boolean>(false)
 
   //! GET IMAGE LIST
@@ -48,7 +47,7 @@ export default function AdminDeleteImages() {
     isFetching,
     isFetched
   } = useQuery({
-    queryKey: ['admin-image-list', imagesConfig],
+    queryKey: ['admin', 'images', imagesConfig],
     queryFn: () => {
       return imageApi.getImageList(imagesConfig as ImageListConfig)
     },
@@ -66,7 +65,7 @@ export default function AdminDeleteImages() {
       { image_id: imageId as string },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['admin-image-list'] })
+          queryClient.invalidateQueries({ queryKey: ['admin', 'images'] })
         }
       }
     )
@@ -99,7 +98,7 @@ export default function AdminDeleteImages() {
       >
         {deleteImageMutation.isPending && <LoadingRing />}
         {deleteImageMutation.isSuccess && (
-          <p className='text-center text-xl font-medium uppercase leading-6 text-green-500'>Đã xóa hình ảnh</p>
+          <p className='text-center text-xl font-medium uppercase leading-6 text-successGreen'>Đã xóa hình ảnh</p>
         )}
       </DialogPopup>
     </Fragment>

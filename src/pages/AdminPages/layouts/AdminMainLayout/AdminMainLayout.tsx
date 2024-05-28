@@ -13,6 +13,7 @@ export default function AdminLayout({ children }: Props) {
     { name: 'Sản phẩm', url: adminPath.products },
     { name: 'Hình ảnh', url: adminPath.images },
     { name: 'Đơn hàng', url: adminPath.orders },
+    { name: 'Sự kiện', url: adminPath.events },
     { name: 'Bài viết', url: adminPath.blogs }
   ]
 
