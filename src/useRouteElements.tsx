@@ -14,6 +14,7 @@ import UserRoute from './routes/userRoute'
 import AuthenticationRoute from './routes/authenticationRoute'
 import OrderRoute from './routes/orderRoute'
 import MainRoute from './routes/mainRoute'
+import BlogRoute from './routes/blogRoute'
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -30,7 +31,10 @@ export default function useRouteElements() {
       path: mainPath.user,
       children: [UserRoute]
     },
-
+    {
+      path: mainPath.blogs,
+      children: [BlogRoute]
+    },
     {
       path: adminPath.mainPage,
       children: [AdminRoute]

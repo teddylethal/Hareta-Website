@@ -24,7 +24,7 @@ export default function TransitionPopup({
         </Dialog.Title>
         <button
           type='button'
-          className='text-lightText/50 inline-flex justify-center rounded-md border  border-transparent p-2 text-sm font-medium hover:text-red-600  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
+          className='inline-flex justify-center rounded-md border border-transparent  p-2 text-sm font-medium text-lightText/50 hover:text-red-600  focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
         >
           <FontAwesomeIcon icon={faXmark} fontSize={20} />
         </button>
@@ -33,7 +33,7 @@ export default function TransitionPopup({
         <FontAwesomeIcon
           icon={faCheck}
           fontSize={36}
-          className='text- rounded-full bg-black/10 p-4 text-center text-success'
+          className='text- rounded-full bg-black/10 p-4 text-center text-successGreen'
         />
       </div>
     </div>
@@ -70,8 +70,8 @@ export default function TransitionPopup({
             >
               <Dialog.Panel
                 className={classNames(classNameWrapper, {
-                  'text-darkText bg-white': theme === 'light',
-                  'text-lightText bg-[#404040]': theme === 'dark'
+                  'bg-white text-darkText': theme === 'light',
+                  'bg-[#404040] text-lightText': theme === 'dark'
                 })}
               >
                 {children}

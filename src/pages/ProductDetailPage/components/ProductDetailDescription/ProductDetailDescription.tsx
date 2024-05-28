@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { createRef, useContext, useLayoutEffect, useRef, useState } from 'react'
+import { createRef, useLayoutEffect, useRef, useState } from 'react'
 import { Product } from 'src/types/product.type'
 import DOMPurify from 'dompurify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,7 +9,6 @@ import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
 import path from 'src/constants/path'
-import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
@@ -23,8 +22,6 @@ interface InfoProduct {
 }
 
 export default function ProductDetailDescription({ product }: Props) {
-  const { theme } = useContext(AppContext)
-
   const detailRef = useRef<HTMLDivElement>(null)
 
   //! HANDLE CLICK FIELD
@@ -120,19 +117,16 @@ export default function ProductDetailDescription({ product }: Props) {
   //! Style
   const wrapperClassname = 'grid w-full grid-cols-3 gap-4'
   const titleClassname =
-    'col-span-1 text-base text-lightText/60 dark:text-lightText/60 desktop:text-lg desktopLarge:text-xl'
+    'col-span-1 text-base text-darkText/60 dark:text-lightText/60 desktop:text-lg desktopLarge:text-xl'
   const clickableInfoClassname =
     'text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-lg desktopLarge:text-xl'
   const normalInfoClassname = 'col-span-2 text-base capitalize desktop:text-lg desktopLarge:text-xl'
 
   return (
-    <div className={theme === 'dark' ? 'dark' : 'light'}>
-      <div
-        className='rounded-lg bg-darkColor500 p-2 text-lightText dark:bg-darkColor700 dark:text-lightText'
-        ref={detailRef}
-      >
+    <div className='duration-200'>
+      <div className='p-2' ref={detailRef}>
         <div className='space-y-4'>
-          <p className='py-2 text-center text-xl font-semibold uppercase tracking-widest desktop:text-2xl desktopLarge:text-3xl'>
+          <p className='py-2 text-center text-2xl font-semibold uppercase tracking-widest desktop:text-3xl desktopLarge:text-4xl'>
             {t('detail.Detail')}
           </p>
           {infos.map((infoItem, index) => (
@@ -156,7 +150,7 @@ export default function ProductDetailDescription({ product }: Props) {
             <div className={normalInfoClassname}>{product.quantity}</div>
           </div>
         </div>
-        <div className='mt-10 '>
+        <div className='mt-10'>
           <AnimateChangeInHeight>
             <div
               ref={itemDescriptionRef}
@@ -168,12 +162,8 @@ export default function ProductDetailDescription({ product }: Props) {
               <div
                 ref={productDescriptionContentRef}
                 dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(product.description, {
-                    FORCE_BODY: true,
-                    ALLOWED_ATTR: ['style', 'classs']
-                  })
+                  __html: DOMPurify.sanitize(product.description)
                 }}
-                style={{ color: '#fff' }}
                 className='overflow-visible'
               />
               {extendButton && (

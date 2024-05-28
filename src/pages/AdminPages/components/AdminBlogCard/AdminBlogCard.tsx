@@ -1,5 +1,6 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import DOMPurify from 'dompurify'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
@@ -28,11 +29,11 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
 
   return (
     <button
-      className='relative grid w-full grid-cols-5 gap-2 overflow-hidden rounded-xl border border-black/20 bg-darkColor900 p-2 duration-200 hover:bg-darkColor700 tablet:gap-4 tablet:p-3 desktop:gap-6 desktop:p-4'
+      className='relative grid w-full grid-cols-5 gap-2 overflow-hidden rounded-xl border border-white/20 bg-darkColor900 p-2 duration-200 hover:bg-darkColor700 tablet:gap-4 tablet:p-3 desktop:gap-6 desktop:p-4'
       onClick={handleClickItem}
     >
       <div className='col-span-2'>
-        <div className='relative w-full pt-[75%]'>
+        <div className='relative w-full pt-[100%]'>
           <div className='absolute left-0 top-0 h-full w-full'>
             {avatarUrl ? (
               <img src={avatarUrl} alt={blog.title} className='absolute left-0 top-0 h-full w-full object-cover' />
@@ -45,12 +46,12 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
         </div>
       </div>
       <div className='col-span-3 flex min-h-full items-center'>
-        <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-center justify-start space-x-1 space-y-1 overflow-hidden px-2 pt-2'>
-          <p className='over text-darkPrimaryBlue h-full w-full justify-start overflow-hidden truncate text-left text-sm font-semibold uppercase duration-200 tablet:text-lg desktop:text-lg'>
+        <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-start justify-start space-x-1 space-y-1 overflow-hidden px-2 pt-2'>
+          <p className='over h-full w-full justify-start overflow-hidden truncate text-left text-sm font-semibold uppercase text-haretaColor tablet:text-lg desktop:text-lg'>
             {blog.title}
           </p>
 
-          <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
+          {/* <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
             <div className='col-span-1 flex font-semibold'>Tag:</div>
             <div className='col-span-2 text-left'>
               {blog.tags.map((tag, index) => (
@@ -60,11 +61,15 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
                 </span>
               ))}
             </div>
-          </div>
-          <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
-            <div className='col-span-1 flex items-center font-semibold'>Ngày tạo:</div>
-            <div className='col-span-2 text-left'>{formatDate(blog.created_at)}</div>
-          </div>
+          </div> */}
+          <p className='text-left text-xs desktop:text-sm'>{formatDate(blog.created_at)}</p>
+
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(blog.overall)
+            }}
+            className='over line-clamp-2 h-full w-full justify-start overflow-hidden text-left text-sm font-semibold '
+          />
         </div>
       </div>
     </button>

@@ -77,11 +77,11 @@ export default function AuthLoginPage() {
               })
             }
 
-            const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
-            if (errorRespone) {
-              console.log(errorRespone.error_message)
+            const errorMessgae = HttpStatusMessage.get(formError.error_key)
+            if (errorMessgae) {
+              console.log(errorMessgae)
               setError('email', {
-                message: errorRespone.error_message,
+                message: errorMessgae,
                 type: 'Server'
               })
               setError('password', {

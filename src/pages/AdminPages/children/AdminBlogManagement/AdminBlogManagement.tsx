@@ -8,6 +8,7 @@ import { BlogListConfig } from 'src/types/blog.type'
 import AdminBlogCard from '../../components/AdminBlogCard'
 import UsePagination from 'src/components/UsePagination'
 import { ceil } from 'lodash'
+import AdminBlogSorter from '../../components/AdminBlogSorter'
 
 export default function AdminBlogManagement() {
   const isMobile = useViewport().width < 768
@@ -16,10 +17,10 @@ export default function AdminBlogManagement() {
     document.title = 'Quản lí bài viết'
   })
 
-  //! GET POST LIST
+  //! Get blog list
   const blogListQuery = useBlogListQueryConfig()
   const { data: blogsData, isFetching } = useQuery({
-    queryKey: ['admin_blog_list', blogListQuery],
+    queryKey: ['admin', 'blogs', blogListQuery],
     queryFn: () => {
       return blogApi.getBlogList(blogListQuery as BlogListConfig)
     },
@@ -27,7 +28,8 @@ export default function AdminBlogManagement() {
   })
 
   return (
-    <div>
+    <div className='space-y-4'>
+      <AdminBlogSorter />
       <div className='w-full'>
         {isFetching && <LoadingSection />}
         {blogsData && (

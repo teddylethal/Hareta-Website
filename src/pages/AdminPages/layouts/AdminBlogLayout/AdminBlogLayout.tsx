@@ -11,13 +11,12 @@ interface Props {
 export default function AdminBlogLayout({ children }: Props) {
   //! Menus
   const menus: NavigateItem[] = [
-    { name: 'Quản lí', url: adminPath.images },
-    { name: 'Tạo bài viết', url: adminPath.blogCreate },
-    { name: 'Danh mục', url: adminPath.blogTags }
+    { name: 'Danh sách', url: adminPath.blogs },
+    { name: 'Tạo bài viết', url: adminPath.blogCreate }
   ]
 
   return (
-    <div className='relative grid min-h-screen grid-cols-12 gap-2'>
+    <div className='relative grid grid-cols-12 gap-2'>
       <div className='col-span-2 p-2'>
         <div className='sticky top-4 flex flex-col items-center justify-around space-y-2 overflow-hidden rounded-md border border-white/40 p-3 text-base font-semibold text-lightText/80'>
           {menus.map((item, index) => (
@@ -38,7 +37,7 @@ export default function AdminBlogLayout({ children }: Props) {
         </div>
       </div>
       <div className='col-span-10 p-2'>
-        <div className='text-lightText'>{children}</div>
+        <div className='bg-darkColor900 p-4 text-lightText'>{children}</div>
       </div>
     </div>
   )

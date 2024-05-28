@@ -49,6 +49,7 @@ export default function PathBar({ pathList }: Props) {
               <FontAwesomeIcon icon={faAngleRight} />
               <NavLink
                 to={pathElement.url}
+                end
                 className={({ isActive }) =>
                   classNames({
                     'text-primaryColor': isActive,

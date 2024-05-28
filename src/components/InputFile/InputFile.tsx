@@ -5,12 +5,14 @@ import config from 'src/constants/config'
 
 interface Props {
   onChangeImageFile?: (file?: File) => void
-  className?: string
+  buttonClassname?: string
+  buttonTitle?: string
 }
 
 export default function InputFile({
   onChangeImageFile,
-  className = 'absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60'
+  buttonClassname = 'absolute left-0 top-0 flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white/60 dark:bg-black/60',
+  buttonTitle = ''
 }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -40,8 +42,10 @@ export default function InputFile({
         onChange={onFileChange}
         onClick={(event) => ((event.target as HTMLInputElement).value = '')}
       />
-      <button className={className} onClick={handleUploadAvatar} type='button'>
-        <p className='text-xs font-semibold tablet:text-sm desktop:text-base'>{t('profile.upload avatar')}</p>
+      <button className={buttonClassname} onClick={handleUploadAvatar} type='button'>
+        <p className='text-xs font-semibold tablet:text-sm desktop:text-base'>
+          {buttonTitle == '' ? t('profile.upload avatar') : buttonTitle}
+        </p>
       </button>
     </Fragment>
   )

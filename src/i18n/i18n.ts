@@ -16,6 +16,7 @@ import yuperrors_en from 'src/locales/en/yuperrors.json'
 import utils_en from 'src/locales/en/utils.json'
 import order_en from 'src/locales/en/order.json'
 import privacyAndTerms_en from 'src/locales/en/privacyAndTerms.json'
+import blog_en from 'src/locales/en/blog.json'
 
 //! VIETNAMESE
 import header_vi from 'src/locales/vi/header.json'
@@ -31,6 +32,7 @@ import yuperrors_vi from 'src/locales/vi/yuperrors.json'
 import utils_vi from 'src/locales/vi/utils.json'
 import order_vi from 'src/locales/vi/order.json'
 import privacyAndTerms_vi from 'src/locales/vi/privacyAndTerms.json'
+import blog_vi from 'src/locales/vi/blog.json'
 
 export const locales = {
   en: 'English',
@@ -54,7 +56,8 @@ export const resources = {
     order: order_en,
     privacyAndTerms: privacyAndTerms_en,
     yuperrors: yuperrors_en,
-    utils: utils_en
+    utils: utils_en,
+    blog: blog_en
   },
   vi: {
     header: header_vi,
@@ -69,7 +72,8 @@ export const resources = {
     order: order_vi,
     privacyAndTerms: privacyAndTerms_vi,
     yuperrors: yuperrors_vi,
-    utils: utils_vi
+    utils: utils_vi,
+    blog: blog_vi
   }
 } as const
 
@@ -88,7 +92,8 @@ const ns = [
   'order',
   'privacyAndTerms',
   'login',
-  'yuperrors'
+  'yuperrors',
+  'blog'
 ]
 
 // eslint-disable-next-line import/no-named-as-default-member

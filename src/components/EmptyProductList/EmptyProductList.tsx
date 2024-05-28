@@ -25,10 +25,7 @@ export default function EmptyProductList({ currentPage }: Props) {
       {currentPage == 'order' && (
         <p className='mt-4 w-full text-center text-sm tablet:text-lg desktop:text-xl desktopLarge:text-2xl'>
           {t('no products.order.go to')}{' '}
-          <NavLink
-            to={path.store}
-            className='text-vintageColor hover:text-vintageColor/80 dark:text-haretaColor/80 dark:hover:text-haretaColor'
-          >
+          <NavLink to={path.store} className='text-unhoveringBg hover:text-hoveringBg'>
             {t('no products.order.store')}
           </NavLink>
           {` ${t('no products.order.now')}`}

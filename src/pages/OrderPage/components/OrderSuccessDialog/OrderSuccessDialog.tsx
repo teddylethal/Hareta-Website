@@ -28,7 +28,7 @@ export default function OrderSuccessDialog({ isOpen, handleClose, handleConfirm 
         <div className='mb-4 text-center'>
           <FontAwesomeIcon
             icon={faCheck}
-            className='text- h-auto w-8 rounded-full text-center text-success tablet:w-10 desktop:w-12 desktopLarge:w-16'
+            className='text- h-auto w-8 rounded-full text-center text-successGreen tablet:w-10 desktop:w-12 desktopLarge:w-16'
           />
         </div>
         <p className='mt-6 text-center text-base font-bold uppercase leading-6 tablet:text-lg desktopLarge:text-xl'>

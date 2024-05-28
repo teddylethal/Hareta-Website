@@ -1,4 +1,4 @@
-import { ImageListRespone } from 'src/types/productImage.type'
+import { ProductImageListRespone } from 'src/types/productImage.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
@@ -8,7 +8,7 @@ const LIMIT = 100
 
 const producImageApi = {
   getImageList(id: string) {
-    return http.get<ImageListRespone>(`${URL}?page=1&limit=${LIMIT}&id=${id}`)
+    return http.get<ProductImageListRespone>(`${URL}?page=1&limit=${LIMIT}&id=${id}`)
   },
   addImage(body: { item_id: string; color: string; file: File }) {
     return http.post<SuccessRespone<string>>(`${URL}`, body, {

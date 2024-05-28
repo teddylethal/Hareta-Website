@@ -18,7 +18,7 @@ export default function AdminProductImageList() {
     isFetching,
     refetch
   } = useQuery({
-    queryKey: ['admin_product_image_list'],
+    queryKey: ['admin', 'products', currentProduct?.id || '', 'images'],
     queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
     enabled: Boolean(currentProduct),
     staleTime: 1000 * 60 * 3

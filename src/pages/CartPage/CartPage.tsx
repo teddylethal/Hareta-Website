@@ -11,7 +11,7 @@ export default function CartPage() {
   //! Multi languages
   const { t } = useTranslation('cart')
 
-  //? CHANGE TITLE
+  //! Change title
   useEffect(() => {
     document.title = `${t('path.cart')} | Hareta Workshop`
   })
@@ -19,12 +19,7 @@ export default function CartPage() {
   return (
     <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
       <div className='container'>
-        <PathBar
-          pathList={[
-            { pathName: t('path.home'), url: '/' },
-            { pathName: t('path.cart'), url: '/cart' }
-          ]}
-        />
+        <PathBar pathList={[{ pathName: t('path.cart'), url: '/cart' }]} />
         {isAuthenticated && <CartForUser />}
         {!isAuthenticated && <CartForGuest />}
       </div>

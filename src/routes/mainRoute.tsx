@@ -30,11 +30,11 @@ const MainRoute: RouteObject = {
       element: <StorePage />
     },
     {
-      path: mainPath.productDetail,
-      element: <ProductDetailPage />
+      path: mainPath.cart,
+      element: <CartPage />
     },
     {
-      path: mainPath.cart,
+      path: mainPath.events,
       element: <CartPage />
     },
     {
@@ -48,6 +48,10 @@ const MainRoute: RouteObject = {
     {
       path: mainPath.orderInformation,
       element: <OrderTrackingItemInformation />
+    },
+    {
+      path: mainPath.productDetail,
+      element: <ProductDetailPage />
     }
   ]
 }

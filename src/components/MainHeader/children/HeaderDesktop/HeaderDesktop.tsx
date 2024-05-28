@@ -10,43 +10,49 @@ import HeaderDesktopSupportMenu from '../../components/HeaderDesktopSupportMenu'
 import HeaderDesktopUserMenu from '../../components/HeaderDesktopUserMenu'
 import HeaderDesktopCartUnlogged from '../../components/HeaderDesktopCartUnlogged'
 import HeaderDesktopCartLogged from '../../components/HeaderDesktopCartLogged'
+import { NavigateItem } from 'src/types/utils.type'
 
 export default function HeaderDesktop() {
   //! Multi languages
   const { t } = useTranslation('header')
   const { isAuthenticated, profile } = useContext(AppContext)
 
+  //! Menus
+  const menus: NavigateItem[] = [
+    {
+      name: t('navbar.home'),
+      url: mainPath.home
+    },
+    {
+      name: t('navbar.store'),
+      url: mainPath.store
+    },
+    {
+      name: t('navbar.event'),
+      url: mainPath.events
+    },
+    {
+      name: t('navbar.blog'),
+      url: mainPath.blogs
+    }
+  ]
+
   return (
     <div className='container grid w-full grid-cols-3 items-center text-black duration-200  dark:text-white'>
-      <div className='col-span-2 flex items-center justify-start space-x-2 text-base font-medium uppercase tablet:font-semibold desktop:space-x-4 desktop:text-lg'>
-        <NavLink
-          to={mainPath.home}
-          className={({ isActive }) =>
-            classNames('rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor', {
-              'text-primaryColor dark:text-primaryColor': isActive
-            })
-          }
-        >
-          <p>{t('navbar.home')}</p>
-        </NavLink>
-
-        <NavLink
-          to={mainPath.store}
-          className={({ isActive }) =>
-            classNames('rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor', {
-              'text-primaryColor dark:text-primaryColor': isActive
-            })
-          }
-        >
-          <p>{t('navbar.store')}</p>
-        </NavLink>
-
-        <NavLink
-          to='/'
-          className='rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor'
-        >
-          <div>{t('navbar.event')}</div>
-        </NavLink>
+      <div className='col-span-2 flex items-center justify-start space-x-2 text-sm font-medium uppercase tablet:font-semibold tabletLarge:text-base desktop:space-x-4 desktop:text-lg'>
+        {menus.map((menu) => (
+          <NavLink
+            key={menu.url}
+            to={menu.url}
+            className={({ isActive }) =>
+              classNames('rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor', {
+                'text-primaryColor dark:text-primaryColor': isActive
+              })
+            }
+          >
+            <p>{menu.name}</p>
+          </NavLink>
+        ))}
 
         <HeaderDesktopSupportMenu />
 

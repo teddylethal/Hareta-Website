@@ -26,7 +26,7 @@ export default function StorePage() {
 
   //! GET PRODUCT LIST
   const { data: storeData, isFetching } = useQuery({
-    queryKey: ['items', queryConfig],
+    queryKey: ['products', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
@@ -36,7 +36,7 @@ export default function StorePage() {
 
   //! GET WISHLIST
   const { data: wishlistData, isLoading } = useQuery({
-    queryKey: ['user_wish_list'],
+    queryKey: ['wishlist'],
     queryFn: () => {
       return userLikeProductApi.getWishList()
     },

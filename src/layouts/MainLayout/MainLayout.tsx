@@ -18,7 +18,7 @@ export default function MainLayout({ children }: Props) {
 
   return (
     <div
-      className='flex h-full min-h-full shrink-0 flex-col justify-between bg-lightBg text-darkText dark:bg-darkBg dark:text-lightText'
+      className='flex h-full min-h-full shrink-0 flex-col justify-between bg-lightBg text-darkText duration-200 dark:bg-darkBg dark:text-lightText'
       style={{
         minHeight: 'inherit'
       }}
@@ -37,7 +37,7 @@ export default function MainLayout({ children }: Props) {
           )}
         </AnimatePresence>
       </div>
-      <div className='pt-10 tablet:pt-12 desktop:pt-16'>{children}</div>
+      <div className='py-10 tablet:py-12 desktop:py-16'>{children}</div>
       <MainFooter />
     </div>
   )

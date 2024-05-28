@@ -24,7 +24,7 @@ export default function AdminLayout({ children }: Props) {
           minHeight: 'inherit'
         }}
       >
-        <div className='py-8'>
+        <div className='px-2 py-8'>
           <div className='relative flex items-center justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold text-lightText/80 desktop:text-xl'>
             {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
             {menus.map((menu, index) => (
