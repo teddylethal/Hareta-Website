@@ -9,6 +9,9 @@
   "card": {
     "Posted on": "Đăng ngày"
   },
+  "list": {
+    "Clear": "Xóa"
+  },
   "detail": {
     "Related posts": "Bài viết tương tự"
   }

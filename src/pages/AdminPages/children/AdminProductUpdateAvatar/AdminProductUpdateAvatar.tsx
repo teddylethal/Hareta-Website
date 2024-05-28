@@ -2,16 +2,13 @@ import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { adminProductApi } from 'src/apis/admin.api'
-import DialogPopup from 'src/components/DialogPopup'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import classNames from 'classnames'
 import { showSuccessDialog } from 'src/utils/utils'
 import producImageApi from 'src/apis/productImage.api'
 import AdminSelectsVariant from '../../components/AdminSelectsVariant'
 import AdminProductImageHeader from '../../components/AdminProductImageHeader'
 import AdminImageInput from '../../components/AdminImageInput'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
+import AdminDialog from '../../components/AdminDialog'
 
 export default function AdminProductUpdateAvatar() {
   const { currentProduct } = useContext(AdminContext)
@@ -60,7 +57,7 @@ export default function AdminProductUpdateAvatar() {
           }
           addProductImageMutation.mutate(addImageBody, {
             onSuccess: () => {
-              queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
+              queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct?.id || '', 'images'] })
             }
           })
         }
@@ -69,6 +66,7 @@ export default function AdminProductUpdateAvatar() {
             showSuccessDialog(setSuccessDialogOpen)
             queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct.id] })
             queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
+            queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
           }
         })
       }
@@ -137,22 +135,12 @@ export default function AdminProductUpdateAvatar() {
           </div>
         </div>
       </div>
-      <DialogPopup
+
+      <AdminDialog
         isOpen={successDialogOpen}
-        handleClose={() => {
-          setSuccessDialogOpen(false)
-        }}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
-      >
-        <div className=' text-center'>
-          <FontAwesomeIcon
-            icon={faCheck}
-            fontSize={36}
-            className={classNames('text- text-success  rounded-full bg-white/20 p-4 text-center', {})}
-          />
-        </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Cập nhật ảnh sản phẩm thành công</p>
-      </DialogPopup>
+        setIsOpen={setSuccessDialogOpen}
+        content='Cập nhật ảnh sản phẩm thành công'
+      />
     </div>
   )
 }

@@ -9,6 +9,9 @@
   "card": {
     "Posted on": "Posted on"
   },
+  "list": {
+    "Clear": "clear"
+  },
   "detail": {
     "Related posts": "Related posts"
   }

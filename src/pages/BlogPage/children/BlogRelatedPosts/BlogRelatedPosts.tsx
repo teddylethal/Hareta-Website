@@ -3,6 +3,8 @@ import blogApi from 'src/apis/blog.api'
 import LoadingSection from 'src/components/LoadingSection'
 import BlogCard from '../../components/BlogCard'
 import { useTranslation } from 'react-i18next'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import mainPath from 'src/constants/path'
 
 interface Props {
   blogTag: string
@@ -19,6 +21,17 @@ export default function BlogRelatedPosts({ blogTag }: Props) {
   })
   const blogs = blogsData?.data.data || []
 
+  //! Handle choose tag
+  const navigate = useNavigate()
+  const handleChooseTag = (tag: string) => () => {
+    navigate({
+      pathname: mainPath.blogs,
+      search: createSearchParams({
+        tag: tag
+      }).toString()
+    })
+  }
+
   return (
     <div className=''>
       {!isFetched && <LoadingSection />}
@@ -33,7 +46,7 @@ export default function BlogRelatedPosts({ blogTag }: Props) {
           <div className='grid grid-cols-2 gap-4 desktop:grid-cols-3 desktop:gap-8'>
             {blogs.slice(0, 3).map((blog) => (
               <div key={blog.id} className=''>
-                <BlogCard blog={blog} />
+                <BlogCard blog={blog} handleChooseTag={handleChooseTag} />
               </div>
             ))}
           </div>

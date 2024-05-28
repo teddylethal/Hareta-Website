@@ -67,7 +67,7 @@ export default function BlogDetail() {
                   <button
                     key={tag.tag}
                     onClick={handleChooseTag(tag.tag)}
-                    className='rounded-lg bg-darkColor700 px-3 py-0.5 text-haretaColor hover:bg-darkColor500 '
+                    className='rounded-lg bg-lightColor700 px-3 py-0.5 hover:bg-lightColor500 dark:bg-darkColor700 dark:hover:bg-darkColor500 '
                   >
                     #{tag.tag}
                   </button>

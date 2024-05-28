@@ -28,7 +28,7 @@ export default function BlogSorter() {
             {
               ...blogListQueryConfig
             },
-            ['tag', 'title', 'page', 'limit']
+            ['tag', 'page', 'limit']
           )
         ).toString()
       })
@@ -41,7 +41,7 @@ export default function BlogSorter() {
               ...blogListQueryConfig,
               tag: tag
             },
-            ['title', 'page', 'limit']
+            ['page', 'limit']
           )
         ).toString()
       })
@@ -50,15 +50,18 @@ export default function BlogSorter() {
 
   return (
     <div className='flex space-x-2 text-xs tablet:text-sm desktop:space-x-4 desktop:text-base'>
+      <div className={classNames('rounded-xl bg-lightColor700 px-4 py-1  text-primaryColor dark:bg-darkColor700 ', {})}>
+        Tag:
+      </div>
       {tags.map((tag) => {
         const isActive = tag == activeTag
         return (
           <button
             key={tag}
             onClick={handleChooseTag(tag)}
-            className={classNames('rounded-xl bg-darkColor700 px-4 py-1 ', {
-              'bg-primaryColor': isActive,
-              'hover:bg-darkColor500': !isActive
+            className={classNames('rounded-xl bg-lightColor700 px-4  py-1 dark:bg-darkColor700 ', {
+              'bg-primaryColor dark:bg-primaryColor': isActive,
+              'hover:bg-lightColor500 dark:hover:bg-darkColor500': !isActive
             })}
           >
             #{tag}
