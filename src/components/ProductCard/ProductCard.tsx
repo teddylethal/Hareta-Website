@@ -1,8 +1,7 @@
 import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { Product as ProductType } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import { Fragment, memo, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -15,6 +14,7 @@ import { ProductImage } from 'src/types/productImage.type'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
 import { StoreContext } from 'src/contexts/store.context'
 import ProductTag from 'src/components/ProductTag'
+import mainPath from 'src/constants/path'
 
 const MAXLENGTH = 3
 
@@ -110,7 +110,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
     if (disableClick) {
       event.preventDefault()
     } else {
-      navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+      navigate({ pathname: `${mainPath.store}/${generateNameId({ name: product.name, id: product.id })}` })
       queryClient.invalidateQueries({ queryKey: ['wishlist'] })
     }
   }

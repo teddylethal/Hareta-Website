@@ -37,7 +37,7 @@ export default function BlogDetail() {
   const { t } = useTranslation('blog')
 
   return (
-    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
+    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg tablet:py-3 desktop:py-4'>
       {!blogDetail && <LoadingSection />}
       {blogDetail && (
         <div className='container space-y-8'>

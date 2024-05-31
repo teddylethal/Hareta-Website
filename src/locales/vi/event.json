@@ -1,0 +1,16 @@
+{
+  "": {},
+  "sample": "sample",
+  "title": "Ưu đãi",
+  "path": {
+    "home": "Home",
+    "event": "Ưu đãi"
+  },
+
+  "list": {
+    "Clear": "clear"
+  },
+  "detail": {
+    "Products in event": "Sản phẩm trong sự kiện"
+  }
+}

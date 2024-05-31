@@ -15,6 +15,7 @@ import AuthenticationRoute from './routes/authenticationRoute'
 import OrderRoute from './routes/orderRoute'
 import MainRoute from './routes/mainRoute'
 import BlogRoute from './routes/blogRoute'
+import EventRoute from './routes/eventRoute'
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -34,6 +35,10 @@ export default function useRouteElements() {
     {
       path: mainPath.blogs,
       children: [BlogRoute]
+    },
+    {
+      path: mainPath.events,
+      children: [EventRoute]
     },
     {
       path: adminPath.mainPage,

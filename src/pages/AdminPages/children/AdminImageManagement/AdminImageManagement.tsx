@@ -13,7 +13,7 @@ export default function AdminImageManagement() {
   const imagesConfig = useImageListQueryConfig()
 
   const { data: imagesData, isFetching } = useQuery({
-    queryKey: ['admin', 'images', imagesConfig],
+    queryKey: ['images', imagesConfig],
     queryFn: () => {
       return imageApi.getImageList(imagesConfig as ImageListConfig)
     },

@@ -32,7 +32,7 @@ export interface ProductAvatar {
   extension: string
 }
 
-export interface Product {
+export interface ProductType {
   id: string
   status: number
   created_at: string
@@ -57,7 +57,7 @@ export interface Product {
 }
 
 export interface ProductList {
-  data: Product[]
+  data: ProductType[]
   paging: PagingType
 }
 

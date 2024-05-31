@@ -1,26 +1,8 @@
 import 'react-slideshow-image/dist/styles.css'
-import { EventSlide } from '../../utils/types.util'
 import HomeEventSlide from '../../components/HomeEventSlide'
 import mainPath from 'src/constants/path'
 import CustomSlideShow from 'src/components/CustomSlideShow'
-
-const slides: EventSlide[] = [
-  {
-    urlImage: '',
-    title: 'Trang hồ sơ',
-    urlToPage: mainPath.home
-  },
-  {
-    urlImage: '',
-    title: 'Trang khóa học',
-    urlToPage: mainPath.home
-  },
-  {
-    urlImage: '',
-    title: 'Trang thông báo',
-    urlToPage: ''
-  }
-]
+import { EventSimple } from 'src/types/event.type'
 
 const responsiveSettings = [
   {
@@ -46,12 +28,24 @@ const responsiveSettings = [
   }
 ]
 
+const tempEvents: EventSimple[] = [
+  {
+    id: '100',
+    created_at: '0',
+    updated_at: '0',
+    status: 0,
+    overall_content: 'Summer Keycap Sale with up to 50% off on all our unique and stylish keycaps!',
+    discount: 50,
+    avatar: 'https://d2csq352pki9k7.cloudfront.net/image/454931600.png'
+  }
+]
+
 export default function HomeEventSlideShow() {
   return (
-    <CustomSlideShow responsive={responsiveSettings}>
-      {slides.map((slide, index) => (
-        <div key={index} className='h-[75vh]'>
-          <HomeEventSlide event={slide} />
+    <CustomSlideShow responsive={responsiveSettings} duration={5000}>
+      {tempEvents.map((event) => (
+        <div key={event.id} className='h-[75vh]'>
+          <HomeEventSlide event={event} />
         </div>
       ))}
     </CustomSlideShow>

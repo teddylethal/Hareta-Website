@@ -1,0 +1,16 @@
+{
+  "": {},
+  "sample": "sample",
+  "title": "Event",
+  "path": {
+    "home": "Home",
+    "event": "Event"
+  },
+
+  "list": {
+    "Clear": "clear"
+  },
+  "detail": {
+    "Products in event": "Products in event"
+  }
+}

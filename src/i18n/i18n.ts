@@ -17,6 +17,7 @@ import utils_en from 'src/locales/en/utils.json'
 import order_en from 'src/locales/en/order.json'
 import privacyAndTerms_en from 'src/locales/en/privacyAndTerms.json'
 import blog_en from 'src/locales/en/blog.json'
+import event_en from 'src/locales/en/event.json'
 
 //! VIETNAMESE
 import header_vi from 'src/locales/vi/header.json'
@@ -33,6 +34,7 @@ import utils_vi from 'src/locales/vi/utils.json'
 import order_vi from 'src/locales/vi/order.json'
 import privacyAndTerms_vi from 'src/locales/vi/privacyAndTerms.json'
 import blog_vi from 'src/locales/vi/blog.json'
+import event_vi from 'src/locales/vi/event.json'
 
 export const locales = {
   en: 'English',
@@ -57,7 +59,8 @@ export const resources = {
     privacyAndTerms: privacyAndTerms_en,
     yuperrors: yuperrors_en,
     utils: utils_en,
-    blog: blog_en
+    blog: blog_en,
+    event: event_en
   },
   vi: {
     header: header_vi,
@@ -73,7 +76,8 @@ export const resources = {
     privacyAndTerms: privacyAndTerms_vi,
     yuperrors: yuperrors_vi,
     utils: utils_vi,
-    blog: blog_vi
+    blog: blog_vi,
+    event: event_vi
   }
 } as const
 
@@ -93,7 +97,8 @@ const ns = [
   'privacyAndTerms',
   'login',
   'yuperrors',
-  'blog'
+  'blog',
+  'event'
 ]
 
 // eslint-disable-next-line import/no-named-as-default-member

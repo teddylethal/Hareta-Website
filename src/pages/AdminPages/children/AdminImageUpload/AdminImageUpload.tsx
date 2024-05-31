@@ -1,37 +1,53 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
-import { ColorRing } from 'react-loader-spinner'
+import { Fragment, useState } from 'react'
 import { imageApi } from 'src/apis/image.api'
 import DialogPopup from 'src/components/DialogPopup'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import MultipleFilesInput from 'src/components/MultipleFilesInput'
+import { ErrorRespone } from 'src/types/utils.type'
+import { isAxiosBadRequestError } from 'src/utils/utils'
+import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
+import LoadingRing from 'src/components/LoadingRing'
 
 export default function AdminImageUpload() {
   const [files, setFiles] = useState<File[]>([])
   const [excutingDialog, setExcutingDialog] = useState<boolean>(false)
   const [excuting, setExcuting] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [isError, setIsError] = useState<boolean>(false)
 
   //! UPLOAD IMAGE
   const queryClient = useQueryClient()
   const uploadImageMutation = useMutation({
     mutationFn: imageApi.uploadImage
   })
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setExcutingDialog(true)
     setExcuting(true)
-    try {
-      for (let i = 0; i < files.length; i++) {
-        const body = {
-          file: files[i]
-        }
-        uploadImageMutation.mutate(body)
+    for (let i = 0; i < files.length; i++) {
+      const body = {
+        file: files[i]
       }
-    } catch (error) {
-      console.warn(error)
+      await uploadImageMutation.mutateAsync(body, {
+        onError: (error) => {
+          setExcuting(false)
+          if (isAxiosBadRequestError<ErrorRespone>(error)) {
+            const formError = error.response?.data
+            if (formError) {
+              const responeLog = formError?.log as string
+              console.log(responeLog)
+              setErrorMessage(HttpStatusMessage.get(formError.error_key) || 'Lỗi không xác định')
+            }
+          }
+          setIsError(true)
+          return
+        }
+      })
     }
 
-    queryClient.invalidateQueries({ queryKey: ['admin_image_list'] })
+    setIsError(false)
+    queryClient.invalidateQueries({ queryKey: ['images'] })
     setFiles([])
     setExcuting(false)
   }
@@ -94,18 +110,21 @@ export default function AdminImageUpload() {
         }}
       >
         {excuting && (
-          <ColorRing
-            visible={true}
-            height='80'
-            width='80'
-            ariaLabel='blocks-loading'
-            wrapperStyle={{}}
-            wrapperClass='blocks-wrapper'
-            colors={['#0096C7', '#0096C7', '#0096C7', '#0096C7', '#0096C7']}
-          />
+          <div className='flex items-center justify-center'>
+            <LoadingRing />
+          </div>
         )}
         {!excuting && (
-          <p className='text-success text-center text-xl font-medium uppercase leading-6'>Upload hình ảnh thành công</p>
+          <Fragment>
+            {!isError && (
+              <p className='text-center text-xl font-medium uppercase leading-6 text-successGreen'>
+                Upload hình ảnh thành công
+              </p>
+            )}
+            {isError && (
+              <p className='text-center text-xl font-medium uppercase leading-6 text-alertRed'>{errorMessage}</p>
+            )}
+          </Fragment>
         )}
       </DialogPopup>
     </div>

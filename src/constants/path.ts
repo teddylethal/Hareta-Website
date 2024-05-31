@@ -4,7 +4,7 @@ const mainPath = {
   register: '/register',
   requestVerify: '/request-verify',
   store: '/store',
-  productDetail: ':nameId',
+  productDetail: '/store/:nameId',
   cart: '/cart',
   user: '/user',
   blogs: '/blogs',
@@ -84,5 +84,10 @@ export const blogPath = {
 }
 
 export const orderPath = {}
+
+export const eventPath = {
+  events: '/events',
+  eventDetail: '/events/:eventId'
+}
 
 export const userPath = {}

@@ -49,6 +49,7 @@ export default function AdminBlogCreate() {
   })
   const { handleSubmit, reset } = methods
 
+  //! Handle submit form
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInvalid = (errors: any) => {
     reject(errors)
