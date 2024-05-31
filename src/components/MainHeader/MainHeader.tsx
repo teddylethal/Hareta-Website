@@ -19,7 +19,7 @@ export default function MainHeader() {
   const isMobile = viewPort.width <= 768
 
   return (
-    <div className='top-0 z-10 flex h-10 w-full items-center bg-lightHeader shadow-md duration-200 dark:bg-darkHeader tablet:h-12 desktop:h-16'>
+    <div className='top-0 flex h-10 w-full items-center bg-lightHeader shadow-md duration-200 dark:bg-darkHeader tablet:h-12 desktop:h-16'>
       {!isMobile && <HeaderDesktop />}
 
       {/*//! Mobile */}

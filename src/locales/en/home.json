@@ -2,5 +2,9 @@
   "new release": "new release",
   "top seller": "top seller",
   "most favourite": "most favourite",
-  "explore": "explore"
+  "explore": "explore",
+  "introduction": {
+    "About Hareta Workshop": "About Hareta Workshop",
+    "Go to post": "Go to post"
+  }
 }

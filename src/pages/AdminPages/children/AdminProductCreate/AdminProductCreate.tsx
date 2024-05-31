@@ -24,7 +24,7 @@ export default function AdminProductCreate() {
 
   //! Get product in group
   const { data: productsInGroupData } = useQuery({
-    queryKey: ['admin', 'product_groups', productGroup?.id],
+    queryKey: ['product-groups', productGroup?.id],
     queryFn: () =>
       productApi.getProductsInGroup({
         id: productGroup?.id as string,
@@ -40,7 +40,6 @@ export default function AdminProductCreate() {
   const methods = useForm<FormData>({
     defaultValues: {
       name: '',
-
       group_id: '',
       category: '',
       price: 10,
@@ -69,9 +68,9 @@ export default function AdminProductCreate() {
       const newProductRespone = await createNewProductMutation.mutateAsync({ ...data })
       const newItem: Product = newProductRespone.data.data
       setCurrentProduct(newItem)
-      queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
-      queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups', productGroup?.id] })
-      queryClient.invalidateQueries({ queryKey: ['admin', 'product_groups'] })
+      queryClient.invalidateQueries({ queryKey: ['default-products'] })
+      queryClient.invalidateQueries({ queryKey: ['product-groups', productGroup?.id] })
+      queryClient.invalidateQueries({ queryKey: ['product-groups'] })
       if (productsInGroup.length == 0) {
         setDefaultProductMutation.mutate({ id: newItem.id })
       }

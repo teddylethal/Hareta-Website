@@ -3,6 +3,9 @@
     "sample": "sample"
   },
   "sample": "sample",
+  "path": {
+    "Privacy & Terms": "Privacy & Terms"
+  },
   "title": {
     "Privacy and terms": "Privacy and terms",
     "ProductInformation": "Product Information",
@@ -41,7 +44,7 @@
   },
   "ReturnsAndRefunds": {
     "title": "4. Returns and Refunds:",
-    "a": "4.1, We accept returns within 14 days of delivery for unused and undamaged products.",
+    "a": "4.1. We accept returns within 14 days of delivery for unused and undamaged products.",
     "b": "4.2. Customers are responsible for return shipping costs unless the product is defective or damaged.",
     "c": "4.3. Refunds will be issued within a reasonable timeframe after receiving the returned product."
   },

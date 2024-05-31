@@ -85,7 +85,7 @@ export default function PrivacyAndTermsSideNav({ closeMenu }: Props) {
     'flex w-full cursor-pointer items-center space-x-2 p-2 text-sm hover:bg-white dark:hover:bg-black desktop:p-3 desktop:text-base desktopLarge:p-4 desktopLarge:text-lg rounded-lg'
   const activeClassname = 'font-semibold text-primaryColor dark:text-primaryColor'
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col overflow-auto'>
       {menus.map((item, index) => (
         <ScrollLink
           key={index}
@@ -95,7 +95,7 @@ export default function PrivacyAndTermsSideNav({ closeMenu }: Props) {
           to={item.path}
           spy={true}
           smooth={true}
-          offset={-60}
+          offset={-80}
           duration={500}
         >
           <FontAwesomeIcon icon={faChevronRight} />

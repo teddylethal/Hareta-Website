@@ -2,7 +2,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Skeleton } from '@mui/material'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import producImageApi from 'src/apis/productImage.api'
 import path from 'src/constants/path'
@@ -14,55 +14,80 @@ const LIMIT = 5
 
 interface Props {
   product: ProductType
-  dragging: boolean
 }
 
-export default function HomeNewProductCard({ product, dragging }: Props) {
-  //? IS MOBILE
+export default function HomeNewReleaseProductCard({ product }: Props) {
+  //! Logic to disable click on dragging
+  const [isDragging, setIsDragging] = useState(false)
+  const [mouseDown, setMouseDown] = useState(false)
+
+  const handleMouseDown = () => {
+    setMouseDown(true)
+  }
+
+  const handleMouseUp = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (isDragging) {
+      event.preventDefault()
+    }
+    setMouseDown(false)
+  }
+
+  const handleMouseMove = () => {
+    if (mouseDown) {
+      setIsDragging(true)
+    }
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (isDragging) {
+      e.preventDefault()
+      setIsDragging(false)
+    } else {
+      handleClickItem()
+    }
+  }
+
+  //! IS MOBILE
   const viewPort = useViewport()
   const isMobile = viewPort.width < 768
 
   const avatarUrl = product.avatar ? product.avatar.url : null
-  //? GET IMAGE LIST
-  const itemID = product.id
+  //! GET IMAGE LIST
+  const productId = product.id
   const { data: imageListData, isFetching } = useQuery({
-    queryKey: ['default_product_images', itemID],
-    queryFn: () => producImageApi.getImageList(itemID as string),
+    queryKey: ['product', 'images', productId],
+    queryFn: () => producImageApi.getImageList(productId as string),
 
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data || []
   const displayImages = imageList?.length > LIMIT ? imageList.slice(1, LIMIT) : imageList.slice(1, imageList.length)
 
-  //? HANDLE ENTER ITEM
+  //! HANDLE ENTER ITEM
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const handleClickItem = () => {
     navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
-    queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+    queryClient.invalidateQueries({ queryKey: ['wishlist'] })
   }
-
-  //! Multi languages
-  const { t } = useTranslation('productdetail')
-  const tag = product.tag
 
   return (
     <button
-      className='w-full cursor-grab items-start rounded-lg text-left duration-200 hover:bg-lightColor700/60 dark:hover:bg-darkColor700/60'
-      onClick={(e) => {
-        if (dragging) e.preventDefault()
-        else handleClickItem()
-      }}
+      className='w-full items-start text-left duration-200 hover:bg-lightColor700 dark:bg-darkColor900 dark:hover:bg-darkColor700'
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
+      onClick={handleClick}
     >
       <div className='grid w-full grid-cols-2 gap-2 p-4 tablet:grid-cols-3 tablet:px-8 tablet:py-6 desktop:py-8 desktopLarge:gap-4 desktopLarge:px-12 desktopLarge:py-10'>
-        <div className='col-span-1'>
-          <div className='relative w-full bg-[#dfdfdf] pt-[80%] dark:bg-[#282828]'>
+        <div className='col-span-1 min-h-full'>
+          <div className='relative w-full pt-[80%]'>
             <div className='absolute left-0 top-0 h-full w-full'>
               {avatarUrl ? (
                 <img
                   src={avatarUrl}
                   alt={product.name}
-                  className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
+                  className='pointer-events-none absolute left-0 top-0 h-full w-full object-cover'
                 />
               ) : (
                 <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
@@ -72,31 +97,35 @@ export default function HomeNewProductCard({ product, dragging }: Props) {
             </div>
           </div>
         </div>
-        <div className='col-span-1 tablet:col-span-2'>
+        <div className='col-span-1 min-h-full tablet:col-span-2'>
           <div className='flex h-full flex-col justify-between pl-2 tabletSmall:pl-8 desktop:pl-10 desktopLarge:pl-14'>
-            <div className='flex flex-col justify-between space-y-2 overflow-hidden'>
-              <p className='h-full justify-center overflow-hidden truncate text-lg font-semibold uppercase text-darkText duration-200 dark:text-lightText desktop:text-xl desktopLarge:text-3xl'>
+            <div className='flex flex-col items-center justify-between space-y-2 overflow-hidden'>
+              <p className='h-full justify-center overflow-hidden truncate text-2xl font-semibold uppercase text-darkText duration-200 dark:text-lightText desktop:text-3xl desktopLarge:text-4xl'>
                 {product.name}
               </p>
-              {product.tag !== 0 && (
-                <div className='relative'>
-                  <span className='flex h-4 w-16 items-center justify-center bg-tagColor text-center text-xs text-lightText desktop:h-6 desktop:w-20  desktop:text-sm'>
-                    {tag == 1 && t('tag.top seller')}
-                    {tag == 2 && t('tag.signature')}
-                    {tag == 3 && t('tag.favourite')}
-                  </span>
-                  <div className='absolute left-16 top-0 h-0 w-0 border-[8px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]' />
-                </div>
-              )}
 
               <span className='text-sm font-medium text-haretaColor dark:text-haretaColor tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
                 ${formatCurrency(product.price)}
               </span>
+
+              <div className='flex space-x-2'>
+                <span className='boder-black/20 rounded-xl border px-4 py-1 text-sm font-medium capitalize dark:border-white/20 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
+                  {product.category}
+                </span>
+
+                <span className='boder-black/20 rounded-xl border px-4 py-1 text-sm font-medium capitalize dark:border-white/20 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
+                  {product.collection}
+                </span>
+
+                <span className='boder-black/20 rounded-xl border px-4 py-1 text-sm font-medium capitalize dark:border-white/20 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
+                  {product.type}
+                </span>
+              </div>
             </div>
 
             {!isMobile && (
               <div className='mt-4 w-full overflow-auto rounded-lg px-2 '>
-                <div className='grid w-full grid-cols-4 gap-4'>
+                <div className='grid w-full grid-cols-4 gap-4 desktop:gap-8'>
                   {isFetching &&
                     Array(4)
                       .fill(0)
@@ -117,11 +146,11 @@ export default function HomeNewProductCard({ product, dragging }: Props) {
                     displayImages.map((image) => {
                       return (
                         <div className='col-span-1' key={image.id}>
-                          <div className='relative w-full overflow-hidden pt-[100%]'>
+                          <div className='relative w-full overflow-hidden rounded-xl pt-[100%]'>
                             <img
                               src={image.image ? image.image.url : ''}
                               alt={product.name}
-                              className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
+                              className='pointer-events-none absolute left-0 top-0 h-full w-full object-cover'
                             />
                           </div>
                         </div>

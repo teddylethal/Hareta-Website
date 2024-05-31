@@ -9,8 +9,10 @@ import AdminProductImageHeader from '../../components/AdminProductImageHeader'
 import AdminImageInput from '../../components/AdminImageInput'
 import AdminProductGroupList from '../../components/AdminProductGroupList'
 import AdminDialog from '../../components/AdminDialog'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function AdminProductUpdateAvatar() {
+  const { setLoadingPage } = useContext(AppContext)
   const { currentProduct } = useContext(AdminContext)
 
   const [avatarFile, setAvatarFile] = useState<File>()
@@ -24,7 +26,7 @@ export default function AdminProductUpdateAvatar() {
 
   //? GET IMAGE LIST
   const { data: itemImageListData, refetch } = useQuery({
-    queryKey: ['admin', 'products', currentProduct?.id || '', 'images'],
+    queryKey: ['products', currentProduct?.id, 'images'],
     queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
     enabled: Boolean(currentProduct)
@@ -43,35 +45,42 @@ export default function AdminProductUpdateAvatar() {
   const queryClient = useQueryClient()
   const uploadAvatarMutation = useMutation({ mutationFn: adminProductApi.uploadProductAvatar })
   const handleSubmit = () => {
-    try {
-      if (avatarFile && currentProduct) {
-        const body = {
-          id: currentProduct.id as string,
+    setLoadingPage(true)
+    if (avatarFile && currentProduct) {
+      const body = {
+        id: currentProduct.id as string,
+        file: avatarFile
+      }
+      if (imageList?.length === 0) {
+        const addImageBody = {
+          item_id: currentProduct.id,
+          color: currentProduct.color,
           file: avatarFile
         }
-        if (imageList?.length === 0) {
-          const addImageBody = {
-            item_id: currentProduct.id,
-            color: currentProduct.color,
-            file: avatarFile
-          }
-          addProductImageMutation.mutate(addImageBody, {
-            onSuccess: () => {
-              queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct?.id || '', 'images'] })
-            }
-          })
-        }
-        uploadAvatarMutation.mutate(body, {
+        addProductImageMutation.mutate(addImageBody, {
           onSuccess: () => {
-            showSuccessDialog(setSuccessDialogOpen)
-            queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct.id] })
-            queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
-            queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
+            queryClient.invalidateQueries({ queryKey: ['products', currentProduct?.id, 'images'] })
+          },
+          onSettled: () => {
+            setLoadingPage(false)
           }
         })
       }
-    } catch (error) {
-      console.warn(error)
+      setLoadingPage(true)
+      uploadAvatarMutation.mutate(body, {
+        onSettled: () => {
+          setLoadingPage(false)
+        },
+        onSuccess: () => {
+          showSuccessDialog(setSuccessDialogOpen)
+          queryClient.invalidateQueries({ queryKey: ['products', currentProduct.id] })
+          queryClient.invalidateQueries({ queryKey: ['default-products'] })
+          queryClient.invalidateQueries({ queryKey: ['product-groups'] })
+        },
+        onError: (error) => {
+          console.log(error)
+        }
+      })
     }
   }
 
@@ -89,7 +98,7 @@ export default function AdminProductUpdateAvatar() {
         </div>
 
         <div className='col-span-6'>
-          <div className='relative z-10 rounded-lg border border-white/40 p-4'>
+          <div className='relative rounded-lg border border-white/40 p-4'>
             <div className='relative w-full pt-[75%]'>
               {currentProduct && (
                 <Fragment>
