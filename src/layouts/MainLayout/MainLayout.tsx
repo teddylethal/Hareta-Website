@@ -23,7 +23,7 @@ export default function MainLayout({ children }: Props) {
         minHeight: 'inherit'
       }}
     >
-      <div className='fixed z-10 w-full'>
+      <div className='fixed z-20 w-full'>
         <AnimatePresence>
           {scrollDirection == 'up' && (
             <motion.div

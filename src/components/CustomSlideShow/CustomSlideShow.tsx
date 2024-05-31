@@ -34,10 +34,10 @@ export default function CustomSlideShow(props: SlideProps) {
       indicators={(index) => (
         <div className={classNames('flex w-10 items-center justify-center')}>
           <div
-            className={classNames('h-1.5 w-7 rounded-lg bg-unhoveringBg/60 duration-200  hover:bg-hoveringBg', {
-              'w-9 bg-hoveringBg dark:bg-hoveringBg': index == currentIndex
+            className={classNames('h-1.5 w-8 rounded-lg bg-unhoveringBg/60 duration-200 hover:bg-hoveringBg', {
+              'bg-hoveringBg dark:bg-hoveringBg': index == currentIndex
             })}
-          ></div>
+          />
         </div>
       )}
       transitionDuration={500}

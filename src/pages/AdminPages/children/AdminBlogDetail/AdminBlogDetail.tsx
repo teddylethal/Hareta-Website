@@ -44,7 +44,7 @@ export default function AdminBlogDetail() {
     isLoading,
     isFetched
   } = useQuery({
-    queryKey: ['admin', 'blogs', 'detail', blogId],
+    queryKey: ['blogs', 'detail', blogId],
     queryFn: () => blogApi.getBlogDetail(blogId as string)
   })
   const blogDetail = blogDetailData?.data.data

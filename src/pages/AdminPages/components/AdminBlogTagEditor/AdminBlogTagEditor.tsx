@@ -13,14 +13,14 @@ interface Props {
 }
 
 export default function AdminBlogTagEditor({ errorMessage, blogId }: Props) {
-  const { updateTags } = useContext(AdminBlogContext)
+  const { updateTags, setUpdateTags } = useContext(AdminBlogContext)
   const [typedTag, setTypedTag] = useState<string>('')
 
   const queryClient = useQueryClient()
 
   //! Get tag list
   const { data: blogTagsData } = useQuery({
-    queryKey: ['admin', 'blogs', 'tags'],
+    queryKey: ['blogs', 'tags'],
     queryFn: () => blogApi.getBlogTagList()
   })
 
@@ -41,17 +41,22 @@ export default function AdminBlogTagEditor({ errorMessage, blogId }: Props) {
       setTypedTag('')
       return
     }
-    tag = tag.toLowerCase()
-    if (!updateTags.includes(tag)) {
+    const newTag = tag
+    tag.toLowerCase()
+    const checkingTags = updateTags
+    checkingTags.forEach((tag) => tag.toLowerCase())
+    if (!checkingTags.includes(tag)) {
+      setUpdateTags((prev) => [...prev, newTag])
       addTagMutation.mutate(
-        { blog_id: blogId, tag: [tag] },
+        { blog_id: blogId, tag: [newTag] },
         {
           onSettled: () => {
             return
           },
           onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['admin', 'blogs', 'detail', blogId] })
-            queryClient.invalidateQueries({ queryKey: ['admin', 'blogs'] })
+            queryClient.invalidateQueries({ queryKey: ['blogs', 'detail', blogId] })
+            queryClient.invalidateQueries({ queryKey: ['blogs', 'tags'] })
+            queryClient.invalidateQueries({ queryKey: ['blogs'] })
           }
         }
       )
@@ -72,16 +77,18 @@ export default function AdminBlogTagEditor({ errorMessage, blogId }: Props) {
 
   //! Handle delete tag
   const deleteTagMutation = useMutation({ mutationFn: blogApi.deleteTagOfBlog })
-  const deleteTag = (tag: string) => () => {
+  const deleteTag = (deletedTag: string) => () => {
+    setUpdateTags((prev) => prev.filter((tag) => tag != deletedTag))
     deleteTagMutation.mutate(
-      { blog_id: blogId, tag: tag },
+      { blog_id: blogId, tag: deletedTag },
       {
         onSettled: () => {
           return
         },
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['admin', 'blogs', 'detail', blogId] })
-          queryClient.invalidateQueries({ queryKey: ['admin', 'blogs'] })
+          queryClient.invalidateQueries({ queryKey: ['blogs', 'detail', blogId] })
+          queryClient.invalidateQueries({ queryKey: ['blogs', 'tags'] })
+          queryClient.invalidateQueries({ queryKey: ['blogs'] })
         }
       }
     )

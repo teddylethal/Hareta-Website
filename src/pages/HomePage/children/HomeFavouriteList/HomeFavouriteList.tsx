@@ -9,9 +9,9 @@ import userLikeProductApi from 'src/apis/userLikeProduct.api'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
-import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
+import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { useViewport } from 'src/hooks/useViewport'
-import Product from 'src/components/ProductCard'
+import ProductCard from 'src/components/ProductCard'
 import ProductSekeleton from 'src/components/ProductSkeleton'
 
 const DESKTOP_LIMIT = 8
@@ -25,7 +25,7 @@ export default function HomeFavouriteList() {
   const isMobile = viewPort.width < 1024
 
   //? GET WISHLIST
-  const { data: wishlistData, isInitialLoading } = useQuery({
+  const { data: wishlistData, isLoading: productListIsLoading } = useQuery({
     queryKey: ['user_wish_list'],
     queryFn: () => {
       return userLikeProductApi.getWishList()
@@ -41,7 +41,7 @@ export default function HomeFavouriteList() {
   }, [setWishlistIDs, wishlistData])
 
   //! Get favourite product list
-  const itemsConfig: QueryConfig = { limit: String(DESKTOP_LIMIT) }
+  const itemsConfig: ProductListQueryConfig = { limit: String(DESKTOP_LIMIT) }
   const { data: itemsData, isLoading } = useQuery({
     queryKey: ['favourtie_items', itemsConfig],
     queryFn: () => {
@@ -88,7 +88,7 @@ export default function HomeFavouriteList() {
 
       <div className='space-y-4 px-2 desktop:space-y-6 desktop:px-8 desktopLarge:px-12'>
         <div className='grid grid-cols-5 gap-4 desktop:grid-cols-9 desktop:gap-8'>
-          {!isLoading &&
+          {isLoading &&
             Array(DESKTOP_LIMIT / 2)
               .fill(0)
               .map((_, index) => (
@@ -96,17 +96,17 @@ export default function HomeFavouriteList() {
                   <ProductSekeleton />
                 </div>
               ))}
-          {isLoading &&
+          {!isLoading &&
             firstRow.map((item) => (
               <div className='col-span-2' key={item.id}>
-                <ProductCard product={item} initialLoading={isInitialLoading} />
+                <ProductCard product={item} initialLoading={productListIsLoading} />
               </div>
             ))}
         </div>
 
         <div className='grid grid-cols-5 gap-4 desktop:grid-cols-9 desktop:gap-8'>
           <div className='col-span-1'></div>
-          {!isLoading &&
+          {isLoading &&
             Array(DESKTOP_LIMIT / 2)
               .fill(0)
               .map((_, index) => (
@@ -114,10 +114,10 @@ export default function HomeFavouriteList() {
                   <ProductSekeleton />
                 </div>
               ))}
-          {isLoading &&
+          {!isLoading &&
             secondRow.map((item) => (
               <div className='col-span-2' key={item.id}>
-                <ProductCard product={item} initialLoading={isInitialLoading} />
+                <ProductCard product={item} initialLoading={productListIsLoading} />
               </div>
             ))}
         </div>

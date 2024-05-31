@@ -10,13 +10,14 @@ interface Props {
 }
 
 export default function SearchBar({ handleSearch }: Props) {
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
       name: ''
     },
     resolver: yupResolver(searchSchema)
   })
   const onSubmit = handleSubmit((data) => {
+    reset()
     handleSearch(data.name)
   })
 

@@ -46,6 +46,36 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
     }
   }, [initialLoading, product.id, wishlistIDs])
 
+  //! Logic to disable click on dragging
+  const [isDragging, setIsDragging] = useState(false)
+  const [mouseDown, setMouseDown] = useState(false)
+
+  const handleMouseDown = () => {
+    setMouseDown(true)
+  }
+
+  const handleMouseUp = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (isDragging) {
+      event.preventDefault()
+    }
+    setMouseDown(false)
+  }
+
+  const handleMouseMove = () => {
+    if (mouseDown) {
+      setIsDragging(true)
+    }
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (isDragging) {
+      e.preventDefault()
+      setIsDragging(false)
+    } else {
+      handleClickItem(e)
+    }
+  }
+
   //! GET IMAGE LIST
   const itemID = product.id
   const { data: imageListData, isLoading } = useQuery({
@@ -81,7 +111,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
       event.preventDefault()
     } else {
       navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
-      queryClient.invalidateQueries({ queryKey: ['user_wish_list'] })
+      queryClient.invalidateQueries({ queryKey: ['wishlist'] })
     }
   }
 
@@ -134,7 +164,13 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
             {hoveringImage ? (
               <Fragment>
                 <ProductImageSlideShow imageList={imageListCarousel} avatarUrl={avatarUrl} isLoading={isLoading} />
-                <button className='absolute inset-0' onClick={handleClickItem}></button>
+                <button
+                  className='absolute inset-0'
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseMove={handleMouseMove}
+                  onClick={handleClick}
+                ></button>
               </Fragment>
             ) : avatarUrl ? (
               <img src={avatarUrl} alt={product.name} className='absolute left-0 top-0 h-full w-full object-cover' />
@@ -148,7 +184,10 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
         <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 tabletSmall:px-3 desktop:px-4 desktop:pt-4'>
           <button
             className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 hover:text-primaryColor dark:text-lightText dark:hover:text-primaryColor tabletSmall:text-base desktop:text-lg'
-            onClick={handleClickItem}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            onClick={handleClick}
           >
             {product.name}
           </button>

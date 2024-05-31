@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBarsStaggered } from '@fortawesome/free-solid-svg-icons'
 import { Element } from 'react-scroll'
-import { privacyPath } from 'src/constants/path'
+import mainPath, { privacyPath } from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -27,6 +27,7 @@ import PrivacyProductInformation from './children/PrivacyProductInformation'
 import PrivacyOrderingAndPayments from './children/PrivacyOrderingAndPayments'
 import PrivacyReturnsAndRefunds from './children/PrivacyReturnsAndRefunds'
 import PrivacyIntellectualProperty from './children/PrivacyIntellectualProperty'
+import PathBar from 'src/components/PathBar'
 
 export default function PrivacyAndTermsPage() {
   const { theme } = useContext(AppContext)
@@ -113,6 +114,9 @@ export default function PrivacyAndTermsPage() {
 
   return (
     <div className='relative bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
+      <div className='container'>
+        <PathBar pathList={[{ pathName: t('path.Privacy & Terms'), url: mainPath.privacyAndTerms }]} />
+      </div>
       {isMobile && (
         <AnimatePresence>
           <button
@@ -135,7 +139,7 @@ export default function PrivacyAndTermsPage() {
         >
           {!isMobile && (
             <div className='col-span-3'>
-              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto border-r border-black/20 duration-200 dark:border-white/20 tablet:top-14 desktop:top-20'>
+              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 border-r border-black/20 duration-200 dark:border-white/20 tablet:top-14 desktop:top-20'>
                 <PrivacyAndTermsSideNav />
               </div>
             </div>
@@ -196,7 +200,7 @@ export default function PrivacyAndTermsPage() {
               'col-start-4 col-end-13 flex flex-col space-y-6 desktop:space-y-8 desktopLarge:space-y-16': !isMobile
             })}
           >
-            <div className='mt-2 text-center text-xl font-bold uppercase text-haretaColor tablet:text-2xl desktopLarge:text-4xl'>
+            <div className='mt-2 text-center text-xl font-bold uppercase tracking-widest text-haretaColor tablet:text-2xl desktop:text-3xl desktopLarge:text-4xl'>
               {t('title.Privacy and terms')}
             </div>
 

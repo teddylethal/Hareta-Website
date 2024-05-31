@@ -115,37 +115,37 @@ export default function AdminProductUpdateForm({ productDetail }: Props) {
       error: errors.price,
       errorMessage: errors.price?.message,
       name: 'price',
-      title: 'Dòng sản phẩm'
+      title: 'Giá'
     },
     {
       error: errors.discount,
       errorMessage: errors.discount?.message,
       name: 'discount',
-      title: 'Dòng sản phẩm'
+      title: 'Giảm giá'
     },
     {
       error: errors.tag,
       errorMessage: errors.tag?.message,
       name: 'tag',
-      title: 'Dòng sản phẩm'
+      title: 'Tag'
     },
     {
       error: errors.like_count,
       errorMessage: errors.like_count?.message,
       name: 'like_count',
-      title: 'Dòng sản phẩm'
+      title: 'Lượt thích'
     },
     {
       error: errors.sold,
       errorMessage: errors.sold?.message,
       name: 'sold',
-      title: 'Dòng sản phẩm'
+      title: 'Đã bán'
     },
     {
       error: errors.cron_status,
       errorMessage: errors.cron_status?.message,
       name: 'cron_status',
-      title: 'Dòng sản phẩm'
+      title: 'Cron status'
     }
   ]
 

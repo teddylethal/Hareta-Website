@@ -37,7 +37,7 @@ export default function AdminProductImagePage() {
     isFetching,
     refetch
   } = useQuery({
-    queryKey: ['admin', 'products', currentProduct?.id || '', 'images'],
+    queryKey: ['products', currentProduct?.id, 'images'],
     queryFn: () => producImageApi.getImageList(currentProduct?.id as string),
 
     enabled: Boolean(currentProduct)
@@ -53,22 +53,23 @@ export default function AdminProductImagePage() {
   //! Handle add image
   const addImageMuation = useMutation({ mutationFn: producImageApi.addImage })
   const handleSubmit = () => {
-    try {
-      if (avatarFile && currentProduct) {
-        const body = {
-          item_id: currentProduct.id,
-          color: currentProduct.color,
-          file: avatarFile
-        }
-        addImageMuation.mutate(body, {
-          onSuccess: () => {
-            showSuccessDialog(setAddedSuccess)
-            queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct?.id || '', 'images'] })
-          }
-        })
+    setLoadingPage(true)
+    if (avatarFile && currentProduct) {
+      const body = {
+        item_id: currentProduct.id,
+        color: currentProduct.color,
+        file: avatarFile
       }
-    } catch (error) {
-      console.warn(error)
+      addImageMuation.mutate(body, {
+        onSuccess: () => {
+          showSuccessDialog(setAddedSuccess)
+          queryClient.invalidateQueries({ queryKey: ['products', currentProduct?.id, 'images'] })
+        },
+        onError: (error) => {
+          console.log(error)
+        },
+        onSettled: () => setLoadingPage(false)
+      })
     }
   }
 
@@ -81,7 +82,7 @@ export default function AdminProductImagePage() {
       {
         onSuccess: () => {
           showSuccessDialog(setDeletedSuccess)
-          queryClient.invalidateQueries({ queryKey: ['admin', 'products', currentProduct?.id || '', 'images'] })
+          queryClient.invalidateQueries({ queryKey: ['products', currentProduct?.id, 'images'] })
         },
         onSettled: () => {
           setLoadingPage(false)

@@ -97,7 +97,7 @@ export default function AdminBlogCreate() {
           setError(false)
           reset()
           setFile(undefined)
-          queryClient.invalidateQueries({ queryKey: ['admin', 'blogs'] })
+          queryClient.invalidateQueries({ queryKey: ['blogs'] })
           navigate(
             { pathname: `${adminPath.blogs}/${generateNameId({ name: data.title, id: respone.data })}` },
             { state: { from: 'AdminBlogCreate' } }

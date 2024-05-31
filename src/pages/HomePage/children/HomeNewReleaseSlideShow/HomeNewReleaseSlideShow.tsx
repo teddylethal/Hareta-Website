@@ -1,0 +1,45 @@
+import { useQuery } from '@tanstack/react-query'
+import productApi from 'src/apis/product.api'
+import { useTranslation } from 'react-i18next'
+import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
+import HomeNewReleaseProductCard from '../../components/HomeNewReleaseProductCard'
+import LoadingRing from 'src/components/LoadingRing'
+
+export default function HomeNewReleaseSlideShow() {
+  //! GET ITEMS
+  const itemsConfig: ProductListQueryConfig = {}
+  const { data: productListData, isLoading } = useQuery({
+    queryKey: ['default-products', itemsConfig],
+    queryFn: () => {
+      return productApi.getProductList(itemsConfig)
+    }
+  })
+  const productList = productListData?.data.data || []
+
+  const newReleaseProduct = productList[0]
+
+  //! Multi languages
+  const { t } = useTranslation('home')
+
+  return (
+    <div className='container'>
+      <div className='text-darkText duration-200 dark:text-lightText'>
+        <div className='w-full text-center'>
+          <p className='text-2xl font-bold uppercase text-primaryColor desktop:text-4xl desktopLarge:text-5xl'>
+            {t('new release')}
+          </p>
+        </div>
+        {isLoading && (
+          <div className='flex h-40 items-center justify-center tablet:h-60 desktop:h-80'>
+            <LoadingRing />
+          </div>
+        )}
+        {productListData && (
+          <div className='relative mt-4 pb-8 desktop:mt-6 desktopLarge:mt-8'>
+            <HomeNewReleaseProductCard product={newReleaseProduct} />
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}

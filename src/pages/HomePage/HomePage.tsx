@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import HomeEventSlideShow from './children/HomeEventSlideShow'
-import HomeNewProductSlideShow from './children/HomeNewProductSlideShow'
+import HomeNewReleaseSlideShow from './children/HomeNewReleaseSlideShow'
+import HomeIntroduction from './children/HomeIntroduction'
 import HomeTopSellerSlideShow from './children/HomeTopSellerSlideShow'
-import HomeFavouriteList from './children/HomeFavouriteList'
 
 export default function HomePage() {
   //! CHANGE TITLE
@@ -11,22 +11,22 @@ export default function HomePage() {
   })
 
   return (
-    <div className='duration-200 '>
-      <div className='py-4'>
-        <HomeEventSlideShow />
-      </div>
+    <div className='duration-200'>
+      <HomeEventSlideShow />
 
-      {/* <div className='container py-4 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
-        <HomeNewProductSlideShow />
-      </div>
+      <div className='tablet-space-y-6 container space-y-4 py-8 desktop:space-y-12 desktop:py-16 desktopLarge:space-y-24'>
+        <div className='flex w-full items-center justify-center'>
+          <div className='w-full border-t border-black/80 dark:border-white/80 tablet:w-8/12 desktop:w-1/2' />
+        </div>
 
-      <div className='bg-lightColor700 py-4 dark:bg-darkColor700 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
+        <HomeNewReleaseSlideShow />
+
         <HomeTopSellerSlideShow />
-      </div>
 
-      <div className='container py-4 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
-        <HomeFavouriteList />
-      </div> */}
+        <HomeIntroduction />
+
+        {/* <HomeFavouriteList /> */}
+      </div>
     </div>
   )
 }

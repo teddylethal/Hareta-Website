@@ -32,7 +32,7 @@ export default function AdminProductCreateForm() {
 
   //! GET PRODUCT GROUP DATA
   useEffect(() => {
-    setValue('name', currentProduct?.name || '')
+    setValue('name', productGroup?.name || '')
     setValue('group_id', productGroup?.id || '')
     setValue('category', currentProduct?.category || '')
     setValue('collection', currentProduct?.collection || '')

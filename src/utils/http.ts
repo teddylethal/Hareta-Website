@@ -5,7 +5,9 @@ import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
 import { HttpErrorKeys } from 'src/constants/httpResponeErrorKey'
 
-export const ApiURL = 'https://api.hareta.online/'
+// export const ApiURL = 'https://api.hareta.online/'
+export const ApiURL = 'http://localhost:3000/'
+
 class Http {
   instance: AxiosInstance
   private accessToken: string

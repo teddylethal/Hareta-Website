@@ -50,7 +50,7 @@ module.exports = {
         vintageColor: '#A27B5C',
 
         //? Store sidebar
-        barLightBg: '#e9e9e8',
+        barLightBg: '#efefef',
         barDarkBg: '#1d1d22',
         sidebarItemLight: '#fbfbff',
         sidebarItemDark: '#2c2c32',

@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer'
 export default defineConfig({
   plugins: [react(), visualizer()],
   server: {
-    port: 3000
+    port: 2000
   },
   css: {
     devSourcemap: true
