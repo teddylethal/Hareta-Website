@@ -16,35 +16,39 @@ import AdminEventDetail from 'src/pages/AdminPages/AdminEvent/children/AdminEven
 import AdminEventCreate from 'src/pages/AdminPages/AdminEvent/children/AdminEventCreate'
 
 //! LAZY IMPORT ADMIN PAGES
-const AdminMainPage = lazy(() => import('src/pages/AdminPages/children/AdminMainPage'))
+const AdminMainPage = lazy(() => import('src/pages/AdminPages/AdminMainPage'))
 
 //! Lazy loading product pages
-const AdminProductManagement = lazy(() => import('src/pages/AdminPages/children/AdminProductManagement'))
-const AdminProductDetail = lazy(() => import('src/pages/AdminPages/children/AdminProductDetail'))
+const AdminProductManagement = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductManagement'))
+const AdminProductDetail = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductDetail'))
 
-const AdminProductCreate = lazy(() => import('src/pages/AdminPages/children/AdminProductCreate'))
-const AdminProductCreateGroup = lazy(() => import('src/pages/AdminPages/children/AdminProductCreateGroup'))
+const AdminProductCreate = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductCreate'))
+const AdminProductCreateGroup = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductCreateGroup'))
 
-const AdminProductUpdateAvatar = lazy(() => import('src/pages/AdminPages/children/AdminProductUpdateAvatar'))
-const AdminProductImagePage = lazy(() => import('src/pages/AdminPages/children/AdminProductImagePage'))
+const AdminProductUpdateAvatar = lazy(
+  () => import('src/pages/AdminPages/AdminProduct/children/AdminProductUpdateAvatar')
+)
+const AdminProductImagePage = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductImagePage'))
 
-const AdminProductDeleteProduct = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteProduct'))
-const AdminProductDeleteGroup = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteGroup'))
+const AdminProductDeleteProduct = lazy(
+  () => import('src/pages/AdminPages/AdminProduct/children/AdminProductDeleteProduct')
+)
+const AdminProductDeleteGroup = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductDeleteGroup'))
 
 //! Lazy loading image pages
-const AdminImageManagement = lazy(() => import('src/pages/AdminPages/children/AdminImageManagement'))
-const AdminImageUpload = lazy(() => import('src/pages/AdminPages/children/AdminImageUpload'))
-const AdminImageDelete = lazy(() => import('src/pages/AdminPages/children/AdminImageDelete'))
+const AdminImageManagement = lazy(() => import('src/pages/AdminPages/AdminImage/children/AdminImageManagement'))
+const AdminImageUpload = lazy(() => import('src/pages/AdminPages/AdminImage/children/AdminImageUpload'))
+const AdminImageDelete = lazy(() => import('src/pages/AdminPages/AdminImage/children/AdminImageDelete'))
 
 //! Lazy loading order pages
-const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/children/AdminOrderMangement'))
+const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/AdminOrder/children/AdminOrderMangement'))
 
 //! Lazy loading event pages
 
 //! Lazy loading blog pages
-const AdminBlogManagement = lazy(() => import('src/pages/AdminPages/children/AdminBlogManagement'))
-const AdminBlogDetail = lazy(() => import('src/pages/AdminPages/children/AdminBlogDetail'))
-const AdminBlogCreate = lazy(() => import('src/pages/AdminPages/children/AdminBlogCreate'))
+const AdminBlogManagement = lazy(() => import('src/pages/AdminPages/AdminBlog/children/AdminBlogManagement'))
+const AdminBlogDetail = lazy(() => import('src/pages/AdminPages/AdminBlog/children/AdminBlogDetail'))
+const AdminBlogCreate = lazy(() => import('src/pages/AdminPages/AdminBlog/children/AdminBlogCreate'))
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
