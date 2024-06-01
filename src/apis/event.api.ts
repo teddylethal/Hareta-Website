@@ -1,4 +1,4 @@
-import { EventDetail, EventList, EventListConfig } from 'src/types/event.type'
+import { EventList, EventListConfig, EventType } from 'src/types/event.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
@@ -26,10 +26,10 @@ const eventApi = {
     return http.get<EventList>(`${URL}/`, { params })
   },
   getEventDetail(eventId: string) {
-    return http.get<SuccessRespone<EventDetail>>(`${URL}/${eventId}`)
+    return http.get<SuccessRespone<EventType>>(`${URL}/${eventId}`)
   },
   createEvent(body: CreateEventForm) {
-    return http.post<SuccessRespone<string>>(`${URL}/`, body)
+    return http.post<SuccessRespone<EventType>>(`${URL}/`, body)
   },
   updateEvent(body: UpdateEventForm) {
     return http.put<SuccessRespone<string>>(`${URL}/`, body)

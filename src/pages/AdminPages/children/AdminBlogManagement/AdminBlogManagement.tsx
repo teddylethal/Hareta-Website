@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import blogApi from 'src/apis/blog.api'
 import LoadingSection from 'src/components/LoadingSection'
 import useBlogListQueryConfig, { BLOG_LIMIT } from 'src/hooks/useBlogListQueryConfig'
@@ -13,14 +13,10 @@ import AdminBlogSorter from '../../components/AdminBlogSorter'
 export default function AdminBlogManagement() {
   const isMobile = useViewport().width < 768
 
-  useEffect(() => {
-    document.title = 'Quản lí bài viết'
-  })
-
   //! Get blog list
   const blogListQuery = useBlogListQueryConfig()
   const { data: blogsData, isFetching } = useQuery({
-    queryKey: ['admin', 'blogs', blogListQuery],
+    queryKey: ['blogs', blogListQuery],
     queryFn: () => {
       return blogApi.getBlogList(blogListQuery as BlogListConfig)
     },

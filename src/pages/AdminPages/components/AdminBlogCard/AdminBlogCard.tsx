@@ -46,23 +46,24 @@ export default function AdminBlogCard({ blog, disableClick = false }: Props) {
         </div>
       </div>
       <div className='col-span-3 flex min-h-full items-center'>
-        <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-start justify-start space-x-1 space-y-1 overflow-hidden px-2 pt-2'>
+        <div className='sm:px-3 lg:px-4 lg:pt-4 flex flex-col items-start justify-start space-x-1 space-y-2 overflow-hidden px-2 pt-2'>
           <p className='over h-full w-full justify-start overflow-hidden truncate text-left text-sm font-semibold uppercase text-haretaColor tablet:text-lg desktop:text-lg'>
             {blog.title}
           </p>
 
-          {/* <div className='grid w-full grid-cols-3 gap-2 text-xs desktop:text-sm'>
-            <div className='col-span-1 flex font-semibold'>Tag:</div>
-            <div className='col-span-2 text-left'>
+          <p className='text-left text-xs desktop:text-sm'>{formatDate(blog.created_at)}</p>
+
+          <div className='flex w-full items-center space-x-2 text-xs desktop:text-sm'>
+            <div className='font-semibold'>Tag:</div>
+            <div className='text-left'>
               {blog.tags.map((tag, index) => (
                 <span key={index} className='pr-1'>
-                  {tag.tag}
+                  #{tag.tag}
                   {index != blog.tags.length - 1 && <span className=''>,</span>}
                 </span>
               ))}
             </div>
-          </div> */}
-          <p className='text-left text-xs desktop:text-sm'>{formatDate(blog.created_at)}</p>
+          </div>
 
           <div
             dangerouslySetInnerHTML={{

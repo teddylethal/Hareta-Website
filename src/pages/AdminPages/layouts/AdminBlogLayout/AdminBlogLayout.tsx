@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
 import { NavigateItem } from 'src/types/utils.type'
@@ -9,6 +9,10 @@ interface Props {
 }
 
 export default function AdminBlogLayout({ children }: Props) {
+  useEffect(() => {
+    document.title = 'Quản lí bài viết'
+  })
+
   //! Menus
   const menus: NavigateItem[] = [
     { name: 'Danh sách', url: adminPath.blogs },

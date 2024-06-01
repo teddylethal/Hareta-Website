@@ -11,8 +11,9 @@ import AdminMainLayout from 'src/pages/AdminPages/layouts/AdminMainLayout'
 import AdminImageLayout from 'src/pages/AdminPages/layouts/AdminImageLayout'
 import AdminBlogLayout from 'src/pages/AdminPages/layouts/AdminBlogLayout'
 import AdminEventLayout from 'src/pages/AdminPages/layouts/AdminEventLayout'
-import AdminEventManagement from 'src/pages/AdminPages/children/AdminEventManagement'
-import AdminEventDetail from 'src/pages/AdminPages/children/AdminEventDetail'
+import AdminEventManagement from 'src/pages/AdminPages/AdminEvent/children/AdminEventManagement'
+import AdminEventDetail from 'src/pages/AdminPages/AdminEvent/children/AdminEventDetail'
+import AdminEventCreate from 'src/pages/AdminPages/AdminEvent/children/AdminEventCreate'
 
 //! LAZY IMPORT ADMIN PAGES
 const AdminMainPage = lazy(() => import('src/pages/AdminPages/children/AdminMainPage'))
@@ -204,7 +205,7 @@ const AdminRoute: RouteObject = {
         },
         {
           path: adminPath.eventCreate,
-          element: <AdminEventManagement />
+          element: <AdminEventCreate />
         },
         {
           path: adminPath.eventDetail,

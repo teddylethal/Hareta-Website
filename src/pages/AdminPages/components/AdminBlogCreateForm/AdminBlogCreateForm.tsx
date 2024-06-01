@@ -48,7 +48,7 @@ export default function AdminBlogCreateForm() {
       <AdminInput
         className={inputFieldStyle}
         inputClassName={classNames(inputStyle, {
-          'outline-red-600': Boolean(errors.title)
+          'outline-alertRed': Boolean(errors.title)
         })}
         register={register}
         name='title'
