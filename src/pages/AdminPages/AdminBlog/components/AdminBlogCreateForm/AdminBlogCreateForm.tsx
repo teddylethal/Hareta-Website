@@ -41,7 +41,7 @@ export default function AdminBlogCreateForm() {
   const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2'
   const titleStyle = 'text-xs col-span-1 text-primaryBlue tablet:text-sm font-bold space-x-0.5 uppercase lg:text-base '
   const inputStyle =
-    'text-haretaColor py-1 px-2 outline col-span-3 text-base lg:text-lg rounded-lg outline-1 outline-primaryBlue/80 focus:outline-primaryBlue'
+    'text-darkText py-1 px-2 col-span-3 text-base lg:text-lg rounded-lg outline-none outline-offset-2 focus:outline-haretaColor bg-white font-medium'
 
   return (
     <Fragment>

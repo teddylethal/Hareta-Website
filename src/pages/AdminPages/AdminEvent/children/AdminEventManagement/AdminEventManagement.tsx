@@ -15,7 +15,7 @@ export default function AdminEventManagement() {
   //! Get event list
   const eventListQueryConfig = useEventListQueryConfig()
   const { data: eventsData, isFetching } = useQuery({
-    queryKey: ['events', eventListQueryConfig],
+    queryKey: ['events'],
     queryFn: () => eventApi.getEventList(eventListQueryConfig as EventListConfig)
   })
 

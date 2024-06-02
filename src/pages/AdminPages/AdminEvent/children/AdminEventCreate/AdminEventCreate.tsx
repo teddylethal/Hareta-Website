@@ -17,6 +17,7 @@ import AdminEventCreateForm from '../../components/AdminEventCreateForm'
 import DialogPopup from 'src/components/DialogPopup'
 import LoadingRing from 'src/components/LoadingRing'
 import InputFile from 'src/components/InputFile'
+import { EventType } from 'src/types/event.type'
 
 type FormData = CreateEventSchema
 
@@ -28,6 +29,9 @@ export default function AdminEventCreate() {
   const [error, setError] = useState<boolean>(false)
   const [errorUploadImage, setErrorUploadImage] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [successDialog, setSuccessDialog] = useState<boolean>(false)
+
+  const [createdEvent, setCreatedEvent] = useState<EventType | null>(null)
 
   const navigate = useNavigate()
   const queryClient = useQueryClient()
@@ -78,6 +82,7 @@ export default function AdminEventCreate() {
   })
 
   const onSubmit = async (data: FormData) => {
+    setSuccessDialog(false)
     setExcutingDialog(true)
     setExcuting(true)
 
@@ -103,7 +108,7 @@ export default function AdminEventCreate() {
     const newEventBody = {
       ...data,
       date_start: formatTimeToSeconds(data.date_start.getTime()),
-      date_end: formatTimeToSeconds(data.date_start.getTime()),
+      date_end: formatTimeToSeconds(data.date_end.getTime()),
       avatar: newUploadedImageRespone ? newUploadedImageRespone.data.data.url : ''
     }
     createEventMutation.mutate(newEventBody, {
@@ -113,15 +118,14 @@ export default function AdminEventCreate() {
       },
       onSuccess: ({ data: respone }) => {
         setError(false)
+        setExcuting(false)
+        setSuccessDialog(true)
         reset()
         setFile(undefined)
         setDateStart(currentDate)
         setDateEnd(currentDate)
         queryClient.invalidateQueries({ queryKey: ['events'] })
-        navigate(
-          { pathname: `${adminPath.events}/${generateNameId({ name: data.overall_content, id: respone.data.id })}` },
-          { state: { from: 'AdminEventCreate' } }
-        )
+        setCreatedEvent(respone.data)
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -136,11 +140,23 @@ export default function AdminEventCreate() {
       }
     })
   }
+
+  //! Success dialog
+  const closeDialogAndNavigate = () => {
+    setSuccessDialog(false)
+    if (createdEvent)
+      navigate(
+        {
+          pathname: `${adminPath.events}/${generateNameId({ name: createdEvent.overall_content, id: createdEvent.id })}`
+        },
+        { state: { from: 'AdminEventCreate' } }
+      )
+  }
   return (
     <div>
       <div className='grid grid-cols-4 items-center gap-2 rounded-md border border-black/20 px-2 py-1'>
         <div className='col-span-1'>
-          <p className='lg:text-base text-xs font-semibold uppercase tablet:text-sm'>Ảnh hiển thị</p>
+          <p className='lg:text-base text-xs font-semibold uppercase text-primaryBlue tablet:text-sm'>Ảnh hiển thị</p>
         </div>
         <div className='col-span-3'>
           <div className='flex w-full flex-col items-center space-y-4 py-4 tabletSmall:w-8/12 tablet:w-6/12 desktop:w-4/12'>
@@ -204,6 +220,20 @@ export default function AdminEventCreate() {
             )}
           </Fragment>
         )}
+      </DialogPopup>
+
+      <DialogPopup isOpen={successDialog} handleClose={closeDialogAndNavigate}>
+        <div className='space-y-6'>
+          <p className='text-center text-xl font-medium uppercase leading-6 text-successGreen'>
+            Đã tạo sự kiện thành công
+          </p>
+          <button
+            onClick={closeDialogAndNavigate}
+            className='desktop:tetx-base rounded-xl bg-unhoveringBg px-6 py-2 text-sm hover:bg-hoveringBg'
+          >
+            Thêm sản phẩm vào sự kiện
+          </button>
+        </div>
       </DialogPopup>
     </div>
   )

@@ -136,7 +136,7 @@ export default function AdminBlogCreate() {
     <div>
       <div className='grid grid-cols-4 items-center gap-2 rounded-md border border-black/20 px-2 py-1'>
         <div className='col-span-1'>
-          <p className='lg:text-base text-xs font-semibold uppercase tablet:text-sm'>Ảnh hiển thị</p>
+          <p className='lg:text-base text-xs font-semibold uppercase text-primaryBlue tablet:text-sm'>Ảnh hiển thị</p>
         </div>
         <div className='col-span-3'>
           <div className='flex w-full flex-col items-center space-y-4 py-4 tabletSmall:w-8/12 tablet:w-6/12 desktop:w-4/12'>

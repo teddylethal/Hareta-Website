@@ -84,7 +84,7 @@ export default function AdminProductCreateForm() {
   const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2 bg-transparent'
   const titleStyle = 'text-xs tablet:text-sm space-x-2 uppercase col-span-1 desktop:text-base text-primaryBlue'
   const inputStyle =
-    'bg-darkColor700 py-1 px-2 text-base desktop:text-lg col-span-2 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/40 focus:outline-primaryColor text-haretaColor'
+    'text-darkText py-1 px-2 col-span-3 text-base lg:text-lg rounded-lg outline-none outline-offset-2 focus:outline-haretaColor bg-white font-medium'
   const noSelectedInputStyle =
     'text-lightText py-1 px-2 col-span-2 text-base font-medium desktop:text-lg bg-transparent rounded-lg'
   const starStyle = 'text-lg text-alertRed tablet:text-xl desktop:text-2xl'

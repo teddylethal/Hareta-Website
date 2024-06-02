@@ -1,6 +1,5 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
 import { ProductType } from 'src/types/product.type'
 import { formatCurrency } from 'src/utils/utils'
 

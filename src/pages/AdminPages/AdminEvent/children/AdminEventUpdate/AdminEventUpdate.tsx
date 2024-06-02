@@ -12,11 +12,8 @@ import AdminEventUpdateForm from '../../components/AdminEventUpdateForm'
 import { AxiosResponse } from 'axios'
 import { SuccessRespone } from 'src/types/utils.type'
 import { Image, ImageListConfig } from 'src/types/image.type'
-import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import DialogPopup from 'src/components/DialogPopup'
-import LoadingRing from 'src/components/LoadingRing'
-import AdminDialog from 'src/pages/AdminPages/components/AdminDialog'
 
 interface Props {
   eventDetail: EventType
@@ -145,7 +142,7 @@ export default function AdminEventUpdate({
     const updatePostBody = {
       ...data,
       date_start: formatTimeToSeconds(data.date_start.getTime()),
-      date_end: formatTimeToSeconds(data.date_start.getTime()),
+      date_end: formatTimeToSeconds(data.date_end.getTime()),
       avatar: newUploadedImageRespone ? newUploadedImageRespone.data.data.url : data.avatar
     }
     updateEventMutation.mutate(updatePostBody, {
@@ -202,7 +199,7 @@ export default function AdminEventUpdate({
               <div className='col-span-1 flex items-center justify-center'>
                 <button
                   type='button'
-                  className='hover:bg-primaryBackground/80 rounded-xl border border-white/40 px-4 py-1 text-sm text-white'
+                  className='rounded-xl border border-white/40 bg-darkColor900 px-4 py-1 text-sm text-white hover:bg-darkColor700'
                   onClick={turnOffEditingMode}
                 >
                   Hủy chỉnh sửa

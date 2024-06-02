@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import React, { Fragment, useContext, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import AdminEventInfo from '../AdminEventInfo'
 import { getIdFromNameId } from 'src/utils/utils'
 import eventApi from 'src/apis/event.api'
@@ -19,6 +19,8 @@ import { AppContext } from 'src/contexts/app.context'
 export default function AdminEventDetail() {
   const { setLoadingPage } = useContext(AppContext)
 
+  const { state } = useLocation()
+
   //! Use states
   const [isUpdating, setIsUpdating] = useState(false)
   const [updateExcutingDialog, setUpdateExcutingDialog] = useState<boolean>(false)
@@ -27,7 +29,7 @@ export default function AdminEventDetail() {
   const [updateSuccess, setUpdateSuccess] = useState(false)
   const [invalidFields, setInvalidFields] = useState<string[]>([])
   const [undefinedError, setUndefinedError] = useState<boolean>(false)
-  const [isAddingProduct, setIsAddingProduct] = useState(false)
+  const [isAddingProduct, setIsAddingProduct] = useState(state && state.from == 'AdminEventCreate')
   const [removeProductSuccess, setRemoveProductSuccess] = useState(false)
 
   const navigate = useNavigate()

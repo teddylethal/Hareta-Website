@@ -242,7 +242,7 @@ export default function AdminBlogDetail() {
                 <div className='col-span-1 flex items-center justify-center'>
                   <button
                     type='button'
-                    className='hover:bg-primaryBackground/80 rounded-md border border-white/40 px-4 py-1 text-sm text-white'
+                    className='rounded-xl border border-white/40 bg-darkColor900 px-4 py-1 text-sm text-white hover:bg-darkColor700'
                     onClick={turnOffEditingMode}
                   >
                     Hủy chỉnh sửa

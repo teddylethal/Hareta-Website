@@ -5,8 +5,8 @@ import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 import CustomJoditEditor from 'src/components/CustomJoditEditor'
 import DateSelect from 'src/components/DateSelect'
 import InputNumber from 'src/components/InputNumber'
-import NoToolbarJoditEditor from 'src/components/NoToolbarJoditEditor'
 import { CreateEventSchema } from 'src/rules/adminevent.rule'
+import AdminTextArea from '../AdminTextArea'
 
 type FormData = CreateEventSchema
 
@@ -14,6 +14,7 @@ export default function AdminEventCreateForm() {
   //! Use form context
   const {
     control,
+    register,
     setValue,
     watch,
     formState: { errors }
@@ -23,18 +24,10 @@ export default function AdminEventCreateForm() {
   const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2 bg-transparent'
   const titleStyle = 'text-xs tablet:text-sm space-x-2 uppercase col-span-1 desktop:text-base text-primaryBlue'
   const inputStyle =
-    'bg-darkColor700 py-1 px-2 text-base desktop:text-lg col-span-2 desktop:col-span-2 rounded-lg outline-1 outline outline-haretaColor/40 focus:outline-primaryColor text-haretaColor'
-  const noSelectedInputStyle =
-    'text-lightText py-1 px-2 col-span-2 text-base font-medium desktop:text-lg bg-transparent rounded-lg'
+    'text-darkText py-1 px-2 col-span-3 text-base lg:text-lg rounded-lg outline-none outline-offset-2 focus:outline-haretaColor bg-white font-medium'
   const starStyle = 'text-lg text-alertRed tablet:text-xl desktop:text-2xl'
 
   //! Text editor
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const setOverallEditorContent = (editorState: any) => {
-    setValue('overall_content', editorState)
-  }
-  const overallEditorContent = watch('overall_content')
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setDetailEditorContent = (editorState: any) => {
     setValue('detail_content', editorState)
@@ -43,22 +36,20 @@ export default function AdminEventCreateForm() {
 
   return (
     <Fragment>
-      <div className={'grid grid-cols-4 items-start gap-2 bg-transparent px-2 py-1'}>
+      <AdminTextArea
+        className={'grid grid-cols-4 items-start gap-2 bg-transparent px-2 py-1'}
+        inputClassName={classNames(inputStyle, {
+          'outline-alertRed': Boolean(errors.overall_content)
+        })}
+        register={register}
+        name='overall_content'
+        errorSection={<AdminInputErrorSection errorMessage={errors.overall_content?.message} />}
+      >
         <div className={titleStyle}>
-          <span className=''>Giới thiệu chung</span>
-          <span className='text-alertRed'>*</span>
+          <span className=''>Giới thiệu</span>
+          <span className={starStyle}>*</span>
         </div>
-        <div className={noSelectedInputStyle}>
-          <div
-            className={classNames('h-20 overflow-hidden rounded-md text-black', {
-              'outline outline-2 outline-offset-4 outline-alertRed': errors.overall_content
-            })}
-          >
-            <NoToolbarJoditEditor content={overallEditorContent} setContent={setOverallEditorContent} />
-          </div>
-        </div>
-        <AdminInputErrorSection errorMessage={errors.overall_content?.message} />
-      </div>
+      </AdminTextArea>
 
       <div className={inputFieldStyle}>
         <div className={titleStyle}>
@@ -90,7 +81,7 @@ export default function AdminEventCreateForm() {
           <span className=''>Ngày bắt đầu</span>
           <span className='text-lg text-alertRed'>*</span>
         </div>
-        <div className={noSelectedInputStyle}>
+        <div className={'col-span-2'}>
           <Controller
             control={control}
             name='date_start'
@@ -106,7 +97,7 @@ export default function AdminEventCreateForm() {
           <span className=''>Ngày kết thúc</span>
           <span className='text-lg text-alertRed'>*</span>
         </div>
-        <div className={noSelectedInputStyle}>
+        <div className={'col-span-2'}>
           <Controller
             control={control}
             name='date_end'

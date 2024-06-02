@@ -66,7 +66,7 @@ export default function AdminBlogUpdateForm({ blogDetail, imageFile, setImageFil
   const noSelectedInputStyle = 'py-1 px-2 text-base lg:text-lg'
   const inputFieldStyle = 'grid grid-cols-4 items-center gap-2 py-1 px-2'
   const inputStyle =
-    'text-darkText bg-white py-1 px-2 text-base lg:text-lg rounded-lg outline-none focus:outline-primaryBlue'
+    'text-darkText py-1 px-2 col-span-3 text-base lg:text-lg rounded-lg outline-none outline-offset-2 focus:outline-haretaColor bg-white font-medium'
   const titleStyle = 'text-xs tablet:text-sm font-semibold uppercase text-primaryBlue lg:text-base'
   const buttonStyle =
     'flex py-1 px-2 tablet:px-4 desktop:px-6 hover:bg-hoveringBg cursor-pointer items-center justify-center rounded-md text-xs font-semibold tablet:text-sm desktop:text-base bg-black/60 text-white hover:text-darkText'
