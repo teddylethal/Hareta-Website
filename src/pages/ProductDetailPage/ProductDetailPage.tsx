@@ -47,10 +47,10 @@ export default function ProductDetailPage() {
   const queryClient = useQueryClient()
   const { nameId } = useParams()
 
-  //! GET product DATA
+  //! Get product detail
   const id = getIdFromNameId(nameId as string)
   const { data: productDetailData, isFetching } = useQuery({
-    queryKey: ['product_detail', id],
+    queryKey: ['products', 'detail', id],
     queryFn: () => productApi.getProductDetail(id as string)
   })
   const defaultProduct = productDetailData?.data.data
@@ -62,7 +62,7 @@ export default function ProductDetailPage() {
     limit: '50'
   }
   const { data: productsInGroupData } = useQuery({
-    queryKey: ['product_list_in_group', productsInGroupQuery],
+    queryKey: ['product-groups', 'variants', defaultProduct?.group.id],
     queryFn: () => productApi.getProductsInGroup(productsInGroupQuery),
 
     enabled: Boolean(defaultProduct)
@@ -71,7 +71,7 @@ export default function ProductDetailPage() {
 
   //! GET WISHLIST
   const { data: wishlistData } = useQuery({
-    queryKey: ['user_wish_list'],
+    queryKey: ['wishlist'],
     queryFn: () => {
       return userLikeProductApi.getWishList()
     },

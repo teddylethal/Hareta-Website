@@ -22,7 +22,7 @@ export default function AdminSelectsVariant({
     refetch,
     isLoading
   } = useQuery({
-    queryKey: ['product-groups', productGroup?.id],
+    queryKey: ['product-groups', 'variants', productGroup?.id],
     queryFn: () =>
       productApi.getProductsInGroup({
         id: productGroup?.id as string,

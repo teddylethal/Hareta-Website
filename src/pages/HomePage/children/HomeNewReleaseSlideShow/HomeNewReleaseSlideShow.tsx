@@ -22,24 +22,22 @@ export default function HomeNewReleaseSlideShow() {
   const { t } = useTranslation('home')
 
   return (
-    <div className='container'>
-      <div className='text-darkText duration-200 dark:text-lightText'>
-        <div className='w-full text-center'>
-          <p className='text-2xl font-bold uppercase text-primaryColor desktop:text-4xl desktopLarge:text-5xl'>
-            {t('new release')}
-          </p>
-        </div>
-        {isLoading && (
-          <div className='flex h-40 items-center justify-center tablet:h-60 desktop:h-80'>
-            <LoadingRing />
-          </div>
-        )}
-        {productListData && (
-          <div className='relative mt-4 pb-8 desktop:mt-6 desktopLarge:mt-8'>
-            <HomeNewReleaseProductCard product={newReleaseProduct} />
-          </div>
-        )}
+    <div className='text-darkText duration-200 dark:text-lightText'>
+      <div className='w-full text-center'>
+        <p className='text-2xl font-bold uppercase text-haretaColor desktop:text-4xl desktopLarge:text-5xl'>
+          {t('new release')}
+        </p>
       </div>
+      {isLoading && (
+        <div className='flex h-40 items-center justify-center tablet:h-60 desktop:h-80'>
+          <LoadingRing />
+        </div>
+      )}
+      {productListData && (
+        <div className='relative mt-4 desktop:mt-6 desktopLarge:mt-8'>
+          <HomeNewReleaseProductCard product={newReleaseProduct} />
+        </div>
+      )}
     </div>
   )
 }

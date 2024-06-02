@@ -64,7 +64,7 @@ module.exports = {
 
         //? Products
         productDarkBg: '#1d1d22',
-        productLightBg: '#F4F4F5',
+        productLightBg: '#e9e9e8',
         tagColor: '#ff3333',
         favouriteRed: '#ff2800',
         whiteColor: '#ffffff',

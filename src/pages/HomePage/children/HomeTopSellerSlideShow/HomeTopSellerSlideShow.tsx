@@ -89,7 +89,7 @@ export default function HomeTopSellerSlideShow() {
   return (
     <div className=''>
       <div className='flex items-center justify-between px-2 tablet:px-4 desktop:px-8'>
-        <span className='  select-none px-2 py-2 text-2xl font-bold uppercase tablet:left-4 desktop:left-8 desktop:text-4xl desktopLarge:text-5xl'>
+        <span className='select-none px-2 py-2 text-2xl font-bold uppercase tablet:left-4 desktop:left-8 desktop:text-4xl desktopLarge:text-5xl'>
           {t('top seller')}
         </span>
         {displayedItems.length >= 3 && (
@@ -103,7 +103,7 @@ export default function HomeTopSellerSlideShow() {
         )}
       </div>
 
-      <div className='p-2 tablet:p-4 desktop:p-8'>
+      <div className='tablet:p-4 desktop:p-8'>
         {length <= 3 && (
           <div
             className={classNames(
@@ -123,7 +123,7 @@ export default function HomeTopSellerSlideShow() {
           <div className='relative'>
             <CustomSlideShow responsive={responsiveSettings} indicators={false}>
               {displayedItems.map((item) => (
-                <div key={item.id} className='mx-4 select-none'>
+                <div key={item.id} className='select-none tablet:mx-4'>
                   <ProductCard product={item} initialLoading={isLoading} />
                 </div>
               ))}

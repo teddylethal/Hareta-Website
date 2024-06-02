@@ -34,7 +34,7 @@ export default function HomeIntroduction() {
 
   return (
     <div className='space-y-6'>
-      <p className='text-center text-2xl font-bold uppercase tracking-widest text-primaryColor tablet:text-3xl desktop:text-4xl desktopLarge:text-5xl'>
+      <p className='text-center text-2xl font-bold uppercase tracking-widest text-haretaColor tablet:text-3xl desktop:text-4xl desktopLarge:text-5xl'>
         {t('introduction.About Hareta Workshop')}
       </p>
 

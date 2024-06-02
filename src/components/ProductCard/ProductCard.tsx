@@ -77,11 +77,10 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
   }
 
   //! GET IMAGE LIST
-  const itemID = product.id
+  const productId = product.id
   const { data: imageListData, isLoading } = useQuery({
-    queryKey: ['default_product_images', itemID],
-    queryFn: () => producImageApi.getImageList(itemID as string),
-
+    queryKey: ['default-products', 'images', productId],
+    queryFn: () => producImageApi.getImageList(productId as string),
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data
@@ -197,12 +196,12 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
           </span>
         </div>
         {product.tag !== 0 && (
-          <div className='absolute left-0 top-4'>
+          <div className='absolute left-0 top-2'>
             <ProductTag tag={product.tag} />
           </div>
         )}
         {isAuthenticated && (
-          <div className='absolute right-1 top-1'>
+          <div className='absolute right-1 top-2'>
             <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
               <FontAwesomeIcon
                 icon={faHeart}

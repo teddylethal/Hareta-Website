@@ -25,7 +25,7 @@ export default function StorePageDesktop({ storeData, isFetching, isLoading }: P
   return (
     <div className='relative grid grid-cols-12 gap-2 desktop:gap-4 desktopLarge:gap-6'>
       <div className='col-span-3'>
-        <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/20 bg-barLightBg px-2 py-4 duration-200 dark:border-white/20 dark:bg-barDarkBg tablet:top-14 desktop:top-20'>
+        <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/40 bg-barLightBg px-2 py-4 duration-200 dark:border-white/40 dark:bg-barDarkBg tablet:top-14 desktop:top-20'>
           <StoreSearchBar />
           <StoreAsideSorter />
           <StorePriceRange queryConfig={queryConfig} />

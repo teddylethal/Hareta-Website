@@ -1,8 +1,12 @@
 import 'react-slideshow-image/dist/styles.css'
 import HomeEventSlide from '../../components/HomeEventSlide'
-import mainPath from 'src/constants/path'
 import CustomSlideShow from 'src/components/CustomSlideShow'
-import { EventSimple } from 'src/types/event.type'
+import { EventListConfig } from 'src/types/event.type'
+import { useQuery } from '@tanstack/react-query'
+import useEventListQueryConfig from 'src/hooks/useEventListQueryConfig'
+import eventApi from 'src/apis/event.api'
+import { Fragment } from 'react'
+import LoadingSection from 'src/components/LoadingSection'
 
 const responsiveSettings = [
   {
@@ -28,26 +32,26 @@ const responsiveSettings = [
   }
 ]
 
-const tempEvents: EventSimple[] = [
-  {
-    id: '100',
-    created_at: '0',
-    updated_at: '0',
-    status: 0,
-    overall_content: 'Summer Keycap Sale with up to 50% off on all our unique and stylish keycaps!',
-    discount: 50,
-    avatar: 'https://d2csq352pki9k7.cloudfront.net/image/454931600.png'
-  }
-]
-
 export default function HomeEventSlideShow() {
+  //! Get events
+  const eventListQueryConfig = useEventListQueryConfig()
+  const { data: eventsData } = useQuery({
+    queryKey: ['events'],
+    queryFn: () => eventApi.getEventList(eventListQueryConfig as EventListConfig)
+  })
+
   return (
-    <CustomSlideShow responsive={responsiveSettings} duration={5000}>
-      {tempEvents.map((event) => (
-        <div key={event.id} className='h-[75vh]'>
-          <HomeEventSlide event={event} />
-        </div>
-      ))}
-    </CustomSlideShow>
+    <Fragment>
+      {!eventsData && <LoadingSection className='flex h-[50vh] items-center justify-center desktop:h-[75vh]' />}
+      {eventsData && (
+        <CustomSlideShow responsive={responsiveSettings} duration={5000}>
+          {eventsData.data.data.map((event) => (
+            <div key={event.id} className='h-[50vh] desktop:h-[75vh]'>
+              <HomeEventSlide event={event} />
+            </div>
+          ))}
+        </CustomSlideShow>
+      )}
+    </Fragment>
   )
 }

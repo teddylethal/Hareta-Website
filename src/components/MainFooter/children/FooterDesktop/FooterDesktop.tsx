@@ -2,7 +2,7 @@ import { faDiscord, faFacebook, faInstagram, faYoutube } from '@fortawesome/free
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 
 export default function FooterDesktop() {
   //! Multi languages
@@ -56,9 +56,8 @@ export default function FooterDesktop() {
           </div>
           <div className='col-span-1 px-0 desktop:px-2'>974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam</div>
           <div className='col-span-1 flex flex-col space-y-2 px-6 desktopLarge:px-10'>
-            <Link to={path.home}>{t('faq')}</Link>
-            <Link to={path.home}>{t('policy and terms')}</Link>
-            <Link to={path.home}>{t('order tracking')}</Link>
+            <Link to={mainPath.privacyAndTerms}>{t('Privacy & Terms')}</Link>
+            <Link to={mainPath.orderTracking}>{t('Order Tracking')}</Link>
           </div>
           <div className='col-span-1 flex flex-col justify-start space-y-2 px-2 desktop:px-4 desktopLarge:px-8'>
             <p>hareta.contact@gmail.com</p>

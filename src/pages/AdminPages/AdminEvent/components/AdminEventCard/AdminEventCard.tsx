@@ -48,20 +48,14 @@ export default function AdminEventCard({ event, disableClick = false }: Props) {
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(event.overall_content)
             }}
-            className='over h-full w-full justify-start overflow-hidden truncate text-left text-sm font-semibold uppercase text-haretaColor tablet:text-lg desktop:text-lg'
+            className='h-full w-full justify-start overflow-hidden truncate text-left text-sm font-semibold uppercase text-haretaColor tablet:text-lg desktop:text-lg'
           />
 
-          <p
-            className='flex space-x-4  text-xs desktop:text-sm
-'
-          >
+          <p className='flex space-x-4  text-xs desktop:text-sm'>
             <span className='font-medium'>Bắt đầu</span>
             <span className=''>{formatDateVi(event.date_start)}</span>
           </p>
-          <p
-            className='flex space-x-4  text-xs desktop:text-sm
-'
-          >
+          <p className='flex space-x-4  text-xs desktop:text-sm'>
             <span className='font-medium'>Kết thúc</span>
             <span className=''>{formatDateVi(event.date_end)}</span>
           </p>
