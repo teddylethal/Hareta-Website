@@ -36,6 +36,12 @@ const eventApi = {
   },
   deleteEvent(body: { id: string }) {
     return http.delete<SuccessRespone<string>>(`${URL}/`, { data: body })
+  },
+  addProductToEvent(body: { event_id: string; item_id: string }) {
+    return http.post<SuccessRespone<string>>(`${eventItemUrl}/`, body)
+  },
+  removeProductFromEvent(body: { event_id: string; item_id: string }) {
+    return http.delete<SuccessRespone<string>>(`${eventItemUrl}/`, { data: body })
   }
 }
 

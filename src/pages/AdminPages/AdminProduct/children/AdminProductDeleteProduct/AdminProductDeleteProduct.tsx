@@ -9,7 +9,7 @@ import { adminProductApi } from 'src/apis/admin.api'
 import { showSuccessDialog } from 'src/utils/utils'
 import AdminDialog from '../../../components/AdminDialog'
 import AdminInforSection from '../../../components/AdminInforSection'
-import AdminProductGroupList from '../../../components/AdminProductGroupList'
+import AdminSelectProductGroup from '../../../components/AdminSelectProductGroup'
 
 export default function AdminProductDeleteProduct() {
   const { currentProduct, setCurrentProduct, productGroup } = useContext(AdminContext)
@@ -32,8 +32,8 @@ export default function AdminProductDeleteProduct() {
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
-          queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups', productGroup?.id] })
-          queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
+          queryClient.invalidateQueries({ queryKey: ['product-groups', productGroup?.id] })
+          queryClient.invalidateQueries({ queryKey: ['default-products'] })
           setCurrentProduct(null)
         }
       }
@@ -47,7 +47,7 @@ export default function AdminProductDeleteProduct() {
       <div className='mt-4 grid grid-cols-2 gap-4'>
         <div className='col-span-1'>
           <div className='sticky top-6 space-y-4'>
-            <AdminProductGroupList />
+            <AdminSelectProductGroup />
             <AdminSelectsVariant />
           </div>
         </div>

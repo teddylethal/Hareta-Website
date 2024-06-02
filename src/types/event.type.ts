@@ -1,3 +1,4 @@
+import { ProductType } from './product.type'
 import { JSONModel, PagingType } from './utils.type'
 
 export interface EventType extends JSONModel {
@@ -7,6 +8,7 @@ export interface EventType extends JSONModel {
   date_end: string
   discount: number
   avatar: string
+  items: [{ item: ProductType }]
 }
 export interface EventList {
   data: EventType[]

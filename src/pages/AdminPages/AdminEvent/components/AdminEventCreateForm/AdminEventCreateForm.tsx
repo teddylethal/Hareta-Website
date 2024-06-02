@@ -87,7 +87,7 @@ export default function AdminEventCreateForm() {
 
       <div className={inputFieldStyle}>
         <div className={titleStyle}>
-          <span className=''>Ngày mở đăng kí</span>
+          <span className=''>Ngày bắt đầu</span>
           <span className='text-lg text-alertRed'>*</span>
         </div>
         <div className={noSelectedInputStyle}>
@@ -103,7 +103,7 @@ export default function AdminEventCreateForm() {
 
       <div className={inputFieldStyle}>
         <div className={titleStyle}>
-          <span className=''>Ngày kết thúc đăng kí</span>
+          <span className=''>Ngày kết thúc</span>
           <span className='text-lg text-alertRed'>*</span>
         </div>
         <div className={noSelectedInputStyle}>

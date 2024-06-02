@@ -7,7 +7,7 @@ import producImageApi from 'src/apis/productImage.api'
 
 import { AppContext } from 'src/contexts/app.context'
 import AdminProductImageHeader from '../../components/AdminProductImageHeader'
-import AdminProductGroupList from 'src/pages/AdminPages/components/AdminProductGroupList'
+import AdminSelectProductGroup from 'src/pages/AdminPages/components/AdminSelectProductGroup'
 import AdminSelectsVariant from 'src/pages/AdminPages/components/AdminSelectsVariant'
 import AdminImageInput from 'src/pages/AdminPages/components/AdminImageInput'
 import AdminDialog from 'src/pages/AdminPages/components/AdminDialog'
@@ -94,7 +94,7 @@ export default function AdminProductUpdateAvatar() {
       <AdminProductImageHeader />
       <div className='mt-4 grid grid-cols-12 gap-4'>
         <div className='col-span-6 space-y-4'>
-          <AdminProductGroupList />
+          <AdminSelectProductGroup />
           <AdminSelectsVariant />
         </div>
 

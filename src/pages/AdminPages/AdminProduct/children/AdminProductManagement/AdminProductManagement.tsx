@@ -38,7 +38,7 @@ export default function AdminProductManagement() {
   //! Get default product list
   const queryConfig = {}
   const { data: defaultProductListData } = useQuery({
-    queryKey: ['admin', 'products', 'default'],
+    queryKey: ['products', 'default'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },

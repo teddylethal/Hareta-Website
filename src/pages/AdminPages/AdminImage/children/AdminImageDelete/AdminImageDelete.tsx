@@ -47,7 +47,7 @@ export default function AdminImageDelete() {
     isFetching,
     isFetched
   } = useQuery({
-    queryKey: ['admin', 'images', imagesConfig],
+    queryKey: ['images', imagesConfig],
     queryFn: () => {
       return imageApi.getImageList(imagesConfig as ImageListConfig)
     },
@@ -65,7 +65,7 @@ export default function AdminImageDelete() {
       { image_id: imageId as string },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['admin', 'images'] })
+          queryClient.invalidateQueries({ queryKey: ['images'] })
         }
       }
     )

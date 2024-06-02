@@ -10,8 +10,8 @@ import { UpdateBlogSchema } from 'src/rules/adminblog.rule'
 import { BlogDetail } from 'src/types/blog.type'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { formatDate } from 'src/utils/utils'
-import AdminInput from '../AdminInput'
 import NoToolbarJoditEditor from 'src/components/NoToolbarJoditEditor'
+import AdminInput from 'src/pages/AdminPages/components/AdminInput'
 
 type FormData = NoUndefinedField<UpdateBlogSchema>
 

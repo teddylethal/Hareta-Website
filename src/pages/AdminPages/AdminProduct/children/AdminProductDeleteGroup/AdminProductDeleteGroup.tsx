@@ -8,7 +8,7 @@ import productApi from 'src/apis/product.api'
 import DialogPopup from 'src/components/DialogPopup'
 import AdminDialog from '../../../components/AdminDialog'
 import { adminProductGroupApi } from 'src/apis/admin.api'
-import AdminProductGroupList from '../../../components/AdminProductGroupList'
+import AdminSelectProductGroup from '../../../components/AdminSelectProductGroup'
 import AdminInforSection from '../../../components/AdminInforSection'
 import LoadingSection from 'src/components/LoadingSection'
 import AdminSelectsVariant from '../../../components/AdminSelectsVariant'
@@ -21,7 +21,7 @@ export default function AdminProductDeleteGroup() {
 
   //! Get product detail
   const { data: productDetailData, isFetching: fetchingProductDetail } = useQuery({
-    queryKey: ['admin', 'products', currentProduct?.id],
+    queryKey: ['products', currentProduct?.id],
     queryFn: () => productApi.getProductDetail(currentProduct?.id as string),
     enabled: Boolean(currentProduct)
   })
@@ -42,9 +42,9 @@ export default function AdminProductDeleteGroup() {
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
-          queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups'] })
-          queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
-          queryClient.invalidateQueries({ queryKey: ['admin', 'product-groups', productGroup?.id] })
+          queryClient.invalidateQueries({ queryKey: ['product-groups'] })
+          queryClient.invalidateQueries({ queryKey: ['default-products'] })
+          queryClient.invalidateQueries({ queryKey: ['product-groups', productGroup?.id] })
           setProductGroup(null)
         }
       }
@@ -58,7 +58,7 @@ export default function AdminProductDeleteGroup() {
       <div className='mt-4 grid grid-cols-2 gap-4'>
         <div className='col-span-1'>
           <div className='sticky top-6 space-y-4'>
-            <AdminProductGroupList />
+            <AdminSelectProductGroup />
             <AdminSelectsVariant />
           </div>
         </div>

@@ -27,7 +27,7 @@ export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpe
   //! GET CURRENT PRODUCT DETAIL
   const productId = currentProduct?.id
   const { data: productDetailData } = useQuery({
-    queryKey: ['admin', 'products', productId, 'detail'],
+    queryKey: ['products', productId, 'detail'],
     queryFn: () => productApi.getProductDetail(productId as string),
     staleTime: 1000 * 60 * 5,
     enabled: Boolean(currentProduct)
@@ -90,7 +90,7 @@ export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpe
       {
         onSuccess: () => {
           reset()
-          queryClient.invalidateQueries({ queryKey: ['admin', 'products', productId] })
+          queryClient.invalidateQueries({ queryKey: ['products', productId] })
           showSuccessDialog(setSuccessDialogOpen, 2000)
         },
         onError: (error) => {

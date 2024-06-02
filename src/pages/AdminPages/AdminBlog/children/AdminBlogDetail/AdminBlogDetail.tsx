@@ -80,7 +80,7 @@ export default function AdminBlogDetail() {
   }, [blogDetail])
 
   const { data: imagesData } = useQuery({
-    queryKey: ['admin', 'image', 'list', imageListConfig],
+    queryKey: ['image', 'list', imageListConfig],
     queryFn: () => {
       return imageApi.getImageList(imageListConfig as ImageListConfig)
     },
@@ -149,8 +149,8 @@ export default function AdminBlogDetail() {
       }
       updateBlogMutation.mutate(updatePostBody, {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['admin', 'images'] })
-          queryClient.invalidateQueries({ queryKey: ['admin', 'blogs'] })
+          queryClient.invalidateQueries({ queryKey: ['images'] })
+          queryClient.invalidateQueries({ queryKey: ['blogs'] })
           setUpdateSuccess(true)
         },
         onError: () => {
@@ -190,8 +190,8 @@ export default function AdminBlogDetail() {
     if (blogDetail) deleteBlogMutation.mutate({ id: blogDetail.id })
 
     //:: On success
-    queryClient.invalidateQueries({ queryKey: ['admin', 'images'] })
-    queryClient.invalidateQueries({ queryKey: ['admin', 'blogs'] })
+    queryClient.invalidateQueries({ queryKey: ['images'] })
+    queryClient.invalidateQueries({ queryKey: ['blogs'] })
     window.scrollTo({ top: 0, left: 0 })
     setEditingMode(false)
     setExcuting(false)

@@ -26,7 +26,7 @@ export default function AdminProductDetail() {
   const { nameId } = useParams()
   const productId = getIdFromNameId(nameId as string)
   const { data: productDetailData } = useQuery({
-    queryKey: ['admin', 'products', productId],
+    queryKey: ['products', productId],
     queryFn: () => productApi.getProductDetail(productId as string)
   })
   const defaultProduct = productDetailData?.data.data
@@ -59,7 +59,7 @@ export default function AdminProductDetail() {
         {
           onSuccess: () => {
             showSuccessDialog(setUpdateDefaultProductSuccess)
-            queryClient.invalidateQueries({ queryKey: ['admin', 'default-products'] })
+            queryClient.invalidateQueries({ queryKey: ['default-products'] })
           }
         }
       )

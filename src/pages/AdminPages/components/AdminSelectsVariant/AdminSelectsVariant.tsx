@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect } from 'react'
 import { AdminContext } from 'src/contexts/admin.context'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
-import { Product, ProductListConfig } from 'src/types/product.type'
+import { ProductType, ProductListConfig } from 'src/types/product.type'
 import classNames from 'classnames'
 import LoadingRing from 'src/components/LoadingRing'
 
@@ -10,7 +10,9 @@ interface Props {
   wrapperClassname?: string
 }
 
-export default function AdminSelectsVariant({ wrapperClassname = 'm-2 grid grid-cols-3 gap-3' }: Props) {
+export default function AdminSelectsVariant({
+  wrapperClassname = 'grid h-80 w-full grid-cols-3 gap-4 overflow-auto p-2'
+}: Props) {
   const { productGroup, currentProduct, setCurrentProduct, defaultProductIdList, setDefaultProductIdList } =
     useContext(AdminContext)
 
@@ -18,10 +20,9 @@ export default function AdminSelectsVariant({ wrapperClassname = 'm-2 grid grid-
   const {
     data: productsInGroupData,
     refetch,
-    isFetching,
-    isFetched
+    isLoading
   } = useQuery({
-    queryKey: ['admin', 'product-groups', productGroup?.id],
+    queryKey: ['product-groups', productGroup?.id],
     queryFn: () =>
       productApi.getProductsInGroup({
         id: productGroup?.id as string,
@@ -42,7 +43,7 @@ export default function AdminSelectsVariant({ wrapperClassname = 'm-2 grid grid-
   //! Get default product list
   const queryConfig = {}
   const { data: defaultProductListData } = useQuery({
-    queryKey: ['admin', 'default-products'],
+    queryKey: ['default-products'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
@@ -57,26 +58,26 @@ export default function AdminSelectsVariant({ wrapperClassname = 'm-2 grid grid-
   }, [setDefaultProductIdList, defaultProductList])
 
   //! Select product
-  const handleChooseVariant = (item: Product) => () => {
-    setCurrentProduct(item)
+  const handleChooseVariant = (product: ProductType) => () => {
+    setCurrentProduct(product)
   }
 
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
         <p className='text-lg font-semibold uppercase desktop:text-xl'>Chọn sản phẩm</p>
-        <div className='h-80 w-full overflow-scroll rounded-lg border border-white/40 bg-[#202020]'>
+        <div className='w-full rounded-lg border border-white/40 bg-darkBg'>
           {!productGroup && (
-            <div className='inset-0 flex h-full w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
+            <div className='flex h-80 w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
               Chọn 1 nhóm sản phẩm
             </div>
           )}
-          {isFetching && (
-            <div className='inset-0 flex h-full w-full items-center justify-center bg-black/50'>
+          {isLoading && (
+            <div className='flex h-80 w-full items-center justify-center bg-black/50'>
               <LoadingRing />
             </div>
           )}
-          {isFetched && (
+          {productsInGroupData && (
             <Fragment>
               {productsInGroup.length == 0 && (
                 <div className='flex h-full w-full items-center justify-center text-lg font-semibold text-alertRed'>
@@ -91,7 +92,7 @@ export default function AdminSelectsVariant({ wrapperClassname = 'm-2 grid grid-
                     return (
                       <div
                         key={index}
-                        className={classNames(' col-span-1 h-min rounded-xl outline outline-1 outline-offset-0', {
+                        className={classNames('col-span-1 h-min rounded-xl outline outline-1 outline-offset-0', {
                           'outline-2 outline-haretaColor': isActive,
                           'outline-haretaColor/40 ': !isActive
                         })}

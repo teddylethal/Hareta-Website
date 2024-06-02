@@ -11,7 +11,7 @@ import useBlogListQueryConfig from 'src/hooks/useBlogListQueryConfig'
 export default function AdminBlogSorter() {
   //! Get tag list
   const { data: tagsData } = useQuery({
-    queryKey: ['admin', 'blogs', 'tags'],
+    queryKey: ['blogs', 'tags'],
     queryFn: () => blogApi.getBlogTagList()
   })
   const tags = tagsData?.data.data || []

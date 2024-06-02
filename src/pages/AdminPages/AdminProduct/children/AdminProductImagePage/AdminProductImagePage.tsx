@@ -5,7 +5,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { AdminContext } from 'src/contexts/admin.context'
 import producImageApi from 'src/apis/productImage.api'
 import AdminSelectsVariant from '../../../components/AdminSelectsVariant'
-import AdminProductGroupList from '../../../components/AdminProductGroupList'
+import AdminSelectProductGroup from '../../../components/AdminSelectProductGroup'
 import AdminProductImageHeader from '../../components/AdminProductImageHeader'
 import AdminImageInput from '../../../components/AdminImageInput'
 import { showSuccessDialog } from 'src/utils/utils'
@@ -97,7 +97,7 @@ export default function AdminProductImagePage() {
       <div className=' mt-4 grid grid-cols-2 gap-4'>
         <div className='col-span-1'>
           <div className='flex min-h-full flex-col justify-between space-y-4'>
-            <AdminProductGroupList />
+            <AdminSelectProductGroup />
             <AdminSelectsVariant />
           </div>
         </div>

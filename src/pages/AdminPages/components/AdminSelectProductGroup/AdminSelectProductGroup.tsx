@@ -3,10 +3,10 @@ import { AdminContext } from 'src/contexts/admin.context'
 import { adminProductGroupApi } from 'src/apis/admin.api'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { Product, ProductGroup, ProductListConfig } from 'src/types/product.type'
+import { ProductType, ProductGroup, ProductListConfig } from 'src/types/product.type'
 import productApi from 'src/apis/product.api'
 
-export default function AdminProductGroupList() {
+export default function AdminSelectProductGroup() {
   const { setProductGroup, productGroup, setCurrentProduct } = useContext(AdminContext)
 
   //! Get product groups
@@ -31,7 +31,7 @@ export default function AdminProductGroupList() {
 
   //! SELECT GROUP
   const queryClient = useQueryClient()
-  const handleChooseGroup = (product: Product) => () => {
+  const handleChooseGroup = (product: ProductType) => () => {
     setCurrentProduct(product)
     setProductGroup(product.group)
     queryClient.invalidateQueries({ queryKey: ['product-groups'] })
@@ -43,11 +43,11 @@ export default function AdminProductGroupList() {
   }
 
   return (
-    <div className='relative rounded-lg border border-white/40 bg-darkBg p-4 desktop:py-4'>
+    <div className='relative rounded-lg border border-white/40 bg-black p-4 desktop:py-4'>
       <div className='flex flex-col items-center justify-center'>
         <p className='mb-2 text-lg font-semibold uppercase desktop:text-xl'>Chọn nhóm sản phẩm</p>
-        <div className='mt-2 w-full rounded-lg border border-white/40 bg-darkColor900 p-2'>
-          <div className='grid h-80 w-full grid-cols-4 gap-4 overflow-auto'>
+        <div className='mt-2 w-full rounded-lg border border-white/40 bg-darkBg'>
+          <div className='grid h-80 w-full grid-cols-4 gap-4 overflow-auto p-2'>
             {defaultProducts?.map((product) => {
               const isActive = product.group.id === productGroup?.id
               const avatarURL = product.avatar ? product.avatar.url : null

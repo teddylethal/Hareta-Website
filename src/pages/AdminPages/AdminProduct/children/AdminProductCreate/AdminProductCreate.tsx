@@ -13,7 +13,7 @@ import { ErrorRespone } from 'src/types/utils.type'
 import productApi from 'src/apis/product.api'
 import { CreateProductSchema, createProductSchema } from 'src/rules/adminproduct.rule'
 import AdminProductCreateHeader from 'src/pages/AdminPages/AdminProduct/components/AdminProductCreateHeader'
-import AdminProductGroupList from 'src/pages/AdminPages/components/AdminProductGroupList'
+import AdminSelectProductGroup from 'src/pages/AdminPages/components/AdminSelectProductGroup'
 import AdminProductCreateForm from '../../components/AdminProductCreateForm'
 
 type FormData = CreateProductSchema
@@ -92,7 +92,7 @@ export default function AdminProductCreate() {
     <div className='space-y-4'>
       <AdminProductCreateHeader />
 
-      <AdminProductGroupList />
+      <AdminSelectProductGroup />
 
       <div className='rounded-lg border border-white/40 p-4'>
         <FormProvider {...methods}>
