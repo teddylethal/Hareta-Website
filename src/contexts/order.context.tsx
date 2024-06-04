@@ -10,6 +10,7 @@ import {
   setCountryAddressToLS,
   setStateAddressToLS
 } from 'src/utils/order'
+import orderScreens from 'src/constants/orderScreens'
 
 interface OrderContextInterface {
   orderList: ExtendsPurchase[]
@@ -28,6 +29,8 @@ interface OrderContextInterface {
   noneState: boolean
   setNoneCity: React.Dispatch<React.SetStateAction<boolean>>
   setNoneState: React.Dispatch<React.SetStateAction<boolean>>
+  screen: string
+  setScreen: React.Dispatch<React.SetStateAction<string>>
 }
 
 const initialOrderContext: OrderContextInterface = {
@@ -46,7 +49,9 @@ const initialOrderContext: OrderContextInterface = {
   noneCity: false,
   noneState: false,
   setNoneCity: () => null,
-  setNoneState: () => null
+  setNoneState: () => null,
+  screen: orderScreens.shipping,
+  setScreen: () => null
 }
 
 export const OrderContext = createContext<OrderContextInterface>(initialOrderContext)
@@ -60,6 +65,7 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
   const [confirmPayment, setConfirmPayment] = useState<boolean>(initialOrderContext.confirmPayment)
   const [noneState, setNoneState] = useState(false)
   const [noneCity, setNoneCity] = useState(false)
+  const [screen, setScreen] = useState<string>(initialOrderContext.screen)
 
   const setCountryAddress = (country: ICountry) => {
     setAddressCountry(country)
@@ -89,7 +95,9 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
         noneState,
         noneCity,
         setNoneState,
-        setNoneCity
+        setNoneCity,
+        screen,
+        setScreen
       }}
     >
       {children}

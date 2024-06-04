@@ -1,9 +1,14 @@
+import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import orderScreens from 'src/constants/orderScreens'
+import mainPath from 'src/constants/path'
+import { OrderContext } from 'src/contexts/order.context'
 import { useViewport } from 'src/hooks/useViewport'
 
 export default function OrderPayment() {
+  const { setScreen } = useContext(OrderContext)
+
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
@@ -21,7 +26,7 @@ export default function OrderPayment() {
             {t('payment.At the moment we only accept')}{' '}
             <span className='font-medium text-haretaColor'>{t('payment.Online payment')}</span>{' '}
             {t('payment.due to our')}{' '}
-            <Link to={path.home} className='font-medium text-haretaColor hover:text-primaryColor'>
+            <Link to={mainPath.home} className='font-medium text-haretaColor hover:text-primaryColor'>
               {t('layout.payment policy')}
             </Link>
           </p>
@@ -101,18 +106,20 @@ export default function OrderPayment() {
       <div className='mt-4 text-lg font-semibold desktopLarge:text-xl'>
         <p className=''>
           {t('payment.Any transactions made before placing an order will')}{' '}
-          <span className='text-haretaColor dark:text-haretaColor'>{t('payment.NOT BE ACCEPTED')}</span>
+          <span className='text-alertRed dark:text-alertRed'>{t('payment.NOT BE ACCEPTED')}</span>
         </p>
       </div>
       {!isMobile && (
         <div className='flex w-full justify-start py-8'>
-          <Link
-            to={path.shippingInfor}
+          <button
+            onClick={() => {
+              setScreen(orderScreens.shipping)
+            }}
             type='button'
             className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-darkText hover:bg-primaryColor desktopLarge:text-lg'
           >
             {t('layout.Back to shipping information')}
-          </Link>
+          </button>
         </div>
       )}
     </div>

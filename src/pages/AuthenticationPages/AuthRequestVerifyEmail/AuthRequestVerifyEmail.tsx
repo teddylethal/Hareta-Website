@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
 import { RequestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
@@ -56,7 +56,7 @@ export default function AuthRequestVerifyEmail() {
       requestVerifyMutation.mutate({ email: state.email })
       setCounter(60)
     } else {
-      navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
+      navigate(mainPath.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, navigate])
@@ -113,7 +113,7 @@ export default function AuthRequestVerifyEmail() {
                 <div className='mt-1 flex justify-center text-sm font-thin tabletSmall:text-xl'>
                   <p className='text-gray-700 dark:text-gray-400'>Wrong email address?</p>
                   <Link
-                    to={path.login}
+                    to={mainPath.login}
                     className='ml-1 font-normal text-brownColor/70 duration-200 hover:text-brownColor/100 dark:text-haretaColor/70 dark:hover:text-haretaColor/100'
                   >
                     Go back

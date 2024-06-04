@@ -60,7 +60,7 @@ function AdminMainRoute() {
       </Suspense>
     </AdminMainLayout>
   ) : (
-    <Navigate to={path.home} />
+    <Navigate to={mainPath.home} />
   )
 }
 

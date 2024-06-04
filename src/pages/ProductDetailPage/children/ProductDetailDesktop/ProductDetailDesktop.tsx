@@ -8,9 +8,9 @@ import classNames from 'classnames'
 import ProductDescription from '../../components/ProductDetailDescription/ProductDetailDescription'
 import { TemporaryPurchase } from 'src/types/cart.type'
 import { CartContext } from 'src/contexts/cart.context'
-import { Product } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 
 import DialogPopup from 'src/components/DialogPopup'
 import { useTranslation } from 'react-i18next'
@@ -19,8 +19,8 @@ import ProductDetailVariantList from '../../components/ProductDetailVariantList'
 import ProductTag from 'src/components/ProductTag'
 
 interface Props {
-  defaultProduct: Product
-  productsInGroup: Product[]
+  defaultProduct: ProductType
+  productsInGroup: ProductType[]
   isLikedByUser: boolean
   addToCart: (itemID: string, quantity: number) => void
   toggleLikeProduct: () => void
@@ -34,15 +34,15 @@ export default function ProductDetailDesktop(props: Props) {
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
-  const [activeProduct, setActiveProduct] = useState<Product>(defaultProduct)
+  const [activeProduct, setActiveProduct] = useState<ProductType>(defaultProduct)
 
   const [createTempCart, setCreateTempCart] = useState<boolean>(false)
 
   //! CHOOSE VARIANT
-  const handleChooseVariant = (item: Product) => () => {
+  const handleChooseVariant = (product: ProductType) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setQuantity(1)
-    setActiveProduct(item)
+    setActiveProduct(product)
   }
 
   //! ADD TO CART
@@ -129,11 +129,6 @@ export default function ProductDetailDesktop(props: Props) {
           {tag !== 0 && (
             <div className='relative mt-2'>
               <ProductTag tag={tag} />
-              {/* <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
-                {tag == 1 && t('tag.top seller')}
-                {tag == 2 && t('tag.signature')}
-                {tag == 3 && t('tag.favourite')}
-              </span> */}
               <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent' />
             </div>
           )}
@@ -235,7 +230,7 @@ export default function ProductDetailDesktop(props: Props) {
         </div>
         <div className='mt-8 flex justify-around'>
           <Link
-            to={path.login}
+            to={mainPath.login}
             type='button'
             className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-darkText hover:bg-primaryColor desktop:px-6 desktop:py-2'
           >

@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useParams } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { formatDate, getIdFromNameId } from 'src/utils/utils'
 import { ItemOrderConfig } from 'src/types/order.type'
 import { orderApi } from 'src/apis/order.api'
@@ -55,7 +55,7 @@ export default function OrderTrackingItemInformation() {
       <div className='container'>
         <div className='relative mb-2 flex shrink items-center justify-start space-x-1 rounded-lg border border-black/20 bg-[#f8f8f8] px-2 py-1 text-xs font-medium text-darkText duration-200 dark:border-white/20 dark:bg-[#000] dark:text-lightText tabletSmall:space-x-2 tabletSmall:px-3 desktop:mb-3  desktop:px-4 desktop:py-2 desktop:text-sm desktopLarge:mb-4 desktopLarge:px-6 desktopLarge:py-3'>
           <NavLink
-            to={path.home}
+            to={mainPath.home}
             className={({ isActive }) =>
               classNames('uppercase', {
                 'text-brownColor dark:text-haretaColor': isActive,
@@ -67,7 +67,7 @@ export default function OrderTrackingItemInformation() {
           </NavLink>
           <FontAwesomeIcon icon={faAngleRight} />
           <NavLink
-            to={path.orderTracking}
+            to={mainPath.orderTracking}
             end
             className={({ isActive }) =>
               classNames('uppercase', {

@@ -2,8 +2,9 @@ import React, { Fragment, useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import { formatCurrency } from 'src/utils/utils'
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import CartMobilePurchaseCard from '../../components/CartMobilePurchaseCard'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -23,13 +24,16 @@ export default function CartMobileForUser(props: Props) {
     return result + current.item.price * current.quantity
   }, 0)
 
+  //! Multi languagues
+  const { t } = useTranslation('cart')
+
   return (
     <Fragment>
       <div className='relative'>
         <div className='grid grid-cols-12 rounded-md border border-black/20 bg-lightColor900 px-4 py-2 text-base font-medium uppercase text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText desktop:text-lg'>
           <div className='col-span-1'></div>
-          <div className='col-span-6 text-center'>Product</div>
-          <div className='col-span-4 text-center'>Price</div>
+          <div className='col-span-6 text-center'>{t('content.product')}</div>
+          <div className='col-span-4 text-center'>{t('content.unit price')}</div>
           <div className='col-span-1'></div>
         </div>
         <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightColor900 p-2 dark:border-white/20 dark:bg-darkColor900'>
@@ -63,7 +67,7 @@ export default function CartMobileForUser(props: Props) {
               <input
                 name='all_are_selected'
                 type='checkbox'
-                className='h-5 w-5 accent-primaryColor'
+                className='h-5 w-5 accent-haretaColor'
                 checked={isAllChecked}
                 onChange={handleSelectAll}
               />
@@ -73,23 +77,25 @@ export default function CartMobileForUser(props: Props) {
             ({checkedPurchasesCount})
           </div>
           <div className='col-span-7 flex items-center justify-center space-x-2 text-sm font-medium tabletSmall:text-base'>
-            <div className='col-span-1 items-center text-right uppercase text-darkText dark:text-lightText'>Total:</div>
+            <div className='col-span-1 items-center text-right uppercase text-darkText dark:text-lightText'>
+              {t('content.total')}:
+            </div>
             <span className='col-span-1 text-center font-medium text-primaryColor'>
               ${formatCurrency(totalCheckedPurchasesPrice)}
             </span>
           </div>
           {checkedPurchasesCount === 0 && (
             <div className='col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText opacity-40 tabletSmall:text-sm'>
-              Check out
+              {t('content.check out')}
             </div>
           )}
           {checkedPurchasesCount > 0 && (
             <Link
-              to={path.shippingInfor}
+              to={mainPath.orderInfor}
               onClick={handleCheckout}
               className='col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText hover:bg-primaryColor tabletSmall:text-sm'
             >
-              Check out
+              {t('content.check out')}
             </Link>
           )}
         </div>

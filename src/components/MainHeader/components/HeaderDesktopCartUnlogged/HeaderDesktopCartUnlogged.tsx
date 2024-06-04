@@ -6,7 +6,10 @@ import { NavLink } from 'react-router-dom'
 import CustomPopover from 'src/components/CustomPopover'
 import mainPath from 'src/constants/path'
 import { CartContext } from 'src/contexts/cart.context'
-import { formatCurrency, generateNameId } from 'src/utils/utils'
+import HeaderPurchaseCard from '../HeaderPurchaseCard'
+import { Purchase } from 'src/types/cart.type'
+
+const currentDate = new Date()
 
 function PopoverSection() {
   const { tempExtendedPurchases, setTempExtendedPurchases } = useContext(CartContext)
@@ -23,60 +26,25 @@ function PopoverSection() {
   return (
     <div className='relative -top-1 w-[360px] rounded-md bg-lightColor700 py-2 text-sm text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-0'>
       <Fragment>
-        <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
-          {tempExtendedPurchases.length} {t('cart button.items in cart')}
+        <div className='flex space-x-1.5 px-3 py-1 text-base desktop:text-lg'>
+          <span className='text-haretaColor'>{tempExtendedPurchases.length}</span>
+          <span className='text-gray-500 dark:text-gray-300'>{t('cart button.items in cart')}</span>
         </div>
-        <div className='m-2 overflow-auto rounded-md bg-lightColor900 outline outline-1 outline-black/10 dark:bg-darkColor900 dark:outline-white/10'>
+
+        <div className='m-2 overflow-auto rounded-md bg-lightColor900 outline outline-1 outline-black/20 dark:bg-darkColor900 dark:outline-white/20'>
           {tempExtendedPurchases.length > 0 ? (
             <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
-              {tempExtendedPurchases.map((purchase, index) => (
-                <div
-                  className='flex items-center p-3 hover:bg-lightColor700/60 dark:hover:bg-darkColor700/60'
-                  key={purchase.id}
-                >
-                  <div className='h-14 w-14'>
-                    <div className='relative w-full  pt-[100%]'>
-                      <img
-                        src={
-                          purchase?.item.avatar
-                            ? purchase?.item.avatar.url
-                            : 'https://cdn-icons-png.flaticon.com/128/5058/5058055.png'
-                        }
-                        alt={purchase.item.name}
-                        className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-                      />
-                    </div>
-                  </div>
-
-                  <div className='flex grow flex-col justify-between'>
-                    <div className='flex items-center justify-between'>
-                      <NavLink
-                        to={`${mainPath.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
-                        className='flex'
-                      >
-                        <p className='truncate px-2 font-semibold capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-base'>
-                          {purchase.item.name}
-                        </p>
-                      </NavLink>
-                      <span className='flex-shrink-0 font-medium text-haretaColor'>
-                        ${formatCurrency(purchase.item.price)}
-                      </span>
-                    </div>
-                    <div className='ml-2 flex justify-between'>
-                      <span className='text-xs capitalize text-darkText/60 dark:text-lightText/60 desktop:text-sm'>{`(${purchase.item.color})`}</span>
-
-                      <div className='flex space-x-3'>
-                        <button
-                          className='text-sm text-darkText/60  hover:text-alertRed dark:text-lightText/60 dark:hover:text-alertRed'
-                          onClick={handleRemove(index)}
-                        >
-                          {t('cart button.remove')}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {tempExtendedPurchases.map((tempPurchase, index) => {
+                const purchase: Purchase = {
+                  id: tempPurchase.id,
+                  item: tempPurchase.item,
+                  quantity: tempPurchase.quantity,
+                  status: 0,
+                  created_at: currentDate.toDateString(),
+                  updated_at: currentDate.toDateString()
+                }
+                return <HeaderPurchaseCard key={purchase.id} purchase={purchase} handleRemove={handleRemove(index)} />
+              })}
             </div>
           ) : (
             <div className=''>

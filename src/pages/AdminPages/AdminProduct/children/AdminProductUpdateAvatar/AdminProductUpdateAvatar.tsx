@@ -134,7 +134,7 @@ export default function AdminProductUpdateAvatar() {
               {currentProduct && (
                 <div className='flex w-full justify-end'>
                   <button
-                    className='rounded-lg border border-white/40 bg-black px-4 py-2 hover:border-haretaColor'
+                    className='rounded-lg bg-unhoveringBg px-4 py-2 text-darkText hover:bg-hoveringBg'
                     onClick={handleSubmit}
                   >
                     Xác nhận

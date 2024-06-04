@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { ColorRing } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import { orderApi } from 'src/apis/order.api'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { ItemOrderConfig, Order } from 'src/types/order.type'
@@ -50,7 +50,7 @@ export default function OrderTrackingOrderItem({ order }: Props) {
   const navigate = useNavigate()
   const handleClickItem = () => {
     navigate({
-      pathname: `${path.orderTracking}/${generateNameId({ name: formatDate(order.created_at), id: order.id })}`
+      pathname: `${mainPath.orderTracking}/${generateNameId({ name: formatDate(order.created_at), id: order.id })}`
     })
   }
 

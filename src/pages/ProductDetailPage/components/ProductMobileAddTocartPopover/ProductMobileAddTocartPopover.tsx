@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import Button from 'src/components/Button'
 import QuantityController from 'src/components/QuantityController'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -267,7 +267,7 @@ export default function ProductMobileAddTocartPopover({
                 </div>
                 <div className='mt-8 flex justify-around'>
                   <Link
-                    to={path.login}
+                    to={mainPath.login}
                     type='button'
                     className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-darkText desktop:px-6 desktop:py-2'
                   >

@@ -35,7 +35,7 @@ const OrderRoute: RouteObject = {
       ),
       children: [
         {
-          path: mainPath.shippingInfor,
+          path: mainPath.orderInfor,
           element: <OrderShippingInfor />
         },
         {

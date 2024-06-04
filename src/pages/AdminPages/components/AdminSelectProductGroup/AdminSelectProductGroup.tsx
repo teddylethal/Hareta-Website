@@ -10,17 +10,17 @@ export default function AdminSelectProductGroup() {
   const { setProductGroup, productGroup, setCurrentProduct } = useContext(AdminContext)
 
   //! Get product groups
-  const { data: itemsInGroupData } = useQuery({
+  const { data: productGroupsData } = useQuery({
     queryKey: ['product-groups'],
     queryFn: () => adminProductGroupApi.getProductGroups(),
     staleTime: 1000 * 60 * 3
   })
-  const groupList = itemsInGroupData?.data.data || []
+  const groupList = productGroupsData?.data.data || []
 
   //! GET DEFAULT PRODUCTS
   const queryConfig = {}
   const { data: defaultProductsData } = useQuery({
-    queryKey: ['products', 'default'],
+    queryKey: ['default-products'],
     queryFn: () => productApi.getProductList(queryConfig as ProductListConfig),
     staleTime: 1000 * 60 * 3
   })

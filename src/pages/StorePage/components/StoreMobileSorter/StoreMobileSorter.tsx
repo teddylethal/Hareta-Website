@@ -7,7 +7,7 @@ import { Fragment, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { ProductTagList } from 'src/constants/itemTag'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 
 import useClickOutside from 'src/hooks/useClickOutside'

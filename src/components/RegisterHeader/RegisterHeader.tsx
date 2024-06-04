@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import ToggleTheme from '../ToggleTheme'
 import RegisterLanguage from '../RegisterLanguage'
 import { useViewport } from 'src/hooks/useViewport'
@@ -24,7 +24,7 @@ export default function RegisterHeader() {
             <Fragment>
               {smallDevice && (
                 <NavLink
-                  to={path.home}
+                  to={mainPath.home}
                   className={({ isActive }) =>
                     classNames(
                       'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
@@ -39,7 +39,7 @@ export default function RegisterHeader() {
               )}
               {!smallDevice && (
                 <NavLink
-                  to={path.home}
+                  to={mainPath.home}
                   className={({ isActive }) =>
                     classNames(
                       'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
@@ -57,7 +57,7 @@ export default function RegisterHeader() {
             <Fragment>
               {smallDevice && (
                 <NavLink
-                  to={path.login}
+                  to={mainPath.login}
                   className={({ isActive }) =>
                     classNames(
                       'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
@@ -72,7 +72,7 @@ export default function RegisterHeader() {
               )}
               {!smallDevice && (
                 <NavLink
-                  to={path.login}
+                  to={mainPath.login}
                   className={({ isActive }) =>
                     classNames(
                       'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
@@ -90,7 +90,7 @@ export default function RegisterHeader() {
             <Fragment>
               {smallDevice && (
                 <NavLink
-                  to={path.register}
+                  to={mainPath.register}
                   className={({ isActive }) =>
                     classNames(
                       'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',
@@ -105,7 +105,7 @@ export default function RegisterHeader() {
               )}
               {!smallDevice && (
                 <NavLink
-                  to={path.register}
+                  to={mainPath.register}
                   className={({ isActive }) =>
                     classNames(
                       'rounded-md border border-none p-1 hover:text-primaryColor dark:hover:text-primaryColor',

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import QuantityController from '../../../../components/QuantityController'
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { CartContext, ExtendsPurchase } from 'src/contexts/cart.context'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
@@ -9,6 +9,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   purchase: ExtendsPurchase
@@ -83,21 +85,20 @@ export default function CartDesktopPurchaseCard({ purchase, index, handleCheckin
             />
           </div>
           <Link
-            to={`${path.home}${generateNameId({
+            to={`${mainPath.home}${generateNameId({
               name: purchase.item.name,
               id: purchase.item.id
             })}`}
             className='flex flex-grow items-center'
           >
-            <div className='flex h-24 w-24 flex-shrink-0 items-center overflow-hidden'>
-              <img
-                alt={purchase.item.name}
-                src={
-                  purchase.item.avatar
-                    ? purchase.item.avatar.url
-                    : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-                }
-              />
+            <div className='flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden text-lg desktop:text-2xl'>
+              {purchase.item.avatar ? (
+                <img alt={purchase.item.name} src={purchase.item.avatar.url} />
+              ) : (
+                <div className='flex h-full w-full items-center justify-center bg-darkColor900'>
+                  <FontAwesomeIcon icon={faTriangleExclamation} />
+                </div>
+              )}
             </div>
             <div className='ml-4 flex-grow px-2 text-left'>
               <div

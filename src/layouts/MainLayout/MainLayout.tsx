@@ -8,6 +8,7 @@ interface Props {
   children?: React.ReactNode
 }
 export default function MainLayout({ children }: Props) {
+  //! Auto hide header
   const scrollDirection = useScrollDirection()
 
   const [firstY, setFirstY] = useState(0)

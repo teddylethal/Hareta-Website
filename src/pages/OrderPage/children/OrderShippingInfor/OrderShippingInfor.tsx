@@ -4,10 +4,9 @@ import Input from 'src/components/Input'
 import { OrderSchema } from 'src/utils/rules'
 import { lazy, useContext } from 'react'
 import { OrderContext } from 'src/contexts/order.context'
-import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import { useTranslation } from 'react-i18next'
+import orderScreens from 'src/constants/orderScreens'
 
 const OrderSelectCountry = lazy(() => import('../../components/OrderSelectCountry'))
 const OrderSelectState = lazy(() => import('../../components/OrderSelectState'))
@@ -17,7 +16,7 @@ const OrderSelectState = lazy(() => import('../../components/OrderSelectState'))
 type FormData = OrderSchema
 
 export default function OrderShippingInfor() {
-  const { noneState } = useContext(OrderContext)
+  const { noneState, setScreen } = useContext(OrderContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -69,7 +68,7 @@ export default function OrderShippingInfor() {
             <div
               className={classNames('absolute bottom-6 w-full border-b-2 ', {
                 'border-black/60 dark:border-white/60': !errors?.phone,
-                'border-red-600 dark:border-red-600': errors?.phone
+                'border-alertRed dark:border-red-600': errors?.phone
               })}
             ></div>
           </div>
@@ -108,7 +107,7 @@ export default function OrderShippingInfor() {
               <div
                 className={classNames('absolute bottom-6 w-full border-b-2 ', {
                   'border-black/60 dark:border-white/60': !errors?.address,
-                  'border-red-600 dark:border-red-600': errors?.address
+                  'border-alertRed dark:border-alertRed': errors?.address
                 })}
               ></div>
             </div>
@@ -126,13 +125,15 @@ export default function OrderShippingInfor() {
         </div>
         {!isMobile && (
           <div className='flex w-full justify-end py-4'>
-            <Link
-              to={path.payment}
+            <button
+              onClick={() => {
+                setScreen(orderScreens.payment)
+              }}
               type='button'
               className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-primaryColor desktopLarge:text-lg'
             >
               {t('layout.Continue to payment')}
-            </Link>
+            </button>
           </div>
         )}
       </div>

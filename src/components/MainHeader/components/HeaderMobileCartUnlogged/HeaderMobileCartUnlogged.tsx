@@ -6,7 +6,7 @@ import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { NavLink } from 'react-router-dom'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
 
@@ -105,7 +105,10 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
                         <div className='flex grow flex-col justify-between'>
                           <div className='flex items-center justify-between'>
                             <NavLink
-                              to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                              to={`${mainPath.home}${generateNameId({
+                                name: purchase.item.name,
+                                id: purchase.item.id
+                              })}`}
                               className='flex'
                               onClick={closeCart}
                             >
@@ -146,12 +149,12 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
 
               <div className='mx-3 flex items-center justify-between py-2 text-xs tabletSmall:text-sm'>
                 <div className='flex space-x-2'>
-                  <NavLink to={path.store} className={navigatorBtnStyle} onClick={closeCart}>
+                  <NavLink to={mainPath.store} className={navigatorBtnStyle} onClick={closeCart}>
                     {t('cart button.store')}
                   </NavLink>
                 </div>
                 <div>
-                  <NavLink to={path.cart} className={navigatorBtnStyle} onClick={closeCart}>
+                  <NavLink to={mainPath.cart} className={navigatorBtnStyle} onClick={closeCart}>
                     {t('cart button.enter cart')}
                   </NavLink>
                 </div>

@@ -4,7 +4,7 @@ import { Fragment, useContext, useState } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { NavLink } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { FloatingOverlay, FloatingPortal } from '@floating-ui/react'
 import { motion } from 'framer-motion'
 import classNames from 'classnames'
@@ -58,7 +58,7 @@ export default function OrderTrackingPage() {
                   className='h-auto w-40 text-darkText/60 dark:text-lightText/60 tablet:w-60 desktopLarge:w-80'
                 />
                 <div className='mt-2 justify-center space-y-1 text-center font-medium tablet:text-lg desktopLarge:text-xl'>
-                  <NavLink to={path.login} className='inline font-semibold text-haretaColor'>
+                  <NavLink to={mainPath.login} className='inline font-semibold text-haretaColor'>
                     {t('order.login')}
                   </NavLink>
                   {t('order.message')}

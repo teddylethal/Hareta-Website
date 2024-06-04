@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { ProductSchema, productSchema } from 'src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import omit from 'lodash/omit'
 import { useTranslation } from 'react-i18next'
 

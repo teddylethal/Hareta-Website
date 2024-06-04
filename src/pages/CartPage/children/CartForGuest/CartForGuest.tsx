@@ -18,7 +18,7 @@ export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
 export default function CartForGuest() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
-  const { setTempExtendedPurchase, tempExtendedPurchase } = useContext(CartContext)
+  const { setTempExtendedPurchases, tempExtendedPurchases } = useContext(CartContext)
   const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedTemporaryPurchase[]>([])
   const { setTempOrderList } = useContext(OrderContext)
 
@@ -26,7 +26,7 @@ export default function CartForGuest() {
     setExtendedTempPurchases((prev) => {
       const extendedTempPurchasesObject = keyBy(prev, 'id')
       return (
-        tempExtendedPurchase?.map((purchase) => ({
+        tempExtendedPurchases?.map((purchase) => ({
           ...purchase,
           disabled: false,
           checked: Boolean(extendedTempPurchasesObject[purchase.id]?.checked),
@@ -34,7 +34,7 @@ export default function CartForGuest() {
         })) || []
       )
     })
-  }, [tempExtendedPurchase])
+  }, [tempExtendedPurchases])
 
   const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
@@ -76,8 +76,8 @@ export default function CartForGuest() {
 
   const handleRemove = (purchaseIndex: number) => () => {
     const purchaseId = extendedTempPurchases[purchaseIndex].id
-    const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
-    setTempExtendedPurchase(newPurchaseList)
+    const newPurchaseList = tempExtendedPurchases.filter((purchase) => purchase.id !== purchaseId)
+    setTempExtendedPurchases(newPurchaseList)
   }
 
   //! HANDLE CHECKOUT

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Fragment, useContext, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { Product } from 'src/types/product.type'
 import { generateNameId, showSuccessDialog } from 'src/utils/utils'
 import purchaseApi from 'src/apis/cart.api'
@@ -49,7 +49,7 @@ export default function UserWishList() {
   const favouriteList = favouriteListData?.data.data as Product[]
 
   const handleClickItem = (product: Product) => () => {
-    navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+    navigate({ pathname: `${mainPath.home}${generateNameId({ name: product.name, id: product.id })}` })
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 

@@ -80,7 +80,7 @@ export default function CartDesktopForUser(props: Props) {
                 <input
                   name='all_are_selected'
                   type='checkbox'
-                  className='h-5 w-5 accent-primaryColor'
+                  className='h-5 w-5 accent-haretaColor'
                   checked={isAllChecked}
                   onChange={handleSelectAll}
                 />
@@ -117,8 +117,8 @@ export default function CartDesktopForUser(props: Props) {
           {checkedPurchasesCount > 0 && (
             <Link
               onClick={handleCheckout}
-              to={mainPath.shippingInfor}
-              className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor font-medium text-black  hover:bg-primaryColor'
+              to={mainPath.order}
+              className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-unhoveringBg font-medium text-black  hover:bg-primaryColor'
             >
               {t('content.check out')}
             </Link>

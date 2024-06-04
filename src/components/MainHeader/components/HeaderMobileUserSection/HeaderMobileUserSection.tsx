@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { clearLS } from 'src/utils/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
@@ -32,7 +32,7 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
   return (
     <div ref={ref}>
       {!isAuthenticated && (
-        <NavLink to={path.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
+        <NavLink to={mainPath.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
           <FontAwesomeIcon
             icon={faUser}
             className='h-4 w-4 rounded-full dark:fill-white tabletSmall:h-6 tabletSmall:w-6 '
@@ -75,15 +75,15 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
             exit={{ opacity: 0, y: '-10%' }}
             transition={{ duration: 0.3 }}
           >
-            <NavLink to={path.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+            <NavLink to={mainPath.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.profile')}</p>
             </NavLink>
 
-            <NavLink to={path.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+            <NavLink to={mainPath.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.inventory')}</p>
             </NavLink>
 
-            <NavLink to={path.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+            <NavLink to={mainPath.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
               <p>{t('user.wishlist')}</p>
             </NavLink>
 

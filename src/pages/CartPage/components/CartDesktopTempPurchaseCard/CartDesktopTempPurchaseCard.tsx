@@ -5,6 +5,8 @@ import { ExtendedTemporaryPurchase } from '../../children/CartForGuest/CartForGu
 import QuantityController from 'src/components/QuantityController'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import mainPath from 'src/constants/path'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   purchase: ExtendedTemporaryPurchase
@@ -38,18 +40,17 @@ export default function CartDesktopTempPurchaseCard(props: Props) {
               />
             </div>
             <Link
-              to={`${mainPath.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+              to={`${mainPath.store}/${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
               className='flex flex-grow items-center'
             >
-              <div className='flex h-24 w-24 flex-shrink-0 items-center overflow-hidden'>
-                <img
-                  alt={purchase.item.name}
-                  src={
-                    purchase.item.avatar
-                      ? purchase.item.avatar.url
-                      : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-                  }
-                />
+              <div className='flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden text-lg desktop:text-2xl'>
+                {purchase.item.avatar ? (
+                  <img alt={purchase.item.name} src={purchase.item.avatar.url} />
+                ) : (
+                  <div className='flex h-full w-full items-center justify-center bg-darkColor900'>
+                    <FontAwesomeIcon icon={faTriangleExclamation} />
+                  </div>
+                )}
               </div>
               <div className='ml-4 flex-grow px-2 text-left'>
                 <div className='truncate text-base font-medium desktop:text-lg'>{purchase.item.name}</div>

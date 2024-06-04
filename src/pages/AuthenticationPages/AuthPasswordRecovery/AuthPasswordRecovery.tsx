@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
 import { PasswordRecoverySchema, passwordRecoverySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
@@ -45,7 +45,7 @@ export default function AuthPasswordRecovery() {
     if (isAxiosBadRequestError<ErrorRespone>(error)) {
       const formError = error.response?.data
       if (formError && formError.error_key === 'ErrPasswordRecoveryNotFound') {
-        navigate(path.AuthPasswordRecoveryRequestEmail, { state: { failSlugVerify: 'true' } })
+        navigate(mainPath.AuthPasswordRecoveryRequestEmail, { state: { failSlugVerify: 'true' } })
       }
     }
   }, [isError, error, navigate])
@@ -61,7 +61,7 @@ export default function AuthPasswordRecovery() {
     }
     AuthPasswordRecoveryMutation.mutate(submitData, {
       onSuccess: () => {
-        navigate(path.login, {
+        navigate(mainPath.login, {
           state: { type: 'Success', title: 'PasswordRecovery', email: data.email }
         })
       },
@@ -94,7 +94,7 @@ export default function AuthPasswordRecovery() {
                   noValidate
                 >
                   <div>
-                    <Link to={path.login} className='absolute'>
+                    <Link to={mainPath.login} className='absolute'>
                       <FontAwesomeIcon
                         icon={faArrowLeft}
                         fontSize={40}
@@ -163,7 +163,7 @@ export default function AuthPasswordRecovery() {
 
                   <div className='mt-3 flex justify-center text-sm tablet:hidden'>
                     <p className='text-gray-400'>Go back to</p>
-                    <Link to={path.login} className='ml-1 text-brownColor dark:text-haretaColor'>
+                    <Link to={mainPath.login} className='ml-1 text-brownColor dark:text-haretaColor'>
                       Login
                     </Link>
                   </div>

@@ -83,7 +83,7 @@ export default function AdminProductCreateGroup() {
               autoComplete='false'
             />
             <div className='flex w-full items-center justify-end'>
-              <button className='rounded-lg bg-haretaColor/80 px-4 py-1 text-base hover:bg-haretaColor desktop:text-lg'>
+              <button className='rounded-lg bg-unhoveringBg px-4 py-1 text-base hover:bg-hoveringBg desktop:text-lg'>
                 Tạo nhóm mới
               </button>
             </div>

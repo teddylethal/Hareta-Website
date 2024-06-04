@@ -9,7 +9,7 @@ import authApi from 'src/apis/auth.api'
 import { isAxiosBadRequestError } from 'src/utils/utils'
 import { ErrorRespone, InputField } from 'src/types/utils.type'
 import Button from 'src/components/Button'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import AccountInput from 'src/components/AccountInput'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -37,7 +37,7 @@ export default function AuthRegisterPage() {
     const body = omit(data, ['confirm_password'])
     registerAccountMutation.mutate(body, {
       onSuccess: () => {
-        navigate(path.requestVerify, { state: { ...pick(data, ['email']), error: '', from: path.register } })
+        navigate(mainPath.requestVerify, { state: { ...pick(data, ['email']), error: '', from: path.register } })
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
@@ -163,7 +163,7 @@ export default function AuthRegisterPage() {
                 <span className='text-darkText/60 dark:text-lightText/60'>
                   {t('register.Already have an account?')}
                 </span>
-                <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.login}>
+                <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={mainPath.login}>
                   {t('login.login')}
                 </Link>
               </div>

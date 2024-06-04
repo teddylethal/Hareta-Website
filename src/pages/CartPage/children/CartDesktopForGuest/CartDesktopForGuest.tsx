@@ -86,7 +86,7 @@ export default function CartDesktopForGuest(props: Props) {
                 <input
                   name='all_are_selected'
                   type='checkbox'
-                  className='h-5 w-5 accent-primaryColor'
+                  className='h-5 w-5 accent-haretaColor'
                   checked={isAllChecked}
                   onChange={handleSelectAll}
                 />
@@ -122,7 +122,7 @@ export default function CartDesktopForGuest(props: Props) {
           )}
           {checkedPurchasesCount > 0 && (
             <Link
-              to={mainPath.shippingInfor}
+              to={mainPath.orderInfor}
               onClick={handleCheckout}
               className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor text-sm font-medium text-black hover:bg-primaryColor  desktop:text-base'
             >

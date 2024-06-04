@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { CartContext, ExtendsPurchase } from 'src/contexts/cart.context'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import purchaseApi from 'src/apis/cart.api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 import QuantityController from 'src/components/QuantityController'
 import classNames from 'classnames'
@@ -69,13 +69,13 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
   const unavailable = unavailablePurchaseIds.includes(purchase.id)
 
   return (
-    <div className='w-full'>
+    <div className='w-full space-y-2'>
       <div className='grid grid-cols-12 items-center justify-between'>
         <div className='col-span-1 flex flex-shrink-0 items-center justify-center'>
           <input
             name='is_selected'
             type='checkbox'
-            className='h-4 w-4 accent-primaryColor'
+            className='h-4 w-4 accent-haretaColor'
             checked={purchase.checked}
             onChange={handleChecking(index)}
           />
@@ -101,22 +101,24 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
         <div className='col-span-1'></div>
         <div className='col-span-6'>
           <Link
-            to={`${path.home}${generateNameId({
+            to={`${mainPath.store}${generateNameId({
               name: purchase.item.name,
               id: purchase.item.id
             })}`}
             className='flex flex-grow items-center'
           >
             <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden pt-[80%]'>
-              <img
-                alt={purchase.item.name}
-                src={
-                  purchase.item.avatar
-                    ? purchase.item.avatar.url
-                    : 'https://static.vecteezy.com/system/resources/previews/000/582/613/original/photo-icon-vector-illustration.jpg'
-                }
-                className='absolute left-0 top-0 h-full w-full object-scale-down'
-              />
+              {purchase.item.avatar ? (
+                <img
+                  alt={purchase.item.name}
+                  src={purchase.item.avatar.url}
+                  className='absolute left-0 top-0 h-full w-full object-scale-down'
+                />
+              ) : (
+                <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-xl bg-darkColor900 object-scale-down'>
+                  <FontAwesomeIcon icon={faTriangleExclamation} />
+                </div>
+              )}
             </div>
           </Link>
         </div>
@@ -143,7 +145,7 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
             inputClassName={classNames(
               'h-6 text-sm desktop:text-base desktop:h-8 mx-1 desktop:mx-2 w-14 rounded-lg p-1 text-center outline-none dark:bg-black bg-white border border-black/20 dark:border-white/20',
               {
-                'text-red-600 font-semibold': unavailable,
+                'text-alertRed font-semibold': unavailable,
                 'text-haretaColor font-medium': !unavailable
               }
             )}

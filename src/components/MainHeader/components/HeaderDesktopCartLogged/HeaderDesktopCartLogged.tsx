@@ -1,7 +1,6 @@
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import classNames from 'classnames'
 import { keyBy } from 'lodash'
 import { Fragment, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,21 +10,17 @@ import CustomPopover from 'src/components/CustomPopover'
 import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { CartContext } from 'src/contexts/cart.context'
-import { formatCurrency, generateNameId } from 'src/utils/utils'
+import { PurchaseList } from 'src/types/cart.type'
+import HeaderPurchaseCard from '../HeaderPurchaseCard'
 
-function PopoverSection() {
-  const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
+interface Props {
+  refetch: () => void
+  cartData: PurchaseList | undefined
+}
+
+function PopoverSection({ refetch, cartData }: Props) {
+  const { extendedPurchases } = useContext(CartContext)
   const { isAuthenticated } = useContext(AppContext)
-
-  const { data: cartData, refetch } = useQuery({
-    queryKey: ['purchases'],
-    queryFn: () => purchaseApi.getPurchases(),
-
-    staleTime: 1000 * 60 * 3,
-    enabled: isAuthenticated
-  })
-
-  const purchasesInCart = cartData?.data.data
 
   const removePurchasesMutation = useMutation({
     mutationFn: purchaseApi.removePurchases,
@@ -34,95 +29,33 @@ function PopoverSection() {
     }
   })
 
-  useEffect(() => {
-    setExtendedPurchases((prev) => {
-      const extendedPurchasesObject = keyBy(prev, 'id')
-      return (
-        purchasesInCart?.map((purchase) => ({
-          ...purchase,
-          disabled: false,
-          checked: Boolean(extendedPurchasesObject[purchase.id]?.checked),
-          previousQuantity: purchase.quantity
-        })) || []
-      )
-    })
-  }, [purchasesInCart, setExtendedPurchases])
-
   const handleRemove = (purchaseIndex: number) => () => {
+    if (!isAuthenticated) return
     const purchaseId = extendedPurchases[purchaseIndex].id
-
     removePurchasesMutation.mutate({ id: purchaseId })
   }
 
   //! Multi languages
   const { t } = useTranslation('header')
+  const purchaseList = cartData?.data || []
 
   return (
     <div className='relative -top-1 w-[360px] rounded-md bg-lightColor700 py-2 text-sm text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-0'>
       <Fragment>
-        <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
-          {cartData ? cartData?.data.paging.total : 0} {t('cart button.items in cart')}
+        <div className='flex space-x-1.5 px-3 py-1 text-base desktop:text-lg'>
+          <span className='text-haretaColor'>{cartData ? cartData?.paging.total : 0}</span>
+          <span className='text-gray-500 dark:text-gray-300'>{t('cart button.items in cart')}</span>
         </div>
-        <div className='m-2 overflow-auto rounded-md bg-lightColor900 outline outline-1 outline-black/10 dark:bg-darkColor900 dark:outline-white/10'>
-          {extendedPurchases.length > 0 ? (
+        <div className='m-2 overflow-auto rounded-md bg-lightColor900 outline outline-1 outline-black/20 dark:bg-darkColor900 dark:outline-white/20'>
+          {purchaseList.length > 0 ? (
             <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
-              {extendedPurchases.map((purchase, index) => (
-                <div
-                  className='flex items-center p-3 hover:bg-lightColor700/60 dark:hover:bg-darkColor700/60'
+              {purchaseList.map((purchase, index) => (
+                <HeaderPurchaseCard
                   key={purchase.id}
-                >
-                  <div className='h-14 w-14'>
-                    <div className='relative w-full pt-[100%]'>
-                      <img
-                        src={
-                          purchase?.item.avatar
-                            ? purchase?.item.avatar.url
-                            : 'https://cdn-icons-png.flaticon.com/128/5058/5058055.png'
-                        }
-                        alt={purchase.item.name}
-                        className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-                      />
-                    </div>
-                  </div>
-
-                  <div className='flex grow flex-col justify-between'>
-                    <div className='flex items-center justify-between'>
-                      <NavLink
-                        to={`${mainPath.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
-                        className='flex'
-                      >
-                        <p className='truncate px-2 font-semibold capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-base'>
-                          {purchase.item.name}
-                        </p>
-                      </NavLink>
-                      <span className='flex-shrink-0 font-medium text-haretaColor'>
-                        ${formatCurrency(purchase.item.price)}
-                      </span>
-                    </div>
-                    <div className='ml-2 flex justify-between'>
-                      <span className='text-xs capitalize text-darkText/60 dark:text-lightText/60 desktop:text-sm'>{`(${purchase.item.color})`}</span>
-
-                      <div className='flex space-x-3'>
-                        {/* <button
-                      className='text-sm capitalize text-darkText/60 hover:text-brownColor dark:text-lightText/60 dark:hover:text-haretaColor'
-                      onClick={handleBuyItem}
-                    >
-                      {t('cart button.buy')}
-                    </button> */}
-                        <button
-                          disabled={removePurchasesMutation.isPending}
-                          className={classNames('text-sm capitalize text-darkText/60 dark:text-lightText/60 ', {
-                            'hover:text-alertRed dark:hover:text-alertRed': !removePurchasesMutation.isPending,
-                            'cursor-not-allowed': removePurchasesMutation.isPending
-                          })}
-                          onClick={handleRemove(index)}
-                        >
-                          {t('cart button.remove')}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  purchase={purchase}
+                  handleRemove={handleRemove(index)}
+                  isDisabled={removePurchasesMutation.isPending}
+                />
               ))}
             </div>
           ) : (
@@ -151,17 +84,43 @@ function PopoverSection() {
 }
 
 export default function HeaderDesktopCartLogged() {
-  const { extendedPurchases } = useContext(CartContext)
+  const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
+  const { isAuthenticated } = useContext(AppContext)
+
+  //! Handle cart data
+
+  const { data: cartDataResponese, refetch } = useQuery({
+    queryKey: ['purchases'],
+    queryFn: () => purchaseApi.getPurchases(),
+    staleTime: 1000 * 60 * 3,
+    enabled: isAuthenticated
+  })
+  const cartData = cartDataResponese?.data
+  const purchasesInCart = cartDataResponese?.data.data
+
+  useEffect(() => {
+    setExtendedPurchases((prev) => {
+      const extendedPurchasesObject = keyBy(prev, 'id')
+      return (
+        purchasesInCart?.map((purchase) => ({
+          ...purchase,
+          disabled: false,
+          checked: Boolean(extendedPurchasesObject[purchase.id]?.checked),
+          previousQuantity: purchase.quantity
+        })) || []
+      )
+    })
+  }, [purchasesInCart, setExtendedPurchases])
 
   return (
     <div className='rounded-lg bg-haretaColor duration-200 dark:bg-haretaColor'>
       <CustomPopover
         className='flex border border-none px-1.5 py-1 desktop:px-2'
-        renderPopover={<PopoverSection />}
+        renderPopover={<PopoverSection refetch={refetch} cartData={cartData} />}
         placement='bottom-end'
       >
         <div className='flex items-center space-x-2 px-2 py-0.5  text-black'>
-          <FontAwesomeIcon icon={faCartShopping} className='' />
+          <FontAwesomeIcon icon={faCartShopping} />
           {extendedPurchases.length > 0 && (
             <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-darkText desktop:text-sm desktopLarge:text-base'>
               {extendedPurchases.length}

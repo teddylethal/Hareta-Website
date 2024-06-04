@@ -7,7 +7,7 @@ import { useFormContext } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import DialogPopup from 'src/components/DialogPopup'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { OrderContext } from 'src/contexts/order.context'
 import { OrderSchema } from 'src/utils/rules'
@@ -40,7 +40,7 @@ export default function OrderDetail() {
   const navigate = useNavigate()
   const invalidButton = () => {
     if (lackingInformation) {
-      navigate(path.shippingInfor)
+      navigate(mainPath.orderInfor)
       if (!addressState) {
         setNoneState(true)
       }
@@ -89,7 +89,7 @@ export default function OrderDetail() {
           {t('layout.By clicking, you accept our')}{' '}
           <Link
             state={{ from: 'order' }}
-            to={path.privacyAndTerms}
+            to={mainPath.privacyAndTerms}
             className='font-medium text-haretaColor hover:text-primaryColor'
           >
             {t('layout.payment policy')}

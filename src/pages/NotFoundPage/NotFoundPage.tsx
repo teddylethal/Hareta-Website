@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 
 export default function NotFoundPage() {
   return (
@@ -8,7 +8,7 @@ export default function NotFoundPage() {
       <div className='absolute rotate-12 rounded bg-haretaColor px-2 text-sm'>Page Not Found</div>
       <button className='mt-5'>
         <Link
-          to={path.home}
+          to={mainPath.home}
           className='group relative inline-block text-sm font-medium text-haretaColor focus:outline-none focus:ring active:text-orange-500'
         >
           <span className='bg-haretext-haretaColor absolute inset-0 translate-x-0.5 translate-y-0.5 transition-transform group-hover:translate-x-0 group-hover:translate-y-0'></span>

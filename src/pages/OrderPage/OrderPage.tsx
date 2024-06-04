@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
-import OrderDesktopLayout from '../OrderDesktopLayout'
-import OrderMobileLayout from '../OrderMobileLayout'
 import { OrderSchema, OrderSchemaForGuest, orderSchema } from 'src/utils/rules'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useContext, useEffect, useState } from 'react'
@@ -18,11 +16,13 @@ import { CartContext } from 'src/contexts/cart.context'
 import { useTranslation } from 'react-i18next'
 import productApi from 'src/apis/product.api'
 import purchaseApi from 'src/apis/cart.api'
-import OrderSuccessDialog from '../../components/OrderSuccessDialog'
-import OrderUnavailableDialog from '../../components/OrderUnavailableDialog'
-import OrderProcessingDialog from '../../components/OrderProcessingDialog'
+import OrderSuccessDialog from './components/OrderSuccessDialog'
+import OrderProcessingDialog from './components/OrderProcessingDialog'
+import OrderUnavailableDialog from './components/OrderUnavailableDialog'
+import OrderPageDesktop from './children/OrderPageDesktop'
+import OrderPageMobile from './children/OrderPageMobile'
 
-export default function OrderLayout() {
+export default function OrderPage() {
   const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
     useContext(OrderContext)
   const { isAuthenticated } = useContext(AppContext)
@@ -183,9 +183,9 @@ export default function OrderLayout() {
         />
         <FormProvider {...methods}>
           <form onSubmit={isAuthenticated ? onPlaceOrder : placeOrderWithoutLogin}>
-            {!isMobile && <OrderDesktopLayout />}
+            {!isMobile && <OrderPageDesktop />}
 
-            {isMobile && <OrderMobileLayout />}
+            {isMobile && <OrderPageMobile />}
           </form>
         </FormProvider>
       </div>

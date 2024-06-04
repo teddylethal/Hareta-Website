@@ -8,7 +8,7 @@ import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
 
 interface Props {

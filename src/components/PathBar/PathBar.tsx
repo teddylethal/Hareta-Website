@@ -21,8 +21,8 @@ export default function PathBar({ pathList }: Props) {
   const { t } = useTranslation('store')
 
   return (
-    <div className='mb-2 rounded-lg border border-black/40 bg-barLightBg px-2 py-1 uppercase text-darkText duration-200 dark:border-white/40 dark:bg-barDarkBg dark:text-lightText desktop:mb-3 desktop:px-4 desktop:py-2 desktop:text-sm desktopLarge:mb-4 desktopLarge:px-6 desktopLarge:py-3'>
-      <div className='flex items-center justify-start space-x-1 overflow-hidden   text-xs font-medium desktop:space-x-2 desktop:font-semibold'>
+    <div className='mb-2 rounded-lg border border-black/40 bg-barLightBg px-2 py-1 uppercase text-darkText duration-200 dark:border-white/40 dark:bg-barDarkBg dark:text-lightText desktop:mb-3 desktop:px-4 desktop:py-2 desktopLarge:mb-4 desktopLarge:px-6 desktopLarge:py-3'>
+      <div className='flex items-center justify-start space-x-1 overflow-hidden text-xs font-medium desktop:space-x-2 desktop:text-sm desktop:font-semibold'>
         <NavLink
           to={mainPath.home}
           className={({ isActive }) =>

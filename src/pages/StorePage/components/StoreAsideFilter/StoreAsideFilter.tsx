@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import StoreTypeFilter from '../StoreTypeFilter'
 import StoreCategoryFilter from '../StoreCategoryFilter'

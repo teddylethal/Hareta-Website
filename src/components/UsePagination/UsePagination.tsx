@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { Link, createSearchParams } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
@@ -77,7 +77,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
         return (
           <Link
             to={{
-              pathname: path.store,
+              pathname: mainPath.store,
               search: createSearchParams({
                 ...queryConfig,
                 page: pageNumber.toString()
@@ -101,7 +101,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       {currentPage > 1 ? (
         <Link
           to={{
-            pathname: path.store,
+            pathname: mainPath.store,
             search: createSearchParams({
               ...queryConfig,
               page: (currentPage - 1).toString()
@@ -127,7 +127,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       {currentPage < totalPage ? (
         <Link
           to={{
-            pathname: path.store,
+            pathname: mainPath.store,
             search: createSearchParams({
               ...queryConfig,
               page: (currentPage + 1).toString()

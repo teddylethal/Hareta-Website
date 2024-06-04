@@ -7,7 +7,7 @@ import { orderApi } from 'src/apis/order.api'
 import { AppContext } from 'src/contexts/app.context'
 import * as yup from 'yup'
 import { formatDate, generateNameId, isAxiosBadRequestError } from 'src/utils/utils'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import OrderTrackingSearchInput from '../OrderTrackingSearchInput'
@@ -49,7 +49,7 @@ export default function OrderTrackingSearchOrder({ setFinding, setCantFind }: Pr
         setFinding(false)
         const order = respone.data.data
         navigate({
-          pathname: `${path.orderTracking}/${generateNameId({ name: formatDate(order.created_at), id: order.id })}`
+          pathname: `${mainPath.orderTracking}/${generateNameId({ name: formatDate(order.created_at), id: order.id })}`
         })
       },
       onError: (error) => {

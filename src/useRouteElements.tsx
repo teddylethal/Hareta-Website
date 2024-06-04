@@ -12,7 +12,6 @@ import NotFoundPage from './pages/NotFoundPage'
 import AdminRoute from './routes/adminRoute'
 import UserRoute from './routes/userRoute'
 import AuthenticationRoute from './routes/authenticationRoute'
-import OrderRoute from './routes/orderRoute'
 import MainRoute from './routes/mainRoute'
 import BlogRoute from './routes/blogRoute'
 import EventRoute from './routes/eventRoute'
@@ -51,10 +50,6 @@ export default function useRouteElements() {
     {
       path: '',
       children: [MainRoute]
-    },
-    {
-      path: '',
-      children: [OrderRoute]
     },
     {
       path: '*',
