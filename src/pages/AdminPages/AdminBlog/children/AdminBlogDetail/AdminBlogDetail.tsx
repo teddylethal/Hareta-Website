@@ -95,6 +95,7 @@ export default function AdminBlogDetail() {
     defaultValues: {
       id: blogDetail?.id || '',
       title: blogDetail?.title || '',
+      overall: blogDetail?.overall || '',
       content: blogDetail?.content || '',
       avatar: blogDetail?.avatar || 'emptyUrl'
     },

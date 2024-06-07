@@ -137,7 +137,13 @@ export default function AdminEventDetail() {
               setDeleteExcutingDialog={setDeleteExcutingDialog}
             />
           )}
-          {isAddingProduct && <AdminEventProducts eventId={eventDetail.id} setIsAddingProduct={setIsAddingProduct} />}
+          {isAddingProduct && (
+            <AdminEventProducts
+              eventId={eventDetail.id}
+              setIsAddingProduct={setIsAddingProduct}
+              productsInEvents={productList.map((product) => product.item.id)}
+            />
+          )}
         </Fragment>
       )}
 

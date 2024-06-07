@@ -18,7 +18,7 @@ export const updateEventSchema = yup.object({
   date_start: yup.date().required('Bắt buộc có ngày bắt đầu'),
   date_end: yup.date().required('Bắt buộc có ngày kết thúc'),
   discount: yup.number().required('Bắt buộc có phần giảm giá'),
-  avatar: yup.string().required('Bắt buộc có hình ảnh')
+  avatar: yup.string().default('')
 })
 
 export type UpdateEventSchema = yup.InferType<typeof updateEventSchema>

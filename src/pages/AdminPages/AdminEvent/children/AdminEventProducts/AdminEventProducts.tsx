@@ -11,10 +11,11 @@ import AdminSelectsVariant from 'src/pages/AdminPages/components/AdminSelectsVar
 
 interface Props {
   eventId: string
+  productsInEvents: string[]
   setIsAddingProduct: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function AdminEventProducts({ eventId, setIsAddingProduct }: Props) {
+export default function AdminEventProducts({ eventId, setIsAddingProduct, productsInEvents }: Props) {
   const { setLoadingPage } = useContext(AppContext)
   const { productGroup, currentProduct } = useContext(AdminContext)
 
@@ -57,6 +58,7 @@ export default function AdminEventProducts({ eventId, setIsAddingProduct }: Prop
   const addAllProducts = async () => {
     setLoadingPage(true)
     for (const product of productsInGroup) {
+      if (productsInEvents.includes(product.id)) continue
       const body = {
         event_id: eventId,
         item_id: product.id

@@ -92,7 +92,7 @@ export default function AdminEventUpdate({
       detail_content: eventDetail?.id || '',
       date_start: new Date(eventDetail?.date_start) || currentDate,
       date_end: new Date(eventDetail?.date_end) || currentDate,
-      avatar: eventDetail?.avatar || 'emptyUrl'
+      avatar: eventDetail?.avatar || 'emptyURL'
     },
     resolver: yupResolver(updateEventSchema)
   })
@@ -118,7 +118,9 @@ export default function AdminEventUpdate({
   }
 
   //! Handle submit form
-  const onSubmit = handleSubmit(async (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onInvalid = (errors: any) => console.error(errors)
+  const onSubmit = async (data: FormData) => {
     setUpdateExcutingDialog(true)
     setExcuting(true)
 
@@ -139,10 +141,13 @@ export default function AdminEventUpdate({
       }
       newUploadedImageRespone = await uploadImageMutation.mutateAsync({ ...uploadImageBody })
     }
+
+    data.date_start.setHours(0, 0, 0, 0)
+    data.date_end.setHours(23, 59, 59, 999)
     const updatePostBody = {
       ...data,
-      date_start: formatTimeToSeconds(data.date_start.getTime()),
-      date_end: formatTimeToSeconds(data.date_end.getTime()),
+      date_start: formatTimeToSeconds(data.date_start.getTime() + 1000 * 60 * 60 * 7),
+      date_end: formatTimeToSeconds(data.date_end.getTime() + 1000 * 60 * 60 * 7),
       avatar: newUploadedImageRespone ? newUploadedImageRespone.data.data.url : data.avatar
     }
     updateEventMutation.mutate(updatePostBody, {
@@ -162,7 +167,7 @@ export default function AdminEventUpdate({
         setExcuting(false)
       }
     })
-  })
+  }
 
   //! Handle delete blog
   const deleteBlogMutation = useMutation({
@@ -189,7 +194,7 @@ export default function AdminEventUpdate({
   return (
     <Fragment>
       <FormProvider {...methods}>
-        <form className='relative space-y-4' onSubmit={onSubmit}>
+        <form className='relative space-y-4' onSubmit={handleSubmit(onSubmit, onInvalid)}>
           <div className='space-y-2 py-2'>
             <AdminEventUpdateForm eventDetail={eventDetail} imageFile={imageFile} setImageFile={setImageFile} />
           </div>
