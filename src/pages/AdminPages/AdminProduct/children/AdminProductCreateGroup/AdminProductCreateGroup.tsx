@@ -12,6 +12,7 @@ import { ProductGroup } from 'src/types/product.type'
 import { useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
 import AdminProductCreateHeader from '../../components/AdminProductCreateHeader'
+import { AppContext } from 'src/contexts/app.context'
 
 interface FormData {
   name: string
@@ -22,6 +23,7 @@ const ProductGroupSchema = yup.object({
 })
 
 export default function AdminProductCreateGroup() {
+  const { setLoadingPage } = useContext(AppContext)
   const { setProductGroup } = useContext(AdminContext)
 
   //? CREATE NEW GROUP
@@ -44,8 +46,10 @@ export default function AdminProductCreateGroup() {
   const createGroupMutation = useMutation({ mutationFn: adminProductGroupApi.createProductGroup })
   const onSubmit = handleSubmit(async (data) => {
     try {
+      setLoadingPage(true)
       const newGroupRespone = await createGroupMutation.mutateAsync({ ...data })
       const newGroup: ProductGroup = newGroupRespone.data.data
+      setLoadingPage(false)
       setProductGroup(newGroup)
       reset()
       clearErrors()

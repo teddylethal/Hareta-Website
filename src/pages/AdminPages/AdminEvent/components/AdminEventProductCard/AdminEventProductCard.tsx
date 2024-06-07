@@ -5,16 +5,19 @@ import { formatCurrency } from 'src/utils/utils'
 
 interface Props {
   product: ProductType
+  discount: number
   handleRemove: (productId: string) => () => void
   isAddingProduct: boolean
 }
 
-export default function AdminEventProductCard({ product, handleRemove, isAddingProduct }: Props) {
+export default function AdminEventProductCard({ product, handleRemove, isAddingProduct, discount }: Props) {
+  const totalDiscount = product.discount > 0 ? (product.discount * discount) / 100 : discount
+
   return (
     <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-200 dark:bg-productDarkBg'>
       <div className='relative w-full pt-[75%]'>
         <div className='absolute left-0 top-0 h-full w-full'>
-          {product.avatar.url ? (
+          {product.avatar?.url ? (
             <img
               src={product.avatar.url}
               alt={product.name}
@@ -32,12 +35,16 @@ export default function AdminEventProductCard({ product, handleRemove, isAddingP
           {product.name}
         </p>
 
+        <p className='h-full justify-center overflow-hidden truncate text-center text-xs uppercase text-darkText opacity-60 duration-200 dark:text-lightText desktop:text-sm'>
+          {product.color}
+        </p>
+
         <div className='flex space-x-2'>
           <span className='text-xs font-semibold line-through opacity-60 tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
             ${formatCurrency(product.price)}
           </span>
           <span className='text-xs font-semibold text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
-            ${formatCurrency(product.price - (product.price * product.discount) / 100)}
+            ${formatCurrency(product.price * ((100 - totalDiscount) / 100))}
           </span>
         </div>
       </div>

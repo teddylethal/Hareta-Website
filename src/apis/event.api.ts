@@ -25,6 +25,9 @@ const eventApi = {
   getEventList(params: EventListConfig) {
     return http.get<EventList>(`${URL}/`, { params })
   },
+  listEventForAdmin(params: EventListConfig) {
+    return http.get<EventList>(`${URL}/admin/`, { params })
+  },
   getEventDetail(eventId: string) {
     return http.get<SuccessRespone<EventType>>(`${URL}/${eventId}`)
   },

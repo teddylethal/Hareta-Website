@@ -40,6 +40,7 @@ export default function HomeEventSlideShow() {
     queryFn: () => eventApi.getEventList(eventListQueryConfig as EventListConfig)
   })
 
+  if (eventsData?.data.data.length == 0) return
   return (
     <Fragment>
       {!eventsData && <LoadingSection className='flex h-[50vh] items-center justify-center desktop:h-[75vh]' />}
@@ -52,6 +53,9 @@ export default function HomeEventSlideShow() {
           ))}
         </CustomSlideShow>
       )}
+      <div className='flex w-full items-center justify-center'>
+        <div className='w-full border-t border-black/80 dark:border-white/80 tablet:w-8/12 desktop:w-1/2' />
+      </div>
     </Fragment>
   )
 }

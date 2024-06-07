@@ -13,7 +13,7 @@ export default function HomeIntroduction() {
   const { t } = useTranslation('home')
 
   //! Get introduce blog
-  const blogsQueryConfig: BlogListQueryConfig = { tag: 'hareta' }
+  const blogsQueryConfig: BlogListQueryConfig = { tag: 'introduction' }
   const { data: blogsData } = useQuery({
     queryKey: ['blogs'],
     queryFn: () => blogApi.getBlogList(blogsQueryConfig)

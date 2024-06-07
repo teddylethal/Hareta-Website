@@ -1,10 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import classNames from 'classnames'
 import React, { useContext, useState } from 'react'
 import eventApi from 'src/apis/event.api'
-import productApi from 'src/apis/product.api'
 import { AdminContext } from 'src/contexts/admin.context'
 import { AppContext } from 'src/contexts/app.context'
+import { productQuery } from 'src/hooks/queries/useProductQuery'
 import AdminDialog from 'src/pages/AdminPages/components/AdminDialog'
 import AdminSelectProductGroup from 'src/pages/AdminPages/components/AdminSelectProductGroup'
 import AdminSelectsVariant from 'src/pages/AdminPages/components/AdminSelectsVariant'
@@ -19,24 +19,6 @@ export default function AdminEventProducts({ eventId, setIsAddingProduct }: Prop
   const { productGroup, currentProduct } = useContext(AdminContext)
 
   const [successDialog, setSuccessDialog] = useState(false)
-
-  //! Get products in group
-  const {
-    data: productsInGroupData,
-    refetch,
-    isLoading
-  } = useQuery({
-    queryKey: ['product-groups', productGroup?.id],
-    queryFn: () =>
-      productApi.getProductsInGroup({
-        id: productGroup?.id as string,
-        page: '1',
-        limit: '50'
-      }),
-    enabled: Boolean(productGroup),
-    staleTime: 1000 * 60 * 3
-  })
-  const productsInGroup = productsInGroupData?.data.data || []
 
   //! Handle add product
   const queryClient = useQueryClient()
@@ -59,6 +41,39 @@ export default function AdminEventProducts({ eventId, setIsAddingProduct }: Prop
         console.error(error)
       }
     })
+  }
+
+  //! Handle add all product in group
+  const { data: productsInGroupData } = productQuery.useGetProductsInGroup(
+    {
+      id: productGroup?.id as string,
+      page: '1',
+      limit: '50'
+    },
+    Boolean(productGroup)
+  )
+  const productsInGroup = productsInGroupData?.data.data || []
+
+  const addAllProducts = async () => {
+    setLoadingPage(true)
+    for (const product of productsInGroup) {
+      const body = {
+        event_id: eventId,
+        item_id: product.id
+      }
+      // console.log(body)
+      // continue
+      await addProductToEventMutation.mutateAsync(body, {
+        onError: (error) => {
+          console.error(error)
+          setLoadingPage(false)
+          return
+        }
+      })
+    }
+    setLoadingPage(false)
+    setSuccessDialog(true)
+    queryClient.invalidateQueries({ queryKey: ['events', 'detail', eventId] })
   }
 
   //! Style
@@ -85,7 +100,9 @@ export default function AdminEventProducts({ eventId, setIsAddingProduct }: Prop
           <AdminSelectProductGroup />
           <div className='flex items-center justify-center space-x-4'>
             <p className='text-center text-lg font-medium uppercase'>Thêm tất cả sản phẩm trong nhóm</p>
-            <button className={buttonStyle}>Xác nhận</button>
+            <button onClick={addAllProducts} className={buttonStyle}>
+              Thêm tất cả
+            </button>
           </div>
         </div>
         <div className='col-span-1 space-y-4 px-4'>

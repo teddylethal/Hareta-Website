@@ -24,7 +24,7 @@ export default function AdminSelectProductGroup({ largeScreen = false }: Props) 
   //! GET DEFAULT PRODUCTS
   const queryConfig = {}
   const { data: defaultProductsData } = useQuery({
-    queryKey: ['default-products'],
+    queryKey: ['products'],
     queryFn: () => productApi.getProductList(queryConfig as ProductListConfig),
     staleTime: 1000 * 60 * 3
   })
@@ -53,11 +53,11 @@ export default function AdminSelectProductGroup({ largeScreen = false }: Props) 
     <div className='relative rounded-lg border border-white/40 bg-black p-4 desktop:py-4'>
       <div className='flex flex-col items-center justify-center'>
         <p className='mb-2 text-lg font-semibold uppercase desktop:text-xl'>Chọn nhóm sản phẩm</p>
-        <div className='mt-2 w-full rounded-lg border border-white/40 bg-darkBg'>
+        <div className='mt-2 h-96 w-full overflow-auto rounded-lg border border-white/40 bg-darkBg '>
           <div
             className={classNames(
-              'grid  w-full gap-4 overflow-auto p-2',
-              largeScreen ? 'h-96 grid-cols-6' : 'h-80 grid-cols-4'
+              'grid w-full  items-start gap-2 p-2 desktop:gap-4',
+              largeScreen ? 'grid-cols-6' : 'grid-cols-4'
             )}
           >
             {defaultProducts?.map((product) => {
@@ -67,10 +67,13 @@ export default function AdminSelectProductGroup({ largeScreen = false }: Props) 
                 <button
                   key={product.id}
                   onClick={handleChooseGroup(product)}
-                  className={classNames('border-1 border-offset-0 col-span-1 h-min space-y-2 rounded-xl border p-1', {
-                    'border-haretaColor': isActive,
-                    'border-haretaColor/40 ': !isActive
-                  })}
+                  className={classNames(
+                    'col-span-1 h-auto space-y-2 overflow-hidden rounded-xl p-1 outline outline-1 outline-offset-0',
+                    {
+                      'outline-2 outline-primaryColor': isActive,
+                      'outline-primaryColor/40': !isActive
+                    }
+                  )}
                 >
                   <div className='relative w-full pt-[75%]'>
                     <img
@@ -100,7 +103,7 @@ export default function AdminSelectProductGroup({ largeScreen = false }: Props) 
                       0 sản phẩm
                     </div>
                   </div>
-                  <div className=''>{group.name}</div>
+                  <div className='truncate'>{group.name}</div>
                 </button>
               )
             })}

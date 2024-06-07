@@ -1,11 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
 import { reject } from 'lodash'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import eventApi from 'src/apis/event.api'
 import { imageApi } from 'src/apis/image.api'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import { adminPath } from 'src/constants/path'
@@ -18,6 +17,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import LoadingRing from 'src/components/LoadingRing'
 import InputFile from 'src/components/InputFile'
 import { EventType } from 'src/types/event.type'
+import { eventQuery } from 'src/hooks/queries/useEventQuery'
 
 type FormData = CreateEventSchema
 
@@ -34,7 +34,6 @@ export default function AdminEventCreate() {
   const [createdEvent, setCreatedEvent] = useState<EventType | null>(null)
 
   const navigate = useNavigate()
-  const queryClient = useQueryClient()
 
   //! Handle avatar
   const [file, setFile] = useState<File>()
@@ -74,9 +73,7 @@ export default function AdminEventCreate() {
   const onInvalid = (errors: any) => {
     reject(errors)
   }
-  const createEventMutation = useMutation({
-    mutationFn: eventApi.createEvent
-  })
+  const createEventMutation = eventQuery.mutation.useCreateEvent()
   const uploadImageMutation = useMutation({
     mutationFn: imageApi.uploadImage
   })
@@ -124,7 +121,6 @@ export default function AdminEventCreate() {
         setFile(undefined)
         setDateStart(currentDate)
         setDateEnd(currentDate)
-        queryClient.invalidateQueries({ queryKey: ['events'] })
         setCreatedEvent(respone.data)
       },
       onError: (error) => {

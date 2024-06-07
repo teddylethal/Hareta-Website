@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import React, { Fragment, useContext, useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Fragment, useContext, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import AdminEventInfo from '../AdminEventInfo'
 import { getIdFromNameId } from 'src/utils/utils'
@@ -11,10 +11,9 @@ import DialogPopup from 'src/components/DialogPopup'
 import LoadingRing from 'src/components/LoadingRing'
 import { adminPath } from 'src/constants/path'
 import AdminEventProducts from '../AdminEventProducts'
-import productApi from 'src/apis/product.api'
-import { ProductListConfig } from 'src/types/product.type'
 import AdminEventProductCard from '../../components/AdminEventProductCard'
 import { AppContext } from 'src/contexts/app.context'
+import { eventQuery } from 'src/hooks/queries/useEventQuery'
 
 export default function AdminEventDetail() {
   const { setLoadingPage } = useContext(AppContext)
@@ -43,11 +42,10 @@ export default function AdminEventDetail() {
   //! Get event detail
   const { eventId: paramEventId } = useParams()
   const eventId = getIdFromNameId(paramEventId as string)
-  const { data: eventDetailData, isFetching } = useQuery({
-    queryKey: ['events', 'detail', eventId],
-    queryFn: () => eventApi.getEventDetail(eventId as string)
-  })
-  const eventDetail = eventDetailData?.data.data
+  //! Get event detail
+  const { data: eventData } = eventQuery.useEventDetail(eventId)
+  const eventDetail = eventData?.data.data
+  const productList = eventDetail?.items || []
 
   //! Handlers
   const handleUpdate = () => {
@@ -61,15 +59,6 @@ export default function AdminEventDetail() {
 
   //! Styles
   const buttonStyle = 'py-2 px-6 text-darkText font-medium rounded-xl bg-unhoveringBg hover:bg-hoveringBg'
-
-  //! GET PRODUCT LIST
-  const { data: storeData } = useQuery({
-    queryKey: ['default-products', {}],
-    queryFn: () => {
-      return productApi.getProductList({} as ProductListConfig)
-    },
-    staleTime: 3 * 60 * 1000
-  })
 
   //! Hanlde remove product
   const removeProductMutation = useMutation({ mutationFn: eventApi.removeProductFromEvent })
@@ -97,7 +86,7 @@ export default function AdminEventDetail() {
 
   return (
     <div className='relative space-y-4'>
-      {isFetching && <LoadingSection />}
+      {!eventDetail && <LoadingSection />}
       {eventDetail && (
         <Fragment>
           <div className='flex items-center justify-around'>
@@ -122,10 +111,11 @@ export default function AdminEventDetail() {
               </div>
 
               <div className='grid grid-cols-2 gap-2 bg-black p-4 tablet:grid-cols-3 tablet:gap-4 desktop:grid-cols-4 desktop:gap-8'>
-                {storeData?.data.data.map((product) => (
-                  <div key={product.id} className='col-span-1'>
+                {productList.map((item) => (
+                  <div key={item.item.id} className='col-span-1'>
                     <AdminEventProductCard
-                      product={product}
+                      discount={eventDetail.discount}
+                      product={item.item}
                       handleRemove={handleRemove}
                       isAddingProduct={isAddingProduct}
                     />

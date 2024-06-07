@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function AdminSelectsVariant({
-  wrapperClassname = 'grid h-80 w-full grid-cols-3 gap-4 overflow-auto p-2'
+  wrapperClassname = 'grid w-full grid-cols-3 gap-4 overflow-auto p-2'
 }: Props) {
   const { productGroup, currentProduct, setCurrentProduct, defaultProductIdList, setDefaultProductIdList } =
     useContext(AdminContext)
@@ -43,7 +43,7 @@ export default function AdminSelectsVariant({
   //! Get default product list
   const queryConfig = {}
   const { data: defaultProductListData } = useQuery({
-    queryKey: ['default-products'],
+    queryKey: ['products'],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },
@@ -66,21 +66,21 @@ export default function AdminSelectsVariant({
     <div className='relative rounded-lg border border-white/40 bg-black p-4'>
       <div className='flex w-full flex-col items-center justify-center space-y-4'>
         <p className='text-lg font-semibold uppercase desktop:text-xl'>Chọn sản phẩm</p>
-        <div className='w-full rounded-lg border border-white/40 bg-darkBg'>
+        <div className='h-80 w-full overflow-auto rounded-lg border border-white/40 bg-darkBg'>
           {!productGroup && (
-            <div className='flex h-80 w-full cursor-not-allowed items-center justify-center text-2xl uppercase'>
+            <div className='flex h-full w-full cursor-not-allowed items-center justify-center text-center text-2xl uppercase'>
               Chọn 1 nhóm sản phẩm
             </div>
           )}
           {isLoading && (
-            <div className='flex h-80 w-full items-center justify-center bg-black/50'>
+            <div className='flex h-full w-full items-center justify-center'>
               <LoadingRing />
             </div>
           )}
           {productsInGroupData && (
             <Fragment>
               {productsInGroup.length == 0 && (
-                <div className='flex h-full w-full items-center justify-center text-lg font-semibold text-alertRed'>
+                <div className='flex w-full items-center justify-center text-lg font-semibold text-alertRed'>
                   Nhóm này chưa có sản phẩm nào
                 </div>
               )}
@@ -92,10 +92,13 @@ export default function AdminSelectsVariant({
                     return (
                       <div
                         key={index}
-                        className={classNames('col-span-1 h-min rounded-xl outline outline-1 outline-offset-0', {
-                          'outline-2 outline-haretaColor': isActive,
-                          'outline-haretaColor/40 ': !isActive
-                        })}
+                        className={classNames(
+                          'col-span-1 h-fit overflow-hidden rounded-xl outline outline-1 outline-offset-0',
+                          {
+                            'outline-2 outline-primaryColor': isActive,
+                            'outline-primaryColor/40': !isActive
+                          }
+                        )}
                       >
                         <button className='w-full justify-center space-y-2 py-2' onClick={handleChooseVariant(product)}>
                           <div className='relative w-full pt-[75%]'>
@@ -105,7 +108,7 @@ export default function AdminSelectsVariant({
                               className='absolute left-0 top-0 h-full w-full object-scale-down'
                             />
                             {defaultProductIdList.includes(product.id) && (
-                              <p className='absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 select-none rounded-md bg-primaryColor p-2 text-center text-sm uppercase text-lightText opacity-80'>
+                              <p className='absolute bottom-1 left-1/2 w-10/12 -translate-x-1/2 select-none rounded-md bg-primaryColor p-1 text-center text-xs uppercase text-lightText opacity-90 desktop:text-sm'>
                                 sp mặc định
                               </p>
                             )}
