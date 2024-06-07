@@ -68,7 +68,7 @@ export default function ProductListForType({ type }: Props) {
   const navigate = useNavigate()
   const handleClick = () => {
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: createSearchParams({
         type: type
       }).toString()
@@ -113,7 +113,7 @@ export default function ProductListForType({ type }: Props) {
 
           {!noSlideShow && (
             <div className='relative mt-4 w-full'>
-              <CustomSlideShow responsive={responsiveSettings} indicators={false}>
+              <CustomSlideShow responsive={responsiveSettings} indicators={false} canSwipe={false}>
                 {productsData.data.data.map((product) => (
                   <div key={product.id} className='mx-2 desktop:mx-4 desktopLarge:mx-6'>
                     <ProductCard product={product} />

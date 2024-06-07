@@ -33,7 +33,7 @@ export default function StoreMobileSorter() {
   const handleChange = (tagIndex: number) => () => {
     if (tagIndex === 0) {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {
@@ -45,7 +45,7 @@ export default function StoreMobileSorter() {
       })
     } else {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {

@@ -5,7 +5,8 @@ import QuantityController from 'src/components/QuantityController'
 import mainPath from 'src/constants/path'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { Link } from 'react-router-dom'
-import { ExtendedTemporaryPurchase } from '../../children/CartForGuest/CartForGuest'
+import { ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
+import classNames from 'classnames'
 
 interface Props {
   purchase: ExtendedTemporaryPurchase
@@ -35,9 +36,25 @@ export default function CartMobileTempPurchaseCard(props: Props) {
             />
           </div>
           <p className='col-span-6 truncate text-center text-base font-semibold'>{purchase.item.name}</p>
-          <span className='col-span-4 flex items-center justify-center text-xs'>
-            ${formatCurrency(purchase.item.price)}
-          </span>
+
+          <div className='col-span-4 flex flex-col text-xs mobileLarge:text-sm'>
+            <span
+              className={classNames('text-darkText dark:text-lightText', {
+                'line-through opacity-80': purchase.discount > 0
+              })}
+            >
+              ${formatCurrency(purchase.item.price)}
+            </span>
+            {purchase.discount > 0 && (
+              <div className='flex justify-center space-x-2'>
+                <span className='text-darkText dark:text-lightText'>
+                  ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
+                </span>
+                <span className='text-darkText dark:text-lightText'>({purchase.discount}%)</span>
+              </div>
+            )}
+          </div>
+
           <button
             className='col-span-1 flex items-center bg-none p-1 text-darkText dark:text-lightText'
             onClick={handleRemove(index)}
@@ -45,17 +62,18 @@ export default function CartMobileTempPurchaseCard(props: Props) {
             <FontAwesomeIcon icon={faTrash} className='h-4 text-alertRed' />
           </button>
         </div>
+
         <div className='grid grid-cols-12 items-center'>
           <div className='col-span-1'></div>
           <div className='col-span-6'>
             <Link
-              to={`${mainPath.home}${generateNameId({
+              to={`${mainPath.store}/${generateNameId({
                 name: purchase.item.name,
                 id: purchase.item.id
               })}`}
               className='flex flex-grow items-center'
             >
-              <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden pt-[80%]'>
+              <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden rounded-2xl bg-white pt-[80%] dark:bg-black'>
                 {purchase.item.avatar ? (
                   <img
                     alt={purchase.item.name}
@@ -71,6 +89,7 @@ export default function CartMobileTempPurchaseCard(props: Props) {
             </Link>
           </div>
         </div>
+
         <div className='mt-4 grid grid-cols-12'>
           <div className='col-span-1'></div>
           <div className='col-span-6'>
@@ -95,8 +114,8 @@ export default function CartMobileTempPurchaseCard(props: Props) {
             />
           </div>
 
-          <span className=' col-span-4 text-sm text-haretaColor'>
-            ${formatCurrency(purchase.item.price * purchase.quantity)}
+          <span className='col-span-4 text-sm font-semibold text-haretaColor mobileLarge:text-base'>
+            ${formatCurrency(purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100))}
           </span>
         </div>
       </div>

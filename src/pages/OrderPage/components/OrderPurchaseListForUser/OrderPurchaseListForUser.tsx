@@ -5,12 +5,13 @@ import { formatCurrency } from 'src/utils/utils'
 
 export default function OrderPurchaseListForUser() {
   const { orderList } = useContext(OrderContext)
-  const totalPrice = orderList.reduce((result, current) => {
-    return result + current.item.price * current.quantity
-  }, 0)
 
-  const totalDiscount = orderList.reduce((result, current) => {
-    return result + current.item.discount * current.quantity
+  //! Handle bill
+  const totalPrice = orderList.reduce((sum, purchase) => {
+    return sum + purchase.quantity * purchase.item.price
+  }, 0)
+  const totalDiscount = orderList.reduce((val, purchase) => {
+    return val + purchase.quantity * purchase.item.price * (purchase.discount / 100)
   }, 0)
 
   //! Multi languages
@@ -22,7 +23,7 @@ export default function OrderPurchaseListForUser() {
         {orderList.map((orderItem, index) => (
           <div className='relative grid grid-cols-3 items-center gap-2 py-3 desktopLarge:py-4' key={orderItem.id}>
             <div className='col-span-2'>
-              <p className='text-lg font-bold capitalize desktopLarge:text-xl'>{orderItem.item.name}</p>
+              <p className='truncate text-lg font-bold capitalize desktopLarge:text-xl'>{orderItem.item.name}</p>
               <p className='text-sm capitalize desktopLarge:text-base'>{orderItem.item.color}</p>
             </div>
             <div className='col-span-1 text-right'>

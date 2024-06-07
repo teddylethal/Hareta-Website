@@ -82,7 +82,7 @@ export default function StorePriceRange({ queryConfig }: Props) {
       )
     }
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   })
@@ -94,7 +94,7 @@ export default function StorePriceRange({ queryConfig }: Props) {
     setUpperPrice('')
     reset()
     navigate({
-      pathname: path.store
+      pathname: mainPath.store
     })
   }
 
@@ -131,7 +131,7 @@ export default function StorePriceRange({ queryConfig }: Props) {
       )
     )
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   }

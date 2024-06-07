@@ -106,7 +106,8 @@ export default function HeaderDesktopCartLogged() {
           ...purchase,
           disabled: false,
           checked: Boolean(extendedPurchasesObject[purchase.id]?.checked),
-          previousQuantity: purchase.quantity
+          previousQuantity: purchase.quantity,
+          discount: purchase.item.discount
         })) || []
       )
     })

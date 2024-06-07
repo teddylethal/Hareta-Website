@@ -5,12 +5,13 @@ import { formatCurrency } from 'src/utils/utils'
 
 export default function OrderPurchaseListForGuest() {
   const { tempOrderList } = useContext(OrderContext)
-  const totalPrice = tempOrderList.reduce((result, current) => {
-    return result + current.item.price * current.quantity
-  }, 0)
 
-  const totalDiscount = tempOrderList.reduce((result, current) => {
-    return result + current.item.discount * current.quantity
+  //! Handle bill
+  const totalPrice = tempOrderList.reduce((sum, purchase) => {
+    return sum + purchase.quantity * purchase.item.price
+  }, 0)
+  const totalDiscount = tempOrderList.reduce((val, purchase) => {
+    return val + purchase.quantity * purchase.item.price * (purchase.discount / 100)
   }, 0)
 
   //! Multi languages

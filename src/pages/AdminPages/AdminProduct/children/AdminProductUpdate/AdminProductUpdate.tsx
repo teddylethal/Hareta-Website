@@ -10,7 +10,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { isAxiosBadRequestError, showSuccessDialog } from 'src/utils/utils'
 import LoadingRing from 'src/components/LoadingRing'
 import AdminProductUpdateForm from '../../components/AdminProductUpdateForm'
-import { EditProductSchema, editProductSchema } from '../../../../rules/adminproduct.rule'
+import { EditProductSchema, editProductSchema } from 'src/rules/adminproduct.rule'
 
 type FormData = NoUndefinedField<EditProductSchema>
 
@@ -27,7 +27,7 @@ export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpe
   //! GET CURRENT PRODUCT DETAIL
   const productId = currentProduct?.id
   const { data: productDetailData } = useQuery({
-    queryKey: ['products', productId, 'detail'],
+    queryKey: ['products', productId],
     queryFn: () => productApi.getProductDetail(productId as string),
     staleTime: 1000 * 60 * 5,
     enabled: Boolean(currentProduct)
@@ -89,8 +89,8 @@ export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpe
       { ...data },
       {
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['products'] })
           reset()
-          queryClient.invalidateQueries({ queryKey: ['products', productId] })
           showSuccessDialog(setSuccessDialogOpen, 2000)
         },
         onError: (error) => {
@@ -121,7 +121,7 @@ export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpe
 
               <div className='fixed bottom-2 left-0 z-10 w-full text-darkText'>
                 <div className='container '>
-                  <div className='flex w-full items-center justify-between space-x-2 rounded-lg bg-white/80'>
+                  <div className='flex w-full items-center justify-between space-x-2 rounded-lg border border-white/60 bg-black/80'>
                     <div className='shrink-0 rounded-lg bg-haretaColor px-4 py-2 text-lg font-semibold'>
                       Đang chỉnh sửa
                     </div>

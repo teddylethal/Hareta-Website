@@ -6,6 +6,14 @@ export interface ExtendsPurchase extends Purchase {
   disabled: boolean
   checked: boolean
   previousQuantity: number
+  discount: number
+}
+
+export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
+  disabled: boolean
+  checked: boolean
+  previousQuantity: number
+  discount: number
 }
 
 interface CartContextInterface {

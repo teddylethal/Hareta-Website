@@ -1,7 +1,6 @@
 import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
-import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { AdminBlogProvider } from 'src/contexts/adminblog.context'
 
@@ -14,6 +13,7 @@ import AdminEventLayout from 'src/pages/AdminPages/layouts/AdminEventLayout'
 import AdminEventManagement from 'src/pages/AdminPages/AdminEvent/children/AdminEventManagement'
 import AdminEventDetail from 'src/pages/AdminPages/AdminEvent/children/AdminEventDetail'
 import AdminEventCreate from 'src/pages/AdminPages/AdminEvent/children/AdminEventCreate'
+import mainPath, { adminPath } from 'src/constants/path'
 
 //! LAZY IMPORT ADMIN PAGES
 const AdminMainPage = lazy(() => import('src/pages/AdminPages/AdminMainPage'))

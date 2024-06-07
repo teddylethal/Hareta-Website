@@ -64,7 +64,7 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
         return (
           <Link
             to={{
-              pathname: path.orderTracking,
+              pathname: mainPath.orderTracking,
               search: createSearchParams({
                 ...orderConfig,
                 page: pageNumber.toString()
@@ -92,7 +92,7 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
       {currentPage > 1 ? (
         <Link
           to={{
-            pathname: path.orderTracking,
+            pathname: mainPath.orderTracking,
             search: createSearchParams({
               ...orderConfig,
               page: (currentPage - 1).toString()
@@ -116,7 +116,7 @@ export default function OrderPagination({ orderConfig, totalPage, isMobile }: Pr
       {currentPage < totalPage ? (
         <Link
           to={{
-            pathname: path.orderTracking,
+            pathname: mainPath.orderTracking,
             search: createSearchParams({
               ...orderConfig,
               page: (currentPage + 1).toString()

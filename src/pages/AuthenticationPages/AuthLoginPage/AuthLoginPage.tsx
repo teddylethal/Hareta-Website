@@ -73,7 +73,7 @@ export default function AuthLoginPage() {
           if (formError) {
             if (formError.error_key == 'ErrEmailNotVerified') {
               navigate(mainPath.requestVerify, {
-                state: { ...omit(data, ['password']), error: 'Please verify your email', from: path.login }
+                state: { ...omit(data, ['password']), error: 'Please verify your email', from: mainPath.login }
               })
             }
 

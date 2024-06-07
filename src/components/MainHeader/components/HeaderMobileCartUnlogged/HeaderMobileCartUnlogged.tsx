@@ -105,7 +105,7 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
                         <div className='flex grow flex-col justify-between'>
                           <div className='flex items-center justify-between'>
                             <NavLink
-                              to={`${mainPath.home}${generateNameId({
+                              to={`${mainPath.store}/${generateNameId({
                                 name: purchase.item.name,
                                 id: purchase.item.id
                               })}`}

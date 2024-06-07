@@ -7,7 +7,7 @@ import { useFormContext } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import DialogPopup from 'src/components/DialogPopup'
-import mainPath from 'src/constants/path'
+import mainPath, { orderPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { OrderContext } from 'src/contexts/order.context'
 import { OrderSchema } from 'src/utils/rules'
@@ -15,7 +15,7 @@ import OrderPurchaseListForUser from '../OrderPurchaseListForUser'
 import OrderPurchaseListForGuest from '../OrderPurchaseListForGuest'
 
 export default function OrderDetail() {
-  const { addressState, setNoneState, confirmPayment, setConfirmPayment } = useContext(OrderContext)
+  const { addressState, setNoneState, confirmPayment, setConfirmPayment, addressCountry } = useContext(OrderContext)
   const { theme, isAuthenticated } = useContext(AppContext)
 
   const [invalidForm, setInvalidForm] = useState<boolean>(false)
@@ -36,11 +36,11 @@ export default function OrderDetail() {
   }
   const lackingInformation = name === '' || phone === '' || email === '' || address === '' || addressState === null
 
-  //? HANDLE INVALID FORM
+  //! HANDLE INVALID FORM
   const navigate = useNavigate()
   const invalidButton = () => {
     if (lackingInformation) {
-      navigate(mainPath.orderInfor)
+      navigate(orderPath.checkout)
       if (!addressState) {
         setNoneState(true)
       }
@@ -66,8 +66,15 @@ export default function OrderDetail() {
 
   return (
     <div className='rounded-xl p-3 desktop:p-4'>
-      <p className='text-2xl font-semibold uppercase desktopLarge:text-3xl'>{t('layout.Order')}</p>
-      <div className='my-4 w-full border border-black/80 dark:border-white/80'></div>
+      <p className='text-center text-2xl font-semibold uppercase desktopLarge:text-3xl'>{t('layout.Order')}</p>
+      <div className='space-y-2 py-2'>
+        <div className='flex items-center justify-between text-xl'>
+          <span className=''>{watch('name')}</span>
+          <span className=''>{watch('phone')}</span>
+        </div>
+        <p className=''>{`${watch('address')}, ${addressState?.name || ''}, ${addressCountry.name}`}</p>
+      </div>
+      <div className='my-4 w-full border-t border-black/80 dark:border-white/80'></div>
       {isAuthenticated && <OrderPurchaseListForUser />}
       {!isAuthenticated && <OrderPurchaseListForGuest />}
       <div className='mt-4 flex items-center space-x-2 font-medium'>

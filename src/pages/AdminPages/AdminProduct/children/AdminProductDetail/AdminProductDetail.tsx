@@ -70,7 +70,7 @@ export default function AdminProductDetail() {
     <Fragment>
       {!defaultProduct && <LoadingSection />}
       {defaultProduct && (
-        <div className='space-y-6'>
+        <div className='space-y-6 pb-8'>
           <AdminSelectsVariant wrapperClassname='m-2 grid grid-cols-5 gap-4' />
 
           <div className='flex w-full items-center justify-between'>

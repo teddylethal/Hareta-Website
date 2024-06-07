@@ -49,7 +49,7 @@ export default function UserWishList() {
   const favouriteList = favouriteListData?.data.data as Product[]
 
   const handleClickItem = (product: Product) => () => {
-    navigate({ pathname: `${mainPath.home}${generateNameId({ name: product.name, id: product.id })}` })
+    navigate({ pathname: `${mainPath.store}/${generateNameId({ name: product.name, id: product.id })}` })
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
@@ -110,7 +110,7 @@ export default function UserWishList() {
     }
 
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   }

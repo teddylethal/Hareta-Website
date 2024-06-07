@@ -51,7 +51,8 @@ export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle
           ...purchase,
           disabled: false,
           checked: Boolean(extendedPurchasesObject[purchase.id]?.checked),
-          previousQuantity: purchase.quantity
+          previousQuantity: purchase.quantity,
+          discount: purchase.item.discount
         })) || []
       )
     })
@@ -136,7 +137,7 @@ export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle
                         <div className='flex grow flex-col justify-between'>
                           <div className='flex items-center justify-between'>
                             <NavLink
-                              to={`${mainPath.home}${generateNameId({
+                              to={`${mainPath.store}/${generateNameId({
                                 name: purchase.item.name,
                                 id: purchase.item.id
                               })}`}

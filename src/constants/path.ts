@@ -83,7 +83,10 @@ export const blogPath = {
   blogDetail: '/blogs/:blogId'
 }
 
-export const orderPath = {}
+export const orderPath = {
+  order: '/order',
+  checkout: '/order/checkout'
+}
 
 export const eventPath = {
   events: '/events',

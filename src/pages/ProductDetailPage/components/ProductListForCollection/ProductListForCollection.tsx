@@ -68,7 +68,7 @@ export default function ProductListForCollection({ collectionName }: Props) {
   const navigate = useNavigate()
   const handleClick = () => {
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: createSearchParams({
         collection: collectionName
       }).toString()

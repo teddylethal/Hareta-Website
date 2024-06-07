@@ -53,8 +53,8 @@ export default function DialogPopup({
               <Dialog.Panel
                 className={classNames(
                   {
-                    'bg-white/90 text-darkText': theme === 'light',
-                    'bg-black/90 text-lightText': theme === 'dark'
+                    'bg-white/95 text-darkText': theme === 'light',
+                    'bg-black/95 text-lightText': theme === 'dark'
                   },
                   classNameWrapper
                 )}

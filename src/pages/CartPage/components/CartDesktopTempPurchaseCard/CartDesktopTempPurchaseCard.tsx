@@ -1,12 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { ExtendedTemporaryPurchase } from '../../children/CartForGuest/CartForGuest'
 import QuantityController from 'src/components/QuantityController'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import mainPath from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
+import classNames from 'classnames'
 
 interface Props {
   purchase: ExtendedTemporaryPurchase
@@ -28,8 +29,8 @@ export default function CartDesktopTempPurchaseCard(props: Props) {
       key={purchase.id}
       className='border-b border-black/60 last:border-none hover:bg-lightColor900/60 dark:border-white/60 dark:hover:bg-darkColor900/60'
     >
-      <div className='grid grid-cols-12 items-center rounded-sm p-4 text-center text-darkText first:mt-0 first:border-none dark:text-lightText'>
-        <div className='col-span-6'>
+      <div className='grid grid-cols-8 items-center rounded-sm p-4 text-center text-darkText first:mt-0 first:border-none dark:text-lightText'>
+        <div className='col-span-3'>
           <div className='flex'>
             <div className='flex flex-shrink-0 items-center justify-center pr-3'>
               <input
@@ -58,45 +59,62 @@ export default function CartDesktopTempPurchaseCard(props: Props) {
             </Link>
           </div>
         </div>
-        <div className='col-span-6'>
-          <div className='grid grid-cols-4 items-center'>
-            <div className='col-span-1'>
-              <div className='flex items-center justify-center'>
-                <span className='text-sm font-semibold text-darkText dark:text-lightText desktop:text-base'>
-                  ${formatCurrency(purchase.item.price)}
-                </span>
-              </div>
-            </div>
-            <div className='col-span-1'>
-              <QuantityController
-                max={purchase.item.quantity}
-                value={purchase.quantity}
-                classNameWrapper='flex items-center justify-center'
-                onIncrease={(value) => handleQuantity(index, value, value <= purchase.item.quantity)}
-                onDecrease={(value) => handleQuantity(index, value, value >= 1)}
-                onType={handleTypeQuantity(index)}
-                onFocusOut={(value) =>
-                  handleQuantity(
-                    index,
-                    value,
-                    value >= 1 && value <= purchase.item.quantity && value !== purchase.previousQuantity
-                  )
-                }
-                disabled={purchase.disabled}
-              />
-            </div>
-            <div className='col-span-1'>
-              <span className='text-haretaColor'>${formatCurrency(purchase.item.price * purchase.quantity)}</span>
-            </div>
-            <div className='col-span-1'>
-              <button
-                className='bg-none text-xs text-alertRed/80 hover:text-alertRed hover:underline desktop:text-sm'
-                onClick={handleRemove(index)}
-              >
-                {t('content.remove')}
-              </button>
-            </div>
+
+        <div className='col-span-1'>
+          <div className='flex items-center justify-center'>
+            <span
+              className={classNames('text-darkText dark:text-lightText', {
+                'line-through opacity-80': purchase.discount > 0
+              })}
+            >
+              ${formatCurrency(purchase.item.price)}
+            </span>
+            {purchase.discount > 0 && (
+              <span className='text-darkText dark:text-lightText'>
+                ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
+              </span>
+            )}
           </div>
+        </div>
+
+        <div className='col-span-1'>
+          <div className='flex items-center justify-center'>
+            <span className='text-darkText dark:text-lightText'>{purchase.discount}%</span>
+          </div>
+        </div>
+
+        <div className='col-span-1'>
+          <QuantityController
+            max={purchase.item.quantity}
+            value={purchase.quantity}
+            classNameWrapper='flex items-center justify-center'
+            onIncrease={(value) => handleQuantity(index, value, value <= purchase.item.quantity)}
+            onDecrease={(value) => handleQuantity(index, value, value >= 1)}
+            onType={handleTypeQuantity(index)}
+            onFocusOut={(value) =>
+              handleQuantity(
+                index,
+                value,
+                value >= 1 && value <= purchase.item.quantity && value !== purchase.previousQuantity
+              )
+            }
+            disabled={purchase.disabled}
+          />
+        </div>
+
+        <div className='col-span-1'>
+          <span className='text-haretaColor'>
+            ${formatCurrency(purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100))}
+          </span>
+        </div>
+
+        <div className='col-span-1'>
+          <button
+            className='bg-none text-xs text-alertRed/80 hover:text-alertRed hover:underline desktop:text-sm'
+            onClick={handleRemove(index)}
+          >
+            {t('content.Remove')}
+          </button>
         </div>
       </div>
     </div>

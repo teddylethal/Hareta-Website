@@ -6,7 +6,11 @@ import classNames from 'classnames'
 import { ProductType, ProductGroup, ProductListConfig } from 'src/types/product.type'
 import productApi from 'src/apis/product.api'
 
-export default function AdminSelectProductGroup() {
+interface Props {
+  largeScreen?: boolean
+}
+
+export default function AdminSelectProductGroup({ largeScreen = false }: Props) {
   const { setProductGroup, productGroup, setCurrentProduct } = useContext(AdminContext)
 
   //! Get product groups
@@ -38,16 +42,24 @@ export default function AdminSelectProductGroup() {
   }
 
   const handleChooseEmptyGroup = (group: ProductGroup) => () => {
+    setCurrentProduct(null)
     setProductGroup(group)
     queryClient.invalidateQueries({ queryKey: ['product-groups'] })
   }
+
+  //! Grid column
 
   return (
     <div className='relative rounded-lg border border-white/40 bg-black p-4 desktop:py-4'>
       <div className='flex flex-col items-center justify-center'>
         <p className='mb-2 text-lg font-semibold uppercase desktop:text-xl'>Chọn nhóm sản phẩm</p>
         <div className='mt-2 w-full rounded-lg border border-white/40 bg-darkBg'>
-          <div className='grid h-80 w-full grid-cols-4 gap-4 overflow-auto p-2'>
+          <div
+            className={classNames(
+              'grid  w-full gap-4 overflow-auto p-2',
+              largeScreen ? 'h-96 grid-cols-6' : 'h-80 grid-cols-4'
+            )}
+          >
             {defaultProducts?.map((product) => {
               const isActive = product.group.id === productGroup?.id
               const avatarURL = product.avatar ? product.avatar.url : null

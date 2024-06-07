@@ -60,7 +60,7 @@ export default function StoreCollectionFilter({ queryConfig, setMobileFilterOpen
 
     if (selectedCollection.toUpperCase() === t('aside filter.all').toUpperCase()) {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {
@@ -72,7 +72,7 @@ export default function StoreCollectionFilter({ queryConfig, setMobileFilterOpen
       })
     } else {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {

@@ -1,8 +1,8 @@
-import OrderPayment from '../../children/OrderPayment'
-import OrderShippingInfor from '../../children/OrderShippingInfor'
+import OrderPayment from '../OrderPayment'
+import OrderShippingInfor from '../OrderShippingInfor'
 import OrderDetail from '../../components/OrderDetail'
 
-export default function OrderPageMobile() {
+export default function OrderCheckoutMobile() {
   return (
     <div className='space-y-4'>
       <OrderShippingInfor />

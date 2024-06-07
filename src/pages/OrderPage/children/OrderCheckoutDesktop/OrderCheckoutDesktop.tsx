@@ -6,7 +6,7 @@ import orderScreens from 'src/constants/orderScreens'
 import OrderShippingInfor from '../OrderShippingInfor'
 import OrderPayment from '../OrderPayment'
 
-export default function OrderPageDesktop() {
+export default function OrderCheckoutDesktop() {
   const { screen } = useContext(OrderContext)
 
   return (

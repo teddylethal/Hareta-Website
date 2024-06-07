@@ -78,7 +78,7 @@ export default function HomeTopSellerSlideShow() {
   const navigate = useNavigate()
   const handleNavigate = () => {
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: createSearchParams({ tag: '1' }).toString()
     })
   }

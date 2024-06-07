@@ -21,7 +21,7 @@ export default function StoreActiveFiltering() {
     )
 
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   }

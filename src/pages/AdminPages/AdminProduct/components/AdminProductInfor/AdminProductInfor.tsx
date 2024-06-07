@@ -33,7 +33,7 @@ export default function AdminProductInfor() {
   //! GET CURRENT PRODUCT DETAIL
   const productId = currentProduct?.id
   const { data: productDetailData } = useQuery({
-    queryKey: ['admin_product_detail', productId],
+    queryKey: ['products', productId],
     queryFn: () => productApi.getProductDetail(productId as string),
     staleTime: 1000 * 60 * 5,
     enabled: Boolean(currentProduct)

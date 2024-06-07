@@ -36,7 +36,7 @@ export default function StoreSearchBar() {
             ['category', 'collection', 'type', 'page', 'limit']
           )
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: createSearchParams(config).toString()
     })
   })

@@ -58,7 +58,7 @@ export default function HomeFavouriteList() {
   const navigate = useNavigate()
   const handleNavigate = () => {
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: createSearchParams({
         tag: '3'
       }).toString()

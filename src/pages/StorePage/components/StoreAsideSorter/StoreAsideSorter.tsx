@@ -44,7 +44,7 @@ export default function StoreAsideSorter() {
     // console.log(event)
     if (tagIndex === 0) {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {
@@ -56,7 +56,7 @@ export default function StoreAsideSorter() {
       })
     } else {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {

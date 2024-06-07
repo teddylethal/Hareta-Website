@@ -37,7 +37,7 @@ export default function AuthRegisterPage() {
     const body = omit(data, ['confirm_password'])
     registerAccountMutation.mutate(body, {
       onSuccess: () => {
-        navigate(mainPath.requestVerify, { state: { ...pick(data, ['email']), error: '', from: path.register } })
+        navigate(mainPath.requestVerify, { state: { ...pick(data, ['email']), error: '', from: mainPath.register } })
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {

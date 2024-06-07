@@ -24,7 +24,7 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
 
   const [quantity, setQuantity] = useState<number>(purchase.quantity)
 
-  //? HANDLE QUANTITY
+  //! HANDLE QUANTITY
   const queryClient = useQueryClient()
   const updatePurchasesMutation = useMutation({
     mutationFn: purchaseApi.updatePurchases,
@@ -87,9 +87,25 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
         >
           {purchase.item.name}
         </p>
-        <span className='col-span-4 flex items-center justify-center text-xs'>
-          ${formatCurrency(purchase.item.price)}
-        </span>
+
+        <div className='col-span-4 flex flex-col text-xs mobileLarge:text-sm'>
+          <span
+            className={classNames('text-darkText dark:text-lightText', {
+              'line-through opacity-80': purchase.discount > 0
+            })}
+          >
+            ${formatCurrency(purchase.item.price)}
+          </span>
+          {purchase.discount > 0 && (
+            <div className='flex justify-center space-x-2'>
+              <span className='text-darkText dark:text-lightText'>
+                ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
+              </span>
+              <span className='text-darkText dark:text-lightText'>({purchase.discount}%)</span>
+            </div>
+          )}
+        </div>
+
         <button
           className='col-span-1 flex items-center bg-none p-1 text-darkText dark:text-lightText'
           onClick={handleRemove(index)}
@@ -97,6 +113,7 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
           <FontAwesomeIcon icon={faTrash} className='h-4 text-alertRed' />
         </button>
       </div>
+
       <div className='grid grid-cols-12 items-center'>
         <div className='col-span-1'></div>
         <div className='col-span-6'>
@@ -107,7 +124,7 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
             })}`}
             className='flex flex-grow items-center'
           >
-            <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden pt-[80%]'>
+            <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden rounded-2xl bg-white pt-[80%] dark:bg-black'>
               {purchase.item.avatar ? (
                 <img
                   alt={purchase.item.name}
@@ -123,6 +140,7 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
           </Link>
         </div>
       </div>
+
       <div className='mt-4 grid grid-cols-12'>
         <div className='col-span-1'></div>
         <div className='col-span-6'>
@@ -152,8 +170,8 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
           />
         </div>
 
-        <span className=' col-span-4 text-sm text-haretaColor'>
-          ${formatCurrency(purchase.item.price * purchase.quantity)}
+        <span className='col-span-4 text-sm font-semibold text-haretaColor mobileLarge:text-base'>
+          ${formatCurrency(purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100))}
         </span>
       </div>
     </div>

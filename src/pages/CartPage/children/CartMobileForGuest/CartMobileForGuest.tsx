@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
-import { ExtendedTemporaryPurchase } from '../CartForGuest/CartForGuest'
 import { formatCurrency } from 'src/utils/utils'
 import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 import CartMobileTempPurchaseCard from '../../components/CartMobileTempPurchaseCard'
 import { useTranslation } from 'react-i18next'
+import { ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
 
 interface Props {
   extendedTempPurchases: ExtendedTemporaryPurchase[]
@@ -30,8 +30,8 @@ export default function CartMobileForGuest(props: Props) {
   const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
   const checkedPurchasesCount = checkedPurchases.length
-  const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, current) => {
-    return result + current.item.price * current.quantity
+  const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, purchase) => {
+    return result + purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100)
   }, 0)
 
   //! Multi languagues
@@ -42,8 +42,8 @@ export default function CartMobileForGuest(props: Props) {
       <div className='relative'>
         <div className='grid grid-cols-12 rounded-md border border-black/20 bg-lightColor900 px-4 py-2 text-base font-medium uppercase text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText desktop:text-lg'>
           <div className='col-span-1'></div>
-          <div className='col-span-6 text-center'>{t('content.product')}</div>
-          <div className='col-span-4 text-center'>{t('content.unit price')}</div>
+          <div className='col-span-6 text-center'>{t('content.Product')}</div>
+          <div className='col-span-4 text-center'>{t('content.Unit price')}</div>
           <div className='col-span-1'></div>
         </div>
         <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightColor900 p-2 dark:border-white/20 dark:bg-darkColor900'>
@@ -94,16 +94,16 @@ export default function CartMobileForGuest(props: Props) {
           </div>
           {checkedPurchasesCount === 0 && (
             <div className='col-span-3 flex h-8 w-full cursor-not-allowed items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText opacity-40 tabletSmall:text-sm'>
-              {t('content.check out')}
+              {t('content.Order')}
             </div>
           )}
           {checkedPurchasesCount > 0 && (
             <Link
-              to={mainPath.orderInfor}
+              to={mainPath.order}
               onClick={handleCheckout}
               className='col-span-3 flex h-8 w-full items-center justify-center rounded-md border-none bg-haretaColor text-center text-xs font-medium uppercase text-darkText hover:bg-primaryColor tabletSmall:text-sm'
             >
-              {t('content.check out')}
+              {t('content.Order')}
             </Link>
           )}
         </div>

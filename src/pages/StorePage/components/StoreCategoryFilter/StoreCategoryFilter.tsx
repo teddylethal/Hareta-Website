@@ -60,7 +60,7 @@ export default function StoreCategoryFilter({ setMobileFilterOpen, isMobile = fa
 
     if (selectedCategory.toUpperCase() === t('aside filter.all').toUpperCase()) {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {
@@ -72,7 +72,7 @@ export default function StoreCategoryFilter({ setMobileFilterOpen, isMobile = fa
       })
     } else {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {

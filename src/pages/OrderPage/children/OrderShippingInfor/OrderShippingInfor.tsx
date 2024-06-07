@@ -29,6 +29,9 @@ export default function OrderShippingInfor() {
   //! Multi languages
   const { t } = useTranslation('order')
 
+  //! Styles
+  const labelClassname = 'uppercase text-darkText/60 dark:text-lightText/60 font-medium'
+
   return (
     <div className='w-full p-3 text-darkText dark:text-lightText desktopLarge:p-4 '>
       <div className='space-y-4'>
@@ -37,7 +40,7 @@ export default function OrderShippingInfor() {
         </p>
 
         <div className=''>
-          <p className='uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Name')}</p>
+          <p className={labelClassname}>{t('shipping information.Name')}</p>
           <div className='relative'>
             <Input
               inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
@@ -56,7 +59,7 @@ export default function OrderShippingInfor() {
           </div>
         </div>
         <div className=''>
-          <p className=' uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Phone')}</p>
+          <p className={labelClassname}>{t('shipping information.Phone')}</p>
           <div className='relative'>
             <Input
               inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
@@ -74,7 +77,7 @@ export default function OrderShippingInfor() {
           </div>
         </div>
         <div>
-          <p className='uppercase text-darkText/60 dark:text-lightText/60'>{t('shipping information.Email address')}</p>
+          <p className={labelClassname}>{t('shipping information.Email address')}</p>
           <div className='relative'>
             <Input
               inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
@@ -93,9 +96,7 @@ export default function OrderShippingInfor() {
         </div>
         <div className='py-8'>
           <div className=''>
-            <p className='uppercase text-darkText/60 dark:text-lightText/60'>
-              {t('shipping information.Delivery address')}
-            </p>
+            <p className={labelClassname}>{t('shipping information.Delivery address')}</p>
             <div className='relative'>
               <Input
                 inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'

@@ -8,15 +8,17 @@ import LoadingRing from 'src/components/LoadingRing'
 export default function HomeNewReleaseSlideShow() {
   //! GET ITEMS
   const itemsConfig: ProductListQueryConfig = {}
-  const { data: productListData, isLoading } = useQuery({
+  const { data: productListData } = useQuery({
     queryKey: ['default-products', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
     }
   })
   const productList = productListData?.data.data || []
-
-  const newReleaseProduct = productList[0]
+  let newReleaseProduct = null
+  if (productList.length > 0) {
+    newReleaseProduct = productList[0]
+  }
 
   //! Multi languages
   const { t } = useTranslation('home')
@@ -28,12 +30,12 @@ export default function HomeNewReleaseSlideShow() {
           {t('new release')}
         </p>
       </div>
-      {isLoading && (
+      {!newReleaseProduct && (
         <div className='flex h-40 items-center justify-center tablet:h-60 desktop:h-80'>
           <LoadingRing />
         </div>
       )}
-      {productListData && (
+      {newReleaseProduct && (
         <div className='relative mt-4 desktop:mt-6 desktopLarge:mt-8'>
           <HomeNewReleaseProductCard product={newReleaseProduct} />
         </div>

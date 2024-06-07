@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 import { formatCurrency } from 'src/utils/utils'
-import { ExtendedTemporaryPurchase } from '../CartForGuest/CartForGuest'
 import CartDesktopTempPurchaseCard from '../../components/CartDesktopTempPurchaseCard'
+import { ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
 
 interface Props {
   extendedTempPurchases: ExtendedTemporaryPurchase[]
@@ -30,31 +30,29 @@ export default function CartDesktopForGuest(props: Props) {
   const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
   const checkedPurchasesCount = checkedPurchases.length
-  const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, current) => {
-    return result + current.item.price * current.quantity
+  const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, purchase) => {
+    return result + purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100)
   }, 0)
 
   //! Multi languages
   const { t } = useTranslation('cart')
 
   return (
-    <div className=' mt-2 rounded-md border border-black/20 bg-lightColor900 dark:border-white/20 dark:bg-darkColor900'>
+    <div className=' mt-2 rounded-md border border-black/40 bg-lightColor900 dark:border-white/40 dark:bg-darkColor900'>
       <div className=''>
-        <div className='grid grid-cols-12 rounded-sm px-8 py-4 text-sm uppercase text-darkText  dark:text-lightText desktop:text-lg'>
-          <div className='col-span-6'>
-            <p className='flex-grow items-center justify-center text-center font-semibold'>{t('content.product')}</p>
+        <div className='grid grid-cols-8 rounded-sm px-8  py-4 text-base uppercase text-darkText  dark:text-lightText desktop:text-lg'>
+          <div className='col-span-3'>
+            <p className='line-clamp-1 flex-grow items-center justify-center truncate text-center font-medium text-darkText dark:text-lightText'>
+              {t('content.Product')}
+            </p>
           </div>
-
-          <div className='col-span-6'>
-            <div className='grid grid-cols-4 text-center font-semibold'>
-              <div className='col-span-1'>{t('content.unit price')}</div>
-              <div className='col-span-1'>{t('content.quantity')}</div>
-              <div className='col-span-1'>{t('content.subtotal')}</div>
-              <div className='col-span-1'>{t('content.action')}</div>
-            </div>
-          </div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Unit price')}</div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Discount')}</div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Quantity')}</div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Subtotal')}</div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Action')}</div>
         </div>
-        <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-lightColor700 shadow outline outline-1 outline-black/20 dark:bg-darkColor700 dark:outline-white/20'>
+        <div className='mx-4 my-2 h-[400px] overflow-y-auto rounded-md bg-lightColor700 shadow outline outline-1 outline-black/40 dark:bg-darkColor700 dark:outline-white/40'>
           {extendedTempPurchases.length > 0 ? (
             extendedTempPurchases?.map((purchase, index) => (
               <CartDesktopTempPurchaseCard
@@ -95,7 +93,7 @@ export default function CartDesktopForGuest(props: Props) {
                   className='ml-2 appearance-none text-darkText ring-0 dark:text-lightText'
                   onClick={handleSelectAll}
                 >
-                  {t('content.select all')}
+                  {t('content.Select all')}
                 </button>
               </Fragment>
             )}
@@ -117,16 +115,16 @@ export default function CartDesktopForGuest(props: Props) {
           </span>
           {checkedPurchasesCount === 0 && (
             <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 desktop:text-base'>
-              {t('content.check out')}
+              {t('content.Order')}
             </div>
           )}
           {checkedPurchasesCount > 0 && (
             <Link
-              to={mainPath.orderInfor}
+              to={mainPath.order}
               onClick={handleCheckout}
               className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor text-sm font-medium text-black hover:bg-primaryColor  desktop:text-base'
             >
-              {t('content.check out')}
+              {t('content.Order')}
             </Link>
           )}
         </div>

@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
-import mainPath from 'src/constants/path'
+import { NavLink, useNavigate } from 'react-router-dom'
+import mainPath, { orderPath } from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import { OrderSchema, OrderSchemaForGuest, orderSchema } from 'src/utils/rules'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -19,193 +19,109 @@ import purchaseApi from 'src/apis/cart.api'
 import OrderSuccessDialog from './components/OrderSuccessDialog'
 import OrderProcessingDialog from './components/OrderProcessingDialog'
 import OrderUnavailableDialog from './components/OrderUnavailableDialog'
-import OrderPageDesktop from './children/OrderPageDesktop'
-import OrderPageMobile from './children/OrderPageMobile'
+import OrderCheckoutDesktop from './children/OrderCheckoutDesktop'
+import OrderCheckoutMobile from './children/OrderCheckoutMobile'
+import classNames from 'classnames'
 
 export default function OrderPage() {
-  const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
-    useContext(OrderContext)
+  const { orderList, setOrderList, tempOrderList, setTempOrderList } = useContext(OrderContext)
   const { isAuthenticated } = useContext(AppContext)
   const { tempExtendedPurchases, setTempExtendedPurchases, setUnavailablePurchaseIds } = useContext(CartContext)
 
-  const [successDialog, setSuccesDialog] = useState(false)
-  const [processingDialog, setProcessingDialog] = useState<boolean>(false)
-  const [unavailableOrder, setUnavailableOrder] = useState<boolean>(false)
+  const discount = 0.2
 
-  const viewPort = useViewport()
-  const isMobile = viewPort.width <= 768
-
-  //! ORDER FORM
-  const idList = orderList.map((orderItem) => orderItem.id)
-  const methods = useForm<OrderSchema>({
-    defaultValues: {
-      // name: '',
-      // phone: '',
-      // email: '',
-      // address: '',
-      id: idList
-    },
-    resolver: yupResolver(orderSchema)
-  })
-  const { getValues, handleSubmit, setValue, clearErrors } = methods
-
-  //? ORDER FORM FOR GUEST
-  const itemList = tempOrderList.map((purchase) => ({ id: purchase.item.id, quantity: purchase.quantity }))
-
-  //? GET USER INFO
-  const { data: userData } = useQuery({
-    queryKey: ['profile'],
-    queryFn: userApi.getProfile,
-    staleTime: 1000 * 60 * 3,
-    enabled: isAuthenticated
-  })
-  const profile = userData?.data.data
-
-  //? HANDLE FILL USER INFO
-  useEffect(() => {
-    if (profile) {
-      setValue('name', profile.name || '')
-      setValue('phone', profile.phone || '')
-      setValue('email', profile.email || '')
-    }
-  }, [profile, setValue, clearErrors])
-
-  //? GET CART DATA AND HANDLE CONFILCT QUANTITY
-  const { data: cartData, refetch: refetchCartData } = useQuery({
-    queryKey: ['purchases'],
-    queryFn: () => purchaseApi.getPurchases(),
-
-    enabled: isAuthenticated
-  })
-  const cartItemList = cartData?.data.data || []
-  const purchaseList = cartItemList.filter((cartItem) => {
-    return idList.includes(cartItem.id)
-  })
-  const unavailablepurchases = purchaseList.filter((purchase) => {
-    return purchase.quantity > purchase.item.quantity
-  })
-
-  //! Placing order for user
-  const queryClient = useQueryClient()
-  const createOrderMutation = useMutation({ mutationFn: orderApi.createOrder })
-  const onPlaceOrder = handleSubmit(async (data) => {
-    setProcessingDialog(true)
-    //? fetch data from store to check if available quantity
-    refetchCartData()
-    if (unavailablepurchases.length > 0) {
-      setProcessingDialog(false)
-      setUnavailableOrder(true)
-      const unavailablePurchaseIds = unavailablepurchases.map((purchase) => purchase.id)
-      setUnavailablePurchaseIds(unavailablePurchaseIds)
-      return
-    }
-    try {
-      const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
-      await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
-      queryClient.invalidateQueries({ queryKey: ['purchases'] })
-      setProcessingDialog(false)
-      setSuccesDialog(true)
-    } catch (error) {
-      console.log(error)
-    }
-  })
-
-  //! Placing order for guest
-  const getProductDataMutation = useMutation({ mutationFn: productApi.getProductDetail })
-  const createOrderForGuestMutation = useMutation({ mutationFn: orderApi.createOrderWithouLogin })
-  const placeOrderWithoutLogin = handleSubmit(async (data) => {
-    //? fetch data to check quantity
-    const unavailableTempPurchases = itemList.filter((item) => {
-      getProductDataMutation.mutateAsync(item.id).then((productData) => {
-        return productData.data.data.quantity < item.quantity
-      })
-      return false
-    })
-    if (unavailableTempPurchases.length > 0) {
-      setProcessingDialog(false)
-      setUnavailableOrder(true)
-      const unavailableTempPurchaseIds = unavailableTempPurchases.map((purchase) => purchase.id)
-      setUnavailablePurchaseIds(unavailableTempPurchaseIds)
-      return
-    }
-
-    const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
-    const formData: OrderSchemaForGuest = {
-      name: data.name,
-      phone: data.phone,
-      email: data.email,
-      address: fullAddress,
-      item: itemList
-    }
-    try {
-      await createOrderForGuestMutation.mutateAsync(formData)
-      setProcessingDialog(false)
-      setSuccesDialog(true)
-    } catch (error) {
-      console.log(error)
-    }
-  })
-
-  //! Handle confirm
-  const navigate = useNavigate()
-
-  const userConfirm = () => {
-    setSuccesDialog(false)
-    setOrderList([])
-    setOrderListToLS([])
-    navigate(mainPath.cart)
-    setConfirmPayment(false)
-  }
-
-  const guestConfirm = () => {
-    const orderIdList = tempOrderList.map((tempOrderItem) => tempOrderItem.id)
-    setSuccesDialog(false)
-    setTempExtendedPurchases(tempExtendedPurchases.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
-    setTempOrderList([])
-    setTempOrderListToLS([])
-    navigate(mainPath.cart)
-    setConfirmPayment(false)
-  }
-
-  const handleConfirm = isAuthenticated ? userConfirm : guestConfirm
+  //! Handle bill
+  const totalPrice = orderList.reduce((sum, purchase) => {
+    return sum + purchase.quantity * purchase.item.price
+  }, 0)
+  const totalDiscount = orderList.reduce((val, purchase) => {
+    return val + purchase.quantity * purchase.item.price * (purchase.discount / 100)
+  }, 0)
+  const totalDiscountedPrice = orderList.reduce((val, purchase) => {
+    return val + purchase.quantity * purchase.item.price * ((100 - purchase.discount) / 100)
+  }, 0)
 
   //! Multi languages
   const { t } = useTranslation('order')
 
+  //! Styles
+  const titleStyle = 'text-center text-sm tablet:text-base font-bold uppercase desktop:text-lg'
+  const infoStyle = 'text-center text-sm tablet:text-base desktop:text-lg'
+
   return (
     <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
-      <div className='container'>
+      <div className='container space-y-6'>
         <PathBar
           pathList={[
             { pathName: t('path.Cart'), url: mainPath.cart },
             { pathName: t('path.Order'), url: mainPath.order }
           ]}
         />
-        <FormProvider {...methods}>
-          <form onSubmit={isAuthenticated ? onPlaceOrder : placeOrderWithoutLogin}>
-            {!isMobile && <OrderPageDesktop />}
 
-            {isMobile && <OrderPageMobile />}
-          </form>
-        </FormProvider>
+        <div className='space-y-6'>
+          <p className='text-center text-xl font-semibold uppercase tracking-wider text-haretaColor tablet:text-2xl desktop:text-4xl'>
+            {t('layout.Order')}
+          </p>
+
+          <div className='py-4'>
+            <div className='grid grid-cols-8 gap-2 desktop:gap-4'>
+              <div className={classNames('col-span-3', titleStyle)}>{t('bill.Product')}</div>
+              <div className={classNames('col-span-1', titleStyle)}>{t('bill.Unit price')}</div>
+              <div className={classNames('col-span-1', titleStyle)}>{t('bill.Quantity')}</div>
+              <div className={classNames('col-span-1', titleStyle)}>{t('bill.Subtotal')}</div>
+              <div className={classNames('col-span-1', titleStyle)}>{t('bill.Discount')}</div>
+              <div className={classNames('col-span-1', titleStyle)}>{t('bill.Discounted price')}</div>
+            </div>
+            {orderList.map((purchase, index) => (
+              <div key={purchase.id} className='grid grid-cols-8 gap-2 py-2 desktop:gap-4 desktop:py-4'>
+                <div className={classNames('col-span-3', infoStyle)}>{purchase.item.name}</div>
+                <div className={classNames('col-span-1', infoStyle)}>${purchase.item.price}</div>
+                <div className={classNames('col-span-1', infoStyle)}>{purchase.quantity}</div>
+                <div className={classNames('col-span-1', infoStyle)}>${purchase.quantity * purchase.item.price}</div>
+                <div className={classNames('col-span-1', infoStyle)}>{purchase.discount}%</div>
+                <div className={classNames('col-span-1 text-haretaColor', infoStyle)}>
+                  ${purchase.quantity * purchase.item.price * ((100 - purchase.discount) / 100)}
+                </div>
+
+                {index != orderList.length - 1 && (
+                  <div className='col-span-8 flex items-center justify-center py-2'>
+                    <div className='w-8/12 border-t border-dashed border-white/60 tablet:w-6/12 desktop:w-4/12' />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className='grid grid-cols-8 gap-2 tablet:text-lg desktop:gap-4 desktop:text-2xl'>
+            <div className={classNames('col-span-5 text-center')}>{t('bill.Total')}</div>
+
+            <div className={classNames('col-span-1 text-center')}>${totalPrice}</div>
+            <div className={classNames('col-span-1 text-center')}>${totalDiscount}</div>
+            <div className={classNames('col-span-1 text-center text-haretaColor')}>${totalDiscountedPrice}</div>
+          </div>
+
+          <div className='col-span-8 flex items-center justify-center py-2'>
+            <div className='w-10/12 border-t border-white/80 tablet:w-8/12 desktop:w-6/12'></div>
+          </div>
+
+          <div className='flex w-full justify-center'>
+            <div className='flex w-full justify-between tablet:w-8/12 desktop:w-1/2'>
+              <NavLink
+                to={mainPath.cart}
+                className='rounded-xl bg-unhoveringBg px-4 py-2 text-xs font-medium uppercase text-darkText hover:bg-hoveringBg tablet:text-sm desktop:text-base'
+              >
+                {t('bill.Back to cart')}
+              </NavLink>
+              <NavLink
+                to={orderPath.checkout}
+                className='rounded-xl bg-unhoveringBg px-4 py-2 text-xs font-medium uppercase text-darkText hover:bg-hoveringBg tablet:text-sm desktop:text-base'
+              >
+                {t('bill.Checkout')}
+              </NavLink>
+            </div>
+          </div>
+        </div>
       </div>
-
-      {/*  success dialog */}
-      <OrderSuccessDialog
-        handleConfirm={handleConfirm}
-        isOpen={successDialog}
-        handleClose={() => setSuccesDialog(false)}
-      />
-
-      {/*  Processing dialog */}
-      {processingDialog && <OrderProcessingDialog />}
-
-      {/*  Unavailable dialog */}
-      <OrderUnavailableDialog
-        handleConfirm={handleConfirm}
-        isOpen={unavailableOrder}
-        handleClose={() => setUnavailableOrder(false)}
-      />
     </div>
   )
 }

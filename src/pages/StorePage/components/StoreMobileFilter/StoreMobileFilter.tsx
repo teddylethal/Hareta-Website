@@ -41,7 +41,7 @@ export default function StoreMobileFilter({ queryConfig }: Props) {
     close()
 
     navigate({
-      pathname: path.store
+      pathname: mainPath.store
     })
   }
 

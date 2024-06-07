@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import mainPath from 'src/constants/path'
+import mainPath, { orderPath } from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
-import OrderDesktopLayout from '../OrderDesktopLayout'
-import OrderMobileLayout from '../OrderMobileLayout'
 import { OrderSchema, OrderSchemaForGuest, orderSchema } from 'src/utils/rules'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useContext, useEffect, useState } from 'react'
@@ -19,16 +17,19 @@ import { useTranslation } from 'react-i18next'
 import productApi from 'src/apis/product.api'
 import purchaseApi from 'src/apis/cart.api'
 import OrderSuccessDialog from '../../components/OrderSuccessDialog'
-import OrderUnavailableDialog from '../../components/OrderUnavailableDialog'
 import OrderProcessingDialog from '../../components/OrderProcessingDialog'
+import OrderUnavailableDialog from '../../components/OrderUnavailableDialog'
+import OrderCheckoutDesktop from '../OrderCheckoutDesktop'
+import OrderCheckoutMobile from '../OrderCheckoutMobile'
 
-export default function OrderLayout() {
+export default function OrderCheckout() {
   const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
     useContext(OrderContext)
   const { isAuthenticated } = useContext(AppContext)
   const { tempExtendedPurchases, setTempExtendedPurchases, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [successDialog, setSuccesDialog] = useState(false)
+  const [orderId, setOrderId] = useState<string>('')
   const [processingDialog, setProcessingDialog] = useState<boolean>(false)
   const [unavailableOrder, setUnavailableOrder] = useState<boolean>(false)
 
@@ -70,7 +71,7 @@ export default function OrderLayout() {
     }
   }, [profile, setValue, clearErrors])
 
-  //? GET CART DATA AND HANDLE CONFILCT QUANTITY
+  //! GET CART DATA AND HANDLE CONFILCT QUANTITY
   const { data: cartData, refetch: refetchCartData } = useQuery({
     queryKey: ['purchases'],
     queryFn: () => purchaseApi.getPurchases(),
@@ -101,7 +102,8 @@ export default function OrderLayout() {
     }
     try {
       const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
-      await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
+      const orderResponse = await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
+      setOrderId(orderResponse.data.data.id)
       queryClient.invalidateQueries({ queryKey: ['purchases'] })
       setProcessingDialog(false)
       setSuccesDialog(true)
@@ -178,14 +180,15 @@ export default function OrderLayout() {
         <PathBar
           pathList={[
             { pathName: t('path.Cart'), url: mainPath.cart },
-            { pathName: t('path.Order'), url: mainPath.order }
+            { pathName: t('path.Order'), url: orderPath.order },
+            { pathName: t('path.Checkout'), url: orderPath.checkout }
           ]}
         />
         <FormProvider {...methods}>
           <form onSubmit={isAuthenticated ? onPlaceOrder : placeOrderWithoutLogin}>
-            {!isMobile && <OrderDesktopLayout />}
+            {!isMobile && <OrderCheckoutDesktop />}
 
-            {isMobile && <OrderMobileLayout />}
+            {isMobile && <OrderCheckoutMobile />}
           </form>
         </FormProvider>
       </div>
@@ -195,6 +198,7 @@ export default function OrderLayout() {
         handleConfirm={handleConfirm}
         isOpen={successDialog}
         handleClose={() => setSuccesDialog(false)}
+        orderId={orderId}
       />
 
       {/*  Processing dialog */}

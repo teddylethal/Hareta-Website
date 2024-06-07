@@ -19,7 +19,7 @@ export default function StoreAsideFilter({ queryConfig }: Props) {
 
   const handleClear = () => {
     navigate({
-      pathname: path.store
+      pathname: mainPath.store
     })
   }
 

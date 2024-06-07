@@ -92,7 +92,7 @@ export default function AdminProductCreate() {
     <div className='space-y-4'>
       <AdminProductCreateHeader />
 
-      <AdminSelectProductGroup />
+      <AdminSelectProductGroup largeScreen />
 
       <div className='rounded-lg border border-white/40 p-4'>
         <FormProvider {...methods}>
