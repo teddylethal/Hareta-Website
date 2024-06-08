@@ -23,6 +23,8 @@ export default function EventProductCard({ product, discount }: Props) {
     queryClient.invalidateQueries({ queryKey: ['wishlist'] })
   }
 
+  const totalDiscount = product.discount > 0 ? (product.discount * discount) / 100 : discount
+
   return (
     <button onClick={handleClickItem} className='group flex w-full items-center justify-center duration-200'>
       <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-200 dark:bg-productDarkBg'>
@@ -38,8 +40,9 @@ export default function EventProductCard({ product, discount }: Props) {
           </div>
         </div>
         <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 tabletSmall:px-3 desktop:px-4 desktop:pt-4'>
-          <p className='h-full justify-center overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 group-hover:text-primaryColor dark:text-lightText dark:group-hover:text-primaryColor tabletSmall:text-base desktop:text-lg'>
-            {product.name}
+          <p className='flex h-full justify-center space-x-2 overflow-hidden truncate text-center text-sm font-semibold uppercase text-darkText duration-200 group-hover:text-primaryColor dark:text-lightText dark:group-hover:text-primaryColor tabletSmall:text-base desktop:text-lg'>
+            <span className=''>{product.name}</span>
+            <span className='font-normal opacity-60'>({product.color})</span>
           </p>
 
           <div className='flex space-x-2'>
@@ -47,7 +50,7 @@ export default function EventProductCard({ product, discount }: Props) {
               ${formatCurrency(product.price)}
             </span>
             <span className='text-xs font-semibold text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
-              ${formatCurrency(product.price - (product.price * discount) / 100)}
+              ${formatCurrency(product.price - (product.price * totalDiscount) / 100)}
             </span>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Fragment, useContext, useState } from 'react'
-import { Product } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import { formatCurrency } from 'src/utils/utils'
 import classNames from 'classnames'
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -14,10 +14,11 @@ import { useTranslation } from 'react-i18next'
 import ProductMobileAddTocartPopover from '../../components/ProductMobileAddTocartPopover'
 import ProductDetailVariantList from '../../components/ProductDetailVariantList'
 import ProductDetailDescription from '../../components/ProductDetailDescription/ProductDetailDescription'
+import ProductTag from 'src/components/ProductTag'
 
 interface Props {
-  defaultProduct: Product
-  productsInGroup: Product[]
+  defaultProduct: ProductType
+  productsInGroup: ProductType[]
   isLikedByUser: boolean
   addToCart: (itemID: string, quantity: number) => void
   toggleLikeProduct: () => void
@@ -30,12 +31,12 @@ export default function ProductDetailMobile(props: Props) {
 
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
-  const [activeProduct, setActiveProduct] = useState<Product>(defaultProduct)
+  const [activeProduct, setActiveProduct] = useState<ProductType>(defaultProduct)
 
   //! CHOOSE VARIANT
-  const handleChooseVariant = (item: Product) => () => {
+  const handleChooseVariant = (product: ProductType) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    setActiveProduct(item)
+    setActiveProduct(product)
   }
 
   //! ADD TO CART
@@ -71,16 +72,7 @@ export default function ProductDetailMobile(props: Props) {
               )}
             </div>
 
-            {defaultProduct.tag !== 0 && (
-              <div className='relative mt-2'>
-                <span className='flex h-6 w-20 items-center justify-center bg-tagColor text-center text-sm text-darkText'>
-                  {tag == 1 && t('tag.top seller')}
-                  {tag == 2 && t('tag.signature')}
-                  {tag == 3 && t('tag.favourite')}
-                </span>
-                <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent' />
-              </div>
-            )}
+            {defaultProduct.tag !== 0 && <ProductTag tag={tag} />}
 
             <ProductDetailVariantList
               defaultProduct={defaultProduct}

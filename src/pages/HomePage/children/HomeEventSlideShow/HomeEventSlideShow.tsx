@@ -5,7 +5,6 @@ import { EventListConfig } from 'src/types/event.type'
 import { useQuery } from '@tanstack/react-query'
 import useEventListQueryConfig from 'src/hooks/useEventListQueryConfig'
 import eventApi from 'src/apis/event.api'
-import { Fragment } from 'react'
 import LoadingSection from 'src/components/LoadingSection'
 
 const responsiveSettings = [
@@ -42,7 +41,7 @@ export default function HomeEventSlideShow() {
 
   if (eventsData?.data.data.length == 0) return
   return (
-    <Fragment>
+    <div className='w-full space-y-8'>
       {!eventsData && <LoadingSection className='flex h-[50vh] items-center justify-center desktop:h-[75vh]' />}
       {eventsData && (
         <CustomSlideShow responsive={responsiveSettings} duration={5000}>
@@ -56,6 +55,6 @@ export default function HomeEventSlideShow() {
       <div className='flex w-full items-center justify-center'>
         <div className='w-full border-t border-black/80 dark:border-white/80 tablet:w-8/12 desktop:w-1/2' />
       </div>
-    </Fragment>
+    </div>
   )
 }

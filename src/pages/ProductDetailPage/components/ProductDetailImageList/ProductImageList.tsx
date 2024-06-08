@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import producImageApi from 'src/apis/productImage.api'
-import { Product } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import { ProductImageWithIndex } from '../../ProductDetailPage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -12,12 +12,12 @@ import {
   faTriangleExclamation
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames'
-import { ColorRing } from 'react-loader-spinner'
 import { Skeleton } from '@mui/material'
+import LoadingRing from 'src/components/LoadingRing'
 
 interface Props {
   productID: string
-  product: Product
+  product: ProductType
 }
 
 export default function ProductDetailImageList(props: Props) {
@@ -29,7 +29,7 @@ export default function ProductDetailImageList(props: Props) {
     isLoading,
     isFetching
   } = useQuery({
-    queryKey: ['product_images', productID],
+    queryKey: ['products', 'images', productID],
     queryFn: () => producImageApi.getImageList(productID as string)
   })
 
@@ -118,15 +118,7 @@ export default function ProductDetailImageList(props: Props) {
     <div className='relative w-full overflow-auto rounded-xl bg-lightColor700 pt-[75%] dark:bg-darkColor700'>
       {(isLoading || isFetching) && (
         <div className='absolute inset-0 z-10 flex h-full w-full items-center justify-center rounded-lg bg-black/50'>
-          <ColorRing
-            visible={true}
-            height='80'
-            width='80'
-            ariaLabel='blocks-loading'
-            wrapperStyle={{}}
-            wrapperClass='blocks-wrapper'
-            colors={['#ff6600', '#ff6600', '#ff6600', '#ff6600', '#ff6600']}
-          />
+          <LoadingRing />
         </div>
       )}
       {!isLoading &&
@@ -187,7 +179,7 @@ export default function ProductDetailImageList(props: Props) {
           <Fragment>
             {imagesWithIndex.length > 5 && currentIndexImages[0] !== 0 && (
               <button
-                className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 bg-black/20 text-lightText'
+                className='absolute left-0 top-1/2 z-10 w-8 -translate-y-1/2 overflow-hidden bg-black/20 text-lightText'
                 onClick={previousImageList}
               >
                 <FontAwesomeIcon icon={faChevronLeft} className='h-8' />
@@ -198,7 +190,7 @@ export default function ProductDetailImageList(props: Props) {
               return (
                 <button
                   onClick={handleChoosingImage(image)}
-                  className='rouded-lg relative w-[20%] overflow-hidden pt-[20%]'
+                  className='relative w-[20%] overflow-hidden rounded-lg pt-[20%]'
                   key={index}
                 >
                   <img
@@ -206,7 +198,7 @@ export default function ProductDetailImageList(props: Props) {
                     alt={product.name}
                     className='absolute left-0 top-0 h-full w-full object-scale-down'
                   />
-                  {isActive && <div className='absolute inset-0 rounded-lg border-2 border-haretaColor' />}
+                  {isActive && <div className='absolute inset-0 rounded-lg border-2 border-primaryColor' />}
                 </button>
               )
             })}

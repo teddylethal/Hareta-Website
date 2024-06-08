@@ -12,7 +12,7 @@ const useEventList = (queryConfig: EventListQueryConfig) => {
 
 const useEventListForAdmin = (queryConfig: EventListQueryConfig) => {
   return useQuery({
-    queryKey: ['events'],
+    queryKey: ['events', 'admin'],
     queryFn: () => eventApi.listEventForAdmin(queryConfig),
     staleTime: 1000 * 60 * 5
   })

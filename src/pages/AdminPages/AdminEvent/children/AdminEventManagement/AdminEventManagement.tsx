@@ -1,28 +1,23 @@
-import { useQuery } from '@tanstack/react-query'
 import { ceil } from 'lodash'
-import React, { Fragment, useEffect } from 'react'
-import eventApi from 'src/apis/event.api'
+import { Fragment } from 'react'
 import LoadingSection from 'src/components/LoadingSection'
 import UsePagination from 'src/components/UsePagination'
 import useEventListQueryConfig, { EVENT_LIMIT } from 'src/hooks/useEventListQueryConfig'
-import { EventListConfig } from 'src/types/event.type'
 import AdminEventCard from '../../components/AdminEventCard'
 import { useViewport } from 'src/hooks/useViewport'
+import { eventQuery } from 'src/hooks/queries/useEventQuery'
 
 export default function AdminEventManagement() {
   const isMobile = useViewport().width < 768
 
   //! Get event list
   const eventListQueryConfig = useEventListQueryConfig()
-  const { data: eventsData, isFetching } = useQuery({
-    queryKey: ['events'],
-    queryFn: () => eventApi.getEventList(eventListQueryConfig as EventListConfig)
-  })
+  const { data: eventsData } = eventQuery.useEventListForAdmin(eventListQueryConfig)
 
   return (
     <div className='space-y-4'>
       <div className='w-full'>
-        {isFetching && <LoadingSection />}
+        {!eventsData && <LoadingSection />}
         {eventsData && (
           <Fragment>
             <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-3 desktop:gap-4'>

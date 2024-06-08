@@ -12,11 +12,11 @@ import { ProductType } from 'src/types/product.type'
 import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 
-import DialogPopup from 'src/components/DialogPopup'
 import { useTranslation } from 'react-i18next'
 import ProductDetailImageList from '../../components/ProductDetailImageList'
 import ProductDetailVariantList from '../../components/ProductDetailVariantList'
 import ProductTag from 'src/components/ProductTag'
+import CustomReachDialog from 'src/components/CustomReachDialog'
 
 interface Props {
   defaultProduct: ProductType
@@ -32,7 +32,7 @@ export default function ProductDetailDesktop(props: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
   const { tempExtendedPurchases, setTempExtendedPurchases } = useContext(CartContext)
 
-  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
+  const [successDialog, setSuccessDialog] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
   const [activeProduct, setActiveProduct] = useState<ProductType>(defaultProduct)
 
@@ -66,7 +66,7 @@ export default function ProductDetailDesktop(props: Props) {
     setTempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     setCreateTempCart(false)
     setQuantity(1)
-    showSuccessDialog(setDialogIsOpen)
+    showSuccessDialog(setSuccessDialog)
   }
 
   const addToTemporaryCart = () => {
@@ -96,7 +96,7 @@ export default function ProductDetailDesktop(props: Props) {
     } else {
       setTempExtendedPurchases([...tempExtendedPurchases, newPurchase])
     }
-    showSuccessDialog(setDialogIsOpen)
+    showSuccessDialog(setSuccessDialog, 1500)
   }
   const tag = defaultProduct.tag
 
@@ -109,7 +109,7 @@ export default function ProductDetailDesktop(props: Props) {
   return (
     <div className='relative grid grid-cols-12 gap-4 desktop:gap-8 desktopLarge:gap-16'>
       <div className='col-span-4'>
-        <div className='sticky left-0 top-14 flex-col rounded-xl bg-lightColor700 p-2 text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-20 desktop:p-4 desktopLarge:p-6'>
+        <div className='sticky left-0 top-14 z-10 flex-col rounded-xl bg-lightColor700 p-2 text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-20 desktop:p-4 desktopLarge:p-6'>
           <div className='relative flex items-center justify-between'>
             <p className='line-clamp-1 text-xl font-semibold desktop:text-2xl desktopLarge:text-3xl'>
               {defaultProduct.name}
@@ -147,7 +147,7 @@ export default function ProductDetailDesktop(props: Props) {
 
           {inStock && (
             <div className='w-full'>
-              <div className='mt-6 items-center justify-between text-xs desktop:flex desktop:space-x-2 desktop:text-sm desktopLarge:text-base'>
+              <div className='mt-6 items-center justify-between text-xs desktop:flex desktop:space-x-2 desktop:text-sm'>
                 <div className='flex items-center space-x-2'>
                   <p className='text-darkText dark:text-lightText'>{t('sidebar.quantity')}:</p>
                   <QuantityController
@@ -206,7 +206,7 @@ export default function ProductDetailDesktop(props: Props) {
       </div>
 
       {/* //? CREATE TEMP CART DIALOG */}
-      <DialogPopup
+      <CustomReachDialog
         closeButton={false}
         isOpen={createTempCart}
         handleClose={() => setCreateTempCart(false)}
@@ -244,15 +244,16 @@ export default function ProductDetailDesktop(props: Props) {
             {t('message.Continue')}
           </button>
         </div>
-      </DialogPopup>
+      </CustomReachDialog>
 
       {/* //? SUCCESS DIALOG */}
-      <DialogPopup
-        isOpen={dialogIsOpen}
-        handleClose={() => setDialogIsOpen(false)}
+      <CustomReachDialog
+        isOpen={successDialog}
+        handleClose={() => setSuccessDialog(false)}
+        closeButton
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
-        <div className=' text-center'>
+        <div className='text-center'>
           <FontAwesomeIcon
             icon={faCheck}
             fontSize={36}
@@ -263,10 +264,10 @@ export default function ProductDetailDesktop(props: Props) {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to cart')}</p>
-      </DialogPopup>
+      </CustomReachDialog>
 
       {/* //? ERROR DIALOG */}
-      <DialogPopup
+      <CustomReachDialog
         isOpen={errorDialog}
         handleClose={() => setErrorDialog(false)}
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
@@ -280,7 +281,7 @@ export default function ProductDetailDesktop(props: Props) {
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           {t('message.The quantity of the current item you are trying to add exceed our store')}
         </p>
-      </DialogPopup>
+      </CustomReachDialog>
     </div>
   )
 }
