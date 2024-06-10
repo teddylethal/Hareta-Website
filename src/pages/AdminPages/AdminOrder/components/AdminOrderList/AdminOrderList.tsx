@@ -11,12 +11,16 @@ export default function AdminOrderList({ orderList }: Props) {
 
   //! Style
   const wrapperClassname = 'grid grid-cols-3 gap-2'
-  const labelClassname = 'col-span-1 text-right uppercase'
-  const contentClassname = 'col-span-2 font-semibold'
+  const labelClassname = 'col-span-1 capitalize'
+  const contentClassname = 'col-span-2 font-semibold truncate'
 
   return (
     <div>
-      {orderList.length == 0 && <div className='h-80'></div>}
+      {orderList.length == 0 && (
+        <div className='flex h-80 items-center justify-center text-xl font-semibold uppercase text-alertRed'>
+          Không có đơn hàng nào
+        </div>
+      )}
       {orderList.length > 0 &&
         orderList.map((order) => (
           <div
@@ -44,7 +48,7 @@ export default function AdminOrderList({ orderList }: Props) {
                 </div>
                 <div className={wrapperClassname}>
                   <div className={labelClassname}>email:</div>
-                  <div className='col-span-2 font-semibold text-haretaColor'>{order.email}</div>
+                  <div className='col-span-2 truncate font-semibold text-haretaColor'>{order.email}</div>
                 </div>
                 <div className={wrapperClassname}>
                   <div className={labelClassname}>SĐT:</div>

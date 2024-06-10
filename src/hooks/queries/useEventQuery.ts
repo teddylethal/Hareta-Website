@@ -4,7 +4,7 @@ import { EventListQueryConfig } from '../useEventListQueryConfig'
 
 const useEventList = (queryConfig: EventListQueryConfig) => {
   return useQuery({
-    queryKey: ['events'],
+    queryKey: ['events', queryConfig],
     queryFn: () => eventApi.getEventList(queryConfig),
     staleTime: 1000 * 60 * 5
   })

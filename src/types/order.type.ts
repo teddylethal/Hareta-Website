@@ -19,7 +19,9 @@ export interface OrderPurchaseListConfig {
   limit: number | string
 }
 
-export interface OrderConfig {
-  page: string
-  limit: string
+export interface OrderListConfig {
+  status?: number | string
+  email?: string
+  page?: number | string
+  limit?: number | string
 }

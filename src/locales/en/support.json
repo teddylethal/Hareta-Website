@@ -22,7 +22,11 @@
     "order": "order",
     "day created": "created",
     "state": "state",
-    "order id": "Order ID:"
+    "Order id": "Order ID:",
+    "Address": "Address:",
+    "Email": "Email:",
+    "Customer": "Customer:",
+    "product": "product"
   },
   "order information": {
     "order information": "Order information",
