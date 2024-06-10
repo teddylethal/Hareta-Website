@@ -9,10 +9,9 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 
 interface Props {
   product: ProductType
-  discount: number
 }
 
-export default function EventProductCard({ product, discount }: Props) {
+export default function EventProductCard({ product }: Props) {
   const avatarUrl = product.avatar ? product.avatar.url : null
 
   //! HANDLE ENTER ITEM
@@ -22,8 +21,6 @@ export default function EventProductCard({ product, discount }: Props) {
     navigate({ pathname: `${mainPath.store}/${generateNameId({ name: product.name, id: product.id })}` })
     queryClient.invalidateQueries({ queryKey: ['wishlist'] })
   }
-
-  const totalDiscount = product.discount > 0 ? (product.discount * discount) / 100 : discount
 
   return (
     <button onClick={handleClickItem} className='group flex w-full items-center justify-center duration-200'>
@@ -47,10 +44,10 @@ export default function EventProductCard({ product, discount }: Props) {
 
           <div className='flex space-x-2'>
             <span className='text-xs font-semibold line-through opacity-60 tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
-              ${formatCurrency(product.price)}
+              ${formatCurrency(product.original_price)}
             </span>
             <span className='text-xs font-semibold text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
-              ${formatCurrency(product.price - (product.price * totalDiscount) / 100)}
+              ${formatCurrency(product.price)}
             </span>
           </div>
         </div>

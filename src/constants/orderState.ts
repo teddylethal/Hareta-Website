@@ -1,9 +1,11 @@
-enum orderState {
-  AwaitingPayment = 0,
-  PreparingPackage = 1,
-  Delivering = 2,
-  Delivered = 3,
-  Received = 4
-}
+import { t } from 'i18next'
 
-export default orderState
+const OrderState = [
+  t('state.Awaiting Payment', { ns: 'order' }),
+  t('state.Preparing Package', { ns: 'order' }),
+  t('state.Delivering', { ns: 'order' }),
+  t('state.Delivered', { ns: 'order' }),
+  t('state.Received', { ns: 'order' })
+]
+
+export default OrderState

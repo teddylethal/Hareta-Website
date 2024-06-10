@@ -14,7 +14,13 @@ interface Props {
   closeButton?: boolean
 }
 
-export default function CustomReachDialog({ isOpen, handleClose, classNameWrapper, children, closeButton }: Props) {
+export default function CustomReachDialog({
+  isOpen,
+  handleClose,
+  classNameWrapper = 'min-w-80 relative max-w-md transform overflow-hidden rounded-2xl p-10 align-middle shadow-xl transition-all',
+  children,
+  closeButton
+}: Props) {
   const { theme } = useContext(AppContext)
 
   const completeButtonRef = useRef(null)

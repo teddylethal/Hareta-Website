@@ -1,41 +1,37 @@
 import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
-import mainPath, { orderPath } from 'src/constants/path'
-import { OrderContext } from 'src/contexts/order.context'
+import mainPath, { orderPath, orderTrackingPath } from 'src/constants/path'
 import MainLayout from 'src/layouts/MainLayout'
+import OrderTrackingPage from 'src/pages/OrderTrackingPage'
+import OrderTrackingOrderDetail from 'src/pages/OrderTrackingPage/children/OrderTrackingOrderDetail'
 
 const OrderPage = lazy(() => import('src/pages/OrderPage'))
 const OrderCheckout = lazy(() => import('src/pages/OrderPage/children/OrderCheckout'))
 
-function OrderRouteWrapper() {
-  const { orderList, tempOrderList } = useContext(OrderContext)
-  const accpeted = orderList.length > 0 || tempOrderList.length > 0
-
-  return accpeted ? (
+function OrderTrackingRouteWrapper() {
+  return (
     <MainLayout>
       <Suspense fallback={<LoadingWithEmptyContent />}>
         <Outlet />
       </Suspense>
     </MainLayout>
-  ) : (
-    <Navigate to={mainPath.home} />
   )
 }
 
-const OrderRoute: RouteObject = {
+const OrderTrackingRoute: RouteObject = {
   path: '',
-  element: <OrderRouteWrapper />,
+  element: <OrderTrackingRouteWrapper />,
   children: [
     {
       path: '',
-      element: <OrderPage />
+      element: <OrderTrackingPage />
     },
     {
-      path: orderPath.checkout,
-      element: <OrderCheckout />
+      path: orderTrackingPath.orderDetail,
+      element: <OrderTrackingOrderDetail />
     }
   ]
 }
 
-export default OrderRoute
+export default OrderTrackingRoute

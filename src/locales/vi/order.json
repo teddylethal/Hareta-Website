@@ -82,5 +82,12 @@
     "adjust the quantity.": "và điều chỉnh lại.",
     "Sincerely apologies for this accident!": "Chúng tôi chân thành xin lỗi!",
     "Return to cart": "Trở lại giỏ hàng"
+  },
+  "state": {
+    "Awaiting Payment": "Chờ thanh toán",
+    "Preparing Package": "Đang chuẩn bị hàng",
+    "Delivering": "Đang giao hàng",
+    "Delivered": "Đã giao hàng",
+    "Received": "Đã nhận"
   }
 }

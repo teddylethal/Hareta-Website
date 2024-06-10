@@ -96,7 +96,7 @@ export default function AdminEventDetail() {
               </button>
             )}
           </div>
-          {!isUpdating && !isAddingProduct && <AdminEventInfo eventDetail={eventDetail} />}
+          {!isUpdating && <AdminEventInfo eventDetail={eventDetail} />}
           {!isUpdating && (
             <div className='space-y-4'>
               <div className='flex items-center justify-around'>

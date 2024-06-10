@@ -11,6 +11,7 @@ import mainPath from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
 import OrderTrackingSearchInput from '../OrderTrackingSearchInput'
+import { reject } from 'lodash'
 
 const orderSchema = yup.object({
   orderId: yup.string().trim().required('ID is required')
@@ -39,7 +40,7 @@ export default function OrderTrackingSearchOrder({ setFinding, setCantFind }: Pr
     resolver: yupResolver(orderSchema)
   })
   const findOrderMutation = useMutation({
-    mutationFn: isAuthenticated ? orderApi.getOrderById : orderApi.getOrderOfGuestById
+    mutationFn: isAuthenticated ? orderApi.findOrderForUser : orderApi.findOrderForGuest
   })
   const navigate = useNavigate()
   const handleSearch = handleSubmit((data) => {
@@ -57,14 +58,15 @@ export default function OrderTrackingSearchOrder({ setFinding, setCantFind }: Pr
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
           if (formError) {
-            const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError.error_key)
-            if (errorRespone?.error_key == 'ErrInvalidRequest') {
+            const errorMessage = HttpStatusMessage.get(formError.error_key)
+            if (errorMessage == 'ErrInvalidRequest') {
               setError('orderId', {
-                message: errorRespone.error_message,
+                message: 'Order ID is invalid',
                 type: 'Server'
               })
+              reject(error)
             }
-            if (errorRespone?.error_key == 'ErrCannotGetOrder') {
+            if (errorMessage == 'ErrCannotGetOrder') {
               setCantFind(true)
             }
           }

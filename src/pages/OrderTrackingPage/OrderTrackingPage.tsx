@@ -15,18 +15,13 @@ import OrderTrackingForUser from './children/OrderTrackingForUser'
 import LoadingRing from 'src/components/LoadingRing'
 import OrderTrackingSearchOrder from './components/OrderTrackingSearchOrder/OrderTrackingSearchOrder'
 
-export interface OrderConfig {
-  page: string
-  limit: string
-}
-
 export default function OrderTrackingPage() {
   const { isAuthenticated, theme } = useContext(AppContext)
   const [finding, setFinding] = useState<boolean>(false)
   const [cantFind, setCantFind] = useState<boolean>(false)
 
   //! Multi languages
-  const { t } = useTranslation(['support'])
+  const { t } = useTranslation('support')
 
   //? Responsive
   const isMobile = useViewport().width < 768
@@ -36,7 +31,6 @@ export default function OrderTrackingPage() {
       <div className='container'>
         <PathBar
           pathList={[
-            { pathName: t('path.home'), url: '/' },
             { pathName: isMobile ? t('path.order tracking--mobile') : t('path.order tracking'), url: '/order-tracking' }
           ]}
         />

@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@tanstack/react-query'
 import { Fragment, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ColorRing } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import { orderApi } from 'src/apis/order.api'
+import LoadingRing from 'src/components/LoadingRing'
 import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useViewport } from 'src/hooks/useViewport'
-import { ItemOrderConfig, Order } from 'src/types/order.type'
+import { OrderPurchaseListConfig, Order } from 'src/types/order.type'
 import { formatDate, generateNameId } from 'src/utils/utils'
 
 interface Props {
@@ -27,15 +27,15 @@ export default function OrderTrackingOrderItem({ order }: Props) {
   const { t } = useTranslation('support')
 
   //? get items of order
-  const itemOrderConfig: ItemOrderConfig = {
+  const orderPurchaseListConfig: OrderPurchaseListConfig = {
     order_id: order.id,
     page: 1,
     limit: 4
   }
   const { data: purchasesData, isFetching } = useQuery({
-    queryKey: ['purchases_of_order', itemOrderConfig],
+    queryKey: ['orders', 'purchases'],
     queryFn: () => {
-      return orderApi.getItemListOfOrder(itemOrderConfig)
+      return orderApi.getPurchaseListOfOrder(orderPurchaseListConfig)
     },
 
     enabled: isAuthenticated,
@@ -58,15 +58,7 @@ export default function OrderTrackingOrderItem({ order }: Props) {
     <Fragment>
       {(!purchasesData || isFetching) && (
         <div className='flex w-full items-center justify-center py-1 tablet:py-2 desktopLarge:py-4'>
-          <ColorRing
-            visible={true}
-            height='80'
-            width='80'
-            ariaLabel='blocks-loading'
-            wrapperStyle={{}}
-            wrapperClass='blocks-wrapper'
-            colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
-          />
+          <LoadingRing />
         </div>
       )}
       {purchasesData && (

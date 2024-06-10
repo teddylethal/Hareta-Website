@@ -9,6 +9,6 @@ export const HttpStatusMessage = new Map([
   ['ErrPasswordRecoveryNotFound', 'Invalid Link'],
   ['ErrLinkHasBeenExpired', 'Link has been expired'],
   ['ErrQuantityExceed', 'The quantity you are trying to add exceed our store'],
-  ['ErrInvalidRequest', 'Order ID is invalid'],
-  ['ErrCannotGetOrder', 'Cannot find your order']
+  ['ErrInvalidRequest', 'ErrInvalidRequest'],
+  ['ErrCannotGetOrder', 'ErrCannotGetOrder']
 ])

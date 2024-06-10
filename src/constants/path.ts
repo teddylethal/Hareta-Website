@@ -17,10 +17,7 @@ const mainPath = {
   AuthPasswordRecoveryRequestEmail: '/password-recovery',
   AuthPasswordRecovery: '/password-recovery/:slug',
   order: '/order',
-  shippingInfor: '/order/shipping-information',
-  payment: '/order/payment',
   orderTracking: '/order-tracking',
-  orderInformation: '/order-tracking/:orderId',
   privacyAndTerms: '/privacy-and-terms'
 } as const
 export default mainPath
@@ -86,6 +83,11 @@ export const blogPath = {
 export const orderPath = {
   order: '/order',
   checkout: '/order/checkout'
+}
+
+export const orderTrackingPath = {
+  orderTracking: '/order-tracking',
+  orderDetail: '/order-tracking/:orderId'
 }
 
 export const eventPath = {

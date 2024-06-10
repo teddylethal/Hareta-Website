@@ -1,55 +1,68 @@
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useParams } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { formatDate, getIdFromNameId } from 'src/utils/utils'
-import { ItemOrderConfig } from 'src/types/order.type'
+import { formatDate, formatDateEn, formatDateVi, getIdFromNameId } from 'src/utils/utils'
 import { orderApi } from 'src/apis/order.api'
 import { useQuery } from '@tanstack/react-query'
 import OrderTrackingDekstopPurchase from '../../components/OrderTrackingDekstopPurchase'
 import { useViewport } from 'src/hooks/useViewport'
 import OrderTrackingMobilePurchase from '../../components/OrderTrackingMobilePurchase'
-import { ColorRing } from 'react-loader-spinner'
+import { OrderPurchaseListConfig } from 'src/types/order.type'
+import LoadingRing from 'src/components/LoadingRing'
+import { AppContext } from 'src/contexts/app.context'
+import i18next from 'i18next'
+import OrderState from 'src/constants/orderState'
 
-export default function OrderTrackingItemInformation() {
+export default function OrderTrackingOrderDetail() {
+  const { isAuthenticated } = useContext(AppContext)
+
   const isMobile = useViewport().width < 768
 
   //! Get order id
-  const { orderId } = useParams()
-  const id = getIdFromNameId(orderId as string)
+  const { orderId: paramOrderId } = useParams()
+  const orderId = getIdFromNameId(paramOrderId as string)
 
   //! Get order information
   const { data: orderData, isLoading: loadingOrderData } = useQuery({
-    queryKey: ['order_information', id],
+    queryKey: ['orders', orderId],
     queryFn: () => {
-      return orderApi.getOrderById(id)
+      return isAuthenticated ? orderApi.findOrderForUser(orderId) : orderApi.findOrderForGuest(orderId)
     },
 
     staleTime: 3 * 60 * 1000
   })
   const orderInformation = orderData?.data.data
 
-  //! Get purchase list
-  const itemOrderConfig: ItemOrderConfig = {
-    order_id: id,
-    page: 1,
-    limit: 20
-  }
-  const { data: purchasesData, isLoading: loadingPurchasesData } = useQuery({
-    queryKey: ['purchases_of_order', itemOrderConfig],
-    queryFn: () => {
-      return orderApi.getItemListOfOrder(itemOrderConfig)
-    },
+  // //! Get purchase list
+  // const itemOrderConfig: OrderPurchaseListConfig = {
+  //   order_id: orderId,
+  //   page: 1,
+  //   limit: 20
+  // }
+  // const { data: purchasesData, isLoading: loadingPurchasesData } = useQuery({
+  //   queryKey: ['orders', orderId, 'purchases'],
+  //   queryFn: () => {
+  //     return orderApi.getPurchaseListOfOrder(itemOrderConfig)
+  //   },
 
-    staleTime: 3 * 60 * 1000
-  })
-  const purchaseList = purchasesData?.data.data || []
+  //   staleTime: 3 * 60 * 1000
+  // })
+  // const purchaseList = purchasesData?.data.data || []
 
   //! Multi languages
   const { t } = useTranslation('support')
+  const currentLan = i18next.language
+
+  //! Styles
+  const wrapperClassname = 'grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'
+  const titleClasname =
+    'col-span-1 text-sm text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'
+  const infoClassname = 'col-span-1 text-xs font-medium tablet:text-base desktopLarge:text-lg'
+
   return (
     <div className='bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
       <div className='container'>
@@ -58,8 +71,8 @@ export default function OrderTrackingItemInformation() {
             to={mainPath.home}
             className={({ isActive }) =>
               classNames('uppercase', {
-                'text-brownColor dark:text-haretaColor': isActive,
-                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+                'text-haretaColor dark:text-haretaColor': isActive,
+                'hover:text-haretaColor dark:hover:text-haretaColor': !isActive
               })
             }
           >
@@ -71,15 +84,15 @@ export default function OrderTrackingItemInformation() {
             end
             className={({ isActive }) =>
               classNames('uppercase', {
-                'text-brownColor dark:text-haretaColor': isActive,
-                'hover:text-brownColor dark:hover:text-haretaColor': !isActive
+                'text-haretaColor dark:text-haretaColor': isActive,
+                'hover:text-haretaColor dark:hover:text-haretaColor': !isActive
               })
             }
           >
             {isMobile ? t('path.order tracking--mobile') : t('path.order tracking')}
           </NavLink>
           <FontAwesomeIcon icon={faAngleRight} />
-          <div className={'text-brownColor dark:text-haretaColor'}>{id}</div>
+          <div className={'text-haretaColor dark:text-haretaColor'}>{orderId}</div>
         </div>
         <div className='py-2 tabletSmall:py-4 tablet:py-6 desktop:py-8 desktopLarge:py-10'>
           <p className='w-full text-center text-lg font-bold uppercase text-haretaColor tablet:text-2xl desktopLarge:text-4xl'>
@@ -87,15 +100,7 @@ export default function OrderTrackingItemInformation() {
           </p>
           {(!orderData || loadingOrderData) && (
             <div className='flex h-96 w-full items-center justify-center py-1 tablet:py-2 desktopLarge:py-4'>
-              <ColorRing
-                visible={true}
-                height='80'
-                width='80'
-                ariaLabel='blocks-loading'
-                wrapperStyle={{}}
-                wrapperClass='blocks-wrapper'
-                colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
-              />
+              <LoadingRing />
             </div>
           )}
           {orderData && (
@@ -105,37 +110,21 @@ export default function OrderTrackingItemInformation() {
                   <p className='w-full text-center text-sm font-semibold tablet:text-lg desktopLarge:text-xl'>
                     {t('order information.customer information')}
                   </p>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.name')}
-                    </p>
-                    <p className='col-span-1 text-xs font-medium tablet:text-base desktopLarge:text-lg'>
-                      {orderInformation?.name}
-                    </p>
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.name')}</p>
+                    <p className={infoClassname}>{orderInformation?.name}</p>
                   </div>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.email')}
-                    </p>
-                    <p className='col-span-1 text-xs font-medium tablet:text-base desktopLarge:text-lg'>
-                      {orderInformation?.email}
-                    </p>
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.email')}</p>
+                    <p className={infoClassname}>{orderInformation?.email}</p>
                   </div>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.phone')}
-                    </p>
-                    <p className='col-span-1 text-xs font-medium tablet:text-base desktopLarge:text-lg'>
-                      {orderInformation?.phone}
-                    </p>
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.phone')}</p>
+                    <p className={infoClassname}>{orderInformation?.phone}</p>
                   </div>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.address')}
-                    </p>
-                    <p className='col-span-1 text-xs font-medium tablet:text-base desktopLarge:text-lg'>
-                      {orderInformation?.address}
-                    </p>
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.address')}</p>
+                    <p className={infoClassname}>{orderInformation?.address}</p>
                   </div>
                 </div>
                 <div
@@ -146,42 +135,36 @@ export default function OrderTrackingItemInformation() {
                   <p className='w-full text-center text-sm font-semibold tablet:text-lg desktopLarge:text-xl'>
                     {t('order information.order state')}
                   </p>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.total')}
-                    </p>
-                    <p className='col-span-1 text-xs font-medium capitalize tablet:text-base desktopLarge:text-lg'>
-                      ${orderInformation?.total}
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.total')}</p>
+                    <p className={infoClassname}>${orderInformation?.total}</p>
+                  </div>
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.created at')}</p>
+                    <p className={infoClassname}>
+                      {currentLan == 'en'
+                        ? formatDateEn(orderInformation?.created_at as string)
+                        : formatDateVi(orderInformation?.created_at as string)}
                     </p>
                   </div>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.created at')}
-                    </p>
-                    <p className='col-span-1 text-xs font-medium capitalize tablet:text-base desktopLarge:text-lg'>
-                      {formatDate(orderInformation?.created_at as string)}
-                    </p>
-                  </div>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.status')}
-                    </p>
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.status')}</p>
                     <p className='col-span-1 text-xs font-medium capitalize text-haretaColor tablet:text-base desktopLarge:text-lg'>
-                      {orderInformation?.status}
+                      {OrderState[orderInformation?.status ?? 0]}
                     </p>
                   </div>
-                  <div className='grid w-full grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktopLarge:gap-6'>
-                    <p className='col-span-1 text-xs text-darkText/80 dark:text-lightText/80 tablet:text-base desktopLarge:text-lg'>
-                      {t('order information.updated at')}
-                    </p>
+                  <div className={wrapperClassname}>
+                    <p className={titleClasname}>{t('order information.updated at')}</p>
                     <p className='col-span-1 text-xs font-medium capitalize text-haretaColor tablet:text-base desktopLarge:text-lg'>
-                      {formatDate(orderInformation?.updated_at as string)}
+                      {currentLan == 'en'
+                        ? formatDateEn(orderInformation?.updated_at as string)
+                        : formatDateVi(orderInformation?.updated_at as string)}
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className='mt-6 rounded-lg border border-black/60 px-1 py-2 dark:border-white/60 tablet:mt-6 tablet:px-2 tablet:py-4 desktopLarge:mt-8 desktopLarge:px-4'>
+              {/* <div className='mt-6 rounded-lg border border-black/60 px-1 py-2 dark:border-white/60 tablet:mt-6 tablet:px-2 tablet:py-4 desktopLarge:mt-8 desktopLarge:px-4'>
                 <p className='w-full text-center text-base font-semibold uppercase tablet:text-lg desktopLarge:text-xl'>
                   {t('order information.Product list')}
                 </p>
@@ -189,15 +172,7 @@ export default function OrderTrackingItemInformation() {
                   <Fragment>
                     {(loadingPurchasesData || !purchasesData) && (
                       <div className='flex h-96 w-full items-center justify-center py-1 tablet:py-2 desktopLarge:py-4'>
-                        <ColorRing
-                          visible={true}
-                          height='80'
-                          width='80'
-                          ariaLabel='blocks-loading'
-                          wrapperStyle={{}}
-                          wrapperClass='blocks-wrapper'
-                          colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
-                        />
+                        <LoadingRing />
                       </div>
                     )}
                     {purchasesData && (
@@ -231,15 +206,7 @@ export default function OrderTrackingItemInformation() {
                   <Fragment>
                     {(loadingPurchasesData || !purchasesData) && (
                       <div className='flex h-40 w-full items-center justify-center py-1 tablet:py-2 desktopLarge:py-4'>
-                        <ColorRing
-                          visible={true}
-                          height='40'
-                          width='40'
-                          ariaLabel='blocks-loading'
-                          wrapperStyle={{}}
-                          wrapperClass='blocks-wrapper'
-                          colors={['#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00', '#ff6a00']}
-                        />
+                        <LoadingRing />
                       </div>
                     )}
                     {purchasesData &&
@@ -248,7 +215,7 @@ export default function OrderTrackingItemInformation() {
                       ))}
                   </Fragment>
                 )}
-              </div>
+              </div> */}
             </Fragment>
           )}
         </div>

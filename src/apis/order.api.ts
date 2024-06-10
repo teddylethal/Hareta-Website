@@ -1,5 +1,5 @@
 import { PurchaseList } from 'src/types/cart.type'
-import { ItemOrderConfig, Order, OrderList } from 'src/types/order.type'
+import { Order, OrderList, OrderPurchaseListConfig } from 'src/types/order.type'
 import { SuccessRespone } from 'src/types/utils.type'
 import http from 'src/utils/http'
 import { OrderSchema, OrderSchemaForGuest } from 'src/utils/rules'
@@ -18,19 +18,19 @@ export const orderApi = {
   createOrderForUser(body: CreateOrderForm) {
     return http.post<SuccessRespone<Order>>(orderURL, body)
   },
-  updateOrder(body: { id: string; status: string }) {
-    return http.put<SuccessRespone<string>>(orderURL, body)
-  },
   createOrderForGuest(body: CreateOrderFormForGuest) {
     return http.post<SuccessRespone<Order>>('/order', body)
   },
-  getItemListOfOrder(params: ItemOrderConfig) {
+  updateOrder(body: { id: string; status: string }) {
+    return http.put<SuccessRespone<string>>(orderURL, body)
+  },
+  getPurchaseListOfOrder(params: OrderPurchaseListConfig) {
     return http.get<PurchaseList>(itemOrderURL, { params })
   },
-  getOrderById(id: string) {
+  findOrderForUser(id: string) {
     return http.get<SuccessRespone<Order>>(`${orderURL}${id}`)
   },
-  getOrderOfGuestById(id: string) {
+  findOrderForGuest(id: string) {
     return http.get<SuccessRespone<Order>>(`/order/${id}`)
   }
 }

@@ -19,7 +19,7 @@ interface CreateProductForm {
   description: string
 }
 
-interface UpdateProductForm {
+export interface UpdateProductForm {
   id: string
   name?: string
   category?: string

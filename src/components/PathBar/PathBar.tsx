@@ -26,7 +26,7 @@ export default function PathBar({ pathList }: Props) {
         <NavLink
           to={mainPath.home}
           className={({ isActive }) =>
-            classNames({
+            classNames('shrink-0', {
               'text-primaryColor': isActive,
               'hover:text-primaryColor': !isActive
             })

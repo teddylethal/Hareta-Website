@@ -16,6 +16,7 @@ import MainRoute from './routes/mainRoute'
 import BlogRoute from './routes/blogRoute'
 import EventRoute from './routes/eventRoute'
 import OrderRoute from './routes/orderRoute'
+import OrderTrackingRoute from './routes/orderTrackingRoute'
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -43,6 +44,10 @@ export default function useRouteElements() {
     {
       path: mainPath.order,
       children: [OrderRoute]
+    },
+    {
+      path: mainPath.orderTracking,
+      children: [OrderTrackingRoute]
     },
     {
       path: adminPath.mainPage,

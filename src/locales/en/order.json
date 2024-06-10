@@ -82,5 +82,12 @@
     "adjust the quantity.": "adjust the quantity.",
     "Sincerely apologies for this accident!": "Sincerely apologies for this accident!",
     "Return to cart": "Return to cart"
+  },
+  "state": {
+    "Awaiting Payment": "Awaiting Payment",
+    "Preparing Package": "Preparing Package",
+    "Delivering": "Delivering",
+    "Delivered": "Delivered",
+    "Received": "Received"
   }
 }
