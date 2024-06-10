@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import QuantityController from '../../../../components/QuantityController'
 import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { CartContext, ExtendsPurchase } from 'src/contexts/cart.context'
+import { CartContext, ExtendedPurchase } from 'src/contexts/cart.context'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
-  purchase: ExtendsPurchase
+  purchase: ExtendedPurchase
   index: number
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
   handleRemove: (purchaseIndex: number) => () => void
@@ -68,12 +68,14 @@ export default function CartDesktopPurchaseCard({ purchase, index, handleCheckin
   //! Multi languages
   const { t } = useTranslation('cart')
 
-  //? is unavailable
+  //! is unavailable
   const unavailable = unavailablePurchaseIds.includes(purchase.id)
 
+  const isDiscounted = purchase.item.price < purchase.item.original_price
+
   return (
-    <div className='grid grid-cols-8 items-center rounded-sm p-4 text-center text-darkText first:mt-0 first:border-none dark:text-lightText'>
-      <div className='col-span-3'>
+    <div className='grid grid-cols-6 items-center rounded-sm p-4 text-center text-darkText first:mt-0 first:border-none dark:text-lightText'>
+      <div className='col-span-2'>
         <div className='flex'>
           <div className='flex flex-shrink-0 items-center justify-center pr-3'>
             <input
@@ -113,25 +115,15 @@ export default function CartDesktopPurchaseCard({ purchase, index, handleCheckin
         </div>
       </div>
       <div className='col-span-1'>
-        <div className='flex items-center justify-center'>
-          <span
+        <div className='flex items-center justify-center space-x-2'>
+          <p
             className={classNames('text-darkText dark:text-lightText', {
-              'line-through opacity-80': purchase.discount > 0
+              'line-through opacity-80': isDiscounted
             })}
           >
             ${formatCurrency(purchase.item.price)}
-          </span>
-          {purchase.discount > 0 && (
-            <span className='text-darkText dark:text-lightText'>
-              ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <div className='col-span-1'>
-        <div className='flex items-center justify-center'>
-          <span className='text-darkText dark:text-lightText'>{purchase.discount}%</span>
+          </p>
+          {isDiscounted && <p className='text-darkText dark:text-lightText'>${formatCurrency(purchase.item.price)}</p>}
         </div>
       </div>
 

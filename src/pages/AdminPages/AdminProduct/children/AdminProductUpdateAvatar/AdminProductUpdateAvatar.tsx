@@ -75,7 +75,7 @@ export default function AdminProductUpdateAvatar() {
         onSuccess: () => {
           showSuccessDialog(setSuccessDialogOpen)
           queryClient.invalidateQueries({ queryKey: ['products', currentProduct.id] })
-          queryClient.invalidateQueries({ queryKey: ['default-products'] })
+          queryClient.invalidateQueries({ queryKey: ['products'] })
           queryClient.invalidateQueries({ queryKey: ['product-groups'] })
         },
         onError: (error) => {

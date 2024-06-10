@@ -79,7 +79,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
   //! GET IMAGE LIST
   const productId = product.id
   const { data: imageListData, isLoading } = useQuery({
-    queryKey: ['default-products', 'images', productId],
+    queryKey: ['products', 'images', productId],
     queryFn: () => producImageApi.getImageList(productId as string),
     staleTime: 1000 * 60 * 3
   })

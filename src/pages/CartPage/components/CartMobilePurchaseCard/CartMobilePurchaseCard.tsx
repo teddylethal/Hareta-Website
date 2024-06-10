@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { CartContext, ExtendsPurchase } from 'src/contexts/cart.context'
+import { CartContext, ExtendedPurchase } from 'src/contexts/cart.context'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ import QuantityController from 'src/components/QuantityController'
 import classNames from 'classnames'
 
 interface Props {
-  purchase: ExtendsPurchase
+  purchase: ExtendedPurchase
   index: number
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
   handleRemove: (purchaseIndex: number) => () => void
@@ -68,6 +68,8 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
   //? is unavailable
   const unavailable = unavailablePurchaseIds.includes(purchase.id)
 
+  const isDiscounted = purchase.item.price < purchase.item.original_price
+
   return (
     <div className='w-full space-y-2'>
       <div className='grid grid-cols-12 items-center justify-between'>
@@ -81,27 +83,24 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
           />
         </div>
         <p
-          className={classNames('col-span-6 truncate text-center text-base font-semibold', {
+          className={classNames('col-span-5 truncate text-center text-base font-semibold', {
             'text-alertRed': unavailable
           })}
         >
           {purchase.item.name}
         </p>
 
-        <div className='col-span-4 flex flex-col text-xs mobileLarge:text-sm'>
+        <div className='col-span-5 flex justify-center space-x-2 text-xs mobileLarge:text-sm'>
           <span
             className={classNames('text-darkText dark:text-lightText', {
-              'line-through opacity-80': purchase.discount > 0
+              'line-through opacity-80': isDiscounted
             })}
           >
-            ${formatCurrency(purchase.item.price)}
+            ${formatCurrency(purchase.item.original_price)}
           </span>
-          {purchase.discount > 0 && (
+          {isDiscounted && (
             <div className='flex justify-center space-x-2'>
-              <span className='text-darkText dark:text-lightText'>
-                ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
-              </span>
-              <span className='text-darkText dark:text-lightText'>({purchase.discount}%)</span>
+              ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
             </div>
           )}
         </div>
@@ -116,15 +115,15 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
 
       <div className='grid grid-cols-12 items-center'>
         <div className='col-span-1'></div>
-        <div className='col-span-6'>
+        <div className='col-span-5'>
           <Link
-            to={`${mainPath.store}${generateNameId({
+            to={`${mainPath.store}/${generateNameId({
               name: purchase.item.name,
               id: purchase.item.id
             })}`}
-            className='flex flex-grow items-center'
+            className='flex items-center justify-center'
           >
-            <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden rounded-2xl bg-white pt-[80%] dark:bg-black'>
+            <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden rounded-2xl bg-white pt-[80%] dark:bg-black tabletSmall:w-[60%] tabletSmall:pt-[60%]'>
               {purchase.item.avatar ? (
                 <img
                   alt={purchase.item.name}
@@ -143,7 +142,7 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
 
       <div className='mt-4 grid grid-cols-12'>
         <div className='col-span-1'></div>
-        <div className='col-span-6'>
+        <div className='col-span-5'>
           <QuantityController
             max={purchase.item.quantity}
             value={quantity}
@@ -170,7 +169,7 @@ export default function CartMobilePurchaseCard({ purchase, index, handleChecking
           />
         </div>
 
-        <span className='col-span-4 text-sm font-semibold text-haretaColor mobileLarge:text-base'>
+        <span className='col-span-5 text-sm font-semibold text-haretaColor mobileLarge:text-base'>
           ${formatCurrency(purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100))}
         </span>
       </div>

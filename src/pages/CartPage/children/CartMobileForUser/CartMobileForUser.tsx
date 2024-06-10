@@ -32,8 +32,8 @@ export default function CartMobileForUser(props: Props) {
       <div className='relative'>
         <div className='grid grid-cols-12 rounded-md border border-black/20 bg-lightColor900 px-4 py-2 text-base font-medium uppercase text-darkText dark:border-white/20 dark:bg-darkColor900 dark:text-lightText desktop:text-lg'>
           <div className='col-span-1'></div>
-          <div className='col-span-6 text-center'>{t('content.Product')}</div>
-          <div className='col-span-4 text-center'>{t('content.Unit price')}</div>
+          <div className='col-span-5 text-center'>{t('content.Product')}</div>
+          <div className='col-span-5 text-center'>{t('content.Price')}</div>
           <div className='col-span-1'></div>
         </div>
         <div className='my-2 h-[460px] overflow-auto overscroll-contain rounded-md border border-black/20 bg-lightColor900 p-2 dark:border-white/20 dark:bg-darkColor900'>

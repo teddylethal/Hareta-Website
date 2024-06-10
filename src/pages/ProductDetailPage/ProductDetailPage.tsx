@@ -54,7 +54,7 @@ export default function ProductDetailPage() {
   //! Get product detail
   const id = getIdFromNameId(nameId as string)
   const { data: productDetailData, isFetching } = useQuery({
-    queryKey: ['products', 'detail', id],
+    queryKey: ['products', id],
     queryFn: () => productApi.getProductDetail(id as string)
   })
   const defaultProduct = productDetailData?.data.data

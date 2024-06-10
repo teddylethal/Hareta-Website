@@ -9,7 +9,7 @@ export default function HomeNewReleaseSlideShow() {
   //! GET ITEMS
   const itemsConfig: ProductListQueryConfig = {}
   const { data: productListData } = useQuery({
-    queryKey: ['default-products', itemsConfig],
+    queryKey: ['products', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
     }

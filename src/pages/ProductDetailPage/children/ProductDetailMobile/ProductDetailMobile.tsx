@@ -49,14 +49,26 @@ export default function ProductDetailMobile(props: Props) {
   //! Multi languages
   const { t } = useTranslation('productdetail')
 
+  const isSaleOff = defaultProduct.price < defaultProduct.original_price
+
   return (
     <Fragment>
       <div className='bg-lightBg pb-10 dark:bg-darkBg'>
         <div className=' overflow-hidden rounded-lg bg-lightColor700 dark:bg-darkColor700'>
           <ProductMobileImageList item={defaultProduct} itemID={activeProduct.id} />
-          <div className='relative flex flex-col bg-lightColor700 px-3 py-3 text-darkText dark:bg-darkColor700 dark:text-lightText'>
-            <span className='text-2xl text-haretaColor'>${formatCurrency(defaultProduct.price)}</span>
-            <div className='mt-4 flex items-center justify-between'>
+          <div className='relative flex flex-col space-y-3 bg-lightColor700 px-3 py-3 text-darkText dark:bg-darkColor700 dark:text-lightText'>
+            <div className='flex space-x-2 text-2xl'>
+              <span
+                className={classNames('', {
+                  'line-through opacity-60': isSaleOff,
+                  'text-haretaColor': !isSaleOff
+                })}
+              >
+                ${formatCurrency(defaultProduct.original_price)}
+              </span>
+              {isSaleOff && <span className='text-haretaColor'>${formatCurrency(defaultProduct.price)}</span>}
+            </div>
+            <div className='flex items-center justify-between'>
               <p className='text-2xl'>{defaultProduct.name}</p>
               {isAuthenticated && (
                 <button className=''>

@@ -35,7 +35,7 @@ export default function EventDetail() {
   //! Get product list
   const itemsConfig: ProductListQueryConfig = { limit: String(10) }
   const { data: itemsData } = useQuery({
-    queryKey: ['default-products', itemsConfig],
+    queryKey: ['products', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
     }

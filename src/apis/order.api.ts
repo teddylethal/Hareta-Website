@@ -15,14 +15,14 @@ export const orderApi = {
   getOrderList() {
     return http.get<OrderList>(orderURL)
   },
-  createOrder(body: CreateOrderForm) {
+  createOrderForUser(body: CreateOrderForm) {
     return http.post<SuccessRespone<Order>>(orderURL, body)
   },
   updateOrder(body: { id: string; status: string }) {
     return http.put<SuccessRespone<string>>(orderURL, body)
   },
-  createOrderWithouLogin(body: CreateOrderFormForGuest) {
-    return http.post<SuccessRespone<string>>('/order', body)
+  createOrderForGuest(body: CreateOrderFormForGuest) {
+    return http.post<SuccessRespone<Order>>('/order', body)
   },
   getItemListOfOrder(params: ItemOrderConfig) {
     return http.get<PurchaseList>(itemOrderURL, { params })

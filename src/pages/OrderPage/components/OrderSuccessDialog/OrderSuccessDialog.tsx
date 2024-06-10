@@ -33,7 +33,7 @@ export default function OrderSuccessDialog({ isOpen, handleClose, handleConfirm,
             className='h-auto w-8 rounded-full text-center text-successGreen tablet:w-10 desktop:w-12 desktopLarge:w-16'
           />
         </div>
-        <p className='mt-6 text-center text-base font-bold uppercase leading-6 tablet:text-lg desktop:text-xl desktopLarge:text-2xl'>
+        <p className='mt-6 text-center text-base font-bold uppercase leading-6 tablet:text-lg desktop:text-2xl'>
           {t('layout.Your order was created successfully')}
         </p>
 

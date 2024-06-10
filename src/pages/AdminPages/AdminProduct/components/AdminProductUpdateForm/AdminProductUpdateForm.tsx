@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form'
-import { EditProductSchema } from '../../../../../rules/adminproduct.rule'
+import { UpdateProductSchema } from '../../../../../rules/adminproduct.rule'
 import InputNumber from 'src/components/InputNumber'
 import classNames from 'classnames'
 import { ProductType } from 'src/types/product.type'
@@ -9,7 +9,7 @@ import AdminInputErrorSection from 'src/components/AdminInputErrorSection'
 import AdminInput from '../../../components/AdminInput'
 import { InformationField, InputField } from 'src/types/utils.type'
 
-type FormData = EditProductSchema
+type FormData = UpdateProductSchema
 
 type InputNameType =
   | 'id'
@@ -20,6 +20,7 @@ type InputNameType =
   | 'color'
   | 'product_line'
   | 'description'
+  | 'original_price'
   | 'price'
   | 'quantity'
   | 'discount'
@@ -112,10 +113,16 @@ export default function AdminProductUpdateForm({ productDetail }: Props) {
       title: 'Số lượng'
     },
     {
+      error: errors.original_price,
+      errorMessage: errors.original_price?.message,
+      name: 'original_price',
+      title: 'Giá gốc'
+    },
+    {
       error: errors.price,
       errorMessage: errors.price?.message,
       name: 'price',
-      title: 'Giá'
+      title: 'Giá hiện tại'
     },
     {
       error: errors.discount,

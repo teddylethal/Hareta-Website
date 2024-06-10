@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import mainPath, { orderPath } from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
 import { OrderSchema, OrderSchemaForGuest, orderSchema } from 'src/utils/rules'
@@ -21,12 +21,14 @@ import OrderProcessingDialog from '../../components/OrderProcessingDialog'
 import OrderUnavailableDialog from '../../components/OrderUnavailableDialog'
 import OrderCheckoutDesktop from '../OrderCheckoutDesktop'
 import OrderCheckoutMobile from '../OrderCheckoutMobile'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
 export default function OrderCheckout() {
   const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
     useContext(OrderContext)
   const { isAuthenticated } = useContext(AppContext)
-  const { tempExtendedPurchases, setTempExtendedPurchases, setUnavailablePurchaseIds } = useContext(CartContext)
+  const { temporaryPurchases, setTemporaryPurchases, setUnavailablePurchaseIds } = useContext(CartContext)
 
   const [successDialog, setSuccesDialog] = useState(false)
   const [orderId, setOrderId] = useState<string>('')
@@ -88,7 +90,7 @@ export default function OrderCheckout() {
 
   //! Placing order for user
   const queryClient = useQueryClient()
-  const createOrderMutation = useMutation({ mutationFn: orderApi.createOrder })
+  const createOrderMutation = useMutation({ mutationFn: orderApi.createOrderForUser })
   const onPlaceOrder = handleSubmit(async (data) => {
     setProcessingDialog(true)
     //? fetch data from store to check if available quantity
@@ -102,11 +104,20 @@ export default function OrderCheckout() {
     }
     try {
       const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
-      const orderResponse = await createOrderMutation.mutateAsync({ ...data, address: fullAddress })
-      setOrderId(orderResponse.data.data.id)
-      queryClient.invalidateQueries({ queryKey: ['purchases'] })
-      setProcessingDialog(false)
-      setSuccesDialog(true)
+      createOrderMutation.mutate(
+        { ...data, address: fullAddress },
+        {
+          onSuccess: (response) => {
+            setOrderId(response.data.data.id)
+            queryClient.invalidateQueries({ queryKey: ['purchases'] })
+            setProcessingDialog(false)
+            setSuccesDialog(true)
+          },
+          onError: (error) => {
+            console.error(error)
+          }
+        }
+      )
     } catch (error) {
       console.log(error)
     }
@@ -114,8 +125,9 @@ export default function OrderCheckout() {
 
   //! Placing order for guest
   const getProductDataMutation = useMutation({ mutationFn: productApi.getProductDetail })
-  const createOrderForGuestMutation = useMutation({ mutationFn: orderApi.createOrderWithouLogin })
+  const createOrderForGuestMutation = useMutation({ mutationFn: orderApi.createOrderForGuest })
   const placeOrderWithoutLogin = handleSubmit(async (data) => {
+    setProcessingDialog(true)
     //? fetch data to check quantity
     const unavailableTempPurchases = itemList.filter((item) => {
       getProductDataMutation.mutateAsync(item.id).then((productData) => {
@@ -140,9 +152,17 @@ export default function OrderCheckout() {
       item: itemList
     }
     try {
-      await createOrderForGuestMutation.mutateAsync(formData)
-      setProcessingDialog(false)
-      setSuccesDialog(true)
+      createOrderForGuestMutation.mutate(formData, {
+        onSuccess: (response) => {
+          setOrderId(response.data.data.id)
+          queryClient.invalidateQueries({ queryKey: ['purchases'] })
+          setProcessingDialog(false)
+          setSuccesDialog(true)
+        },
+        onError: (error) => {
+          console.error(error)
+        }
+      })
     } catch (error) {
       console.log(error)
     }
@@ -162,7 +182,7 @@ export default function OrderCheckout() {
   const guestConfirm = () => {
     const orderIdList = tempOrderList.map((tempOrderItem) => tempOrderItem.id)
     setSuccesDialog(false)
-    setTempExtendedPurchases(tempExtendedPurchases.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
+    setTemporaryPurchases(temporaryPurchases.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
     setTempOrderList([])
     setTempOrderListToLS([])
     navigate(mainPath.cart)
@@ -176,7 +196,7 @@ export default function OrderCheckout() {
 
   return (
     <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
-      <div className='container'>
+      <div className='container space-y-6'>
         <PathBar
           pathList={[
             { pathName: t('path.Cart'), url: mainPath.cart },
@@ -184,6 +204,15 @@ export default function OrderCheckout() {
             { pathName: t('path.Checkout'), url: orderPath.checkout }
           ]}
         />
+        <div className='flex w-full items-center justify-start'>
+          <Link
+            to={mainPath.cart}
+            className='flex shrink items-center justify-center space-x-2 rounded-xl bg-unhoveringBg px-4 py-2 hover:bg-hoveringBg'
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+            {t('bill.Back to cart')}
+          </Link>
+        </div>
         <FormProvider {...methods}>
           <form onSubmit={isAuthenticated ? onPlaceOrder : placeOrderWithoutLogin}>
             {!isMobile && <OrderCheckoutDesktop />}

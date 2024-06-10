@@ -5,13 +5,14 @@ import http from 'src/utils/http'
 
 const URL = 'auth/'
 
-interface NewItemForm {
+interface CreateProductForm {
   name: string
   group_id: string
   category: string
   collection: string
   type: string
   quantity: number
+  original_price: number
   price: number
   product_line: string
   color: string
@@ -27,6 +28,7 @@ interface UpdateProductForm {
   color?: string
   product_line?: string
   description?: string
+  original_price?: number
   price?: number
   quantity?: number
   discount?: number
@@ -58,7 +60,7 @@ export const adminProductGroupApi = {
 }
 
 export const adminProductApi = {
-  createNewProduct(body: NewItemForm) {
+  createNewProduct(body: CreateProductForm) {
     return http.post(`${URL}item/`, body)
   },
   updateProduct(body: UpdateProductForm) {

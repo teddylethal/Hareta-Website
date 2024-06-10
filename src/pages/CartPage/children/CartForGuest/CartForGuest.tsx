@@ -1,25 +1,26 @@
 import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { CartContext, ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
+import { CartContext, ExtendedPurchase } from 'src/contexts/cart.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { OrderContext } from 'src/contexts/order.context'
 import { setTempOrderListToLS } from 'src/utils/order'
 import CartMobileForGuest from '../CartMobileForGuest'
 import CartDesktopForGuest from '../CartDesktopForGuest'
+import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
 
 export default function CartForGuest() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
-  const { setTempExtendedPurchases, tempExtendedPurchases } = useContext(CartContext)
-  const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedTemporaryPurchase[]>([])
+  const { setTemporaryPurchases, temporaryPurchases } = useContext(CartContext)
+  const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedPurchase[]>([])
   const { setTempOrderList } = useContext(OrderContext)
 
   useEffect(() => {
     setExtendedTempPurchases((prev) => {
       const extendedTempPurchasesObject = keyBy(prev, 'id')
       return (
-        tempExtendedPurchases?.map((purchase) => ({
+        temporaryPurchases?.map((purchase) => ({
           ...purchase,
           disabled: false,
           checked: Boolean(extendedTempPurchasesObject[purchase.id]?.checked),
@@ -28,7 +29,7 @@ export default function CartForGuest() {
         })) || []
       )
     })
-  }, [tempExtendedPurchases])
+  }, [temporaryPurchases])
 
   const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
@@ -70,8 +71,9 @@ export default function CartForGuest() {
 
   const handleRemove = (purchaseIndex: number) => () => {
     const purchaseId = extendedTempPurchases[purchaseIndex].id
-    const newPurchaseList = tempExtendedPurchases.filter((purchase) => purchase.id !== purchaseId)
-    setTempExtendedPurchases(newPurchaseList)
+    const newPurchaseList = temporaryPurchases.filter((purchase) => purchase.id !== purchaseId)
+    setTemporaryPurchases(newPurchaseList)
+    setTemporaryPurchasesToLS(newPurchaseList)
   }
 
   //! HANDLE CHECKOUT

@@ -80,7 +80,7 @@ export default function AdminSelectsVariant({
           {productsInGroupData && (
             <Fragment>
               {productsInGroup.length == 0 && (
-                <div className='flex w-full items-center justify-center text-lg font-semibold text-alertRed'>
+                <div className='flex h-1/2 w-full items-center justify-center text-lg font-semibold text-alertRed'>
                   Nhóm này chưa có sản phẩm nào
                 </div>
               )}

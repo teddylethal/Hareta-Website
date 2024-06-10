@@ -10,9 +10,9 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { isAxiosBadRequestError, showSuccessDialog } from 'src/utils/utils'
 import LoadingRing from 'src/components/LoadingRing'
 import AdminProductUpdateForm from '../../components/AdminProductUpdateForm'
-import { EditProductSchema, editProductSchema } from 'src/rules/adminproduct.rule'
+import { UpdateProductSchema, updateProductSchema } from 'src/rules/adminproduct.rule'
 
-type FormData = NoUndefinedField<EditProductSchema>
+type FormData = NoUndefinedField<UpdateProductSchema>
 
 interface Props {
   setEditingMode: Dispatch<SetStateAction<boolean>>
@@ -54,7 +54,7 @@ export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpe
       sold: 0,
       cron_status: 0
     },
-    resolver: yupResolver(editProductSchema)
+    resolver: yupResolver(updateProductSchema)
   })
   const { handleSubmit, setValue, reset } = methods
 
@@ -68,6 +68,7 @@ export default function AdminProductUpdate({ setEditingMode, setSuccessDialogOpe
       setValue('color', productDetail.color)
       setValue('product_line', productDetail.product_line)
       setValue('description', productDetail.description)
+      setValue('original_price', productDetail.original_price)
       setValue('price', productDetail.price)
       setValue('quantity', productDetail.quantity)
       setValue('discount', productDetail.discount)

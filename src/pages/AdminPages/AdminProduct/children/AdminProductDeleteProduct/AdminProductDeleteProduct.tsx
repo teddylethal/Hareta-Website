@@ -34,7 +34,7 @@ export default function AdminProductDeleteProduct() {
           showSuccessDialog(setDialog)
           queryClient.invalidateQueries({ queryKey: ['product-groups', 'variants', productGroup?.id] })
           queryClient.invalidateQueries({ queryKey: ['product-groups'] })
-          queryClient.invalidateQueries({ queryKey: ['default-products'] })
+          queryClient.invalidateQueries({ queryKey: ['products'] })
           setCurrentProduct(null)
         }
       }

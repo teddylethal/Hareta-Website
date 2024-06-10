@@ -31,14 +31,13 @@ export default function CartDesktopForUser(props: Props) {
   return (
     <div className='mt-2 rounded-md border border-black/40 bg-lightColor900 dark:border-white/40 dark:bg-darkColor900'>
       <div className=''>
-        <div className='grid grid-cols-8 rounded-sm px-8  py-4 text-base uppercase text-darkText  dark:text-lightText desktop:text-lg'>
-          <div className='col-span-3'>
+        <div className='grid grid-cols-6 rounded-sm px-8  py-4 text-base uppercase text-darkText  dark:text-lightText desktop:text-lg'>
+          <div className='col-span-2'>
             <p className='line-clamp-1 flex-grow items-center justify-center truncate text-center font-medium text-darkText dark:text-lightText'>
               {t('content.Product')}
             </p>
           </div>
           <div className='col-span-1 overflow-hidden text-center'>{t('content.Unit price')}</div>
-          <div className='col-span-1 overflow-hidden text-center'>{t('content.Discount')}</div>
           <div className='col-span-1 overflow-hidden text-center'>{t('content.Quantity')}</div>
           <div className='col-span-1 overflow-hidden text-center'>{t('content.Subtotal')}</div>
           <div className='col-span-1 overflow-hidden text-center'>{t('content.Action')}</div>
@@ -69,8 +68,8 @@ export default function CartDesktopForUser(props: Props) {
           )}
         </div>
       </div>
-      <div className='grid grid-cols-12 items-center justify-between rounded-sm px-8 py-4'>
-        <div className='col-span-6 grid grid-cols-3'>
+      <div className='grid grid-cols-6 items-center justify-between rounded-sm px-8 py-4'>
+        <div className='col-span-2 grid grid-cols-3'>
           <div className=' col-span-1 flex flex-shrink-0 items-center'>
             {extendedPurchases.length > 0 && (
               <Fragment>
@@ -91,13 +90,13 @@ export default function CartDesktopForUser(props: Props) {
               </Fragment>
             )}
           </div>
-          <div className='col-span-1 flex items-center text-center text-darkText dark:text-lightText'>
+          <div className='col-span-2 flex items-center text-center text-darkText dark:text-lightText'>
             {checkedPurchasesCount < 2
               ? `${checkedPurchasesCount} ${t('content.item is selected')}`
               : `${checkedPurchasesCount} ${t('content.items are selected')}`}
           </div>
         </div>
-        <div className='col-span-6 grid grid-cols-4 items-center'>
+        <div className='col-span-4 grid grid-cols-4 items-center'>
           <div className='col-span-1'></div>
 
           <div className='col-span-1 items-center text-right font-medium uppercase text-darkText dark:text-lightText'>

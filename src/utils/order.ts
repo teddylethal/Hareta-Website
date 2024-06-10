@@ -1,12 +1,12 @@
 import { ICountry, IState } from 'country-state-city'
-import { ExtendsPurchase } from 'src/contexts/cart.context'
+import { ExtendedPurchase } from 'src/contexts/cart.context'
 import { ExtendedTemporaryPurchase } from 'src/pages/CartPage/children/CartForGuest/CartForGuest'
 
-export const setOrderListToLS = (orderList: ExtendsPurchase[]) => {
+export const setOrderListToLS = (orderList: ExtendedPurchase[]) => {
   localStorage.setItem('order_list', JSON.stringify(orderList))
 }
 
-export const getOrderListFromLS = (): ExtendsPurchase[] => {
+export const getOrderListFromLS = (): ExtendedPurchase[] => {
   const result = localStorage.getItem('order_list')
   return result ? JSON.parse(result) : []
 }

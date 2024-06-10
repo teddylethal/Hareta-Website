@@ -59,7 +59,7 @@ export default function AdminProductDetail() {
         {
           onSuccess: () => {
             showSuccessDialog(setUpdateDefaultProductSuccess)
-            queryClient.invalidateQueries({ queryKey: ['default-products'] })
+            queryClient.invalidateQueries({ queryKey: ['products'] })
           }
         }
       )

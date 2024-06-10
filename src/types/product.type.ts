@@ -40,6 +40,7 @@ export interface ProductType extends JSONModel {
   description: string
   collection: string
   type: string
+  original_price: number
   price: number
   sold: number
   tag: number

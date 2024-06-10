@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react'
-import { ExtendedTemporaryPurchase, ExtendsPurchase } from './cart.context'
+import { ExtendedPurchase } from './cart.context'
 import { Country, ICity, ICountry, IState } from 'country-state-city'
 import {
   getCountryAddressFromLS,
@@ -12,10 +12,10 @@ import {
 import orderScreens from 'src/constants/orderScreens'
 
 interface OrderContextInterface {
-  orderList: ExtendsPurchase[]
-  setOrderList: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
-  tempOrderList: ExtendedTemporaryPurchase[]
-  setTempOrderList: React.Dispatch<React.SetStateAction<ExtendedTemporaryPurchase[]>>
+  orderList: ExtendedPurchase[]
+  setOrderList: React.Dispatch<React.SetStateAction<ExtendedPurchase[]>>
+  tempOrderList: ExtendedPurchase[]
+  setTempOrderList: React.Dispatch<React.SetStateAction<ExtendedPurchase[]>>
   addressCountry: ICountry
   addressState: IState | null
   addressCity: ICity | null
@@ -56,8 +56,8 @@ const initialOrderContext: OrderContextInterface = {
 export const OrderContext = createContext<OrderContextInterface>(initialOrderContext)
 
 export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
-  const [orderList, setOrderList] = useState<ExtendsPurchase[]>(initialOrderContext.orderList)
-  const [tempOrderList, setTempOrderList] = useState<ExtendedTemporaryPurchase[]>(initialOrderContext.tempOrderList)
+  const [orderList, setOrderList] = useState<ExtendedPurchase[]>(initialOrderContext.orderList)
+  const [tempOrderList, setTempOrderList] = useState<ExtendedPurchase[]>(initialOrderContext.tempOrderList)
   const [addressCountry, setAddressCountry] = useState<ICountry>(initialOrderContext.addressCountry)
   const [addressState, setAddressState] = useState<IState | null>(initialOrderContext.addressState)
   const [addressCity, setAddressCity] = useState<ICity | null>(initialOrderContext.addressCity)

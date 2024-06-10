@@ -42,7 +42,8 @@ export default function AdminProductCreate() {
       name: '',
       group_id: '',
       category: '',
-      price: 10,
+      original_price: 0,
+      price: 0,
       description: '',
       collection: '',
       type: '',
@@ -68,7 +69,7 @@ export default function AdminProductCreate() {
       const newProductRespone = await createNewProductMutation.mutateAsync({ ...data })
       const newItem: ProductType = newProductRespone.data.data
       setCurrentProduct(newItem)
-      queryClient.invalidateQueries({ queryKey: ['default-products'] })
+      queryClient.invalidateQueries({ queryKey: ['products'] })
       queryClient.invalidateQueries({ queryKey: ['product-groups', productGroup?.id] })
       queryClient.invalidateQueries({ queryKey: ['product-groups'] })
       if (productsInGroup.length == 0) {

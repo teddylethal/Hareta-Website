@@ -27,7 +27,9 @@
     "Subtotal": "Subtotal",
     "Discount": "Discount",
     "Discounted price": "Discounted price",
-    "Total": "Total"
+    "Total": "Total",
+    "Address line": "Address line",
+    "State / Province": "State / Province"
   },
   "layout": {
     "Continue to payment": "Continue to payment",

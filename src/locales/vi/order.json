@@ -24,10 +24,12 @@
     "Product": "Sản phẩm",
     "Unit price": "Đơn giá",
     "Quantity": "Số lượng",
-    "Subtotal": "Thành tiền",
-    "Discount": "Giảm giá",
-    "Discounted price": "Giá ưu đãi",
-    "Total": "Tổng giá trị đơn hàng"
+    "Subtotal": "Tổng giá",
+    "Discount": "Khuyến mãi",
+    "Discounted price": "Thành tiền",
+    "Total": "Tổng giá trị đơn hàng",
+    "Address line": "Địa chỉ",
+    "State / Province": "Tỉnh / Thành phố"
   },
   "layout": {
     "Continue to payment": "Đi tới thanh toán",

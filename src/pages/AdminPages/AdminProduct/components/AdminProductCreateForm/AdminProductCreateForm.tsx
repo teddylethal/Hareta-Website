@@ -151,7 +151,32 @@ export default function AdminProductCreateForm() {
 
       <div className={inputFieldStyle}>
         <div className={titleStyle}>
-          <span className=''>Giá</span>
+          <span className=''>Giá gốc</span>
+          <span className={starStyle}>*</span>
+        </div>
+        <div className={'col-span-3'}>
+          <Controller
+            control={control}
+            name='original_price'
+            render={({ field }) => (
+              <InputNumber
+                inputClassName={classNames(inputStyle, {
+                  'outline-alertRed': Boolean(errors.original_price)
+                })}
+                errorClassName='hidden'
+                autoComplete='false'
+                {...field}
+                onChange={field.onChange}
+              />
+            )}
+          />
+        </div>
+        <AdminInputErrorSection errorMessage={errors.original_price?.message} />
+      </div>
+
+      <div className={inputFieldStyle}>
+        <div className={titleStyle}>
+          <span className=''>Giá ưu đãi hiện tại</span>
           <span className={starStyle}>*</span>
         </div>
         <div className={'col-span-3'}>

@@ -11,11 +11,11 @@ import mainPath, { orderPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { OrderContext } from 'src/contexts/order.context'
 import { OrderSchema } from 'src/utils/rules'
-import OrderPurchaseListForUser from '../OrderPurchaseListForUser'
-import OrderPurchaseListForGuest from '../OrderPurchaseListForGuest'
+import OrderPurchaseList from '../OrderPurchaseList'
 
 export default function OrderDetail() {
-  const { addressState, setNoneState, confirmPayment, setConfirmPayment, addressCountry } = useContext(OrderContext)
+  const { addressState, setNoneState, confirmPayment, setConfirmPayment, addressCountry, orderList, tempOrderList } =
+    useContext(OrderContext)
   const { theme, isAuthenticated } = useContext(AppContext)
 
   const [invalidForm, setInvalidForm] = useState<boolean>(false)
@@ -64,25 +64,44 @@ export default function OrderDetail() {
   //! Multi languages
   const { t } = useTranslation('order')
 
+  //! Purchase list
+  const purchaseList = isAuthenticated ? orderList : tempOrderList
+
   return (
     <div className='rounded-xl p-3 desktop:p-4'>
       <p className='text-center text-2xl font-semibold uppercase desktopLarge:text-3xl'>{t('layout.Order')}</p>
-      <div className='space-y-2 py-2'>
-        <div className='flex items-center justify-between text-xl'>
+      <div className='space-y-2 py-2 text-base desktop:text-lg'>
+        <div className='flex items-center justify-between '>
           <span className=''>{watch('name')}</span>
           <span className=''>{watch('phone')}</span>
         </div>
-        <p className=''>{`${watch('address')}, ${addressState?.name || ''}, ${addressCountry.name}`}</p>
+        <p className='inline-block space-x-2'>
+          <span
+            className={classNames('', {
+              italic: watch('address') == ''
+            })}
+          >
+            {watch('address') == '' ? t('bill.Address line') : watch('address')} -
+          </span>
+          <span
+            className={classNames('', {
+              italic: !addressState
+            })}
+          >
+            {addressState?.name || t('bill.State / Province')} -
+          </span>
+
+          <span className=''>{addressCountry.name}</span>
+        </p>
       </div>
       <div className='my-4 w-full border-t border-black/80 dark:border-white/80'></div>
-      {isAuthenticated && <OrderPurchaseListForUser />}
-      {!isAuthenticated && <OrderPurchaseListForGuest />}
+      {<OrderPurchaseList purchaseList={purchaseList} />}
       <div className='mt-4 flex items-center space-x-2 font-medium'>
         <input
           name='confirm'
           type='checkbox'
           className={classNames('h-5 w-5 rounded-md accent-primaryColor dark:accent-primaryColor', {
-            ' outline outline-red-600': confirmError
+            ' outline outline-alertRed': confirmError
           })}
           checked={confirmPayment}
           onChange={() => setConfirmPayment(!confirmPayment)}
@@ -90,7 +109,7 @@ export default function OrderDetail() {
         <p
           className={classNames('', {
             'text-darkText dark:text-lightText': !confirmError,
-            'text-red-600': confirmError
+            'text-alertRed': confirmError
           })}
         >
           {t('layout.By clicking, you accept our')}{' '}
@@ -136,7 +155,7 @@ export default function OrderDetail() {
           <div className='text-center'>
             <FontAwesomeIcon
               icon={faXmark}
-              className={classNames('h-10 w-10 rounded-full p-4 text-center text-red-600 tablet:h-16 tablet:w-16', {
+              className={classNames('h-10 w-10 rounded-full p-4 text-center text-alertRed tablet:h-16 tablet:w-16', {
                 'bg-black/20': theme == 'light',
                 'bg-white/20': theme == 'dark'
               })}

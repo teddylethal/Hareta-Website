@@ -7,17 +7,16 @@ import CustomPopover from 'src/components/CustomPopover'
 import mainPath from 'src/constants/path'
 import { CartContext } from 'src/contexts/cart.context'
 import HeaderPurchaseCard from '../HeaderPurchaseCard'
-import { Purchase } from 'src/types/cart.type'
-
-const currentDate = new Date()
+import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
 
 function PopoverSection() {
-  const { tempExtendedPurchases, setTempExtendedPurchases } = useContext(CartContext)
+  const { temporaryPurchases, setTemporaryPurchases } = useContext(CartContext)
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = tempExtendedPurchases[purchaseIndex].id
-    const newPurchaseList = tempExtendedPurchases.filter((purchase) => purchase.id !== purchaseId)
-    setTempExtendedPurchases(newPurchaseList)
+    const purchaseId = temporaryPurchases[purchaseIndex].id
+    const newPurchaseList = temporaryPurchases.filter((purchase) => purchase.id !== purchaseId)
+    setTemporaryPurchases(newPurchaseList)
+    setTemporaryPurchasesToLS(newPurchaseList)
   }
 
   //! Multi languages
@@ -27,23 +26,21 @@ function PopoverSection() {
     <div className='relative -top-1 w-[360px] rounded-md bg-lightColor700 py-2 text-sm text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-0'>
       <Fragment>
         <div className='flex space-x-1.5 px-3 py-1 text-base desktop:text-lg'>
-          <span className='text-haretaColor'>{tempExtendedPurchases.length}</span>
+          <span className='text-haretaColor'>{temporaryPurchases.length}</span>
           <span className='text-gray-500 dark:text-gray-300'>{t('cart button.items in cart')}</span>
         </div>
 
         <div className='m-2 overflow-auto rounded-md bg-lightColor900 outline outline-1 outline-black/20 dark:bg-darkColor900 dark:outline-white/20'>
-          {tempExtendedPurchases.length > 0 ? (
+          {temporaryPurchases.length > 0 ? (
             <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
-              {tempExtendedPurchases.map((tempPurchase, index) => {
-                const purchase: Purchase = {
-                  id: tempPurchase.id,
-                  item: tempPurchase.item,
-                  quantity: tempPurchase.quantity,
-                  status: 0,
-                  created_at: currentDate.toDateString(),
-                  updated_at: currentDate.toDateString()
-                }
-                return <HeaderPurchaseCard key={purchase.id} purchase={purchase} handleRemove={handleRemove(index)} />
+              {temporaryPurchases.map((tempPurchase, index) => {
+                return (
+                  <HeaderPurchaseCard
+                    key={tempPurchase.id}
+                    purchase={tempPurchase}
+                    handleRemove={handleRemove(index)}
+                  />
+                )
               })}
             </div>
           ) : (
@@ -72,7 +69,7 @@ function PopoverSection() {
 }
 
 export default function HeaderDesktopCartUnlogged() {
-  const { tempExtendedPurchases } = useContext(CartContext)
+  const { temporaryPurchases } = useContext(CartContext)
 
   return (
     <div className='rounded-lg bg-unhoveringBg hover:bg-hoveringBg'>
@@ -83,9 +80,9 @@ export default function HeaderDesktopCartUnlogged() {
       >
         <div className='flex items-center space-x-2 px-2 py-0.5 text-black'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
-          {tempExtendedPurchases.length > 0 && (
+          {temporaryPurchases.length > 0 && (
             <div className='flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-medium text-darkText desktop:text-sm desktopLarge:text-base'>
-              {tempExtendedPurchases.length}
+              {temporaryPurchases.length}
             </div>
           )}
         </div>

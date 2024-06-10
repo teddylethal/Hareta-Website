@@ -6,7 +6,7 @@ import { formatCurrency, showSuccessDialog } from 'src/utils/utils'
 import { AppContext } from 'src/contexts/app.context'
 import classNames from 'classnames'
 import ProductDescription from '../../components/ProductDetailDescription/ProductDetailDescription'
-import { TemporaryPurchase } from 'src/types/cart.type'
+import { Purchase } from 'src/types/cart.type'
 import { CartContext } from 'src/contexts/cart.context'
 import { ProductType } from 'src/types/product.type'
 import { Link } from 'react-router-dom'
@@ -17,6 +17,7 @@ import ProductDetailImageList from '../../components/ProductDetailImageList'
 import ProductDetailVariantList from '../../components/ProductDetailVariantList'
 import ProductTag from 'src/components/ProductTag'
 import CustomReachDialog from 'src/components/CustomReachDialog'
+import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
 
 interface Props {
   defaultProduct: ProductType
@@ -30,7 +31,7 @@ export default function ProductDetailDesktop(props: Props) {
   const { defaultProduct, isLikedByUser, productsInGroup, addToCart, toggleLikeProduct } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchases, setTempExtendedPurchases } = useContext(CartContext)
+  const { temporaryPurchases, setTemporaryPurchases } = useContext(CartContext)
 
   const [successDialog, setSuccessDialog] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
@@ -58,43 +59,55 @@ export default function ProductDetailDesktop(props: Props) {
 
   //! ADD TO TEMPORARY CART
   const createTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
+    const newPurchase: Purchase = {
       id: Date.now().toString(),
+      created_at: Date.now().toString(),
+      updated_at: Date.now().toString(),
+      status: 0,
       quantity: quantity,
       item: activeProduct
     }
-    setTempExtendedPurchases([...tempExtendedPurchases, newPurchase])
+
+    setTemporaryPurchases([...temporaryPurchases, newPurchase])
+    setTemporaryPurchasesToLS([...temporaryPurchases, newPurchase])
+
     setCreateTempCart(false)
     setQuantity(1)
     showSuccessDialog(setSuccessDialog)
   }
 
   const addToTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
+    const newPurchase: Purchase = {
       id: Date.now().toString(),
+      created_at: Date.now().toString(),
+      updated_at: Date.now().toString(),
+      status: 0,
       quantity: quantity,
       item: activeProduct
     }
-    const purchaseIndex = tempExtendedPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = temporaryPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const purchase = tempExtendedPurchases[purchaseIndex]
+      const purchase = temporaryPurchases[purchaseIndex]
       const maxQuanityInStore = purchase.item.quantity
       const currentQuantityInCart = purchase.quantity
       if (currentQuantityInCart + quantity <= maxQuanityInStore) {
         const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = tempExtendedPurchases.map((purchase, index) => {
+        const newPurchasesList = temporaryPurchases.map((purchase, index) => {
           if (index === purchaseIndex) {
             return { ...purchase, quantity: newQuantity }
           } else return purchase
         })
-        setTempExtendedPurchases(newPurchasesList)
+        setTemporaryPurchases(newPurchasesList)
+        setTemporaryPurchasesToLS(newPurchasesList)
+
         setQuantity(1)
       } else {
         setErrorDialog(true)
         setQuantity(1)
       }
     } else {
-      setTempExtendedPurchases([...tempExtendedPurchases, newPurchase])
+      setTemporaryPurchases([...temporaryPurchases, newPurchase])
+      setTemporaryPurchasesToLS([...temporaryPurchases, newPurchase])
     }
     showSuccessDialog(setSuccessDialog, 1500)
   }
@@ -105,6 +118,8 @@ export default function ProductDetailDesktop(props: Props) {
 
   //! Multi languages
   const { t } = useTranslation('productdetail')
+
+  const isSaleOff = defaultProduct.price < defaultProduct.original_price
 
   return (
     <div className='relative grid grid-cols-12 gap-4 desktop:gap-8 desktopLarge:gap-16'>
@@ -132,10 +147,20 @@ export default function ProductDetailDesktop(props: Props) {
               <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent' />
             </div>
           )}
-          <div className='mt-2'>
-            <span className='text-base font-medium text-haretaColor desktop:text-lg desktopLarge:text-xl'>
-              ${formatCurrency(defaultProduct.price)}
+          <div className='mt-2 flex space-x-2'>
+            <span
+              className={classNames('text-base font-medium  desktop:text-lg desktopLarge:text-xl', {
+                'line-through opacity-60': isSaleOff,
+                'text-haretaColor': !isSaleOff
+              })}
+            >
+              ${formatCurrency(defaultProduct.original_price)}
             </span>
+            {isSaleOff && (
+              <span className='text-base font-medium text-haretaColor desktop:text-lg desktopLarge:text-xl'>
+                ${formatCurrency(defaultProduct.price)}
+              </span>
+            )}
           </div>
 
           <ProductDetailVariantList
@@ -173,7 +198,7 @@ export default function ProductDetailDesktop(props: Props) {
                   onClick={
                     isAuthenticated
                       ? handleAddToCart
-                      : tempExtendedPurchases.length === 0
+                      : temporaryPurchases.length === 0
                       ? () => {
                           setCreateTempCart(true)
                         }

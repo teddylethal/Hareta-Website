@@ -4,7 +4,6 @@ import PathBar from 'src/components/PathBar'
 import CartForUser from './children/CartForUser'
 import { useTranslation } from 'react-i18next'
 import CartForGuest from './children/CartForGuest'
-import CartCouponUsing from './components/CartCouponUsing'
 
 export default function CartPage() {
   const { isAuthenticated } = useContext(AppContext)
@@ -21,7 +20,6 @@ export default function CartPage() {
     <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
       <div className='container space-y-6'>
         <PathBar pathList={[{ pathName: t('path.cart'), url: '/cart' }]} />
-        <CartCouponUsing />
         {isAuthenticated && <CartForUser />}
         {!isAuthenticated && <CartForGuest />}
       </div>

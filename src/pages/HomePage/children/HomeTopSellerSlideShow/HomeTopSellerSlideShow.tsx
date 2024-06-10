@@ -66,7 +66,7 @@ export default function HomeTopSellerSlideShow() {
   //! Get top seller product list
   const itemsConfig: ProductListQueryConfig = { limit: String(LIMIT) }
   const { data: itemsData } = useQuery({
-    queryKey: ['default-products', itemsConfig],
+    queryKey: ['products', itemsConfig],
     queryFn: () => {
       return productApi.getProductList(itemsConfig)
     }

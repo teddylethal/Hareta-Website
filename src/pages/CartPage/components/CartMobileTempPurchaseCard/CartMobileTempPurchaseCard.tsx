@@ -20,6 +20,8 @@ interface Props {
 export default function CartMobileTempPurchaseCard(props: Props) {
   const { purchase, index, handleChecking, handleQuantity, handleRemove, handleTypeQuantity } = props
 
+  const isDiscounted = purchase.item.price < purchase.item.original_price
+
   return (
     <div
       key={purchase.id}
@@ -35,22 +37,19 @@ export default function CartMobileTempPurchaseCard(props: Props) {
               onChange={handleChecking(index)}
             />
           </div>
-          <p className='col-span-6 truncate text-center text-base font-semibold'>{purchase.item.name}</p>
+          <p className='col-span-5 truncate text-center text-base font-semibold'>{purchase.item.name}</p>
 
-          <div className='col-span-4 flex flex-col text-xs mobileLarge:text-sm'>
+          <div className='col-span-5 flex justify-center space-x-2 text-xs mobileLarge:text-sm'>
             <span
               className={classNames('text-darkText dark:text-lightText', {
-                'line-through opacity-80': purchase.discount > 0
+                'line-through opacity-80': isDiscounted
               })}
             >
-              ${formatCurrency(purchase.item.price)}
+              ${formatCurrency(purchase.item.original_price)}
             </span>
-            {purchase.discount > 0 && (
+            {isDiscounted && (
               <div className='flex justify-center space-x-2'>
-                <span className='text-darkText dark:text-lightText'>
-                  ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
-                </span>
-                <span className='text-darkText dark:text-lightText'>({purchase.discount}%)</span>
+                ${formatCurrency(purchase.item.price * ((100 - purchase.discount) / 100))}
               </div>
             )}
           </div>
@@ -65,15 +64,15 @@ export default function CartMobileTempPurchaseCard(props: Props) {
 
         <div className='grid grid-cols-12 items-center'>
           <div className='col-span-1'></div>
-          <div className='col-span-6'>
+          <div className='col-span-5'>
             <Link
               to={`${mainPath.store}/${generateNameId({
                 name: purchase.item.name,
                 id: purchase.item.id
               })}`}
-              className='flex flex-grow items-center'
+              className='flex items-center justify-center'
             >
-              <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden rounded-2xl bg-white pt-[80%] dark:bg-black'>
+              <div className='relative flex w-[80%] flex-shrink-0 items-center overflow-hidden rounded-2xl bg-white pt-[80%] dark:bg-black tabletSmall:w-[60%] tabletSmall:pt-[60%]'>
                 {purchase.item.avatar ? (
                   <img
                     alt={purchase.item.name}
@@ -92,11 +91,11 @@ export default function CartMobileTempPurchaseCard(props: Props) {
 
         <div className='mt-4 grid grid-cols-12'>
           <div className='col-span-1'></div>
-          <div className='col-span-6'>
+          <div className='col-span-5'>
             <QuantityController
               max={purchase.item.quantity}
               value={purchase.quantity}
-              classNameWrapper='justify-center'
+              classNameWrapper='flex items-center justify-center'
               inputClassName='h-6 mx-2 w-12 text-xs rounded-md p-1 text-center outline-none text-haretaColor dark:bg-black bg-white'
               classNameButton='round flex items-center justify-center rounded-full bg-white p-1.5 text-darkText dark:bg-black dark:text-lightText'
               classNameIcon='h-3'
@@ -114,7 +113,7 @@ export default function CartMobileTempPurchaseCard(props: Props) {
             />
           </div>
 
-          <span className='col-span-4 text-sm font-semibold text-haretaColor mobileLarge:text-base'>
+          <span className='col-span-5 text-sm font-semibold text-haretaColor mobileLarge:text-base'>
             ${formatCurrency(purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100))}
           </span>
         </div>

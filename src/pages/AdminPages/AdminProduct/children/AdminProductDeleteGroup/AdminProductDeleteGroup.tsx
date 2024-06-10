@@ -37,13 +37,15 @@ export default function AdminProductDeleteGroup() {
   const handleDelete = () => {
     setConfirmDialog(false)
     setLoadingPage(true)
+    console.log(productGroup?.id)
+    return
     deleteItemMutation.mutate(
       { id: productGroup?.id as string },
       {
         onSuccess: () => {
           showSuccessDialog(setDialog)
           queryClient.invalidateQueries({ queryKey: ['product-groups'] })
-          queryClient.invalidateQueries({ queryKey: ['default-products'] })
+          queryClient.invalidateQueries({ queryKey: ['products'] })
           queryClient.invalidateQueries({ queryKey: ['product-groups', productGroup?.id] })
           setProductGroup(null)
         }
