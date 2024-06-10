@@ -8,7 +8,11 @@
   },
 
   "list": {
-    "Clear": "clear"
+    "Clear": "clear",
+    "Go to event": "Go to event"
+  },
+  "event page": {
+    "Ongoing events": "Ongoing events"
   },
   "detail": {
     "Products in event": "Products in event",

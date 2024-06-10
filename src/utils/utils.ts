@@ -43,15 +43,15 @@ export const getLanguageFromLS = () => {
 }
 
 export const formatDate = (timeStamp: string) => {
-  return moment(timeStamp).utc().format('YYYY-MM-DD')
+  return moment(timeStamp).format('YYYY-MM-DD')
 }
 
 export const formatDateEn = (timeStamp: string) => {
-  return moment(timeStamp).utc().format('MMM DD, YYYY')
+  return moment(timeStamp).format('MMM DD, YYYY')
 }
 
 export const formatDateVi = (timeStamp: string) => {
-  return moment(timeStamp).utc().format('DD-MM-YYYY')
+  return moment(timeStamp).format('DD-MM-YYYY')
 }
 
 export const formatTimeToSeconds = (time: number) => {

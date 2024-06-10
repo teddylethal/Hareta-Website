@@ -74,7 +74,7 @@ export default function AdminEventUpdate({
   }, [eventDetail])
 
   const { data: imagesData } = useQuery({
-    queryKey: ['image', 'list', imageListConfig],
+    queryKey: ['images', 'list', imageListConfig],
     queryFn: () => {
       return imageApi.getImageList(imageListConfig as ImageListConfig)
     },
@@ -89,7 +89,8 @@ export default function AdminEventUpdate({
     defaultValues: {
       id: eventDetail?.id || '',
       overall_content: eventDetail?.overall_content || '',
-      detail_content: eventDetail?.id || '',
+      detail_content: eventDetail?.detail_content || '',
+      discount: eventDetail?.discount ?? '0',
       date_start: new Date(eventDetail?.date_start) || currentDate,
       date_end: new Date(eventDetail?.date_end) || currentDate,
       avatar: eventDetail?.avatar || 'emptyURL'
@@ -108,6 +109,7 @@ export default function AdminEventUpdate({
     const invalidFields = []
     for (const key in form) {
       const value: string | number | Date = form[key as keyof FormData]
+      if (value == 0) continue
       if (value == '') {
         if (key == 'avatar') {
           continue
@@ -146,8 +148,8 @@ export default function AdminEventUpdate({
     data.date_end.setHours(23, 59, 59, 999)
     const updatePostBody = {
       ...data,
-      date_start: formatTimeToSeconds(data.date_start.getTime() + 1000 * 60 * 60 * 7),
-      date_end: formatTimeToSeconds(data.date_end.getTime() + 1000 * 60 * 60 * 7),
+      date_start: formatTimeToSeconds(data.date_start.getTime()),
+      date_end: formatTimeToSeconds(data.date_end.getTime()),
       avatar: newUploadedImageRespone ? newUploadedImageRespone.data.data.url : data.avatar
     }
     updateEventMutation.mutate(updatePostBody, {
@@ -199,7 +201,12 @@ export default function AdminEventUpdate({
             <AdminEventUpdateForm eventDetail={eventDetail} imageFile={imageFile} setImageFile={setImageFile} />
           </div>
           <div className='sticky bottom-2 z-10 flex h-min w-full items-center justify-between space-x-2 rounded-lg bg-black/60 px-4 py-2 desktop:space-x-6'>
-            <div className='shrink-0 rounded-lg bg-primaryBlue p-2 font-medium desktop:text-base'>Chế độ chỉnh sửa</div>
+            <div
+              className='shrink-0 rounded-lg bg-haretaColor
+             p-2 font-medium desktop:text-base'
+            >
+              Chế độ chỉnh sửa
+            </div>
             <div className='grid w-full grid-cols-3 gap-1'>
               <div className='col-span-1 flex items-center justify-center'>
                 <button
@@ -220,7 +227,7 @@ export default function AdminEventUpdate({
                 </button>
               </div>
               <div className='col-span-1 flex items-center justify-center'>
-                <button type='submit' className='rounded-xl bg-unhoveringBg px-4 py-1 text-sm hover:bg-hoveringBg'>
+                <button type='submit' className='rounded-xl bg-primaryBlue/80 px-4 py-1 text-sm hover:bg-primaryBlue'>
                   Lưu
                 </button>
               </div>

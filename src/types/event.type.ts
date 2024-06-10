@@ -8,7 +8,7 @@ export interface EventType extends JSONModel {
   date_end: string
   discount: number
   avatar: string
-  items: [{ item: ProductType }]
+  items: { item: ProductType }[]
 }
 export interface EventList {
   data: EventType[]

@@ -164,7 +164,7 @@ export default function AdminEventDetail() {
             {invalidFields.length > 0 && (
               <div className='space-y-2'>
                 <p className='text-left text-lg font-medium uppercase leading-6 text-alertRed'>
-                  Chỉnh sửa bài viết không thành công do các nội dung sau không hợp lệ:
+                  Chỉnh sửa không thành công do các nội dung sau không hợp lệ:
                 </p>
                 <div className='flex flex-col items-start space-y-2'>
                   {invalidFields.map((field, index) => (

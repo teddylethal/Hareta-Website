@@ -104,8 +104,8 @@ export default function AdminEventCreate() {
     data.date_end.setHours(23, 59, 59, 999)
     const newEventBody = {
       ...data,
-      date_start: formatTimeToSeconds(data.date_start.getTime() + 1000 * 60 * 60 * 7),
-      date_end: formatTimeToSeconds(data.date_end.getTime() + 1000 * 60 * 60 * 7),
+      date_start: formatTimeToSeconds(data.date_start.getTime()),
+      date_end: formatTimeToSeconds(data.date_end.getTime()),
       avatar: newUploadedImageRespone ? newUploadedImageRespone.data.data.url : ''
     }
     createEventMutation.mutate(newEventBody, {
