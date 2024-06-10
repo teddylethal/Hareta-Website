@@ -9,9 +9,7 @@ import { getIdFromNameId } from 'src/utils/utils'
 import purchaseApi from 'src/apis/cart.api'
 import { useViewport } from 'src/hooks/useViewport'
 import classNames from 'classnames'
-import DialogPopup from 'src/components/DialogPopup'
 import { AppContext } from 'src/contexts/app.context'
-
 import { ProductsInGroupConfig } from 'src/types/product.type'
 import { AxiosError } from 'axios'
 import { ErrorRespone } from 'src/types/utils.type'
@@ -27,6 +25,8 @@ import ProductDetailDesktop from './children/ProductDetailDesktop'
 import ProductDetailMobile from './children/ProductDetailMobile'
 import ProductDetailLoading from './children/ProductDetailLoading'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
+import CustomReachDialog from 'src/components/CustomReachDialog'
+import LoadingSection from 'src/components/LoadingSection'
 
 export interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -39,18 +39,22 @@ export default function ProductDetailPage() {
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
 
-  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
-  const [errorDialog, setErrorDialog] = useState<boolean>(false)
+  const [dialog, setDialog] = useState(false)
+  const [excuting, setExcuting] = useState(false)
+  const [addSuccess, setAddSuccess] = useState(false)
+  const [addError, setAddError] = useState(false)
+  const [invalidQuantity, setInvalidQuantity] = useState(false)
+
   const [likeProductDialog, setLikeProductDialog] = useState<boolean>(false)
   const [isLikedByUser, setIsLikedByUser] = useState<boolean>(false)
 
   const queryClient = useQueryClient()
   const { nameId } = useParams()
 
-  //! GET product DATA
+  //! Get product detail
   const id = getIdFromNameId(nameId as string)
   const { data: productDetailData, isFetching } = useQuery({
-    queryKey: ['product_detail', id],
+    queryKey: ['products', id],
     queryFn: () => productApi.getProductDetail(id as string)
   })
   const defaultProduct = productDetailData?.data.data
@@ -62,7 +66,7 @@ export default function ProductDetailPage() {
     limit: '50'
   }
   const { data: productsInGroupData } = useQuery({
-    queryKey: ['product_list_in_group', productsInGroupQuery],
+    queryKey: ['product-groups', 'variants', defaultProduct?.group.id],
     queryFn: () => productApi.getProductsInGroup(productsInGroupQuery),
 
     enabled: Boolean(defaultProduct)
@@ -71,7 +75,7 @@ export default function ProductDetailPage() {
 
   //! GET WISHLIST
   const { data: wishlistData } = useQuery({
-    queryKey: ['user_wish_list'],
+    queryKey: ['wishlist'],
     queryFn: () => {
       return userLikeProductApi.getWishList()
     },
@@ -93,19 +97,29 @@ export default function ProductDetailPage() {
   //! HANDLE ADD TO CART
   const addToCartMutation = useMutation({ mutationFn: purchaseApi.addToCart })
   const addToCart = (productID: string, quantity: number) => {
+    setAddSuccess(false)
+    setAddError(false)
+    setDialog(true)
+    setExcuting(true)
     addToCartMutation.mutate(
       { item_id: productID, quantity: quantity },
       {
+        onSettled: () => {
+          setExcuting(false)
+        },
         onSuccess: () => {
-          showDialog()
+          setAddSuccess(true)
+          setAddError(false)
           queryClient.invalidateQueries({ queryKey: ['purchases'] })
         },
         onError: (axiosError) => {
           const errorRespone = axiosError as AxiosError
           const errorKey = (errorRespone.response?.data as ErrorRespone).error_key
           const quantityError = errorResponeList.find((error) => error.error_key === errorKey)
+          setAddSuccess(false)
+          setAddError(true)
           if (quantityError) {
-            setErrorDialog(true)
+            setInvalidQuantity(true)
           }
           return Promise.reject(axiosError)
         }
@@ -155,20 +169,9 @@ export default function ProductDetailPage() {
     !isLikedByUser && likeproduct()
   }
 
-  const showDialog = () => {
-    setDialogIsOpen(true)
-    setTimeout(() => {
-      closeDialog()
-    }, 1500)
-  }
-
-  const closeDialog = () => {
-    setDialogIsOpen(false)
-  }
-
   //! CHANGE TITLE
   useEffect(() => {
-    document.title = `${defaultProduct?.name} | Hareta Workshop`
+    document.title = `Hareta Workshop | ${defaultProduct?.name}`
   })
 
   //! translation
@@ -228,25 +231,61 @@ export default function ProductDetailPage() {
         )}
       </div>
 
-      <DialogPopup
-        isOpen={dialogIsOpen}
-        handleClose={closeDialog}
+      <CustomReachDialog
+        isOpen={dialog}
+        handleClose={() => setDialog(false)}
+        closeButton
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
       >
-        <div className=' text-center'>
-          <FontAwesomeIcon
-            icon={faCheck}
-            fontSize={36}
-            className={classNames('text- rounded-full  p-4 text-center text-successGreen ', {
-              'bg-black/20': theme === 'light',
-              'bg-white/20': theme === 'dark'
-            })}
-          />
-        </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to cart')}</p>
-      </DialogPopup>
+        {excuting && <LoadingSection className='flex h-40 w-full items-center justify-center' />}
+        {addSuccess && (
+          <Fragment>
+            <div className='text-center'>
+              <FontAwesomeIcon
+                icon={faCheck}
+                fontSize={36}
+                className={classNames('text- rounded-full  p-4 text-center text-successGreen ', {
+                  'bg-black/20': theme === 'light',
+                  'bg-white/20': theme === 'dark'
+                })}
+              />
+            </div>
+            <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to cart')}</p>
+          </Fragment>
+        )}
+        {addError && (
+          <Fragment>
+            {invalidQuantity && (
+              <Fragment>
+                <div className='text-center'>
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className={classNames('h-auto w-8 text-alertRed tablet:w-10 desktop:w-12 desktopLarge:w-16')}
+                  />
+                </div>
+                <p className='mt-6 text-center text-xl font-medium leading-6'>
+                  {t('message.The quantity of the current item you are trying to add exceed our store')}
+                </p>
+              </Fragment>
+            )}
+            {!invalidQuantity && (
+              <Fragment>
+                <div className='text-center'>
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className={classNames('h-auto w-8 text-alertRed tablet:w-10 desktop:w-12 desktopLarge:w-16')}
+                  />
+                </div>
+                <p className='mt-6 text-center text-xl font-medium leading-6'>
+                  {t('message.Something went wrong, please try again')}
+                </p>
+              </Fragment>
+            )}
+          </Fragment>
+        )}
+      </CustomReachDialog>
 
-      <DialogPopup
+      <CustomReachDialog
         isOpen={likeProductDialog}
         handleClose={() => setLikeProductDialog(false)}
         classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
@@ -262,23 +301,7 @@ export default function ProductDetailPage() {
           />
         </div>
         <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to wish list')}</p>
-      </DialogPopup>
-
-      <DialogPopup
-        isOpen={errorDialog}
-        handleClose={() => setErrorDialog(false)}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
-      >
-        <div className='text-center'>
-          <FontAwesomeIcon
-            icon={faXmark}
-            className={classNames('h-auto w-8 text-red-700 tablet:w-10 desktop:w-12 desktopLarge:w-16')}
-          />
-        </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>
-          {t('message.The quantity of the current item you are trying to add exceed our store')}
-        </p>
-      </DialogPopup>
+      </CustomReachDialog>
     </div>
   )
 }

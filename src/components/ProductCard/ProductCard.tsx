@@ -1,8 +1,7 @@
 import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { Product as ProductType } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import { Fragment, memo, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
@@ -15,6 +14,7 @@ import { ProductImage } from 'src/types/productImage.type'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
 import { StoreContext } from 'src/contexts/store.context'
 import ProductTag from 'src/components/ProductTag'
+import mainPath from 'src/constants/path'
 
 const MAXLENGTH = 3
 
@@ -77,11 +77,10 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
   }
 
   //! GET IMAGE LIST
-  const itemID = product.id
+  const productId = product.id
   const { data: imageListData, isLoading } = useQuery({
-    queryKey: ['default_product_images', itemID],
-    queryFn: () => producImageApi.getImageList(itemID as string),
-
+    queryKey: ['products', 'images', productId],
+    queryFn: () => producImageApi.getImageList(productId as string),
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data
@@ -110,7 +109,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
     if (disableClick) {
       event.preventDefault()
     } else {
-      navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+      navigate({ pathname: `${mainPath.store}/${generateNameId({ name: product.name, id: product.id })}` })
       queryClient.invalidateQueries({ queryKey: ['wishlist'] })
     }
   }
@@ -152,6 +151,9 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLikedByUser])
 
+  //! Check is discounted
+  const isDiscounted = product.price < product.original_price
+
   return (
     <div
       className='flex w-full items-center justify-center pb-0 pt-2 duration-200 tablet:hover:pb-2 tablet:hover:pt-0'
@@ -192,17 +194,32 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
             {product.name}
           </button>
 
-          <span className='text-xs font-semibold text-haretaColor dark:text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
-            ${formatCurrency(product.price)}
-          </span>
+          <div className='flex items-center space-x-2'>
+            <span
+              className={classNames(
+                'text-xs font-semibold tabletSmall:text-sm desktop:text-base desktopLarge:text-lg',
+                {
+                  'line-through opacity-60': isDiscounted,
+                  'text-haretaColor dark:text-haretaColor': !isDiscounted
+                }
+              )}
+            >
+              ${formatCurrency(product.original_price)}
+            </span>
+            {isDiscounted && (
+              <span className='text-xs font-semibold text-haretaColor tabletSmall:text-sm desktop:text-base desktopLarge:text-lg'>
+                ${formatCurrency(product.price)}
+              </span>
+            )}
+          </div>
         </div>
         {product.tag !== 0 && (
-          <div className='absolute left-0 top-4'>
+          <div className='absolute left-0 top-2'>
             <ProductTag tag={product.tag} />
           </div>
         )}
         {isAuthenticated && (
-          <div className='absolute right-1 top-1'>
+          <div className='absolute right-1 top-2'>
             <button className='flex items-center justify-center rounded-xl bg-black/50 p-2' onClick={toggleLikeItem}>
               <FontAwesomeIcon
                 icon={faHeart}

@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import authApi from 'src/apis/auth.api'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { ErrorRespone } from 'src/types/utils.type'
 import { setProfileToLS } from 'src/utils/auth'
@@ -61,7 +61,7 @@ export default function AuthLoginPage() {
         })
 
         if (state && state.context == 'AccessProtectedRouteDenied' && state.from == 'user') {
-          navigate(path.profile)
+          navigate(mainPath.profile)
         } else {
           navigate(-1)
         }
@@ -72,8 +72,8 @@ export default function AuthLoginPage() {
           const formError = error.response?.data
           if (formError) {
             if (formError.error_key == 'ErrEmailNotVerified') {
-              navigate(path.requestVerify, {
-                state: { ...omit(data, ['password']), error: 'Please verify your email', from: path.login }
+              navigate(mainPath.requestVerify, {
+                state: { ...omit(data, ['password']), error: 'Please verify your email', from: mainPath.login }
               })
             }
 
@@ -158,7 +158,7 @@ export default function AuthLoginPage() {
 
               <div className='tablet:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs tabletSmall:text-sm tablet:mt-12 tablet:flex-row'>
                 <div className=''>
-                  <Link to={path.AuthPasswordRecoveryRequestEmail} state={{ email: getValues('email') }}>
+                  <Link to={mainPath.AuthPasswordRecoveryRequestEmail} state={{ email: getValues('email') }}>
                     <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-200 hover:opacity-100 dark:text-blue-400'>
                       {t('login.Forgot Password?')}
                     </p>
@@ -167,7 +167,10 @@ export default function AuthLoginPage() {
                 {!isSmall && (
                   <div className='flex items-center text-center'>
                     <span className='text-darkText/60 dark:text-lightText/60'>{t("login.Don't have an account?")}</span>
-                    <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>
+                    <Link
+                      className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor'
+                      to={mainPath.register}
+                    >
                       {t('login.sign up')}
                     </Link>
                   </div>
@@ -178,7 +181,10 @@ export default function AuthLoginPage() {
                     <span className='line-clamp-2 text-darkText/60 dark:text-lightText/60'>
                       {t("login.Don't have an account?")}
                     </span>
-                    <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={path.register}>
+                    <Link
+                      className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor'
+                      to={mainPath.register}
+                    >
                       {t('login.sign up')}
                     </Link>
                   </div>

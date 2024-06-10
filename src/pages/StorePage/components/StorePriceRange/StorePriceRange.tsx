@@ -3,7 +3,7 @@ import omit from 'lodash/omit'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { PriceSchema, priceSchema } from 'src/utils/rules'
@@ -82,7 +82,7 @@ export default function StorePriceRange({ queryConfig }: Props) {
       )
     }
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   })
@@ -94,7 +94,7 @@ export default function StorePriceRange({ queryConfig }: Props) {
     setUpperPrice('')
     reset()
     navigate({
-      pathname: path.store
+      pathname: mainPath.store
     })
   }
 
@@ -131,7 +131,7 @@ export default function StorePriceRange({ queryConfig }: Props) {
       )
     )
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   }

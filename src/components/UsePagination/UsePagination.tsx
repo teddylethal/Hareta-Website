@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { Link, createSearchParams } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
@@ -12,6 +12,15 @@ interface Props {
   totalPage: number
   isMobile?: boolean
 }
+
+//! Style
+const indexNumberStyle =
+  'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border px-2 py-2 text-sm shadow-sm hover:border-primaryColor dark:hover:border-primaryColor desktop:mx-2 desktop:h-8 desktop:w-8 desktop:text-base'
+const activeArrowStyle =
+  'group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border border-darkText px-3  py-1 text-sm text-darkText shadow-sm hover:border-primaryColor  hover:text-primaryColor dark:border-lightText dark:text-lightText dark:hover:border-primaryColor dark:hover:text-primaryColor desktop:text-base'
+const inactiveArrowStyle =
+  'group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border border-darkText px-3  py-1 text-sm text-darkText opacity-40 shadow-sm dark:border-lightText dark:text-lightText desktop:text-base'
+
 export default function UsePagination({ queryConfig, totalPage, isMobile }: Props) {
   const currentPage = Number(queryConfig.page)
   const RANGE = isMobile ? 1 : 2
@@ -68,19 +77,16 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
         return (
           <Link
             to={{
-              pathname: path.store,
+              pathname: mainPath.store,
               search: createSearchParams({
                 ...queryConfig,
                 page: pageNumber.toString()
               }).toString()
             }}
-            className={classNames(
-              'mx-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border px-2 py-2 text-sm shadow-sm hover:border-primaryColor dark:hover:border-primaryColor desktop:mx-2 desktop:h-8 desktop:w-8 desktop:text-base',
-              {
-                'border-transparent bg-haretaColor text-darkText dark:text-darkText': pageNumber === currentPage,
-                'border-textDark dark:border-textLight text-darkText dark:text-lightText ': pageNumber !== currentPage
-              }
-            )}
+            className={classNames(indexNumberStyle, {
+              'border-transparent bg-hoveringBg text-darkText dark:text-darkText': pageNumber === currentPage,
+              'border-textDark dark:border-textLight text-darkText dark:text-lightText ': pageNumber !== currentPage
+            })}
             key={index}
           >
             {pageNumber}
@@ -95,13 +101,13 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       {currentPage > 1 ? (
         <Link
           to={{
-            pathname: path.store,
+            pathname: mainPath.store,
             search: createSearchParams({
               ...queryConfig,
               page: (currentPage - 1).toString()
             }).toString()
           }}
-          className='border-textDark dark:border-textLight group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText shadow-sm hover:border-primaryColor hover:text-primaryColor dark:text-lightText dark:hover:border-primaryColor dark:hover:text-primaryColor desktop:text-base'
+          className={activeArrowStyle}
         >
           <FontAwesomeIcon
             icon={faAngleLeft}
@@ -110,7 +116,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
           {!isMobile && <p>{t('pagination.prev')}</p>}
         </Link>
       ) : (
-        <span className='border-textDark dark:border-textLight group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText opacity-40 shadow-sm dark:text-lightText desktop:text-base '>
+        <span className={inactiveArrowStyle}>
           <FontAwesomeIcon icon={faAngleLeft} className='py-1 text-darkText dark:text-lightText' />
           {!isMobile && <p>{t('pagination.prev')}</p>}
         </span>
@@ -121,13 +127,13 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
       {currentPage < totalPage ? (
         <Link
           to={{
-            pathname: path.store,
+            pathname: mainPath.store,
             search: createSearchParams({
               ...queryConfig,
               page: (currentPage + 1).toString()
             }).toString()
           }}
-          className='border-textDark dark:border-textLight group mx-2 flex cursor-pointer items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText shadow-sm  hover:border-primaryColor hover:text-primaryColor dark:text-lightText dark:hover:border-primaryColor dark:hover:text-primaryColor desktop:text-base'
+          className={activeArrowStyle}
         >
           {!isMobile && <p>{t('pagination.next')}</p>}
           <FontAwesomeIcon
@@ -136,7 +142,7 @@ export default function UsePagination({ queryConfig, totalPage, isMobile }: Prop
           />
         </Link>
       ) : (
-        <span className='border-textDark dark:border-textLight group mx-2 flex cursor-not-allowed items-center space-x-1 rounded-xl border  px-3 py-1 text-sm text-darkText  opacity-40 shadow-sm dark:text-lightText desktop:text-base'>
+        <span className={inactiveArrowStyle}>
           {!isMobile && <p>{t('pagination.next')}</p>}
           <FontAwesomeIcon icon={faAngleRight} className='py-1 text-darkText dark:text-lightText' />
         </span>

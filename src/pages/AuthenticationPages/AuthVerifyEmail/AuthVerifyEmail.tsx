@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import verifyEmail from 'src/apis/verifyEmail.api'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 
 export default function AuthVerifyEmail() {
   const { code } = useParams()
@@ -14,14 +14,14 @@ export default function AuthVerifyEmail() {
 
   useEffect(() => {
     if (data) {
-      navigate(path.login, {
+      navigate(mainPath.login, {
         state: { type: 'Success', title: 'EmailVerification', context: 'Email is now verified!' }
       })
     }
     if (error) {
       // console.log(error)
       // setEmailVerified()
-      navigate(path.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
+      navigate(mainPath.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
     }
   }, [data, status, error, navigate])
 

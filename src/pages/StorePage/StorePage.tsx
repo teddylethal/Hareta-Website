@@ -26,7 +26,7 @@ export default function StorePage() {
 
   //! GET PRODUCT LIST
   const { data: storeData, isFetching } = useQuery({
-    queryKey: ['default-products', queryConfig],
+    queryKey: ['products', queryConfig],
     queryFn: () => {
       return productApi.getProductList(queryConfig as ProductListConfig)
     },

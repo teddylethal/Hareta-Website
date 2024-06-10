@@ -1,8 +1,12 @@
 import LoadingRing from '../LoadingRing'
 
-export default function LoadingSection() {
+interface Props {
+  className?: string
+}
+
+export default function LoadingSection({ className = 'flex h-96 w-full items-center justify-center' }: Props) {
   return (
-    <div className='flex h-96 w-full items-center justify-center'>
+    <div className={className}>
       <LoadingRing />
     </div>
   )

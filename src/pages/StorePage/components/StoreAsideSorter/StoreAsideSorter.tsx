@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
 import { ProductTagList } from 'src/constants/itemTag'
@@ -44,7 +44,7 @@ export default function StoreAsideSorter() {
     // console.log(event)
     if (tagIndex === 0) {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {
@@ -56,7 +56,7 @@ export default function StoreAsideSorter() {
       })
     } else {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {

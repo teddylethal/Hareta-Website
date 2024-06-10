@@ -16,7 +16,7 @@ interface Props {
 export default function DialogPopup({
   isOpen,
   handleClose,
-  classNameWrapper = 'relative min-w-80 max-w-md transform overflow-hidden rounded-2xl p-10 align-middle shadow-xl transition-all',
+  classNameWrapper = 'min-w-80 relative max-w-md transform overflow-hidden rounded-2xl p-10 align-middle shadow-xl transition-all',
   children,
   closeButton = true
 }: Props) {
@@ -26,7 +26,7 @@ export default function DialogPopup({
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as='div' className='relative z-10' onClose={handleClose} initialFocus={completeButtonRef}>
+      <Dialog as='div' className='absolute z-50' onClose={handleClose} initialFocus={completeButtonRef}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-200'
@@ -36,11 +36,11 @@ export default function DialogPopup({
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <div className='fixed inset-0 bg-black bg-opacity-25' />
+          <div className='fixed inset-0 z-40 bg-black bg-opacity-25' />
         </Transition.Child>
 
-        <div className='fixed inset-0 overflow-y-auto'>
-          <div className='flex min-h-full items-center justify-center p-4 text-center'>
+        <div className='fixed inset-0 z-50 w-screen overflow-y-auto'>
+          <div className='flex min-h-full items-center justify-center text-center'>
             <Transition.Child
               as={Fragment}
               enter='ease-out duration-200'
@@ -51,13 +51,10 @@ export default function DialogPopup({
               leaveTo='opacity-0 scale-95'
             >
               <Dialog.Panel
-                className={classNames(
-                  {
-                    'bg-white/90 text-darkText': theme === 'light',
-                    'bg-black/90 text-lightText': theme === 'dark'
-                  },
-                  classNameWrapper
-                )}
+                className={classNames(classNameWrapper, 'relative z-50', {
+                  'bg-white/95 text-darkText': theme === 'light',
+                  'bg-black/95 text-lightText': theme === 'dark'
+                })}
               >
                 {children}
                 <button

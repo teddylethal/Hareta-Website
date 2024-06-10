@@ -14,11 +14,7 @@ export default function HomePage() {
     <div className='duration-200'>
       <HomeEventSlideShow />
 
-      <div className='tablet-space-y-6 container space-y-4 py-8 desktop:space-y-12 desktop:py-16 desktopLarge:space-y-24'>
-        <div className='flex w-full items-center justify-center'>
-          <div className='w-full border-t border-black/80 dark:border-white/80 tablet:w-8/12 desktop:w-1/2' />
-        </div>
-
+      <div className='container space-y-10 py-8 tablet:space-y-16 desktop:space-y-12 desktop:py-20 desktopLarge:space-y-24'>
         <HomeNewReleaseSlideShow />
 
         <HomeTopSellerSlideShow />

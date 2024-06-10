@@ -21,12 +21,12 @@ export default function PathBar({ pathList }: Props) {
   const { t } = useTranslation('store')
 
   return (
-    <div className='relative mb-2 flex shrink items-center justify-start space-x-2 rounded-lg border border-black/20 bg-barLightBg px-3 py-1 text-xs font-semibold uppercase text-darkText duration-200 dark:border-white/20 dark:bg-barDarkBg dark:text-lightText desktop:mb-3  desktop:px-4 desktop:py-2 desktop:text-sm desktopLarge:mb-4 desktopLarge:px-6 desktopLarge:py-3'>
-      <Fragment>
+    <div className='mb-2 rounded-lg border border-black/40 bg-barLightBg px-2 py-1 uppercase text-darkText duration-200 dark:border-white/40 dark:bg-barDarkBg dark:text-lightText desktop:mb-3 desktop:px-4 desktop:py-2 desktopLarge:mb-4 desktopLarge:px-6 desktopLarge:py-3'>
+      <div className='flex items-center justify-start space-x-1 overflow-hidden text-xs font-medium desktop:space-x-2 desktop:text-sm desktop:font-semibold'>
         <NavLink
           to={mainPath.home}
           className={({ isActive }) =>
-            classNames({
+            classNames('shrink-0', {
               'text-primaryColor': isActive,
               'hover:text-primaryColor': !isActive
             })
@@ -34,34 +34,34 @@ export default function PathBar({ pathList }: Props) {
         >
           {t('path bar.home')}
         </NavLink>
-      </Fragment>
-      {pathList.map((pathElement, index) => {
-        if (pathElement.isNotALink) {
-          return (
-            <Fragment key={index}>
-              <FontAwesomeIcon icon={faAngleRight} />
-              <div className={'text-primaryColor'}>{pathElement.pathName}</div>
-            </Fragment>
-          )
-        } else
-          return (
-            <Fragment key={index}>
-              <FontAwesomeIcon icon={faAngleRight} />
-              <NavLink
-                to={pathElement.url}
-                end
-                className={({ isActive }) =>
-                  classNames({
-                    'text-primaryColor': isActive,
-                    'hover:text-primaryColor': !isActive
-                  })
-                }
-              >
-                {pathElement.pathName}
-              </NavLink>
-            </Fragment>
-          )
-      })}
+        {pathList.map((pathElement, index) => {
+          if (pathElement.isNotALink) {
+            return (
+              <Fragment key={index}>
+                <FontAwesomeIcon icon={faAngleRight} />
+                <div className={'text-primaryColor'}>{pathElement.pathName}</div>
+              </Fragment>
+            )
+          } else
+            return (
+              <Fragment key={index}>
+                <FontAwesomeIcon icon={faAngleRight} />
+                <NavLink
+                  to={pathElement.url}
+                  end
+                  className={({ isActive }) =>
+                    classNames('shrink-0', {
+                      'text-primaryColor': isActive,
+                      'hover:text-primaryColor': !isActive
+                    })
+                  }
+                >
+                  {pathElement.pathName}
+                </NavLink>
+              </Fragment>
+            )
+        })}
+      </div>
     </div>
   )
 }

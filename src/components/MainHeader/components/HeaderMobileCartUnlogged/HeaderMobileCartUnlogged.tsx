@@ -6,9 +6,10 @@ import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { NavLink } from 'react-router-dom'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
+import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
 
 interface Props {
   wrapperStyle: string
@@ -17,7 +18,7 @@ interface Props {
 
 export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperStyle }: Props) {
   const { theme } = useContext(AppContext)
-  const { tempExtendedPurchases, setTempExtendedPurchases } = useContext(CartContext)
+  const { temporaryPurchases, setTemporaryPurchases } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)
   const openCart = () => {
@@ -28,9 +29,10 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
   }
 
   const handleRemove = (purchaseIndex: number) => () => {
-    const purchaseId = tempExtendedPurchases[purchaseIndex].id
-    const newPurchaseList = tempExtendedPurchases.filter((purchase) => purchase.id !== purchaseId)
-    setTempExtendedPurchases(newPurchaseList)
+    const purchaseId = temporaryPurchases[purchaseIndex].id
+    const newPurchaseList = temporaryPurchases.filter((purchase) => purchase.id !== purchaseId)
+    setTemporaryPurchases(newPurchaseList)
+    setTemporaryPurchasesToLS(newPurchaseList)
   }
 
   //! Multi languages
@@ -40,9 +42,9 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
     <div>
       <button onClick={openCart} className='relative flex items-end text-darkText dark:text-lightText'>
         <FontAwesomeIcon icon={faCartShopping} className='h-6 w-6 text-darkText dark:text-lightText' />
-        {tempExtendedPurchases.length > 0 && (
+        {temporaryPurchases.length > 0 && (
           <span className='absolute -top-1 left-4 flex h-4 w-4 items-center justify-center rounded-full bg-haretaColor text-xs text-darkText'>
-            {tempExtendedPurchases.length}
+            {temporaryPurchases.length}
           </span>
         )}
       </button>
@@ -79,11 +81,11 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
 
               <Fragment>
                 <div className='px-3 py-2 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
-                  {tempExtendedPurchases.length} {t('cart button.items in cart')}
+                  {temporaryPurchases.length} {t('cart button.items in cart')}
                 </div>
                 <div className={wrapperStyle}>
-                  {tempExtendedPurchases.length > 0 ? (
-                    tempExtendedPurchases.map((purchase, index) => (
+                  {temporaryPurchases.length > 0 ? (
+                    temporaryPurchases.map((purchase, index) => (
                       <div
                         className='flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightColor900/60 dark:border-white/20 dark:hover:bg-darkColor900/60'
                         key={purchase.id}
@@ -105,7 +107,10 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
                         <div className='flex grow flex-col justify-between'>
                           <div className='flex items-center justify-between'>
                             <NavLink
-                              to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                              to={`${mainPath.store}/${generateNameId({
+                                name: purchase.item.name,
+                                id: purchase.item.id
+                              })}`}
                               className='flex'
                               onClick={closeCart}
                             >
@@ -146,12 +151,12 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
 
               <div className='mx-3 flex items-center justify-between py-2 text-xs tabletSmall:text-sm'>
                 <div className='flex space-x-2'>
-                  <NavLink to={path.store} className={navigatorBtnStyle} onClick={closeCart}>
+                  <NavLink to={mainPath.store} className={navigatorBtnStyle} onClick={closeCart}>
                     {t('cart button.store')}
                   </NavLink>
                 </div>
                 <div>
-                  <NavLink to={path.cart} className={navigatorBtnStyle} onClick={closeCart}>
+                  <NavLink to={mainPath.cart} className={navigatorBtnStyle} onClick={closeCart}>
                     {t('cart button.enter cart')}
                   </NavLink>
                 </div>

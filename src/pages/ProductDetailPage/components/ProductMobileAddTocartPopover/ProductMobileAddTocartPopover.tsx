@@ -11,19 +11,20 @@ import { Link } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import Button from 'src/components/Button'
 import QuantityController from 'src/components/QuantityController'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { showSuccessDialog } from 'src/utils/utils'
-import { TemporaryPurchase } from 'src/types/cart.type'
-import { Product } from 'src/types/product.type'
+import { Purchase } from 'src/types/cart.type'
+import { ProductType } from 'src/types/product.type'
+import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
 
 interface Props {
-  item: Product
-  activeProduct: Product
-  setActiveProduct: React.Dispatch<React.SetStateAction<Product>>
-  productsInGroup: Product[]
+  item: ProductType
+  activeProduct: ProductType
+  setActiveProduct: React.Dispatch<React.SetStateAction<ProductType>>
+  productsInGroup: ProductType[]
   elementRef: React.RefObject<HTMLDivElement>
   visible: boolean
   setVisible: React.Dispatch<React.SetStateAction<boolean>>
@@ -43,13 +44,13 @@ export default function ProductMobileAddTocartPopover({
   setErrorDialog
 }: Props) {
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { tempExtendedPurchase, setTempExtendedPurchase } = useContext(CartContext)
+  const { temporaryPurchases, setTemporaryPurchases } = useContext(CartContext)
   const [activeProductID, setActiveProductID] = useState<string>(activeProduct.id)
   const { visible: createTempCart, ref: createDialogRef, setVisible: setCreateTempCart } = useClickOutside(false)
 
   //? GET ITEM DATA
   const { data: productDetailData, isLoading } = useQuery({
-    queryKey: ['previewing_item', activeProductID],
+    queryKey: ['products', 'detail', activeProductID],
     queryFn: () => productApi.getProductDetail(activeProductID),
 
     staleTime: 3 * 60 * 1000
@@ -57,7 +58,7 @@ export default function ProductMobileAddTocartPopover({
   const item = productDetailData?.data.data
 
   //? CHOOSE VARIANT
-  const handleChooseVariant = (item: Product) => () => {
+  const handleChooseVariant = (item: ProductType) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setQuantity(1)
     setActiveProductID(item.id)
@@ -81,14 +82,21 @@ export default function ProductMobileAddTocartPopover({
 
   const avatarURL = item?.avatar ? item.avatar.url : null
 
-  //? ADD TO TEMPORARY CART
+  //! ADD TO TEMPORARY CART
   const createTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
+    const newPurchase: Purchase = {
       id: Date.now().toString(),
-      quantity: 1,
+      created_at: Date.now().toString(),
+      updated_at: Date.now().toString(),
+      status: 0,
+      quantity: quantity,
       item: activeProduct
     }
-    setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+    const newTemporaryPurchases = [...temporaryPurchases, newPurchase]
+
+    setTemporaryPurchasesToLS(newTemporaryPurchases)
+    setTemporaryPurchases(newTemporaryPurchases)
+
     setCreateTempCart(false)
     setVisible(false)
     setQuantity(1)
@@ -96,31 +104,37 @@ export default function ProductMobileAddTocartPopover({
   }
 
   const addToTemporaryCart = () => {
-    const newPurchase: TemporaryPurchase = {
+    const newPurchase: Purchase = {
       id: Date.now().toString(),
+      created_at: Date.now().toString(),
+      updated_at: Date.now().toString(),
+      status: 0,
       quantity: quantity,
       item: activeProduct
     }
-    const purchaseIndex = tempExtendedPurchase.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
+    const purchaseIndex = temporaryPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
     if (purchaseIndex !== -1) {
-      const purchase = tempExtendedPurchase[purchaseIndex]
+      const purchase = temporaryPurchases[purchaseIndex]
       const maxQuanityInStore = purchase.item.quantity
       const currentQuantityInCart = purchase.quantity
       if (currentQuantityInCart + quantity <= maxQuanityInStore) {
         const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = tempExtendedPurchase.map((purchase, index) => {
+        const newPurchasesList = temporaryPurchases.map((purchase, index) => {
           if (index === purchaseIndex) {
             return { ...purchase, quantity: newQuantity }
           } else return purchase
         })
-        setTempExtendedPurchase(newPurchasesList)
+        setTemporaryPurchases(newPurchasesList)
+        setTemporaryPurchasesToLS(newPurchasesList)
+
         setQuantity(1)
       } else {
         setErrorDialog(true)
         setQuantity(1)
       }
     } else {
-      setTempExtendedPurchase([...tempExtendedPurchase, newPurchase])
+      setTemporaryPurchases([...temporaryPurchases, newPurchase])
+      setTemporaryPurchasesToLS([...temporaryPurchases, newPurchase])
     }
     setVisible(false)
     showSuccessDialog(setDialogIsOpen)
@@ -225,7 +239,7 @@ export default function ProductMobileAddTocartPopover({
               onClick={
                 isAuthenticated
                   ? addToCart
-                  : tempExtendedPurchase.length === 0
+                  : temporaryPurchases.length === 0
                   ? () => {
                       setCreateTempCart(true)
                     }
@@ -267,7 +281,7 @@ export default function ProductMobileAddTocartPopover({
                 </div>
                 <div className='mt-8 flex justify-around'>
                   <Link
-                    to={path.login}
+                    to={mainPath.login}
                     type='button'
                     className='justify-center rounded-md border border-transparent bg-haretaColor px-4 py-1 text-sm font-medium capitalize text-darkText desktop:px-6 desktop:py-2'
                   >

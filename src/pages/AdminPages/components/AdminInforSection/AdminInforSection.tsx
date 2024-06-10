@@ -26,7 +26,7 @@ export default function AdminInforSection({
   const titleWrapperClassname = titleWrapperStyle || 'col-span-1'
   const contentWrapperClassname = contentWrapperStyle || 'col-span-2'
   const titleClassname = titleStyle || 'font-medium uppercase text-white/60'
-  const contentClassname = contentStyle || 'rounded-lg bg-darkColor900 px-2 py-1 capitalize text-haretaColor'
+  const contentClassname = contentStyle || 'rounded-lg bg-darkColor900 px-2 py-1 text-haretaColor'
 
   return (
     <div className={wrapperClassname}>

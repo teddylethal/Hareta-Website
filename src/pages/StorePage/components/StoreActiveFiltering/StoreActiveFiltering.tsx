@@ -2,7 +2,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import omit from 'lodash/omit'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 
 export default function StoreActiveFiltering() {
@@ -21,7 +21,7 @@ export default function StoreActiveFiltering() {
     )
 
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   }

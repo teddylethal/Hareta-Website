@@ -1,7 +1,6 @@
 import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
-import path, { adminPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { AdminBlogProvider } from 'src/contexts/adminblog.context'
 
@@ -10,29 +9,46 @@ import AdminProductLayout from 'src/pages/AdminPages/layouts/AdminProductLayout'
 import AdminMainLayout from 'src/pages/AdminPages/layouts/AdminMainLayout'
 import AdminImageLayout from 'src/pages/AdminPages/layouts/AdminImageLayout'
 import AdminBlogLayout from 'src/pages/AdminPages/layouts/AdminBlogLayout'
-import AdminBlogManagement from 'src/pages/AdminPages/children/AdminBlogManagement'
-import AdminBlogDetail from 'src/pages/AdminPages/children/AdminBlogDetail'
-import AdminBlogCreate from 'src/pages/AdminPages/children/AdminBlogCreate'
+import AdminEventLayout from 'src/pages/AdminPages/layouts/AdminEventLayout'
+import AdminEventManagement from 'src/pages/AdminPages/AdminEvent/children/AdminEventManagement'
+import AdminEventDetail from 'src/pages/AdminPages/AdminEvent/children/AdminEventDetail'
+import AdminEventCreate from 'src/pages/AdminPages/AdminEvent/children/AdminEventCreate'
+import mainPath, { adminPath } from 'src/constants/path'
 
 //! LAZY IMPORT ADMIN PAGES
-const AdminMainPage = lazy(() => import('src/pages/AdminPages/children/AdminMainPage'))
-const AdminImageManagement = lazy(() => import('src/pages/AdminPages/children/AdminImageManagement'))
-const AdminUploadImages = lazy(() => import('src/pages/AdminPages/children/AdminUploadImages'))
-const AdminDeleteImages = lazy(() => import('src/pages/AdminPages/children/AdminDeleteImages'))
-const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/children/AdminOrderMangement'))
+const AdminMainPage = lazy(() => import('src/pages/AdminPages/AdminMainPage'))
 
 //! Lazy loading product pages
-const AdminProductManagement = lazy(() => import('src/pages/AdminPages/children/AdminProductManagement'))
-const AdminProductDetail = lazy(() => import('src/pages/AdminPages/children/AdminProductDetail'))
+const AdminProductManagement = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductManagement'))
+const AdminProductDetail = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductDetail'))
 
-const AdminProductCreate = lazy(() => import('src/pages/AdminPages/children/AdminProductCreate'))
-const AdminProductCreateGroup = lazy(() => import('src/pages/AdminPages/children/AdminProductCreateGroup'))
+const AdminProductCreate = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductCreate'))
+const AdminProductCreateGroup = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductCreateGroup'))
 
-const AdminProductUpdateAvatar = lazy(() => import('src/pages/AdminPages/children/AdminProductUpdateAvatar'))
-const AdminProductImagePage = lazy(() => import('src/pages/AdminPages/children/AdminProductImagePage'))
+const AdminProductUpdateAvatar = lazy(
+  () => import('src/pages/AdminPages/AdminProduct/children/AdminProductUpdateAvatar')
+)
+const AdminProductImagePage = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductImagePage'))
 
-const AdminProductDeleteProduct = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteProduct'))
-const AdminProductDeleteGroup = lazy(() => import('src/pages/AdminPages/children/AdminProductDeleteGroup'))
+const AdminProductDeleteProduct = lazy(
+  () => import('src/pages/AdminPages/AdminProduct/children/AdminProductDeleteProduct')
+)
+const AdminProductDeleteGroup = lazy(() => import('src/pages/AdminPages/AdminProduct/children/AdminProductDeleteGroup'))
+
+//! Lazy loading image pages
+const AdminImageManagement = lazy(() => import('src/pages/AdminPages/AdminImage/children/AdminImageManagement'))
+const AdminImageUpload = lazy(() => import('src/pages/AdminPages/AdminImage/children/AdminImageUpload'))
+const AdminImageDelete = lazy(() => import('src/pages/AdminPages/AdminImage/children/AdminImageDelete'))
+
+//! Lazy loading order pages
+const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/AdminOrder/children/AdminOrderMangement'))
+
+//! Lazy loading event pages
+
+//! Lazy loading blog pages
+const AdminBlogManagement = lazy(() => import('src/pages/AdminPages/AdminBlog/children/AdminBlogManagement'))
+const AdminBlogDetail = lazy(() => import('src/pages/AdminPages/AdminBlog/children/AdminBlogDetail'))
+const AdminBlogCreate = lazy(() => import('src/pages/AdminPages/AdminBlog/children/AdminBlogCreate'))
 
 function AdminMainRoute() {
   const { isAuthenticated, profile } = useContext(AppContext)
@@ -44,7 +60,7 @@ function AdminMainRoute() {
       </Suspense>
     </AdminMainLayout>
   ) : (
-    <Navigate to={path.home} />
+    <Navigate to={mainPath.home} />
   )
 }
 
@@ -69,6 +85,14 @@ function AdminOrderRoute() {
     <AdminOrderLayout>
       <Outlet />
     </AdminOrderLayout>
+  )
+}
+
+function AdminEventRoute() {
+  return (
+    <AdminEventLayout>
+      <Outlet />
+    </AdminEventLayout>
   )
 }
 
@@ -139,11 +163,11 @@ const AdminRoute: RouteObject = {
         },
         {
           path: adminPath.uploadImages,
-          element: <AdminUploadImages />
+          element: <AdminImageUpload />
         },
         {
           path: adminPath.deleteImages,
-          element: <AdminDeleteImages />
+          element: <AdminImageDelete />
         }
       ]
     },
@@ -172,6 +196,24 @@ const AdminRoute: RouteObject = {
         {
           path: adminPath.blogDetail,
           element: <AdminBlogDetail />
+        }
+      ]
+    },
+    {
+      path: adminPath.events,
+      element: <AdminEventRoute />,
+      children: [
+        {
+          path: '',
+          element: <AdminEventManagement />
+        },
+        {
+          path: adminPath.eventCreate,
+          element: <AdminEventCreate />
+        },
+        {
+          path: adminPath.eventDetail,
+          element: <AdminEventDetail />
         }
       ]
     }

@@ -1,40 +1,35 @@
 import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { CartContext } from 'src/contexts/cart.context'
+import { CartContext, ExtendedPurchase } from 'src/contexts/cart.context'
 import { useViewport } from 'src/hooks/useViewport'
-import { TemporaryPurchase } from 'src/types/cart.type'
 import { OrderContext } from 'src/contexts/order.context'
 import { setTempOrderListToLS } from 'src/utils/order'
 import CartMobileForGuest from '../CartMobileForGuest'
 import CartDesktopForGuest from '../CartDesktopForGuest'
-
-export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
-  disabled: boolean
-  checked: boolean
-  previousQuantity: number
-}
+import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
 
 export default function CartForGuest() {
   const viewport = useViewport()
   const isMobile = viewport.width <= 768
-  const { setTempExtendedPurchase, tempExtendedPurchase } = useContext(CartContext)
-  const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedTemporaryPurchase[]>([])
+  const { setTemporaryPurchases, temporaryPurchases } = useContext(CartContext)
+  const [extendedTempPurchases, setExtendedTempPurchases] = useState<ExtendedPurchase[]>([])
   const { setTempOrderList } = useContext(OrderContext)
 
   useEffect(() => {
     setExtendedTempPurchases((prev) => {
       const extendedTempPurchasesObject = keyBy(prev, 'id')
       return (
-        tempExtendedPurchase?.map((purchase) => ({
+        temporaryPurchases?.map((purchase) => ({
           ...purchase,
           disabled: false,
           checked: Boolean(extendedTempPurchasesObject[purchase.id]?.checked),
-          previousQuantity: purchase.quantity
+          previousQuantity: purchase.quantity,
+          discount: purchase.item.discount
         })) || []
       )
     })
-  }, [tempExtendedPurchase])
+  }, [temporaryPurchases])
 
   const isAllChecked = extendedTempPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedTempPurchases.filter((purchase) => purchase.checked)
@@ -76,8 +71,9 @@ export default function CartForGuest() {
 
   const handleRemove = (purchaseIndex: number) => () => {
     const purchaseId = extendedTempPurchases[purchaseIndex].id
-    const newPurchaseList = tempExtendedPurchase.filter((purchase) => purchase.id !== purchaseId)
-    setTempExtendedPurchase(newPurchaseList)
+    const newPurchaseList = temporaryPurchases.filter((purchase) => purchase.id !== purchaseId)
+    setTemporaryPurchases(newPurchaseList)
+    setTemporaryPurchasesToLS(newPurchaseList)
   }
 
   //! HANDLE CHECKOUT

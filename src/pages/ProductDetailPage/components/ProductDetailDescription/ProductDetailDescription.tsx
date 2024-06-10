@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { createRef, useLayoutEffect, useRef, useState } from 'react'
-import { Product } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import DOMPurify from 'dompurify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
@@ -8,11 +8,11 @@ import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import omit from 'lodash/omit'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  product: Product
+  product: ProductType
 }
 
 interface InfoProduct {
@@ -64,7 +64,7 @@ export default function ProductDetailDescription({ product }: Props) {
     }
 
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: searchParams.toString()
     })
   }
@@ -115,7 +115,7 @@ export default function ProductDetailDescription({ product }: Props) {
   }
 
   //! Style
-  const wrapperClassname = 'grid w-full grid-cols-3 gap-4'
+  const wrapperClassname = 'grid w-full grid-cols-3 gap-4 font-medium'
   const titleClassname =
     'col-span-1 text-base text-darkText/60 dark:text-lightText/60 desktop:text-lg desktopLarge:text-xl'
   const clickableInfoClassname =

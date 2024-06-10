@@ -5,9 +5,9 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import producImageApi from 'src/apis/productImage.api'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { useViewport } from 'src/hooks/useViewport'
-import { Product as ProductType } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 
 const LIMIT = 5
@@ -55,7 +55,7 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
   //! GET IMAGE LIST
   const productId = product.id
   const { data: imageListData, isFetching } = useQuery({
-    queryKey: ['product', 'images', productId],
+    queryKey: ['products', 'images', productId],
     queryFn: () => producImageApi.getImageList(productId as string),
 
     staleTime: 1000 * 60 * 3
@@ -67,7 +67,7 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const handleClickItem = () => {
-    navigate({ pathname: `${path.home}${generateNameId({ name: product.name, id: product.id })}` })
+    navigate({ pathname: `${mainPath.store}/${generateNameId({ name: product.name, id: product.id })}` })
     queryClient.invalidateQueries({ queryKey: ['wishlist'] })
   }
 
@@ -79,7 +79,7 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
       onMouseMove={handleMouseMove}
       onClick={handleClick}
     >
-      <div className='grid w-full grid-cols-2 gap-2 p-4 tablet:grid-cols-3 tablet:px-8 tablet:py-6 desktop:py-8 desktopLarge:gap-4 desktopLarge:px-12 desktopLarge:py-10'>
+      <div className='grid w-full grid-cols-1 gap-2 p-4 tablet:grid-cols-3 tablet:px-8 tablet:py-6 desktop:py-8 desktopLarge:gap-4 desktopLarge:px-12 desktopLarge:py-10'>
         <div className='col-span-1 min-h-full'>
           <div className='relative w-full pt-[80%]'>
             <div className='absolute left-0 top-0 h-full w-full'>

@@ -1,6 +1,5 @@
 import { createContext, useState } from 'react'
-import { ExtendsPurchase } from './cart.context'
-import { ExtendedTemporaryPurchase } from 'src/pages/CartPage/children/CartForGuest/CartForGuest'
+import { ExtendedPurchase } from './cart.context'
 import { Country, ICity, ICountry, IState } from 'country-state-city'
 import {
   getCountryAddressFromLS,
@@ -10,12 +9,13 @@ import {
   setCountryAddressToLS,
   setStateAddressToLS
 } from 'src/utils/order'
+import orderScreens from 'src/constants/orderScreens'
 
 interface OrderContextInterface {
-  orderList: ExtendsPurchase[]
-  setOrderList: React.Dispatch<React.SetStateAction<ExtendsPurchase[]>>
-  tempOrderList: ExtendedTemporaryPurchase[]
-  setTempOrderList: React.Dispatch<React.SetStateAction<ExtendedTemporaryPurchase[]>>
+  orderList: ExtendedPurchase[]
+  setOrderList: React.Dispatch<React.SetStateAction<ExtendedPurchase[]>>
+  tempOrderList: ExtendedPurchase[]
+  setTempOrderList: React.Dispatch<React.SetStateAction<ExtendedPurchase[]>>
   addressCountry: ICountry
   addressState: IState | null
   addressCity: ICity | null
@@ -28,6 +28,8 @@ interface OrderContextInterface {
   noneState: boolean
   setNoneCity: React.Dispatch<React.SetStateAction<boolean>>
   setNoneState: React.Dispatch<React.SetStateAction<boolean>>
+  screen: string
+  setScreen: React.Dispatch<React.SetStateAction<string>>
 }
 
 const initialOrderContext: OrderContextInterface = {
@@ -46,20 +48,23 @@ const initialOrderContext: OrderContextInterface = {
   noneCity: false,
   noneState: false,
   setNoneCity: () => null,
-  setNoneState: () => null
+  setNoneState: () => null,
+  screen: orderScreens.shipping,
+  setScreen: () => null
 }
 
 export const OrderContext = createContext<OrderContextInterface>(initialOrderContext)
 
 export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
-  const [orderList, setOrderList] = useState<ExtendsPurchase[]>(initialOrderContext.orderList)
-  const [tempOrderList, setTempOrderList] = useState<ExtendedTemporaryPurchase[]>(initialOrderContext.tempOrderList)
+  const [orderList, setOrderList] = useState<ExtendedPurchase[]>(initialOrderContext.orderList)
+  const [tempOrderList, setTempOrderList] = useState<ExtendedPurchase[]>(initialOrderContext.tempOrderList)
   const [addressCountry, setAddressCountry] = useState<ICountry>(initialOrderContext.addressCountry)
   const [addressState, setAddressState] = useState<IState | null>(initialOrderContext.addressState)
   const [addressCity, setAddressCity] = useState<ICity | null>(initialOrderContext.addressCity)
   const [confirmPayment, setConfirmPayment] = useState<boolean>(initialOrderContext.confirmPayment)
   const [noneState, setNoneState] = useState(false)
   const [noneCity, setNoneCity] = useState(false)
+  const [screen, setScreen] = useState<string>(initialOrderContext.screen)
 
   const setCountryAddress = (country: ICountry) => {
     setAddressCountry(country)
@@ -89,7 +94,9 @@ export const OrderProvider = ({ children }: { children: React.ReactNode }) => {
         noneState,
         noneCity,
         setNoneState,
-        setNoneCity
+        setNoneCity,
+        screen,
+        setScreen
       }}
     >
       {children}

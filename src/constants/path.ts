@@ -4,7 +4,7 @@ const mainPath = {
   register: '/register',
   requestVerify: '/request-verify',
   store: '/store',
-  productDetail: ':nameId',
+  productDetail: '/store/:nameId',
   cart: '/cart',
   user: '/user',
   blogs: '/blogs',
@@ -17,10 +17,7 @@ const mainPath = {
   AuthPasswordRecoveryRequestEmail: '/password-recovery',
   AuthPasswordRecovery: '/password-recovery/:slug',
   order: '/order',
-  shippingInfor: '/order/shipping-information',
-  payment: '/order/payment',
   orderTracking: '/order-tracking',
-  orderInformation: '/order-tracking/:orderId',
   privacyAndTerms: '/privacy-and-terms'
 } as const
 export default mainPath
@@ -48,6 +45,11 @@ export const adminPath = {
 
   // Order
   orders: '/admin/orders',
+
+  // Event
+  events: '/admin/events',
+  eventDetail: '/admin/events/:eventId',
+  eventCreate: '/admin/events/create',
 
   // Blog
   blogs: '/admin/blogs',
@@ -78,6 +80,19 @@ export const blogPath = {
   blogDetail: '/blogs/:blogId'
 }
 
-export const orderPath = {}
+export const orderPath = {
+  order: '/order',
+  checkout: '/order/checkout'
+}
+
+export const orderTrackingPath = {
+  orderTracking: '/order-tracking',
+  orderDetail: '/order-tracking/:orderId'
+}
+
+export const eventPath = {
+  events: '/events',
+  eventDetail: '/events/:eventId'
+}
 
 export const userPath = {}

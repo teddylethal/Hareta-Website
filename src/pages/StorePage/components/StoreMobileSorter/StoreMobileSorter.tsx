@@ -7,7 +7,7 @@ import { Fragment, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { ProductTagList } from 'src/constants/itemTag'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 
 import useClickOutside from 'src/hooks/useClickOutside'
@@ -33,7 +33,7 @@ export default function StoreMobileSorter() {
   const handleChange = (tagIndex: number) => () => {
     if (tagIndex === 0) {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {
@@ -45,7 +45,7 @@ export default function StoreMobileSorter() {
       })
     } else {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {

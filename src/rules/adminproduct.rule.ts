@@ -8,13 +8,14 @@ export const createProductSchema = yup.object({
   type: yup.string().required('Type is required'),
   color: yup.string().required('Color is required'),
   product_line: yup.string().required('Product line is required'),
-  price: yup.number().required('Price is required'),
+  original_price: yup.number().required('Original price is required'),
+  price: yup.number().required('Current price is required'),
   quantity: yup.number().required('Quantity is required'),
   description: yup.string().required('Description is required')
 })
 export type CreateProductSchema = yup.InferType<typeof createProductSchema>
 
-export const editProductSchema = yup.object({
+export const updateProductSchema = yup.object({
   id: yup.string().required('ID is required'),
   name: yup.string().default(''),
   category: yup.string().default(''),
@@ -23,6 +24,7 @@ export const editProductSchema = yup.object({
   color: yup.string().default(''),
   product_line: yup.string().default(''),
   description: yup.string().default(''),
+  original_price: yup.number().default(0),
   price: yup.number().default(0),
   quantity: yup.number().default(0),
   discount: yup.number().default(0),
@@ -32,4 +34,4 @@ export const editProductSchema = yup.object({
   cron_status: yup.number().default(0),
   avatar_url: yup.string().default('')
 })
-export type EditProductSchema = yup.InferType<typeof editProductSchema>
+export type UpdateProductSchema = yup.InferType<typeof updateProductSchema>

@@ -4,7 +4,8 @@
   "path": {
     "Home": "Home",
     "Cart": "Cart",
-    "Order": "Order"
+    "Order": "Order",
+    "Checkout": "Checkout"
   },
   "Processing...": "Processing...",
   "shipping information": {
@@ -13,6 +14,21 @@
     "Email address": "Email address",
     "Delivery address": "Delivery address",
     "Country": "Country",
+    "State / Province": "State / Province"
+  },
+  "bill": {
+    "Order": "Order",
+    "Back to cart": "Back to cart",
+    "Checkout": "Checkout",
+    "Change order": "Change order",
+    "Product": "Product",
+    "Unit price": "Unit price",
+    "Quantity": "Quantity",
+    "Subtotal": "Subtotal",
+    "Discount": "Discount",
+    "Discounted price": "Discounted price",
+    "Total": "Total",
+    "Address line": "Address line",
     "State / Province": "State / Province"
   },
   "layout": {
@@ -33,6 +49,8 @@
     "order information": "order information",
     "You must accept with the": "You must accept with the",
     "Your order was created successfully": "Your order was created successfully",
+    "Your order ID": "Your order ID",
+    "Please save this ID for Transaction and Order Tracking!": "Please save this ID for Transaction and Order Tracking!",
     "A payment instruction email was sent to your email address": "A payment instruction email was sent to your email address ",
     "Please complete transaction in 48 hours to complete your order": "Please complete transaction in 48 hours to complete your order",
     "Sincerely thanks!": "Sincerely thanks!",
@@ -64,5 +82,12 @@
     "adjust the quantity.": "adjust the quantity.",
     "Sincerely apologies for this accident!": "Sincerely apologies for this accident!",
     "Return to cart": "Return to cart"
+  },
+  "state": {
+    "Awaiting Payment": "Awaiting Payment",
+    "Preparing Package": "Preparing Package",
+    "Delivering": "Delivering",
+    "Delivered": "Delivered",
+    "Received": "Received"
   }
 }

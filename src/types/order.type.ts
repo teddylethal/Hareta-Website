@@ -1,14 +1,10 @@
-import { PagingType } from './utils.type'
+import { JSONModel, PagingType } from './utils.type'
 
-export interface Order {
-  id: string
-  status: number
-  created_at: string
-  updated_at: string
-  address: string
+export interface Order extends JSONModel {
   name: string
-  email: string
   phone: string
+  email: string
+  address: string
   total: number
 }
 
@@ -17,8 +13,13 @@ export interface OrderList {
   paging: PagingType
 }
 
-export interface ItemOrderConfig {
+export interface OrderPurchaseListConfig {
   order_id: string
   page: number | string
   limit: number | string
+}
+
+export interface OrderConfig {
+  page: string
+  limit: string
 }

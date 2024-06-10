@@ -7,7 +7,7 @@ import useQueryParams from 'src/hooks/useQueryParams'
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import omit from 'lodash/omit'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
@@ -60,7 +60,7 @@ export default function StoreCategoryFilter({ setMobileFilterOpen, isMobile = fa
 
     if (selectedCategory.toUpperCase() === t('aside filter.all').toUpperCase()) {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {
@@ -72,7 +72,7 @@ export default function StoreCategoryFilter({ setMobileFilterOpen, isMobile = fa
       })
     } else {
       navigate({
-        pathname: path.store,
+        pathname: mainPath.store,
         search: createSearchParams(
           omit(
             {

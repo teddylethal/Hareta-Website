@@ -1,4 +1,4 @@
-import { PagingType } from './utils.type'
+import { JSONModel, PagingType } from './utils.type'
 
 export interface ProductGroup {
   id: string
@@ -32,11 +32,7 @@ export interface ProductAvatar {
   extension: string
 }
 
-export interface Product {
-  id: string
-  status: number
-  created_at: string
-  updated_at: string
+export interface ProductType extends JSONModel {
   name: string
   category: string
   quantity: number
@@ -44,6 +40,7 @@ export interface Product {
   description: string
   collection: string
   type: string
+  original_price: number
   price: number
   sold: number
   tag: number
@@ -57,7 +54,7 @@ export interface Product {
 }
 
 export interface ProductList {
-  data: Product[]
+  data: ProductType[]
   paging: PagingType
 }
 

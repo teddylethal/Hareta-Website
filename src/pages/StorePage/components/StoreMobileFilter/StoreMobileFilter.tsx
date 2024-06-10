@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter, faXmark } from '@fortawesome/free-solid-svg-icons'
 import PriceRange from '../StorePriceRange'
 import { useNavigate } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import classNames from 'classnames'
 import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { AppContext } from 'src/contexts/app.context'
@@ -41,7 +41,7 @@ export default function StoreMobileFilter({ queryConfig }: Props) {
     close()
 
     navigate({
-      pathname: path.store
+      pathname: mainPath.store
     })
   }
 

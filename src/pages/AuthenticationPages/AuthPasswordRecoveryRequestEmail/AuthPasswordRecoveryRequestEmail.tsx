@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useLocation } from 'react-router-dom'
 import Button from 'src/components/Button'
 import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { ErrorRespone } from 'src/types/utils.type'
 import { RequestVerifySchema, requestVerifySchema } from 'src/utils/rules'
 import { isAxiosBadRequestError } from 'src/utils/utils'
@@ -94,7 +94,7 @@ export default function AuthPasswordRecoveryRequestEmail() {
                 noValidate
               >
                 <div>
-                  <Link to={path.login} className='absolute'>
+                  <Link to={mainPath.login} className='absolute'>
                     <FontAwesomeIcon
                       icon={faArrowLeft}
                       fontSize={32}
@@ -133,7 +133,7 @@ export default function AuthPasswordRecoveryRequestEmail() {
                 <div className='mt-3 flex justify-center text-sm tablet:hidden'>
                   <p className='text-gray-400'>{t('password.Go back to')}</p>
                   <Link
-                    to={path.login}
+                    to={mainPath.login}
                     className='ml-1 capitalize text-brownColor dark:text-haretaColor/70 hover:dark:text-haretaColor'
                   >
                     {t('login.login')}

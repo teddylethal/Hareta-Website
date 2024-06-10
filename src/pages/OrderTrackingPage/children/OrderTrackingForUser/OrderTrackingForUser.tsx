@@ -2,37 +2,37 @@ import { Fragment, useContext } from 'react'
 import EmptyProductList from 'src/components/EmptyProductList'
 import OrderTrackingLoading from 'src/pages/OrderTrackingPage/components/OrderTrackingLoading'
 import { AppContext } from 'src/contexts/app.context'
-import { OrderConfig } from '../../OrderTrackingPage'
 import { useQuery } from '@tanstack/react-query'
 import { orderApi } from 'src/apis/order.api'
 import { useTranslation } from 'react-i18next'
 import OrderPagination from 'src/components/OrderPagination'
 import { ceil } from 'lodash'
 import OrderTrackingOrderItem from '../../components/OrderTrackingOrderItem'
+import { OrderConfig } from 'src/types/order.type'
 
 const LIMIT = 5 as const
 
 export default function OrderTrackingForUser() {
   const { isAuthenticated } = useContext(AppContext)
 
-  //? get order list
+  //! get order list
   const orderConfig: OrderConfig = {
     page: '1',
     limit: String(LIMIT)
   }
   const { data: orderData, isFetching } = useQuery({
-    queryKey: ['order_list', orderConfig],
+    queryKey: ['orders', orderConfig],
     queryFn: () => {
       return orderApi.getOrderList()
     },
-
     enabled: isAuthenticated,
     staleTime: 3 * 60 * 1000
   })
   const orderList = orderData?.data.data || []
+  console.log(orderList)
 
   //! Multi languages
-  const { t } = useTranslation(['support'])
+  const { t } = useTranslation('support')
 
   return (
     <Fragment>

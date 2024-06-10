@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
 import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
@@ -58,7 +58,7 @@ export default function HomeFavouriteList() {
   const navigate = useNavigate()
   const handleNavigate = () => {
     navigate({
-      pathname: path.store,
+      pathname: mainPath.store,
       search: createSearchParams({
         tag: '3'
       }).toString()

@@ -1,39 +1,29 @@
-import { ExtendsPurchase } from 'src/contexts/cart.context'
-import { ExtendedTemporaryPurchase } from 'src/pages/CartPage/children/CartForGuest/CartForGuest'
+import { ExtendedPurchase } from 'src/contexts/cart.context'
+import { Purchase } from 'src/types/cart.type'
 
-export const setExtendedPurchasesToLS = (extendedPurchases: ExtendsPurchase[]) => {
+export const setExtendedPurchasesToLS = (extendedPurchases: ExtendedPurchase[]) => {
   localStorage.setItem('extended_purchases', JSON.stringify(extendedPurchases))
 }
 
-export const getExtendedPurchasesFromLS = (): ExtendsPurchase[] => {
+export const getExtendedPurchasesFromLS = (): ExtendedPurchase[] => {
   const res = localStorage.getItem('extended_purchases')
   return res ? JSON.parse(res) : []
 }
 
-export const setExtendedTempPurchasesToLS = (extendedPurchases: ExtendedTemporaryPurchase[]) => {
+export const setTemporaryPurchasesToLS = (extendedPurchases: Purchase[]) => {
+  localStorage.setItem('temp_purchases', JSON.stringify(extendedPurchases))
+}
+
+export const getTemporaryPurchasesFromLS = (): Purchase[] => {
+  const res = localStorage.getItem('temp_purchases')
+  return res ? JSON.parse(res) : []
+}
+
+export const setExtendedTempPurchasesToLS = (extendedPurchases: ExtendedPurchase[]) => {
   localStorage.setItem('extended_temp_purchases', JSON.stringify(extendedPurchases))
 }
 
-export const getExtendedTempPurchasesFromLS = (): ExtendedTemporaryPurchase[] => {
+export const getExtendedTempPurchasesFromLS = (): ExtendedPurchase[] => {
   const res = localStorage.getItem('extended_temp_purchases')
   return res ? JSON.parse(res) : []
-}
-
-export const getTempCartFromLS = (): ExtendedTemporaryPurchase[] => {
-  const res = localStorage.getItem('temporary_cart')
-  return res ? JSON.parse(res) : []
-}
-
-export const setTempCartToLS = (cart: ExtendedTemporaryPurchase[]) => {
-  // const index = cart.findIndex((itemInCart) => itemInCart.id === item.id)
-  // console.log(index)
-  // if (index) {
-  //   const newQuantity = cart[index].quantity + 1
-  //   const newPrevQuantity = cart[index].previousQuantity + 1
-  //   cart[index].quantity = newQuantity
-  //   cart[index].previousQuantity = newPrevQuantity
-  // } else {
-  //   cart.push({ ...item, quantity: 1, previousQuantity: 0 })
-  // }
-  localStorage.setItem('temporary_cart', JSON.stringify(cart))
 }

@@ -7,7 +7,7 @@ import purchaseApi from 'src/apis/cart.api'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import keyBy from 'lodash/keyBy'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from 'src/contexts/app.context'
@@ -51,7 +51,8 @@ export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle
           ...purchase,
           disabled: false,
           checked: Boolean(extendedPurchasesObject[purchase.id]?.checked),
-          previousQuantity: purchase.quantity
+          previousQuantity: purchase.quantity,
+          discount: purchase.item.discount
         })) || []
       )
     })
@@ -136,7 +137,10 @@ export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle
                         <div className='flex grow flex-col justify-between'>
                           <div className='flex items-center justify-between'>
                             <NavLink
-                              to={`${path.home}${generateNameId({ name: purchase.item.name, id: purchase.item.id })}`}
+                              to={`${mainPath.store}/${generateNameId({
+                                name: purchase.item.name,
+                                id: purchase.item.id
+                              })}`}
                               className='flex'
                               onClick={closeCart}
                             >
@@ -177,12 +181,12 @@ export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle
 
               <div className='mx-3 flex items-center justify-between py-2 text-xs tabletSmall:text-sm'>
                 <div className='flex space-x-2'>
-                  <NavLink to={path.store} className={navigatorBtnStyle} onClick={closeCart}>
+                  <NavLink to={mainPath.store} className={navigatorBtnStyle} onClick={closeCart}>
                     {t('cart button.store')}
                   </NavLink>
                 </div>
                 <div>
-                  <NavLink to={path.cart} className={navigatorBtnStyle} onClick={closeCart}>
+                  <NavLink to={mainPath.cart} className={navigatorBtnStyle} onClick={closeCart}>
                     {t('cart button.enter cart')}
                   </NavLink>
                 </div>

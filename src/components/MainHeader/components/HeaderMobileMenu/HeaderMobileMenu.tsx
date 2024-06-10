@@ -2,7 +2,7 @@ import { Fragment, useContext } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from 'src/contexts/app.context'
@@ -63,11 +63,11 @@ export default function HeaderMobileMenu({ className }: Props) {
               ref={ref}
             >
               <div className=' flex w-full flex-col items-start justify-start px-3 text-sm font-medium uppercase tabletSmall:text-base'>
-                <NavLink to={path.home} className='w-full px-2 py-2' onClick={closeMenu}>
+                <NavLink to={mainPath.home} className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.home')}</div>
                 </NavLink>
 
-                <NavLink to={path.store} className='w-full px-2 py-2' onClick={closeMenu}>
+                <NavLink to={mainPath.store} className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.store')}</div>
                 </NavLink>
 

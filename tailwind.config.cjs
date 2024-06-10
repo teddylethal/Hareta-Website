@@ -32,7 +32,7 @@ module.exports = {
 
         //? Main interface
         lightBg: '#ffffff',
-        lightColor900: '#efefef',
+        lightColor900: '#fefefe',
         lightColor700: '#e9e9e8',
         lightColor500: '#d6d6d5',
         darkBg: '#0e0e12',
@@ -64,7 +64,7 @@ module.exports = {
 
         //? Products
         productDarkBg: '#1d1d22',
-        productLightBg: '#F4F4F5',
+        productLightBg: '#e9e9e8',
         tagColor: '#ff3333',
         favouriteRed: '#ff2800',
         whiteColor: '#ffffff',

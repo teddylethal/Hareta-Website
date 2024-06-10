@@ -5,8 +5,8 @@ import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
 import { HttpErrorKeys } from 'src/constants/httpResponeErrorKey'
 
-// export const ApiURL = 'https://api.hareta.online/'
-export const ApiURL = 'http://localhost:3000/'
+export const ApiURL = 'https://hareta-api.hareta.online/'
+// export const ApiURL = 'http://localhost:3000/'
 
 class Http {
   instance: AxiosInstance
@@ -15,7 +15,7 @@ class Http {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
       baseURL: ApiURL,
-      timeout: 10000,
+      timeout: 30000,
       headers: {
         'Content-Type': 'application/json'
       }

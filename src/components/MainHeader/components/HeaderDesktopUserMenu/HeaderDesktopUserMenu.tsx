@@ -65,7 +65,7 @@ export default function HeaderDesktopUserMenu() {
             className='h-6 w-6 rounded-full object-cover'
           />
 
-          <div className='text-sm font-medium normal-case duration-200 group-hover:text-brownColor  dark:group-hover:text-haretaColor tablet:text-base desktop:text-lg'>
+          <div className='text-sm font-medium normal-case duration-200 group-hover:text-primaryColor tablet:text-base desktop:text-lg'>
             {profile ? profile.name : ''}
           </div>
         </div>

@@ -4,7 +4,8 @@
   "path": {
     "Home": "Trang chủ",
     "Cart": "Giỏ hàng",
-    "Order": "Đơn hàng"
+    "Order": "Đơn hàng",
+    "Checkout": "Thanh toán"
   },
   "Processing...": "Đang đặt đơn...",
   "shipping information": {
@@ -13,6 +14,21 @@
     "Email address": "Địa chỉ email",
     "Delivery address": "Địa chỉ nhận hàng",
     "Country": "Quốc gia",
+    "State / Province": "Tỉnh / Thành phố"
+  },
+  "bill": {
+    "Order": "Đơn hàng",
+    "Back to cart": "Quay lại giỏ hàng",
+    "Checkout": "Thanh toán",
+    "Change order": "Chỉnh sửa",
+    "Product": "Sản phẩm",
+    "Unit price": "Đơn giá",
+    "Quantity": "Số lượng",
+    "Subtotal": "Tổng giá",
+    "Discount": "Khuyến mãi",
+    "Discounted price": "Thành tiền",
+    "Total": "Tổng giá trị đơn hàng",
+    "Address line": "Địa chỉ",
     "State / Province": "Tỉnh / Thành phố"
   },
   "layout": {
@@ -33,6 +49,8 @@
     "order information": "thông tin giao hàng",
     "You must accept with the": "Bạn phải đồng ý với",
     "Your order was created successfully": "Đơn hàng được tạo thành công",
+    "Your order ID": "ID đơn hàng",
+    "Please save this ID for Transaction and Order Tracking!": "Hãy lưu lại ID này để sử dụng cho Thanh Toán và Tra Cứu Đơn Hàng!",
     "A payment instruction email was sent to your email address": "Một email hướng dẫn thanh toán đã được gửi đến địa chỉ email của bạn",
     "Please complete transaction in 48 hours to complete your order": "Hãy hoàn tất thanh toán trong vòng 48 giờ để hoàn tất đơn hàng của bạn",
     "Sincerely thanks!": "Chân thành cảm ơn!",
@@ -64,5 +82,12 @@
     "adjust the quantity.": "và điều chỉnh lại.",
     "Sincerely apologies for this accident!": "Chúng tôi chân thành xin lỗi!",
     "Return to cart": "Trở lại giỏ hàng"
+  },
+  "state": {
+    "Awaiting Payment": "Chờ thanh toán",
+    "Preparing Package": "Đang chuẩn bị hàng",
+    "Delivering": "Đang giao hàng",
+    "Delivered": "Đã giao hàng",
+    "Received": "Đã nhận"
   }
 }

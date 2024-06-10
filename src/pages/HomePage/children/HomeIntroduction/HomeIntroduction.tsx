@@ -13,12 +13,13 @@ export default function HomeIntroduction() {
   const { t } = useTranslation('home')
 
   //! Get introduce blog
-  const blogsQueryConfig: BlogListQueryConfig = { tag: 'hareta' }
+  const blogsQueryConfig: BlogListQueryConfig = { tag: 'introduction' }
   const { data: blogsData } = useQuery({
     queryKey: ['blogs'],
     queryFn: () => blogApi.getBlogList(blogsQueryConfig)
   })
   const blogs = blogsData?.data.data || []
+
   const introBlog = blogs[0]
 
   //! Handle click block
@@ -32,14 +33,15 @@ export default function HomeIntroduction() {
     })
   }
 
+  if (!introBlog) return
   return (
     <div className='space-y-6'>
-      <p className='text-center text-2xl font-bold uppercase tracking-widest text-primaryColor tablet:text-3xl desktop:text-4xl desktopLarge:text-5xl'>
+      <p className='text-center text-2xl font-bold uppercase tracking-widest text-haretaColor tablet:text-3xl desktop:text-4xl desktopLarge:text-5xl'>
         {t('introduction.About Hareta Workshop')}
       </p>
 
       {!blogsData && <LoadingSection />}
-      {blogsData && (
+      {blogsData && introBlog && (
         <div className='relative grid grid-cols-1 gap-4 tablet:grid-cols-3 desktop:gap-6'>
           <div className='col-span-1'>
             <div className='relative w-full pt-[75%]'>

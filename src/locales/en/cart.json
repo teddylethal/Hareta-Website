@@ -6,16 +6,28 @@
     "cart": "Cart"
   },
   "content": {
-    "product": "Product",
-    "unit price": "Unit price",
-    "quantity": "Quantity",
-    "subtotal": "Subtotal",
-    "action": "Action",
-    "remove": "Remove",
-    "select all": "Select all",
-    "check out": "Check out",
+    "Product": "Product",
+    "Unit price": "Unit price",
+    "Quantity": "Quantity",
+    "Subtotal": "Subtotal",
+    "Discount": "Discount",
+    "Discounted price": "Discounted price",
+    "Total": "Total",
+    "Action": "Action",
+    "Remove": "Remove",
+    "Select all": "Select all",
+    "Order": "Order",
+    "Check out": "Check out",
     "total": "Total",
     "item is selected": "item is selected",
-    "items are selected": "items are selected"
+    "items are selected": "items are selected",
+    "Price": "Price"
+  },
+  "coupon": {
+    "You are having coupons?": "You are having coupons?",
+    "Use now": "Use now",
+    "Use the codes received from events or previous purchases to get discounts": "Use the codes received from events or previous purchases to get discounts",
+    "Use": "Use",
+    "Invalid coupon": "Invalid coupon"
   }
 }

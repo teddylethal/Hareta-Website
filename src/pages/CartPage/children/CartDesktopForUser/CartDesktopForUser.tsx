@@ -21,32 +21,28 @@ export default function CartDesktopForUser(props: Props) {
   const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
   const checkedPurchases = extendedPurchases.filter((purchase) => purchase.checked)
   const checkedPurchasesCount = checkedPurchases.length
-  const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, current) => {
-    return result + current.item.price * current.quantity
+  const totalCheckedPurchasesPrice = checkedPurchases.reduce((result, purchase) => {
+    return result + purchase.item.price * purchase.quantity * ((100 - purchase.discount) / 100)
   }, 0)
 
   //! Multi languages
   const { t } = useTranslation('cart')
 
   return (
-    <div className='mt-2 rounded-md border border-black/20 bg-lightColor900 dark:border-white/20 dark:bg-darkColor900'>
+    <div className='mt-2 rounded-md border border-black/40 bg-lightColor900 dark:border-white/40 dark:bg-darkColor900'>
       <div className=''>
-        <div className='grid grid-cols-12 rounded-sm px-8  py-4 text-base uppercase text-darkText  dark:text-lightText desktop:text-lg'>
-          <div className='col-span-6'>
-            <p className='flex-grow items-center justify-center text-center text-darkText dark:text-lightText'>
-              {t('content.product')}
+        <div className='grid grid-cols-6 rounded-sm px-8  py-4 text-base uppercase text-darkText  dark:text-lightText desktop:text-lg'>
+          <div className='col-span-2'>
+            <p className='line-clamp-1 flex-grow items-center justify-center truncate text-center font-medium text-darkText dark:text-lightText'>
+              {t('content.Product')}
             </p>
           </div>
-          <div className='col-span-6'>
-            <div className='grid grid-cols-4 text-center'>
-              <div className='col-span-1'>{t('content.unit price')}</div>
-              <div className='col-span-1'>{t('content.quantity')}</div>
-              <div className='col-span-1'>{t('content.subtotal')}</div>
-              <div className='col-span-1'>{t('content.action')}</div>
-            </div>
-          </div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Unit price')}</div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Quantity')}</div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Subtotal')}</div>
+          <div className='col-span-1 overflow-hidden text-center'>{t('content.Action')}</div>
         </div>
-        <div className='mx-4 my-2 h-[440px] overflow-y-auto rounded-md bg-lightColor700 shadow outline outline-1 outline-black/20 dark:bg-darkColor700 dark:outline-white/20'>
+        <div className='mx-4 my-2 h-[400px] overflow-y-auto rounded-md bg-lightColor700 shadow outline outline-1 outline-black/40 dark:bg-darkColor700 dark:outline-white/40'>
           {extendedPurchases.length > 0 ? (
             extendedPurchases?.map((purchase, index) => (
               <div
@@ -72,15 +68,15 @@ export default function CartDesktopForUser(props: Props) {
           )}
         </div>
       </div>
-      <div className='grid grid-cols-12 items-center justify-between rounded-sm px-8 py-4'>
-        <div className='col-span-6 grid grid-cols-3'>
+      <div className='grid grid-cols-6 items-center justify-between rounded-sm px-8 py-4'>
+        <div className='col-span-2 grid grid-cols-3'>
           <div className=' col-span-1 flex flex-shrink-0 items-center'>
             {extendedPurchases.length > 0 && (
               <Fragment>
                 <input
                   name='all_are_selected'
                   type='checkbox'
-                  className='h-5 w-5 accent-primaryColor'
+                  className='h-5 w-5 accent-haretaColor'
                   checked={isAllChecked}
                   onChange={handleSelectAll}
                 />
@@ -89,18 +85,18 @@ export default function CartDesktopForUser(props: Props) {
                   className='ml-2 appearance-none text-darkText ring-0 dark:text-lightText'
                   onClick={handleSelectAll}
                 >
-                  {t('content.select all')}
+                  {t('content.Select all')}
                 </button>
               </Fragment>
             )}
           </div>
-          <div className='col-span-1 flex items-center text-center text-darkText dark:text-lightText'>
+          <div className='col-span-2 flex items-center text-center text-darkText dark:text-lightText'>
             {checkedPurchasesCount < 2
               ? `${checkedPurchasesCount} ${t('content.item is selected')}`
               : `${checkedPurchasesCount} ${t('content.items are selected')}`}
           </div>
         </div>
-        <div className='col-span-6 grid grid-cols-4 items-center'>
+        <div className='col-span-4 grid grid-cols-4 items-center'>
           <div className='col-span-1'></div>
 
           <div className='col-span-1 items-center text-right font-medium uppercase text-darkText dark:text-lightText'>
@@ -111,16 +107,16 @@ export default function CartDesktopForUser(props: Props) {
           </span>
           {checkedPurchasesCount === 0 && (
             <div className='col-span-1 flex h-10 cursor-not-allowed items-center justify-center truncate rounded-md border-none bg-haretaColor text-sm font-medium text-black opacity-40 desktop:text-base'>
-              {t('content.check out')}
+              {t('content.Order')}
             </div>
           )}
           {checkedPurchasesCount > 0 && (
             <Link
               onClick={handleCheckout}
-              to={mainPath.shippingInfor}
-              className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-haretaColor font-medium text-black  hover:bg-primaryColor'
+              to={mainPath.order}
+              className='col-span-1 flex h-10 items-center justify-center rounded-md border-none bg-unhoveringBg font-medium text-black  hover:bg-primaryColor'
             >
-              {t('content.check out')}
+              {t('content.Order')}
             </Link>
           )}
         </div>

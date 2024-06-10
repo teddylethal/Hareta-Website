@@ -2,7 +2,7 @@ import { faDiscord, faFacebook, faInstagram, faYoutube } from '@fortawesome/free
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
+import mainPath from 'src/constants/path'
 
 export default function FooterMobile() {
   //! Multi languages
@@ -66,9 +66,9 @@ export default function FooterMobile() {
             </div>
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
-              <Link to={path.home}>{t('faq')}</Link>
-              <Link to={path.home}>{t('policy and terms')}</Link>
-              <Link to={path.home}>{t('order tracking')}</Link>
+              <Link to={mainPath.home}>{t('faq')}</Link>
+              <Link to={mainPath.home}>{t('policy and terms')}</Link>
+              <Link to={mainPath.home}>{t('order tracking')}</Link>
             </div>
           </div>
         </div>
