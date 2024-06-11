@@ -99,7 +99,8 @@ export default function UserChangePassword() {
   const wrapperClassName = 'relative w-full'
   const titleClassName = 'text-sm font-medium uppercase desktop:text-lg'
   const inputClassName =
-    'mt-2 w-full tabletSmall:w-[50%] px-4 py-2 bg-lightColor900 rounded-md dark:bg-darkColor900 text-xs desktop:text-base outline-none duration-200 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage focus:outline-primaryColor'
+    'mt-2 w-full tabletSmall:w-[50%] relative pl-4 pr-10 tablet:pr-12 py-2 bg-lightColor900 rounded-md dark:bg-darkColor900 text-xs desktop:text-base outline-haretaColor/60 dark:outline-haretaColor/60 outline focus:outline-2 outline-1 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage focus:outline-haretaColor dark:focus:outline-haretaColor'
+  const inputFieldClassname = 'bg-transparent w-full outline-none'
 
   return (
     <Fragment>
@@ -109,7 +110,9 @@ export default function UserChangePassword() {
             <p className={titleClassName}>{t('password.current password')}</p>
             <Input
               type='password'
-              inputClassName={inputClassName}
+              isPasswordInput
+              className={inputClassName}
+              inputClassName={inputFieldClassname}
               register={register}
               name='old_password'
               errorMessage={errors.old_password?.message}
@@ -119,7 +122,9 @@ export default function UserChangePassword() {
             <p className={titleClassName}>{t('password.new password')}</p>
             <Input
               type='password'
-              inputClassName={inputClassName}
+              isPasswordInput
+              className={inputClassName}
+              inputClassName={inputFieldClassname}
               register={register}
               name='new_password'
               errorMessage={errors.new_password?.message}
@@ -129,7 +134,9 @@ export default function UserChangePassword() {
             <p className={titleClassName}>{t('password.confirm new password')}</p>
             <Input
               type='password'
-              inputClassName={inputClassName}
+              isPasswordInput
+              className={inputClassName}
+              inputClassName={inputFieldClassname}
               register={register}
               name='confirm_new_password'
               errorMessage={errors.confirm_new_password?.message}

@@ -64,7 +64,7 @@ export default function HomeTopSellerSlideShow() {
   }, [setWishlistIDs, wishlistData])
 
   //! Get top seller product list
-  const itemsConfig: ProductListQueryConfig = { limit: String(LIMIT) }
+  const itemsConfig: ProductListQueryConfig = { limit: String(LIMIT), tag: String(1) }
   const { data: itemsData } = useQuery({
     queryKey: ['products', itemsConfig],
     queryFn: () => {

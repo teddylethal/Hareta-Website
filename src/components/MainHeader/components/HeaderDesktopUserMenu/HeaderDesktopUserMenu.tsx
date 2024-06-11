@@ -1,14 +1,14 @@
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import CustomPopover from 'src/components/CustomPopover'
-import mainPath from 'src/constants/path'
+import FloatingOnClick from 'src/components/FoatingOnClick'
+import { userPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { clearLS } from 'src/utils/auth'
 
-function PopoverSection() {
+function PopoverSection({ closePopover }: { closePopover: () => void }) {
   const { handleLogout } = useContext(AppContext)
 
   const logout = () => {
@@ -24,14 +24,14 @@ function PopoverSection() {
 
   return (
     <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-lightColor700 px-2 py-3 text-base font-medium capitalize text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90 tablet:w-56 desktop:top-0 desktop:w-72 desktop:text-xl'>
-      <NavLink to={mainPath.profile} className={className}>
+      <NavLink to={userPath.profile} className={className} onClick={closePopover}>
         <p>{t('user.profile')}</p>
       </NavLink>
 
-      <NavLink to={mainPath.inventory} className={className}>
+      <NavLink to={userPath.inventory} className={className} onClick={closePopover}>
         <p>{t('user.inventory')}</p>
       </NavLink>
-      <NavLink to={mainPath.wishList} className={className}>
+      <NavLink to={userPath.wishList} className={className} onClick={closePopover}>
         <p>{t('user.wishlist')}</p>
       </NavLink>
 
@@ -50,10 +50,25 @@ function PopoverSection() {
 
 export default function HeaderDesktopUserMenu() {
   const { profile } = useContext(AppContext)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const handleClick = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const closePopover = () => {
+    setIsOpen(false)
+  }
 
   return (
     <div className='group'>
-      <CustomPopover renderPopover={<PopoverSection />} className='py-0.5 desktop:py-1.5' offsetValue={12}>
+      <FloatingOnClick
+        renderPopover={<PopoverSection closePopover={closePopover} />}
+        className='py-0.5 desktop:py-1.5'
+        offsetValue={12}
+        isOpen={isOpen}
+        handleClick={handleClick}
+        openChange={setIsOpen}
+      >
         <div className='flex cursor-default items-center space-x-2'>
           <img
             src={
@@ -69,7 +84,7 @@ export default function HeaderDesktopUserMenu() {
             {profile ? profile.name : ''}
           </div>
         </div>
-      </CustomPopover>
+      </FloatingOnClick>
     </div>
   )
 }

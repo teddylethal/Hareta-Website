@@ -70,7 +70,6 @@ export default function CartDesktopPurchaseCard({ purchase, index, handleCheckin
 
   //! is unavailable
   const unavailable = unavailablePurchaseIds.includes(purchase.id)
-
   const isDiscounted = purchase.item.price < purchase.item.original_price
 
   return (
@@ -121,7 +120,7 @@ export default function CartDesktopPurchaseCard({ purchase, index, handleCheckin
               'line-through opacity-80': isDiscounted
             })}
           >
-            ${formatCurrency(purchase.item.price)}
+            ${formatCurrency(purchase.item.original_price)}
           </p>
           {isDiscounted && <p className='text-darkText dark:text-lightText'>${formatCurrency(purchase.item.price)}</p>}
         </div>

@@ -30,21 +30,21 @@ export default function OrderTrackingSearchInput({ name, register, errorMessage,
 
   return (
     <Fragment>
-      <div className='relative flex w-full items-center rounded-lg bg-[#f8f8f8] shadow-sm duration-200 dark:bg-[#101010]'>
+      <div className='relative flex w-full items-center rounded-lg bg-transparent shadow-sm'>
         <input
           autoComplete='off'
           className={classNames(
-            'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-200 autofill:text-darkText focus:ring-2 focus:ring-vintageColor dark:caret-white  dark:autofill:text-lightText dark:focus:ring-haretaColor desktop:py-2 desktop:text-lg',
+            'w-full rounded-md bg-transparent px-4 py-1 text-base outline-none ring-1  duration-200 autofill:text-darkText focus:ring-2 focus:ring-primaryColor dark:caret-white dark:autofill:text-lightText desktop:py-2 desktop:text-lg',
             {
               'ring-red-600': errorMessage,
-              'ring-vintageColor/80 dark:ring-haretaColor/80': !errorMessage
+              'ring-haretaColor': !errorMessage
             }
           )}
           placeholder={t('order.placeholder')}
           required={required}
           {...register(name, rules)}
         />
-        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-vintageColor/90 px-3 py-1 hover:bg-vintageColor dark:bg-haretaColor/80 dark:hover:bg-haretaColor desktop:right-4 desktop:px-3'>
+        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-unhoveringBg px-3 py-1 hover:bg-hoveringBg desktop:right-4 desktop:px-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'

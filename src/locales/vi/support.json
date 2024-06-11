@@ -22,7 +22,11 @@
     "order": "Đơn hàng",
     "day created": "Ngày đặt",
     "state": "Tình trạng",
-    "order id": "Mã đơn hàng:"
+    "Order id": "Mã đơn hàng:",
+    "Email": "Email:",
+    "Address": "Địa chỉ nhận hàng:",
+    "Customer": "Khách hàng:",
+    "product": "sản phẩm"
   },
   "order information": {
     "order information": "Thông tin đơn hàng",

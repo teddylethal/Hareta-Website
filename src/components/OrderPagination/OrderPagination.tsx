@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { Link, createSearchParams } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { OrderConfig } from 'src/pages/Support/pages/OrderTracking/OrderTracking'
+import { OrderListConfig } from 'src/types/order.type'
 
 interface Props {
-  orderConfig: OrderConfig
+  orderConfig: OrderListConfig
   totalPage: number
   isMobile?: boolean
 }

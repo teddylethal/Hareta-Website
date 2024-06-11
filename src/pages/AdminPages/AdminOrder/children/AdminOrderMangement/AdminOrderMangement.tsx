@@ -1,36 +1,86 @@
-import { useQuery } from '@tanstack/react-query'
-import { useContext } from 'react'
-import { adminOrderApi } from 'src/apis/admin.api'
-import AdminOrderList from '../../../components/AdminOrderList'
-import AdminOrderDetail from '../../../components/AdminOrderDetail'
-import { AdminContext } from 'src/contexts/admin.context'
+import AdminOrderList from '../../components/AdminOrderList'
+import AdminOrderDetail from '../../components/AdminOrderDetail'
+import useOrderListQueryConfig from 'src/hooks/queryConfigs/useOrderListQueryConfig'
+import { orderQuery } from 'src/hooks/queries/useOrderQuery'
+import LoadingSection from 'src/components/LoadingSection'
+import SearchBar from 'src/components/SearchBar'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import { adminPath } from 'src/constants/path'
+import { omit } from 'lodash'
 
 export default function AdminOrderMangement() {
-  const { orderState } = useContext(AdminContext)
+  //! get order list
+  const orderListConfig = useOrderListQueryConfig()
+  const { email } = orderListConfig
 
-  //? get order list
-  const enabled = orderState >= 0 || orderState <= 4
-  const { data: orderListData } = useQuery({
-    queryKey: ['admin_order_list', orderState],
-    queryFn: () => {
-      return adminOrderApi.getOrderList({ status: orderState, page: 1, limit: 10 })
-    },
+  const { data: orderListData } = orderQuery.useGetOrderList(orderListConfig)
 
-    staleTime: 3 * 60 * 1000,
-    enabled: enabled
-  })
-  const orderList = orderListData?.data.data || []
+  //! Search order
+  const navigate = useNavigate()
+  const handleSearch = (email: string) => {
+    const config =
+      email === ''
+        ? omit(
+            {
+              ...orderListConfig
+            },
+            ['email', 'page', 'limit']
+          )
+        : omit(
+            {
+              ...orderListConfig,
+              email: email
+            },
+            ['page', 'limit']
+          )
+    navigate({
+      pathname: adminPath.orders,
+      search: createSearchParams(config).toString()
+    })
+  }
+
+  const handleClearSearch = () => {
+    navigate({
+      pathname: adminPath.orders,
+      search: createSearchParams(
+        omit(
+          {
+            ...orderListConfig
+          },
+          ['email', 'page', 'limit']
+        )
+      ).toString()
+    })
+  }
 
   return (
-    <div className='grid w-full grid-cols-2 gap-4'>
-      <div className='col-span-1'>
-        <div className='overflow-hidden rounded-xl border border-white/60 p-4'>
-          <AdminOrderList orderList={orderList} />
-        </div>
+    <div className='space-y-6'>
+      <div className='space-y-4'>
+        <SearchBar handleSearch={handleSearch} />
+        {email && (
+          <div className='flex items-center justify-center space-x-4 text-lg desktop:text-xl'>
+            <p className=''>Tìm kiếm đơn hàng cho Email:</p>
+            <p className='text-haretaColor'>{email}</p>
+            <button
+              onClick={handleClearSearch}
+              className='rounded-xl bg-alertRed/80 px-4 py-2 text-base hover:bg-alertRed'
+            >
+              Xóa
+            </button>
+          </div>
+        )}
       </div>
-      <div className='col-span-1'>
-        <div className='sticky top-6 overflow-hidden rounded-xl border border-white/60 p-4'>
-          <AdminOrderDetail />
+      <div className='grid w-full grid-cols-2 gap-4'>
+        <div className='col-span-1'>
+          <div className='overflow-hidden rounded-xl border border-white/60 p-4'>
+            {!orderListData && <LoadingSection />}
+            {orderListData && <AdminOrderList orderList={orderListData.data.data} />}
+          </div>
+        </div>
+        <div className='col-span-1'>
+          <div className='sticky top-6 overflow-hidden rounded-xl border border-white/60 p-4'>
+            <AdminOrderDetail />
+          </div>
         </div>
       </div>
     </div>

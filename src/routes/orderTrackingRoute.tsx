@@ -1,13 +1,11 @@
-import { Suspense, lazy, useContext } from 'react'
-import { Navigate, Outlet, RouteObject } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
+import { Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
-import mainPath, { orderPath, orderTrackingPath } from 'src/constants/path'
+import { orderTrackingPath } from 'src/constants/path'
 import MainLayout from 'src/layouts/MainLayout'
-import OrderTrackingPage from 'src/pages/OrderTrackingPage'
-import OrderTrackingOrderDetail from 'src/pages/OrderTrackingPage/children/OrderTrackingOrderDetail'
 
-const OrderPage = lazy(() => import('src/pages/OrderPage'))
-const OrderCheckout = lazy(() => import('src/pages/OrderPage/children/OrderCheckout'))
+const OrderTrackingPage = lazy(() => import('src/pages/OrderTrackingPage'))
+const OrderTrackingOrderDetail = lazy(() => import('src/pages/OrderTrackingPage/children/OrderTrackingOrderDetail'))
 
 function OrderTrackingRouteWrapper() {
   return (
