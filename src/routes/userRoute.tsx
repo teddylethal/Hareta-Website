@@ -1,7 +1,7 @@
 import { Suspense, lazy, useContext } from 'react'
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
-import mainPath from 'src/constants/path'
+import { userPath } from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import MainLayout from 'src/layouts/MainLayout'
 import UserLayout from 'src/pages/UserPages/layouts/UserLayout'
@@ -31,19 +31,23 @@ const UserRoute: RouteObject = {
   element: <UserRouteWrapper />,
   children: [
     {
-      path: mainPath.profile,
+      path: '',
+      element: <Navigate to={userPath.profile} />
+    },
+    {
+      path: userPath.profile,
       element: <UserProfile />
     },
     {
-      path: mainPath.password,
+      path: userPath.password,
       element: <UserChangePassword />
     },
     {
-      path: mainPath.inventory,
+      path: userPath.inventory,
       element: <UserInventory />
     },
     {
-      path: mainPath.wishList,
+      path: userPath.wishList,
       element: <UserWishList />
     }
   ]

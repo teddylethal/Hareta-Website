@@ -4,11 +4,12 @@ import { NavLink } from 'react-router-dom'
 import useClickOutside from 'src/hooks/useClickOutside'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
-import mainPath from 'src/constants/path'
+import mainPath, { userPath } from 'src/constants/path'
 import { clearLS } from 'src/utils/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useTranslation } from 'react-i18next'
+import AnimateChangeInHeight from 'src/components/AnimateChangeInHeight'
 
 interface Props {
   className?: string
@@ -16,7 +17,7 @@ interface Props {
 }
 
 export default function HeaderMobileUserSection({ className, closeMenu }: Props) {
-  const { isAuthenticated, setIsAuthenticated, profile, theme, handleLogout } = useContext(AppContext)
+  const { isAuthenticated, setIsAuthenticated, profile, handleLogout } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
 
   const logout = () => {
@@ -30,7 +31,7 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
   const { t } = useTranslation('header')
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className='w-full'>
       {!isAuthenticated && (
         <NavLink to={mainPath.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
           <FontAwesomeIcon
@@ -62,42 +63,34 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
         </button>
       )}
 
-      <AnimatePresence>
-        {visible && (
-          <motion.div
-            className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-sm'
-            initial={{ opacity: 0, y: '-10%' }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              color: theme === 'dark' ? '#eeeeee' : '#222222'
-            }}
-            exit={{ opacity: 0, y: '-10%' }}
-            transition={{ duration: 0.3 }}
-          >
-            <NavLink to={mainPath.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
-              <p>{t('user.profile')}</p>
-            </NavLink>
+      <AnimateChangeInHeight>
+        <AnimatePresence>
+          {visible && (
+            <motion.div className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-sm'>
+              <NavLink to={userPath.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+                <p>{t('user.profile')}</p>
+              </NavLink>
 
-            <NavLink to={mainPath.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
-              <p>{t('user.inventory')}</p>
-            </NavLink>
+              <NavLink to={userPath.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+                <p>{t('user.inventory')}</p>
+              </NavLink>
 
-            <NavLink to={mainPath.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
-              <p>{t('user.wishlist')}</p>
-            </NavLink>
+              <NavLink to={userPath.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
+                <p>{t('user.wishlist')}</p>
+              </NavLink>
 
-            <button
-              onClick={logout}
-              type='button'
-              className='flex items-center justify-start space-x-2 py-1 font-medium'
-            >
-              <FontAwesomeIcon icon={faRightFromBracket} />
-              <p>{t('user.log out')}</p>
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <button
+                onClick={logout}
+                type='button'
+                className='flex items-center justify-start space-x-2 py-1 font-medium'
+              >
+                <FontAwesomeIcon icon={faRightFromBracket} />
+                <p>{t('user.log out')}</p>
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </AnimateChangeInHeight>
     </div>
   )
 }

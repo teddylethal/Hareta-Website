@@ -31,10 +31,16 @@ module.exports = {
         lightHeader: '#fbfbff',
 
         //? Main interface
-        lightBg: '#ffffff',
-        lightColor900: '#fefefe',
-        lightColor700: '#e9e9e8',
-        lightColor500: '#d6d6d5',
+        // lightBg: '#ffffff',
+        // lightColor900: '#fefefe',
+        // lightColor700: '#e9e9e8',
+        // lightColor500: '#d6d6d5',
+        lightBg: '#ffffff', // White
+        lightColor900: '#f0f0f5', // Very light grey
+        lightColor700: '#d9d9e0', // Light grey
+        lightColor500: '#b3b3cc', // Medium light grey
+        lightColor300: '#8080a3', // Medium grey
+
         darkBg: '#0e0e12',
         darkColor900: '#1d1d22',
         darkColor700: '#2c2c32',

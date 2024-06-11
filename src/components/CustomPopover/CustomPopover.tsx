@@ -82,7 +82,7 @@ export default function CustomPopover({
                 context={context}
                 width={30}
                 height={10}
-                className={classNames({ ' fill-[#2c2c32]': theme === 'dark', 'fill-[#e9e9e8]': theme === 'light' })}
+                className={classNames({ ' fill-[#2c2c32]': theme === 'dark', 'fill-[#d9d9e0]': theme === 'light' })}
               />
               <div className={theme === 'dark' ? 'dark' : 'light'}>{renderPopover}</div>
             </motion.div>

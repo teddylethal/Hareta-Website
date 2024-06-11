@@ -3,7 +3,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Fragment, useContext, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { Product } from 'src/types/product.type'
 import { generateNameId, showSuccessDialog } from 'src/utils/utils'
 import purchaseApi from 'src/apis/cart.api'
 import classNames from 'classnames'
@@ -18,8 +17,9 @@ import UnlikeItemDialog from '../../components/UserUnlikeProductDialog'
 import DialogPopup from 'src/components/DialogPopup'
 import { useTranslation } from 'react-i18next'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
-import UserWishlistItem from '../../components/UserWishlistItem'
-import UserWishlistItemMobile from '../../components/UserWishlistItemMobile'
+import UserWishlistCardDesktop from '../../components/UserWishlistCardDesktop'
+import UserWishlistCardMobile from '../../components/UserWishlistCardMobile'
+import { ProductType } from 'src/types/product.type'
 
 export interface Attribute {
   name: string
@@ -40,15 +40,15 @@ export default function UserWishList() {
   const queryClient = useQueryClient()
 
   const { data: favouriteListData } = useQuery({
-    queryKey: ['user_wish_list'],
+    queryKey: ['wishlist'],
     queryFn: () => {
       return userLikeProductApi.getWishList()
     },
     enabled: isAuthenticated
   })
-  const favouriteList = favouriteListData?.data.data as Product[]
+  const favouriteList = favouriteListData?.data.data as ProductType[]
 
-  const handleClickItem = (product: Product) => () => {
+  const handleClickItem = (product: ProductType) => () => {
     navigate({ pathname: `${mainPath.store}/${generateNameId({ name: product.name, id: product.id })}` })
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
@@ -124,10 +124,10 @@ export default function UserWishList() {
         {favouriteList?.map((product) => (
           <div
             key={product.id}
-            className='mt-4 rounded-lg border border-black/20 bg-lightBg px-2 first:mt-0 hover:bg-lightColor900 dark:border-white/20 dark:bg-darkBg dark:hover:bg-darkColor900 tablet:px-3 desktop:px-4 '
+            className='mt-4 rounded-lg border border-black/40 bg-lightColor900 px-2 first:mt-0 hover:bg-lightBg dark:border-white/40 dark:bg-darkColor900 dark:hover:bg-darkBg tablet:px-3 desktop:px-4 '
           >
             {!isMobile && (
-              <UserWishlistItem
+              <UserWishlistCardDesktop
                 product={product}
                 handleClickItem={handleClickItem}
                 handleChooseFilter={handleChooseFilter}
@@ -136,7 +136,7 @@ export default function UserWishList() {
               />
             )}
             {isMobile && (
-              <UserWishlistItemMobile
+              <UserWishlistCardMobile
                 product={product}
                 handleClickItem={handleClickItem}
                 handleChooseFilter={handleChooseFilter}

@@ -9,10 +9,7 @@ const mainPath = {
   user: '/user',
   blogs: '/blogs',
   events: '/events',
-  profile: '/user/profile',
-  wishList: '/user/wishlist',
-  inventory: '/user/inventory',
-  password: '/user/password',
+
   verifyEmail: '/check-verification-code/:code',
   AuthPasswordRecoveryRequestEmail: '/password-recovery',
   AuthPasswordRecovery: '/password-recovery/:slug',
@@ -95,4 +92,10 @@ export const eventPath = {
   eventDetail: '/events/:eventId'
 }
 
-export const userPath = {}
+export const userPath = {
+  user: '/user',
+  profile: '/user/profile',
+  wishList: '/user/wishlist',
+  inventory: '/user/inventory',
+  password: '/user/password'
+}

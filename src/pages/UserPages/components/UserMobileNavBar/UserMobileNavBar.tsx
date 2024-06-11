@@ -2,14 +2,14 @@ import { faBagShopping, faHeart, faLock, faUser } from '@fortawesome/free-solid-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
-import mainPath from 'src/constants/path'
+import { userPath } from 'src/constants/path'
 
 export default function UserMobileNavBar() {
   return (
     <div className='grid grid-cols-4 rounded-md border border-black/10 bg-lightColor900 text-darkText/70 duration-200 dark:border-white/20 dark:bg-darkColor900 dark:text-lightText/70'>
       <div className='col-span-1 flex items-center justify-center'>
         <NavLink
-          to={mainPath.profile}
+          to={userPath.profile}
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-primaryColor dark:text-primaryColor': isActive,
@@ -23,7 +23,7 @@ export default function UserMobileNavBar() {
 
       <div className='col-span-1 flex items-center justify-center border-l border-black/10 dark:border-white/20'>
         <NavLink
-          to={mainPath.password}
+          to={userPath.password}
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-primaryColor dark:text-primaryColor': isActive,
@@ -36,7 +36,7 @@ export default function UserMobileNavBar() {
       </div>
       <div className='col-span-1 flex items-center justify-center border-l border-black/10 dark:border-white/20'>
         <NavLink
-          to={mainPath.inventory}
+          to={userPath.inventory}
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-primaryColor dark:text-primaryColor': isActive,
@@ -49,7 +49,7 @@ export default function UserMobileNavBar() {
       </div>
       <div className='col-span-1 flex items-center justify-center border-l border-black/10 dark:border-white/20'>
         <NavLink
-          to={mainPath.wishList}
+          to={userPath.wishList}
           className={({ isActive }) =>
             classNames('flex h-8 items-center space-x-3 px-4 py-4 text-xl font-semibold', {
               'text-primaryColor dark:text-primaryColor': isActive,

@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import mainPath from 'src/constants/path'
+import { userPath } from 'src/constants/path'
 import { NavigateItem } from 'src/types/utils.type'
 
 interface NaviagteItemWithIcon extends NavigateItem {
@@ -19,30 +19,30 @@ export default function UserSideNav() {
   const menus: NaviagteItemWithIcon[] = [
     {
       name: t('layout.profile'),
-      url: mainPath.profile,
+      url: userPath.profile,
       icon: <FontAwesomeIcon icon={faUser} />
     },
     {
       name: t('layout.password'),
-      url: mainPath.password,
+      url: userPath.password,
       icon: <FontAwesomeIcon icon={faLock} />
     },
     {
       name: t('layout.inventory'),
-      url: mainPath.inventory,
+      url: userPath.inventory,
       icon: <FontAwesomeIcon icon={faBagShopping} />
     },
     {
       name: t('layout.wishlist'),
-      url: mainPath.wishList,
+      url: userPath.wishList,
       icon: <FontAwesomeIcon icon={faHeart} />
     }
   ]
 
   return (
-    <div className='rounded-md border border-black/10 bg-lightColor900 text-darkText/70 duration-200 dark:border-white/20 dark:bg-darkColor900 dark:text-lightText/70'>
+    <div className='rounded-md border border-black/40 bg-lightColor900 text-darkText/70 duration-200 dark:border-white/40 dark:bg-darkColor900 dark:text-lightText/70'>
       {menus.map((item, index) => (
-        <div key={index} className='border-t border-black/10 first:border-none dark:border-white/20'>
+        <div key={index} className='border-t border-black/40 first:border-none dark:border-white/40'>
           <NavLink
             to={item.url}
             end

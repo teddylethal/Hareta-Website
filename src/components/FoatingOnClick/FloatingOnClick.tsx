@@ -12,7 +12,7 @@ import {
 } from '@floating-ui/react'
 import classNames from 'classnames'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ElementType, useContext, useRef } from 'react'
+import { ElementType, useContext, useRef, useState } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 
 interface Props {
@@ -26,6 +26,7 @@ interface Props {
   handleClick?: () => void
   openChange?: React.Dispatch<React.SetStateAction<boolean>>
   isOpen?: boolean
+  offsetValue?: number
 }
 
 export default function FloatingOnClick({
@@ -35,6 +36,7 @@ export default function FloatingOnClick({
   as: Element = 'div',
   placement,
   isOpen,
+  offsetValue = 12,
   openChange
 }: Props) {
   const { theme } = useContext(AppContext)
@@ -43,7 +45,7 @@ export default function FloatingOnClick({
   const { x, y, refs, middlewareData, context, strategy } = useFloating({
     open: isOpen,
     onOpenChange: openChange,
-    middleware: [offset(10), shift(), arrow({ element: arrowRef })],
+    middleware: [offset(offsetValue), shift(), arrow({ element: arrowRef })],
     placement: placement || 'bottom'
   })
   // const click = useClick(context)
@@ -56,10 +58,26 @@ export default function FloatingOnClick({
     })
   })
 
+  //! Handle poiter is in arrow area
+  const [hoveringArror, setHoveringArrow] = useState(false)
+  const handleHoveringArrow = () => {
+    setHoveringArrow(true)
+  }
+
+  const handleUnhoveringArrow = () => {
+    setHoveringArrow(false)
+  }
+
   const { getReferenceProps, getFloatingProps } = useInteractions([hover, dismiss])
   return (
-    <div>
-      <Element ref={refs.setReference} {...getReferenceProps()} className={className}>
+    <div className=''>
+      <Element
+        ref={refs.setReference}
+        {...getReferenceProps()}
+        className={classNames(className, {
+          'text-primaryColor dark:text-primaryColor': hoveringArror
+        })}
+      >
         {children}
       </Element>
       <AnimatePresence>
@@ -80,13 +98,22 @@ export default function FloatingOnClick({
             exit={{ opacity: 0, y: '-5%' }}
             transition={{ duration: 0.2 }}
           >
+            <div
+              className='absolute w-full bg-transparent'
+              style={{
+                height: offsetValue,
+                transform: `translateY(-${offsetValue}px)`
+              }}
+            ></div>
             <div className={classNames('-translate-y-1')}>{renderPopover}</div>
             <FloatingArrow
+              onMouseEnter={handleHoveringArrow}
+              onMouseLeave={handleUnhoveringArrow}
               ref={arrowRef}
               context={context}
               width={30}
               height={10}
-              className={classNames({ ' fill-[#2c2c32]': theme === 'dark', 'fill-[#e9e9e8]': theme === 'light' })}
+              className={classNames({ 'fill-[#2c2c32]': theme === 'dark', 'fill-[#d9d9e0]': theme === 'light' })}
             />
           </motion.div>
         )}

@@ -10,23 +10,19 @@ import userApi from 'src/apis/user.api'
 import DialogPopup from 'src/components/DialogPopup'
 import InputFile from 'src/components/InputFile'
 import { AppContext } from 'src/contexts/app.context'
-import { isAxiosBadRequestError, showSuccessDialog } from 'src/utils/utils'
+import { formatDateEn, formatDateVi, isAxiosBadRequestError, showSuccessDialog } from 'src/utils/utils'
 import { ErrorRespone } from 'src/types/utils.type'
 import { setProfileToLS } from 'src/utils/auth'
 import { UserSchema, userSchema } from 'src/utils/rules'
 import EditProfile from '../../components/UserEditProfile'
 import { useViewport } from 'src/hooks/useViewport'
-import moment from 'moment'
 import ProfileLoading from '../../components/UserProfileSekeleton'
 import { useTranslation } from 'react-i18next'
+import i18next from 'i18next'
 
 type FormData = Pick<UserSchema, 'name' | 'phone'>
 
 const profileSchema = userSchema.pick(['name', 'phone'])
-
-const formatDate = (timeStamp: string) => {
-  return moment(timeStamp).utc().format('YYYY-MM-DD')
-}
 
 export default function UserProfile() {
   const { theme, setProfile } = useContext(AppContext)
@@ -131,6 +127,7 @@ export default function UserProfile() {
 
   //! Multi languages
   const { t } = useTranslation('user')
+  const currentLan = i18next.language
 
   if (!profile) return <ProfileLoading />
   else {
@@ -195,8 +192,9 @@ export default function UserProfile() {
             )}
             <div className='ml-2 flex flex-col space-y-1 tabletSmall:ml-4 desktop:ml-8'>
               <p className='text-base font-semibold tabletSmall:text-lg desktop:text-2xl'>{profile.name}</p>
-              <p className='truncate text-xs text-darkText/60 dark:text-lightText/60 tabletSmall:text-sm desktop:text-base'>
-                {t('profile.joined')}: {formatDate(profile.created_at)}
+              <p className='truncate text-xs text-darkText/80 dark:text-lightText/80 tabletSmall:text-sm desktop:text-base'>
+                {t('profile.joined')}:{' '}
+                {currentLan == 'en' ? formatDateEn(profile.created_at) : formatDateVi(profile.created_at)}
               </p>
             </div>
           </div>
