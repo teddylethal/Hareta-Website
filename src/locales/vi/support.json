@@ -45,6 +45,11 @@
     "Quantity": "Số lượng",
     "Product": "Sản phẩm",
     "Subtotal": "Thành tiền",
-    "Unit price": "Đơn giá"
+    "Unit price": "Đơn giá",
+    "Payment": "Thanh toán",
+    "Total": "Giá trị đơn hàng",
+    "Discount": "Giảm giá",
+    "Delivery charges": "Phí giao hàng",
+    "Total payment": "Thành tiền"
   }
 }

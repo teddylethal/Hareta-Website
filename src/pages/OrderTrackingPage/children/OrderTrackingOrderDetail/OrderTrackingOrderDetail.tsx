@@ -49,6 +49,14 @@ export default function OrderTrackingOrderDetail() {
   })
   const purchaseList = purchasesData?.data.data || []
 
+  //! Handle order detail
+  const totalOriginalPrice = purchaseList.reduce((sum, purchase) => {
+    return sum + purchase.quantity * purchase.item.original_price
+  }, 0)
+  const totalPrice = purchaseList.reduce((sum, purchase) => {
+    return sum + purchase.quantity * purchase.item.price
+  }, 0)
+
   //! Multi languages
   const { t } = useTranslation('support')
 
@@ -73,12 +81,20 @@ export default function OrderTrackingOrderDetail() {
           )}
           {orderDetail && (
             <Fragment>
-              <OrderTrackingOrderInfo orderDetail={orderDetail} />
+              <OrderTrackingOrderInfo
+                orderDetail={orderDetail}
+                totalOriginalPrice={totalOriginalPrice}
+                totalPrice={totalPrice}
+              />
 
               <div className='mt-6 space-y-4 px-1 py-2 tablet:mt-6 tablet:py-4 desktop:mt-8 '>
                 <p className='w-full text-center text-lg font-semibold uppercase tablet:text-xl desktop:text-2xl'>
                   {t('order information.Product list')}
                 </p>
+                <div className='flex w-full items-center justify-center'>
+                  <div className='w-full rounded-2xl border-2 border-t border-black/80 dark:border-white/80 tablet:w-8/12 desktop:w-6/12' />
+                </div>
+
                 {(loadingPurchasesData || !purchasesData) && (
                   <div className='flex h-96 w-full items-center justify-center py-1 tablet:py-2 desktop:py-4'>
                     <LoadingRing />
@@ -86,7 +102,7 @@ export default function OrderTrackingOrderDetail() {
                 )}
                 {purchasesData && (
                   <Fragment>
-                    <div className='grid grid-cols-1 gap-2 tablet:grid-cols-2 tablet:gap-4 desktop:grid-cols-3'>
+                    <div className='grid grid-cols-1 gap-4 tablet:grid-cols-2'>
                       {purchasesData &&
                         purchaseList.map((purchase) => (
                           <OrderTrackingPurchaseCard key={purchase.id} purchase={purchase} />

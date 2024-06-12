@@ -1,13 +1,10 @@
 import { ProductType } from './product.type'
+import { JSONModel } from './utils.type'
 
 export type PurchaseStatus = -1 | 1 | 2 | 3 | 4 | 5
 export type PurchaseListStatus = PurchaseStatus | 0
 
-export interface Purchase {
-  id: string
-  status: number
-  created_at: string
-  updated_at: string
+export interface Purchase extends JSONModel {
   quantity: number
   item: ProductType
 }
@@ -16,6 +13,13 @@ export interface TemporaryPurchase {
   id: string
   quantity: number
   item: ProductType
+}
+
+export interface ExtendedPurchase extends Purchase {
+  disabled: boolean
+  checked: boolean
+  previousQuantity: number
+  discount: number
 }
 
 export interface PurchaseList {

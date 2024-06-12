@@ -136,7 +136,7 @@ export default function OrderTrackingOrderItem({ order }: Props) {
               <span
                 className={classNames(
                   'text-haretaColor',
-                  isMobile ? infoClassname : 'col-span-1 flex min-h-full items-center justify-center'
+                  isMobile ? infoClassname : 'col-span-1 flex min-h-full items-center justify-center font-semibold'
                 )}
               >
                 {OrderState[order.status]}

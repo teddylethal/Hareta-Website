@@ -1,12 +1,12 @@
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import { Product } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 
 interface Props {
-  defaultProduct: Product
-  productsInGroup: Product[]
+  defaultProduct: ProductType
+  productsInGroup: ProductType[]
   activeProductID: string
-  handleChooseVariant: (item: Product) => () => void
+  handleChooseVariant: (item: ProductType) => () => void
 }
 
 export default function ProductDetailVariantList({
@@ -19,15 +19,15 @@ export default function ProductDetailVariantList({
   const { t } = useTranslation('productdetail')
 
   return (
-    <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightColor900 p-2 dark:border-white/60 dark:bg-darkColor900'>
+    <div className='mt-8 w-full rounded-lg border border-black/60 bg-lightColor900 px-4 py-2 dark:border-white/60 dark:bg-darkColor900 tablet:px-2 desktop:px-4'>
       <div className='flex items-center justify-between'>
-        <p className='text-base font-medium desktop:text-lg desktopLarge:text-xl'>{t('sidebar.variant')}</p>
-        <p className='text-sm text-darkText/60 dark:text-lightText/60 desktop:text-base '>
+        <p className='text-lg font-medium'>{t('sidebar.variant')}</p>
+        <p className='text-base text-darkText/60 dark:text-lightText/60 '>
           {productsInGroup.length} {t('sidebar.variants')}
         </p>
       </div>
-      <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/40 p-2 dark:border-white/40'>
-        <div className='grid w-full grid-cols-3 gap-4'>
+      <div className='mt-4 max-h-64 w-full overflow-auto rounded-lg border border-black/60 p-2 dark:border-white/60'>
+        <div className='grid w-full grid-cols-3 gap-4 tablet:grid-cols-2 desktop:grid-cols-3'>
           {productsInGroup.map((item, index) => {
             const isActive = item.id === activeProductID
             const avatarURL = item.avatar ? item.avatar.url : null

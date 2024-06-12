@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import { ExtendedPurchase } from 'src/contexts/cart.context'
+import { ExtendedPurchase } from 'src/types/cart.type'
 import { formatCurrency } from 'src/utils/utils'
 
 interface Props {
@@ -9,8 +9,8 @@ interface Props {
   totalDiscountedPrice: number
 }
 //! Styles
-const titleStyle = 'text-xs tabletSmall:text-sm font-medium uppercase flex items-center justify-center'
-const infoStyle = 'text-xs tabletSmall:text-sm flex items-center justify-center'
+const titleStyle = 'text-sm tabletSmall:text-base font-medium uppercase flex items-center justify-center'
+const infoStyle = 'text-sm tabletSmall:text-base flex items-center justify-center'
 
 export default function OrderPageMobile({ purchaseList, totalPrice, totalDiscountedPrice }: Props) {
   //! Multi languages
@@ -43,8 +43,8 @@ export default function OrderPageMobile({ purchaseList, totalPrice, totalDiscoun
                   <p className='flex justify-center space-x-1'>${formatCurrency(purchase.item.price)}</p>
                 )}
               </div>
-              <div className={classNames('col-span-1', infoStyle)}>x{purchase.quantity}</div>
-              <div className={classNames(infoStyle, 'col-span-1 flex-col space-y-1 font-medium text-haretaColor')}>
+              <div className={classNames('col-span-1 font-semibold', infoStyle)}>x{purchase.quantity}</div>
+              <div className={classNames(infoStyle, 'col-span-1 flex-col space-y-1 font-semibold text-haretaColor')}>
                 <p
                   className={classNames('', {
                     'line-through opacity-60': isDiscounted
@@ -72,16 +72,18 @@ export default function OrderPageMobile({ purchaseList, totalPrice, totalDiscoun
           {t('bill.Total')}
         </div>
         <div className={classNames('grid grid-cols-2 gap-2 text-sm')}>
-          <p className='col-span-1 '>{t('bill.Subtotal')}</p>
+          <p className='col-span-1 flex items-center'>{t('bill.Subtotal')}</p>
           <p className='col-span-1 font-medium'>${totalPrice}</p>
         </div>
         <div className={classNames('grid grid-cols-2 gap-2 text-sm')}>
-          <p className='col-span-1 '>{t('bill.Discount')}</p>
+          <p className='col-span-1 flex items-center'>{t('bill.Discount')}</p>
           <p className='col-span-1 font-medium'>${totalPrice - totalDiscountedPrice}</p>
         </div>
         <div className={classNames('grid grid-cols-2 gap-2 text-sm')}>
-          <p className='col-span-1 '>{t('bill.Discounted price')}</p>
-          <p className='col-span-1 font-medium text-haretaColor'>${totalDiscountedPrice}</p>
+          <p className='col-span-1 flex items-center'>{t('bill.Discounted price')}</p>
+          <p className='col-span-1 text-lg font-semibold text-haretaColor tabletSmall:text-xl'>
+            ${totalDiscountedPrice}
+          </p>
         </div>
       </div>
 

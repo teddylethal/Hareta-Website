@@ -88,7 +88,6 @@ export default function HeaderDesktopCartLogged() {
   const { isAuthenticated } = useContext(AppContext)
 
   //! Handle cart data
-
   const { data: cartDataResponese, refetch } = useQuery({
     queryKey: ['purchases'],
     queryFn: () => purchaseApi.getPurchases(),

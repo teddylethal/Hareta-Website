@@ -206,11 +206,11 @@ export default function OrderCheckout() {
         />
         <div className='flex w-full items-center justify-start'>
           <Link
-            to={mainPath.cart}
-            className='flex shrink items-center justify-center space-x-2 rounded-xl bg-unhoveringBg px-4 py-2 hover:bg-hoveringBg'
+            to={isMobile ? mainPath.order : mainPath.cart}
+            className='flex items-center justify-center space-x-2 rounded-xl bg-unhoveringBg px-4 py-2 hover:bg-hoveringBg'
           >
             <FontAwesomeIcon icon={faChevronLeft} />
-            {t('bill.Back to cart')}
+            <span className=''>{isMobile ? t('bill.Back to order') : t('bill.Back to cart')}</span>
           </Link>
         </div>
         <FormProvider {...methods}>

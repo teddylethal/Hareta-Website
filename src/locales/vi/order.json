@@ -19,6 +19,7 @@
   "bill": {
     "Order": "Đơn hàng",
     "Back to cart": "Quay lại giỏ hàng",
+    "Back to order": "Quay lại đơn hàng",
     "Checkout": "Thanh toán",
     "Change order": "Chỉnh sửa",
     "Product": "Sản phẩm",
@@ -81,7 +82,8 @@
     " the unavailable items and ": " những sản phẩm bị lỗi số lượng ",
     "adjust the quantity.": "và điều chỉnh lại.",
     "Sincerely apologies for this accident!": "Chúng tôi chân thành xin lỗi!",
-    "Return to cart": "Trở lại giỏ hàng"
+    "Return to cart": "Trở lại giỏ hàng",
+    "Return to order": "Trở lại đơn hàng"
   },
   "state": {
     "Awaiting Payment": "Chờ thanh toán",

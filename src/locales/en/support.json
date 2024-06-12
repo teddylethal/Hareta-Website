@@ -40,11 +40,15 @@
     "email": "Email",
     "phone": "Phone number",
     "address": "Delivery address",
-    "total": "Total",
     "Product list": "Product list",
     "Quantity": "Quantity",
     "Product": "Product",
     "Subtotal": "Subtotal",
-    "Unit price": "Unit price"
+    "Unit price": "Unit price",
+    "Payment": "Payment",
+    "Total": "Total",
+    "Discount": "Discount",
+    "Delivery charges": "Delivery charges",
+    "Total payment": "Total payment"
   }
 }

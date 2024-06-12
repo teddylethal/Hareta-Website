@@ -1,26 +1,27 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo, useState } from 'react'
 import producImageApi from 'src/apis/productImage.api'
-import { Product } from 'src/types/product.type'
+import { ProductType } from 'src/types/product.type'
 import { ProductImageWithIndex } from '../../ProductDetailPage'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import LoadingRing from 'src/components/LoadingRing'
 
 interface Props {
-  itemID: string
-  item: Product
+  productID: string
+  product: ProductType
 }
 
 export default function ProductMobileImageList(props: Props) {
-  const { itemID, item } = props
+  const { productID, product } = props
 
-  //? GET IMAGE LIST
-  const { data: productImages } = useQuery({
-    queryKey: ['product_images', itemID],
-    queryFn: () => producImageApi.getImageList(itemID as string)
+  //! GET IMAGE LIST
+  const { data: productImages, isFetching } = useQuery({
+    queryKey: ['products', 'images', productID],
+    queryFn: () => producImageApi.getImageList(productID as string)
   })
 
-  //? HANDLE IMAGE LIST
+  //! HANDLE IMAGE LIST
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 4])
@@ -70,17 +71,24 @@ export default function ProductMobileImageList(props: Props) {
   return (
     <div className='relative'>
       <div className='relative w-full overflow-hidden pt-[75%]'>
-        {activeImage?.image ? (
-          <img
-            src={activeImage.image.url}
-            alt={item.name}
-            className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-          />
-        ) : (
+        {isFetching && (
           <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
-            <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
+            <LoadingRing />
           </div>
         )}
+        {!isFetching &&
+          activeImage &&
+          (activeImage?.image ? (
+            <img
+              src={activeImage.image.url}
+              alt={product.name}
+              className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
+            />
+          ) : (
+            <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
+              <FontAwesomeIcon icon={faTriangleExclamation} fontSize={120} />
+            </div>
+          ))}
       </div>
       <div className='mt-3 w-full px-2'>
         <div className='relative flex select-none justify-center rounded-md bg-black/40'>
@@ -92,7 +100,7 @@ export default function ProductMobileImageList(props: Props) {
                   <button onClick={handleChoosingImage(image)} className='relative w-full pt-[75%]'>
                     <img
                       src={image.image ? image.image.url : ''}
-                      alt={item.name}
+                      alt={product.name}
                       className='absolute left-0 top-0 h-full w-full object-scale-down'
                     />
                     {isActive && (

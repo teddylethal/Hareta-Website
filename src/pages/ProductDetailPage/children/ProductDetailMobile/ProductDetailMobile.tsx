@@ -11,10 +11,11 @@ import DialogPopup from 'src/components/DialogPopup'
 import ProductListForCollection from '../../components/ProductListForCollection'
 import ProductListForType from '../../components/ProductListForType'
 import { useTranslation } from 'react-i18next'
-import ProductMobileAddTocartPopover from '../../components/ProductMobileAddTocartPopover'
+import ProductMobileActionDialog from '../../components/ProductMobileActionDialog'
 import ProductDetailVariantList from '../../components/ProductDetailVariantList'
 import ProductDetailDescription from '../../components/ProductDetailDescription/ProductDetailDescription'
 import ProductTag from 'src/components/ProductTag'
+import LoadingSection from 'src/components/LoadingSection'
 
 interface Props {
   defaultProduct: ProductType
@@ -32,6 +33,8 @@ export default function ProductDetailMobile(props: Props) {
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
   const [activeProduct, setActiveProduct] = useState<ProductType>(defaultProduct)
+  const [action, setAction] = useState<string>('add')
+  const [orderingDialog, setOrderingDialog] = useState(false)
 
   //! CHOOSE VARIANT
   const handleChooseVariant = (product: ProductType) => () => {
@@ -39,10 +42,16 @@ export default function ProductDetailMobile(props: Props) {
     setActiveProduct(product)
   }
 
-  //! ADD TO CART
+  //! Open dialog
   const { ref, visible, setVisible } = useClickOutside(false)
   const openAddToCart = () => {
     setVisible(true)
+    setAction('add')
+  }
+
+  const openBuy = () => {
+    setVisible(true)
+    setAction('buy')
   }
 
   const tag = defaultProduct.tag
@@ -54,8 +63,8 @@ export default function ProductDetailMobile(props: Props) {
   return (
     <Fragment>
       <div className='bg-lightBg pb-10 dark:bg-darkBg'>
-        <div className=' overflow-hidden rounded-lg bg-lightColor700 dark:bg-darkColor700'>
-          <ProductMobileImageList item={defaultProduct} itemID={activeProduct.id} />
+        <div className='overflow-hidden rounded-lg bg-lightColor700 dark:bg-darkColor700'>
+          <ProductMobileImageList product={defaultProduct} productID={activeProduct.id} />
           <div className='relative flex flex-col space-y-3 bg-lightColor700 px-3 py-3 text-darkText dark:bg-darkColor700 dark:text-lightText'>
             <div className='flex space-x-2 text-2xl'>
               <span
@@ -105,22 +114,30 @@ export default function ProductDetailMobile(props: Props) {
         </div>
 
         <div className='fixed bottom-0 left-0 z-10 grid h-10 w-full grid-cols-2 bg-white text-base text-darkText dark:bg-black dark:text-lightText tabletSmall:h-12'>
-          <button className='col-span-1 flex items-center justify-center text-center' onClick={openAddToCart}>
+          <button
+            onClick={openAddToCart}
+            disabled={visible}
+            className='col-span-1 flex items-center justify-center text-center'
+          >
             <FontAwesomeIcon icon={faCartPlus} className='h-5' />
           </button>
           <button
+            onClick={openBuy}
             disabled={visible}
-            className={classNames('col-span-1 rounded-sm bg-haretaColor text-darkText ', {
-              'opacity-40': visible
-            })}
+            className={classNames(
+              'col-span-1 rounded-sm bg-unhoveringBg font-medium text-darkText hover:bg-hoveringBg ',
+              {
+                'opacity-40': visible
+              }
+            )}
           >
             {t('sidebar.buy')}
           </button>
         </div>
       </div>
       {visible && (
-        <ProductMobileAddTocartPopover
-          item={defaultProduct}
+        <ProductMobileActionDialog
+          action={action}
           activeProduct={activeProduct}
           setActiveProduct={setActiveProduct}
           productsInGroup={productsInGroup}
@@ -130,6 +147,7 @@ export default function ProductDetailMobile(props: Props) {
           handleAddToCart={addToCart}
           setDialogIsOpen={setDialogIsOpen}
           setErrorDialog={setErrorDialog}
+          setOrderingDialog={setOrderingDialog}
         />
       )}
 
@@ -165,6 +183,15 @@ export default function ProductDetailMobile(props: Props) {
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           {t('message.The quantity of the current item you are trying to add exceed our store')}
         </p>
+      </DialogPopup>
+
+      <DialogPopup
+        isOpen={orderingDialog}
+        closeButton={false}
+        handleClose={() => setOrderingDialog(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <LoadingSection className='flex h-40 w-full items-center justify-center' />
       </DialogPopup>
     </Fragment>
   )

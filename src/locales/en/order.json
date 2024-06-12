@@ -19,6 +19,7 @@
   "bill": {
     "Order": "Order",
     "Back to cart": "Back to cart",
+    "Back to order": "Back to order",
     "Checkout": "Checkout",
     "Change order": "Change order",
     "Product": "Product",
@@ -81,7 +82,8 @@
     " the unavailable items and ": " the unavailable items and ",
     "adjust the quantity.": "adjust the quantity.",
     "Sincerely apologies for this accident!": "Sincerely apologies for this accident!",
-    "Return to cart": "Return to cart"
+    "Return to cart": "Return to cart",
+    "Return to order": "Return to order"
   },
   "state": {
     "Awaiting Payment": "Awaiting Payment",

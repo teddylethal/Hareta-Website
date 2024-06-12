@@ -1,5 +1,4 @@
 import { createContext, useState } from 'react'
-import { ExtendedPurchase } from './cart.context'
 import { Country, ICity, ICountry, IState } from 'country-state-city'
 import {
   getCountryAddressFromLS,
@@ -10,6 +9,7 @@ import {
   setStateAddressToLS
 } from 'src/utils/order'
 import orderScreens from 'src/constants/orderScreens'
+import { ExtendedPurchase } from 'src/types/cart.type'
 
 interface OrderContextInterface {
   orderList: ExtendedPurchase[]

@@ -80,13 +80,15 @@ export default function ProductListForCollection({ collectionName }: Props) {
   const noSlideShow = (isSmall && len <= 1) || (isNormal && len <= 2) || (isMedium && len <= 3) || (isLarge && len <= 4)
 
   return (
-    <div className='relative rounded-lg border border-black/40 px-2 py-4 text-darkText dark:border-white/40 dark:text-lightText desktop:px-4 desktopLarge:px-6'>
-      <button
-        onClick={handleClick}
-        className='mx-2 text-lg font-bold uppercase hover:text-primaryColor dark:hover:text-primaryColor desktop:mx-4 desktop:text-2xl desktopLarge:mx-6'
-      >
-        {collectionName}
-      </button>
+    <div className='relative justify-center rounded-lg border border-black/60 px-2 py-4 text-darkText dark:border-white/60 dark:text-lightText desktop:px-4 desktopLarge:px-6'>
+      <div className='flex w-full items-center justify-center'>
+        <button
+          onClick={handleClick}
+          className='mx-2 text-lg font-bold uppercase tracking-wider hover:text-primaryColor dark:hover:text-primaryColor tablet:text-xl desktop:px-4 desktop:text-2xl'
+        >
+          {collectionName}
+        </button>
+      </div>
 
       {!productsData && (
         <div className='mt-4 grid grid-cols-4'>

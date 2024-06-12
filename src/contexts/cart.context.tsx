@@ -1,20 +1,6 @@
 import { createContext, useState } from 'react'
-import { Purchase, TemporaryPurchase } from 'src/types/cart.type'
+import { ExtendedPurchase, Purchase } from 'src/types/cart.type'
 import { getExtendedPurchasesFromLS, getTemporaryPurchasesFromLS } from 'src/utils/cartInLS'
-
-export interface ExtendedPurchase extends Purchase {
-  disabled: boolean
-  checked: boolean
-  previousQuantity: number
-  discount: number
-}
-
-export interface ExtendedTemporaryPurchase extends TemporaryPurchase {
-  disabled: boolean
-  checked: boolean
-  previousQuantity: number
-  discount: number
-}
 
 interface CartContextInterface {
   extendedPurchases: ExtendedPurchase[]

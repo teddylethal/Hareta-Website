@@ -19,14 +19,16 @@ interface Props {
 }
 
 export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle }: Props) {
-  const { theme } = useContext(AppContext)
+  const { theme, isAuthenticated } = useContext(AppContext)
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)
 
   const { data: cartData, refetch } = useQuery({
     queryKey: ['purchases'],
-    queryFn: () => purchaseApi.getPurchases()
+    queryFn: () => purchaseApi.getPurchases(),
+    staleTime: 1000 * 60 * 3,
+    enabled: isAuthenticated
   })
 
   const purchasesInCart = cartData?.data.data
@@ -118,8 +120,8 @@ export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle
                   {extendedPurchases.length > 0 ? (
                     extendedPurchases.map((purchase, index) => (
                       <div
-                        className=' flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightColor900/60 dark:border-white/20 dark:hover:bg-darkColor900/60'
                         key={purchase.id}
+                        className=' flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightColor900/60 dark:border-white/20 dark:hover:bg-darkColor900/60'
                       >
                         <div className='h-12 w-12'>
                           <div className='relative w-full pt-[100%]'>

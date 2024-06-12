@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
-import { ExtendedPurchase } from 'src/contexts/cart.context'
+import { ExtendedPurchase } from 'src/types/cart.type'
 import { formatCurrency } from 'src/utils/utils'
 
 interface Props {
@@ -32,7 +32,7 @@ export default function OrderPageDesktop({ purchaseList, totalPrice, totalDiscou
           <div key={purchase.id} className='grid grid-cols-8 gap-2 py-2 desktop:gap-4 desktop:py-4'>
             <div className={classNames('col-span-3', infoStyle)}>{purchase.item.name}</div>
             <div className={classNames('col-span-1', infoStyle)}>${purchase.item.original_price}</div>
-            <div className={classNames('col-span-1', infoStyle)}>{purchase.quantity}</div>
+            <div className={classNames('col-span-1 font-semibold', infoStyle)}>{purchase.quantity}</div>
             <div className={classNames('col-span-1', infoStyle)}>
               ${formatCurrency(purchase.quantity * purchase.item.original_price)}
             </div>
@@ -42,7 +42,7 @@ export default function OrderPageDesktop({ purchaseList, totalPrice, totalDiscou
                 purchase.quantity * purchase.item.original_price - purchase.quantity * purchase.item.price
               )}
             </div>
-            <div className={classNames('col-span-1 text-haretaColor', infoStyle)}>
+            <div className={classNames('col-span-1 font-semibold text-haretaColor', infoStyle)}>
               ${formatCurrency(purchase.quantity * purchase.item.price)}
             </div>
 
@@ -60,7 +60,9 @@ export default function OrderPageDesktop({ purchaseList, totalPrice, totalDiscou
 
         <div className={classNames('col-span-1 text-center')}>${totalPrice}</div>
         <div className={classNames('col-span-1 text-center')}>${totalPrice - totalDiscountedPrice}</div>
-        <div className={classNames('col-span-1 text-center text-haretaColor')}>${totalDiscountedPrice}</div>
+        <div className={classNames('col-span-1 text-center font-semibold text-haretaColor')}>
+          ${totalDiscountedPrice}
+        </div>
       </div>
 
       <div className='col-span-8 flex items-center justify-center py-2'>

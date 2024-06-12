@@ -15,13 +15,11 @@ import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
-import { showSuccessDialog } from 'src/utils/utils'
-import { Purchase } from 'src/types/cart.type'
 import { ProductType } from 'src/types/product.type'
-import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
+import useAddToTempCartAndQuickOrder from 'src/hooks/useAddToTempCartAndQuickOrder'
 
 interface Props {
-  item: ProductType
+  action: string
   activeProduct: ProductType
   setActiveProduct: React.Dispatch<React.SetStateAction<ProductType>>
   productsInGroup: ProductType[]
@@ -31,9 +29,11 @@ interface Props {
   handleAddToCart: (itemID: string, quantity: number) => void
   setDialogIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   setErrorDialog: React.Dispatch<React.SetStateAction<boolean>>
+  setOrderingDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ProductMobileAddTocartPopover({
+export default function ProductMobileActionDialog({
+  action,
   activeProduct,
   productsInGroup,
   setVisible,
@@ -41,14 +41,18 @@ export default function ProductMobileAddTocartPopover({
   handleAddToCart,
   setActiveProduct,
   setDialogIsOpen,
-  setErrorDialog
+  setErrorDialog,
+  setOrderingDialog
 }: Props) {
+  const currentDateString = Date.now().toString()
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { temporaryPurchases, setTemporaryPurchases } = useContext(CartContext)
+  const { temporaryPurchases } = useContext(CartContext)
+
   const [activeProductID, setActiveProductID] = useState<string>(activeProduct.id)
+
   const { visible: createTempCart, ref: createDialogRef, setVisible: setCreateTempCart } = useClickOutside(false)
 
-  //? GET ITEM DATA
+  //! Get product data
   const { data: productDetailData, isLoading } = useQuery({
     queryKey: ['products', 'detail', activeProductID],
     queryFn: () => productApi.getProductDetail(activeProductID),
@@ -57,15 +61,15 @@ export default function ProductMobileAddTocartPopover({
   })
   const item = productDetailData?.data.data
 
-  //? CHOOSE VARIANT
-  const handleChooseVariant = (item: ProductType) => () => {
+  //! Choose variant
+  const handleChooseVariant = (product: ProductType) => () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     setQuantity(1)
-    setActiveProductID(item.id)
-    setActiveProduct(item)
+    setActiveProductID(product.id)
+    setActiveProduct(product)
   }
 
-  //? ADD TO CART
+  //! Add to user cart
   const [quantity, setQuantity] = useState<number>(1)
   const handleQuantity = (value: number) => {
     setQuantity(value)
@@ -82,63 +86,18 @@ export default function ProductMobileAddTocartPopover({
 
   const avatarURL = item?.avatar ? item.avatar.url : null
 
-  //! ADD TO TEMPORARY CART
-  const createTemporaryCart = () => {
-    const newPurchase: Purchase = {
-      id: Date.now().toString(),
-      created_at: Date.now().toString(),
-      updated_at: Date.now().toString(),
-      status: 0,
-      quantity: quantity,
-      item: activeProduct
-    }
-    const newTemporaryPurchases = [...temporaryPurchases, newPurchase]
-
-    setTemporaryPurchasesToLS(newTemporaryPurchases)
-    setTemporaryPurchases(newTemporaryPurchases)
-
-    setCreateTempCart(false)
-    setVisible(false)
-    setQuantity(1)
-    showSuccessDialog(setDialogIsOpen)
-  }
-
-  const addToTemporaryCart = () => {
-    const newPurchase: Purchase = {
-      id: Date.now().toString(),
-      created_at: Date.now().toString(),
-      updated_at: Date.now().toString(),
-      status: 0,
-      quantity: quantity,
-      item: activeProduct
-    }
-    const purchaseIndex = temporaryPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
-    if (purchaseIndex !== -1) {
-      const purchase = temporaryPurchases[purchaseIndex]
-      const maxQuanityInStore = purchase.item.quantity
-      const currentQuantityInCart = purchase.quantity
-      if (currentQuantityInCart + quantity <= maxQuanityInStore) {
-        const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = temporaryPurchases.map((purchase, index) => {
-          if (index === purchaseIndex) {
-            return { ...purchase, quantity: newQuantity }
-          } else return purchase
-        })
-        setTemporaryPurchases(newPurchasesList)
-        setTemporaryPurchasesToLS(newPurchasesList)
-
-        setQuantity(1)
-      } else {
-        setErrorDialog(true)
-        setQuantity(1)
-      }
-    } else {
-      setTemporaryPurchases([...temporaryPurchases, newPurchase])
-      setTemporaryPurchasesToLS([...temporaryPurchases, newPurchase])
-    }
-    setVisible(false)
-    showSuccessDialog(setDialogIsOpen)
-  }
+  //! Handle add to temporary cart and handle quick order
+  const { addToTemporaryCart, createTemporaryCart, handleOrder } = useAddToTempCartAndQuickOrder({
+    activeProduct,
+    quantity,
+    currentDateString,
+    setQuantity,
+    setVisible,
+    setDialogIsOpen,
+    setErrorDialog,
+    setOrderingDialog,
+    setCreateTempCart
+  })
 
   //! Multi languages
   const { t } = useTranslation('productdetail')
@@ -161,7 +120,7 @@ export default function ProductMobileAddTocartPopover({
         >
           <div className='flex items-start'>
             <div className=' grid grow grid-cols-3'>
-              <div className='relative col-span-1 w-full overflow-hidden border border-black/10 pt-[100%] dark:border-white/10'>
+              <div className='relative col-span-1 w-full overflow-hidden border border-black/40 pt-[100%] dark:border-white/40'>
                 {isLoading && (
                   <Skeleton
                     variant='rounded'
@@ -194,7 +153,7 @@ export default function ProductMobileAddTocartPopover({
               <FontAwesomeIcon icon={faXmark} className='h-5 opacity-70' />
             </button>
           </div>
-          <div className='relative mt-4 flex items-center justify-between rounded-lg bg-lightBg px-3 py-2 shadow-sm dark:bg-darkBg'>
+          <div className='relative mt-4 flex items-center justify-between rounded-lg bg-lightColor900 px-3 py-2 shadow-sm dark:bg-darkColor900'>
             {isLoading && <div className='absolute left-0 top-0 h-full w-full cursor-not-allowed bg-black/40'></div>}
             <p className=''>{t('sidebar.quantity')}</p>
             <QuantityController
@@ -206,7 +165,7 @@ export default function ProductMobileAddTocartPopover({
               onType={handleQuantity}
             />
           </div>
-          <div className='mt-4 w-full rounded-lg border border-black/20 p-4 dark:border-white/20'>
+          <div className='mt-4 w-full rounded-lg border border-black/40 p-4 dark:border-white/40'>
             <div className='max-h-40 w-full overflow-auto py-2'>
               <div className='grid w-full grid-cols-3 gap-4'>
                 {productsInGroup.map((item, index) => {
@@ -237,16 +196,20 @@ export default function ProductMobileAddTocartPopover({
             <Button
               className='relative bottom-0 w-full py-2'
               onClick={
-                isAuthenticated
-                  ? addToCart
-                  : temporaryPurchases.length === 0
-                  ? () => {
-                      setCreateTempCart(true)
-                    }
-                  : addToTemporaryCart
+                action == 'add'
+                  ? isAuthenticated
+                    ? addToCart
+                    : temporaryPurchases.length === 0
+                    ? () => {
+                        setCreateTempCart(true)
+                      }
+                    : () => {
+                        addToTemporaryCart()
+                      }
+                  : handleOrder
               }
             >
-              {t('message.Add to cart')}
+              {action == 'add' ? t('message.Add to cart') : t('detail.Order')}
             </Button>
           </div>
           {createTempCart && <div className='absolute inset-0 bg-black/50' ref={elementRef}></div>}

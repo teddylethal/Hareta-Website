@@ -56,7 +56,7 @@ module.exports = {
         vintageColor: '#A27B5C',
 
         //? Store sidebar
-        barLightBg: '#efefef',
+        barLightBg: '#f0f0f5',
         barDarkBg: '#1d1d22',
         sidebarItemLight: '#fbfbff',
         sidebarItemDark: '#2c2c32',
@@ -70,7 +70,7 @@ module.exports = {
 
         //? Products
         productDarkBg: '#1d1d22',
-        productLightBg: '#e9e9e8',
+        productLightBg: '#f0f0f5',
         tagColor: '#ff3333',
         favouriteRed: '#ff2800',
         whiteColor: '#ffffff',

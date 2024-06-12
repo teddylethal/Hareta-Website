@@ -2,6 +2,7 @@ import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Skeleton } from '@mui/material'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
+import classNames from 'classnames'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import producImageApi from 'src/apis/productImage.api'
@@ -57,7 +58,6 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
   const { data: imageListData, isFetching } = useQuery({
     queryKey: ['products', 'images', productId],
     queryFn: () => producImageApi.getImageList(productId as string),
-
     staleTime: 1000 * 60 * 3
   })
   const imageList = imageListData?.data.data || []
@@ -71,9 +71,12 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
     queryClient.invalidateQueries({ queryKey: ['wishlist'] })
   }
 
+  //! Check discounted
+  const isDiscounted = product.price < product.original_price
+
   return (
     <button
-      className='w-full items-start text-left duration-200 hover:bg-lightColor700 dark:bg-darkColor900 dark:hover:bg-darkColor700'
+      className='w-full items-start bg-lightColor900 text-left duration-200 hover:bg-lightColor700 dark:bg-darkColor900 dark:hover:bg-darkColor700'
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
@@ -81,7 +84,7 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
     >
       <div className='grid w-full grid-cols-1 gap-2 p-4 tablet:grid-cols-3 tablet:px-8 tablet:py-6 desktop:py-8 desktopLarge:gap-4 desktopLarge:px-12 desktopLarge:py-10'>
         <div className='col-span-1 min-h-full'>
-          <div className='relative w-full pt-[80%]'>
+          <div className='relative w-full pt-[60%] tablet:pt-[80%]'>
             <div className='absolute left-0 top-0 h-full w-full'>
               {avatarUrl ? (
                 <img
@@ -104,20 +107,30 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
                 {product.name}
               </p>
 
-              <span className='text-sm font-medium text-haretaColor dark:text-haretaColor tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
-                ${formatCurrency(product.price)}
-              </span>
+              <div className='flex space-x-4 font-semibold tablet:text-xl desktop:text-2xl'>
+                <span
+                  className={classNames('', {
+                    'text-haretaColor dark:text-haretaColor': !isDiscounted,
+                    'line-through opacity-60': isDiscounted
+                  })}
+                >
+                  ${formatCurrency(product.original_price)}
+                </span>
+                {isDiscounted && (
+                  <span className='text-haretaColor dark:text-haretaColor'>${formatCurrency(product.price)}</span>
+                )}
+              </div>
 
               <div className='flex space-x-2'>
-                <span className='boder-black/20 rounded-xl border px-4 py-1 text-sm font-medium capitalize dark:border-white/20 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
+                <span className='rounded-xl border border-black/60 px-4 py-1 text-sm font-medium capitalize dark:border-white/60 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
                   {product.category}
                 </span>
 
-                <span className='boder-black/20 rounded-xl border px-4 py-1 text-sm font-medium capitalize dark:border-white/20 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
+                <span className='rounded-xl border border-black/60 px-4 py-1 text-sm font-medium capitalize dark:border-white/60 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
                   {product.collection}
                 </span>
 
-                <span className='boder-black/20 rounded-xl border px-4 py-1 text-sm font-medium capitalize dark:border-white/20 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
+                <span className='rounded-xl border border-black/60 px-4 py-1 text-sm font-medium capitalize dark:border-white/60 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
                   {product.type}
                 </span>
               </div>

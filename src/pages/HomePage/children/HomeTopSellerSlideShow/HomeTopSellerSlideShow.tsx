@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import ProductCard from 'src/components/ProductCard'
 import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
-import classNames from 'classnames'
 import { useContext, useEffect } from 'react'
 import { AppContext } from 'src/contexts/app.context'
 import { StoreContext } from 'src/contexts/store.context'
@@ -72,7 +71,14 @@ export default function HomeTopSellerSlideShow() {
     }
   })
   const displayedItems = itemsData?.data.data || []
-  const length = displayedItems.length
+
+  //! Responsive
+  const width = useViewport().width
+  const isSmall = width < 768
+  const isMedium = width >= 768 && width < 1024
+  const isLarge = width >= 1024
+  const len = displayedItems.length
+  const noSlideShow = (isSmall && len <= 1) || (isMedium && len <= 2) || (isLarge && len <= 3)
 
   //! HANDLE NAVIGATE
   const navigate = useNavigate()
@@ -104,26 +110,21 @@ export default function HomeTopSellerSlideShow() {
       </div>
 
       <div className='tablet:p-4 desktop:p-8'>
-        {length <= 3 && (
-          <div
-            className={classNames(
-              'flex w-full items-center justify-center space-x-4 tablet:space-x-8 desktop:space-x-16'
-            )}
-          >
-            {length == 1 && <div className='col-span-1'></div>}
+        {noSlideShow && (
+          <div className='mt-4 grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-3 desktop:gap-6'>
             {displayedItems.map((product) => (
-              <div className='w-1/3' key={product.id}>
+              <div key={product.id} className='col-span-1 '>
                 <ProductCard product={product} />
               </div>
             ))}
           </div>
         )}
 
-        {displayedItems.length > 3 && (
+        {!noSlideShow && (
           <div className='relative'>
             <CustomSlideShow responsive={responsiveSettings} indicators={false}>
               {displayedItems.map((item) => (
-                <div key={item.id} className='select-none tablet:mx-4'>
+                <div key={item.id} className='mx-4 select-none desktop:mx-6'>
                   <ProductCard product={item} initialLoading={isLoading} />
                 </div>
               ))}
