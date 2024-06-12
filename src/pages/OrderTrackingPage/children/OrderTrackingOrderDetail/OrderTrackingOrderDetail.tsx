@@ -11,6 +11,7 @@ import { AppContext } from 'src/contexts/app.context'
 import OrderTrackingOrderInfo from '../../components/OrderTrackingOrderInfo'
 import OrderTrackingPurchaseCard from '../../components/OrderTrackingPurchaseCard'
 import PathBar from 'src/components/PathBar'
+import OrderTrackingOrderStatus from '../../components/OrderTrackingOrderStatus'
 
 export default function OrderTrackingOrderDetail() {
   const { isAuthenticated } = useContext(AppContext)
@@ -70,24 +71,29 @@ export default function OrderTrackingOrderDetail() {
           ]}
         />
 
-        <div className='py-2 tabletSmall:py-4 tablet:py-6 desktop:py-8'>
+        <div className='space-y-6 py-2 tabletSmall:py-4 tablet:py-6 desktop:py-8'>
           <p className='w-full text-center text-lg font-bold uppercase text-haretaColor tablet:text-2xl desktop:text-4xl'>
             {t('order information.order information')}
           </p>
+          <div className='flex w-full items-center justify-center'>
+            <div className='w-full rounded-xl border border-black dark:border-white tablet:w-8/12 desktop:w-1/2'></div>
+          </div>
           {!orderDetail && (
             <div className='flex h-96 w-full items-center justify-center py-1 tablet:py-2 desktop:py-4'>
               <LoadingRing />
             </div>
           )}
           {orderDetail && (
-            <Fragment>
+            <div className='space-y-6'>
+              <OrderTrackingOrderStatus orderDetail={orderDetail} />
+
               <OrderTrackingOrderInfo
                 orderDetail={orderDetail}
                 totalOriginalPrice={totalOriginalPrice}
                 totalPrice={totalPrice}
               />
 
-              <div className='mt-6 space-y-4 px-1 py-2 tablet:mt-6 tablet:py-4 desktop:mt-8 '>
+              <div className='space-y-4 px-1 py-2 tablet:mt-6 tablet:py-4 desktop:mt-8 '>
                 <p className='w-full text-center text-lg font-semibold uppercase tablet:text-xl desktop:text-2xl'>
                   {t('order information.Product list')}
                 </p>
@@ -111,7 +117,7 @@ export default function OrderTrackingOrderDetail() {
                   </Fragment>
                 )}
               </div>
-            </Fragment>
+            </div>
           )}
         </div>
       </div>

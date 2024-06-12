@@ -1,10 +1,7 @@
 import classNames from 'classnames'
-import i18next from 'i18next'
 import { useTranslation } from 'react-i18next'
-import OrderState from 'src/constants/orderState'
-import { useViewport } from 'src/hooks/useViewport'
 import { Order } from 'src/types/order.type'
-import { formatCurrency, formatDateEn, formatDateVi } from 'src/utils/utils'
+import { formatCurrency } from 'src/utils/utils'
 
 interface Props {
   orderDetail: Order
@@ -19,11 +16,8 @@ const titleClassname =
 const infoClassname = 'col-span-1 tablet:col-span-2 text-sm font-medium tabletSmall:text-base desktop:text-lg truncate'
 
 export default function OrderTrackingOrderInfo({ orderDetail, totalPrice }: Props) {
-  const isMobile = useViewport().width < 768
-
   //! Multi languages
   const { t } = useTranslation('support')
-  const currentLan = i18next.language
 
   return (
     <div className='mt-2 grid grid-cols-1 gap-4 tablet:mt-4 tablet:grid-cols-2 desktop:mt-6 desktop:gap-6'>

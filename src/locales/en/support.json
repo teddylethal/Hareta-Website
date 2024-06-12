@@ -50,5 +50,11 @@
     "Discount": "Discount",
     "Delivery charges": "Delivery charges",
     "Total payment": "Total payment"
+  },
+  "Order state": {
+    "Payment information is being confirmed.": "Payment information is being confirmed.",
+    "Your order is being prepared.": "Your order is being prepared.",
+    "Your order has been packed and handed over to the shipping unit.": "Your order has been packed and handed over to the shipping unit.",
+    "Your order has been successfully delivered! We hope you have a pleasant experience.": "Your order has been successfully delivered! We hope you have a pleasant experience."
   }
 }

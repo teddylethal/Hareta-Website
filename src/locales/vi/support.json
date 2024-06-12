@@ -51,5 +51,11 @@
     "Discount": "Giảm giá",
     "Delivery charges": "Phí giao hàng",
     "Total payment": "Thành tiền"
+  },
+  "Order state": {
+    "Payment information is being confirmed.": "Đang xác nhận thông tin thanh toán.",
+    "Your order is being prepared.": "Đơn hàng của bạn đang được chuẩn bị.",
+    "Your order has been packed and handed over to the shipping unit.": "Đơn hàng của bạn đã được đóng gói và chuyển cho đơn vị vận chuyển.",
+    "Your order has been successfully delivered! We hope you have a pleasant experience.": "Đơn hàng đã được giao thành công! Chúc bạn có một trải nghiệm thú vị."
   }
 }
