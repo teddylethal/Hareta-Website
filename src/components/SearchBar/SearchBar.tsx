@@ -7,9 +7,10 @@ type FormData = SearchSchema
 
 interface Props {
   handleSearch: (keyWord: string) => void
+  placeHolder?: string
 }
 
-export default function SearchBar({ handleSearch }: Props) {
+export default function SearchBar({ handleSearch, placeHolder }: Props) {
   const { register, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
       name: ''
@@ -24,6 +25,10 @@ export default function SearchBar({ handleSearch }: Props) {
   //! Multi languages
   const { t } = useTranslation('store')
 
+  if (!placeHolder) {
+    placeHolder = t('aside filter.search')
+  }
+
   return (
     <div className='w-full'>
       <form
@@ -32,7 +37,7 @@ export default function SearchBar({ handleSearch }: Props) {
       >
         <input
           className='focus:ring-primaryColordark:text-lightText w-full rounded-md bg-transparent px-4 py-1 text-base text-darkText caret-black outline-none ring-1 ring-haretaColor duration-200 autofill:text-darkText focus:ring-2 dark:text-lightText dark:caret-white dark:ring-haretaColor dark:autofill:text-lightText dark:focus:ring-primaryColor desktop:py-2 desktop:text-lg'
-          placeholder={t('aside filter.search')}
+          placeholder={placeHolder}
           {...register('name')}
         />
         <button className='absolute right-1 flex items-center justify-center rounded-lg bg-haretaColor px-3 py-1 duration-200 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor desktop:right-4 desktop:px-3'>

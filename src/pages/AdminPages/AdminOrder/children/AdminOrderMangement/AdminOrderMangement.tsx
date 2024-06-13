@@ -7,17 +7,21 @@ import SearchBar from 'src/components/SearchBar'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import { adminPath } from 'src/constants/path'
 import { omit } from 'lodash'
+import { useContext } from 'react'
+import { AdminContext } from 'src/contexts/admin.context'
 
 export default function AdminOrderMangement() {
+  const { setOrderID, orderID } = useContext(AdminContext)
+
   //! get order list
   const orderListConfig = useOrderListQueryConfig()
   const { email } = orderListConfig
 
   const { data: orderListData } = orderQuery.useGetOrderList(orderListConfig)
 
-  //! Search order
+  //! Search order by email
   const navigate = useNavigate()
-  const handleSearch = (email: string) => {
+  const handleSearchEmail = (email: string) => {
     const config =
       email === ''
         ? omit(
@@ -39,7 +43,7 @@ export default function AdminOrderMangement() {
     })
   }
 
-  const handleClearSearch = () => {
+  const handleClearSearchEmail = () => {
     navigate({
       pathname: adminPath.orders,
       search: createSearchParams(
@@ -53,22 +57,49 @@ export default function AdminOrderMangement() {
     })
   }
 
+  //! Search order by id
+  const handleSearchId = (orderId: string) => {
+    if (orderId == '') return
+    setOrderID(orderId)
+  }
+
+  const handleClearSearchId = () => {
+    setOrderID('')
+  }
+
   return (
     <div className='space-y-6'>
-      <div className='space-y-4'>
-        <SearchBar handleSearch={handleSearch} />
-        {email && (
-          <div className='flex items-center justify-center space-x-4 text-lg desktop:text-xl'>
-            <p className=''>Tìm kiếm đơn hàng cho Email:</p>
-            <p className='text-haretaColor'>{email}</p>
-            <button
-              onClick={handleClearSearch}
-              className='rounded-xl bg-alertRed/80 px-4 py-2 text-base hover:bg-alertRed'
-            >
-              Xóa
-            </button>
-          </div>
-        )}
+      <div className='grid w-full grid-cols-2 gap-4'>
+        <div className='w-full space-y-4'>
+          <SearchBar handleSearch={handleSearchEmail} placeHolder='Email khách hàng' />
+          {email && (
+            <div className='flex items-center justify-center space-x-2 text-lg'>
+              <p className=''>Tìm kiếm đơn hàng cho Email:</p>
+              <p className='text-haretaColor'>{email}</p>
+              <button
+                onClick={handleClearSearchEmail}
+                className='rounded-xl bg-alertRed/80 px-4 py-1 text-base hover:bg-alertRed'
+              >
+                Xóa
+              </button>
+            </div>
+          )}
+        </div>
+        <div className='w-full space-y-4'>
+          <SearchBar handleSearch={handleSearchId} placeHolder='ID đơn hàng' />
+          {orderID != '' && (
+            <div className='flex items-center justify-center space-x-2 text-lg'>
+              <p className=''>ID đơn hàng:</p>
+              <p className='text-haretaColor'>{orderID}</p>
+              <button
+                onClick={handleClearSearchId}
+                className='rounded-xl bg-alertRed/80 px-4 py-1 text-base hover:bg-alertRed'
+              >
+                Xóa
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       <div className='grid w-full grid-cols-2 gap-4'>
         <div className='col-span-1'>

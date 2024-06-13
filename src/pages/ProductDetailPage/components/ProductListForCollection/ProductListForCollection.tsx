@@ -84,7 +84,7 @@ export default function ProductListForCollection({ collectionName }: Props) {
       <div className='flex w-full items-center justify-center'>
         <button
           onClick={handleClick}
-          className='mx-2 text-lg font-bold uppercase tracking-wider hover:text-primaryColor dark:hover:text-primaryColor tablet:text-xl desktop:px-4 desktop:text-2xl'
+          className='mx-2 text-xl font-bold uppercase tracking-wider hover:text-primaryColor dark:hover:text-primaryColor tablet:text-2xl desktop:px-4 desktop:text-3xl'
         >
           {collectionName}
         </button>

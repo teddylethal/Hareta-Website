@@ -88,9 +88,7 @@ export default function ProductDetailDesktop(props: Props) {
       <div className='col-span-4'>
         <div className='sticky left-0 top-14 z-10 flex-col rounded-xl bg-lightColor700 p-2 text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-20 desktop:p-4 desktopLarge:p-6'>
           <div className='relative flex items-center justify-between'>
-            <p className='line-clamp-1 text-xl font-semibold desktop:text-2xl desktopLarge:text-3xl'>
-              {defaultProduct.name}
-            </p>
+            <p className='line-clamp-1 text-xl font-semibold desktop:text-2xl'>{defaultProduct.name}</p>
             {isAuthenticated && (
               <button onClick={toggleLikeProduct} className=''>
                 <FontAwesomeIcon
