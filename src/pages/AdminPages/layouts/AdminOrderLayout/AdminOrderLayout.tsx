@@ -8,7 +8,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-const OrderState = ['Đang đợi thanh toán', 'Đang chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']
+const OrderState = ['Đang đợi thanh toán', 'Đang chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng', 'Đã xử lí xong']
 
 export default function AdminOrderLayout({ children }: Props) {
   //! handle choose state

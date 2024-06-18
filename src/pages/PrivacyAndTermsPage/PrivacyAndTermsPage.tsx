@@ -31,13 +31,13 @@ import PathBar from 'src/components/PathBar'
 
 export default function PrivacyAndTermsPage() {
   const { theme } = useContext(AppContext)
-  //? responsive
+  //! responsive
   const isMobile = useViewport().width < 768
 
   //! Multi languages
   const { t } = useTranslation('privacyAndTerms')
 
-  //? navigate side bar
+  //! navigate side bar
   const { visible, setVisible, ref } = useClickOutside(false)
   const openMenu = () => {
     setVisible(true)
@@ -46,7 +46,7 @@ export default function PrivacyAndTermsPage() {
     setVisible(false)
   }
 
-  //? handle scroll up
+  //! handle scroll up
   const scrollDirection = useScrollDirection()
 
   const elementList: { path: string; children: ReactNode }[] = [
@@ -120,10 +120,13 @@ export default function PrivacyAndTermsPage() {
       {isMobile && (
         <AnimatePresence>
           <button
-            className={classNames('sticky left-1 rounded-md bg-white p-2 duration-200 dark:bg-black', {
-              'top-12': scrollDirection == 'up',
-              ' top-1': !(scrollDirection == 'up')
-            })}
+            className={classNames(
+              'sticky left-2 rounded-xl border border-black/60 bg-white p-2 duration-200 dark:border-white/60 dark:bg-black',
+              {
+                'top-12': scrollDirection == 'up',
+                ' top-1': !(scrollDirection == 'up')
+              }
+            )}
             onClick={openMenu}
           >
             <FontAwesomeIcon icon={faBarsStaggered} />

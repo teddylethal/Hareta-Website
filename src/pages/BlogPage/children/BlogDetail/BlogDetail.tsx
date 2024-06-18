@@ -76,7 +76,7 @@ export default function BlogDetail() {
             </div>
           </div>
 
-          <BlogRelatedPosts blogTag={blogDetail.tags[0]?.tag || ''} />
+          <BlogRelatedPosts blogTag={blogDetail.tags[0]?.tag || ''} currentBlogId={blogId} />
         </div>
       )}
     </div>

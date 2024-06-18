@@ -100,7 +100,7 @@ export default function HomeTopSellerSlideShow() {
         </span>
         {displayedItems.length >= 3 && (
           <button
-            className=' flex items-center gap-2 rounded-md border px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium hover:text-darkText dark:border-white/60 dark:hover:border-transparent tablet:right-4 tablet:gap-3 tablet:text-base desktop:right-8 desktopLarge:text-lg'
+            className=' flex items-center gap-2 rounded-md border border-black/60 px-2 py-1 text-xs hover:border-transparent hover:bg-primaryColor hover:font-medium hover:text-darkText dark:border-white/60 dark:hover:border-transparent tablet:right-4 tablet:gap-3 tablet:text-base desktop:right-8 desktopLarge:text-lg'
             onClick={handleNavigate}
           >
             {!isMobile && <p className='truncate uppercase'>{t('explore')}</p>}

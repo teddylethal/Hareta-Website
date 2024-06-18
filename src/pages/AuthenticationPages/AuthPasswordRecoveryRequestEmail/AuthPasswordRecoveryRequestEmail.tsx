@@ -52,6 +52,7 @@ export default function AuthPasswordRecoveryRequestEmail() {
     mutationFn: (body: FormData) => passwordRecovery.requestRecovery(body)
   })
 
+  //! Handle submit
   const onSubmit = handleSubmit((data) => {
     passwordRecoveryMutation.mutate(data, {
       onSuccess: () => {
@@ -62,10 +63,10 @@ export default function AuthPasswordRecoveryRequestEmail() {
         // console.log(error)
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
           const formError = error.response?.data
-          const errorRespone = HttpStatusMessage.find(({ error_key }) => error_key === formError?.error_key)
-          if (errorRespone) {
+          const errorMessage = HttpStatusMessage.get(formError?.error_key || '')
+          if (errorMessage) {
             setError('email', {
-              message: errorRespone.error_message,
+              message: errorMessage,
               type: 'Server'
             })
           }

@@ -37,5 +37,17 @@
     "top seller": "Bán chạy",
     "signature": "Đặc trưng",
     "favourite": "Yêu thích"
+  },
+  "inventory": {
+    "Title": "Kho đồ của bạn",
+    "Describe": "Sản phẩm bạn đã mua sẽ được hiện ở đây",
+
+    "remove": "Remove",
+    "message": "Item was added to cart",
+    "remove message": "Remove this item from your wishlist?",
+    "cancel": "Cancel",
+    "top seller": "Top seller",
+    "signature": "Signature",
+    "favourite": "Favourite"
   }
 }

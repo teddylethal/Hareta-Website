@@ -49,7 +49,7 @@ module.exports = {
 
         //? Text
         lightText: '#EEEEEE',
-        darkText: '#111111',
+        darkText: '#010101',
         haretaColor: '#ff8800',
         primaryColor: '#ff6600',
         textVintage: '#FFFBF5',

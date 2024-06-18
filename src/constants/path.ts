@@ -84,7 +84,8 @@ export const orderPath = {
 
 export const orderTrackingPath = {
   orderTracking: '/order-tracking',
-  orderDetail: '/order-tracking/:orderId'
+  orderDetail: '/order-tracking/:orderId',
+  orderPayment: '/order-tracking/:orderId/payment'
 }
 
 export const eventPath = {
@@ -96,6 +97,5 @@ export const userPath = {
   user: '/user',
   profile: '/user/profile',
   wishList: '/user/wishlist',
-  inventory: '/user/inventory',
   password: '/user/password'
 }

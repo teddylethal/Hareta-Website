@@ -68,7 +68,7 @@ export default function BlogCard({ blog, handleChooseTag }: Props) {
           <button
             key={tag.tag}
             onClick={handleChooseTag(tag.tag)}
-            className='rounded-lg bg-lightColor500 px-2 py-1 hover:text-primaryColor dark:bg-darkColor500'
+            className='rounded-lg border border-black/40 bg-lightColor700 px-2 py-1 hover:text-primaryColor dark:border-white/40 dark:bg-darkColor700'
           >
             {tag.tag}
           </button>

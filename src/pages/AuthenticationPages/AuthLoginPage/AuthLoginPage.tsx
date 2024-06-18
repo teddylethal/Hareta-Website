@@ -61,7 +61,7 @@ export default function AuthLoginPage() {
         })
 
         if (state && state.context == 'AccessProtectedRouteDenied' && state.from == 'user') {
-          navigate(mainPath.profile)
+          navigate(mainPath.user)
         } else {
           navigate(-1)
         }

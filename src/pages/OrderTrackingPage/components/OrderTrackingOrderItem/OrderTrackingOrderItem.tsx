@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { orderApi } from 'src/apis/order.api'
 import LoadingSection from 'src/components/LoadingSection'
-import OrderState from 'src/constants/orderState'
 import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
+import useOrderStatus from 'src/hooks/useOrderStatus'
 import { useViewport } from 'src/hooks/useViewport'
 import { OrderPurchaseListConfig, Order } from 'src/types/order.type'
 import { formatDate, formatDateEn, formatDateVi, generateNameId } from 'src/utils/utils'
@@ -28,6 +28,9 @@ export default function OrderTrackingOrderItem({ order }: Props) {
   //! Multi languages
   const { t } = useTranslation('support')
   const currentLan = i18next.language
+
+  //! Order states
+  const OrderStates = useOrderStatus()
 
   //! get products of order
   const orderPurchaseListConfig: OrderPurchaseListConfig = {
@@ -60,10 +63,10 @@ export default function OrderTrackingOrderItem({ order }: Props) {
   //! Styles
   const wrapperClassname = classNames({
     'flex flex-col space-y-1': isMobile,
-    'grid grid-cols-3 gap-2 tablet:gap-4 w-full items-center': !isMobile
+    'grid grid-cols-3 gap-2 tablet:gap-4 w-full': !isMobile
   })
   const titleClassname = 'text-sm tablet:text-sm desktop:text-base text-left col-span-1 truncate'
-  const infoClassname = 'text-sm font-medium text-left tablet:text-sm desktop:text-base col-span-2 truncate'
+  const infoClassname = 'text-sm font-medium text-left tablet:text-sm desktop:text-base col-span-2'
 
   return (
     <Fragment>
@@ -74,8 +77,8 @@ export default function OrderTrackingOrderItem({ order }: Props) {
           onClick={handleClickItem}
         >
           {!isMobile && (
-            <div className='grid grid-cols-6 gap-2 font-semibold uppercase tablet:grid-cols-8 tablet:gap-4 desktop:text-lg'>
-              <div className='col-span-4 tablet:col-span-6'>
+            <div className='grid grid-cols-6 gap-2 font-semibold uppercase tablet:gap-4 desktop:grid-cols-7 desktop:text-lg'>
+              <div className='col-span-4 desktop:col-span-5'>
                 <p className='text-center text-sm tablet:text-base desktop:text-lg'>{t('orderDetail.order')}</p>
               </div>
               <div className='cols-span-1'>
@@ -87,8 +90,8 @@ export default function OrderTrackingOrderItem({ order }: Props) {
             </div>
           )}
 
-          <div className='space-y-3 tablet:grid tablet:grid-cols-6 tablet:gap-2 desktop:grid-cols-8 desktop:gap-4'>
-            <div className='space-y-3 tablet:col-span-4 desktop:col-span-6'>
+          <div className='space-y-3 tablet:grid tablet:grid-cols-6 tablet:gap-2 desktop:grid-cols-7 desktop:gap-4'>
+            <div className='col-span-4 space-y-3 text-pretty desktop:col-span-5'>
               <div className={wrapperClassname}>
                 <span className={titleClassname}>{t('orderDetail.Order id')}</span>
                 <span className={classNames(infoClassname, 'text-haretaColor')}>{order.id}</span>
@@ -139,7 +142,7 @@ export default function OrderTrackingOrderItem({ order }: Props) {
                   isMobile ? infoClassname : 'col-span-1 flex min-h-full items-center justify-center font-semibold'
                 )}
               >
-                {OrderState[order.status]}
+                {OrderStates[order.status]}
               </span>
             </div>
           </div>

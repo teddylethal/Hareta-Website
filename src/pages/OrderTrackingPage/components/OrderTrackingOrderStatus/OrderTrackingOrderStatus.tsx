@@ -3,6 +3,7 @@ import { useViewport } from 'src/hooks/useViewport'
 import { Order } from 'src/types/order.type'
 import useOrderStatus from 'src/hooks/useOrderStatus'
 import classNames from 'classnames'
+import OrderTrackingNavigateToPayment from '../OrderTrackingNavigateToPayment'
 
 interface Props {
   orderDetail: Order
@@ -98,8 +99,9 @@ export default function OrderTrackingOrderStatus({ orderDetail }: Props) {
                     </span>
                   </div>
                 </div>
-                <div className='text-pretty pl-8'>
+                <div className='space-y-4 text-pretty pl-8'>
                   <p className='text-sm tablet:text-base desktop:text-lg'>{status.stateDescription}</p>
+                  {isHead && orderStatus == 0 && <OrderTrackingNavigateToPayment order={orderDetail} />}
                 </div>
               </div>
             )
@@ -152,8 +154,9 @@ export default function OrderTrackingOrderStatus({ orderDetail }: Props) {
                     </span>
                   </div>
                 </div>
-                <div className='text-pretty pl-5 pr-10'>
+                <div className='space-y-4 text-pretty pl-5 pr-10'>
                   <p className=''>{status.stateDescription}</p>
+                  {isHead && orderStatus == 0 && <OrderTrackingNavigateToPayment order={orderDetail} />}
                 </div>
               </div>
             )

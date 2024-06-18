@@ -6,7 +6,8 @@ export default function useOrderStatus() {
     t('state.Awaiting Payment'),
     t('state.Preparing Package'),
     t('state.Delivering'),
-    t('state.Delivered')
+    t('state.Delivered'),
+    t('state.Received')
   ]
   return OrderState
 }

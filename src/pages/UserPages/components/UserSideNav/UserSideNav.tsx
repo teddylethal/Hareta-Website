@@ -1,4 +1,4 @@
-import { faBagShopping, faHeart, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faLock, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 import { ReactNode } from 'react'
@@ -26,11 +26,6 @@ export default function UserSideNav() {
       name: t('layout.password'),
       url: userPath.password,
       icon: <FontAwesomeIcon icon={faLock} />
-    },
-    {
-      name: t('layout.inventory'),
-      url: userPath.inventory,
-      icon: <FontAwesomeIcon icon={faBagShopping} />
     },
     {
       name: t('layout.wishlist'),

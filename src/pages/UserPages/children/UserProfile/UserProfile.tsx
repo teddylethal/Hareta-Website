@@ -201,7 +201,7 @@ export default function UserProfile() {
           <div className=''>
             {!editingMode && (
               <button
-                className='flex h-full space-x-2 rounded-md bg-unhoveringBg px-2 py-1 text-darkText hover:bg-hoveringBg dark:text-lightText desktop:px-4 desktop:py-2'
+                className='flex h-full space-x-2 rounded-xl bg-unhoveringBg px-2 py-1 font-medium text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-2'
                 onClick={() => setEditingMode(true)}
               >
                 <FontAwesomeIcon icon={faUserPen} className='h-auto w-4 tabletSmall:w-5 desktop:w-6' />
@@ -254,9 +254,9 @@ export default function UserProfile() {
                 <p className='py-1 text-sm desktop:text-base '>{profile.email}</p>
               </div>
 
-              <div className='flex items-center space-x-2 pt-4'>
+              <div className='flex items-center space-x-2 pt-4 tablet:space-x-4 desktop:space-x-6'>
                 <button
-                  className='flex items-center space-x-1 rounded-md bg-unhoveringBg px-2 py-1 text-sm text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-2 desktop:text-base'
+                  className='flex items-center space-x-1 rounded-xl bg-unhoveringBg px-2 py-1 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-2 desktop:text-base'
                   type='submit'
                 >
                   <p>{t('profile.save')}</p>
