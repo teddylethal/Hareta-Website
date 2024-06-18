@@ -9,7 +9,7 @@ import { AppContext } from 'src/contexts/app.context'
 interface Props {
   isOpen: boolean
   handleClose: () => void
-  handleConfirm: () => void
+  handleConfirm: (failed: boolean) => () => void
   orderId: string
 }
 
@@ -43,19 +43,23 @@ export default function OrderSuccessDialog({ isOpen, handleClose, handleConfirm,
         </p>
         <p className='font-semibold'>{t('layout.Please save this ID for Transaction and Order Tracking!')}</p>
 
-        <div className='flex flex-col items-center justify-center space-y-2 text-sm font-medium tablet:text-base desktopLarge:text-lg'>
-          <p className='text-center'>{t('layout.A payment instruction email was sent to your email address')}</p>
-          <p className='text-center'>{t('layout.Please complete transaction in 48 hours to complete your order')}</p>
+        <div className='flex flex-col items-center justify-center space-y-2 text-sm tablet:text-base desktopLarge:text-lg'>
+          <p className='text-center'>
+            {t('layout.You will now be redirected to the payment page to complete your transaction.')}
+          </p>
+          <p className='text-center'>
+            {t('layout.Please ensure to finalize your payment within the next 48 hours to avoid any cancellation.')}
+          </p>
           <p className='text-center text-base font-semibold tablet:text-lg desktopLarge:text-xl'>
-            {t('layout.Sincerely thanks!')}
+            {t('layout.Thank you for placing your order with Hareta Workshop.')}
           </p>
         </div>
         <div className='flex w-full items-center justify-center'>
           <button
-            className='rounded-lg bg-haretaColor px-4 py-2 font-medium hover:bg-primaryColor'
-            onClick={handleConfirm}
+            className='rounded-2xl bg-haretaColor px-4 py-2 font-medium text-darkText hover:bg-primaryColor'
+            onClick={handleConfirm(false)}
           >
-            {t('layout.Confirm')}
+            {t('layout.Go to payment page')}
           </button>
         </div>
       </div>
