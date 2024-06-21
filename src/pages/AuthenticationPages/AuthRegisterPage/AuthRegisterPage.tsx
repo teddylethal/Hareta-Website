@@ -159,7 +159,8 @@ export default function AuthRegisterPage() {
                   {t('login.sign up')}
                 </Button>
               </div>
-              <div className='mt-8 flex justify-center text-center  text-sm tablet:text-base'>
+
+              <div className='mt-8 flex justify-center text-center text-sm font-medium tablet:text-base'>
                 <span className='text-darkText/60 dark:text-lightText/60'>
                   {t('register.Already have an account?')}
                 </span>

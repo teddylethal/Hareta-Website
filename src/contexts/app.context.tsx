@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { useState, createContext } from 'react'
+import { useState, createContext, useEffect } from 'react'
 import { User } from 'src/types/user.type'
 import { getAccessTokenFromLS, getProfileFromLS, getThemeFromLS, setThemeToLS } from 'src/utils/auth'
 
@@ -51,6 +51,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
       queryKey: ['purchases']
     })
   }
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme)
+  })
 
   return (
     <AppContext.Provider

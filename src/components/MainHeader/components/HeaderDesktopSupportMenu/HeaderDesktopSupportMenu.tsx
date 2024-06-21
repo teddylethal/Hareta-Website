@@ -16,7 +16,7 @@ function PopoverSection({ closePopover }: { closePopover: () => void }) {
   const itemClassName = 'rounded-md px-3 py-2 hover:bg-lightColor900 hover:font-semibold dark:hover:bg-darkColor900'
 
   return (
-    <div className='relative flex w-64 select-none flex-col space-y-1 rounded-lg bg-lightColor700 p-2 text-base font-medium text-darkText shadow-lg dark:bg-darkColor700 dark:text-lightText tablet:font-medium desktop:w-72 desktop:text-lg'>
+    <div className='relative flex w-64 select-none flex-col space-y-1 rounded-xl bg-lightColor700 p-2 text-base font-medium text-darkText shadow-lg dark:bg-darkColor700 dark:text-lightText tablet:font-medium desktop:w-72 desktop:text-lg'>
       <NavLink to={mainPath.privacyAndTerms} className={itemClassName} onClick={closePopover}>
         {t('support.privacy & terms')}
       </NavLink>

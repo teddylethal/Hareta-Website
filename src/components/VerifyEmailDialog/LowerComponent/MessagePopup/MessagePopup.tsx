@@ -3,29 +3,21 @@ import TransitionPopup from '../TransitionPopup'
 interface Props {
   dialog: boolean
   closeDialog: () => void
-  title?: string
   children?: React.ReactNode
-  customTitle?: React.ReactNode
 }
 
-export default function MessagePopup({ dialog, closeDialog, title, children = <div></div>, customTitle }: Props) {
-  const orangeTextColor = ' text-[#ff6a00]'
-  const orangeBgColor = ' bg-[#ff6a00]'
+export default function MessagePopup({ dialog, closeDialog, children = <div></div> }: Props) {
   return (
     <TransitionPopup isOpen={dialog} handleClose={closeDialog} classNameWrapper='rounded-2xl shadow-xl'>
       <div
-        className='flex max-w-[470px] flex-col items-center rounded-2xl px-3 py-4 font-newfont 
-      dark:bg-black dark:text-darkText tabletSmall:px-14 tabletSmall:py-5'
+        className='flex max-w-[480px] flex-col items-center justify-between space-y-4 rounded-2xl px-3 
+      py-4 font-newfont dark:bg-black dark:text-darkText tablet:px-14 tablet:py-5'
       >
-        <div className={'mb-3 text-xl font-semibold capitalize tabletSmall:text-3xl ' + orangeTextColor}>
-          {title || customTitle}
-        </div>
-        <div className='text-sm tabletSmall:text-xl'>{children}</div>
+        <div className='space-y-4 text-sm tablet:text-base desktop:text-lg'>{children}</div>
 
         <button
           className={
-            'mt-7 rounded-xl px-6 py-3 text-xl font-bold outline-none hover:bg-opacity-70 hover:text-white/90 dark:text-white tablet:rounded-2xl tablet:px-10 tablet:py-4 ' +
-            orangeBgColor
+            ' rounded-2xl bg-unhoveringBg px-6 py-2 text-xl font-medium text-black outline-none hover:bg-hoveringBg tablet:rounded-2xl tablet:px-10 tablet:py-3'
           }
           onClick={closeDialog}
         >

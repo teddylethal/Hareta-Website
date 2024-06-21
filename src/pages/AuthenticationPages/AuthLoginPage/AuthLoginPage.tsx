@@ -17,7 +17,6 @@ import omit from 'lodash/omit'
 import InvalidLinkPopup from 'src/components/VerifyEmailDialog/InvalidLinkPopup'
 import SuccessPasswordRecoveryPopup from 'src/components/VerifyEmailDialog/SuccessPasswordRecoveryPopup'
 import SuccessEmailVerifyPopup from 'src/components/VerifyEmailDialog/SuccessEmailVerifyPopup'
-import { useViewport } from 'src/hooks/useViewport'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
@@ -28,8 +27,6 @@ type FormData = LoginSchema
 export default function AuthLoginPage() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
 
-  const viewPort = useViewport()
-  const isSmall = viewPort.width <= 425
   const navigate = useNavigate()
   const { state } = useLocation()
 
@@ -106,7 +103,7 @@ export default function AuthLoginPage() {
     }
   }, [setValue, state])
 
-  //! TRANSLATION
+  //! Multi languages
   const { t } = useTranslation('login')
 
   return (
@@ -145,7 +142,7 @@ export default function AuthLoginPage() {
                 label={<FontAwesomeIcon icon={faLock} className='h-4 w-4 text-haretaColor' />}
               />
 
-              <div className='mt-2 text-base desktop:text-lg'>
+              <div className='mt-2 text-base desktop:text-lg '>
                 <Button
                   className='flex w-full items-center justify-center py-2 uppercase desktop:py-3'
                   type='submit'
@@ -164,31 +161,16 @@ export default function AuthLoginPage() {
                     </p>
                   </Link>
                 </div>
-                {!isSmall && (
-                  <div className='flex items-center text-center'>
-                    <span className='text-darkText/60 dark:text-lightText/60'>{t("login.Don't have an account?")}</span>
-                    <Link
-                      className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor'
-                      to={mainPath.register}
-                    >
-                      {t('login.sign up')}
-                    </Link>
-                  </div>
-                )}
 
-                {isSmall && (
-                  <div className='mb-2 flex flex-col text-center'>
-                    <span className='line-clamp-2 text-darkText/60 dark:text-lightText/60'>
-                      {t("login.Don't have an account?")}
-                    </span>
-                    <Link
-                      className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor'
-                      to={mainPath.register}
-                    >
-                      {t('login.sign up')}
-                    </Link>
-                  </div>
-                )}
+                <div className='flex flex-col items-center text-center font-medium tablet:flex-row'>
+                  <span className='text-darkText/60 dark:text-lightText/60'>{t("login.Don't have an account?")}</span>
+                  <Link
+                    className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor'
+                    to={mainPath.register}
+                  >
+                    {t('login.sign up')}
+                  </Link>
+                </div>
               </div>
             </form>
           </div>

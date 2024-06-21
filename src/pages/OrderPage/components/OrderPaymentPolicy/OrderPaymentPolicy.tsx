@@ -52,8 +52,8 @@ export default function OrderPaymentPolicy({ isOrderTrackingPayment }: Props) {
               <div className='w-full text-center'>{t('payment.or')}</div>
               <div className='w-full justify-center text-lg font-medium desktop:text-xl'>
                 <p className='w-full text-center'>vietcombank</p>
-                <p className='w-full text-center'>9394030604</p>
-                <p className='w-full text-center'>le tien thanh</p>
+                <p className='w-full text-center'>1027710352</p>
+                <p className='w-full text-center'>le quoc viet</p>
               </div>
             </div>
             <div className='col-span-1 justify-center space-y-2'>

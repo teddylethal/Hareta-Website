@@ -74,6 +74,10 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
   //! Check discounted
   const isDiscounted = product.price < product.original_price
 
+  //! styles
+  const tagClassname =
+    'rounded-xl border border-black/60 col-span-1 text-center overflow-hidden px-2 tablet:px-4 py-1 text-xs mobileLarge:text-sm font-medium capitalize dark:border-white/60 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'
+
   return (
     <button
       className='w-full items-start bg-lightColor900 text-left duration-200 hover:bg-lightColor700 dark:bg-darkColor900 dark:hover:bg-darkColor700'
@@ -82,7 +86,7 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
       onMouseMove={handleMouseMove}
       onClick={handleClick}
     >
-      <div className='grid w-full grid-cols-1 gap-2 p-4 tablet:grid-cols-3 tablet:px-8 tablet:py-6 desktop:py-8 desktopLarge:gap-4 desktopLarge:px-12 desktopLarge:py-10'>
+      <div className='grid w-full grid-cols-1 gap-2 p-2 tablet:grid-cols-3 tablet:p-4 tablet:px-8 tablet:py-6 desktop:py-8 desktopLarge:gap-4 desktopLarge:px-12 desktopLarge:py-10'>
         <div className='col-span-1 min-h-full'>
           <div className='relative w-full pt-[60%] tablet:pt-[80%]'>
             <div className='absolute left-0 top-0 h-full w-full'>
@@ -103,11 +107,11 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
         <div className='col-span-1 min-h-full tablet:col-span-2'>
           <div className='flex h-full flex-col justify-between pl-2 tabletSmall:pl-8 desktop:pl-10 desktopLarge:pl-14'>
             <div className='flex flex-col items-center justify-between space-y-2 overflow-hidden'>
-              <p className='h-full justify-center overflow-hidden truncate text-2xl font-semibold uppercase text-darkText duration-200 dark:text-lightText desktop:text-3xl desktopLarge:text-4xl'>
+              <p className='h-full w-full justify-center overflow-hidden truncate text-center text-2xl font-semibold uppercase text-darkText duration-200 dark:text-lightText desktop:text-3xl desktopLarge:text-4xl'>
                 {product.name}
               </p>
 
-              <div className='flex space-x-4 font-semibold tablet:text-xl desktop:text-2xl'>
+              <div className='flex w-full justify-center space-x-4 font-semibold tablet:text-xl desktop:text-2xl'>
                 <span
                   className={classNames('', {
                     'text-haretaColor dark:text-haretaColor': !isDiscounted,
@@ -121,18 +125,12 @@ export default function HomeNewReleaseProductCard({ product }: Props) {
                 )}
               </div>
 
-              <div className='flex space-x-2'>
-                <span className='rounded-xl border border-black/60 px-4 py-1 text-sm font-medium capitalize dark:border-white/60 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
-                  {product.category}
-                </span>
+              <div className=' grid grid-cols-3 gap-2 tablet:flex tablet:justify-center '>
+                <span className={tagClassname}>{product.category}</span>
 
-                <span className='rounded-xl border border-black/60 px-4 py-1 text-sm font-medium capitalize dark:border-white/60 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
-                  {product.collection}
-                </span>
+                <span className={tagClassname}>{product.collection}</span>
 
-                <span className='rounded-xl border border-black/60 px-4 py-1 text-sm font-medium capitalize dark:border-white/60 tabletSmall:text-base desktop:text-lg desktopLarge:text-xl'>
-                  {product.type}
-                </span>
+                <span className={tagClassname}>{product.type}</span>
               </div>
             </div>
 

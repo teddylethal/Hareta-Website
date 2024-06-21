@@ -11,7 +11,7 @@ export default function Button(props: ButtonProps) {
   return (
     <div
       className={classNames(
-        'w-full rounded-md bg-haretaColor text-center font-medium uppercase text-darkText duration-200',
+        'w-full rounded-2xl bg-haretaColor text-center font-medium uppercase text-darkText duration-200',
         {
           'opacity-50': isLoading,
           'hover:bg-primaryColor': !isLoading

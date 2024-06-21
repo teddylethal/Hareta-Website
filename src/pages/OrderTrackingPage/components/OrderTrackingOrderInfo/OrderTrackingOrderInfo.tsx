@@ -15,7 +15,7 @@ const titleClassname =
   'col-span-1 text-sm text-darkText/80 dark:text-lightText/80 tabletSmall:text-base desktop:text-lg'
 const infoClassname = 'col-span-1 tablet:col-span-2 text-sm font-medium tabletSmall:text-base desktop:text-lg truncate'
 
-export default function OrderTrackingOrderInfo({ orderDetail, totalPrice }: Props) {
+export default function OrderTrackingOrderInfo({ orderDetail, totalOriginalPrice }: Props) {
   //! Multi languages
   const { t } = useTranslation('support')
 
@@ -63,23 +63,18 @@ export default function OrderTrackingOrderInfo({ orderDetail, totalPrice }: Prop
           <div className='flex flex-col space-y-2'>
             <div className={wrapperClassname}>
               <p className={titleClassname}>{t('order information.Total')}</p>
-              <p className={classNames(infoClassname)}>${formatCurrency(orderDetail?.total)}</p>
+              <p className={classNames(infoClassname)}>${formatCurrency(totalOriginalPrice)}</p>
             </div>
 
             <div className={wrapperClassname}>
               <p className={titleClassname}>{t('order information.Discount')}</p>
-              <p className={classNames(infoClassname)}>${formatCurrency(orderDetail?.total - totalPrice)}</p>
-            </div>
-
-            <div className={wrapperClassname}>
-              <p className={titleClassname}>{t('order information.Delivery charges')}</p>
-              <p className={classNames(infoClassname)}>${formatCurrency(0)}</p>
+              <p className={classNames(infoClassname)}>${formatCurrency(totalOriginalPrice - orderDetail.total)}</p>
             </div>
           </div>
 
           <div className={classNames(wrapperClassname, 'text border-spacing-6 border-t border-dashed pt-6 ')}>
             <p className={classNames(titleClassname, 'font-semibold')}>{t('order information.Total payment')}</p>
-            <p className={classNames(infoClassname, ' font-semibold text-haretaColor')}>${orderDetail?.total}</p>
+            <p className={classNames(infoClassname, ' font-semibold text-haretaColor')}>${orderDetail.total}</p>
           </div>
         </div>
       </div>
