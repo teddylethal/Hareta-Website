@@ -6,6 +6,10 @@
   "path": {
     "Privacy & Terms": "Privacy & Terms"
   },
+  "helmet": {
+    "title": "Privacy & Terms",
+    "description": "Read our Privacy Policy and Terms of Service to understand how we protect your data and ensure a secure shopping experience."
+  },
   "title": {
     "Privacy and terms": "Privacy and terms",
     "ProductInformation": "Product Information",

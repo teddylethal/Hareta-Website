@@ -1,4 +1,10 @@
 {
+  "helmet": {
+    "Login": "Đăng nhập",
+    "Login to Hareta Workshop": "Đăng nhập an toàn để truy cập tài khoản của bạn và tận hưởng trải nghiệm mua sắm cá nhân hóa với các keycap thủ công độc đáo của chúng tôi.",
+    "Register": "Đăng ký",
+    "Register new account to Hareta Workshop": "Tạo tài khoản mới để khám phá bộ sưu tập keycap thủ công của chúng tôi và nhận các ưu đãi, cập nhật độc quyền."
+  },
   "login": {
     "home": "Trang chủ",
     "login": "Đăng nhập",

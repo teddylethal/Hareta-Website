@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import AnimateTransition from 'src/components/AnimateTransition'
+import { Helmet } from 'react-helmet-async'
 
 type FormData = LoginSchema
 
@@ -108,6 +109,15 @@ export default function AuthLoginPage() {
 
   return (
     <AnimateTransition isDialog={state}>
+      <Helmet>
+        <title>{t('helmet.Login')} | Hareta Workshop</title>
+        <meta
+          name='description'
+          content={t(
+            'helmet.Securely log in to access your account and enjoy a personalized shopping experience with our unique handcrafted keycaps.'
+          )}
+        />
+      </Helmet>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
           <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>

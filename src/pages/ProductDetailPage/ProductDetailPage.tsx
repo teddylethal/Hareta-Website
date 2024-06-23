@@ -5,7 +5,7 @@ import { Fragment, useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import { ProductImage } from 'src/types/productImage.type'
-import { getIdFromNameId } from 'src/utils/utils'
+import { getIdFromNameId, truncateString } from 'src/utils/utils'
 import purchaseApi from 'src/apis/cart.api'
 import { useViewport } from 'src/hooks/useViewport'
 import classNames from 'classnames'
@@ -27,6 +27,8 @@ import ProductDetailLoading from './children/ProductDetailLoading'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
 import CustomReachDialog from 'src/components/CustomReachDialog'
 import LoadingSection from 'src/components/LoadingSection'
+import { Helmet } from 'react-helmet-async'
+import { convert } from 'html-to-text'
 
 export interface ProductImageWithIndex extends ProductImage {
   index: number
@@ -194,6 +196,16 @@ export default function ProductDetailPage() {
   ]
   return (
     <div className='bg-lightBg py-2 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
+      <Helmet>
+        <title>{defaultProduct.name} | Hareta Workshop</title>
+        <meta
+          name='description'
+          content={convert(truncateString(defaultProduct.description, 150), {
+            limits: { maxInputLength: 160 }
+          })}
+        />
+      </Helmet>
+
       <div className='container'>
         <PathBar pathList={pathList} />
 

@@ -21,5 +21,9 @@
   "path bar": {
     "home": "Trang chủ",
     "store": "Cửa hàng"
+  },
+  "helmet": {
+    "Store": "Cửa hàng",
+    "Discover our store for unique, handcrafted keycaps. Each piece is a work of art, blending quality and creativity to enhance your keyboard's personality and style.": "Khám phá cửa hàng của chúng tôi với những sản phẩm keycap thủ công độc đáo. Mỗi một sản phẩm là một tác phẩm nghệ thuật, kết hợp chất lượng và sáng tạo để tăng thêm cá tính và phong cách cho bàn phím của bạn."
   }
 }

@@ -97,9 +97,9 @@ export default function BlogPage() {
       <div className='container space-y-4'>
         <PathBar pathList={[{ pathName: t('path.blog'), url: mainPath.blogs }]} />
 
-        <p className='text-center text-lg font-bold uppercase leading-10 tracking-wide tablet:text-2xl desktop:text-4xl'>
+        <h1 className='text-center text-lg font-bold uppercase leading-10 tracking-wide tablet:text-2xl desktop:text-4xl'>
           {t('title')}
-        </p>
+        </h1>
 
         <div className='grid w-full grid-cols-1 gap-4 tablet:grid-cols-2 tablet:gap-6 desktop:grid-cols-3 desktop:gap-8'>
           <div className='col-span-1 space-y-2'>

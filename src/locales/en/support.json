@@ -1,4 +1,8 @@
 {
+  "helmet": {
+    "title": "Order tracking",
+    "description": "Track your order status easily and stay updated on the delivery of your handcrafted keycaps in real-time."
+  },
   "path": {
     "home": "home",
     "order tracking": "order tracking",

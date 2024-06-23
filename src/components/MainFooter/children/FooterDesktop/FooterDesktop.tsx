@@ -17,8 +17,8 @@ export default function FooterDesktop() {
           <div className='col-span-1 flex items-center px-0 text-sm desktop:px-2 desktop:text-xl desktopLarge:text-2xl'>
             {t('our main office')}
           </div>
-          <div className='col-span-1 flex items-center px-6 desktopLarge:px-10'>{t('support')}</div>
-          <div className='col-span-1 flex items-center px-2 desktop:px-4 desktopLarge:px-8'>{t('contact')}</div>
+          <div className='col-span-1 flex items-center px-6 desktop:px-8'>{t('support')}</div>
+          <div className='col-span-1 flex items-center px-2 desktop:px-4 '>{t('contact')}</div>
         </div>
         <div className='mt-4 grid grid-cols-5 justify-center gap-1 text-xs text-darkText/80 duration-200 dark:text-lightText/80 desktop:gap-2 desktop:text-base desktopLarge:gap-4'>
           <div className='col-span-1'>
@@ -54,14 +54,20 @@ export default function FooterDesktop() {
               Hareta workshop
             </Link>
           </div>
-          <div className='col-span-1 px-0 desktop:px-2'>974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam</div>
-          <div className='col-span-1 flex flex-col space-y-2 px-6 desktopLarge:px-10'>
-            <Link to={mainPath.privacyAndTerms}>{t('Privacy & Terms')}</Link>
-            <Link to={mainPath.orderTracking}>{t('Order Tracking')}</Link>
+          <p className='col-span-1 text-pretty px-0 desktop:px-2'>
+            Bcons Bee Building, Binh An, Di An, Binh Duong, Viet Nam
+          </p>
+          <div className='col-span-1 flex flex-col space-y-2 px-6 desktop:px-8'>
+            <Link to={mainPath.privacyAndTerms} className='text-pretty'>
+              {t('Privacy & Terms')}
+            </Link>
+            <Link to={mainPath.orderTracking} className='text-pretty'>
+              {t('Order Tracking')}
+            </Link>
           </div>
-          <div className='col-span-1 flex flex-col justify-start space-y-2 px-2 desktop:px-4 desktopLarge:px-8'>
-            <p>hareta.contact@gmail.com</p>
-            <p>0394030604</p>
+          <div className='col-span-1 flex flex-col justify-start space-y-2 px-2 desktop:px-4'>
+            <p>contact.hareta@gmail.com</p>
+            <p>0818266375</p>
           </div>
         </div>
         <div className='relative grid grid-cols-5 gap-1 desktop:gap-2 desktopLarge:gap-4'>

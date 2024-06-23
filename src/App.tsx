@@ -7,6 +7,7 @@ import { AppContext } from './contexts/app.context'
 import { CartContext } from './contexts/cart.context'
 import { OrderContext } from './contexts/order.context'
 import LoadingPage from './components/LoadingPage'
+import classNames from 'classnames'
 
 export type ThemeContextType = 'light' | 'dark'
 export const ThemeContext = createContext({
@@ -38,13 +39,9 @@ function App() {
     }
   }, [handleLogout, setExtendedPurchases, setOrderList, setTempOrderList])
 
-  useEffect(() => {
-    document.title = 'Hareta Workshop'
-  }, [])
-
   return (
     <div
-      className={theme === 'dark' ? 'dark' : 'light'}
+      className={classNames('', theme === 'dark' ? 'dark' : 'light')}
       style={{
         minHeight: 'inherit'
       }}

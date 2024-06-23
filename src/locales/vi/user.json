@@ -3,6 +3,10 @@
     "home": "Trang chủ",
     "user": "Người dùng"
   },
+  "helmet": {
+    "title": "Cá nhân",
+    "description": "Quản lý thông tin tài khoản, xem lịch sử đơn hàng, và tùy chỉnh sở thích của bạn để có trải nghiệm mua sắm cá nhân hóa."
+  },
   "layout": {
     "profile": "Thông tin",
     "password": "Mật khẩu",

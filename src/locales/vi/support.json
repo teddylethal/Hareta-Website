@@ -1,4 +1,8 @@
 {
+  "helmet": {
+    "title": "Tra cứu đơn hàng",
+    "description": "Theo dõi trạng thái đơn hàng của bạn một cách dễ dàng và cập nhật tình hình giao hàng các keycap thủ công của bạn theo thời gian thực."
+  },
   "path": {
     "home": "Trang chủ",
     "order tracking": "Tra cứu đơn hàng",

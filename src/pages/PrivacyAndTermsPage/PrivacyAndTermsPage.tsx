@@ -28,6 +28,7 @@ import PrivacyOrderingAndPayments from './children/PrivacyOrderingAndPayments'
 import PrivacyReturnsAndRefunds from './children/PrivacyReturnsAndRefunds'
 import PrivacyIntellectualProperty from './children/PrivacyIntellectualProperty'
 import PathBar from 'src/components/PathBar'
+import { Helmet } from 'react-helmet-async'
 
 export default function PrivacyAndTermsPage() {
   const { theme } = useContext(AppContext)
@@ -114,7 +115,11 @@ export default function PrivacyAndTermsPage() {
 
   return (
     <div className='relative bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
-      <div className='container'>
+      <Helmet>
+        <title>{t('helmet.title')} | Hareta Workshop</title>
+        <meta name='description' content={t('helmet.description')} />
+      </Helmet>
+      <div className='container space-y-6'>
         <PathBar pathList={[{ pathName: t('path.Privacy & Terms'), url: mainPath.privacyAndTerms }]} />
       </div>
       {isMobile && (

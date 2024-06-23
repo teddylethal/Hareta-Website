@@ -6,8 +6,10 @@ import blogApi from 'src/apis/blog.api'
 import LoadingSection from 'src/components/LoadingSection'
 import PathBar from 'src/components/PathBar'
 import mainPath from 'src/constants/path'
-import { getIdFromNameId } from 'src/utils/utils'
+import { getIdFromNameId, truncateString } from 'src/utils/utils'
 import BlogRelatedPosts from '../BlogRelatedPosts'
+import { Helmet } from 'react-helmet-async'
+import { convert } from 'html-to-text'
 
 export default function BlogDetail() {
   const currentUrl = useLocation().pathname
@@ -41,6 +43,15 @@ export default function BlogDetail() {
       {!blogDetail && <LoadingSection />}
       {blogDetail && (
         <div className='container space-y-8'>
+          <Helmet>
+            <title>{blogDetail.title} | Hareta Workshop</title>
+            <meta
+              name='description'
+              content={convert(truncateString(blogDetail.overall, 150), {
+                limits: { maxInputLength: 160 }
+              })}
+            />
+          </Helmet>
           <PathBar
             pathList={[
               { pathName: t('path.blog'), url: mainPath.blogs },

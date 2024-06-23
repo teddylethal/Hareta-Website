@@ -14,6 +14,7 @@ import DialogPopup from 'src/components/DialogPopup'
 import OrderTrackingForUser from './children/OrderTrackingForUser'
 import LoadingRing from 'src/components/LoadingRing'
 import OrderTrackingSearchOrder from './components/OrderTrackingSearchOrder/OrderTrackingSearchOrder'
+import { Helmet } from 'react-helmet-async'
 
 export default function OrderTrackingPage() {
   const { isAuthenticated, theme } = useContext(AppContext)
@@ -28,7 +29,11 @@ export default function OrderTrackingPage() {
 
   return (
     <div className='bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
-      <div className='container'>
+      <Helmet>
+        <title>{t('helmet.title')} | Hareta Workshop</title>
+        <meta name='description' content={t('helmet.description')} />
+      </Helmet>
+      <div className='container space-y-6'>
         <PathBar
           pathList={[
             { pathName: isMobile ? t('path.order tracking--mobile') : t('path.order tracking'), url: '/order-tracking' }
@@ -36,7 +41,7 @@ export default function OrderTrackingPage() {
         />
 
         <div className='flex flex-col space-y-6 py-2 tablet:space-y-10 tablet:py-4 desktopLarge:space-y-10 desktopLarge:py-6'>
-          <p className='upperacse w-full text-center font-medium uppercase text-haretaColor tablet:text-xl desktopLarge:text-2xl'>
+          <p className='upperacse w-full text-center font-bold uppercase tablet:text-xl desktop:text-2xl'>
             {t('order.content')}
           </p>
 

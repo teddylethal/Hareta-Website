@@ -150,7 +150,7 @@ export default function UserWishList() {
               classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-sm transition-all'
               unlikeItemId={unlikedItemId}
               setUnlikeItemId={setUnlikeItemId}
-            ></UnlikeItemDialog>
+            />
           </div>
         ))}
       </div>

@@ -55,7 +55,7 @@ export default function FooterMobile() {
             </div>
 
             <div className='col-span-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
-              974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam
+              Bcons Bee Building, Binh An, Di An, Binh Duong, Viet Nam
             </div>
           </div>
         </div>
@@ -78,8 +78,8 @@ export default function FooterMobile() {
             </div>
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
-              <div className='truncate'>hareta.contact@gmail.com</div>
-              <p>0394030604</p>
+              <div className='truncate'>contact.hareta@gmail.com</div>
+              <p>0818266375</p>
             </div>
           </div>
         </div>

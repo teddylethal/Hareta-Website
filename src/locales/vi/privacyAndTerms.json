@@ -6,6 +6,10 @@
   "path": {
     "Privacy & Terms": "Chính Sách Bảo Mật & Điều Khoản"
   },
+  "helmet": {
+    "title": "Chính sách Bảo mật & Điều khoản",
+    "description": "Đọc Chính sách Bảo mật và Điều khoản Dịch vụ của chúng tôi để hiểu cách chúng tôi bảo vệ dữ liệu của bạn và đảm bảo trải nghiệm mua sắm an toàn."
+  },
   "title": {
     "Privacy and terms": "Chính Sách Bảo Mật và Điều Khoản",
     "ProductInformation": "Thông Tin Sản Phẩm",

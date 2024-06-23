@@ -1,4 +1,10 @@
 {
+  "helmet": {
+    "Login": "Login",
+    "Securely log in to access your account and enjoy a personalized shopping experience with our unique handcrafted keycaps.": "Securely log in to access your account and enjoy a personalized shopping experience with our unique handcrafted keycaps.",
+    "Register": "Register",
+    "Create a new account to explore our collection of handcrafted keycaps and receive exclusive offers and updates.": "Create a new account to explore our collection of handcrafted keycaps and receive exclusive offers and updates."
+  },
   "login": {
     "home": "Home",
     "login": "Login",
