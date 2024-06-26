@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons'
 import AnimateTransition from 'src/components/AnimateTransition'
+import { Helmet } from 'react-helmet-async'
 
 type FormData = RegisterSchema
 
@@ -102,6 +103,15 @@ export default function AuthRegisterPage() {
 
   return (
     <AnimateTransition>
+      <Helmet>
+        <title>{t('helmet.Register')} | Hareta Workshop</title>
+        <meta
+          name='description'
+          content={t(
+            'helmet.Create a new account to explore our collection of handcrafted keycaps and receive exclusive offers and updates.'
+          )}
+        />
+      </Helmet>
       <div className='container'>
         <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
           <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-4 desktop:col-end-7'>
@@ -159,7 +169,8 @@ export default function AuthRegisterPage() {
                   {t('login.sign up')}
                 </Button>
               </div>
-              <div className='mt-8 flex justify-center text-center  text-sm tablet:text-base'>
+
+              <div className='mt-8 flex justify-center text-center text-sm font-medium tablet:text-base'>
                 <span className='text-darkText/60 dark:text-lightText/60'>
                   {t('register.Already have an account?')}
                 </span>

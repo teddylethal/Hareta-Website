@@ -57,7 +57,7 @@ export default function ProductDetailSkeleton() {
               <div className='w-full'>
                 <div className='mt-6 flex items-center justify-between text-xs desktop:text-sm desktopLarge:text-base'>
                   <div className='flex items-center space-x-2'>
-                    <p className='text-darkText dark:text-lightText'>Quantity:</p>
+                    <p className='text-darkText dark:text-lightText'></p>
                     <Skeleton variant='rounded' className=' dark:bg-white/10' width={'20%'} />
                   </div>
                   <div className='flex items-center space-x-1 text-darkText/60 dark:text-lightText/60'>
@@ -75,7 +75,7 @@ export default function ProductDetailSkeleton() {
           </div>
           <div className='col-span-8'>
             <div className='relative'>
-              <div className='relative w-full cursor-zoom-in overflow-hidden rounded-xl border border-black/10 pt-[75%] dark:border-white/10 '>
+              <div className='relative w-full cursor-zoom-in overflow-hidden rounded-xl border border-black/10 bg-lightColor700 pt-[75%] dark:border-white/10 dark:bg-darkColor700 '>
                 <Skeleton
                   className='absolute left-0 top-0 dark:bg-white/10'
                   variant='rounded'

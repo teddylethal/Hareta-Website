@@ -8,9 +8,10 @@ import mainPath from 'src/constants/path'
 
 interface Props {
   blogTag: string
+  currentBlogId: string
 }
 
-export default function BlogRelatedPosts({ blogTag }: Props) {
+export default function BlogRelatedPosts({ blogTag, currentBlogId }: Props) {
   //! Multi languages
   const { t } = useTranslation('blog')
 
@@ -35,7 +36,7 @@ export default function BlogRelatedPosts({ blogTag }: Props) {
   return (
     <div className=''>
       {!isFetched && <LoadingSection />}
-      {isFetched && blogs.length > 0 && (
+      {isFetched && blogs.length > 1 && (
         <div className='space-y-4'>
           <div className='flex w-full items-center justify-center pt-8'>
             <div className='tablet w-full border-t border-black/60 dark:border-white/60 tablet:w-10/12 desktop:w-8/12'></div>
@@ -44,11 +45,14 @@ export default function BlogRelatedPosts({ blogTag }: Props) {
             {t('detail.Related posts')}
           </p>
           <div className='grid grid-cols-2 gap-4 desktop:grid-cols-3 desktop:gap-8'>
-            {blogs.slice(0, 3).map((blog) => (
-              <div key={blog.id} className=''>
-                <BlogCard blog={blog} handleChooseTag={handleChooseTag} />
-              </div>
-            ))}
+            {blogs.slice(0, 3).map((blog) => {
+              if (blog.id != currentBlogId)
+                return (
+                  <div key={blog.id} className=''>
+                    <BlogCard blog={blog} handleChooseTag={handleChooseTag} />
+                  </div>
+                )
+            })}
           </div>
         </div>
       )}

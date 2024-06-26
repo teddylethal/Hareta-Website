@@ -19,7 +19,7 @@ export default function FooterMobile() {
 
             {/* <div className='absolute left-1/2 h-full border-l border-black/40 dark:border-white/40' /> */}
 
-            <div className='col-span-2 flex flex-wrap items-center justify-center space-x-1 text-lg tabletSmall:text-xl'>
+            <div className='col-span-2 flex flex-wrap items-center justify-start space-x-1 text-lg tabletSmall:text-xl'>
               <Link to='https://www.facebook.com/HaretaWorkshop' target='_blank'>
                 <FontAwesomeIcon icon={faFacebook} className='cursor-pointer p-1 hover:text-primaryColor' />
               </Link>
@@ -55,7 +55,7 @@ export default function FooterMobile() {
             </div>
 
             <div className='col-span-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
-              974 Dong Khoi St, Trang Dai, Bien Hoa, Dong Nai, Viet Nam
+              Bcons Bee Building, Binh An, Di An, Binh Duong, Viet Nam
             </div>
           </div>
         </div>
@@ -66,9 +66,8 @@ export default function FooterMobile() {
             </div>
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
-              <Link to={mainPath.home}>{t('faq')}</Link>
-              <Link to={mainPath.home}>{t('policy and terms')}</Link>
-              <Link to={mainPath.home}>{t('order tracking')}</Link>
+              <Link to={mainPath.privacyAndTerms}>{t('Privacy & Terms')}</Link>
+              <Link to={mainPath.orderTracking}>{t('Order Tracking')}</Link>
             </div>
           </div>
         </div>
@@ -79,8 +78,8 @@ export default function FooterMobile() {
             </div>
 
             <div className='col-span-2 flex flex-col space-y-2 px-2 text-xs tabletSmall:px-4 tabletSmall:text-sm'>
-              <div className='truncate'>hareta.contact@gmail.com</div>
-              <p>0394030604</p>
+              <div className='truncate'>contact.hareta@gmail.com</div>
+              <p>0818266375</p>
             </div>
           </div>
         </div>

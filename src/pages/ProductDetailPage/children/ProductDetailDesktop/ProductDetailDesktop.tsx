@@ -2,11 +2,10 @@ import { faCartPlus, faCheck, faHeart, faXmark } from '@fortawesome/free-solid-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useState } from 'react'
 import QuantityController from 'src/components/QuantityController'
-import { formatCurrency, showSuccessDialog } from 'src/utils/utils'
+import { formatCurrency } from 'src/utils/utils'
 import { AppContext } from 'src/contexts/app.context'
 import classNames from 'classnames'
 import ProductDescription from '../../components/ProductDetailDescription/ProductDetailDescription'
-import { Purchase } from 'src/types/cart.type'
 import { CartContext } from 'src/contexts/cart.context'
 import { ProductType } from 'src/types/product.type'
 import { Link } from 'react-router-dom'
@@ -17,7 +16,8 @@ import ProductDetailImageList from '../../components/ProductDetailImageList'
 import ProductDetailVariantList from '../../components/ProductDetailVariantList'
 import ProductTag from 'src/components/ProductTag'
 import CustomReachDialog from 'src/components/CustomReachDialog'
-import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
+import useAddToTempCartAndQuickOrder from 'src/hooks/useAddToTempCartAndQuickOrder'
+import LoadingSection from 'src/components/LoadingSection'
 
 interface Props {
   defaultProduct: ProductType
@@ -28,16 +28,22 @@ interface Props {
 }
 
 export default function ProductDetailDesktop(props: Props) {
+  const currentDateString = Date.now().toString()
+
   const { defaultProduct, isLikedByUser, productsInGroup, addToCart, toggleLikeProduct } = props
 
   const { isAuthenticated, theme } = useContext(AppContext)
-  const { temporaryPurchases, setTemporaryPurchases } = useContext(CartContext)
+  const { temporaryPurchases } = useContext(CartContext)
 
   const [successDialog, setSuccessDialog] = useState<boolean>(false)
   const [errorDialog, setErrorDialog] = useState<boolean>(false)
+  const [orderingDialog, setOrderingDialog] = useState<boolean>(false)
   const [activeProduct, setActiveProduct] = useState<ProductType>(defaultProduct)
 
   const [createTempCart, setCreateTempCart] = useState<boolean>(false)
+
+  //! Get tag
+  const tag = defaultProduct.tag
 
   //! CHOOSE VARIANT
   const handleChooseVariant = (product: ProductType) => () => {
@@ -57,61 +63,17 @@ export default function ProductDetailDesktop(props: Props) {
     setQuantity(1)
   }
 
-  //! ADD TO TEMPORARY CART
-  const createTemporaryCart = () => {
-    const newPurchase: Purchase = {
-      id: Date.now().toString(),
-      created_at: Date.now().toString(),
-      updated_at: Date.now().toString(),
-      status: 0,
-      quantity: quantity,
-      item: activeProduct
-    }
-
-    setTemporaryPurchases([...temporaryPurchases, newPurchase])
-    setTemporaryPurchasesToLS([...temporaryPurchases, newPurchase])
-
-    setCreateTempCart(false)
-    setQuantity(1)
-    showSuccessDialog(setSuccessDialog)
-  }
-
-  const addToTemporaryCart = () => {
-    const newPurchase: Purchase = {
-      id: Date.now().toString(),
-      created_at: Date.now().toString(),
-      updated_at: Date.now().toString(),
-      status: 0,
-      quantity: quantity,
-      item: activeProduct
-    }
-    const purchaseIndex = temporaryPurchases.findIndex((purchase) => purchase.item.id === newPurchase.item.id)
-    if (purchaseIndex !== -1) {
-      const purchase = temporaryPurchases[purchaseIndex]
-      const maxQuanityInStore = purchase.item.quantity
-      const currentQuantityInCart = purchase.quantity
-      if (currentQuantityInCart + quantity <= maxQuanityInStore) {
-        const newQuantity = currentQuantityInCart + quantity
-        const newPurchasesList = temporaryPurchases.map((purchase, index) => {
-          if (index === purchaseIndex) {
-            return { ...purchase, quantity: newQuantity }
-          } else return purchase
-        })
-        setTemporaryPurchases(newPurchasesList)
-        setTemporaryPurchasesToLS(newPurchasesList)
-
-        setQuantity(1)
-      } else {
-        setErrorDialog(true)
-        setQuantity(1)
-      }
-    } else {
-      setTemporaryPurchases([...temporaryPurchases, newPurchase])
-      setTemporaryPurchasesToLS([...temporaryPurchases, newPurchase])
-    }
-    showSuccessDialog(setSuccessDialog, 1500)
-  }
-  const tag = defaultProduct.tag
+  //! Handle add to temporary cart and handle quick order
+  const { addToTemporaryCart, createTemporaryCart, handleOrder } = useAddToTempCartAndQuickOrder({
+    activeProduct,
+    quantity,
+    currentDateString,
+    setQuantity,
+    setDialogIsOpen: setSuccessDialog,
+    setErrorDialog,
+    setOrderingDialog,
+    setCreateTempCart
+  })
 
   //! CHECK IN STOCK
   const inStock = activeProduct.quantity > 0
@@ -126,9 +88,7 @@ export default function ProductDetailDesktop(props: Props) {
       <div className='col-span-4'>
         <div className='sticky left-0 top-14 z-10 flex-col rounded-xl bg-lightColor700 p-2 text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-20 desktop:p-4 desktopLarge:p-6'>
           <div className='relative flex items-center justify-between'>
-            <p className='line-clamp-1 text-xl font-semibold desktop:text-2xl desktopLarge:text-3xl'>
-              {defaultProduct.name}
-            </p>
+            <p className='line-clamp-1 text-xl font-semibold desktop:text-2xl'>{defaultProduct.name}</p>
             {isAuthenticated && (
               <button onClick={toggleLikeProduct} className=''>
                 <FontAwesomeIcon
@@ -202,12 +162,17 @@ export default function ProductDetailDesktop(props: Props) {
                       ? () => {
                           setCreateTempCart(true)
                         }
-                      : addToTemporaryCart
+                      : () => {
+                          addToTemporaryCart()
+                        }
                   }
                 >
                   <FontAwesomeIcon icon={faCartPlus} />
                 </button>
-                <button className='flex items-center space-x-2 rounded-md bg-haretaColor px-6 py-1 text-sm font-medium hover:bg-primaryColor desktop:py-1.5 desktop:text-base desktopLarge:text-lg'>
+                <button
+                  onClick={handleOrder}
+                  className='flex items-center space-x-2 rounded-md bg-haretaColor px-6 py-1 text-sm font-medium hover:bg-primaryColor desktop:py-1.5 desktop:text-base desktopLarge:text-lg'
+                >
                   {t('sidebar.buy')}
                 </button>
               </div>
@@ -271,7 +236,7 @@ export default function ProductDetailDesktop(props: Props) {
         </div>
       </CustomReachDialog>
 
-      {/* //? SUCCESS DIALOG */}
+      {/* //! SUCCESS DIALOG */}
       <CustomReachDialog
         isOpen={successDialog}
         handleClose={() => setSuccessDialog(false)}
@@ -291,7 +256,7 @@ export default function ProductDetailDesktop(props: Props) {
         <p className='mt-6 text-center text-xl font-medium leading-6'>{t('message.Product was added to cart')}</p>
       </CustomReachDialog>
 
-      {/* //? ERROR DIALOG */}
+      {/* //! ERROR DIALOG */}
       <CustomReachDialog
         isOpen={errorDialog}
         handleClose={() => setErrorDialog(false)}
@@ -306,6 +271,16 @@ export default function ProductDetailDesktop(props: Props) {
         <p className='mt-6 text-center text-xl font-medium leading-6'>
           {t('message.The quantity of the current item you are trying to add exceed our store')}
         </p>
+      </CustomReachDialog>
+
+      {/* Order dialog */}
+      <CustomReachDialog
+        isOpen={orderingDialog}
+        closeButton={false}
+        handleClose={() => setOrderingDialog(false)}
+        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
+      >
+        <LoadingSection className='flex h-40 w-full items-center justify-center' />
       </CustomReachDialog>
     </div>
   )

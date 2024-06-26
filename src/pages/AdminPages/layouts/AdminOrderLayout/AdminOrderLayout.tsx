@@ -1,13 +1,14 @@
 import classNames from 'classnames'
 import React from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
-import OrderState from 'src/constants/orderState'
 import { adminPath } from 'src/constants/path'
 import useOrderListQueryConfig from 'src/hooks/queryConfigs/useOrderListQueryConfig'
 
 interface Props {
   children?: React.ReactNode
 }
+
+const OrderState = ['Đang đợi thanh toán', 'Đang chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng', 'Đã xử lí xong']
 
 export default function AdminOrderLayout({ children }: Props) {
   //! handle choose state

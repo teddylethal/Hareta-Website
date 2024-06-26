@@ -142,15 +142,15 @@ export default function UserChangePassword() {
               errorMessage={errors.confirm_new_password?.message}
             />
           </div>
-          <div className='flex w-full justify-start space-x-8 pt-2 text-sm tabletSmall:w-[50%] desktop:space-x-20 desktop:text-base'>
-            <button type='button' className='hover:underline' onClick={handleCancle}>
-              {t('password.cancel')}
-            </button>
+          <div className='flex w-full justify-between space-x-8 pt-2 text-sm tabletSmall:w-[50%] desktop:space-x-20 desktop:text-base'>
             <button
               type='submit'
-              className='rounded-md bg-unhoveringBg px-2 py-1 text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-1.5 '
+              className='rounded-xl bg-unhoveringBg px-2 py-1 text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-1.5 '
             >
               {t('password.change password')}
+            </button>
+            <button type='button' className='hover:underline' onClick={handleCancle}>
+              {t('password.cancel')}
             </button>
           </div>
         </div>

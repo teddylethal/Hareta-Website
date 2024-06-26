@@ -23,14 +23,11 @@ function PopoverSection({ closePopover }: { closePopover: () => void }) {
     'flex items-center rounded-md px-4 py-2 hover:bg-lightColor900 hover:font-semibold hover:text-darkText dark:hover:bg-darkColor900 dark:hover:text-lightText font-medium'
 
   return (
-    <div className='relative -top-1 flex w-40 flex-col rounded-lg bg-lightColor700 px-2 py-3 text-base font-medium capitalize text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90 tablet:w-56 desktop:top-0 desktop:w-72 desktop:text-xl'>
+    <div className='relative -top-1 flex w-40 flex-col rounded-xl bg-lightColor700 px-2 py-3 text-base font-medium capitalize text-darkText/90 shadow-lg dark:bg-darkColor700 dark:text-lightText/90 tablet:w-56 desktop:top-0 desktop:w-72 desktop:text-xl'>
       <NavLink to={userPath.profile} className={className} onClick={closePopover}>
         <p>{t('user.profile')}</p>
       </NavLink>
 
-      <NavLink to={userPath.inventory} className={className} onClick={closePopover}>
-        <p>{t('user.inventory')}</p>
-      </NavLink>
       <NavLink to={userPath.wishList} className={className} onClick={closePopover}>
         <p>{t('user.wishlist')}</p>
       </NavLink>

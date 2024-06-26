@@ -7,7 +7,6 @@ import MainLayout from 'src/layouts/MainLayout'
 import UserLayout from 'src/pages/UserPages/layouts/UserLayout'
 
 const UserChangePassword = lazy(() => import('src/pages/UserPages/children/UserChangePassword'))
-const UserInventory = lazy(() => import('src/pages/UserPages/children/UserInventory'))
 const UserProfile = lazy(() => import('src/pages/UserPages/children/UserProfile'))
 const UserWishList = lazy(() => import('src/pages/UserPages/children/UserWishList'))
 
@@ -41,10 +40,6 @@ const UserRoute: RouteObject = {
     {
       path: userPath.password,
       element: <UserChangePassword />
-    },
-    {
-      path: userPath.inventory,
-      element: <UserInventory />
     },
     {
       path: userPath.wishList,

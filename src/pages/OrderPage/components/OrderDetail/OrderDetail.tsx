@@ -23,7 +23,7 @@ export default function OrderDetail() {
 
   const { watch } = useFormContext<OrderSchema>()
 
-  // //? CHECK VALID
+  //! CHECK VALID
   const name = watch('name')
   const phone = watch('phone')
   const email = watch('email')
@@ -54,7 +54,7 @@ export default function OrderDetail() {
     if (confirmPayment) setConfirmError(false)
   }, [confirmPayment])
 
-  //? HANDLE CLEAR ERRORS
+  //! HANDLE CLEAR ERRORS
   useEffect(() => {
     if (addressState) {
       setNoneState(false)
@@ -75,6 +75,7 @@ export default function OrderDetail() {
           <span className=''>{watch('name')}</span>
           <span className=''>{watch('phone')}</span>
         </div>
+        <div className='flex items-center justify-between overflow-hidden'>{watch('email')}</div>
         <p className='inline-block space-x-2'>
           <span
             className={classNames('', {

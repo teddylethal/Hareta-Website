@@ -3,6 +3,10 @@
     "home": "home",
     "user": "User"
   },
+  "helmet": {
+    "title": "User",
+    "description": "Manage your account details, view order history, and customize your preferences for a personalized shopping experience."
+  },
   "layout": {
     "profile": "Profile",
     "password": "Password",
@@ -30,6 +34,17 @@
     "go to login": "Go to login"
   },
   "wishlist": {
+    "remove": "Remove",
+    "message": "Item was added to cart",
+    "remove message": "Remove this item from your wishlist?",
+    "cancel": "Cancel",
+    "top seller": "Top seller",
+    "signature": "Signature",
+    "favourite": "Favourite"
+  },
+  "inventory": {
+    "Title": "Your inventory",
+    "Describe": "Your purchased products will be shown here",
     "remove": "Remove",
     "message": "Item was added to cart",
     "remove message": "Remove this item from your wishlist?",

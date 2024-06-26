@@ -2,16 +2,15 @@ const mainPath = {
   home: '/',
   login: '/login',
   register: '/register',
-  requestVerify: '/request-verify',
   store: '/store',
   productDetail: '/store/:nameId',
   cart: '/cart',
   user: '/user',
   blogs: '/blogs',
   events: '/events',
-
-  verifyEmail: '/check-verification-code/:code',
-  AuthPasswordRecoveryRequestEmail: '/password-recovery',
+  requestVerify: '/request-verify-email',
+  verifyEmail: '/verify-email/:code',
+  AuthPasswordRecoveryRequestEmail: '/request-password-recovery',
   AuthPasswordRecovery: '/password-recovery/:slug',
   order: '/order',
   orderTracking: '/order-tracking',
@@ -84,7 +83,8 @@ export const orderPath = {
 
 export const orderTrackingPath = {
   orderTracking: '/order-tracking',
-  orderDetail: '/order-tracking/:orderId'
+  orderDetail: '/order-tracking/:orderId',
+  orderPayment: '/order-tracking/:orderId/payment'
 }
 
 export const eventPath = {
@@ -96,6 +96,5 @@ export const userPath = {
   user: '/user',
   profile: '/user/profile',
   wishList: '/user/wishlist',
-  inventory: '/user/inventory',
   password: '/user/password'
 }

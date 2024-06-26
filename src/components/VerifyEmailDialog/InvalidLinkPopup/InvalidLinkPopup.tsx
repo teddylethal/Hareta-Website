@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MessagePopup from '../LowerComponent/MessagePopup'
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   dialog: boolean
@@ -8,14 +9,19 @@ interface Props {
 }
 
 export default function InvalidLinkPopup({ dialog, closeDialog }: Props) {
-  const orangeTextColor = ' text-[#ff6a00]'
+  //! Multi languages
+  const { t } = useTranslation('login')
+
   return (
-    <MessagePopup dialog={dialog} closeDialog={closeDialog} title='Invalid Link'>
-      <FontAwesomeIcon icon={faCircleXmark} fontSize={70} className=' text-red-600' />
-      <p>
-        The <span className={orangeTextColor}>link</span> {`you've tried appears to be invalid. Please `}
-        <span className={orangeTextColor}>check and try again</span>
-      </p>
+    <MessagePopup dialog={dialog} closeDialog={closeDialog}>
+      <FontAwesomeIcon icon={faCircleXmark} fontSize={70} className=' text-alertRed' />
+      <div className='space-y-4 text-pretty'>
+        <p className=''>{t('dialog.The link you have tried appears to be invalid.')}</p>
+        <p className=''>
+          <span className=''>{t('dialog.Please')} </span>
+          <span className='text-haretaColor'>{t('dialog.check and try again')}</span>
+        </p>
+      </div>
     </MessagePopup>
   )
 }

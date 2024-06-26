@@ -4,6 +4,7 @@ import HttpStatusCode from 'src/constants/httpStatusCode.enum'
 import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
 import { HttpErrorKeys } from 'src/constants/httpResponeErrorKey'
+import { HttpResponseLogs } from 'src/constants/httpResponseLog'
 
 export const ApiURL = 'https://hareta-api.hareta.online/'
 // export const ApiURL = 'http://localhost:3000/'
@@ -55,9 +56,11 @@ class Http {
         // console.log(error)
 
         const errorKey = (error.response?.data as ErrorRespone).error_key
+        const errorLog = (error.response?.data as ErrorRespone).log
         if (
           (error.response?.data as ErrorRespone).status_code === HttpStatusCode.InternalServerError ||
-          errorKey == HttpErrorKeys.NoPermission
+          errorKey == HttpErrorKeys.NoPermission ||
+          errorLog == HttpResponseLogs.InvalidToken
         ) {
           clearLS()
         }

@@ -1,13 +1,13 @@
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import CustomPopover from 'src/components/CustomPopover'
 import mainPath from 'src/constants/path'
 import { CartContext } from 'src/contexts/cart.context'
 import HeaderPurchaseCard from '../HeaderPurchaseCard'
 import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
+import FloatingOnClick from 'src/components/FoatingOnClick'
 
 function PopoverSection() {
   const { temporaryPurchases, setTemporaryPurchases } = useContext(CartContext)
@@ -23,16 +23,16 @@ function PopoverSection() {
   const { t } = useTranslation('header')
 
   return (
-    <div className='relative -top-1 w-[360px] rounded-md bg-lightColor700 py-2 text-sm text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-0'>
+    <div className='relative -top-1 w-[360px] rounded-xl bg-lightColor700 py-2 text-sm text-darkText shadow-md dark:bg-darkColor700 dark:text-lightText desktop:top-0'>
       <Fragment>
         <div className='flex space-x-1.5 px-3 py-1 text-base desktop:text-lg'>
           <span className='text-haretaColor'>{temporaryPurchases.length}</span>
           <span className='text-gray-500 dark:text-gray-300'>{t('cart button.items in cart')}</span>
         </div>
 
-        <div className='m-2 overflow-auto rounded-md bg-lightColor900 outline outline-1 outline-black/20 dark:bg-darkColor900 dark:outline-white/20'>
+        <div className='m-2 overflow-y-auto overflow-x-hidden rounded-md bg-lightColor900 outline outline-1 outline-black/20 dark:bg-darkColor900 dark:outline-white/20'>
           {temporaryPurchases.length > 0 ? (
-            <div className='max-h-[360px] min-h-[240px] overflow-y-auto '>
+            <div className='max-h-[360px] min-h-[240px] overflow-y-auto'>
               {temporaryPurchases.map((tempPurchase, index) => {
                 return (
                   <HeaderPurchaseCard
@@ -71,12 +71,18 @@ function PopoverSection() {
 export default function HeaderDesktopCartUnlogged() {
   const { temporaryPurchases } = useContext(CartContext)
 
+  //! Handle floating
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
   return (
     <div className='rounded-lg bg-unhoveringBg hover:bg-hoveringBg'>
-      <CustomPopover
+      <FloatingOnClick
         className='flex border border-none px-1.5 py-1 desktop:px-2'
         renderPopover={<PopoverSection />}
         placement='bottom-end'
+        offsetValue={12}
+        isOpen={isOpen}
+        openChange={setIsOpen}
       >
         <div className='flex items-center space-x-2 px-2 py-0.5 text-black'>
           <FontAwesomeIcon icon={faCartShopping} className='' />
@@ -86,7 +92,7 @@ export default function HeaderDesktopCartUnlogged() {
             </div>
           )}
         </div>
-      </CustomPopover>
+      </FloatingOnClick>
     </div>
   )
 }

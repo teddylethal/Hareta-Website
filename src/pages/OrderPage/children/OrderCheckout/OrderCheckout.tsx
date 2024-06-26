@@ -23,6 +23,8 @@ import OrderCheckoutDesktop from '../OrderCheckoutDesktop'
 import OrderCheckoutMobile from '../OrderCheckoutMobile'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { formatDate, generateNameId } from 'src/utils/utils'
+import { Order } from 'src/types/order.type'
 
 export default function OrderCheckout() {
   const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
@@ -34,6 +36,7 @@ export default function OrderCheckout() {
   const [orderId, setOrderId] = useState<string>('')
   const [processingDialog, setProcessingDialog] = useState<boolean>(false)
   const [unavailableOrder, setUnavailableOrder] = useState<boolean>(false)
+  const [successOrder, setSuccessOrder] = useState<Order | null>(null)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -108,6 +111,7 @@ export default function OrderCheckout() {
         { ...data, address: fullAddress },
         {
           onSuccess: (response) => {
+            setSuccessOrder(response.data.data)
             setOrderId(response.data.data.id)
             queryClient.invalidateQueries({ queryKey: ['purchases'] })
             setProcessingDialog(false)
@@ -171,25 +175,47 @@ export default function OrderCheckout() {
   //! Handle confirm
   const navigate = useNavigate()
 
-  const userConfirm = () => {
+  const userConfirm = (failed: boolean) => {
     setSuccesDialog(false)
     setOrderList([])
     setOrderListToLS([])
-    navigate(mainPath.cart)
     setConfirmPayment(false)
+    if (failed) {
+      navigate(mainPath.cart)
+    } else {
+      navigate(
+        `${mainPath.orderTracking}/${generateNameId({
+          name: formatDate(successOrder?.created_at as string),
+          id: successOrder?.id as string
+        })}/payment`
+      )
+    }
   }
 
-  const guestConfirm = () => {
+  const guestConfirm = (failed: boolean) => {
     const orderIdList = tempOrderList.map((tempOrderItem) => tempOrderItem.id)
     setSuccesDialog(false)
-    setTemporaryPurchases(temporaryPurchases.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
+    if (!failed) {
+      setTemporaryPurchases(temporaryPurchases.filter((tempPurchase) => !orderIdList.includes(tempPurchase.id)))
+    }
     setTempOrderList([])
     setTempOrderListToLS([])
-    navigate(mainPath.cart)
     setConfirmPayment(false)
+    if (failed) {
+      navigate(mainPath.cart)
+    } else {
+      navigate(
+        `${mainPath.orderTracking}/${generateNameId({
+          name: formatDate(successOrder?.created_at as string),
+          id: successOrder?.id as string
+        })}/payment`
+      )
+    }
   }
 
-  const handleConfirm = isAuthenticated ? userConfirm : guestConfirm
+  const handleConfirm = (failed: boolean) => () => {
+    isAuthenticated ? userConfirm(failed) : guestConfirm(failed)
+  }
 
   //! Multi languages
   const { t } = useTranslation('order')
@@ -206,11 +232,11 @@ export default function OrderCheckout() {
         />
         <div className='flex w-full items-center justify-start'>
           <Link
-            to={mainPath.cart}
-            className='flex shrink items-center justify-center space-x-2 rounded-xl bg-unhoveringBg px-4 py-2 hover:bg-hoveringBg'
+            to={isMobile ? mainPath.order : mainPath.cart}
+            className='flex items-center justify-center space-x-2 rounded-xl bg-unhoveringBg px-4 py-2 hover:bg-hoveringBg'
           >
             <FontAwesomeIcon icon={faChevronLeft} />
-            {t('bill.Back to cart')}
+            <span className=''>{isMobile ? t('bill.Back to order') : t('bill.Back to cart')}</span>
           </Link>
         </div>
         <FormProvider {...methods}>

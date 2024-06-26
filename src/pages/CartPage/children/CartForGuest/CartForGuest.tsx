@@ -1,13 +1,14 @@
 import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
 import React, { Fragment, useContext, useEffect, useState } from 'react'
-import { CartContext, ExtendedPurchase } from 'src/contexts/cart.context'
+import { CartContext } from 'src/contexts/cart.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { OrderContext } from 'src/contexts/order.context'
 import { setTempOrderListToLS } from 'src/utils/order'
 import CartMobileForGuest from '../CartMobileForGuest'
 import CartDesktopForGuest from '../CartDesktopForGuest'
 import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
+import { ExtendedPurchase } from 'src/types/cart.type'
 
 export default function CartForGuest() {
   const viewport = useViewport()

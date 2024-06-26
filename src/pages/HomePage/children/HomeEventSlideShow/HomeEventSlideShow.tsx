@@ -68,8 +68,10 @@ export default function HomeEventSlideShow() {
           )}
         </Fragment>
       )}
-      <div className='flex w-full items-center justify-center'>
-        <div className='w-full border-t border-black/80 dark:border-white/80 tablet:w-8/12 desktop:w-1/2' />
+      <div className='container'>
+        <div className='flex w-full items-center justify-center'>
+          <div className='w-full border-t border-black/80 dark:border-white/80 tablet:w-8/12 desktop:w-1/2' />
+        </div>
       </div>
     </div>
   )

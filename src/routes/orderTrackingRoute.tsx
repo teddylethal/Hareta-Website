@@ -6,6 +6,7 @@ import MainLayout from 'src/layouts/MainLayout'
 
 const OrderTrackingPage = lazy(() => import('src/pages/OrderTrackingPage'))
 const OrderTrackingOrderDetail = lazy(() => import('src/pages/OrderTrackingPage/children/OrderTrackingOrderDetail'))
+const OrderTrackingPayment = lazy(() => import('src/pages/OrderTrackingPage/children/OrderTrackingPayment'))
 
 function OrderTrackingRouteWrapper() {
   return (
@@ -28,6 +29,10 @@ const OrderTrackingRoute: RouteObject = {
     {
       path: orderTrackingPath.orderDetail,
       element: <OrderTrackingOrderDetail />
+    },
+    {
+      path: orderTrackingPath.orderPayment,
+      element: <OrderTrackingPayment />
     }
   ]
 }

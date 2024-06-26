@@ -1,4 +1,10 @@
 {
+  "helmet": {
+    "Login": "Đăng nhập",
+    "Login to Hareta Workshop": "Đăng nhập an toàn để truy cập tài khoản của bạn và tận hưởng trải nghiệm mua sắm cá nhân hóa với các keycap thủ công độc đáo của chúng tôi.",
+    "Register": "Đăng ký",
+    "Register new account to Hareta Workshop": "Tạo tài khoản mới để khám phá bộ sưu tập keycap thủ công của chúng tôi và nhận các ưu đãi, cập nhật độc quyền."
+  },
   "login": {
     "home": "Trang chủ",
     "login": "Đăng nhập",
@@ -17,13 +23,14 @@
     "Phone number": "Số điện thoại",
     "Already have an account?": "Đã có tài khoản?"
   },
-  "password": {
-    "password recovery": "Khôi phục mật khẩu",
-    "Email address": "Địa chỉ email",
-    "Send": "Gửi",
-    "Go back to": "Quay trở lại",
-    "Wait for": "Hãy đợi",
-    "second": "giây",
-    "seconds": "giây"
+  "dialog": {
+    "Your password is changed successfully": "Mật khẩu của bạn đã được thay đổi",
+    "You can": "Bạn có thể",
+    "login": "đăng nhập",
+    "to continue shopping": "để tiếp tục mua sắm",
+    "Your email is verified": "Đã xác thực email thành công",
+    "The link you have tried appears to be invalid.": "Liên kết bạn vừa sử dụng không hợp lệ.",
+    "Please": "Vui lòng",
+    "check and try again": "kiểm tra và thử lại"
   }
 }

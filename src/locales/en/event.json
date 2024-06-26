@@ -20,5 +20,9 @@
     "Get the coupon": "Get the coupon",
     "Shopping now": "Shopping now",
     "Use this coupon code when shopping to receive discounts from Hareta Workshop.": "Use this coupon code when shopping to receive discounts from Hareta Workshop."
+  },
+  "helmet": {
+    "title": "Events",
+    "description": "Don't miss our exclusive sale events! Enjoy discounts on handcrafted keycaps and upgrade your keyboard with unique designs."
   }
 }

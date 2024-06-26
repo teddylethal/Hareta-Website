@@ -58,7 +58,7 @@ export default function EventDetail() {
               )}
             </div>
             <div className='grid grid-cols-1 gap-4 tablet:grid-cols-12'>
-              <div className='col-span-1 space-y-6 tablet:col-span-8 tablet:border-r tablet:px-4'>
+              <div className='col-span-1 space-y-6 border-black/60 dark:border-white/60 tablet:col-span-8 tablet:border-r tablet:px-4'>
                 <div className='py-1 text-sm tablet:text-base desktop:text-xl'>
                   <div
                     dangerouslySetInnerHTML={{
@@ -71,7 +71,7 @@ export default function EventDetail() {
                 <div className='flex w-full items-center justify-center'>
                   <Link
                     to={mainPath.store}
-                    className='rounded-2xl bg-unhoveringBg px-4 py-2 text-lg font-semibold hover:bg-hoveringBg desktop:px-6 desktop:text-xl'
+                    className='rounded-2xl bg-unhoveringBg px-4 py-2 text-lg font-medium text-black hover:bg-hoveringBg desktop:px-6 desktop:text-xl'
                   >
                     {t('detail.Shopping now')}
                   </Link>

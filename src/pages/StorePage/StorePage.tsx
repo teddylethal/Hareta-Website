@@ -14,6 +14,7 @@ import StorePageMobile from './children/StorePageMobile'
 import StorePageDesktop from './children/StorePageDesktop'
 import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import StoreMobileBottomBar from './components/StoreMobileBottomBar'
+import { Helmet } from 'react-helmet-async'
 
 export default function StorePage() {
   const { isAuthenticated } = useContext(AppContext)
@@ -50,11 +51,6 @@ export default function StorePage() {
     }
   }, [setWishlistIDs, wishlistData])
 
-  //? CHANGE TITLE
-  useEffect(() => {
-    document.title = `${t('path bar.store')} | Hareta Workshop`
-  })
-
   //! Multi languages
   const { t } = useTranslation('store')
 
@@ -69,7 +65,16 @@ export default function StorePage() {
 
   return (
     <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg tablet:py-3 desktopLarge:py-4'>
-      <div className='container'>
+      <Helmet>
+        <title>{t('helmet.Store')} | Hareta Workshop</title>
+        <meta
+          name='description'
+          content={t(
+            "helmet.Discover our store for unique, handcrafted keycaps. Each piece is a work of art, blending quality and creativity to enhance your keyboard's personality and style."
+          )}
+        />
+      </Helmet>
+      <div className='container space-y-6'>
         <PathBar pathList={pathList} />
 
         {!isMobile && <StorePageDesktop storeData={storeData} isFetching={isFetching} isLoading={isLoading} />}

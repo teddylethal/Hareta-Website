@@ -120,7 +120,7 @@ export default function UserWishList() {
 
   return (
     <Fragment>
-      <div className='m-2 h-[calc(100vh-128px)] overflow-scroll rounded-sm tablet:m-3 desktop:mx-4 desktop:my-4 desktop:overscroll-contain'>
+      <div className='m-4 h-[calc(100vh-128px)] rounded-sm desktop:my-4 desktop:overscroll-contain'>
         {favouriteList?.map((product) => (
           <div
             key={product.id}
@@ -150,7 +150,7 @@ export default function UserWishList() {
               classNameWrapper='relative w-96 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-sm transition-all'
               unlikeItemId={unlikedItemId}
               setUnlikeItemId={setUnlikeItemId}
-            ></UnlikeItemDialog>
+            />
           </div>
         ))}
       </div>

@@ -41,7 +41,7 @@ export default function HeaderMobileSupportSection() {
         <AnimatePresence>
           {visible && (
             <motion.div className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-medium  text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-sm'>
-              <NavLink to={mainPath.home} className='py-1'>
+              <NavLink to={mainPath.privacyAndTerms} className='py-1'>
                 {t('support.privacy & terms')}
               </NavLink>
 
@@ -49,7 +49,7 @@ export default function HeaderMobileSupportSection() {
                 {t('support.order tracking')}
               </NavLink>
 
-              <div className=''>
+              <div className={''}>
                 <ChangeLanguage closePopover={closeExtend} />
               </div>
 

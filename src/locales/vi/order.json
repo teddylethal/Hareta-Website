@@ -19,6 +19,7 @@
   "bill": {
     "Order": "Đơn hàng",
     "Back to cart": "Quay lại giỏ hàng",
+    "Back to order": "Quay lại đơn hàng",
     "Checkout": "Thanh toán",
     "Change order": "Chỉnh sửa",
     "Product": "Sản phẩm",
@@ -51,10 +52,14 @@
     "Your order was created successfully": "Đơn hàng được tạo thành công",
     "Your order ID": "ID đơn hàng",
     "Please save this ID for Transaction and Order Tracking!": "Hãy lưu lại ID này để sử dụng cho Thanh Toán và Tra Cứu Đơn Hàng!",
+    "You will now be redirected to the payment page to complete your transaction.": "Bạn sẽ được chuyển hướng đến trang thanh toán để hoàn tất giao dịch của mình.",
+    "Please ensure to finalize your payment within the next 48 hours to avoid any cancellation.": "Vui lòng đảm bảo hoàn thành thanh toán trong vòng 48 giờ tới để tránh việc đơn hàng bị hủy.",
+    "Thank you for placing your order with Hareta Workshop.": "Cảm ơn bạn đã đặt hàng từ Hareta Workshop.",
     "A payment instruction email was sent to your email address": "Một email hướng dẫn thanh toán đã được gửi đến địa chỉ email của bạn",
     "Please complete transaction in 48 hours to complete your order": "Hãy hoàn tất thanh toán trong vòng 48 giờ để hoàn tất đơn hàng của bạn",
     "Sincerely thanks!": "Chân thành cảm ơn!",
-    "Confirm": "Xác nhận"
+    "Confirm": "Xác nhận",
+    "Go to payment page": "Đi tới trang thanh toán"
   },
   "payment": {
     "At the moment we only accept": "Hiện tại chúng tôi chỉ chấp nhận thanh toán thông qua",
@@ -81,7 +86,8 @@
     " the unavailable items and ": " những sản phẩm bị lỗi số lượng ",
     "adjust the quantity.": "và điều chỉnh lại.",
     "Sincerely apologies for this accident!": "Chúng tôi chân thành xin lỗi!",
-    "Return to cart": "Trở lại giỏ hàng"
+    "Return to cart": "Trở lại giỏ hàng",
+    "Return to order": "Trở lại đơn hàng"
   },
   "state": {
     "Awaiting Payment": "Chờ thanh toán",

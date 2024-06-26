@@ -3,8 +3,8 @@ import OrderDetail from '../../components/OrderDetail'
 import { useContext } from 'react'
 import { OrderContext } from 'src/contexts/order.context'
 import orderScreens from 'src/constants/orderScreens'
-import OrderShippingInfor from '../OrderShippingInfor'
-import OrderPayment from '../OrderPayment'
+import OrderShippingInfor from '../../components/OrderShippingInfor'
+import OrderPaymentPolicy from '../../components/OrderPaymentPolicy'
 
 export default function OrderCheckoutDesktop() {
   const { screen } = useContext(OrderContext)
@@ -15,7 +15,7 @@ export default function OrderCheckoutDesktop() {
         <OrderHeader />
         <div className='mt-4'>
           {screen == orderScreens.shipping && <OrderShippingInfor />}
-          {screen == orderScreens.payment && <OrderPayment />}
+          {screen == orderScreens.payment && <OrderPaymentPolicy />}
         </div>
       </div>
 

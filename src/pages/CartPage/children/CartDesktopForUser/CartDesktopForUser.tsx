@@ -58,12 +58,22 @@ export default function CartDesktopForUser(props: Props) {
               </div>
             ))
           ) : (
-            <div className='relative h-full w-full'>
-              <img
-                src='/images/emptyCart.png'
-                alt='Empty cart'
-                className='absolute left-0 top-0 h-full w-full object-scale-down'
-              />
+            <div className='relative flex h-full flex-col space-y-6 py-4'>
+              <div className='relative h-full w-full'>
+                <img
+                  src='/images/emptyCart.png'
+                  alt='Empty cart'
+                  className='absolute left-0 top-0 h-full w-full object-scale-down'
+                />
+              </div>
+              <div className='flex w-full items-center justify-center'>
+                <Link
+                  to={mainPath.store}
+                  className='rounded-2xl bg-unhoveringBg px-4 py-2 font-semibold text-darkText hover:bg-hoveringBg tablet:px-6'
+                >
+                  {t('content.Go to store')}
+                </Link>
+              </div>
             </div>
           )}
         </div>

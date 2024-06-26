@@ -62,7 +62,7 @@ export default function HomeIntroduction() {
             <div className='flex w-full items-center justify-end tablet:justify-center'>
               <button
                 onClick={handleClick}
-                className='flex items-center justify-center rounded-xl bg-unhoveringBg px-3 py-1 hover:bg-hoveringBg desktop:px-6 desktop:py-2 desktop:text-xl '
+                className='flex items-center justify-center rounded-xl bg-unhoveringBg px-3 py-1 text-black hover:bg-hoveringBg desktop:px-6 desktop:py-2 desktop:text-xl '
               >
                 {t('introduction.Go to post')}
               </button>

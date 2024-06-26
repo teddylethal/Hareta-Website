@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MessagePopup from '../LowerComponent/MessagePopup'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   dialog: boolean
@@ -8,20 +9,18 @@ interface Props {
 }
 
 export default function SuccessEmailVerifyPopup({ dialog, closeDialog }: Props) {
-  const orangeTextColor = ' text-[#ff6a00]'
+  //! Multi languages
+  const { t } = useTranslation('login')
+
   return (
-    <MessagePopup
-      dialog={dialog}
-      closeDialog={closeDialog}
-      customTitle={
-        <p>
-          Your email <span className='text-[#88b300]'>is verified</span>
-        </p>
-      }
-    >
+    <MessagePopup dialog={dialog} closeDialog={closeDialog}>
       <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#88b300' }} className='mt-2 h-1/4 w-1/4' />
+      <p className={'mb-3 text-pretty text-lg font-semibold capitalize tablet:text-xl desktop:text-2xl'}>
+        {t('dialog.Your email is verified')}
+      </p>
       <p>
-        Please <span className={orangeTextColor}>login</span> to continue
+        {t('dialog.You can')} <span className='text-haretaColor'>{t('dialog.login')}</span>{' '}
+        {t('dialog.to continue shopping')}
       </p>
     </MessagePopup>
   )

@@ -5,11 +5,11 @@ import { Fragment, useContext } from 'react'
 import { CartContext } from 'src/contexts/cart.context'
 import useClickOutside from 'src/hooks/useClickOutside'
 import { NavLink } from 'react-router-dom'
-import { formatCurrency, generateNameId } from 'src/utils/utils'
 import mainPath from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
 import { setTemporaryPurchasesToLS } from 'src/utils/cartInLS'
+import HeaderPurchaseCard from '../HeaderPurchaseCard'
 
 interface Props {
   wrapperStyle: string
@@ -81,61 +81,13 @@ export default function HeaderMobileCartUnlogged({ navigatorBtnStyle, wrapperSty
 
               <Fragment>
                 <div className='px-3 py-2 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
-                  {temporaryPurchases.length} {t('cart button.items in cart')}
+                  <span className='text-haretaColor'>{temporaryPurchases.length} </span>
+                  <span className=''>{t('cart button.items in cart')}</span>
                 </div>
                 <div className={wrapperStyle}>
                   {temporaryPurchases.length > 0 ? (
                     temporaryPurchases.map((purchase, index) => (
-                      <div
-                        className='flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightColor900/60 dark:border-white/20 dark:hover:bg-darkColor900/60'
-                        key={purchase.id}
-                      >
-                        <div className='h-12 w-12'>
-                          <div className='relative w-full pt-[100%]'>
-                            <img
-                              src={
-                                purchase?.item.avatar
-                                  ? purchase?.item.avatar.url
-                                  : 'https://cdn-icons-png.flaticon.com/128/5058/5058055.png'
-                              }
-                              alt={purchase.item.name}
-                              className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-                            />
-                          </div>
-                        </div>
-
-                        <div className='flex grow flex-col justify-between'>
-                          <div className='flex items-center justify-between'>
-                            <NavLink
-                              to={`${mainPath.store}/${generateNameId({
-                                name: purchase.item.name,
-                                id: purchase.item.id
-                              })}`}
-                              className='flex'
-                              onClick={closeCart}
-                            >
-                              <p className='truncate px-2 py-1 font-semibold hover:text-primaryColor'>
-                                {purchase.item.name}
-                              </p>
-                            </NavLink>
-                            <span className='flex-shrink-0 font-medium text-haretaColor'>
-                              ${formatCurrency(purchase.item.price)}
-                            </span>
-                          </div>
-                          <div className='ml-2 flex justify-between'>
-                            <span className='text-gray-500 dark:text-gray-400'>x{purchase.quantity}</span>
-
-                            <div className='flex space-x-3'>
-                              <button
-                                className='text-sm capitalize text-alertRed hover:underline'
-                                onClick={handleRemove(index)}
-                              >
-                                {t('cart button.remove')}
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <HeaderPurchaseCard key={purchase.id} purchase={purchase} handleRemove={handleRemove(index)} />
                     ))
                   ) : (
                     <div className='relative h-full w-full'>

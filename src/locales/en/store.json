@@ -21,5 +21,9 @@
   "path bar": {
     "home": "Home",
     "store": "Store"
+  },
+  "helmet": {
+    "Store": "Store",
+    "Discover our store for unique, handcrafted keycaps. Each piece is a work of art, blending quality and creativity to enhance your keyboard's personality and style.": "Discover our store for unique, handcrafted keycaps. Each piece is a work of art, blending quality and creativity to enhance your keyboard's personality and style."
   }
 }

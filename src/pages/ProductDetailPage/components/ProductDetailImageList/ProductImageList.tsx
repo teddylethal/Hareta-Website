@@ -23,7 +23,7 @@ interface Props {
 export default function ProductDetailImageList(props: Props) {
   const { productID, product } = props
 
-  //? GET IMAGE LIST
+  //! GET IMAGE LIST
   const {
     data: productImages,
     isLoading,
@@ -33,7 +33,7 @@ export default function ProductDetailImageList(props: Props) {
     queryFn: () => producImageApi.getImageList(productID as string)
   })
 
-  //? HANDLE IMAGE LIST
+  //! HANDLE IMAGE LIST
   const [activeImage, setActiveImage] = useState<ProductImageWithIndex>()
   const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
@@ -80,7 +80,7 @@ export default function ProductDetailImageList(props: Props) {
     setActiveImageIndex(image.index)
   }
 
-  //? HANDLE ZOOM
+  //! HANDLE ZOOM
   const [zooming, setZooming] = useState<boolean>(false)
   const imageRef = useRef<HTMLImageElement>(null)
   const handleZoom = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

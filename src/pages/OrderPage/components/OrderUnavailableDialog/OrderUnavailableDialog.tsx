@@ -10,7 +10,7 @@ import { AppContext } from 'src/contexts/app.context'
 interface Props {
   isOpen: boolean
   handleClose: () => void
-  handleConfirm: () => void
+  handleConfirm: (failed: boolean) => () => void
 }
 
 export default function OrderUnavailableDialog({ isOpen, handleClose, handleConfirm }: Props) {
@@ -63,7 +63,7 @@ export default function OrderUnavailableDialog({ isOpen, handleClose, handleConf
           <Link
             to={mainPath.cart}
             className='rounded-lg bg-haretaColor px-4 py-2 font-medium hover:bg-primaryColor'
-            onClick={handleConfirm}
+            onClick={handleConfirm(true)}
           >
             {t('denided order.Return to cart')}
           </Link>

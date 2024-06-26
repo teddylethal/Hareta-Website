@@ -3,6 +3,7 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom'
 import LoadingWithEmptyContent from 'src/components/LoadingWithEmptyContent'
 import { AppContext } from 'src/contexts/app.context'
 import { AdminBlogProvider } from 'src/contexts/adminblog.context'
+import mainPath, { adminPath } from 'src/constants/path'
 
 import AdminOrderLayout from 'src/pages/AdminPages/layouts/AdminOrderLayout'
 import AdminProductLayout from 'src/pages/AdminPages/layouts/AdminProductLayout'
@@ -10,10 +11,6 @@ import AdminMainLayout from 'src/pages/AdminPages/layouts/AdminMainLayout'
 import AdminImageLayout from 'src/pages/AdminPages/layouts/AdminImageLayout'
 import AdminBlogLayout from 'src/pages/AdminPages/layouts/AdminBlogLayout'
 import AdminEventLayout from 'src/pages/AdminPages/layouts/AdminEventLayout'
-import AdminEventManagement from 'src/pages/AdminPages/AdminEvent/children/AdminEventManagement'
-import AdminEventDetail from 'src/pages/AdminPages/AdminEvent/children/AdminEventDetail'
-import AdminEventCreate from 'src/pages/AdminPages/AdminEvent/children/AdminEventCreate'
-import mainPath, { adminPath } from 'src/constants/path'
 
 //! LAZY IMPORT ADMIN PAGES
 const AdminMainPage = lazy(() => import('src/pages/AdminPages/AdminMainPage'))
@@ -44,6 +41,9 @@ const AdminImageDelete = lazy(() => import('src/pages/AdminPages/AdminImage/chil
 const AdminOrderMangement = lazy(() => import('src/pages/AdminPages/AdminOrder/children/AdminOrderMangement'))
 
 //! Lazy loading event pages
+const AdminEventManagement = lazy(() => import('src/pages/AdminPages/AdminEvent/children/AdminEventManagement'))
+const AdminEventDetail = lazy(() => import('src/pages/AdminPages/AdminEvent/children/AdminEventDetail'))
+const AdminEventCreate = lazy(() => import('src/pages/AdminPages/AdminEvent/children/AdminEventCreate'))
 
 //! Lazy loading blog pages
 const AdminBlogManagement = lazy(() => import('src/pages/AdminPages/AdminBlog/children/AdminBlogManagement'))

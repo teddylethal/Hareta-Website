@@ -28,16 +28,17 @@ import PrivacyOrderingAndPayments from './children/PrivacyOrderingAndPayments'
 import PrivacyReturnsAndRefunds from './children/PrivacyReturnsAndRefunds'
 import PrivacyIntellectualProperty from './children/PrivacyIntellectualProperty'
 import PathBar from 'src/components/PathBar'
+import { Helmet } from 'react-helmet-async'
 
 export default function PrivacyAndTermsPage() {
   const { theme } = useContext(AppContext)
-  //? responsive
+  //! responsive
   const isMobile = useViewport().width < 768
 
   //! Multi languages
   const { t } = useTranslation('privacyAndTerms')
 
-  //? navigate side bar
+  //! navigate side bar
   const { visible, setVisible, ref } = useClickOutside(false)
   const openMenu = () => {
     setVisible(true)
@@ -46,7 +47,7 @@ export default function PrivacyAndTermsPage() {
     setVisible(false)
   }
 
-  //? handle scroll up
+  //! handle scroll up
   const scrollDirection = useScrollDirection()
 
   const elementList: { path: string; children: ReactNode }[] = [
@@ -114,16 +115,23 @@ export default function PrivacyAndTermsPage() {
 
   return (
     <div className='relative bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
-      <div className='container'>
+      <Helmet>
+        <title>{t('helmet.title')} | Hareta Workshop</title>
+        <meta name='description' content={t('helmet.description')} />
+      </Helmet>
+      <div className='container space-y-6'>
         <PathBar pathList={[{ pathName: t('path.Privacy & Terms'), url: mainPath.privacyAndTerms }]} />
       </div>
       {isMobile && (
         <AnimatePresence>
           <button
-            className={classNames('sticky left-1 rounded-md bg-white p-2 duration-200 dark:bg-black', {
-              'top-12': scrollDirection == 'up',
-              ' top-1': !(scrollDirection == 'up')
-            })}
+            className={classNames(
+              'sticky left-2 rounded-xl border border-black/60 bg-white p-2 duration-200 dark:border-white/60 dark:bg-black',
+              {
+                'top-12': scrollDirection == 'up',
+                ' top-1': !(scrollDirection == 'up')
+              }
+            )}
             onClick={openMenu}
           >
             <FontAwesomeIcon icon={faBarsStaggered} />

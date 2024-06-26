@@ -6,12 +6,12 @@ import { CartContext } from 'src/contexts/cart.context'
 import purchaseApi from 'src/apis/cart.api'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import keyBy from 'lodash/keyBy'
-import { formatCurrency, generateNameId } from 'src/utils/utils'
 import mainPath from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
+import HeaderPurchaseCard from '../HeaderPurchaseCard'
 
 interface Props {
   wrapperStyle: string
@@ -19,14 +19,16 @@ interface Props {
 }
 
 export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle }: Props) {
-  const { theme } = useContext(AppContext)
+  const { theme, isAuthenticated } = useContext(AppContext)
   const { extendedPurchases, setExtendedPurchases } = useContext(CartContext)
 
   const { visible, setVisible, ref } = useClickOutside(false)
 
   const { data: cartData, refetch } = useQuery({
     queryKey: ['purchases'],
-    queryFn: () => purchaseApi.getPurchases()
+    queryFn: () => purchaseApi.getPurchases(),
+    staleTime: 1000 * 60 * 3,
+    enabled: isAuthenticated
   })
 
   const purchasesInCart = cartData?.data.data
@@ -110,62 +112,15 @@ export default function HeaderMobileCartLogged({ navigatorBtnStyle, wrapperStyle
               <div className='mx-3 border-b-[1px] border-gray-600 border-t-transparent dark:border-gray-400' />
 
               <Fragment>
-                <div className='px-3 py-1 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
-                  {extendedPurchases.length} {t('cart button.items in cart')}
+                <div className='px-3 py-2 text-base normal-case text-gray-500 dark:text-gray-300 desktop:text-lg'>
+                  <span className='text-haretaColor'>{extendedPurchases.length} </span>
+                  <span className=''>{t('cart button.items in cart')}</span>
                 </div>
 
                 <div className={wrapperStyle}>
                   {extendedPurchases.length > 0 ? (
                     extendedPurchases.map((purchase, index) => (
-                      <div
-                        className=' flex space-x-3 border-b border-black/20 p-3 last:border-none hover:bg-lightColor900/60 dark:border-white/20 dark:hover:bg-darkColor900/60'
-                        key={purchase.id}
-                      >
-                        <div className='h-12 w-12'>
-                          <div className='relative w-full pt-[100%]'>
-                            <img
-                              src={
-                                purchase?.item.avatar
-                                  ? purchase?.item.avatar.url
-                                  : 'https://cdn-icons-png.flaticon.com/128/5058/5058055.png'
-                              }
-                              alt={purchase.item.name}
-                              className='pointer-events-none absolute left-0 top-0 h-full w-full object-scale-down'
-                            />
-                          </div>
-                        </div>
-                        <div className='flex grow flex-col justify-between'>
-                          <div className='flex items-center justify-between'>
-                            <NavLink
-                              to={`${mainPath.store}/${generateNameId({
-                                name: purchase.item.name,
-                                id: purchase.item.id
-                              })}`}
-                              className='flex'
-                              onClick={closeCart}
-                            >
-                              <p className='truncate px-2 py-1 font-semibold hover:text-primaryColor dark:hover:text-primaryColor'>
-                                {purchase.item.name}
-                              </p>
-                            </NavLink>
-                            <span className='flex-shrink-0 font-medium text-haretaColor'>
-                              ${formatCurrency(purchase.item.price)}
-                            </span>
-                          </div>
-                          <div className='ml-2 flex justify-between'>
-                            <span className='text-gray-500 dark:text-gray-400'>x{purchase.quantity}</span>
-
-                            <div className='flex space-x-3'>
-                              <button
-                                className='text-sm capitalize text-alertRed hover:underline'
-                                onClick={handleRemove(index)}
-                              >
-                                {t('cart button.remove')}
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <HeaderPurchaseCard key={purchase.id} purchase={purchase} handleRemove={handleRemove(index)} />
                     ))
                   ) : (
                     <div className='relative h-full w-full'>

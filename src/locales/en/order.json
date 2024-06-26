@@ -19,6 +19,7 @@
   "bill": {
     "Order": "Order",
     "Back to cart": "Back to cart",
+    "Back to order": "Back to order",
     "Checkout": "Checkout",
     "Change order": "Change order",
     "Product": "Product",
@@ -51,10 +52,14 @@
     "Your order was created successfully": "Your order was created successfully",
     "Your order ID": "Your order ID",
     "Please save this ID for Transaction and Order Tracking!": "Please save this ID for Transaction and Order Tracking!",
+    "You will now be redirected to the payment page to complete your transaction.": "You will now be redirected to the payment page to complete your transaction.",
+    "Please ensure to finalize your payment within the next 48 hours to avoid any cancellation.": "Please ensure to finalize your payment within the next 48 hours to avoid any cancellation.",
+    "Thank you for placing your order with Hareta Workshop.": "Thank you for placing your order with Hareta Workshop.",
     "A payment instruction email was sent to your email address": "A payment instruction email was sent to your email address ",
     "Please complete transaction in 48 hours to complete your order": "Please complete transaction in 48 hours to complete your order",
     "Sincerely thanks!": "Sincerely thanks!",
-    "Confirm": "Confirm"
+    "Confirm": "Confirm",
+    "Go to payment page": "Go to payment page"
   },
   "payment": {
     "At the moment we only accept": "At the moment we only accept",
@@ -81,7 +86,8 @@
     " the unavailable items and ": " the unavailable items and ",
     "adjust the quantity.": "adjust the quantity.",
     "Sincerely apologies for this accident!": "Sincerely apologies for this accident!",
-    "Return to cart": "Return to cart"
+    "Return to cart": "Return to cart",
+    "Return to order": "Return to order"
   },
   "state": {
     "Awaiting Payment": "Awaiting Payment",
