@@ -71,10 +71,6 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
                 <p>{t('user.profile')}</p>
               </NavLink>
 
-              <NavLink to={userPath.inventory} onClick={closeMenu} className='flex items-center py-1 font-medium'>
-                <p>{t('user.inventory')}</p>
-              </NavLink>
-
               <NavLink to={userPath.wishList} onClick={closeMenu} className='flex items-center py-1 font-medium'>
                 <p>{t('user.wishlist')}</p>
               </NavLink>

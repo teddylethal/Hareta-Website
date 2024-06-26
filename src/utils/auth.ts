@@ -10,13 +10,13 @@ export const getAccessTokenFromLS = () => {
   return localStorage.getItem('access_token') || ''
 }
 
+export const setProfileToLS = (profile: User) => {
+  localStorage.setItem('profile', JSON.stringify(profile))
+}
+
 export const getProfileFromLS = () => {
   const result = localStorage.getItem('profile')
   return result ? JSON.parse(result) : null
-}
-
-export const setProfileToLS = (profile: User) => {
-  localStorage.setItem('profile', JSON.stringify(profile))
 }
 
 export const setThemeToLS = (theme: string) => {
@@ -30,7 +30,6 @@ export const getThemeFromLS = () => {
 export const clearLS = () => {
   localStorage.removeItem('access_token')
   localStorage.removeItem('profile')
-  localStorage.removeItem('theme')
   //? reset order
   localStorage.removeItem('country_address')
   localStorage.removeItem('state_address')

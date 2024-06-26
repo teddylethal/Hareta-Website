@@ -71,7 +71,7 @@ export default function HeaderMobileMenu({ className }: Props) {
                   <div>{t('navbar.store')}</div>
                 </NavLink>
 
-                <NavLink to='/' className='w-full px-2 py-2' onClick={closeMenu}>
+                <NavLink to={mainPath.events} className='w-full px-2 py-2' onClick={closeMenu}>
                   <div>{t('navbar.event')}</div>
                 </NavLink>
 
