@@ -9,7 +9,7 @@ interface Props {
 export default function ProductTag({
   tag,
   sectionClassname = ' bg-tagColor top-0 flex h-full w-16 items-center justify-center overflow-hidden  text-xs text-lightText font-medium desktop:w-20 desktop:text-sm',
-  tailClassname = 'absolute left-16 top-0 h-full border-[12px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20'
+  tailClassname = 'absolute left-[60px] top-0 h-full border-[12px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-[76px]'
 }: Props) {
   //! use translation
   const { t } = useTranslation('productdetail')

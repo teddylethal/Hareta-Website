@@ -115,12 +115,13 @@ export default function ProductDetailDescription({ product }: Props) {
   }
 
   //! Style
-  const wrapperClassname = 'grid w-full grid-cols-3 gap-4 font-medium'
+  const wrapperClassname = 'grid w-full grid-cols-2 tabletSmall:grid-cols-3 gap-4 font-medium'
   const titleClassname =
     'col-span-1 text-base text-darkText/60 dark:text-lightText/60 desktop:text-lg desktopLarge:text-xl'
   const clickableInfoClassname =
     'text-base capitalize hover:text-primaryColor dark:hover:text-primaryColor desktop:text-lg desktopLarge:text-xl'
-  const normalInfoClassname = 'col-span-2 text-base capitalize desktop:text-lg desktopLarge:text-xl'
+  const normalInfoClassname =
+    'col-span-1 tabletSmall:col-span-2 text-base capitalize desktop:text-lg desktopLarge:text-xl'
 
   return (
     <div className='duration-200'>
@@ -132,7 +133,7 @@ export default function ProductDetailDescription({ product }: Props) {
           {infos.map((infoItem, index) => (
             <div key={index} className={wrapperClassname}>
               <div className={titleClassname}>{infoItem.title}</div>
-              <div className='col-span-2'>
+              <div className='ol-span-1 tabletSmall:col-span-2'>
                 <button className={clickableInfoClassname} onClick={infoItem.handleClick}>
                   {infoItem.info}
                 </button>

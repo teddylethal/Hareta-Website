@@ -33,13 +33,12 @@ export default function AdminProductDeleteGroup() {
     setConfirmDialog(true)
   }
 
-  const deleteItemMutation = useMutation({ mutationFn: adminProductGroupApi.deleteProductGroup })
+  const deleteProductGroupMutation = useMutation({ mutationFn: adminProductGroupApi.deleteProductGroup })
   const handleDelete = () => {
     setConfirmDialog(false)
     setLoadingPage(true)
-    console.log(productGroup?.id)
-    return
-    deleteItemMutation.mutate(
+
+    deleteProductGroupMutation.mutate(
       { id: productGroup?.id as string },
       {
         onSuccess: () => {

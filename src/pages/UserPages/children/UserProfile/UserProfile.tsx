@@ -256,13 +256,13 @@ export default function UserProfile() {
 
               <div className='flex items-center space-x-2 pt-4 tablet:space-x-4 desktop:space-x-6'>
                 <button
-                  className='flex items-center space-x-1 rounded-xl bg-unhoveringBg px-2 py-1 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-2 desktop:text-base'
+                  className='flex items-center space-x-1 rounded-xl bg-unhoveringBg px-2 py-1.5 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:px-4 desktop:text-base'
                   type='submit'
                 >
                   <p>{t('profile.save')}</p>
                 </button>
                 <button
-                  className='flex items-center space-x-1 rounded-md px-2 py-1 text-sm text-darkText hover:underline dark:text-lightText desktop:px-4 desktop:py-2 desktop:text-base'
+                  className='flex items-center space-x-1 px-2 py-1.5 text-sm text-darkText hover:underline dark:text-lightText desktop:px-4 desktop:text-base'
                   onClick={handleCancel}
                   type='button'
                 >

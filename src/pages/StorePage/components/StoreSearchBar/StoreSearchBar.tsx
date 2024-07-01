@@ -47,7 +47,7 @@ export default function StoreSearchBar() {
   return (
     <div className='w-full'>
       <form
-        className='relative flex w-full items-center rounded-lg bg-sidebarItemLight shadow-sm duration-200 dark:bg-sidebarItemDark'
+        className='relative flex w-full items-center rounded-xl bg-sidebarItemLight shadow-sm duration-200 dark:bg-sidebarItemDark'
         onSubmit={handleSearch}
       >
         <input
@@ -56,7 +56,7 @@ export default function StoreSearchBar() {
           {...register('name')}
           autoComplete='true'
         />
-        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-haretaColor px-3 py-1 duration-200 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor desktop:right-4 desktop:px-3'>
+        <button className='absolute right-1 flex items-center justify-center rounded-xl  bg-haretaColor px-3 py-1 duration-200 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor desktop:right-4 desktop:px-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'

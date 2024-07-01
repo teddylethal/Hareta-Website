@@ -40,7 +40,7 @@ export default function OrderTrackingPage() {
           ]}
         />
 
-        <div className='flex flex-col space-y-6 py-2 tablet:space-y-10 tablet:py-4 desktopLarge:space-y-10 desktopLarge:py-6'>
+        <div className='flex flex-col space-y-6 tablet:space-y-10 desktopLarge:space-y-10'>
           <p className='upperacse w-full text-center font-bold uppercase tablet:text-xl desktop:text-2xl'>
             {t('order.content')}
           </p>
