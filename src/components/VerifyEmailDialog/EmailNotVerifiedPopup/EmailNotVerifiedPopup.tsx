@@ -10,16 +10,8 @@ interface Props {
 export default function EmailNotVerifiedPopup({ dialog, closeDialog }: Props) {
   const orangeTextColor = ' text-[#ff6a00]'
   return (
-    <MessagePopup
-      dialog={dialog}
-      closeDialog={closeDialog}
-      customTitle={
-        <p>
-          <span className='text-red-600'>Email not confirmed </span>
-        </p>
-      }
-    >
-      <FontAwesomeIcon icon={faCircleXmark} className='mt-2 h-1/4 w-1/4 text-red-600' />
+    <MessagePopup dialog={dialog} closeDialog={closeDialog}>
+      <FontAwesomeIcon icon={faCircleXmark} className='mt-2 h-1/4 w-1/4 text-alertRed' />
       <p>
         A verification <span className={orangeTextColor}>link</span> has been sent
       </p>

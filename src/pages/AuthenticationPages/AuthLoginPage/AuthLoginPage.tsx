@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import AnimateTransition from 'src/components/AnimateTransition'
 import { Helmet } from 'react-helmet-async'
+import classNames from 'classnames'
 
 type FormData = LoginSchema
 
@@ -66,7 +67,6 @@ export default function AuthLoginPage() {
       },
       onError: (error) => {
         if (isAxiosBadRequestError<ErrorRespone>(error)) {
-          console.log(error)
           const formError = error.response?.data
           if (formError) {
             if (formError.error_key == 'ErrEmailNotVerified') {
@@ -79,12 +79,10 @@ export default function AuthLoginPage() {
             if (errorMessgae) {
               console.log(errorMessgae)
               setError('email', {
-                message: errorMessgae,
-                type: 'Server'
+                message: 'email or password is invalid'
               })
               setError('password', {
-                message: '',
-                type: 'Server'
+                message: ''
               })
             }
           }
@@ -119,10 +117,10 @@ export default function AuthLoginPage() {
         />
       </Helmet>
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6'>
           <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>
             <form
-              className='rounded-xl bg-lightColor900 p-5 shadow-sm duration-200 dark:bg-darkColor900 tablet:p-10'
+              className='rounded-2xl bg-lightColor900 p-5 shadow-sm duration-200 dark:bg-darkColor900 tablet:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -165,17 +163,28 @@ export default function AuthLoginPage() {
 
               <div className='tablet:text-md mt-4 flex flex-col-reverse items-center justify-between text-xs tabletSmall:text-sm tablet:mt-12 tablet:flex-row'>
                 <div className=''>
-                  <Link to={mainPath.AuthPasswordRecoveryRequestEmail} state={{ email: getValues('email') }}>
-                    <p className=' text-blue-700 underline underline-offset-1 opacity-80 duration-200 hover:opacity-100 dark:text-blue-400'>
-                      {t('login.Forgot Password?')}
-                    </p>
+                  <Link
+                    to={mainPath.AuthPasswordRecoveryRequestEmail}
+                    state={{ email: getValues('email') }}
+                    className={classNames(
+                      'text-blue-700 underline underline-offset-1 opacity-80 duration-200  dark:text-blue-400',
+                      {
+                        'pointer-events-none opacity-60 hover:opacity-60': loginAccountMutation.isPending,
+                        'hover:opacity-100': !loginAccountMutation.isPending
+                      }
+                    )}
+                  >
+                    {t('login.Forgot Password?')}
                   </Link>
                 </div>
 
                 <div className='flex flex-col items-center text-center font-medium tablet:flex-row'>
                   <span className='text-darkText/60 dark:text-lightText/60'>{t("login.Don't have an account?")}</span>
                   <Link
-                    className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor'
+                    className={classNames('ml-2 text-haretaColor duration-200 ', {
+                      'pointer-events-none opacity-60 hover:text-haretaColor': loginAccountMutation.isPending,
+                      'hover:text-primaryColor': !loginAccountMutation.isPending
+                    })}
                     to={mainPath.register}
                   >
                     {t('login.sign up')}

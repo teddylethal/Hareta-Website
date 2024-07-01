@@ -10,8 +10,11 @@ import { getIdFromNameId, truncateString } from 'src/utils/utils'
 import BlogRelatedPosts from '../BlogRelatedPosts'
 import { Helmet } from 'react-helmet-async'
 import { convert } from 'html-to-text'
+import { useContext } from 'react'
+import { AppContext } from 'src/contexts/app.context'
 
 export default function BlogDetail() {
+  const { theme } = useContext(AppContext)
   const currentUrl = useLocation().pathname
 
   //! Get blog detail
@@ -39,7 +42,19 @@ export default function BlogDetail() {
   const { t } = useTranslation('blog')
 
   return (
-    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg tablet:py-3 desktop:py-4'>
+    <div
+      className='relative bg-lightBg py-2 pb-12 duration-200 dark:bg-darkBg tablet:py-3 tablet:pb-16 desktop:py-4 desktop:pb-20'
+      style={{
+        backgroundImage: `${
+          theme == 'dark'
+            ? 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6))'
+            : 'linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6))'
+        }, url(${blogDetail?.avatar})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover'
+      }}
+    >
       {!blogDetail && <LoadingSection />}
       {blogDetail && (
         <div className='container space-y-8'>

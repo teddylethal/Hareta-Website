@@ -101,12 +101,7 @@ export default function ProductDetailDesktop(props: Props) {
               </button>
             )}
           </div>
-          {tag !== 0 && (
-            <div className='relative mt-2'>
-              <ProductTag tag={tag} />
-              <div className='absolute left-20 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent' />
-            </div>
-          )}
+          <div className='mt-2'>{tag !== 0 && <ProductTag tag={tag} />}</div>
           <div className='mt-2 flex space-x-2'>
             <span
               className={classNames('text-base font-medium  desktop:text-lg desktopLarge:text-xl', {
@@ -195,7 +190,7 @@ export default function ProductDetailDesktop(props: Props) {
         </div>
       </div>
 
-      {/* //? CREATE TEMP CART DIALOG */}
+      {/*//! CREATE TEMP CART DIALOG */}
       <CustomReachDialog
         closeButton={false}
         isOpen={createTempCart}

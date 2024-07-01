@@ -1,4 +1,4 @@
-import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
+import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { ProductList } from 'src/types/product.type'
 
 export const setFavouriteListToLS = (data: ProductList) => {
@@ -22,7 +22,7 @@ export const setTypeFilteringToLS = (data: string) => {
   localStorage.setItem('type_filtering', data)
 }
 
-export const setQueryConfigToLS = (data: QueryConfig) => {
+export const setQueryConfigToLS = (data: ProductListQueryConfig) => {
   localStorage.setItem('query_config', JSON.stringify(data))
 }
 

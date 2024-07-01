@@ -1,5 +1,4 @@
-import { ExtendedPurchase } from 'src/contexts/cart.context'
-import { Purchase } from 'src/types/cart.type'
+import { ExtendedPurchase, Purchase } from 'src/types/cart.type'
 
 export const setExtendedPurchasesToLS = (extendedPurchases: ExtendedPurchase[]) => {
   localStorage.setItem('extended_purchases', JSON.stringify(extendedPurchases))

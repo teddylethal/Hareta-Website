@@ -1,3 +1,5 @@
+import { t } from 'i18next'
+
 export const HttpStatusMessage = new Map([
   ['ErruserNotFound', 'User not found'],
   ['ErrUsernameOrPasswordInvalid', 'email or password is invalid'],
@@ -9,6 +11,8 @@ export const HttpStatusMessage = new Map([
   ['ErrPasswordRecoveryNotFound', 'Invalid Link'],
   ['ErrLinkHasBeenExpired', 'Link has been expired'],
   ['ErrQuantityExceed', 'The quantity you are trying to add exceed our store'],
-  ['ErrInvalidRequest', 'ErrInvalidRequest'],
-  ['ErrCannotGetOrder', 'ErrCannotGetOrder']
+  ['ErrInvalidRequest', t('error messages.Invalid request', { ns: 'utils' })],
+  ['ErrCannotGetOrder', t('error messages.Cannot get the order', { ns: 'utils' })],
+  ['ERR_NETWORK', t('error messages.Network Error', { ns: 'utils' })],
+  ['ECONNABORTED', t('error messages.Timeout Error', { ns: 'utils' })]
 ])

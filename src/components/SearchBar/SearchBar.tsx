@@ -32,15 +32,16 @@ export default function SearchBar({ handleSearch, placeHolder }: Props) {
   return (
     <div className='w-full'>
       <form
-        className='relative flex w-full items-center rounded-lg bg-sidebarItemLight shadow-sm duration-200 dark:bg-sidebarItemDark'
+        className='relative flex w-full items-center rounded-xl bg-sidebarItemLight shadow-sm duration-200 dark:bg-sidebarItemDark'
         onSubmit={onSubmit}
       >
         <input
-          className='focus:ring-primaryColordark:text-lightText w-full rounded-md bg-transparent px-4 py-1 text-base text-darkText caret-black outline-none ring-1 ring-haretaColor duration-200 autofill:text-darkText focus:ring-2 dark:text-lightText dark:caret-white dark:ring-haretaColor dark:autofill:text-lightText dark:focus:ring-primaryColor desktop:py-2 desktop:text-lg'
+          className='focus:ring-primaryColordark:text-lightText w-full rounded-xl bg-transparent px-4 py-1 text-base text-darkText caret-black outline-none ring-1 ring-haretaColor duration-200 autofill:text-darkText focus:ring-2 dark:text-lightText dark:caret-white dark:ring-haretaColor dark:autofill:text-lightText dark:focus:ring-primaryColor desktop:py-2 desktop:text-lg'
           placeholder={placeHolder}
+          autoComplete='true'
           {...register('name')}
         />
-        <button className='absolute right-1 flex items-center justify-center rounded-lg bg-haretaColor px-3 py-1 duration-200 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor desktop:right-4 desktop:px-3'>
+        <button className='absolute right-1 flex items-center justify-center rounded-xl bg-haretaColor px-3 py-1 duration-200 hover:bg-primaryColor dark:bg-haretaColor dark:hover:bg-primaryColor desktop:right-4 desktop:px-3'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'

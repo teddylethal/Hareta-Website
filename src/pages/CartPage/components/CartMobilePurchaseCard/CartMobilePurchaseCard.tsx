@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { CartContext, ExtendedPurchase } from 'src/contexts/cart.context'
+import { CartContext } from 'src/contexts/cart.context'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -11,6 +11,7 @@ import { faTrash, faTriangleExclamation } from '@fortawesome/free-solid-svg-icon
 
 import QuantityController from 'src/components/QuantityController'
 import classNames from 'classnames'
+import { ExtendedPurchase } from 'src/types/cart.type'
 
 interface Props {
   purchase: ExtendedPurchase

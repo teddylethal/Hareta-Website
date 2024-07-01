@@ -5,6 +5,8 @@ import { toast } from 'react-toastify'
 import { ErrorRespone } from 'src/types/utils.type'
 import { HttpErrorKeys } from 'src/constants/httpResponeErrorKey'
 import { HttpResponseLogs } from 'src/constants/httpResponseLog'
+import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
+import { t } from 'i18next'
 
 export const ApiURL = 'https://hareta-api.hareta.online/'
 // export const ApiURL = 'http://localhost:3000/'
@@ -47,16 +49,18 @@ class Http {
         return response
       },
       function (error: AxiosError) {
+        console.log(error)
         if (error.response?.status !== HttpStatusCode.BadRequest) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data
-          const message = data?.message || error.message
+          const code = data?.error_key || error.code
+          const message = HttpStatusMessage.get(code) || t('error messages.Network Error', { ns: 'utils' })
           toast.error(message)
         }
-        // console.log(error)
 
-        const errorKey = (error.response?.data as ErrorRespone).error_key
-        const errorLog = (error.response?.data as ErrorRespone).log
+        const errorResponse = error.response?.data as ErrorRespone
+        const errorKey = errorResponse.error_key
+        const errorLog = errorResponse.log
         if (
           (error.response?.data as ErrorRespone).status_code === HttpStatusCode.InternalServerError ||
           errorKey == HttpErrorKeys.NoPermission ||

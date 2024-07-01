@@ -85,20 +85,20 @@ export default function StoreMobileFilter({ queryConfig }: Props) {
               ref={ref}
             >
               <div className='rounded-md border border-black/20 dark:border-white/20'>
-                <PriceRange queryConfig={queryConfig} />
+                <PriceRange />
               </div>
               <div className='mt-12 w-full '>
                 <div className='flex w-full flex-col space-y-2'>
-                  <StoreCategoryFilter queryConfig={queryConfig} />
-                  <StoreCollectionFilter queryConfig={queryConfig} />
-                  <StoreTypeFilter queryConfig={queryConfig} />
+                  <StoreCategoryFilter />
+                  <StoreCollectionFilter />
+                  <StoreTypeFilter />
                 </div>
                 <div className='flex w-full items-center justify-end'>
                   <button
                     onClick={handleClear}
                     disabled={isFiltering ? false : true}
                     className={classNames(
-                      'mt-4 flex items-center justify-center rounded-md border border-red-500 px-4 py-1 text-sm text-red-500 duration-200 tabletSmall:text-base ',
+                      'text-alerborder-alertRed mt-4 flex items-center justify-center rounded-md border border-alertRed px-4 py-1 text-sm duration-200 tabletSmall:text-base ',
                       { 'opacity-60': !isFiltering }
                     )}
                   >

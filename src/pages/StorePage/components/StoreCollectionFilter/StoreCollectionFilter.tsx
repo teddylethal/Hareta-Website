@@ -9,21 +9,22 @@ import productApi from 'src/apis/product.api'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 import omit from 'lodash/omit'
-import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 
 interface Props {
-  queryConfig: QueryConfig
   isMobile?: boolean
   setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function StoreCollectionFilter({ queryConfig, setMobileFilterOpen, isMobile = false }: Props) {
+export default function StoreCollectionFilter({ setMobileFilterOpen, isMobile = false }: Props) {
   const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
+
+  const queryConfig = useProductListQueryConfig()
   const { category, collection, type } = queryConfig
 
   //! Multi languages

@@ -114,7 +114,7 @@ export default function PrivacyAndTermsPage() {
   ]
 
   return (
-    <div className='relative bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
+    <div className='relative bg-lightBg py-2 pb-12 duration-200 dark:bg-darkBg tablet:py-3 tablet:pb-16 desktop:py-4 desktop:pb-20'>
       <Helmet>
         <title>{t('helmet.title')} | Hareta Workshop</title>
         <meta name='description' content={t('helmet.description')} />
@@ -147,7 +147,7 @@ export default function PrivacyAndTermsPage() {
         >
           {!isMobile && (
             <div className='col-span-3'>
-              <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 border-r border-black/20 duration-200 dark:border-white/20 tablet:top-14 desktop:top-20'>
+              <div className='sticky left-0 top-10 mt-2 flex w-full flex-col space-y-4 border-r border-black/20 duration-200 dark:border-white/20 tablet:top-12 desktop:top-16'>
                 <PrivacyAndTermsSideNav />
               </div>
             </div>
@@ -204,8 +204,8 @@ export default function PrivacyAndTermsPage() {
           {/* Element components that act as scroll targets */}
           <div
             className={classNames({
-              'flex flex-col space-y-6 tablet:space-y-10 desktopLarge:space-y-16': isMobile,
-              'col-start-4 col-end-13 flex flex-col space-y-6 desktop:space-y-8 desktopLarge:space-y-16': !isMobile
+              'flex flex-col space-y-8 tablet:space-y-10 desktopLarge:space-y-16': isMobile,
+              'col-start-4 col-end-13 flex flex-col space-y-8 desktop:space-y-12 ': !isMobile
             })}
           >
             <div className='mt-2 text-center text-xl font-bold uppercase tracking-widest text-haretaColor tablet:text-2xl desktop:text-3xl desktopLarge:text-4xl'>

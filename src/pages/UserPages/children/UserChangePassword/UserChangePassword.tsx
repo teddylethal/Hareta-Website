@@ -99,7 +99,7 @@ export default function UserChangePassword() {
   const wrapperClassName = 'relative w-full'
   const titleClassName = 'text-sm font-medium uppercase desktop:text-lg'
   const inputClassName =
-    'mt-2 w-full tabletSmall:w-[50%] relative pl-4 pr-10 tablet:pr-12 py-2 bg-lightColor900 rounded-md dark:bg-darkColor900 text-xs desktop:text-base outline-haretaColor/60 dark:outline-haretaColor/60 outline focus:outline-2 outline-1 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage focus:outline-haretaColor dark:focus:outline-haretaColor'
+    'mt-2 w-full tabletSmall:w-[50%] relative pl-4 pr-10 tablet:pr-12 py-2 bg-lightColor900 rounded-xl dark:bg-darkColor900 text-xs desktop:text-base outline-haretaColor/60 dark:outline-haretaColor/60 outline focus:outline-2 outline-1 autofill:text-darkText dark:caret-white autofill:dark:text-textVintage focus:outline-haretaColor dark:focus:outline-haretaColor'
   const inputFieldClassname = 'bg-transparent w-full outline-none'
 
   return (
@@ -145,7 +145,7 @@ export default function UserChangePassword() {
           <div className='flex w-full justify-between space-x-8 pt-2 text-sm tabletSmall:w-[50%] desktop:space-x-20 desktop:text-base'>
             <button
               type='submit'
-              className='rounded-xl bg-unhoveringBg px-2 py-1 text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-1.5 '
+              className='rounded-xl bg-unhoveringBg px-2 py-1 font-medium text-darkText hover:bg-hoveringBg desktop:px-4 desktop:py-1.5 '
             >
               {t('password.change password')}
             </button>
@@ -177,13 +177,14 @@ export default function UserChangePassword() {
             onClick={handelConfirm}
             type='button'
             className={classNames(
-              'inline-flex justify-center rounded-md border border-transparent bg-unhoveringBg px-4 py-1.5 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:text-base'
+              'inline-flex justify-center rounded-xl border border-transparent bg-unhoveringBg px-4 py-1.5 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:text-base'
             )}
           >
             {t('password.go to login')}
           </button>
         </div>
       </DialogPopup>
+      ,
     </Fragment>
   )
 }

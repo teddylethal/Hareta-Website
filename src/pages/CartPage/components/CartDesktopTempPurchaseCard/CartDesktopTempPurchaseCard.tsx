@@ -6,11 +6,11 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import mainPath from 'src/constants/path'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
-import { ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
 import classNames from 'classnames'
+import { ExtendedPurchase } from 'src/types/cart.type'
 
 interface Props {
-  purchase: ExtendedTemporaryPurchase
+  purchase: ExtendedPurchase
   index: number
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
   handleQuantity: (purchaseIndex: number, value: number, enable: boolean) => void

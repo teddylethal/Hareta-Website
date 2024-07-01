@@ -21,7 +21,7 @@ export default function HeaderMobileSupportSection() {
   const { t } = useTranslation('header')
 
   return (
-    <div ref={ref} className='w-full'>
+    <div ref={ref} className='h-full w-full'>
       <button
         className={classNames('flex w-full items-center space-x-2 border-x border-t px-2 py-2 uppercase', {
           'border-transparent ': !visible,

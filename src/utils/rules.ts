@@ -34,11 +34,6 @@ export const registerSchema = yup.object({
 })
 export type RegisterSchema = yup.InferType<typeof registerSchema>
 
-export const loginSchema = yup.object({
-  email: yup.string().required('Email address is required'),
-  password: yup.string().required('Password is required')
-})
-
 export const requestVerifySchema = yup.object({
   email: handleEmailYup()
 })
@@ -114,6 +109,10 @@ export const orderSchemaForGuest = yup.object({
 })
 export type OrderSchemaForGuest = yup.InferType<typeof orderSchemaForGuest>
 
+export const loginSchema = yup.object({
+  email: handleEmailYup(),
+  password: yup.string().required('Password is required')
+})
 export type LoginSchema = yup.InferType<typeof loginSchema>
 
 export type RequestVerifySchema = yup.InferType<typeof requestVerifySchema>

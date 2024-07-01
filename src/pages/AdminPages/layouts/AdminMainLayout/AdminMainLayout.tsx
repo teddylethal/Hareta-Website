@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
-import { adminPath } from 'src/constants/path'
+import mainPath, { adminPath } from 'src/constants/path'
 import { AdminProvider } from 'src/contexts/admin.context'
 import { NavigateItem } from 'src/types/utils.type'
 
@@ -20,12 +20,12 @@ export default function AdminLayout({ children }: Props) {
   return (
     <AdminProvider>
       <div
-        className='bg-darkBg'
+        className='relative flex min-h-full flex-col justify-between bg-darkBg'
         style={{
           minHeight: 'inherit'
         }}
       >
-        <div className='px-2 py-8'>
+        <div className='w-full px-2 py-8'>
           <div className='relative flex items-center justify-around rounded-xl border border-haretaColor py-2 text-base font-semibold text-lightText/80 desktop:text-xl'>
             {/* <div className='absolute left-1/2 top-0 h-full border-l border-white/40'></div> */}
             {menus.map((menu, index) => (
@@ -45,6 +45,12 @@ export default function AdminLayout({ children }: Props) {
           </div>
           <div className='py-4 text-lightText'>{children}</div>
         </div>
+        <NavLink
+          to={mainPath.home}
+          className='sticky bottom-2 left-2 w-fit shrink-0 rounded-xl bg-unhoveringBg px-4 py-1 font-medium hover:bg-hoveringBg'
+        >
+          Về trang chủ
+        </NavLink>
       </div>
     </AdminProvider>
   )

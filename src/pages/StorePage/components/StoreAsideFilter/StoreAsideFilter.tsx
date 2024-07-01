@@ -2,18 +2,14 @@ import { useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { useTranslation } from 'react-i18next'
 import mainPath from 'src/constants/path'
-import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 import StoreTypeFilter from '../StoreTypeFilter'
 import StoreCategoryFilter from '../StoreCategoryFilter'
 import StoreCollectionFilter from '../StoreCollectionFilter'
 
-interface Props {
-  queryConfig: ProductListQueryConfig
-}
-
-export default function StoreAsideFilter({ queryConfig }: Props) {
+export default function StoreAsideFilter() {
   const navigate = useNavigate()
-  const { category, collection, type } = queryConfig
+  const { category, collection, type } = useProductListQueryConfig()
 
   const isFiltering = category || collection || type
 
@@ -32,9 +28,9 @@ export default function StoreAsideFilter({ queryConfig }: Props) {
         <p className=''>{t('aside filter.filter')}</p>
       </div>
       <div className='mt-2 flex flex-col space-y-2'>
-        <StoreCategoryFilter queryConfig={queryConfig} />
-        <StoreCollectionFilter queryConfig={queryConfig} />
-        <StoreTypeFilter queryConfig={queryConfig} />
+        <StoreCategoryFilter />
+        <StoreCollectionFilter />
+        <StoreTypeFilter />
       </div>
 
       <div className='mt-4'>

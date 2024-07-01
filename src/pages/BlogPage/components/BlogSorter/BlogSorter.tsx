@@ -50,7 +50,12 @@ export default function BlogSorter() {
 
   return (
     <div className='flex space-x-2 text-xs tablet:text-sm desktop:space-x-4 desktop:text-base'>
-      <div className={classNames('rounded-xl bg-lightColor700 px-4 py-1  text-primaryColor dark:bg-darkColor700 ', {})}>
+      <div
+        className={classNames(
+          'rounded-xl bg-lightColor700 px-4 py-1 font-semibold text-primaryColor dark:bg-darkColor700 ',
+          {}
+        )}
+      >
         Tag:
       </div>
       {tags.map((tag) => {

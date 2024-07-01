@@ -6,5 +6,9 @@
   "introduction": {
     "About Hareta Workshop": "About Hareta Workshop",
     "Go to post": "Go to post"
+  },
+  "not found page": {
+    "Page not found": "Page not found",
+    "Go home": "Go Home"
   }
 }

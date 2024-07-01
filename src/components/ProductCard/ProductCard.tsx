@@ -1,15 +1,14 @@
-import { faHeart, faCheck, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { ProductType } from 'src/types/product.type'
 import { Fragment, memo, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import DialogPopup from 'src/components/DialogPopup'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
 import producImageApi from 'src/apis/productImage.api'
-import ProductImageSlideShow from 'src/components/ProductImageSlideShow'
+import ProductImageSlideShow from 'src/components/ProductCard/ProductImageSlideShow'
 import { ProductImage } from 'src/types/productImage.type'
 import userLikeProductApi from 'src/apis/userLikeProduct.api'
 import { StoreContext } from 'src/contexts/store.context'
@@ -25,12 +24,11 @@ interface Props {
 }
 
 function ProductCard({ product, initialLoading, disableClick = false }: Props) {
-  const { isAuthenticated, theme } = useContext(AppContext)
+  const { isAuthenticated } = useContext(AppContext)
   const { setWishlistIDs, wishlistIDs } = useContext(StoreContext)
 
   // const initialInWishlist = wishlistIDs.includes(product.id)
 
-  const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
   const [isLikedByUser, setIsLikedByUser] = useState<boolean>(false)
   const [initialInWishlist, setInitialInWishlist] = useState<boolean>(false)
 
@@ -91,7 +89,7 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
   const [imageListCarousel, setImageListCarousel] = useState<ProductImage[]>([])
   useEffect(() => {
     if (imageList) {
-      setImageListCarousel(imageList.length > MAXLENGTH + 1 ? imageList?.slice(1, MAXLENGTH + 1) : imageList.slice(1))
+      setImageListCarousel(imageList.length > MAXLENGTH ? imageList?.slice(0, MAXLENGTH) : imageList.slice(0))
     }
   }, [imageList])
 
@@ -163,9 +161,14 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
       <div className='relative w-full overflow-hidden rounded-xl bg-productLightBg pb-4 duration-200 dark:bg-productDarkBg'>
         <div className='relative w-full pt-[75%]'>
           <div className='absolute left-0 top-0 h-full w-full'>
-            {hoveringImage ? (
+            {/* {hoveringImage ? (
               <Fragment>
-                <ProductImageSlideShow imageList={imageListCarousel} avatarUrl={avatarUrl} isLoading={isLoading} />
+                <ProductImageSlideShow
+                  imageList={imageListCarousel}
+                  avatarUrl={avatarUrl}
+                  isLoading={isLoading}
+                  hovering={hoveringImage}
+                />
                 <button
                   className='absolute inset-0'
                   onMouseDown={handleMouseDown}
@@ -180,7 +183,22 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
               <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
                 <FontAwesomeIcon icon={faTriangleExclamation} fontSize={60} />
               </div>
-            )}
+            )} */}
+            <Fragment>
+              <ProductImageSlideShow
+                imageList={imageListCarousel}
+                avatarUrl={avatarUrl}
+                isLoading={isLoading}
+                hovering={hoveringImage}
+              />
+              <button
+                className='absolute inset-0'
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+                onClick={handleClick}
+              ></button>
+            </Fragment>
           </div>
         </div>
         <div className='flex flex-col items-center justify-between space-x-1 space-y-1 overflow-hidden px-2 pt-2 tabletSmall:px-3 desktop:px-4 desktop:pt-4'>
@@ -232,23 +250,6 @@ function ProductCard({ product, initialLoading, disableClick = false }: Props) {
           </div>
         )}
       </div>
-      <DialogPopup
-        isOpen={dialogIsOpen}
-        handleClose={() => setDialogIsOpen(false)}
-        classNameWrapper='relative w-72 max-w-md transform overflow-hidden rounded-2xl p-6 align-middle shadow-xl transition-all'
-      >
-        <div className=' text-center'>
-          <FontAwesomeIcon
-            icon={faCheck}
-            fontSize={36}
-            className={classNames('text- rounded-full  p-4 text-center text-successGreen ', {
-              'bg-black/20': theme === 'light',
-              'bg-white/20': theme === 'dark'
-            })}
-          />
-        </div>
-        <p className='mt-6 text-center text-xl font-medium leading-6'>Item was added to cart</p>
-      </DialogPopup>
     </div>
   )
 }

@@ -31,14 +31,14 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
   const { t } = useTranslation('header')
 
   return (
-    <div ref={ref} className='w-full'>
+    <div ref={ref} className='h-full w-full'>
       {!isAuthenticated && (
         <NavLink to={mainPath.login} className='flex w-full items-center space-x-2 px-2 py-2 uppercase'>
           <FontAwesomeIcon
             icon={faUser}
-            className='h-4 w-4 rounded-full dark:fill-white tabletSmall:h-6 tabletSmall:w-6 '
+            className='h-4 w-4 rounded-full dark:text-white tabletSmall:h-6 tabletSmall:w-6 '
           />
-          <p className=''>{t('navbar.login')}</p>
+          <p className='flex items-center'>{t('navbar.login')}</p>
         </NavLink>
       )}
       {isAuthenticated && (
@@ -50,23 +50,26 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
             'rounded-t-md  border-black/20 dark:border-white/20': visible
           })}
         >
-          <img
-            src={
-              profile && profile.avatar
-                ? profile.avatar.url
-                : 'https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
-            }
-            alt='avatar'
-            className={classNames(className, 'h-6 w-6 rounded-full dark:fill-white tabletSmall:h-8 tabletSmall:w-8 ')}
-          />
-          <p>{profile?.name}</p>
+          {profile && profile.avatar && profile.avatar.url ? (
+            <img
+              src={profile.avatar.url}
+              alt='User avatar'
+              className={classNames(className, 'h-4 w-4 rounded-full dark:fill-white tabletSmall:h-6 tabletSmall:w-6 ')}
+            />
+          ) : (
+            <div className=''>
+              <FontAwesomeIcon icon={faUser} className='h-4 w-4 tabletSmall:h-6 tabletSmall:w-6' />
+            </div>
+          )}
+
+          <p className='flex items-center'>{profile?.name}</p>
         </button>
       )}
 
-      <AnimateChangeInHeight>
+      <AnimateChangeInHeight className='w-full'>
         <AnimatePresence>
           {visible && (
-            <motion.div className='flex w-full flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pb-2 text-xs font-normal text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-sm'>
+            <motion.div className='flex w-full -translate-y-2 flex-col space-y-1 rounded-b-md border-x border-b border-black/20 px-4 pt-2 text-xs font-normal text-darkText dark:border-white/20 dark:text-lightText tabletSmall:text-sm'>
               <NavLink to={userPath.profile} onClick={closeMenu} className='flex items-center py-1 font-medium'>
                 <p>{t('user.profile')}</p>
               </NavLink>

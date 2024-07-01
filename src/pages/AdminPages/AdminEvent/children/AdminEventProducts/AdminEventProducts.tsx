@@ -28,7 +28,7 @@ export default function AdminEventProducts({ eventId, setIsAddingProduct, produc
     setLoadingPage(true)
     const body = {
       event_id: eventId,
-      item_id: currentProduct.id
+      item_id: currentProduct?.id as string
     }
     addProductToEventMutation.mutate(body, {
       onSettled: () => {

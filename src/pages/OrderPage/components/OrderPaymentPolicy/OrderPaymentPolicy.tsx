@@ -85,7 +85,7 @@ export default function OrderPaymentPolicy({ isOrderTrackingPayment }: Props) {
               setScreen(orderScreens.shipping)
             }}
             type='button'
-            className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-darkText hover:bg-primaryColor desktopLarge:text-lg'
+            className='flex items-center justify-center rounded-xl bg-haretaColor px-4 py-2 text-base font-medium capitalize text-darkText hover:bg-primaryColor desktopLarge:text-lg'
           >
             {t('layout.Back to shipping information')}
           </button>

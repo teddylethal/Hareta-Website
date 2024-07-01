@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import MessagePopup from '../LowerComponent/MessagePopup'
 
 interface Props {
@@ -6,20 +7,18 @@ interface Props {
 }
 
 export default function RecoveryEmailSentPopup({ dialog, closeDialog }: Props) {
-  const orangeTextColor = ' text-[#ff6a00]'
+  //! Multi languages
+  const { t } = useTranslation('login')
+
   return (
-    <MessagePopup dialog={dialog} closeDialog={closeDialog} title={'Recovery email sent'}>
-      <p>
-        A password reset <span className={orangeTextColor}>link</span> has been sent
-      </p>
-      <p>
-        to your
-        <span className={orangeTextColor}> email inbox.</span>
-      </p>
-      <p>
-        Follow the link to
-        <span className={orangeTextColor}> reset your password.</span>
-      </p>
+    <MessagePopup dialog={dialog} closeDialog={closeDialog}>
+      <div className='space-y-4 text-pretty'>
+        <p>{t('dialog.A password reset link has been sent to your email inbox')}</p>
+        <p>
+          <span>{t('dialog.Please follow the link provided in the email to ')}</span>
+          <span className={'text-haretaColor'}>{t('dialog.reset your password')}</span>
+        </p>
+      </div>
     </MessagePopup>
   )
 }

@@ -15,5 +15,14 @@
       "store": "Store",
       "now": "now"
     }
+  },
+  "error messages": {
+    "User not found": "User not found",
+    "Invalid request": "Invalid request",
+    "Cannot get the order": "Cannot get the order",
+    "Network Error": "Network Error",
+    "Undefined Error": "Undefined Error",
+    "Timeout Error": "Timeout Error",
+    "next": "Next"
   }
 }

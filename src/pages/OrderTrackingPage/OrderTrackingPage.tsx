@@ -28,7 +28,7 @@ export default function OrderTrackingPage() {
   const isMobile = useViewport().width < 768
 
   return (
-    <div className='bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
+    <div className='bg-lightBg py-2 pb-12 duration-200 dark:bg-darkBg tablet:py-3 tablet:pb-16 desktop:py-4 desktop:pb-20'>
       <Helmet>
         <title>{t('helmet.title')} | Hareta Workshop</title>
         <meta name='description' content={t('helmet.description')} />
@@ -40,7 +40,7 @@ export default function OrderTrackingPage() {
           ]}
         />
 
-        <div className='flex flex-col space-y-6 py-2 tablet:space-y-10 tablet:py-4 desktopLarge:space-y-10 desktopLarge:py-6'>
+        <div className='flex flex-col space-y-6 tablet:space-y-10 desktopLarge:space-y-10'>
           <p className='upperacse w-full text-center font-bold uppercase tablet:text-xl desktop:text-2xl'>
             {t('order.content')}
           </p>
