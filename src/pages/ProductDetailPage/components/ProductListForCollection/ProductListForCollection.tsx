@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import productApi from 'src/apis/product.api'
 import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
-import 'react-multi-carousel/lib/styles.css'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 import ProductSekeleton from 'src/components/ProductSkeleton'
