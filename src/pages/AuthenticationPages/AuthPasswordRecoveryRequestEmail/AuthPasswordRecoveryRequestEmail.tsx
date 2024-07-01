@@ -87,10 +87,10 @@ export default function AuthPasswordRecoveryRequestEmail() {
     <Fragment>
       <AnimateTransition isDialog={state?.failSlugVerify}>
         <div className='container'>
-          <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+          <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6'>
             <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-3 desktop:col-end-7'>
               <form
-                className='rounded bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-[#222222] tablet:p-10'
+                className='rounded-2xl bg-lightColor900 p-5 text-darkText shadow-sm duration-200 dark:bg-darkColor900 dark:text-lightText tablet:p-10'
                 onSubmit={onSubmit}
                 noValidate
               >
@@ -131,11 +131,11 @@ export default function AuthPasswordRecoveryRequestEmail() {
                     {counter > 1 && t('password.Wait for') + ' ' + counter + ' ' + t('password.second')}
                   </Button>
                 </div>
-                <div className='mt-3 flex justify-center text-sm tablet:hidden'>
-                  <p className='text-gray-400'>{t('password.Go back to')}</p>
+                <div className='mt-4 flex justify-center space-x-2'>
+                  <p className='opacity-60'>{t('password.Go back to')}</p>
                   <Link
                     to={mainPath.login}
-                    className='ml-1 capitalize text-brownColor dark:text-haretaColor/70 hover:dark:text-haretaColor'
+                    className='capitalize text-haretaColor dark:text-primaryColor hover:dark:text-haretaColor'
                   >
                     {t('login.login')}
                   </Link>

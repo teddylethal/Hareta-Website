@@ -14,7 +14,9 @@
     "Email address": "Email address",
     "Delivery address": "Delivery address",
     "Country": "Country",
-    "State / Province": "State / Province"
+    "State / Province": "State / Province",
+    "City": "City",
+    "Address line": "Address line"
   },
   "bill": {
     "Order": "Order",
@@ -30,7 +32,8 @@
     "Discounted price": "Discounted price",
     "Total": "Total",
     "Address line": "Address line",
-    "State / Province": "State / Province"
+    "State / Province": "State / Province",
+    "City": "City"
   },
   "layout": {
     "Continue to payment": "Continue to payment",

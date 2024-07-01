@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import QuantityController from '../../../../components/QuantityController'
 import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { CartContext, ExtendedPurchase } from 'src/contexts/cart.context'
+import { CartContext } from 'src/contexts/cart.context'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { produce } from 'immer'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { ExtendedPurchase } from 'src/types/cart.type'
 
 interface Props {
   purchase: ExtendedPurchase

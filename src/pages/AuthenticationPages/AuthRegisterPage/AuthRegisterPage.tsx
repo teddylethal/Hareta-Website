@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faPhone, faUser } from '@fortawesome/free-solid-svg-icons'
 import AnimateTransition from 'src/components/AnimateTransition'
 import { Helmet } from 'react-helmet-async'
+import classNames from 'classnames'
 
 type FormData = RegisterSchema
 
@@ -113,10 +114,10 @@ export default function AuthRegisterPage() {
         />
       </Helmet>
       <div className='container'>
-        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6 tablet:py-24'>
+        <div className='grid grid-cols-1 py-12 tablet:grid-cols-6 tablet:px-6'>
           <div className='tablet:col-start-2 tablet:col-end-6 desktop:col-span-4 desktop:col-end-7'>
             <form
-              className='rounded-xl bg-[#F5F5F5] p-5 shadow-sm duration-200 dark:bg-darkBg tablet:p-10'
+              className='rounded-2xl bg-lightBg p-5 shadow-sm duration-200 dark:bg-darkBg tablet:p-10'
               onSubmit={onSubmit}
               noValidate
             >
@@ -174,7 +175,14 @@ export default function AuthRegisterPage() {
                 <span className='text-darkText/60 dark:text-lightText/60'>
                   {t('register.Already have an account?')}
                 </span>
-                <Link className='ml-2 text-haretaColor/80 duration-200 hover:text-primaryColor' to={mainPath.login}>
+
+                <Link
+                  className={classNames('ml-2 text-haretaColor duration-200 ', {
+                    'pointer-events-none opacity-60 hover:text-haretaColor': registerAccountMutation.isPending,
+                    'hover:text-primaryColor': !registerAccountMutation.isPending
+                  })}
+                  to={mainPath.login}
+                >
                   {t('login.login')}
                 </Link>
               </div>

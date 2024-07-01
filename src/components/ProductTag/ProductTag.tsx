@@ -8,14 +8,14 @@ interface Props {
 
 export default function ProductTag({
   tag,
-  tailClassname = 'absolute left-16 top-0 h-0 w-0 border-[12px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20 desktop:border-[12px]',
-  sectionClassname = 'flex h-6 w-16 items-center justify-center bg-tagColor text-center text-xs text-lightText font-medium desktop:h-6 desktop:w-20 desktop:text-sm'
+  sectionClassname = ' bg-tagColor top-0 flex h-full w-16 items-center justify-center overflow-hidden  text-xs text-lightText font-medium desktop:w-20 desktop:text-sm',
+  tailClassname = 'absolute left-16 top-0 h-full border-[12px] border-y-tagColor border-l-tagColor border-r-transparent desktop:left-20'
 }: Props) {
   //! use translation
   const { t } = useTranslation('productdetail')
 
   return (
-    <div className='relative'>
+    <div className='relative flex h-6 w-full shrink items-center'>
       <span className={sectionClassname}>
         {tag == 1 && t('tag.top seller')}
         {tag == 2 && t('tag.signature')}

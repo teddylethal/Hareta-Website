@@ -1,5 +1,5 @@
-import { ICountry, IState } from 'country-state-city'
 import { ExtendedPurchase } from 'src/types/cart.type'
+import { AddressCountry, AddressState, AddressCity } from 'src/types/location.type'
 
 export const setOrderListToLS = (orderList: ExtendedPurchase[]) => {
   localStorage.setItem('order_list', JSON.stringify(orderList))
@@ -20,8 +20,10 @@ export const getTempOrderListFromLS = (): ExtendedPurchase[] => {
 }
 
 //! Order information functions
-export const setCountryAddressToLS = (country: ICountry) => {
-  localStorage.setItem('country_address', JSON.stringify(country))
+export const setCountryAddressToLS = (country: AddressCountry | null) => {
+  if (country) {
+    localStorage.setItem('country_address', JSON.stringify(country))
+  }
 }
 
 export const getCountryAddressFromLS = () => {
@@ -29,12 +31,25 @@ export const getCountryAddressFromLS = () => {
   return res ? JSON.parse(res) : null
 }
 
-export const setStateAddressToLS = (state: IState | null) => {
-  localStorage.setItem('state_address', JSON.stringify(state))
+export const setStateAddressToLS = (state: AddressState | null) => {
+  if (state) {
+    localStorage.setItem('state_address', JSON.stringify(state))
+  }
 }
 
 export const getStateAddressFromLS = () => {
   const res = localStorage.getItem('state_address')
+  return res ? JSON.parse(res) : null
+}
+
+export const setCityAddressToLS = (city: AddressCity | null) => {
+  if (city) {
+    localStorage.setItem('city_address', JSON.stringify(city))
+  }
+}
+
+export const getCityAddressFromLS = () => {
+  const res = localStorage.getItem('city_address')
   return res ? JSON.parse(res) : null
 }
 

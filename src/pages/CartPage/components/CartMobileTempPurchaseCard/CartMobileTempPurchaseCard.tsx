@@ -5,11 +5,11 @@ import QuantityController from 'src/components/QuantityController'
 import mainPath from 'src/constants/path'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import { Link } from 'react-router-dom'
-import { ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
 import classNames from 'classnames'
+import { ExtendedPurchase } from 'src/types/cart.type'
 
 interface Props {
-  purchase: ExtendedTemporaryPurchase
+  purchase: ExtendedPurchase
   index: number
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
   handleQuantity: (purchaseIndex: number, value: number, enable: boolean) => void

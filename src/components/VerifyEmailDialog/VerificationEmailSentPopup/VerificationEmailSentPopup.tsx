@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import MessagePopup from '../LowerComponent/MessagePopup'
 
 interface Props {
@@ -6,20 +7,17 @@ interface Props {
 }
 
 export default function VerificationEmailSentPopup({ dialog, closeDialog }: Props) {
-  const orangeTextColor = ' text-[#ff6a00]'
+  const { t } = useTranslation('login')
+
   return (
-    <MessagePopup dialog={dialog} closeDialog={closeDialog} title='Email confirm sent'>
-      <p>
-        A verification <span className={orangeTextColor}>link</span> has been sent
-      </p>
-      <p>
-        to your
-        <span className={orangeTextColor}> email inbox.</span>
-      </p>
-      <p>
-        Follow the link to
-        <span className={orangeTextColor}> verify your email.</span>
-      </p>
+    <MessagePopup dialog={dialog} closeDialog={closeDialog}>
+      <div className='space-y-4 text-pretty'>
+        <p className=''>{t('dialog.A verification link has been sent to your email address')}</p>
+        <p className=' text-center'>
+          <span>{t('dialog.Please follow the link provided in the email to ')}</span>
+          <span className={'text-haretaColor'}>{t('dialog.verify your email address')}</span>
+        </p>
+      </div>
     </MessagePopup>
   )
 }

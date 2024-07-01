@@ -4,21 +4,18 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import mainPath from 'src/constants/path'
-import { QueryConfig } from 'src/hooks/useProductListQueryConfig'
 import { NoUndefinedField } from 'src/types/utils.type'
 import { PriceSchema, priceSchema } from 'src/utils/rules'
 import classNames from 'classnames'
 import { priceRanges } from '../../../../constants/priceRangeSample'
 import { useTranslation } from 'react-i18next'
 import StorePriceSample from '../StorePriceSample'
-
-interface Props {
-  queryConfig: QueryConfig
-}
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 
 type FormData = NoUndefinedField<PriceSchema>
 
-export default function StorePriceRange({ queryConfig }: Props) {
+export default function StorePriceRange() {
+  const queryConfig = useProductListQueryConfig()
   const { lower_price, upper_price } = queryConfig
 
   const [lowerPrice, setLowerPrice] = useState(lower_price || '')

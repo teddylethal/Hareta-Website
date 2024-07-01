@@ -14,8 +14,18 @@ import { OrderSchema } from 'src/utils/rules'
 import OrderPurchaseList from '../OrderPurchaseList'
 
 export default function OrderDetail() {
-  const { addressState, setNoneState, confirmPayment, setConfirmPayment, addressCountry, orderList, tempOrderList } =
-    useContext(OrderContext)
+  const {
+    addressCountry,
+    addressState,
+    addressCity,
+    setNoneCountry,
+    setNoneState,
+    setNoneCity,
+    confirmPayment,
+    setConfirmPayment,
+    orderList,
+    tempOrderList
+  } = useContext(OrderContext)
   const { theme, isAuthenticated } = useContext(AppContext)
 
   const [invalidForm, setInvalidForm] = useState<boolean>(false)
@@ -29,20 +39,42 @@ export default function OrderDetail() {
   const email = watch('email')
   const address = watch('address')
   const validForm = () => {
-    if (name === '' || phone === '' || email === '' || address === '' || addressState === null || !confirmPayment) {
+    if (
+      name === '' ||
+      phone === '' ||
+      email === '' ||
+      address === '' ||
+      addressCountry === null ||
+      addressState === null ||
+      addressCity === null ||
+      !confirmPayment
+    ) {
       return false
     }
     return true
   }
-  const lackingInformation = name === '' || phone === '' || email === '' || address === '' || addressState === null
+  const lackingInformation =
+    name === '' ||
+    phone === '' ||
+    email === '' ||
+    address === '' ||
+    addressCountry === null ||
+    addressState === null ||
+    addressCity === null
 
   //! HANDLE INVALID FORM
   const navigate = useNavigate()
   const invalidButton = () => {
     if (lackingInformation) {
       navigate(orderPath.checkout)
+      if (!addressCountry) {
+        setNoneCountry(true)
+      }
       if (!addressState) {
         setNoneState(true)
+      }
+      if (!addressCity) {
+        setNoneCity(true)
       }
     }
     if (!confirmPayment) {
@@ -71,7 +103,7 @@ export default function OrderDetail() {
     <div className='rounded-xl p-3 desktop:p-4'>
       <p className='text-center text-2xl font-semibold uppercase desktopLarge:text-3xl'>{t('layout.Order')}</p>
       <div className='space-y-2 py-2 text-base desktop:text-lg'>
-        <div className='flex items-center justify-between '>
+        <div className='flex items-center justify-between font-medium'>
           <span className=''>{watch('name')}</span>
           <span className=''>{watch('phone')}</span>
         </div>
@@ -79,20 +111,27 @@ export default function OrderDetail() {
         <p className='inline-block space-x-2'>
           <span
             className={classNames('', {
-              italic: watch('address') == ''
+              'italic text-alertRed': watch('address') == ''
             })}
           >
             {watch('address') == '' ? t('bill.Address line') : watch('address')} -
           </span>
           <span
             className={classNames('', {
-              italic: !addressState
+              'italic text-alertRed': !addressCity
+            })}
+          >
+            {addressCity?.name || t('bill.City')} -
+          </span>
+          <span
+            className={classNames('', {
+              'italic text-alertRed': !addressState
             })}
           >
             {addressState?.name || t('bill.State / Province')} -
           </span>
 
-          <span className=''>{addressCountry.name}</span>
+          <span className=''>{addressCountry?.name}</span>
         </p>
       </div>
       <div className='my-4 w-full border-t border-black/80 dark:border-white/80'></div>

@@ -28,8 +28,8 @@ export default function StorePageDesktop({ storeData, isFetching, isLoading }: P
         <div className='sticky left-0 top-8 mt-2 flex w-full flex-col space-y-4 overflow-auto rounded-lg border border-black/40 bg-barLightBg px-2 py-4 duration-200 dark:border-white/40 dark:bg-barDarkBg tablet:top-14 desktop:top-20'>
           <StoreSearchBar />
           <StoreAsideSorter />
-          <StorePriceRange queryConfig={queryConfig} />
-          <StoreAsideFilter queryConfig={queryConfig} />
+          <StorePriceRange />
+          <StoreAsideFilter />
         </div>
       </div>
       <div className='col-start-4 col-end-13'>

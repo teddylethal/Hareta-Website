@@ -14,7 +14,7 @@ export default function LoadingWithEmptyContent() {
           className='fixed inset-0 z-10 bg-white dark:bg-black'
           initial={{ opacity: 0.0 }}
           animate={{
-            opacity: 0.4
+            opacity: 0.8
           }}
           exit={{ opacity: 0 }}
         />

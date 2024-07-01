@@ -1,6 +1,6 @@
 import { ReactNode, useId, useState } from 'react'
 import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
-import { YupErrorMessages } from 'src/constants/yupErrorMessages'
+import useYupErrorMessages from 'src/hooks/useYupErrorMessages'
 
 interface Props {
   type: React.HTMLInputTypeAttribute
@@ -39,7 +39,8 @@ export default function AccountInput({
   const [visible, setVisible] = useState<boolean>(false)
 
   //! handle error message
-  const message = YupErrorMessages.get(errorMessage || '')
+
+  const message = useYupErrorMessages().get(errorMessage || '')
 
   return (
     <div className={className}>

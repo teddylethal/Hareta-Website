@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import LoadingSection from 'src/components/LoadingSection'
 import { adminPath } from 'src/constants/path'
-import { ProductGroup, Product, ProductListConfig } from 'src/types/product.type'
+import { ProductGroup, ProductType, ProductListConfig } from 'src/types/product.type'
 import { generateNameId } from 'src/utils/utils'
 
 interface ItemProps {
-  product: Product
-  handleEnterProduct: (item: Product) => () => void
+  product: ProductType
+  handleEnterProduct: (item: ProductType) => () => void
 }
 
 function ProductItem({ product, handleEnterProduct }: ItemProps) {

@@ -1,27 +1,22 @@
-import axios, { AxiosHeaders } from 'axios'
-import { Country } from 'src/types/location.type'
+import axios from 'axios'
+import { AddressCountry, AddressState, AddressCity } from 'src/types/location.type'
+
+const url = 'https://api.countrystatecity.in/v1/countries'
+
+const headers = {
+  'X-CSCAPI-KEY': 'WUI2T21EejlBNXRpaDZuaFl6d1NsTUJjZ3ZTYjE1bWc0N250VDBwUg=='
+}
 
 export const locationApi = {
   getCountryList() {
-    const headers = {
-      'X-CSCAPI-KEY': 'API_KEY'
-    }
-    return axios.get<Country[]>('https://api.countrystatecity.in/v1/countries', {
-      headers: {
-        'X-CSCAPI-KEY': 'API_KEY'
-      }
+    return axios.get<AddressCountry[]>(url, {
+      headers: headers
     })
   },
-
-  testApi() {
-    return axios.get(
-      'http://a63b08641a04348858b07d0c71ac3eba-733487664.ap-southeast-1.elb.amazonaws.com:3000/v1/message?thread_id=thread_BLkBP2UQrn6PTuemDfKKigxv',
-      {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJfaWQiOiIwMThmZTJjOS1kOGZmLTdhZTctOTEwOC0xYTAzZThlYTU1ZDEiLCJyb2xlIjoidXNlciIsInNlc3Npb25faWQiOiJmYllVZ1lhZWxPS1ZzY0p2dkhpZyJ9LCJleHAiOjE3MzMzMjczNTYsImlhdCI6MTcxNzU1OTM1Nn0.FRTCNxeFjqdl0GSRr9DYXLE8Qg6tE_ZU9Oj-e4HDF30`,
-          'Content-Type': 'application/json'
-        }
-      }
-    )
+  getStatesByCountry(countryIso2: string) {
+    return axios.get<AddressState[]>(`${url}/${countryIso2}/states`, { headers: headers })
+  },
+  getCitiesByStateAndCountry(countryIso2: string, stateIso2: string) {
+    return axios.get<AddressCity[]>(`${url}/${countryIso2}/states/${stateIso2}/cities`, { headers: headers })
   }
 }

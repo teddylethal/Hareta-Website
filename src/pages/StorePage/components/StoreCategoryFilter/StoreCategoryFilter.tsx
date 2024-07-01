@@ -12,18 +12,19 @@ import omit from 'lodash/omit'
 import classNames from 'classnames'
 import { AppContext } from 'src/contexts/app.context'
 import { useTranslation } from 'react-i18next'
-import { ProductListQueryConfig } from 'src/hooks/useProductListQueryConfig'
+import useProductListQueryConfig from 'src/hooks/useProductListQueryConfig'
 
 interface Props {
-  queryConfig: ProductListQueryConfig
   isMobile?: boolean
   setMobileFilterOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function StoreCategoryFilter({ setMobileFilterOpen, isMobile = false, queryConfig }: Props) {
+export default function StoreCategoryFilter({ setMobileFilterOpen, isMobile = false }: Props) {
   const { theme } = useContext(AppContext)
   const { visible, setVisible, ref } = useClickOutside(false)
   const [isOpening, setIsopening] = useState<boolean>(false)
+
+  const queryConfig = useProductListQueryConfig()
   const { category, collection, type } = queryConfig
 
   //! Multi languages

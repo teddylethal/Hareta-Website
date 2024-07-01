@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 import mainPath from 'src/constants/path'
 import CartMobileTempPurchaseCard from '../../components/CartMobileTempPurchaseCard'
 import { useTranslation } from 'react-i18next'
-import { ExtendedTemporaryPurchase } from 'src/contexts/cart.context'
+import { ExtendedPurchase } from 'src/types/cart.type'
 
 interface Props {
-  extendedTempPurchases: ExtendedTemporaryPurchase[]
+  extendedTempPurchases: ExtendedPurchase[]
   handleChecking: (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => void
   handleSelectAll: () => void
   handleQuantity: (purchaseIndex: number, value: number, enable: boolean) => void

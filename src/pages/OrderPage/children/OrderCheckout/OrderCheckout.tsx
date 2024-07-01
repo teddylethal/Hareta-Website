@@ -27,8 +27,16 @@ import { formatDate, generateNameId } from 'src/utils/utils'
 import { Order } from 'src/types/order.type'
 
 export default function OrderCheckout() {
-  const { orderList, addressCountry, addressState, setOrderList, setConfirmPayment, tempOrderList, setTempOrderList } =
-    useContext(OrderContext)
+  const {
+    orderList,
+    addressCountry,
+    addressState,
+    addressCity,
+    setOrderList,
+    setConfirmPayment,
+    tempOrderList,
+    setTempOrderList
+  } = useContext(OrderContext)
   const { isAuthenticated } = useContext(AppContext)
   const { temporaryPurchases, setTemporaryPurchases, setUnavailablePurchaseIds } = useContext(CartContext)
 
@@ -58,7 +66,7 @@ export default function OrderCheckout() {
   //? ORDER FORM FOR GUEST
   const itemList = tempOrderList.map((purchase) => ({ id: purchase.item.id, quantity: purchase.quantity }))
 
-  //? GET USER INFO
+  //! GET USER INFO
   const { data: userData } = useQuery({
     queryKey: ['profile'],
     queryFn: userApi.getProfile,
@@ -67,7 +75,7 @@ export default function OrderCheckout() {
   })
   const profile = userData?.data.data
 
-  //? HANDLE FILL USER INFO
+  //! HANDLE FILL USER INFO
   useEffect(() => {
     if (profile) {
       setValue('name', profile.name || '')
@@ -106,7 +114,9 @@ export default function OrderCheckout() {
       return
     }
     try {
-      const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
+      const fullAddress = `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${
+        addressCountry?.name
+      }`
       createOrderMutation.mutate(
         { ...data, address: fullAddress },
         {
@@ -147,7 +157,7 @@ export default function OrderCheckout() {
       return
     }
 
-    const fullAddress = `${getValues('address')}, ${addressState?.name}, ${addressCountry.name}`
+    const fullAddress = `${getValues('address')}, ${addressCity?.name}, ${addressState?.name}, ${addressCountry?.name}`
     const formData: OrderSchemaForGuest = {
       name: data.name,
       phone: data.phone,
@@ -233,7 +243,7 @@ export default function OrderCheckout() {
         <div className='flex w-full items-center justify-start'>
           <Link
             to={isMobile ? mainPath.order : mainPath.cart}
-            className='flex items-center justify-center space-x-2 rounded-xl bg-unhoveringBg px-4 py-2 hover:bg-hoveringBg'
+            className='flex items-center justify-center space-x-2 rounded-xl bg-unhoveringBg px-4 py-2 font-medium text-darkText hover:bg-hoveringBg'
           >
             <FontAwesomeIcon icon={faChevronLeft} />
             <span className=''>{isMobile ? t('bill.Back to order') : t('bill.Back to cart')}</span>

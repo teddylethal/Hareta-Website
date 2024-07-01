@@ -14,7 +14,9 @@
     "Email address": "Địa chỉ email",
     "Delivery address": "Địa chỉ nhận hàng",
     "Country": "Quốc gia",
-    "State / Province": "Tỉnh / Thành phố"
+    "State / Province": "Tỉnh / Thành phố",
+    "City": "Thành phố / Huyện",
+    "Address line": "Địa chỉ"
   },
   "bill": {
     "Order": "Đơn hàng",
@@ -30,7 +32,9 @@
     "Discounted price": "Thành tiền",
     "Total": "Tổng giá trị đơn hàng",
     "Address line": "Địa chỉ",
-    "State / Province": "Tỉnh / Thành phố"
+    "Country": "Quốc gia",
+    "State / Province": "Tỉnh / Thành phố",
+    "City": "Thành phố / Huyện"
   },
   "layout": {
     "Continue to payment": "Đi tới thanh toán",

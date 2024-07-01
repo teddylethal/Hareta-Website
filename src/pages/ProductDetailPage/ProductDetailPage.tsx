@@ -171,11 +171,6 @@ export default function ProductDetailPage() {
     !isLikedByUser && likeproduct()
   }
 
-  //! CHANGE TITLE
-  useEffect(() => {
-    document.title = `Hareta Workshop | ${defaultProduct?.name}`
-  })
-
   //! translation
   const { t } = useTranslation('productdetail')
 

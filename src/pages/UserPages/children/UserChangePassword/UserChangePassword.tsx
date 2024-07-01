@@ -177,13 +177,14 @@ export default function UserChangePassword() {
             onClick={handelConfirm}
             type='button'
             className={classNames(
-              'inline-flex justify-center rounded-md border border-transparent bg-unhoveringBg px-4 py-1.5 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:text-base'
+              'inline-flex justify-center rounded-xl border border-transparent bg-unhoveringBg px-4 py-1.5 text-sm font-medium text-darkText hover:bg-hoveringBg desktop:text-base'
             )}
           >
             {t('password.go to login')}
           </button>
         </div>
       </DialogPopup>
+      ,
     </Fragment>
   )
 }

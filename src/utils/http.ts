@@ -55,8 +55,9 @@ class Http {
         }
         // console.log(error)
 
-        const errorKey = (error.response?.data as ErrorRespone).error_key
-        const errorLog = (error.response?.data as ErrorRespone).log
+        const errorResponse = error.response?.data as ErrorRespone
+        const errorKey = errorResponse.error_key
+        const errorLog = errorResponse.log
         if (
           (error.response?.data as ErrorRespone).status_code === HttpStatusCode.InternalServerError ||
           errorKey == HttpErrorKeys.NoPermission ||

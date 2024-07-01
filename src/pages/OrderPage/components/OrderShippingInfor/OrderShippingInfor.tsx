@@ -7,6 +7,7 @@ import { OrderContext } from 'src/contexts/order.context'
 import { useViewport } from 'src/hooks/useViewport'
 import { useTranslation } from 'react-i18next'
 import orderScreens from 'src/constants/orderScreens'
+import OrderSelectCity from '../OrderSelectCity/OrderSelectCity'
 
 const OrderSelectCountry = lazy(() => import('../../components/OrderSelectCountry'))
 const OrderSelectState = lazy(() => import('../../components/OrderSelectState'))
@@ -16,7 +17,7 @@ const OrderSelectState = lazy(() => import('../../components/OrderSelectState'))
 type FormData = OrderSchema
 
 export default function OrderShippingInfor() {
-  const { noneState, setScreen } = useContext(OrderContext)
+  const { noneState, noneCity, setScreen } = useContext(OrderContext)
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -34,7 +35,7 @@ export default function OrderShippingInfor() {
 
   return (
     <div className='w-full p-3 text-darkText dark:text-lightText desktopLarge:p-4 '>
-      <div className='space-y-4'>
+      <div className='space-y-6'>
         <p className='w-full text-center text-xl font-bold uppercase desktop:text-2xl desktopLarge:text-4xl'>
           {t('layout.Shipping information')}
         </p>
@@ -94,9 +95,25 @@ export default function OrderShippingInfor() {
             ></div>
           </div>
         </div>
-        <div className='py-8'>
+        <div className='space-y-4'>
+          <p className={labelClassname}>{t('shipping information.Delivery address')}</p>
           <div className=''>
-            <p className={labelClassname}>{t('shipping information.Delivery address')}</p>
+            <div className='mt-4 grid grid-cols-2 gap-3 desktop:gap-4 desktopLarge:gap-6'>
+              <div className='col-span-2'>
+                <OrderSelectCountry isError={false} />
+              </div>
+              <div className='col-span-1'>
+                <OrderSelectState isError={noneState} />
+              </div>
+              <div className='col-span-1'>
+                <OrderSelectCity isError={noneCity} />
+              </div>
+            </div>
+          </div>
+          <div className=''>
+            <p className={'font-medium text-darkText/60 dark:text-lightText/60'}>
+              {t('shipping information.Address line')}
+            </p>
             <div className='relative'>
               <Input
                 inputClassName='text-lg w-full py-2 bg-transparent desktopLarge:text-xl outline-none duration-200 caret-haretaColor text-haretaColor font-medium'
@@ -113,16 +130,6 @@ export default function OrderShippingInfor() {
               ></div>
             </div>
           </div>
-          <div className='mt-2'>
-            <div className='mt-4 grid grid-cols-2 gap-3 desktop:gap-4 desktopLarge:gap-6'>
-              <div className='col-span-1'>
-                <OrderSelectCountry />
-              </div>
-              <div className='col-span-1'>
-                <OrderSelectState isError={noneState} />
-              </div>
-            </div>
-          </div>
         </div>
         {!isMobile && (
           <div className='flex w-full justify-end py-4'>
@@ -131,7 +138,7 @@ export default function OrderShippingInfor() {
                 setScreen(orderScreens.payment)
               }}
               type='button'
-              className='flex items-center justify-center rounded-lg bg-haretaColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-primaryColor desktopLarge:text-lg'
+              className='flex items-center justify-center rounded-xl bg-haretaColor px-4 py-2 text-base font-medium capitalize text-black hover:bg-primaryColor desktopLarge:text-lg'
             >
               {t('layout.Continue to payment')}
             </button>
