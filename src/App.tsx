@@ -53,7 +53,19 @@ function AppInner() {
       }}
     >
       {routeElements}
-      <ToastContainer limit={3} />
+      <ToastContainer
+        position='top-right'
+        autoClose={3000}
+        limit={3}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme={theme === 'dark' ? 'dark' : 'light'}
+      />
       {loadingPage && <LoadingPage />}
     </div>
   )

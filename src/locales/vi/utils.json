@@ -15,5 +15,14 @@
       "store": "Cửa hàng",
       "now": ""
     }
+  },
+  "error messages": {
+    "User not found": "Không tìm thấy người dùng",
+    "Invalid request": "Yêu cầu không hợp lệ",
+    "Cannot get the order": "Không thể lấy đơn hàng",
+    "Network Error": "Lỗi mạng",
+    "Undefined Error": "Lỗi không xác định",
+    "Timeout Error": "Quá thời gian chờ",
+    "next": "Next"
   }
 }
