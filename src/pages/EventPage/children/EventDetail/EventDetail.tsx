@@ -28,7 +28,7 @@ export default function EventDetail() {
   const productsInEvent = eventDetail?.items || []
 
   return (
-    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg tablet:py-3 desktop:py-4 '>
+    <div className='bg-lightBg py-2 pb-12 duration-200 dark:bg-darkBg tablet:py-3 tablet:pb-16 desktop:py-4 desktop:pb-20'>
       {!eventDetail && <LoadingSection />}
       {eventDetail && (
         <div className='container space-y-6'>

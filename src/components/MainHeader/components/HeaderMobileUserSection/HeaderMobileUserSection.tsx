@@ -38,7 +38,7 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
             icon={faUser}
             className='h-4 w-4 rounded-full dark:text-white tabletSmall:h-6 tabletSmall:w-6 '
           />
-          <p className=''>{t('navbar.login')}</p>
+          <p className='flex items-center'>{t('navbar.login')}</p>
         </NavLink>
       )}
       {isAuthenticated && (
@@ -62,7 +62,7 @@ export default function HeaderMobileUserSection({ className, closeMenu }: Props)
             </div>
           )}
 
-          <p>{profile?.name}</p>
+          <p className='flex items-center'>{profile?.name}</p>
         </button>
       )}
 

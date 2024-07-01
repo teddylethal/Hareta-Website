@@ -38,7 +38,7 @@ export default function MainLayout({ children }: Props) {
           )}
         </AnimatePresence>
       </div>
-      <div className='w-full py-10 tablet:py-12 desktop:py-16'>{children}</div>
+      <div className='w-full pt-10 tablet:pt-12 desktop:pt-16'>{children}</div>
       <MainFooter />
     </div>
   )

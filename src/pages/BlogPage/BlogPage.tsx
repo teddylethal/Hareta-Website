@@ -93,7 +93,7 @@ export default function BlogPage() {
   }
 
   return (
-    <div className='bg-lightBg py-2 duration-200 dark:bg-darkBg desktop:py-3 desktopLarge:py-4'>
+    <div className='bg-lightBg py-2 pb-12 duration-200 dark:bg-darkBg tablet:py-3 tablet:pb-16 desktop:py-4 desktop:pb-20'>
       <div className='container space-y-4'>
         <PathBar pathList={[{ pathName: t('path.blog'), url: mainPath.blogs }]} />
 

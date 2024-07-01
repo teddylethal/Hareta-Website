@@ -114,7 +114,7 @@ export default function PrivacyAndTermsPage() {
   ]
 
   return (
-    <div className='relative bg-lightBg py-2 text-darkText duration-200 dark:bg-darkBg dark:text-lightText tablet:py-3 desktopLarge:py-4'>
+    <div className='relative bg-lightBg py-2 pb-12 duration-200 dark:bg-darkBg tablet:py-3 tablet:pb-16 desktop:py-4 desktop:pb-20'>
       <Helmet>
         <title>{t('helmet.title')} | Hareta Workshop</title>
         <meta name='description' content={t('helmet.description')} />
