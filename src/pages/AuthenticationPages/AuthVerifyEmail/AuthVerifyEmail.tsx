@@ -19,8 +19,6 @@ export default function AuthVerifyEmail() {
       })
     }
     if (error) {
-      // console.log(error)
-      // setEmailVerified()
       navigate(mainPath.login, { state: { type: 'Fail', title: 'EmailVerification', context: 'Invalid Verification' } })
     }
   }, [data, status, error, navigate])

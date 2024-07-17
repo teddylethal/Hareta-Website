@@ -19,7 +19,6 @@ export default function StoreSearchBar() {
     resolver: yupResolver(productSchema)
   })
   const handleSearch = handleSubmit((data) => {
-    // console.log(data.name)
     const config =
       data.name === ''
         ? omit(

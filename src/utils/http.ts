@@ -49,7 +49,6 @@ class Http {
         return response
       },
       function (error: AxiosError) {
-        console.log(error)
         if (error.response?.status !== HttpStatusCode.BadRequest) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data

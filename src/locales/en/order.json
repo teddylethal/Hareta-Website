@@ -90,7 +90,9 @@
     "adjust the quantity.": "adjust the quantity.",
     "Sincerely apologies for this accident!": "Sincerely apologies for this accident!",
     "Return to cart": "Return to cart",
-    "Return to order": "Return to order"
+    "Return to order": "Return to order",
+    "Cannot place order": "Cannot place order",
+    "Please try again": "Please try again"
   },
   "state": {
     "Awaiting Payment": "Awaiting Payment",
@@ -98,5 +100,8 @@
     "Delivering": "Delivering",
     "Delivered": "Delivered",
     "Received": "Received"
+  },
+  "error": {
+    "Something went wrong": "Something went wrong"
   }
 }

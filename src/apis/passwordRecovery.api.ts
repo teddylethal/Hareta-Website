@@ -15,7 +15,6 @@ const URL_CHANGEPASSWORD = '/password-recovery/recovery'
 
 const passwordRecovery = {
   verifySlug(slug: string) {
-    // console.log(123, `${URL}/${code}`)
     return http.get<SuccessRespone<PasswordRecovery>>(`${URL_CODE}?slug=${slug}`)
   },
   requestRecovery(body: { email: string }) {

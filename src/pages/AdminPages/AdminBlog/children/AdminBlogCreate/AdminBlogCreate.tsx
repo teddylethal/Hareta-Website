@@ -88,7 +88,6 @@ export default function AdminBlogCreate() {
         ...data,
         avatar: newUploadedImageRespone ? newUploadedImageRespone.data.data.url : ''
       }
-      // console.log(data.content)
       createPostMutation.mutate(newPostBody, {
         onSettled: () => {
           setExcuting(false)
@@ -108,8 +107,6 @@ export default function AdminBlogCreate() {
           if (isAxiosBadRequestError<ErrorRespone>(error)) {
             const formError = error.response?.data
             if (formError) {
-              const responeLog = formError?.log as string
-              console.log(responeLog)
               setErrorMessage(HttpStatusMessage.get(formError.error_key) || 'Lỗi không xác định')
             }
           }
@@ -121,10 +118,10 @@ export default function AdminBlogCreate() {
       if (isAxiosBadRequestError<ErrorRespone>(error)) {
         const formError = error.response?.data
         if (formError) {
-          const responeLog = formError?.log as string
-          console.log(responeLog)
+          setErrorMessage(HttpStatusMessage.get(formError.error_key) || 'Lỗi không xác định')
         }
       }
+      setError(true)
     }
   }
 

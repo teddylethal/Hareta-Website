@@ -77,7 +77,6 @@ export default function AuthLoginPage() {
 
             const errorMessgae = HttpStatusMessage.get(formError.error_key)
             if (errorMessgae) {
-              console.log(errorMessgae)
               setError('email', {
                 message: 'email or password is invalid'
               })

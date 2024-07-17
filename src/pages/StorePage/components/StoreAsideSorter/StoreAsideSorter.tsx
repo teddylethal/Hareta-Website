@@ -41,7 +41,6 @@ export default function StoreAsideSorter() {
   //! Handle sorting
   const navigate = useNavigate()
   const handleChange = (tagIndex: number) => () => {
-    // console.log(event)
     if (tagIndex === 0) {
       navigate({
         pathname: mainPath.store,

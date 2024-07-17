@@ -14,7 +14,6 @@ const URL_REQUEST = '/send-verification-code'
 
 const verifyEmail = {
   verifyCode(code: string) {
-    // console.log(123, `${URL}/${code}`)
     return http.get<SuccessRespone<VerifyEmail>>(`${URL_CODE}/${code}`)
   },
   requestVerify(body: { email: string }) {

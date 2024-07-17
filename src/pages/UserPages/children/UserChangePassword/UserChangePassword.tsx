@@ -60,7 +60,6 @@ export default function UserChangePassword() {
               message: 'Your password is incorrect',
               type: 'Server'
             })
-            // console.log('here')
           }
           if (errorKey === 'ErrNewPasswordIsInvalid') {
             setError('confirm_new_password', {

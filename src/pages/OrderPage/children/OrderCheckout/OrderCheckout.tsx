@@ -23,8 +23,11 @@ import OrderCheckoutDesktop from '../OrderCheckoutDesktop'
 import OrderCheckoutMobile from '../OrderCheckoutMobile'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { formatDate, generateNameId } from 'src/utils/utils'
+import { formatDate, generateNameId, isAxiosBadRequestError } from 'src/utils/utils'
 import { Order } from 'src/types/order.type'
+import OrderErrorDialog from '../../components/OrderErrorDialog'
+import { HttpStatusMessage } from 'src/constants/httpStatusMessage'
+import { ErrorRespone } from 'src/types/utils.type'
 
 export default function OrderCheckout() {
   const {
@@ -45,6 +48,8 @@ export default function OrderCheckout() {
   const [processingDialog, setProcessingDialog] = useState<boolean>(false)
   const [unavailableOrder, setUnavailableOrder] = useState<boolean>(false)
   const [successOrder, setSuccessOrder] = useState<Order | null>(null)
+  const [errorDialog, setErrorDialog] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const viewPort = useViewport()
   const isMobile = viewPort.width <= 768
@@ -128,12 +133,28 @@ export default function OrderCheckout() {
             setSuccesDialog(true)
           },
           onError: (error) => {
-            console.error(error)
+            let errMsg = ''
+            if (isAxiosBadRequestError<ErrorRespone>(error)) {
+              const formError = error.response?.data
+              if (formError) {
+                errMsg = HttpStatusMessage.get(formError.error_key) || ''
+              }
+            }
+            setErrorMessage(errMsg || t('error.Something went wrong'))
+            setErrorDialog(true)
           }
         }
       )
     } catch (error) {
-      console.log(error)
+      let errMsg = ''
+      if (isAxiosBadRequestError<ErrorRespone>(error)) {
+        const formError = error.response?.data
+        if (formError) {
+          errMsg = HttpStatusMessage.get(formError.error_key) || ''
+        }
+      }
+      setErrorMessage(errMsg || t('error.Something went wrong'))
+      setErrorDialog(true)
     }
   })
 
@@ -142,6 +163,8 @@ export default function OrderCheckout() {
   const createOrderForGuestMutation = useMutation({ mutationFn: orderApi.createOrderForGuest })
   const placeOrderWithoutLogin = handleSubmit(async (data) => {
     setProcessingDialog(true)
+    setErrorDialog(false)
+    setSuccesDialog(false)
     //? fetch data to check quantity
     const unavailableTempPurchases = itemList.filter((item) => {
       getProductDataMutation.mutateAsync(item.id).then((productData) => {
@@ -172,13 +195,30 @@ export default function OrderCheckout() {
           queryClient.invalidateQueries({ queryKey: ['purchases'] })
           setProcessingDialog(false)
           setSuccesDialog(true)
+          setErrorDialog(false)
         },
         onError: (error) => {
-          console.error(error)
+          let errMsg = ''
+          if (isAxiosBadRequestError<ErrorRespone>(error)) {
+            const formError = error.response?.data
+            if (formError) {
+              errMsg = HttpStatusMessage.get(formError.error_key) || ''
+            }
+          }
+          setErrorMessage(errMsg || t('error.Something went wrong'))
+          setErrorDialog(true)
         }
       })
     } catch (error) {
-      console.log(error)
+      let errMsg = ''
+      if (isAxiosBadRequestError<ErrorRespone>(error)) {
+        const formError = error.response?.data
+        if (formError) {
+          errMsg = HttpStatusMessage.get(formError.error_key) || ''
+        }
+      }
+      setErrorMessage(errMsg || t('error.Something went wrong'))
+      setErrorDialog(true)
     }
   })
 
@@ -274,6 +314,14 @@ export default function OrderCheckout() {
         handleConfirm={handleConfirm}
         isOpen={unavailableOrder}
         handleClose={() => setUnavailableOrder(false)}
+      />
+
+      <OrderErrorDialog
+        isOpen={errorDialog}
+        handleClose={() => {
+          setErrorDialog(false)
+        }}
+        errorMessage={errorMessage}
       />
     </div>
   )

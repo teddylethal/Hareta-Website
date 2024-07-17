@@ -12,7 +12,8 @@ const OrderCheckout = lazy(() => import('src/pages/OrderPage/children/OrderCheck
 function OrderRouteWrapper() {
   const { isAuthenticated } = useContext(AppContext)
   const { orderList, tempOrderList } = useContext(OrderContext)
-  const accpeted = isAuthenticated ? orderList.length > 0 : tempOrderList.length > 0
+  //   const accpeted = isAuthenticated ? orderList.length > 0 : tempOrderList.length > 0
+  const accpeted = true
 
   return accpeted ? (
     <MainLayout>

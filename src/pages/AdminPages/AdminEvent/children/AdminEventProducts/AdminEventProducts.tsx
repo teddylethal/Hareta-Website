@@ -63,8 +63,6 @@ export default function AdminEventProducts({ eventId, setIsAddingProduct, produc
         event_id: eventId,
         item_id: product.id
       }
-      // console.log(body)
-      // continue
       await addProductToEventMutation.mutateAsync(body, {
         onError: (error) => {
           console.error(error)

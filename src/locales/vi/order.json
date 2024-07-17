@@ -91,7 +91,9 @@
     "adjust the quantity.": "và điều chỉnh lại.",
     "Sincerely apologies for this accident!": "Chúng tôi chân thành xin lỗi!",
     "Return to cart": "Trở lại giỏ hàng",
-    "Return to order": "Trở lại đơn hàng"
+    "Return to order": "Trở lại đơn hàng",
+    "Cannot place order": "không thể đặt đơn hàng",
+    "Please try again": "Vui lòng thử lại"
   },
   "state": {
     "Awaiting Payment": "Chờ thanh toán",
@@ -99,5 +101,8 @@
     "Delivering": "Đang giao hàng",
     "Delivered": "Đã giao hàng",
     "Received": "Đã nhận"
+  },
+  "error": {
+    "Something went wrong": "Đã có lỗi xảy ra"
   }
 }

@@ -7,7 +7,6 @@ describe(
   () => {
     it('Call API', async () => {
       const res = await http.get('item/')
-      // console.log(res)
       expect(res.status).toBe(HttpStatusCode.Ok)
     })
     it('Auth Request', async () => {
